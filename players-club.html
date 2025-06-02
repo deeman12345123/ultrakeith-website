@@ -745,6 +745,139 @@
         
         // Slot Machine Logic
         const personas = ['🎭', '👨‍⚕️', '💀', '👑', '⚡', '🎤', '🌟', '🔥'];
+        
+        function spinSlots() {
+            const button = document.querySelector('.spin-button');
+            const reels = ['reel1', 'reel2', 'reel3'];
+            const result = document.getElementById('slotResult');
+            
+            button.disabled = true;
+            button.textContent = 'SPINNING...';
+            
+            // Add spinning animation
+            reels.forEach(reelId => {
+                document.getElementById(reelId).classList.add('spinning');
+            });
+            
+            // Random spin results for each reel (3 symbols each)
+            const results = [];
+            reels.forEach((reelId, reelIndex) => {
+                setTimeout(() => {
+                    const reel = document.getElementById(reelId);
+                    const symbols = reel.querySelectorAll('.reel-symbol');
+                    const reelResults = [];
+                    
+                    // Generate 3 random symbols for this reel
+                    symbols.forEach((symbol, symbolIndex) => {
+                        const randomPersona = personas[Math.floor(Math.random() * personas.length)];
+                        symbol.textContent = randomPersona;
+                        reelResults.push(randomPersona);
+                    });
+                    
+                    reel.classList.remove('spinning');
+                    results.push(reelResults);
+                    
+                    // Check for wins after all reels stop
+                    if (results.length === 3) {
+                        checkWin(results);
+                        button.disabled = false;
+                        button.textContent = 'SPIN THE REELS';
+                    }
+                }, (reelIndex + 1) * 800);
+            });
+        }
+        
+        function checkWin(results) {
+            const resultDiv = document.getElementById('slotResult');
+            
+            // Check for wins across all possible lines (horizontal, diagonal)
+            const lines = [
+                // Horizontal lines
+                [results[0][0], results[1][0], results[2][0]], // Top row
+                [results[0][1], results[1][1], results[2][1]], // Middle row  
+                [results[0][2], results[1][2], results[2][2]], // Bottom row
+                // Diagonal lines
+                [results[0][0], results[1][1], results[2][2]], // Top-left to bottom-right
+                [results[0][2], results[1][1], results[2][0]]  // Bottom-left to top-right
+            ];
+            
+            let hasWin = false;
+            let winMessage = '';
+            let trackTitle = '';
+            
+            lines.forEach((line, index) => {
+                if (line[0] === line[1] && line[1] === line[2]) {
+                    hasWin = true;
+                    const lineNames = ['Top Row', 'Middle Row', 'Bottom Row', 'Diagonal', 'Diagonal'];
+                    
+                    switch(line[0]) {
+                        case '🎭':
+                            winMessage = `🏆 ${lineNames[index]} MATCH! 🏆`;
+                            trackTitle = 'Kool Keith - "Underground Freestyle Sessions"';
+                            break;
+                        case '👨‍⚕️':
+                            winMessage = `💊 ${lineNames[index]} MEDICAL MIRACLE! 💊`;
+                            trackTitle = 'Dr. Octagon - "Surgical Procedures Unreleased"';
+                            break;
+                        case '💀':
+                            winMessage = `☠️ ${lineNames[index]} DOOOM UNLEASHED! ☠️`;
+                            trackTitle = 'Dr. Dooom - "Apocalyptic Vault Sessions"';
+                            break;
+                        case '👑':
+                            winMessage = `👑 ${lineNames[index]} ROYAL FLUSH! 👑`;
+                            trackTitle = 'Black Elvis - "Lost Tapes Collection"';
+                            break;
+                        case '⚡':
+                            winMessage = `⚡ ${lineNames[index]} ULTRA JACKPOT! ⚡`;
+                            trackTitle = 'Ultra - "Future Frequencies Unreleased"';
+                            break;
+                        default:
+                            winMessage = `🌟 ${lineNames[index]} RARE WIN! 🌟`;
+                            trackTitle = 'Keith Universe - "Exclusive Track Bundle"';
+                    }
+                }
+            });
+            
+            if (hasWin) {
+                resultDiv.innerHTML = `
+                    <div class="win-message">
+                        ${winMessage}<br>
+                        You won: "${trackTitle}"<br>
+                        <small style="color: rgba(255,255,255,0.8);">
+                            [Download link would be sent to your email]
+                        </small>
+                    </div>
+                `;
+            } else {
+                // Check for any pairs
+                let hasPair = false;
+                lines.forEach(line => {
+                    if (line[0] === line[1] || line[1] === line[2] || line[0] === line[2]) {
+                        hasPair = true;
+                    }
+                });
+                
+                if (hasPair) {
+                    resultDiv.innerHTML = `
+                        <div style="color: #ffd700;">
+                            🎯 Close! You had matching symbols...<br>
+                            <small style="color: rgba(255,255,255,0.7);">
+                                Keep spinning for exclusive tracks!
+                            </small>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div style="color: rgba(255,255,255,0.7);">
+                            No matches this time. Try again!<br>
+                            <small style="color: rgba(255,255,255,0.6);">
+                                Match 3 personas in any line to win exclusive vault tracks
+                            </small>
+                        </div>
+                    `;
+                }
+            }
+        }
         const cardDeck = [
             // Red cards (Hearts ♥️ and Diamonds ♦️)
             { suit: '♥️', value: 'A', color: 'red', track: 'Dr. Octagon - "Red Chamber Sessions"' },
