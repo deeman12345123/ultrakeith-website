@@ -374,19 +374,17 @@
             line-height: 60px;
         }
         
-        /* News Widget Styles */
+        /* Remove news widget outline */
         .news-widget-box {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 10, 0, 0.6));
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px;
+            background: transparent;
+            border: none;
+            padding: 0;
             margin-top: 15px;
-            transition: all 0.3s ease;
         }
         
         .news-widget-box:hover {
-            border-color: rgba(255, 215, 0, 0.6);
-            transform: translateY(-2px);
+            border: none;
+            transform: none;
         }
         
         .news-item {
@@ -634,14 +632,14 @@
         <!-- Featured Content -->
         <section class="featured-content" id="features">
             <div class="feature-card">
-                <div class="feature-icon">🎰</div>
-                <h3 class="feature-title">The Players Club</h3>
+                <div class="feature-icon">👤</div>
+                <h3 class="feature-title">Bio</h3>
                 <div class="feature-content">
                     <p class="feature-description">
-                        Enter our exclusive speakeasy gaming lounge. Play persona slots, 
-                        chat with AI characters, and win rare vault tracks.
+                        The legendary journey from Ultramagnetic MCs to Dr. Octagon. 
+                        30+ years of innovation, personas, and pure hip-hop evolution.
                     </p>
-                    <a href="players-club.html" class="feature-button">Enter Club</a>
+                    <a href="#bio" class="feature-button">Read Story</a>
                 </div>
             </div>
             
@@ -660,30 +658,6 @@
                         of Keith's creative universe with unique stories and sounds.
                     </p>
                     <a href="players-club.html#personas" class="feature-button">Meet the Characters</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3 class="feature-title">Chat with AI Personas</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Have conversations with AI versions of Keith's characters. 
-                        Talk to Dr. Octagon, Dr. Dooom, and others about their worlds.
-                    </p>
-                    <a href="players-club.html#personas" class="feature-button">Start Chatting</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎵</div>
-                <h3 class="feature-title">Vault Series</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Exclusive unreleased tracks, rare cuts, and vault material 
-                        available nowhere else. For true collectors only.
-                    </p>
-                    <a href="#vault" class="feature-button">Explore Vault</a>
                 </div>
             </div>
             
@@ -710,6 +684,42 @@
                     <div id="news-widget-container">
                         <div class="news-loading">Loading latest news...</div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3 class="feature-title">Vault Series</h3>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Exclusive unreleased tracks, rare cuts, and vault material 
+                        available nowhere else. For true collectors only.
+                    </p>
+                    <a href="#vault" class="feature-button">Explore Vault</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">AI Chat</h3>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Have conversations with AI versions of Keith's characters. 
+                        Talk to Dr. Octagon, Dr. Dooom, and others about their worlds.
+                    </p>
+                    <a href="players-club.html#personas" class="feature-button">Start Chatting</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎰</div>
+                <h3 class="feature-title">The Players Club</h3>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Enter our exclusive speakeasy gaming lounge. Play persona slots, 
+                        chat with AI characters, and win rare vault tracks.
+                    </p>
+                    <a href="players-club.html" class="feature-button">Enter Club</a>
                 </div>
             </div>
         </section>
