@@ -351,6 +351,14 @@
             color: #ffd700;
         }
         
+        .feature-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+        
         .feature-title {
             font-family: 'Orbitron', monospace;
             font-size: 1.3rem;
@@ -513,13 +521,14 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🎭</div>
-                <h3 class="feature-title">The Personas</h3>
-                <div class="personas-image-container" style="margin: 20px 0;">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsyyEkobNJ9N6OvvZHxkhZXFe-B66TcZoTxopW5Nq9ix6gb4UVvV0Yr31YMxGmobOEGBXum24oo8DX4ypBkcfSRngG7Gxc2lWJ-2tYSQLcOuVy8aOANZ8Oi08msCbNgh0uEZyGHpUpULXbcUsuuYMfdIRKEKlJDV0UTsnq8Xm_nHStsxzzhvMHo6qnZXZA/s1600/personas.png" 
+                <div class="feature-icon">
+                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
                          alt="Kool Keith Personas" 
-                         style="max-width: 100%; height: auto; max-height: 200px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                         onload="console.log('Personas image loaded successfully!');"
+                         onerror="console.log('Personas image failed to load'); this.style.display='none'; this.parentElement.innerHTML='🎭';">
                 </div>
+                <h3 class="feature-title">The Personas</h3>
                 <p class="feature-description">
                     Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
                     of Keith's creative universe with unique stories and sounds.
