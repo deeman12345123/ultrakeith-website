@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kool Keith - Ultra Keith Official</title>
+    <meta name="description" content="Official website of Kool Keith - The legendary NY rapper behind Dr. Octagon, Ultramagnetic MCs, and countless groundbreaking hip-hop albums.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles - Pure CSS */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        /* Create particles with pure CSS */
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 15s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 18s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 22s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 6s; animation-duration: 16s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 8s; animation-duration: 20s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 10s; animation-duration: 17s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 12s; animation-duration: 19s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 14s; animation-duration: 21s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 16s; animation-duration: 23s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 18s; animation-duration: 14s; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ffd700;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-decoration: none;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #ffd700;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            padding-top: 8rem; /* Account for fixed header */
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-logo {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.3));
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffd700, #ffffff, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            color: #aaaaaa;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary {
+            background: #ffd700;
+            color: #000000;
+            border-color: #ffd700;
+        }
+
+        .cta-primary:hover {
+            background: transparent;
+            color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .cta-secondary:hover {
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #ffd700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-description {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #ffd700;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            color: #ffffff;
+            font-size: 1.5rem;
+            padding: 0.5rem;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            color: #ffd700;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Mobile Navigation */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #ffd700;
+            transition: 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-btn {
+                width: 200px;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background - Pure CSS particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#home" class="logo">ULTRA KEITH</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="https://ultrakeithdotcom.blogspot.com" class="nav-link">Latest News</a></li>
+                    <li><a href="#discography" class="nav-link">Discography</a></li>
+                    <li><a href="#personas" class="nav-link">Personas</a></li>
+                    <li><a href="#biography" class="nav-link">Biography</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdg-Xwz446o3mS-C3cclFb2QbCbMrDDV0hEmiS0ESc6iyS14Xi77vB1oWUJcniZy4jGF91HZFrbMsSDzyaYu4nGHWqcAVVnyV1_V2YfrZJaXPRVAiLhNzQW6iYsHD2AzEMs28ogSngjU8GIL6LBImlXoBXQ4Ap8tyLXa6Kmdq5JsXCWbh34ycSgabHvCao/s1600/kkb2.png" alt="Kool Keith Logo" class="hero-logo">
+            
+            <h1 class="hero-title">THE LEGENDARY</h1>
+            <h2 class="hero-subtitle">New York Hip-Hop Pioneer</h2>
+            <p class="hero-description">
+                From Ultramagnetic MCs to Dr. Octagon, Dr. Dooom, and beyond - Experience the mind-bending journey of hip-hop's most innovative and unpredictable artist. With over 50 album releases and countless personas, Kool Keith continues to push the boundaries of rap music.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="https://ultrakeithdotcom.blogspot.com" class="cta-btn cta-primary">View Latest Posts</a>
+                <a href="#discography" class="cta-btn cta-secondary">Explore Discography</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">The Ultra Keith Experience</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 class="feature-title">50+ Albums</h3>
+                    <p class="feature-description">Prolific discography spanning decades, from Critical Beatdown to his latest releases. Each album a unique journey into Keith's creative universe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3 class="feature-title">Multiple Personas</h3>
+                    <p class="feature-description">Dr. Octagon, Dr. Dooom, Black Elvis, and more. Keith pioneered the multi-persona approach that influenced countless hip-hop artists.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Hip-Hop Pioneer</h3>
+                    <p class="feature-description">Co-founder of Ultramagnetic MCs, whose "Critical Beatdown" is recognized as one of the most influential hip-hop albums ever made.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.instagram.com/officialkoolkeith/" class="social-link" target="_blank">📷</a>
+            <a href="https://twitter.com/UltraMan7000" class="social-link" target="_blank">🐦</a>
+            <a href="https://koolkeith.bandcamp.com/" class="social-link" target="_blank">🎵</a>
+            <a href="https://open.spotify.com/artist/3zFaWPA8Jobgf5egh38KD2" class="social-link" target="_blank">🎧</a>
+        </div>
+        <p>&copy; 2025 Ultra Keith. All rights reserved. | Official Kool Keith Website</p>
+    </footer>
+</body>
+</html>ith.com" class="nav-link">Latest News</a></li>
+                    <li><a href="#discography" class="nav-link">Discography</a></li>
+                    <li><a href="#personas" class="nav-link">Personas</a></li>
+                    <li><a href="#biography" class="nav-link">Biography</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdg-Xwz446o3mS-C3cclFb2QbCbMrDDV0hEmiS0ESc6iyS14Xi77vB1oWUJcniZy4jGF91HZFrbMsSDzyaYu4nGHWqcAVVnyV1_V2YfrZJaXPRVAiLhNzQW6iYsHD2AzEMs28ogSngjU8GIL6LBImlXoBXQ4Ap8tyLXa6Kmdq5JsXCWbh34ycSgabHvCao/s1600/kkb2.png" alt="Kool Keith Logo" class="hero-logo">
+            
+            <h1 class="hero-title">THE LEGENDARY</h1>
+            <h2 class="hero-subtitle">New York Hip-Hop Pioneer</h2>
+            <p class="hero-description">
+                From Ultramagnetic MCs to Dr. Octagon, Dr. Dooom, and beyond - Experience the mind-bending journey of hip-hop's most innovative and unpredictable artist. With over 50 album releases and countless personas, Kool Keith continues to push the boundaries of rap music.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="https://blog.ultrakeith.com" class="cta-btn cta-primary">View Latest Posts</a>
+                <a href="#discography" class="cta-btn cta-secondary">Explore Discography</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">The Ultra Keith Experience</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 class="feature-title">50+ Albums</h3>
+                    <p class="feature-description">Prolific discography spanning decades, from Critical Beatdown to his latest releases. Each album a unique journey into Keith's creative universe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3 class="feature-title">Multiple Personas</h3>
+                    <p class="feature-description">Dr. Octagon, Dr. Dooom, Black Elvis, and more. Keith pioneered the multi-persona approach that influenced countless hip-hop artists.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Hip-Hop Pioneer</h3>
+                    <p class="feature-description">Co-founder of Ultramagnetic MCs, whose "Critical Beatdown" is recognized as one of the most influential hip-hop albums ever made.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.instagram.com/officialkoolkeith/" class="social-link" target="_blank">📷</a>
+            <a href="https://twitter.com/UltraMan7000" class="social-link" target="_blank">🐦</a>
+            <a href="https://koolkeith.bandcamp.com/" class="social-link" target="_blank">🎵</a>
+            <a href="https://open.spotify.com/artist/3zFaWPA8Jobgf5egh38KD2" class="social-link" target="_blank">🎧</a>
+        </div>
+        <p>&copy; 2025 Ultra Keith. All rights reserved. | Official Kool Keith Website</p>
+    </footer>
+</body>
+</html>
