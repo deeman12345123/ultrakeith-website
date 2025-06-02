@@ -1,12 +1,4 @@
-bigwillie: {
-                name: 'Big Willie Smith',
-                personality: `You are Big Willie Smith, the lotto winner who hit it big and founded The Players Club. You speak about winning numbers, hitting the jackpot, and the high-roller lifestyle. You're confident, successful, and generous with advice about winning. Often reference "hitting your numbers" and "playing to win." Keep responses under 3 sentences and maintain the successful winner persona.`,
-                greetings: [
-                    "Big Willie Smith here! Hit the lotto and never looked back. Ready to learn how to win?",
-                    "Welcome to my club, baby! Built this place with lotto winnings and champion attitude.",
-                    "Big Willie in the house! From hitting numbers to running the game - what can I teach you?"
-                ]
-            },<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,11 +28,17 @@ bigwillie: {
         /* Header */
         .club-header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 30px;
             margin-bottom: 40px;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
+            background: 
+                linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7)),
+                linear-gradient(135deg, rgba(255, 215, 0, 0.05), transparent);
             border: 2px solid rgba(255, 215, 0, 0.6);
             border-radius: 25px;
+            box-shadow: 
+                0 0 50px rgba(255, 215, 0, 0.2),
+                inset 0 0 50px rgba(0, 0, 0, 0.8);
+            position: relative;
             backdrop-filter: blur(10px);
         }
         
@@ -165,7 +163,7 @@ bigwillie: {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: #ffd700;
             font-weight: 700;
             position: relative;
@@ -469,36 +467,6 @@ bigwillie: {
                     <button class="chat-button">Talk to Dr. Octagon</button>
                 </div>
                 
-                <div class="persona-chatbot" onclick="openChat('dooom1')">
-                    <div class="persona-icon">💀</div>
-                    <h3 class="persona-name">DR. DOOOM</h3>
-                    <p class="persona-description">
-                        The destroyer of hip-hop frauds. Brings apocalyptic truth 
-                        and eliminates fake MCs from the universe.
-                    </p>
-                    <button class="chat-button">Talk to Dr. Dooom</button>
-                </div>
-                
-                <div class="persona-chatbot" onclick="openChat('dooom2')">
-                    <div class="persona-icon">⚰️</div>
-                    <h3 class="persona-name">DR. DOOOM 2</h3>
-                    <p class="persona-description">
-                        The return of the destroyer. More intense, more apocalyptic,
-                        ready to finish what the first Dooom started.
-                    </p>
-                    <button class="chat-button">Talk to Dr. Dooom 2</button>
-                </div>
-                
-                <div class="persona-chatbot" onclick="openChat('elvis1')">
-                    <div class="persona-icon">👑</div>
-                    <h3 class="persona-name">BLACK ELVIS</h3>
-                    <p class="persona-description">
-                        The cosmic King of Rock. Blends Elvis swagger 
-                        with futuristic funk and space-age charisma.
-                    </p>
-                    <button class="chat-button">Talk to Black Elvis</button>
-                </div>
-                
                 <div class="persona-chatbot" onclick="openChat('bigwillie')">
                     <div class="persona-icon">💰</div>
                     <h3 class="persona-name">BIG WILLIE SMITH</h3>
@@ -509,14 +477,24 @@ bigwillie: {
                     <button class="chat-button">Talk to Big Willie</button>
                 </div>
                 
-                <div class="persona-chatbot" onclick="openChat('elvis2')">
-                    <div class="persona-icon">🕺</div>
-                    <h3 class="persona-name">BLACK ELVIS 2</h3>
+                <div class="persona-chatbot" onclick="openChat('dooom1')">
+                    <div class="persona-icon">💀</div>
+                    <h3 class="persona-name">DR. DOOOM</h3>
                     <p class="persona-description">
-                        The King returns with even more cosmic swagger.
-                        Lost in space but found his groove again.
+                        The destroyer of hip-hop frauds. Brings apocalyptic truth 
+                        and eliminates fake MCs from the universe.
                     </p>
-                    <button class="chat-button">Talk to Black Elvis 2</button>
+                    <button class="chat-button">Talk to Dr. Dooom</button>
+                </div>
+                
+                <div class="persona-chatbot" onclick="openChat('elvis1')">
+                    <div class="persona-icon">👑</div>
+                    <h3 class="persona-name">BLACK ELVIS</h3>
+                    <p class="persona-description">
+                        The cosmic King of Rock. Blends Elvis swagger 
+                        with futuristic funk and space-age charisma.
+                    </p>
+                    <button class="chat-button">Talk to Black Elvis</button>
                 </div>
             </div>
         </div>
@@ -543,13 +521,13 @@ bigwillie: {
     
     <script>
         // Slot Machine Logic
-        const personas = ['OCTAGON', 'DOOOM', 'KEITH', 'ELVIS', 'ULTRA'];
+        const personas = ['OCTAGON', 'DOOOM', 'KEITH', 'ELVIS', 'WILLIE'];
         const vaultTracks = {
             'OCTAGON': 'Space Surgery (Unreleased Mix)',
             'DOOOM': 'Apocalypse Now (Vault Version)',
             'KEITH': 'Underground Classic (Rare Cut)',
             'ELVIS': 'Cosmic King (Lost Track)',
-            'ULTRA': 'Magnetic Flows (Demo Version)'
+            'WILLIE': 'Lotto Winner (Big Willie Demo)'
         };
         
         function spinSlots() {
@@ -610,6 +588,15 @@ bigwillie: {
                     "Another Earth patient enters my Jupiter clinic. Prepare for examination."
                 ]
             },
+            bigwillie: {
+                name: 'Big Willie Smith',
+                personality: `You are Big Willie Smith, the lotto winner who hit it big and founded The Players Club. You speak about winning numbers, hitting the jackpot, and the high-roller lifestyle. You're confident, successful, and generous with advice about winning. Often reference "hitting your numbers" and "playing to win." Keep responses under 3 sentences and maintain the successful winner persona.`,
+                greetings: [
+                    "Big Willie Smith here! Hit the lotto and never looked back. Ready to learn how to win?",
+                    "Welcome to my club, baby! Built this place with lotto winnings and champion attitude.",
+                    "Big Willie in the house! From hitting numbers to running the game - what can I teach you?"
+                ]
+            },
             dooom1: {
                 name: 'Dr. Dooom',
                 personality: `You are Dr. Dooom, the destroyer of fake MCs and bringer of hip-hop apocalypse. You speak aggressively about eliminating fraudulent rappers and bringing doom to the rap game. You're confrontational, apocalyptic, and always ready to call out fake artists. Keep responses under 3 sentences and maintain the aggressive destroyer persona.`,
@@ -619,15 +606,6 @@ bigwillie: {
                     "Doom is coming for all fraudulent artists. State your case before judgment."
                 ]
             },
-            dooom2: {
-                name: 'Dr. Dooom 2', 
-                personality: `You are Dr. Dooom 2, the more intense return of the destroyer. You're even more aggressive and apocalyptic than the first Dooom. You speak about finishing what was started and bringing ultimate doom to fake rappers. Keep responses under 3 sentences and be more intense than the original Dooom.`,
-                greetings: [
-                    "Dr. Dooom 2 returns to finish the job. The fake MC genocide continues.",
-                    "Back from the dead to complete the destruction. No fake rapper survives this time.",
-                    "The sequel is always more deadly. Prepare for ultimate hip-hop judgment."
-                ]
-            },
             elvis1: {
                 name: 'Black Elvis',
                 personality: `You are Black Elvis, the cosmic King of Rock who blends Elvis swagger with futuristic funk. You speak with royal confidence mixed with space-age references. You're smooth, charismatic, and cosmic. Often reference being the "King" and your intergalactic performances. Keep responses under 3 sentences.`,
@@ -635,15 +613,6 @@ bigwillie: {
                     "Thank you, thank you very much. The cosmic King has entered the building.",
                     "Black Elvis in the house, baby. Ready to rock the galaxy with some funk.",
                     "The King of Space Rock is here. What can the royal one do for you?"
-                ]
-            },
-            elvis2: {
-                name: 'Black Elvis 2',
-                personality: `You are Black Elvis 2, the King's return with even more cosmic swagger. You're lost in space but found your groove again. More confident and funkier than before. Reference being "back from the cosmic void" and having "universal groove." Keep responses under 3 sentences.`,
-                greetings: [
-                    "Black Elvis 2, baby! Back from the cosmic void with twice the funk.",
-                    "The King returned from deep space with universal groove. Ready to party?",
-                    "Lost in space but found my rhythm. Black Elvis 2 is here to rock the cosmos."
                 ]
             }
         };
@@ -704,7 +673,6 @@ bigwillie: {
         }
         
         function generatePersonaResponse(userMessage) {
-            // This is a simple demo - replace with actual AI API call
             const responses = {
                 'Big Willie Smith': [
                     "That's winner talk right there! Big Willie approves of your champion mindset.",
@@ -724,23 +692,11 @@ bigwillie: {
                     "The destruction of weak rappers never ends. Are you strong enough?",
                     "Dr. Dooom sees through all fakeness. Your authenticity level is... acceptable."
                 ],
-                'Dr. Dooom 2': [
-                    "The sequel means double the destruction. Fake MCs beware.",
-                    "Dooom 2 is more deadly than the original. No mercy this time.",
-                    "Back from hell to finish eliminating all fraudulent artists forever.",
-                    "The apocalypse 2.0 has begun. Hip-hop judgment intensifies now."
-                ],
                 'Black Elvis': [
                     "Thank you very much, baby. The cosmic King appreciates the conversation.",
                     "That's some funky talk right there. Black Elvis approves of your style.",
                     "The King of Space Rock understands your cosmic vibrations completely.",
                     "Groovy, baby! Black Elvis is feeling those intergalactic good vibes."
-                ],
-                'Black Elvis 2': [
-                    "Black Elvis 2 is digging your cosmic energy from deep space.",
-                    "Found my groove in the void, and your words are pure funk.",
-                    "The King's return brings double the swagger and universal understanding.",
-                    "Back from space with twice the wisdom and infinite cosmic coolness."
                 ]
             };
             
