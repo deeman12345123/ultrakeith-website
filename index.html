@@ -148,7 +148,7 @@
         .hero-logo {
             max-width: 100%;
             height: auto;
-            max-height: 150px;
+            max-height: 200px;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
         }
         
@@ -219,7 +219,6 @@
         
         /* Personas Section */
         .personas-section {
-            text-align: center;
             margin: 80px 0;
         }
         
@@ -229,12 +228,45 @@
             color: #ffd700;
             margin-bottom: 40px;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            text-align: center;
+        }
+        
+        /* Personas Box - Matching Feature Card Style */
+        .personas-box {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        
+        .personas-box:hover {
+            border-color: rgba(255, 215, 0, 0.8);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .personas-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+        
+        .personas-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: #ffd700;
+            margin-bottom: 25px;
         }
         
         .personas-image-container {
             position: relative;
             display: inline-block;
-            margin: 40px 0;
+            margin: 30px 0;
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -242,8 +274,8 @@
         .personas-image {
             max-width: 100%;
             height: auto;
-            max-height: 500px;
-            border-radius: 20px;
+            max-height: 400px;
+            border-radius: 15px;
             box-shadow: 
                 0 20px 40px rgba(0, 0, 0, 0.5),
                 0 0 50px rgba(255, 215, 0, 0.2);
@@ -263,10 +295,30 @@
         }
         
         .personas-description {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.8);
-            margin-top: 30px;
+            margin: 25px 0;
             line-height: 1.6;
+        }
+        
+        .personas-button {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .personas-button:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
+            border-color: #ffd700;
+            transform: scale(1.05);
         }
         
         /* Featured Content Grid */
@@ -385,6 +437,10 @@
                 font-size: 2rem;
             }
             
+            .personas-title {
+                font-size: 1.5rem;
+            }
+            
             .featured-content {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -432,8 +488,8 @@
         <!-- Hero Section -->
         <section class="hero-section" id="home">
             <div class="hero-logo-container">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh8VTMx8tTdZnL4NjDp3tJ3VgqJYV9eKWB8nwqZS2wK6VzAXz8hDL7vqBd5tHk9Qm1Xw3Rb2VqMp8TgRwXh4Yj6Lm7Zp9Nf1Vc3St5Uk9Mm2Lr8Pq6Gx4Wt7Hn6Jk3Qs1Tv2Ry5En8Kt0Op4Ns7Lw9Dc6Xl3Vr5Yg8Fj2Mh1Zs4Bp9Rt7Nu/s1600/ultra-keith-logo.png" 
-                     alt="Ultra Keith Diamond Logo" 
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdg-Xwz446o3mS-C3cclFb2QbCbMrDDV0hEmiS0ESc6iyS14Xi77vB1oWUJcniZy4jGF91HZFrbMsSDzyaYu4nGHWqcAVVnyV1_V2YfrZJaXPRVAiLhNzQW6iYsHD2AzEMs28ogSngjU8GIL6LBImlXoBXQ4Ap8tyLXa6Kmdq5JsXCWbh34ycSgabHvCao/s1139/kkb2.png" 
+                     alt="Kool Keith Diamond Logo Banner" 
                      class="hero-logo">
             </div>
             
@@ -453,16 +509,23 @@
         <section class="personas-section" id="personas">
             <h2 class="section-title">The Legendary Personas</h2>
             
-            <div class="personas-image-container pulse-effect" onclick="explorePersonas()">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsyyEkobNJ9N6OvvZHxkhZXFe-B66TcZoTxopW5Nq9ix6gb4UVvV0Yr31YMxGmobOEGBXum24oo8DX4ypBkcfSRngG7Gxc2lWJ-2tYSQLcOuVy8aOANZ8Oi08msCbNgh0uEZyGHpUpULXbcUsuuYMfdIRKEKlJDV0UTsnq8Xm_nHStsxzzhvMHo6qnZXZA/s1600/personas.png" 
-                     alt="Kool Keith Personas" 
-                     class="personas-image">
+            <div class="personas-box">
+                <div class="personas-icon">🎭</div>
+                <h3 class="personas-title">Multiple Dimensions of Keith</h3>
+                
+                <div class="personas-image-container pulse-effect" onclick="explorePersonas()">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsyyEkobNJ9N6OvvZHxkhZXFe-B66TcZoTxopW5Nq9ix6gb4UVvV0Yr31YMxGmobOEGBXum24oo8DX4ypBkcfSRngG7Gxc2lWJ-2tYSQLcOuVy8aOANZ8Oi08msCbNgh0uEZyGHpUpULXbcUsuuYMfdIRKEKlJDV0UTsnq8Xm_nHStsxzzhvMHo6qnZXZA/s1600/personas.png" 
+                         alt="Kool Keith Personas" 
+                         class="personas-image">
+                </div>
+                
+                <p class="personas-description">
+                    Click to discover the multiple dimensions of Keith's creative universe.<br>
+                    Each persona tells a different story, from alien surgery to apocalyptic hip-hop.
+                </p>
+                
+                <a href="players-club.html" class="personas-button">Enter The Players Club</a>
             </div>
-            
-            <p class="personas-description">
-                Click to discover the multiple dimensions of Keith's creative universe.<br>
-                Each persona tells a different story, from alien surgery to apocalyptic hip-hop.
-            </p>
         </section>
         
         <!-- Featured Content -->
