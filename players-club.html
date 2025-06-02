@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+bigwillie: {
+                name: 'Big Willie Smith',
+                personality: `You are Big Willie Smith, the lotto winner who hit it big and founded The Players Club. You speak about winning numbers, hitting the jackpot, and the high-roller lifestyle. You're confident, successful, and generous with advice about winning. Often reference "hitting your numbers" and "playing to win." Keep responses under 3 sentences and maintain the successful winner persona.`,
+                greetings: [
+                    "Big Willie Smith here! Hit the lotto and never looked back. Ready to learn how to win?",
+                    "Welcome to my club, baby! Built this place with lotto winnings and champion attitude.",
+                    "Big Willie in the house! From hitting numbers to running the game - what can I teach you?"
+                ]
+            },<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -400,7 +408,7 @@
         <!-- Header -->
         <div class="club-header">
             <h1 class="club-title">THE PLAYERS CLUB</h1>
-            <p class="club-subtitle">Where Legends Deal Their Hand</p>
+            <p class="club-subtitle">Founded by Big Willie Smith - Where Lotto Winners Become Legends</p>
         </div>
         
         <!-- Card Hand Discography -->
@@ -424,7 +432,10 @@
         <div class="slot-machine-section">
             <h2 class="section-title">Persona Jackpot</h2>
             <div class="slot-machine">
-                <h3 style="color: #ffd700; margin-bottom: 20px;">Match 3 Personas to Win Vault Tracks!</h3>
+                <h3 style="color: #ffd700; margin-bottom: 20px;">Hit Your Numbers Like Big Willie!</h3>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px; font-style: italic;">
+                    "From lotto winner to club owner - now it's your turn to win big"
+                </p>
                 
                 <div class="slot-display">
                     <div class="slot-reel" id="reel1">OCTAGON</div>
@@ -435,7 +446,7 @@
                 <button class="spin-button" id="spinButton" onclick="spinSlots()">SPIN THE REELS</button>
                 
                 <div class="jackpot-message" id="jackpotMessage">
-                    Ready to play? Match personas to unlock exclusive tracks!
+                    Ready to hit your numbers? Match personas like Big Willie hit the lotto!
                 </div>
             </div>
         </div>
@@ -486,6 +497,16 @@
                         with futuristic funk and space-age charisma.
                     </p>
                     <button class="chat-button">Talk to Black Elvis</button>
+                </div>
+                
+                <div class="persona-chatbot" onclick="openChat('bigwillie')">
+                    <div class="persona-icon">💰</div>
+                    <h3 class="persona-name">BIG WILLIE SMITH</h3>
+                    <p class="persona-description">
+                        The lotto winner who started it all. Talks about hitting numbers,
+                        winning big, and the high-roller lifestyle that built this club.
+                    </p>
+                    <button class="chat-button">Talk to Big Willie</button>
                 </div>
                 
                 <div class="persona-chatbot" onclick="openChat('elvis2')">
@@ -561,13 +582,13 @@
                 
                 // Check for wins
                 if (result1 === result2 && result2 === result3) {
-                    message.innerHTML = `🎰 JACKPOT! 🎰<br>You won: "${vaultTracks[result1]}"<br>Check your email for download link!`;
+                    message.innerHTML = `🎰 BIG WILLIE JACKPOT! 🎰<br>You won: "${vaultTracks[result1]}"<br>Hit your numbers like a true player!`;
                     message.style.color = '#ffd700';
                 } else if (result1 === result2 || result2 === result3 || result1 === result3) {
-                    message.innerHTML = `Almost! Two ${result1 === result2 ? result1 : (result2 === result3 ? result2 : result1)} - Try again!`;
+                    message.innerHTML = `Close call! Big Willie says "Keep playing to win!" Two ${result1 === result2 ? result1 : (result2 === result3 ? result2 : result1)}`;
                     message.style.color = '#ffed4e';
                 } else {
-                    message.textContent = 'No match this time. Spin again for vault tracks!';
+                    message.textContent = 'Not your numbers this time. Big Willie says "Winners never quit!"';
                     message.style.color = 'rgba(255, 255, 255, 0.8)';
                 }
                 
@@ -685,6 +706,12 @@
         function generatePersonaResponse(userMessage) {
             // This is a simple demo - replace with actual AI API call
             const responses = {
+                'Big Willie Smith': [
+                    "That's winner talk right there! Big Willie approves of your champion mindset.",
+                    "Hit the lotto with the right attitude, baby. Keep playing those winning numbers.",
+                    "From nothing to something - that's the Big Willie way. You got potential.",
+                    "This club was built on jackpot money and winning spirit. You understand the game."
+                ],
                 'Dr. Octagon': [
                     "Your symptoms require immediate galactic surgery. Please prepare for rectal examination.",
                     "I prescribe 3 doses of cosmic medication from my Jupiter pharmacy.",
