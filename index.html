@@ -334,7 +334,7 @@
             border: 1px solid rgba(255, 215, 0, 0.4);
             border-radius: 20px;
             padding: 30px;
-            text-align: center;
+            text-align: left;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
@@ -349,6 +349,10 @@
             font-size: 3rem;
             margin-bottom: 20px;
             color: #ffd700;
+            display: inline-block;
+            vertical-align: top;
+            width: 60px;
+            text-align: center;
         }
         
         .feature-icon img {
@@ -364,6 +368,131 @@
             font-size: 1.3rem;
             color: #ffd700;
             margin-bottom: 15px;
+            margin-left: 15px;
+            display: inline-block;
+            vertical-align: top;
+            line-height: 60px;
+        }
+        
+        /* News Widget Styles */
+        .news-widget-box {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 10, 0, 0.6));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .news-widget-box:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .news-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        
+        .news-image-small {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .news-placeholder-small {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 215, 0, 0.6);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .news-content-small {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .news-title-small {
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+        
+        .news-title-small a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .news-title-small a:hover {
+            color: #ffed4e;
+        }
+        
+        .news-snippet-small {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 8px;
+        }
+        
+        .news-date-small {
+            font-size: 0.75rem;
+            color: rgba(255, 215, 0, 0.6);
+        }
+        
+        .news-loading {
+            text-align: center;
+            color: rgba(255, 215, 0, 0.7);
+            font-style: italic;
+            padding: 20px;
+        }
+        
+        .news-fallback {
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .news-fallback p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .visit-blog-small {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 6px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .visit-blog-small:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
+            transform: scale(1.05);
+        }
+        
+        .feature-content {
+            margin-left: 75px;
         }
         
         .feature-description {
@@ -391,14 +520,6 @@
             transform: scale(1.05);
         }
         
-        /* Footer */
-        .footer {
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 80px;
-        }
-        
         .footer-links {
             display: flex;
             justify-content: center;
@@ -422,11 +543,13 @@
             font-size: 0.9rem;
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
             
             .mobile-menu-btn {
                 display: block;
@@ -513,11 +636,13 @@
             <div class="feature-card">
                 <div class="feature-icon">🎰</div>
                 <h3 class="feature-title">The Players Club</h3>
-                <p class="feature-description">
-                    Enter our exclusive speakeasy gaming lounge. Play persona slots, 
-                    chat with AI characters, and win rare vault tracks.
-                </p>
-                <a href="players-club.html" class="feature-button">Enter Club</a>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Enter our exclusive speakeasy gaming lounge. Play persona slots, 
+                        chat with AI characters, and win rare vault tracks.
+                    </p>
+                    <a href="players-club.html" class="feature-button">Enter Club</a>
+                </div>
             </div>
             
             <div class="feature-card">
@@ -528,52 +653,64 @@
                          onload="console.log('Personas image loaded successfully!');"
                          onerror="console.log('Personas image failed to load'); this.style.display='none'; this.parentElement.innerHTML='🎭';">
                 </div>
-                <h3 class="feature-title">The Personas</h3>
-                <p class="feature-description">
-                    Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
-                    of Keith's creative universe with unique stories and sounds.
-                </p>
-                <a href="players-club.html#personas" class="feature-button">Meet the Characters</a>
+                <h3 class="feature-title">Personas</h3>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
+                        of Keith's creative universe with unique stories and sounds.
+                    </p>
+                    <a href="players-club.html#personas" class="feature-button">Meet the Characters</a>
+                </div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">🤖</div>
                 <h3 class="feature-title">Chat with AI Personas</h3>
-                <p class="feature-description">
-                    Have conversations with AI versions of Keith's characters. 
-                    Talk to Dr. Octagon, Dr. Dooom, and others about their worlds.
-                </p>
-                <a href="players-club.html#personas" class="feature-button">Start Chatting</a>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Have conversations with AI versions of Keith's characters. 
+                        Talk to Dr. Octagon, Dr. Dooom, and others about their worlds.
+                    </p>
+                    <a href="players-club.html#personas" class="feature-button">Start Chatting</a>
+                </div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">🎵</div>
                 <h3 class="feature-title">Vault Series</h3>
-                <p class="feature-description">
-                    Exclusive unreleased tracks, rare cuts, and vault material 
-                    available nowhere else. For true collectors only.
-                </p>
-                <a href="#vault" class="feature-button">Explore Vault</a>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Exclusive unreleased tracks, rare cuts, and vault material 
+                        available nowhere else. For true collectors only.
+                    </p>
+                    <a href="#vault" class="feature-button">Explore Vault</a>
+                </div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">🃏</div>
                 <h3 class="feature-title">Discography</h3>
-                <p class="feature-description">
-                    Keith's winning hand - 50+ albums spanning decades of innovation 
-                    from Critical Beatdown to modern classics.
-                </p>
-                <a href="#discography" class="feature-button">Browse Albums</a>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Keith's winning hand - 50+ albums spanning decades of innovation 
+                        from Critical Beatdown to modern classics.
+                    </p>
+                    <a href="#discography" class="feature-button">Browse Albums</a>
+                </div>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">📝</div>
-                <h3 class="feature-title">Official Blog</h3>
-                <p class="feature-description">
-                    Latest news, behind-the-scenes stories, and exclusive content 
-                    from the Keith universe. Stay connected.
-                </p>
-                <a href="https://ultrakeithdotcom.blogspot.com" class="feature-button">Read Blog</a>
+                <h3 class="feature-title">Latest News</h3>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Latest news, behind-the-scenes stories, and exclusive content 
+                        from the Keith universe. Stay connected.
+                    </p>
+                    <div id="news-widget-container">
+                        <div class="news-loading">Loading latest news...</div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -608,8 +745,121 @@
             }
         }
         
-        // Initialize particles
-        createParticles();
+        // News Widget Functionality
+        function initNewsWidget() {
+            const container = document.getElementById('news-widget-container');
+            if (!container) return;
+            
+            const SNIPPET_LENGTH = 80;
+            const FALLBACK_DELAY = 5000;
+            
+            function extractFirstImage(htmlContent) {
+                if (!htmlContent) return null;
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlContent;
+                const imgTag = tempDiv.querySelector('img');
+                return imgTag ? imgTag.src : null;
+            }
+            
+            function stripHtmlAndTruncate(htmlContent, maxLength) {
+                if (!htmlContent) return "Click to read more...";
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlContent;
+                let text = tempDiv.textContent || tempDiv.innerText || "";
+                text = text.replace(/\s+/g, ' ').trim();
+                if (text.length > maxLength) {
+                    return text.substring(0, maxLength) + "...";
+                }
+                return text || "Click to read more...";
+            }
+            
+            function formatDate(dateString) {
+                try {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                } catch (e) {
+                    return 'Recent';
+                }
+            }
+            
+            function createNewsItem(post) {
+                const imageUrl = extractFirstImage(post.description || post.content);
+                const snippet = stripHtmlAndTruncate(post.description || post.content, SNIPPET_LENGTH);
+                const formattedDate = formatDate(post.pubDate || post.published);
+                
+                return `
+                    <div class="news-item">
+                        <div class="news-image-container">
+                            ${imageUrl ? 
+                                `<img src="${imageUrl}" alt="${post.title}" class="news-image-small" onerror="this.parentElement.innerHTML='<div class=\\"news-placeholder-small\\">📰</div>'">` :
+                                `<div class="news-placeholder-small">📰</div>`
+                            }
+                        </div>
+                        <div class="news-content-small">
+                            <h4 class="news-title-small">
+                                <a href="${post.link}" target="_blank" rel="noopener noreferrer">${post.title}</a>
+                            </h4>
+                            <p class="news-snippet-small">${snippet}</p>
+                            <div class="news-date-small">${formattedDate}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            function showFallback() {
+                container.innerHTML = `
+                    <div class="news-fallback">
+                        <p>Stay updated with Keith's universe</p>
+                        <a href="https://ultrakeithdotcom.blogspot.com" target="_blank" rel="noopener noreferrer" class="visit-blog-small">
+                            Visit Blog
+                        </a>
+                    </div>
+                `;
+            }
+            
+            // Try to fetch news
+            const feedUrl = "https://ultrakeithdotcom.blogspot.com/feeds/posts/default";
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+            
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        const latestPost = data.items[0];
+                        container.innerHTML = `
+                            <div class="news-widget-box">
+                                ${createNewsItem(latestPost)}
+                            </div>
+                        `;
+                    } else {
+                        showFallback();
+                    }
+                })
+                .catch(error => {
+                    console.log('News feed error:', error);
+                    showFallback();
+                });
+            
+            // Fallback timeout
+            setTimeout(() => {
+                if (container.innerHTML.includes('Loading')) {
+                    showFallback();
+                }
+            }, FALLBACK_DELAY);
+        }
+        
+        // Initialize news widget when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Existing code...
+            createParticles();
+            initNewsWidget();
+        });
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
