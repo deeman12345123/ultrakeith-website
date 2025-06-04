@@ -269,22 +269,6 @@
             transform: scale(1.02);
         }
         
-        /* Bio image - same effects as personas */
-        .bio-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 8px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-            display: block;
-            transition: all 0.3s ease;
-        }
-        
-        .bio-image:hover {
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
-            transform: scale(1.02);
-        }
-        
         .feature-title {
             font-family: 'Orbitron', monospace;
             font-size: 1.3rem;
@@ -702,7 +686,8 @@
                 <div class="feature-icon">
                     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhbjp3v3JuUmHqX8qNTcvVx2Jr45JWrHzlU7e0pdYrQ51EyFhAGhji59iVNJ1dj_Ujbv4aN1Rlm9aF7Tm7NEs1FIzIs1vaoSfgT8MtQUBE7DBh0fvJ-ZUtbVX4w3oxVH6lJSjS5R3nOHmFZj4rsa4p6k9rmnu7jsi-m8IP1EnXMargGL54E6eKLlRnMyQdo/s398/bio.png" 
                          alt="Ultra Keith Bio" 
-                         class="bio-image">
+                         onload="console.log('Bio image loaded successfully!');"
+                         onerror="console.log('Bio image failed to load'); this.style.display='none'; this.parentElement.innerHTML='👤';">
                 </div>
                 <h3 class="feature-title">Bio</h3>
                 <div class="feature-content">
