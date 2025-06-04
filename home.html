@@ -717,18 +717,12 @@
                 }
                 
                 return `
-                    <div class="news-item">
-                        ${imageUrl ? 
-                            `<img src="${imageUrl}" alt="${post.title}" class="news-image-small">` :
-                            `<div class="news-placeholder-small">📰</div>`
-                        }
-                        <div class="news-content-small">
-                            <div class="news-date-small">${formattedDate}</div>
-                            <h4 class="news-title-small">
-                                <a href="${post.link}">${post.title}</a>
-                            </h4>
-                            <p class="news-snippet-small">${snippet}</p>
-                        </div>
+                    <div class="news-content-small">
+                        <div class="news-date-small">${formattedDate}</div>
+                        <h4 class="news-title-small">
+                            <a href="${post.link}">${post.title}</a>
+                        </h4>
+                        <p class="news-snippet-small">${snippet}</p>
                     </div>
                     <div style="text-align: center; margin-top: 15px;">
                         <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button">
