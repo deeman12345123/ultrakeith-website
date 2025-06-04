@@ -231,12 +231,16 @@
             margin-left: 115px;
             margin-top: -100px;
             padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100px;
         }
         
         .feature-description {
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: auto;
+            flex: 1;
         }
         
         .feature-button {
@@ -250,6 +254,8 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            align-self: flex-start;
+            margin-top: 10px;
         }
         
         .feature-button:hover {
@@ -640,17 +646,18 @@
             </div>
         </section>
         
-        <!-- Penthouse After Dark - Exclusive Access -->
+        <!-- Willie Biggs Casino - Exclusive Access -->
         <section class="penthouse-section">
             <div class="penthouse-container">
-                <h2 class="penthouse-title">🥂 Penthouse After Dark</h2>
-                <p class="penthouse-subtitle">An Exclusive Experience for True Connoisseurs</p>
+                <h2 class="penthouse-title">🎰 Willie Biggs Casino</h2>
+                <p class="penthouse-subtitle">Where Big Time Players Come to Win</p>
                 <p class="penthouse-description">
-                    Welcome to Keith's most sophisticated realm. Here in our intimate penthouse lounge, 
-                    experience champagne sessions, exclusive gaming, and member-only encounters 
-                    that exist nowhere else in the universe.
+                    Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high 
+                    and the game never stops. From massage parlors in every city to diamond-studded 
+                    wrist pieces, this is where real players separate from the small-time pretenders. 
+                    Cash rules everything - Dom P flows, Rolex shines, and only the biggest make it to the table.
                 </p>
-                <a href="players-club.html" class="penthouse-button">Request Private Access</a>
+                <a href="players-club.html" class="penthouse-button">Enter the Casino</a>
             </div>
         </section>
     </div>
@@ -700,7 +707,7 @@
             
             function createNewsItem(post) {
                 const imageUrl = extractFirstImage(post.description || post.content);
-                const snippet = (post.description || post.content || '').replace(/<[^>]*>/g, '').substring(0, 250) + '...';
+                const snippet = (post.description || post.content || '').replace(/<[^>]*>/g, '').substring(0, 400) + '...';
                 const formattedDate = new Date(post.pubDate || post.published).toLocaleDateString('en-US', { 
                     month: 'short', 
                     day: 'numeric' 
@@ -716,7 +723,7 @@
                     `;
                 }
                 
-                return `
+                container.innerHTML = `
                     <div class="news-content-small">
                         <div class="news-date-small">${formattedDate}</div>
                         <h4 class="news-title-small">
@@ -724,7 +731,7 @@
                         </h4>
                         <p class="news-snippet-small">${snippet}</p>
                     </div>
-                    <div style="text-align: center; margin-top: 15px;">
+                    <div style="text-align: center; margin-top: auto;">
                         <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button">
                             Read All News
                         </a>
@@ -739,7 +746,7 @@
                         <div class="news-date-small">Always Fresh</div>
                         <p class="news-snippet-small">Stay connected with the latest from Keith's world. New releases and exclusive content from the legendary hip-hop innovator.</p>
                     </div>
-                    <div style="text-align: center; margin-top: 15px;">
+                    <div style="text-align: center; margin-top: auto;">
                         <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button">
                             Read All News
                         </a>
