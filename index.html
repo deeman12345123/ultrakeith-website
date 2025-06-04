@@ -23,6 +23,7 @@
             color: #ffffff;
             overflow: auto;
             height: 100vh;
+            min-height: 100vh;
             position: relative;
         }
         
@@ -123,7 +124,8 @@
             z-index: 10;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            padding-top: 60px;
             align-items: center;
             height: 100vh;
             text-align: center;
@@ -132,7 +134,8 @@
         
         /* Logo Section */
         .logo-container {
-            margin-bottom: 60px;
+            margin-bottom: 40px;
+            margin-top: 40px;
             animation: logoGlow 4s ease-in-out infinite;
         }
         
@@ -219,6 +222,8 @@
             overflow: hidden;
             position: relative;
             margin: 0 auto 20px;
+            border: none;
+            outline: none;
         }
         
         .loading-progress {
