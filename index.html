@@ -223,11 +223,14 @@
             margin-left: 15px;
             display: inline-block;
             vertical-align: top;
-            line-height: 100px;
+            line-height: 1.2;
+            margin-top: 0;
         }
         
         .feature-content {
             margin-left: 115px;
+            margin-top: -100px;
+            padding-top: 0;
         }
         
         .feature-description {
@@ -329,6 +332,7 @@
         .news-date-small {
             font-size: 0.75rem;
             color: rgba(255, 215, 0, 0.6);
+            margin-bottom: 5px;
         }
         
         .news-loading {
@@ -694,7 +698,7 @@
             
             function createNewsItem(post) {
                 const imageUrl = extractFirstImage(post.description || post.content);
-                const snippet = (post.description || post.content || '').replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+                const snippet = (post.description || post.content || '').replace(/<[^>]*>/g, '').substring(0, 250) + '...';
                 const formattedDate = new Date(post.pubDate || post.published).toLocaleDateString('en-US', { 
                     month: 'short', 
                     day: 'numeric' 
@@ -707,11 +711,11 @@
                             `<div class="news-placeholder-small">📰</div>`
                         }
                         <div class="news-content-small">
+                            <div class="news-date-small">${formattedDate}</div>
                             <h4 class="news-title-small">
                                 <a href="${post.link}">${post.title}</a>
                             </h4>
                             <p class="news-snippet-small">${snippet}</p>
-                            <div class="news-date-small">${formattedDate}</div>
                         </div>
                     </div>
                     <div style="text-align: center; margin-top: 15px;">
@@ -727,11 +731,11 @@
                     <div class="news-item">
                         <div class="news-placeholder-small">📰</div>
                         <div class="news-content-small">
+                            <div class="news-date-small">Always Fresh</div>
                             <h4 class="news-title-small">
                                 <a href="https://ultrakeithdotcom.blogspot.com">Keith's Universe Updates</a>
                             </h4>
-                            <p class="news-snippet-small">Stay connected with the latest from Keith's world. New releases and exclusive content.</p>
-                            <div class="news-date-small">Always Fresh</div>
+                            <p class="news-snippet-small">Stay connected with the latest from Keith's world. New releases and exclusive content from the legendary hip-hop innovator.</p>
                         </div>
                     </div>
                     <div style="text-align: center; margin-top: 15px;">
