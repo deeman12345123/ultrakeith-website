@@ -1269,7 +1269,972 @@ The water is deep, and it takes a supreme feat of strength to swim through the w
                 `
             },
              {
-                title: "Biology 101",
+                title: "Octagon Octagon",
+                lyrics: `
+                [Intro: Paperboy]
+Newspaper—The Daily Herald!
+Octagon is back—people are going Octagon-crazy
+This morning—people have went Octagon-crazy
+The newspaper—newspaper!
+People are delivering the formal's newspapers in your back yard
+Octagon-crazy
+Number one story today—Octagon went crazy
+
+[Verse 1: Dr. Octagon]
+I was writing Octagon in an Octagon-hat
+With Octagon-underwear, taking an Octagon-bath
+With Octagon-soap, my Octagon-motorcycle made by Octagon Bikes
+Stand up late in Octagon Heights living that Octagon-life
+Wiping the girls off with Octagon-baby-wipes
+Using the Octagon-washing-machine to dry
+Octagon-coats on Octagon-hangers
+Octagon-posters made Octagon famous
+The Octagon-germ became quite contagious
+Left people upside-down, taking Octagon-painkillers
+Octagon, to everybody so familiar
+Octagon-condoms, with Octagon-tampons for women
+Became a frenzy
+Octagon-gasoline, people use it when their motors go empty
+Octagon-dog food with Octagon-cat food
+Did ya'll read Octagon News? People going Octagon, fool
+With Octagon-girs and Octagon-dudes
+With strippers even dancing with G-strings in Octagon-boots
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Polka Dots
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+Gnarly
+KATSEYE
+[Interlude]
+People said Octagon went crazy
+He lost his mind, they said he was in a mental hospital
+They said he was throwing all of his hair out
+They say he was in there eating his own dog food
+They say he was in there eating his own cat food
+They said Octagon went crazy crawling up on the ceiling
+He was crawling down the ceiling
+Wearing boots, talking to the news crew on his bluetooth
+
+[Verse 2]
+Octagon-rice with Octagon-beans with Octagon-shrimp
+Octagon-Stadium where The Octagons play
+I hear it every day, Octagon-Arena with Octagon-orchestra
+Octagon-milk backstage for every age
+Octagon-surgery for people who need an Octagon-face
+Octagon-belts for Octagon-waists
+Octagon-curtains, everything Octa-refurbished
+Octagon-turtles—and don't forget the Octagon-gerbils
+Everything got the world going in Octagon-circles
+
+[Interlude]
+Hey, are you coming with Octagon again?
+I said, Are you coming with Octagon again?
+Are you really coming?
+(Please, leave me alone)
+[Outro]
+Octagon, Octagon, Octagon Octagon
+Octagon, Octagon, Octagon, Octagon
+Put one leg on the wall, and one leg on the floor
+Do the Octagon, do the Octagon
+Do the Octagon, do the Octagon
+                `
+            },
+            {
+                title: "Polka Dots",
+                lyrics: `
+                [Verse 1]
+Microsoft acetate, she got a nice ass and waist
+Center I gotta pick it up like the Barclay, hip hop hooray
+The dock into the Mandalay was sway
+The text spray air wake I parlay
+They still ride around confused over Safaree
+Lamp with Sadé
+Y’all wearing Buster Brown
+I'm wearin' Maur-ay's
+My testes got a line going down like a sting ray
+Call Betty I’m ready at chicken and Corsetti
+She went on pretty
+Like Doctor Doo-Litty
+I’m driving too silly
+Right over your city
+Filmin’ a viddy
+Of women and titties
+My masquerade
+She Anne-Marie my escapade
+The Cadillac roll, the Escalade
+The baggage full with hands and legs
+Disguise myself with longer braids
+The jump shot fade
+Gabrielle at the Western Union
+I’m pulling up playin’ in girls bras like Dwayne Wade
+The rockstar with coats with strange coll-ars
+At the end I like my
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Black Hole Son
+Dr. Octagon
+Octagon Octagon
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+[Chorus]
+Polka dot, Volkswagen, Learjet seats, rocket launchers
+Chemical warfare, Earth automation
+Polka dot, Volkswagen, Learjet seats, rocket launchers
+Chemical warfare, Earth automation
+
+[Verse 2]
+Like Dave Grohl
+My beard grow to my vocal tone
+Panda bears answer my phone
+Whoever’s blind I’ma leave you to show Stevie Wonder home
+Put ears near the metronome
+And lay up on the white couch
+Like a white man versus a grey mouse
+I can send my balls with hair on 'em through PayPal
+Many fight back
+Space man living through crack vials
+Send the commandments out like Russell do to Kevin Liles
+Unless you unknown ladies want my cream on their coconut mounds
+She talk so big like she could fit Godzilla in her mouth
+Psychiatrist say she left her stained underwear up in Usher’s house
+If you’re army why you hidin’ behind other mouse
+Me and Automator goin’ to the President’s house
+While people move their bowels slow to get their product out
+Too many wanna be Jimi Hendrix let ‘em rock out
+Like Bill Parcells
+The duration in this time after the song
+Watch cats come out finicky and resign
+They see me with the wig and glasses
+Riding that polka dot Volkswagen I’m carriage
+[Chorus]
+Polka dot, Volkswagen, Learjet seats, rocket launchers
+Chemical warfare, Earth automation
+Polka dot, Volkswagen, Learjet seats, rocket launchers
+Chemical warfare, Earth automation
+
+[Verse 3]
+Convertible beater bug lover
+Undercover in a romance with this beautiful type of mama
+The porno star genre
+Body like Takara
+Drive by I’ma hit that tomorrow
+She get that butt bit off like piranha
+Doctor’s laying out with the black briefcase in the sauna
+Rock call me the one-man Nirvana
+The crowd throw out they vaginas
+Rappers wait onstage with sweat in their pantyliners
+I haul hogs from San Francisco to South Carolina
+Paint rap in the butt crack with a good primer
+Over all the famous panties
+We take a leak on your best designers
+Y’all block reppin it with second hand rhymers
+From Atlantic to Capitol
+Even Def Jam I laugh at you
+Dawkins dunk the ball over your mama like Daryl
+Seahawker stalker
+Wear my helmet in the VW
+I’m in love with you
+Clean the engine you know how I cruise
+[Chorus]
+Polka dot, Volkswagen, Learjet seats, rocket launchers
+Chemical warfare, Earth automation
+Polka dot, Volkswagen, Learjet seats, rocket launchers
+Chemical warfare, Earth automation
+
+                `
+            },
+            {
+                title: "Black Hole Son",
+                lyrics: `
+                
+[Verse 1: Dr Octagon]
+Penicillin villain and reactivate forcing
+Fly around with utensils reporting
+No dimension while recording
+Doctor bounce the basketballs and the heights
+While they're wearing Jordans
+Your girl drooling with sweat pouring
+Sonic music laser rear around your ears with the chorus
+The beef patty from golden crust kick like Chuck Norris
+Another white horse in the black yard without the harness
+Chariots carry me like Washington, George write the prescription
+This ain't demented, people say I'm using antibiotics
+With no sentences, Automator in the galaxy, gladiator infinite
+Washing my sneakers off with Pepsodent new world experiments
+
+[Hook: Dr Octagon]
+Doctor headed to the hospital, i'm in orbit
+
+October is the month of the gynaecologist manhunt
+Celery and carrots with nurses piercing they breasts
+With double bed bunks
+The opium funnel watch them get close to each other and cuddle
+Cadillac big enough to drive through a butthole
+Honor me on the wall, pen and scroll
+Reanimate, hold your head in your hand while I bake oatmeal Cookies in that stove, snoop a pepper on your dog with oregano
+This is fumigated gas coming out the mixing bowl, so original
+Let's go inside with the way my legal pad paper fall
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Power of the World (S Curls)
+Dr. Octagon
+Polka Dots
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+[Hook: Dr Octagon]
+Doctor headed to the hospital, I'm in orbit
+
+[Verse 3: Dr Octagon]
+Radical vibes keep us alive
+Those who play Charles blind need to be
+Receiving the music like a critic with a crooked hairline
+The pad is the bullets, the pen did the crime
+Wearing my insulated condoms going overtime
+I sketch out and draw
+Ladies with china ways walking with their pants off
+Would you be mad if Octagon vision saw them in dancehall
+I plans with the ski hat and my scarf
+Me and Dan bust a U-Y with the bass guitar
+In the double R, Egor looking inside bazaar
+Show for ho the parrot on his shoulder
+The bird peck til he sober
+
+[Hook: Dr Octagon]
+Doctor headed to the hospital, i'm in orbit
+                `
+            },
+            {
+                title: "Power of the World (S Curls)",
+                lyrics: `
+                [Chorus]
+Power of the world
+Power of the world (Power)
+Aliens with S curls...
+
+Detonated format, the aristocrat
+The United States and Europe can all interact
+I'm seeing colours white and pearl tracks
+We can all watch on IMAX, watch the music industry have a climax
+I remember girls used to play scrotum like a hi-hat
+Freaking the wheelchair, where's ya thigh at
+Me and Automator tour, walking through Iraq
+Pterodactyl, dinosaur medicated from awe from penzor
+I been where roaches been crawl
+Watch insects have sex while vocals come from the larynx
+Girls reeds look good when they play my clarinet
+Everybody dumbed down on social network
+The download stealing my medical concepts
+Dr. octagon holding Lady Gaga's baby in a private jet
+On all fours, I see Katy Perry at her best
+The Wolfman calling 300 pounds up to his chest
+The howling of the Siberian husky, don't make me go back inside and cook chicken curry
+Doctor Oc' look out the window I see snow flurries
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Operation Zero
+Dr. Octagon
+Black Hole Son
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+[Chorus]
+
+Nevertheless, i come save veteran housewives
+I get inside, make the jump shot while the stuntman scuba dives
+Go sit in Starbucks come get these burgers and fries
+Y'all haunted by the dog, you can't see my burgundy eyes
+Riding over the top of the city with a helicopter with cherry tabletop pies
+The government wanna buy my mind
+Obama and Michelle watch the spacecraft park by the Whitehouse parallel
+Rappers sit up in the room like the doll Annabelle
+JVC and Sony called and asked me what Panasonic sell
+The Deltones industrial
+Throwing parakeets out the window with dollar bills
+The complaints skyrocket the maniac dr. in Hollywood Hills
+Offer respect to a Phil Spector copycat rapping with his legs in rinse wrap
+A brain surgeon without license doing mal pract'
+Hitting harder and harder with vial tracks
+Alligators in the pool release stew and plack
+Boa constrictors in the tank with the light blue rats
+
+[Chorus]
+
+Autopsy in the lobby
+The vampire party, girls like when I spray my body with Bacari
+Public hair cleaning the carwash the majority
+Other groups sending me I'm going to see Ari
+Kindergarten I was known for making vaginas outta pottery
+I was cloned by others mocking me
+Suddenly i grown 10 ft tall with Lurch Addams family drawers
+The wars the spots with bear claws
+People say sasquatch hasn't got nothing on me, i am Neanderthal
+Dunking a lime green nerf basketball
+                `
+            },
+            {
+                title: "Operation Zero",
+                lyrics: `
+                Hey, where you going?
+Going to the library
+You read books?
+Oh yeah..
+
+Who can stop the porno-vision?
+Testicles ready, penis already went through circumcision
+Heavy competition, vocals just got out of the house of detention
+Governor linebacking with the gold strap I play ball for Clinton
+I'm like a dog chasing my own tail, spinning Dr. inclined
+Jacked off in the mothership, pass the chip off the Funkenstein
+The red dots ran over football players at the field goal line
+Juicy inside, the girls like when I orange peel off their mind
+If you can see ghosts I'm Shawn Carter in his prime
+Whipit to stadium, leather seat inclined
+Superstar like Ernest Borgnine
+
+Chorus:
+Dr. Octo, art like Picasso
+Operation zero
+Orchestrate material
+Dr. Octo, art like Picasso
+Operation zero
+Orchestration material (x2)
+
+Enter the Pentagon
+Stain like a blood cloth
+You see me with flashlights walking through the fog
+Women with newspaper peeing hard
+Eyeballs get wide, everything grey and large
+Master charge hold the condom with a iPod
+Brain massage through my prostate, oh my god
+Frank Fallujah see inside pink fuschia
+DNA drop the birth control on computer
+You wait for x-rays having sex with a neck brace
+She on the autobahn speeding with a tampon
+Hexagon, pulling over whilst she drinking a john
+I'm Don Juan, catching panties like Lynn Swann
+I'm a fan of Spawn
+Shock writer long johns, i need the lexicon
+Walk inside with leprechaun, green and more
+Jellybeans we want more
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Bear Witness IV
+Dr. Octagon
+Power of the World (S Curls)
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+Dr. Octo, art like Picasso
+Operation zero
+Orchestrate material
+Dr. Octo, art like Picasso
+Operation zero
+Orchestration material (x2)
+
+Even let go of these mics, Pandora's box
+I wear a moose with lime green fox
+Tires look like Hydrox
+White shoes with black socks
+Mountain dew recorded vocals with the chicken pox
+Pots on the stove, smoking can't turn shaking knobs
+Packed her bags, moving out the bodybags
+Freckle faced up, popping an electric boogie
+Pedal behind trucks you see the black hoodie
+Break coke with the antidote
+I'm hunting antelope
+Sitting up at night time in goggles eating cantaloupe
+Making left and rights, seeing people with tights
+Ballerina's legs and wings i'm the Colonel from Kentucky Fried
+The doctor wears his tux with a lot of pride
+
+
+Dr. Octo, art like Picasso
+Operation zero
+Orchestrate material
+Dr. Octo, art like Picasso
+Operation zero
+Orchestration material (x2)
+                `
+            },
+            {
+                title: "Area 54",
+                lyrics: `
+                [Intro: Sample]
+"Doctor, doctor—it's time for you to fuck me now—it's time for you to fuck me—please"
+
+[Verse 1 - Dr Octagon]
+Move sideways, my head like a lightbulb
+Light up in every club, move your texts
+Crews get space dialect
+She can't respect, then cash this check
+Space in-depth, sitting up in a T-rex
+Alien street, I turn those and make a left
+UFO, the clothes close with velcro
+Norelco, I shave with a backhoe
+Strippers on a ship man showing booty-hole
+Platinum records, Space Jam where' it go
+Duracell, see the head glow
+I’m so future man, you use a hot comb
+Xylophone, astronaut in the zone
+Night create, we can go and moon shake
+
+[Hook]
+Area 54, bright lights, big city
+Area 54, bright lights, big city
+Area 54, bright lights, big city
+Area 54, bright lights, big city, lookin' pretty
+
+[Verse 2]
+Gasoline gas up, to a full tank
+Ebay '67, some vague
+Records earth call me up here
+And say I'm wreckless
+Throw me in the rights, I intercept this
+I'm intersection, scienctific flexes
+They study enzymes, I passed erections
+Move at the top-down out of all direction
+I get the leverage, pull off the levels
+I can't descend, I'm up so high
+I see the devil grin
+Spacecraft come down, they need a little dab
+My ship walk up the building like snow crabs
+You go Chick-O-Stick, I might break in half
+Pull over the star-child, put gas in your ass
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Flying Waterbed
+Dr. Octagon
+Bear Witness IV
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+[Hook]
+Area 54, bright lights, big city
+Area 54, bright lights, big city
+Area 54, bright lights, big city
+Area 54, bright lights, big city, lookin' pretty
+
+[Verse 3]
+Border free content
+I'm the president, equation for
+Rhyme through the elephants
+Coasting up by saturn is the exit
+My patterning are rare blue air view
+Silent too, coming up on, breaking noose
+Channels 11, automatic insert
+Petrolium rap turns, like on patrol
+Gravity sea, I'm floating up patron
+Exhibition moonwalk for practise
+Exaggerate the scene, cosmetic kinetic
+Ultramagnetic brain tech is full
+Of rhyming superseded got behind me unleaded
+
+[Hook]
+Area 54, bright lights, big city
+Area 54, bright lights, big city
+Area 54, bright lights, big city
+Area 54, bright lights, big city, lookin' pretty
+[Outro: Sample]
+"I'm busy"
+                `
+            },
+            
+            {
+                title: "Flying Waterbed",
+                lyrics: `
+                [Verse 1 - Dr Octagon]
+Simultaneous knee cracks
+Like Kobe injured
+Dr. Octagon sit on space beach with a bucket hat
+Way beyond the fitted and the snapback
+3.5 million served
+My wings make you look like atomic birds
+Flying like a UFO with the rockets
+They must be sniffing stardust in their show
+Nasal so big I can fly aircraft up your nose
+Raw vocal clouds like George, so Astro
+With the largest selection of Texas Instruments
+Who– spacewalk rappers like your microwave shoes
+Young astronaut sit on the pot and tie my shoes
+Find mysterious discoveries
+The star don’t by all means
+I’m still hot in space for many it’s a dream
+
+[Chorus]
+Come take a ride on my flying waterbed
+(Dedication, all my love for you)
+Come take a ride on my flying waterbed
+(Hand in hand in summer's brighter view)
+Come take a ride on my flying waterbed
+(No more lies and not quite knowing)
+Come take a ride on my flying waterbed
+(Dedication, all my love for you)
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+3030 Meets the Doc (Pt. 1)
+Dr. Octagon
+Area 54
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+[Verse 2 - Dr Octagon]
+The catch is to comprehend
+The studio packed with 5 thousand green men
+Ruled by an action figure
+Activated sleeping in
+Upon the top of the sun so goddamn hot I actually made it
+Barney the purple dragon
+Poppin the set, recline, faders
+On the guest list with the Power Rangers
+When way up in the nebula 18
+It’s hard to find X when I stop on earth to entertain us
+Tough floating gravity, you see the girls up here bathing
+Even the movies in the head mess up the rocket
+Your lady know what Shane Diesel did
+You’re so low down, the flying saucer hover above your crib
+Look out the aircraft I see you rolling the blunt like you big
+
+[Chorus]
+Come take a ride on my flying waterbed
+(Dedication, all my love for you)
+Come take a ride on my flying waterbed
+(Hand in hand in summer's brighter view)
+Come take a ride on my flying waterbed
+(No more lies and not quite knowing)
+Come take a ride on my flying waterbed
+(Dedication, all my love for you)
+[Verse 3 - Dr Octagon]
+My place look like the Oracle when Golden State play
+I’m a Martian with a Stephen Curry face
+Your girl like when I grip her waist
+Release the fluid like toothpaste
+Always mobbed in your atmosphere
+I gotta disguise myself with a toupee
+The afro got me in tube socks looking like Dr. J
+76-er in the Spectra with Qbert and Automator on the mixer
+Muscle man aside watch me lift my own spaceship up
+Your girl want my babies in a crystal cup
+People say “how high you get?”
+I got keys to flying trucks
+
+[Outro-Refrain]
+There’s no drag
+It’s no drag momma
+There’s no drag when we roll to Rome
+Its no drag
+There is no drag momma
+It’s no drag when we roll
+Dedication all my love to you
+Let me lay the stream inside of you
+Summer nights you’re always glowing
+Dedication all my love to you
+                `
+            },
+            {
+                title: "3030 Meets the Doc",
+                lyrics: `
+                [Intro: Dr. Octagon + Del The Funky Homosapien]
+Welcome to my laboratory, Deltron
+I am pleased to meet your acquaintance—I know you're unmatched within your field—
+Octa-god
+—You're much more informed than Trapper John, M.D, your scientific discoveries are legend—could you enlighten me?
+
+[Verse 1: Dr. Octagon]
+I'm rap-ital, capital, just a moving, rapping animal
+Punch straight like Zorro
+How you want it—oral?
+Watch me like porno, coming through the tube, innovative with my pubic hair braided
+Tip-top shape, I'll make ER's doctors put on brakes
+Friday the 13th, they bring my underwear from Crystal Lake
+They want a Frito-Lay
+Latino Ray with Dino J
+My rhythm is sharp like a switchblade
+Who' bitch made creamy, yellow, athletic, like the Oakland A's
+Lord, I own the rings
+Nine inches with ginseng, I'm not wasting time pretending
+I'm doing steak right now, I'm serving you onion rings
+Swing up, upscale watch me lift those barbells
+Watch the pro throw four thousand pounds of fanmail
+Step up if you' using fishscale, mini-goldfish
+I'm a big whale—flipper!
+
+[Chorus: Dr. Octagon + Del The Funky Homosapien]
+Octagon, Deltron
+(Welcome those well on their way to being martyrs)
+Time to see the doctor
+Octagon, Deltron
+(DEFCON 5—defense level rise, your eyes focus harder)
+Octagon, Deltron
+(Welcome those well on their way to being martyrs)
+Time to see the doctor
+Octagon, Deltron
+(DEFCON 5—defense level rise, your eyes focus harder)
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Karma Sutra
+Dr. Octagon
+Flying Waterbed
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+[Verse 2: Del The Funky Homosapien]
+Okay—I remove the robot to reprogram the plot against the onslaught
+One wrong walk will leave you roadblocked
+Homing from the dock, refers to how the flight
+Get' path-locked by the magical mockery when you cockblock
+I am you not, gotcha', talk to the hand
+Backslapping yo' ass, crackin' yo' mask
+I'll be happy to add my perverted inversion of language
+With words during my display of pop-subversion
+Undermine the system, distance myself from galaxies
+Hell-bent on tragically typically mimicking fallacies
+I was bespent, misrepresenting they' self
+Down to the cell, microscopes couldn't have found the realm
+Drown yourself, attempting to bad-mouth
+You mad-foul, act like I knock smooth trash out
+Don't act stupid 'cause I can prove that now
+Act now while supplies last, as I black out
+
+[Chorus: Dr. Octagon + Del The Funky Homosapien]
+Octagon, Deltron
+(Welcome those well on their way to being martyrs)
+Time to see the doctor
+Octagon, Deltron
+(DEFCON 5—defense level rise, your eyes focus harder)
+Octagon, Deltron
+(Welcome those well on their way to being martyrs)
+Time to see the doctor
+Octagon, Deltron
+(DEFCON 5—defense level rise, your eyes focus harder)
+[Verse 3: Dr. Octagon + Del The Funky Homosapien]
+American disaster, fix the wall with plaster
+Digitally I'm mastered, you can come in backwards
+At work or playground, you see me at the synagogue
+No time for blogs—Kennedy, call Leon!
+Eradicate the spectrum, erecting the monument
+Movin' the conglomerate, mood very ominous
+Tomahawk hits—to the frontal lobe—who want it, though?
+Fronting won't help you feel comfortable, humble yourself
+You don't know Del, location on the under-stow
+The dumbest of foes be excluded from comin' close
+All the rest want to test, but I'm raw as flesh wounds
+The doctor can address you—perhaps you could be rescued
+
+[Chorus: Dr. Octagon + Del The Funky Homosapien]
+Octagon, Deltron
+(Welcome those well on their way to being martyrs)
+Time to see the doctor
+Octagon, Deltron
+(DEFCON 5—defense level rise, your eyes focus harder)
+Octagon, Deltron
+(Welcome those well on their way to being martyrs)
+Time to see the doctor
+Octagon, Deltron
+(DEFCON 5—defense level rise, your eyes focus harder)
+                `
+            },
+            {
+                title: "Karma Sutra",
+                lyrics: `
+                [Verse 1]
+Take the pain to rock ride the rock
+We ride the clock, they chatterbox
+I jump up with dreadlocks
+I'm Punk Rock Jamaican
+I'm doctor, so laced up
+Your girl stare with her face up
+I'm marching Indian
+I'm Panamanian friendly-en
+Drive truck with experience
+She like to suck with experience
+No comma's up, no periods
+No time to play with these idiots
+I'm down south, I bounce up
+I bounce back with 7up
+That bra drop them d cups
+My balls feel that big butt
+I bust nuts she turnt up
+That stole pot tequila shot
+She go pop she suck me like lollipop
+I lift weights, her draws drop
+I'm purified they sniff rock
+Camera fast like I rock
+She played her part like my cock
+
+[Chorus]
+I got the Karma Sutra, if it suits ya
+I can put one leg in the future
+I got the Karma Sutra, if it suits you
+There's so many things I can do to you
+I got the Karma Sutra, if it suits ya
+I can put one leg in the future
+I got the Karma Sutra, if it suits you
+There's so many things I can do to you
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Hollywood Tailswinging
+Dr. Octagon
+3030 Meets the Doc (Pt. 1)
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+[Verse 2]
+Boastin', I'm dunkin'
+My hair like Tim Duncan
+I'm captain, I'm crunch'n
+I'm heated up like muffins
+Blueberry stuffin'
+Mortician's fry the oven
+Gomez at Saint-Tropez
+I get between her legs
+Your dog bark gimme five with his tail waggin'
+He want out though big like a bank roll
+Pass off the garnet
+Move around, give and go
+Half slow cuttin' grass with the lawnmower
+
+[Chorus]
+I got the Karma Sutra, if it suits ya
+I can put one leg in the future
+I got the Karma Sutra, if it suits you
+There's so many things I can do to you
+I got the Karma Sutra, if it suits ya
+I can put one leg in the future
+I got the Karma Sutra, if it suits you
+There's so many things I can do to you
+
+[Verse 3]
+I speed up, I go fast
+We double team, no codeine
+You're in the dark with wild dreams
+Your girl scream in seven jeans
+My fans young as seventeen
+Got taken off amphetamine
+I bring around them butterbeans
+Them butterbowls with Sara Lee
+That cake bake, we taping
+No now and later, my elevator
+Regenerators remove control
+My alligators, demonstrators
+Innovators come forth as masturbaters
+Climb down them escalators
+Extra warm with jiffy pop
+My penis pop like popcorn
+I'm here to get my shine on
+My thing stretch your thyroids
+[Chorus]
+I got the Karma Sutra, if it suits ya
+I can put one leg in the future
+I got the Karma Sutra, if it suits you
+There's so many things I can do to you
+I got the Karma Sutra, if it suits ya
+I can put one leg in the future
+I got the Karma Sutra, if it suits you
+There's so many things I can do to you
+                `
+            },
+             {
+                title: "Hollywood Tailswinging",
+                lyrics: `
+                With my grey hair, blue hand
+Face the colour lilac
+I'm driving down Hollywood Boulevard in a metallic Cadillac
+Gorilla funk massive one monkey as a passenger
+LAPD looking at me
+And say "what's happening?" Y'all see me following the lime green Volkswagen, with black dots on it with baby dinosaurs sitting on it
+With bugs and birds climbing up on a yellow Bugs Bunny rabbits
+Running from the headlights from Warner Brothers
+Windshield wipers go back and forth
+(?) go way down on the others
+Mr. Gerbik eating laundry detergent
+Dr. Octagon's uncle pull up and get gas at the service
+The leader of the gargoyles, watch me wild make a right turn
+Expansion 58-wings-4589, my fingers look like Bigfoot hands on the stop sign
+Pedestrians pay me no mind
+
+Chorus
+Hollywood Tailswinging
+Dinosaurs march, we run that Boulevard
+
+Off the cliff, I see the Hollywood sign
+Bosses run, alligators start flying
+Popeyes with vampires with fangs out
+I see the walking dead, 64 pounds of turkey meat and straw cornbread
+The torso of the gamma-ray wildebeest
+In spare the light coming down
+The highlands, a woman with glow in the dark dreads
+Rocket tank with half man shark legs
+Altitude tornado, coming down in the milky way
+Crackhouse house with these boom bass foxes eating hydrox cookies to ox's
+Cannonball express we can launch dist the laser beam addition powerpack over the competition
+Elevator coming down from the aircraft on a mission
+Activate four sharks scheming from Great Britain
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Aviator Hype (Bonus Track)
+Dr. Octagon
+Karma Sutra
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+Chorus
+Hollywood Tailswinging
+Dinosaurs march, we run that Boulevard
+
+My brain hybrids saving gasoline
+My body run on iguana kerosene
+Automatic lizards with a tennis
+California Mr. Gerbik controlling Sasquatches
+Walking through the blizzards with buzzards in dozens
+Flexing muscles with turtles in duffles
+Like the orange orangutan cuddled in huddles
+The extra-terrestrial highly activated invertebrae
+My 74-667 antifreeze eye contract
+The isolation will go aerodynamically
+Like a hawk grabbing a target off the pavement
+(squawks)
+The parallel park pterodactyls walking down through Melrose
+With molecules opening the L-Zone
+High titanium extra chromosomes with
+Panoramic visions in the view
+This is what i do..
+
+Chorus
+Hollywood Tailswinging
+Dinosaurs march, we run that Boulevard
+                `
+            },
+             {
+                title: "Aviator Hype",
+                lyrics: `
+                [Intro: sample]
+"—late—"
+"—late—"
+"—late—"
+"Very late in the night"
+
+[Verse 1: Dr. Octagon]
+Who ready for space control?
+Cruising Nebula 7
+Millions watch me in the rocketship take off from the iPhone
+Protocol four gasoline tank full
+Ready to close the stargate doors
+Straight up to the moon
+Heading north with digital navigation
+Passing the sun with air circulating
+With flying bears in the air waiting
+The Thing from the Fantastic 4, twerking and gyrating
+Computer readout watching Autobots using the bathroom
+Like puppies on newspapers
+The serum used in the process is quite contagious
+Watching Storm from the X-Men leave her thong on the hanger
+Motorcycle helmet moving up in altitudes with black wranglers
+Wifi turned up high the spaceship
+Looking out the window, taking baboon pics
+Space Ghost talking to my watch with his face on my wrist
+Floating to Mars Saturn with the Catwoman DNA on the mattress
+Jockstrap made by Calvin Klein
+Battery light up with alkaline
+See upcoming rap shows
+Get tickets for your favorite artists
+You might also like
+Hollywood Tailswinging
+Dr. Octagon
+Blue Flowers
+Dr. Octagon
+Gnarly
+KATSEYE
+[Chorus]
+Aviator hype
+Headed to the rocket
+Aviator hype
+Headed to the rocket
+
+[Verse 2]
+Optimistic peroxide track uses with chemical iodine
+Looking at the Predator through the helicopter flying over the shrine
+Insulated long john’s seventy below
+Up and cruising with the Kangaroos and wild lions
+On four including house appliances
+The extra circumference
+I got the whole zoo flying in landing at ten
+Helmet on with plenty oxygen
+The liberty legion escorting Octagon in
+Standing on top of the planet with Joey Silvera
+DVDs real dominant
+Automatic luggage floating in gravity with confidence
+Paper signed through the Silver Surfer with documents
+Skeletor pull up in a Benz with the year 8000 rims
+Jenna Jameson watching Power Men change underwear in the gymnasium
+Hydrosonic condoms made outta uranium
+The medicine vault store around to the Dr. Octo and Spiderman
+Made of alloy titanium
+Look at the radar I see Wonder Woman in my radius
+[Chorus]
+Aviator hype
+Headed to the rocket
+Aviator hype
+Headed to the rocket
+
+Aviator hype
+Headed to the rocket
+Aviator hype
+Headed to the rocket
+
+[Verse 3]
+Taking it to the outer limits
+Close encounters of the third kind
+The formatted sequence
+Created by the formula of Donald Lysozyme
+The vertebrates without the [?] brakes
+I pull in the driveway into the novation centre
+With the White Castle milkshake
+Office supplies by Jay Lenard
+Sitting in the rocketship for dinner
+Astronaut enhancer advancer
+Control room with nineteen cameras
+Professor Xavier calling me
+Getting pushed up on Los Angeles
+The sci-fi edition nuclear extended
+Medical examiner extension
+Night flights in a flying saucer
+I'm flying independent
+Step out the cab and recycle
+Plastic Man Hawk Man techs
+Saying everything is above average
+Wolverine taking aspirin
+Sitting on a thrown-out mattress
+Radio must be alerted
+Panels all active
+[Chorus]
+Aviator hype
+Headed to the rocket
+Aviator hype
+Headed to the rocket
+
+Aviator hype
+Headed to the rocket
+Aviator hype
+Headed to the rocket
+
+                `
+            },
+             {
+                title: "Octagon Octagon",
                 lyrics: `
                 PASTE YOUR FOURTH DR. OCTAGON SONG LYRICS HERE
                 COMPLETE SONG LYRICS
