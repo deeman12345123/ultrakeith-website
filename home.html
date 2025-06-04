@@ -181,7 +181,7 @@
         /* Featured Content Grid */
         .featured-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 25px;
             margin: 80px 0;
         }
@@ -203,15 +203,15 @@
         }
         
         .feature-icon {
-            font-size: 3rem;
+            font-size: 4.5rem;
             margin-bottom: 20px;
             color: #ffd700;
             display: inline-block;
             vertical-align: top;
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             text-align: center;
-            line-height: 100px;
+            line-height: 150px;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
         
@@ -228,8 +228,8 @@
         }
         
         .feature-content {
-            margin-left: 115px;
-            margin-top: -100px;
+            margin-left: 165px;
+            margin-top: -150px;
             padding-top: 0;
             display: flex;
             flex-direction: column;
@@ -513,14 +513,6 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            
-            .penthouse-container {
-                padding: 30px 20px;
-            }
-            
-            .penthouse-title {
-                font-size: 2.2rem;
-            }
         }
     </style>
 </head>
@@ -565,9 +557,9 @@
                 <div class="feature-icon">
                     <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/bio.png" 
                          alt="Ultra Keith Bio" 
-                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
                          onload="console.log('Bio image loaded successfully!');"
-                         onerror="console.log('Bio image failed to load'); this.style.display='none';">
+                         onerror="this.parentElement.innerHTML='👤';">
                 </div>
                 <h3 class="feature-title">Bio</h3>
                 <div class="feature-content">
@@ -583,9 +575,9 @@
                 <div class="feature-icon">
                     <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
                          alt="Kool Keith Personas" 
-                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
                          onload="console.log('Personas image loaded successfully!');"
-                         onerror="console.log('Personas image failed to load'); this.style.display='none';">
+                         onerror="this.parentElement.innerHTML='🎭';">
                 </div>
                 <h3 class="feature-title">Personas</h3>
                 <div class="feature-content">
@@ -601,9 +593,9 @@
                 <div class="feature-icon">
                     <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/discog.png" 
                          alt="Kool Keith Discography" 
-                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
                          onload="console.log('Discography image loaded successfully!');"
-                         onerror="console.log('Discography image failed to load'); this.style.display='none';">
+                         onerror="this.parentElement.innerHTML='💿';">
                 </div>
                 <h3 class="feature-title">Discography</h3>
                 <div class="feature-content">
@@ -628,7 +620,13 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🎭</div>
+                <div class="feature-icon">
+                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/vault.png" 
+                         alt="Kool Keith Vault Series" 
+                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                         onload="console.log('Vault image loaded successfully!');"
+                         onerror="this.parentElement.innerHTML='🎭';">
+                </div>
                 <h3 class="feature-title">Vault Series</h3>
                 <div class="feature-content">
                     <p class="feature-description">
@@ -636,6 +634,18 @@
                         available nowhere else. For true collectors only.
                     </p>
                     <a href="#vault" class="feature-button">Explore Vault</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎰</div>
+                <h3 class="feature-title">Willie Biggs Casino</h3>
+                <div class="feature-content">
+                    <p class="feature-description">
+                        Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high 
+                        and the game never stops. Where real players separate from pretenders.
+                    </p>
+                    <a href="players-club.html" class="feature-button">Enter the Casino</a>
                 </div>
             </div>
             
@@ -655,9 +665,9 @@
                 <div class="feature-icon">
                     <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/videos.png" 
                          alt="Kool Keith Videos" 
-                         style="width: 100px; height: 100px; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block; background: rgba(0,0,0,0.1);"
+                         style="width: 150px; height: 150px; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block; background: rgba(0,0,0,0.1);"
                          onload="console.log('Videos image loaded successfully!');"
-                         onerror="console.log('Videos image failed to load'); this.innerHTML='📹';">
+                         onerror="this.parentElement.innerHTML='📹';">
                 </div>
                 <h3 class="feature-title">Videos</h3>
                 <div class="feature-content">
@@ -691,21 +701,6 @@
                     </p>
                     <a href="#shop" class="feature-button">Shop Now</a>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Willie Biggs Casino - Exclusive Access -->
-        <section class="penthouse-section">
-            <div class="penthouse-container">
-                <h2 class="penthouse-title">🎰 Willie Biggs Casino</h2>
-                <p class="penthouse-subtitle">Where Big Time Players Come to Win</p>
-                <p class="penthouse-description">
-                    Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high 
-                    and the game never stops. From massage parlors in every city to diamond-studded 
-                    wrist pieces, this is where real players separate from the small-time pretenders. 
-                    Cash rules everything - Dom P flows, Rolex shines, and only the biggest make it to the table.
-                </p>
-                <a href="players-club.html" class="penthouse-button">Enter the Casino</a>
             </div>
         </section>
     </div>
