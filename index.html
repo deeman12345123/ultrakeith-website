@@ -1,4 +1,147 @@
-<!DOCTYPE html>
+// News Widget Functionality
+        function initNewsWidget() {
+            const container = document.getElementById('news-widget-container');
+            if (!container) return;
+            
+            const SNIPPET_LENGTH = 100;
+            const FALLBACK_DELAY = 3000;
+            
+            function extractFirstImage(htmlContent) {
+                if (!htmlContent) return null;
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlContent;
+                const imgTag = tempDiv.querySelector('img');
+                return imgTag ? imgTag.src : null;
+            }
+            
+            function stripHtmlAndTruncate(htmlContent, maxLength) {
+                if (!htmlContent) return "Latest updates from Keith's universe...";
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlContent;
+                let text = tempDiv.textContent || tempDiv.innerText || "";
+                text = text.replace(/\s+/g, ' ').trim();
+                
+                // Remove any quotes or extra formatting
+                text = text.replace(/^["']|["']$/g, '');
+                
+                if (text.length > maxLength) {
+                    return text.substring(0, maxLength) + "...";
+                }
+                return text || "Latest updates from Keith's universe...";
+            }
+            
+            function formatDate(dateString) {
+                try {
+                    const date = new Date(dateString);
+                    const now = new Date();
+                    const diffTime = Math.abs(now - date);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    
+                    if (diffDays === 1) return 'Yesterday';
+                    if (diffDays < 7) return `${diffDays} days ago`;
+                    if (diffDays < 30) return `${Math.ceil(diffDays/7)} weeks ago`;
+                    
+                    return date.toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+                    });
+                } catch (e) {
+                    return 'Recent';
+                }
+            }
+            
+            function createNewsItem(post) {
+                const imageUrl = extractFirstImage(post.description || post.content);
+                const snippet = stripHtmlAndTruncate(post.description || post.content, SNIPPET_LENGTH);
+                const formattedDate = formatDate(post.pubDate || post.published);
+                
+                // Clean up title to make it more news-like
+                let cleanTitle = post.title;
+                if (cleanTitle.length > 60) {
+                    cleanTitle = cleanTitle.substring(0, 60) + "...";
+                }
+                
+                return `
+                    <div class="news-item">
+                        <div class="news-image-container">
+                            ${imageUrl ? 
+                                `<img src="${imageUrl}" alt="${cleanTitle}" class="news-image-small" onerror="this.parentElement.innerHTML='&lt;div class=&quot;news-placeholder-small&quot;&gt;📰&lt;/div&gt;'">` :
+                                `<div class="news-placeholder-small">📰</div>`
+                            }
+                        </div>
+                        <div class="news-content-small">
+                            <h4 class="news-title-small">
+                                <a href="${post.link}" target="_blank" rel="noopener noreferrer">${cleanTitle}</a>
+                            </h4>
+                            <p class="news-snippet-small">${snippet}</p>
+                            <div class="news-date-small">${formattedDate}</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <a href="https://ultrakeithdotcom.blogspot.com" target="_blank" rel="noopener noreferrer" class="read-all-news-button">
+                            Read All News
+                        </a>
+                    </div>
+                `;
+            }
+            
+            function showFallback() {
+                container.innerHTML = `
+                    <div class="news-fallback">
+                        <div class="news-item">
+                            <div class="news-placeholder-small">📰</div>
+                            <div class="news-content-small">
+                                <h4 class="news-title-small">
+                                    <a href="https://ultrakeithdotcom.blogspot.com" target="_blank" rel="noopener noreferrer">Keith's Universe Updates</a>
+                                </h4>
+                                <p class="news-snippet-small">Stay connected with the latest from Keith's multi-dimensional world. New releases, rare finds, and exclusive content.</p>
+                                <div class="news-date-small">Always Fresh</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <a href="https://ultrakeithdotcom.blogspot.com" target="_blank" rel="noopener noreferrer" class="read-all-news-button">
+                                Read All News
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Try to fetch news with better error handling
+            const feedUrl = "https://ultrakeithdotcom.blogspot.com/feeds/posts/default";
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&api_key=&count=3`;
+            
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        // Get the most recent post
+                        const latestPost = data.items[0];
+                        container.innerHTML = `
+                            <div class="news-widget-box">
+                                ${createNewsItem(latestPost)}
+                            </div>
+                        `;
+                    } else {
+                        showFallback();
+                    }
+                })
+                .catch(error => {
+                    console.log('News feed error:', error);
+                    showFallback();
+                });
+            
+            // Fallback timeout
+            setTimeout(() => {
+                if (container.innerHTML.includes('Loading')) {
+                    showFallback();
+                }
+            }, FALLBACK_DELAY);
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
