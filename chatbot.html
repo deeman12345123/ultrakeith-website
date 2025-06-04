@@ -1,50 +1,4 @@
-// Enhanced character prompts with knowledge integration
-        function buildEnhancedPrompt(character, basePrompt) {
-            let enhancedPrompt = basePrompt;
-            
-            try {
-                switch(character) {
-                    case 'dr-octagon':
-                        if (typeof drOctagonKnowledge !== 'undefined') {
-                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
-VOCABULARY: ${drOctagonKnowledge.vocabulary.medical.concat(drOctagonKnowledge.vocabulary.space, drOctagonKnowledge.vocabulary.abstract).join(', ')}
-THEMES: ${drOctagonKnowledge.themes.join(', ')}
-SPEAKING STYLE: ${drOctagonKnowledge.speakingStyle.tone}
-MEDICAL PRACTICE: ${drOctagonKnowledge.medicalPractice.specialties.join(', ')}
-SPACE ELEMENTS: ${drOctagonKnowledge.spaceElements.planets.concat(drOctagonKnowledge.spaceElements.technology).join(', ')}`;
-                        }
-                        break;
-                        
-                    case 'dr-dooom':
-                        if (typeof drDooomKnowledge !== 'undefined') {
-                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
-VOCABULARY: ${drDooomKnowledge.vocabulary.medical.concat(drDooomKnowledge.vocabulary.superiority, drDooomKnowledge.vocabulary.aggression).join(', ')}
-THEMES: ${drDooomKnowledge.themes.join(', ')}
-SPEAKING STYLE: ${drDooomKnowledge.speakingStyle.tone}
-SUPERIORITY: ${drDooomKnowledge.octagonRivalry.superiority.join(', ')}
-ELIMINATION: ${drDooomKnowledge.octagonRivalry.elimination.join(', ')}`;
-                        }
-                        break;
-                        
-                    case 'kool-keith':
-                        if (typeof koolKeithKnowledge !== 'undefined') {
-                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
-VOCABULARY: ${koolKeithKnowledge.vocabulary.abstract.concat(koolKeithKnowledge.vocabulary.hiphop, koolKeithKnowledge.vocabulary.personal).join(', ')}
-THEMES: ${koolKeithKnowledge.themes.join(', ')}
-SPEAKING STYLE: ${koolKeithKnowledge.speakingStyle.tone}
-CAREER: Started Ultramagnetic MCs in ${koolKeithKnowledge.careerHistory.ultramagnetic.formed}, ${koolKeithKnowledge.careerHistory.soloCareer.albumCount}
-PERSONAS: ${koolKeithKnowledge.personas.created.join(', ')}
-COLLABORATORS: ${koolKeithKnowledge.collaborators.producers.join(', ')}`;
-                        }
-                        break;
-                        
-                    case 'black-elvis':
-                        if (typeof blackElvisKnowledge !== 'undefined') {
-                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
-VOCABULARY: ${blackElvisKnowledge.vocabulary.elvis.concat(blackElvisKnowledge.vocabulary.performance, blackElvisKnowledge.vocabulary.royalty).join(', ')}
-THEMES: ${blackElvisKnowledge.themes.join(', ')}
-SPEAKING STYLE: ${blackElvisKnowledge.speakingStyle.tone}
-ELVIS ELEMENTS: ${black<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -434,9 +388,7 @@ ELVIS ELEMENTS: ${black<!DOCTYPE html>
                 <div class="message bot">
                     <div class="character-name">Kool Keith</div>
                     <div class="message-content">
-                        Yo, what's good? I'm Kool Keith, the original space-age pimp, lyrical master from the Bronx. 
-                        I've been innovating hip-hop since '84 with Ultramagnetic MCs and never stopped pushing boundaries. 
-                        What you wanna talk about? My personas, the old school days, or just freestyle conversation?
+                        Yo, what's good? Keith here - the original abstract innovator from the Bronx. Been pushing hip-hop boundaries since '84 with Ultramagnetic MCs, created Critical Beatdown when nobody understood what we were doing. I got like 20+ personas, 50+ albums, worked with Dan the Automator, Kut Masta Kurt, all the illest producers. From Dr. Octagon to Dr. Dooom to Black Elvis - I'm the master of multiple dimensions. What you wanna discuss?
                     </div>
                 </div>
             </div>
@@ -470,7 +422,7 @@ ELVIS ELEMENTS: ${black<!DOCTYPE html>
 
     <script>
         // ⚠️ REPLACE WITH YOUR ACTUAL API KEY
-        const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY_HERE';
+        const GEMINI_API_KEY = 'AIzaSyB9zU0axhA_e2dhEo0ZIixyHga5Fahqhnk';
         
         // Enhanced character prompts with knowledge integration
         function buildEnhancedPrompt(character, basePrompt) {
@@ -774,11 +726,11 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
         
         function getWelcomeMessage(characterName) {
             const messages = {
-                'Kool Keith': "Yo, what's good? Keith here - the original abstract innovator from the Bronx. Been pushing hip-hop boundaries since '84 with Ultramagnetic MCs, created Critical Beatdown when nobody understood what we were doing. I got like 20+ personas, 50+ albums, worked with Dan the Automator, Kut Masta Kurt, all the illest producers. From Dr. Octagon to Dr. Dooom to Black Elvis - I'm the master of multiple dimensions. What you wanna discuss? My early days with Ultra? The space-age medical procedures? Or just kick some abstract conversation?",
+                'Kool Keith': "Yo, what's good? Keith here - the original abstract innovator from the Bronx. Been pushing hip-hop boundaries since '84 with Ultramagnetic MCs, created Critical Beatdown when nobody understood what we were doing. I got like 20+ personas, 50+ albums, worked with Dan the Automator, Kut Masta Kurt, all the illest producers. From Dr. Octagon to Dr. Dooom to Black Elvis - I'm the master of multiple dimensions. What you wanna discuss?",
                 
-                'Dr. Octagon': "Greetings from Jupiter! Dr. Octagon reporting for medical duty. I'm an extraterrestrial gynecologist and surgeon, practicing advanced alien medicine across multiple galaxies. My spaceship clinic is fully equipped with technology beyond Earth's understanding. I've been treating patients from different planets since my classic album 'Dr. Octagonecologyst' with Dan the Automator in '96. Earth people know my work - blue flowers, surgical procedures, stethoscope examinations. What medical or cosmic consultation do you require today? Need a checkup from Jupiter's finest physician?",
+                'Dr. Octagon': "Greetings from Jupiter! Dr. Octagon reporting for medical duty. I'm an extraterrestrial gynecologist and surgeon, practicing advanced alien medicine across multiple galaxies. My spaceship clinic is fully equipped with technology beyond Earth's understanding. I've been treating patients from different planets since my classic album 'Dr. Octagonecologyst' with Dan the Automator in '96. Earth people know my work - blue flowers, surgical procedures, stethoscope examinations. What medical or cosmic consultation do you require today?",
                 
-                'Dr. Dooom': "Dr. Dooom here - the superior medical practitioner who eliminated that inferior Dr. Octagon. I possess advanced surgical skills and alien technology that surpasses any Earth doctor or space physician. My medical procedures are more precise, more deadly, and more effective. I proved my dominance on 'First Come, First Served' - showed the universe who the real medical authority is. Octagon's outdated techniques couldn't compete with my advanced alien knowledge. What brings you to my operating table? Need to witness true medical superiority in action?",
+                'Dr. Dooom': "Dr. Dooom here - the superior medical practitioner who eliminated that inferior Dr. Octagon. I possess advanced surgical skills and alien technology that surpasses any Earth doctor or space physician. My medical procedures are more precise, more deadly, and more effective. I proved my dominance on 'First Come, First Served' - showed the universe who the real medical authority is. Octagon's outdated techniques couldn't compete with my advanced alien knowledge. What brings you to my operating table?",
                 
                 'Black Elvis': "Thank you, thank you very much! Black Elvis is in the building, baby! I'm taking the King's charisma and mixing it with that innovative Keith wordplay - it's like Graceland meets the underground hip-hop scene. Vegas showmanship with abstract rap skills, rock and roll royalty with street credibility. I got that smooth entertainer style but with the creative genius that's been revolutionizing hip-hop since the beginning. Ready to witness the fusion of two musical worlds? Let's talk about performance, entertainment, and keeping the legacy alive!"
             };
