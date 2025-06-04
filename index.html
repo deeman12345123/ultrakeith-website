@@ -703,12 +703,15 @@
                 return imgTag ? imgTag.src : null;
             }
             
-            function showLatestPost(post) {
+            function createNewsItem(post) {
                 const imageUrl = extractFirstImage(post.description || post.content);
-                const snippet = post.description ? post.description.replace(/<[^>]*>/g, '').substring(0, 150) + '...' : 'Click to read more...';
-                const date = new Date(post.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const snippet = (post.description || post.content || '').replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+                const formattedDate = new Date(post.pubDate || post.published).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
                 
-                container.innerHTML = `
+                return `
                     <div class="news-item">
                         ${imageUrl ? 
                             `<img src="${imageUrl}" alt="${post.title}" class="news-image-small">` :
@@ -719,7 +722,7 @@
                                 <a href="${post.link}">${post.title}</a>
                             </h4>
                             <p class="news-snippet-small">${snippet}</p>
-                            <div class="news-date-small">${date}</div>
+                            <div class="news-date-small">${formattedDate}</div>
                         </div>
                     </div>
                     <div style="text-align: center; margin-top: 15px;">
@@ -750,53 +753,22 @@
                 `;
             }
             
-            // Try direct blogger feed first, then RSS2JSON as backup
-            function tryDirectFeed() {
-                return fetch('https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=json')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.feed && data.feed.entry && data.feed.entry.length > 0) {
-                            const entry = data.feed.entry[0];
-                            const post = {
-                                title: entry.title.$t,
-                                link: entry.link.find(link => link.rel === 'alternate').href,
-                                description: entry.content ? entry.content.$t : entry.summary.$t,
-                                pubDate: entry.published.$t
-                            };
-                            showLatestPost(post);
-                            return true;
-                        }
-                        return false;
-                    })
-                    .catch(() => false);
-            }
+            // Simple RSS2JSON fetch - back to basics
+            const feedUrl = "https://ultrakeithdotcom.blogspot.com/feeds/posts/default";
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
             
-            function tryRSS2JSON() {
-                const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://ultrakeithdotcom.blogspot.com/feeds/posts/default');
-                return fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'ok' && data.items && data.items.length > 0) {
-                            showLatestPost(data.items[0]);
-                            return true;
-                        }
-                        return false;
-                    })
-                    .catch(() => false);
-            }
-            
-            // Try direct feed first, then RSS2JSON, then fallback
-            tryDirectFeed()
-                .then(success => {
-                    if (!success) {
-                        return tryRSS2JSON();
-                    }
-                    return true;
-                })
-                .then(success => {
-                    if (!success) {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        container.innerHTML = createNewsItem(data.items[0]);
+                    } else {
                         showFallback();
                     }
+                })
+                .catch(error => {
+                    console.log('RSS error:', error);
+                    showFallback();
                 });
             
             // Fallback timeout
@@ -804,7 +776,7 @@
                 if (container.innerHTML.includes('Loading')) {
                     showFallback();
                 }
-            }, 3000);
+            }, 5000);
         }
         
         // Smooth scrolling for navigation links
