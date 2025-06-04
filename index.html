@@ -679,17 +679,6 @@
             }
         }
         
-        // Initialize particles when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            initNewsWidget();
-        });
-        
-        // News Widget Functionality
-        function initNewsWidget() {
-            const container = document.getElementById('news-widget-container');
-            if (!container) return;
-            
         // News Widget Functionality
         function initNewsWidget() {
             const container = document.getElementById('news-widget-container');
@@ -753,7 +742,7 @@
                 `;
             }
             
-            // Simple RSS2JSON fetch - back to basics
+            // Simple RSS2JSON fetch
             const feedUrl = "https://ultrakeithdotcom.blogspot.com/feeds/posts/default";
             const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
             
@@ -778,6 +767,12 @@
                 }
             }, 5000);
         }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initNewsWidget();
+        });
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
