@@ -152,6 +152,68 @@
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
         }
         
+        /* Bio and Personas Images Section */
+        .featured-images-section {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .featured-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(255, 215, 0, 0.4);
+            transition: all 0.4s ease;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 10, 0, 0.6));
+            padding: 5px;
+        }
+        
+        .featured-image-container:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.7);
+            border-color: #ffd700;
+        }
+        
+        .featured-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            display: block;
+            transition: all 0.3s ease;
+            filter: brightness(1.1) contrast(1.1);
+        }
+        
+        .featured-image:hover {
+            filter: brightness(1.2) contrast(1.2);
+        }
+        
+        .image-label {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            color: #ffd700;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
         .hero-title {
             font-family: 'Orbitron', monospace;
             font-size: 3.5rem;
@@ -560,6 +622,19 @@
                 font-size: 2.5rem;
             }
             
+            .featured-images-section {
+                gap: 40px;
+            }
+            
+            .featured-image-container {
+                margin-bottom: 40px;
+            }
+            
+            .featured-image {
+                width: 150px;
+                height: 150px;
+            }
+            
             .featured-content {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -616,48 +691,31 @@
                 Enter the multi-dimensional universe of hip-hop's most legendary innovator.<br>
                 From Ultramagnetic MCs to Dr. Octagon, 30+ years of personas and pure creativity.
             </p>
+            
+            <!-- Featured Bio and Personas Images -->
+            <div class="featured-images-section">
+                <div class="featured-image-container">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhbjp3v3JuUmHqX8qNTcvVx2Jr45JWrHzlU7e0pdYrQ51EyFhAGhji59iVNJ1dj_Ujbv4aN1Rlm9aF7Tm7NEs1FIzIs1vaoSfgT8MtQUBE7DBh0fvJ-ZUtbVX4w3oxVH6lJSjS5R3nOHmFZj4rsa4p6k9rmnu7jsi-m8IP1EnXMargGL54E6eKLlRnMyQdo/s398/bio.png" 
+                         alt="Ultra Keith Bio" 
+                         class="featured-image">
+                    <div class="image-label">Bio</div>
+                </div>
+                
+                <div class="featured-image-container">
+                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
+                         alt="Kool Keith Personas" 
+                         class="featured-image"
+                         onload="console.log('Personas image loaded successfully!');"
+                         onerror="console.log('Personas image failed to load'); this.style.display='none'; this.nextElementSibling.style.display='none';">
+                    <div class="image-label">Personas</div>
+                </div>
+            </div>
         </section>
         
         <!-- Featured Content -->
         <section class="featured-content" id="features">
             <div class="feature-card">
-                <div class="feature-icon">
-                    <div class="bio-image-container">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhbjp3v3JuUmHqX8qNTcvVx2Jr45JWrHzlU7e0pdYrQ51EyFhAGhji59iVNJ1dj_Ujbv4aN1Rlm9aF7Tm7NEs1FIzIs1vaoSfgT8MtQUBE7DBh0fvJ-ZUtbVX4w3oxVH6lJSjS5R3nOHmFZj4rsa4p6k9rmnu7jsi-m8IP1EnXMargGL54E6eKLlRnMyQdo/s398/bio.png" 
-                             alt="Ultra Keith Bio" 
-                             class="bio-image">
-                    </div>
-                </div>
-                <h3 class="feature-title">Bio</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        The legendary journey from Ultramagnetic MCs to Dr. Octagon. 
-                        30+ years of innovation, personas, and pure hip-hop evolution.
-                    </p>
-                    <a href="#bio" class="feature-button">Read Story</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
-                         alt="Kool Keith Personas" 
-                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                         onload="console.log('Personas image loaded successfully!');"
-                         onerror="console.log('Personas image failed to load'); this.style.display='none'; this.parentElement.innerHTML='🎭';">
-                </div>
-                <h3 class="feature-title">Personas</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
-                        of Keith's creative universe with unique stories and sounds.
-                    </p>
-                    <a href="#personas" class="feature-button">Meet the Characters</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🃏</div>
+                <div class="feature-icon">🎵</div>
                 <h3 class="feature-title">Discography</h3>
                 <div class="feature-content">
                     <p class="feature-description">
@@ -679,7 +737,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🎵</div>
+                <div class="feature-icon">🎭</div>
                 <h3 class="feature-title">Vault Series</h3>
                 <div class="feature-content">
                     <p class="feature-description">
