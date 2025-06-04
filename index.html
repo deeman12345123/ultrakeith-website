@@ -690,13 +690,30 @@
             const container = document.getElementById('news-widget-container');
             if (!container) return;
             
+        // News Widget Functionality
+        function initNewsWidget() {
+            const container = document.getElementById('news-widget-container');
+            if (!container) return;
+            
+            function extractFirstImage(htmlContent) {
+                if (!htmlContent) return null;
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlContent;
+                const imgTag = tempDiv.querySelector('img');
+                return imgTag ? imgTag.src : null;
+            }
+            
             function showLatestPost(post) {
-                const snippet = post.description ? post.description.replace(/<[^>]*>/g, '').substring(0, 80) + '...' : 'Click to read more...';
+                const imageUrl = extractFirstImage(post.description || post.content);
+                const snippet = post.description ? post.description.replace(/<[^>]*>/g, '').substring(0, 150) + '...' : 'Click to read more...';
                 const date = new Date(post.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                 
                 container.innerHTML = `
                     <div class="news-item">
-                        <div class="news-placeholder-small">📰</div>
+                        ${imageUrl ? 
+                            `<img src="${imageUrl}" alt="${post.title}" class="news-image-small">` :
+                            `<div class="news-placeholder-small">📰</div>`
+                        }
                         <div class="news-content-small">
                             <h4 class="news-title-small">
                                 <a href="${post.link}" target="_blank">${post.title}</a>
