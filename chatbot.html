@@ -203,22 +203,23 @@ let currentCharacter = 'kool-keith';
         }
         
         .character-name {
-            font-size: 0.8rem;
+            font-size: 1rem;
             color: #ffd700;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
         
         .character-avatar {
-            width: 32px;
-            height: 32px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
             object-fit: cover;
+            flex-shrink: 0;
         }
         
         /* Chat Input */
@@ -875,18 +876,23 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
         }
         
         function addMessage(type, content, characterName = '') {
+            console.log('Adding message:', type, characterName, 'Current character:', currentCharacter);
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
             
             let html = '';
             if (type === 'bot' && characterName) {
                 const avatarUrl = characterAvatars[currentCharacter];
+                console.log('Avatar URL for', currentCharacter, ':', avatarUrl);
+                
                 html += `<div class="character-name">`;
                 
                 // Add avatar if available
                 if (avatarUrl) {
                     html += `<img src="${avatarUrl}" alt="${characterName}" class="character-avatar" 
-                             onerror="this.style.display='none';">`;
+                             onload="console.log('Avatar loaded successfully for ${characterName}');"
+                             onerror="console.log('Avatar failed to load for ${characterName}'); this.style.display='none';">`;
                 }
                 
                 html += `<span>${characterName}</span></div>`;
