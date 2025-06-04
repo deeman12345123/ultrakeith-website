@@ -716,14 +716,14 @@
                         }
                         <div class="news-content-small">
                             <h4 class="news-title-small">
-                                <a href="${post.link}" target="_blank">${post.title}</a>
+                                <a href="${post.link}">${post.title}</a>
                             </h4>
                             <p class="news-snippet-small">${snippet}</p>
                             <div class="news-date-small">${date}</div>
                         </div>
                     </div>
                     <div style="text-align: center; margin-top: 15px;">
-                        <a href="https://ultrakeithdotcom.blogspot.com" target="_blank" class="read-all-news-button">
+                        <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button">
                             Read All News
                         </a>
                     </div>
@@ -736,50 +736,75 @@
                         <div class="news-placeholder-small">📰</div>
                         <div class="news-content-small">
                             <h4 class="news-title-small">
-                                <a href="https://ultrakeithdotcom.blogspot.com" target="_blank">Keith's Universe Updates</a>
+                                <a href="https://ultrakeithdotcom.blogspot.com">Keith's Universe Updates</a>
                             </h4>
                             <p class="news-snippet-small">Stay connected with the latest from Keith's world. New releases and exclusive content.</p>
                             <div class="news-date-small">Always Fresh</div>
                         </div>
                     </div>
                     <div style="text-align: center; margin-top: 15px;">
-                        <a href="https://ultrakeithdotcom.blogspot.com" target="_blank" class="read-all-news-button">
+                        <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button">
                             Read All News
                         </a>
                     </div>
                 `;
             }
             
-            // Fetch latest blog post
-            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://ultrakeithdotcom.blogspot.com/feeds/posts/default');
+            // Try direct blogger feed first, then RSS2JSON as backup
+            function tryDirectFeed() {
+                return fetch('https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.feed && data.feed.entry && data.feed.entry.length > 0) {
+                            const entry = data.feed.entry[0];
+                            const post = {
+                                title: entry.title.$t,
+                                link: entry.link.find(link => link.rel === 'alternate').href,
+                                description: entry.content ? entry.content.$t : entry.summary.$t,
+                                pubDate: entry.published.$t
+                            };
+                            showLatestPost(post);
+                            return true;
+                        }
+                        return false;
+                    })
+                    .catch(() => false);
+            }
             
-            fetch(apiUrl)
-                .then(response => {
-                    console.log('RSS response status:', response.status);
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
+            function tryRSS2JSON() {
+                const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://ultrakeithdotcom.blogspot.com/feeds/posts/default');
+                return fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'ok' && data.items && data.items.length > 0) {
+                            showLatestPost(data.items[0]);
+                            return true;
+                        }
+                        return false;
+                    })
+                    .catch(() => false);
+            }
+            
+            // Try direct feed first, then RSS2JSON, then fallback
+            tryDirectFeed()
+                .then(success => {
+                    if (!success) {
+                        return tryRSS2JSON();
+                    }
+                    return true;
                 })
-                .then(data => {
-                    console.log('RSS data:', data);
-                    if (data.status === 'ok' && data.items && data.items.length > 0) {
-                        showLatestPost(data.items[0]);
-                    } else {
-                        console.log('No valid RSS data');
+                .then(success => {
+                    if (!success) {
                         showFallback();
                     }
-                })
-                .catch(error => {
-                    console.log('News feed error:', error);
-                    showFallback();
                 });
             
-            // Fallback timeout - show fallback faster
+            // Fallback timeout
             setTimeout(() => {
                 if (container.innerHTML.includes('Loading')) {
-                    console.log('Timeout reached, showing fallback');
                     showFallback();
                 }
-            }, 2000);
+            }, 3000);
         }
         
         // Smooth scrolling for navigation links
