@@ -751,14 +751,20 @@
             }
             
             // Fetch latest blog post
-            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default';
+            const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('https://ultrakeithdotcom.blogspot.com/feeds/posts/default');
             
             fetch(apiUrl)
-                .then(response => response.json())
+                .then(response => {
+                    console.log('RSS response status:', response.status);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
                 .then(data => {
+                    console.log('RSS data:', data);
                     if (data.status === 'ok' && data.items && data.items.length > 0) {
                         showLatestPost(data.items[0]);
                     } else {
+                        console.log('No valid RSS data');
                         showFallback();
                     }
                 })
@@ -767,12 +773,13 @@
                     showFallback();
                 });
             
-            // Fallback timeout
+            // Fallback timeout - show fallback faster
             setTimeout(() => {
                 if (container.innerHTML.includes('Loading')) {
+                    console.log('Timeout reached, showing fallback');
                     showFallback();
                 }
-            }, 5000);
+            }, 2000);
         }
         
         // Smooth scrolling for navigation links
