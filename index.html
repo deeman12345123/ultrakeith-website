@@ -21,7 +21,7 @@
                 radial-gradient(circle at 40% 40%, #2a0000 0%, transparent 70%),
                 linear-gradient(135deg, #000000 0%, #1a0000 25%, #0a0a0a 50%, #2a0000 75%, #000000 100%);
             color: #ffffff;
-            overflow: hidden;
+            overflow: auto;
             height: 100vh;
             position: relative;
         }
@@ -206,6 +206,40 @@
             font-weight: 300;
         }
         
+        /* Loading Animation */
+        .loading-container {
+            margin-bottom: 60px;
+        }
+        
+        .loading-bar {
+            width: 400px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto 20px;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: loadingProgress 3s ease-in-out infinite, gradientMove 2s linear infinite;
+            width: 75%;
+        }
+        
+        @keyframes loadingProgress {
+            0%, 100% { width: 60%; }
+            50% { width: 90%; }
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
         .loading-text {
             font-family: 'Orbitron', monospace;
             font-size: 1rem;
@@ -237,6 +271,10 @@
                 padding: 0 20px;
             }
             
+            .loading-bar {
+                width: 300px;
+            }
+            
             .loading-container {
                 margin-bottom: 60px;
             }
@@ -258,6 +296,10 @@
             
             .description {
                 font-size: 1rem;
+            }
+            
+            .loading-bar {
+                width: 250px;
             }
             
             .loading-container {
@@ -296,6 +338,9 @@
         
         <!-- Loading Animation -->
         <div class="loading-container">
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
             <div class="loading-text">INITIALIZING LEGENDARY STATUS...</div>
         </div>
         
