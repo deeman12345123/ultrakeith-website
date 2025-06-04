@@ -418,7 +418,7 @@
 
     <script>
         // ⚠️ REPLACE WITH YOUR ACTUAL API KEY
-        const GEMINI_API_KEY = 'AIzaSyB9zU0axhA_e2dhEo0ZIixyHga5Fahqhnk';
+        const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY_HERE';
         
         // Character personas and system prompts
         const characters = {
@@ -489,6 +489,8 @@ Respond as Black Elvis would - charismatic and smooth, references to performing 
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, initializing chatbot...');
+            
             // Check for API key
             if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') {
                 showStatus('Please add your Gemini API key to start chatting!', 'error');
@@ -497,30 +499,52 @@ Respond as Black Elvis would - charismatic and smooth, references to performing 
                 return;
             }
             
+            console.log('API key found, setting up event listeners...');
+            
             // Character selection
             characterBtns.forEach(btn => {
-                btn.addEventListener('click', () => switchCharacter(btn.dataset.character));
+                console.log('Adding click listener to:', btn.dataset.character);
+                btn.addEventListener('click', function() {
+                    console.log('Character button clicked:', this.dataset.character);
+                    switchCharacter(this.dataset.character);
+                });
             });
             
             // Send message
-            sendBtn.addEventListener('click', sendMessage);
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
+            if (sendBtn) {
+                sendBtn.addEventListener('click', function() {
+                    console.log('Send button clicked');
                     sendMessage();
-                }
-            });
+                });
+            }
+            
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        console.log('Enter key pressed');
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
             
             // Initialize conversation
             resetConversation();
+            console.log('Chatbot initialized successfully');
         });
         
         function switchCharacter(character) {
+            console.log('Switching to character:', character);
             currentCharacter = character;
             
             // Update UI
             characterBtns.forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.character === character);
+                if (btn.dataset.character === character) {
+                    btn.classList.add('active');
+                    console.log('Activated button:', character);
+                } else {
+                    btn.classList.remove('active');
+                }
             });
             
             chatInput.placeholder = `Type your message to ${characters[character].name}...`;
@@ -550,8 +574,19 @@ Respond as Black Elvis would - charismatic and smooth, references to performing 
         }
         
         async function sendMessage() {
+            console.log('sendMessage called');
             const message = chatInput.value.trim();
-            if (!message || sendBtn.disabled) return;
+            console.log('Message:', message);
+            
+            if (!message) {
+                console.log('No message to send');
+                return;
+            }
+            
+            if (sendBtn.disabled) {
+                console.log('Send button is disabled');
+                return;
+            }
             
             // Add user message
             addMessage('user', message);
@@ -562,9 +597,11 @@ Respond as Black Elvis would - charismatic and smooth, references to performing 
             sendBtn.disabled = true;
             
             try {
+                console.log('Calling Gemini API...');
                 const response = await callGeminiAPI(message);
                 hideTyping();
                 addMessage('bot', response, characters[currentCharacter].name);
+                console.log('Response received:', response);
             } catch (error) {
                 hideTyping();
                 console.error('API Error:', error);
