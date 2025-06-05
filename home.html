@@ -109,13 +109,16 @@
         .nav-menu a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            font-weight: 500;
+            font-family: 'Orbitron', monospace;
+            font-weight: 400;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
             position: relative;
         }
         
         .nav-menu a:hover {
             color: var(--gold-primary);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
         .nav-menu a::after {
@@ -472,11 +475,10 @@
         <div class="nav-container">
             <a href="#" class="nav-logo">ULTRA KEITH</a>
             <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
+                <li><a href="#music">Music</a></li>
                 <li><a href="#personas">Personas</a></li>
-                <li><a href="#discography">Discography</a></li>
-                <li><a href="#vault">Vault Series</a></li>
-                <li><a href="#blog">Blog</a></li>
+                <li><a href="#tour">Tour</a></li>
+                <li><a href="#shop">Shop</a></li>
             </ul>
             <button class="mobile-menu-btn">☰</button>
         </div>
@@ -491,7 +493,7 @@
                      class="hero-logo">
             </div>
             
-            <h1 class="hero-title">ULTRA KEITH</h1>
+            <h1 class="hero-title">OFFICIAL MUSIC UNIVERSE</h1>
             <p class="hero-subtitle">
                 Enter the multi-dimensional universe of hip-hop's most legendary innovator.<br>
                 From Ultramagnetic MCs to Dr. Octagon, 30+ years of personas and pure creativity.
@@ -549,14 +551,14 @@
                              onload="console.log('Discography image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='💿';">
                     </div>
-                    <h3 class="feature-title">Discography</h3>
+                    <h3 class="feature-title">Music</h3>
                 </div>
                 <div class="card-content">
                     <p class="feature-description">
                         Keith's winning hand - 50+ albums spanning decades of innovation 
                         from Critical Beatdown to modern classics.
                     </p>
-                    <a href="#discography" class="feature-button">Browse Albums</a>
+                    <a href="#music" class="feature-button">Browse Albums</a>
                 </div>
             </div>
             
@@ -654,7 +656,7 @@
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">🎤</div>
-                    <h3 class="feature-title">Tour/Shows</h3>
+                    <h3 class="feature-title">Tour</h3>
                 </div>
                 <div class="card-content">
                     <p class="feature-description">
