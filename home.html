@@ -190,12 +190,11 @@
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
             border: 1px solid rgba(255, 215, 0, 0.4);
             border-radius: 20px;
-            padding: 30px 30px 20px 30px;
+            padding: 30px 30px 15px 30px;
             text-align: left;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            height: 260px;
-            position: relative;
+            min-height: 260px;
         }
         
         .feature-card:hover {
@@ -233,13 +232,10 @@
             margin-left: 165px;
             margin-top: -150px;
             padding-top: 0;
+            min-height: 135px;
             display: flex;
             flex-direction: column;
-            position: absolute;
-            right: 30px;
-            bottom: 20px;
-            left: 195px;
-            top: 50px;
+            justify-content: space-between;
         }
         
         .feature-description {
