@@ -90,6 +90,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 var(--spacing-medium);
+            position: relative;
         }
         
         .nav-logo {
@@ -98,6 +99,23 @@
             font-weight: 900;
             color: var(--gold-primary);
             text-decoration: none;
+            /* Prepared for mini diamond logo */
+            display: flex;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            /* Remove when mini diamond ready: */
+            justify-content: center;
+            border: 2px solid var(--gold-primary);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
         
         .nav-menu {
@@ -141,8 +159,14 @@
             background: none;
             border: none;
             color: var(--gold-primary);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
         /* ===================
@@ -473,14 +497,18 @@
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
-            <a href="#" class="nav-logo">ULTRA KEITH</a>
-            <ul class="nav-menu">
+            <a href="#" class="nav-logo">
+                <!-- Prepared for mini diamond logo -->
+                <!-- <img src="mini-diamond-logo.png" alt="Kool Keith"> -->
+                KK
+            </a>
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#music">Music</a></li>
                 <li><a href="#personas">Personas</a></li>
                 <li><a href="#tour">Tour</a></li>
                 <li><a href="#shop">Shop</a></li>
             </ul>
-            <button class="mobile-menu-btn">☰</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
     </nav>
     
@@ -821,9 +849,27 @@
         });
         
         // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navMenu = document.querySelector('.nav-menu');
-            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking menu items
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                const navMenu = document.getElementById('navMenu');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            
+            if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
         });
         
         // Add scroll effect to navigation
