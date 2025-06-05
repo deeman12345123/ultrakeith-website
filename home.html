@@ -849,28 +849,33 @@
         });
         
         // Mobile menu toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
-        });
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
         
-        // Close mobile menu when clicking menu items
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                const navMenu = document.getElementById('navMenu');
-                navMenu.classList.remove('active');
+        if (mobileMenuBtn && navMenu) {
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                navMenu.classList.toggle('active');
+                console.log('Menu toggled, active:', navMenu.classList.contains('active'));
             });
-        });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const navMenu = document.getElementById('navMenu');
-            const mobileBtn = document.getElementById('mobileMenuBtn');
             
-            if (!navMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
-                navMenu.classList.remove('active');
-            }
-        });
+            // Close mobile menu when clicking menu items
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        } else {
+            console.error('Mobile menu elements not found');
+        }
         
         // Add scroll effect to navigation
         window.addEventListener('scroll', function() {
