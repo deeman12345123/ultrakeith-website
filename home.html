@@ -124,6 +124,23 @@
             gap: var(--spacing-large);
         }
         
+        /* Desktop menu - hidden on mobile */
+        @media (min-width: 769px) {
+            .nav-menu {
+                display: flex !important;
+                position: static !important;
+                background: none !important;
+                flex-direction: row !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+                max-height: none !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+        
         .nav-menu a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
@@ -486,6 +503,54 @@
             .footer-links {
                 flex-direction: column;
                 gap: var(--spacing-small);
+            }
+        }
+        
+        /* MOBILE MENU - FINAL OVERRIDE - Must be last! */
+        @media screen and (max-width: 768px) {
+            body .navigation .nav-container .nav-menu {
+                position: absolute !important;
+                top: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: rgba(0, 0, 0, 0.98) !important;
+                backdrop-filter: blur(15px) !important;
+                border-top: 1px solid rgba(255, 215, 0, 0.3) !important;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.3) !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                padding: 20px !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+                z-index: 1000 !important;
+                display: flex !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transform: translateY(-20px) !important;
+                transition: all 0.3s ease !important;
+                max-height: 0 !important;
+                overflow: hidden !important;
+            }
+            
+            body .navigation .nav-container .nav-menu.show {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) !important;
+                max-height: 400px !important;
+                overflow: visible !important;
+            }
+            
+            body .navigation .nav-container .nav-menu li {
+                margin: 15px 0 !important;
+                text-align: center !important;
+            }
+            
+            body .navigation .nav-container .nav-menu a {
+                display: block !important;
+                padding: 15px 20px !important;
+                font-size: 1.1rem !important;
+                border-radius: 10px !important;
+                transition: all 0.3s ease !important;
+                width: 100% !important;
             }
         }
     </style>
