@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+let currentCharacter = 'kool-keith';
+        let conversationHistory = [];<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Keith - Legendary Hip-Hop Universe</title>
+    <title>Ultra Keith AI Chat - Talk to the Legends</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&family=Playfair+Display:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
         * {
             margin: 0;
@@ -20,36 +21,8 @@
                 radial-gradient(circle at 80% 20%, #0a0a0a 0%, transparent 50%),
                 linear-gradient(135deg, #000000 0%, #1a0000 25%, #0a0a0a 50%, #2a0000 75%, #000000 100%);
             color: #ffffff;
-            overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-        }
-        
-        /* Animated Background */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ffd700;
-            animation: float 8s infinite linear;
-            opacity: 0.7;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
         
         /* Navigation */
@@ -93,68 +66,30 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            position: relative;
         }
         
         .nav-menu a:hover {
             color: #ffd700;
         }
         
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ffd700;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: #ffd700;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
         /* Main Container */
         .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 100px 20px 40px;
+            position: relative;
+            z-index: 10;
         }
         
-        /* Hero Section */
-        .hero-section {
+        /* Header */
+        .chat-header {
             text-align: center;
-            margin-bottom: 80px;
-            padding: 60px 20px;
-        }
-        
-        .hero-logo-container {
             margin-bottom: 40px;
         }
         
-        .hero-logo {
-            max-width: 100%;
-            height: auto;
-            max-height: 200px;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
-        }
-        
-        .hero-title {
+        .chat-title {
             font-family: 'Orbitron', monospace;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
             background-size: 200% 200%;
@@ -162,8 +97,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: gradientShift 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         @keyframes gradientShift {
@@ -171,729 +105,822 @@
             50% { background-position: 100% 50%; }
         }
         
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-        
-        /* Featured Content Grid */
-        .featured-content {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin: 80px 0;
-        }
-        
-        .feature-card {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: left;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        
-        .feature-card:hover {
-            border-color: rgba(255, 215, 0, 0.8);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .feature-icon {
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            color: #ffd700;
-            display: inline-block;
-            vertical-align: top;
-            width: 150px;
-            height: 150px;
-            text-align: center;
-            line-height: 150px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-        }
-        
-        .feature-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.0rem;
-            color: #ffd700;
-            margin-bottom: 15px;
-            margin-left: 15px;
-            display: inline-block;
-            vertical-align: top;
-            line-height: 1.2;
-            margin-top: 0;
-        }
-        
-        .feature-content {
-            margin-left: 165px;
-            margin-top: -150px;
-            padding-top: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 120px;
-        }
-        
-        .feature-description {
+        .chat-subtitle {
             color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            margin-bottom: auto;
-            flex: 1;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
         }
         
-        .feature-button {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+        /* Character Selection */
+        .character-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .character-btn {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 2px solid rgba(255, 215, 0, 0.4);
             color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            align-self: flex-start;
-            margin-top: 10px;
+            font-family: 'Orbitron', monospace;
         }
         
-        .feature-button:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
+        .character-btn:hover {
             border-color: #ffd700;
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
         
-        /* News Widget Styles */
-        .news-widget-box {
-            background: transparent;
-            border: none;
-            padding: 0;
-            margin-top: 15px;
+        .character-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
         
-        .news-item {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-        
-        .news-image-small {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            object-fit: cover;
-            flex-shrink: 0;
+        /* Chat Container */
+        .chat-container {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
             border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .news-placeholder-small {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 215, 0, 0.6);
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .news-content-small {
-            flex: 1;
-            min-width: 0;
-        }
-        
-        .news-title-small {
-            font-size: 0.9rem;
-            font-weight: 600;
-            line-height: 1.3;
-            margin-bottom: 5px;
-        }
-        
-        .news-title-small a {
-            color: #ffd700;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .news-title-small a:hover {
-            color: #ffed4e;
-        }
-        
-        .news-snippet-small {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
             overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
         }
         
-        .news-date-small {
-            font-size: 0.75rem;
-            color: rgba(255, 215, 0, 0.6);
-            margin-bottom: 5px;
-        }
-        
-        .news-loading {
-            text-align: center;
-            color: rgba(255, 215, 0, 0.7);
-            font-style: italic;
+        /* Chat Messages */
+        .chat-messages {
+            height: 400px;
             padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
         }
         
-        .news-fallback {
-            text-align: center;
-            padding: 15px;
+        .message {
+            margin-bottom: 20px;
+            animation: messageAppear 0.5s ease-out;
         }
         
-        .news-fallback p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .read-all-news-button {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            padding: 6px 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .read-all-news-button:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
-            transform: scale(1.05);
-        }
-            font-size: 0.75rem;
-        }
-        
-        @keyframes fadeIn {
+        @keyframes messageAppear {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Willie Biggs Casino Section */
-        .penthouse-section {
-            margin: 80px 0 40px;
-            padding: 0 20px;
+        .message.user {
+            text-align: right;
         }
         
-        .penthouse-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 10, 0, 0.8));
-            border: 3px solid rgba(255, 215, 0, 0.6);
+        .message.bot {
+            text-align: left;
+        }
+        
+        .message-content {
+            display: inline-block;
+            max-width: 80%;
+            padding: 15px 20px;
             border-radius: 20px;
-            padding: 50px 40px;
-            text-align: center;
-            backdrop-filter: blur(20px);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.8),
-                inset 0 2px 4px rgba(255, 215, 0, 0.3),
-                0 0 100px rgba(255, 215, 0, 0.1);
+            line-height: 1.5;
         }
         
-        .penthouse-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+        .message.user .message-content {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #000;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.bot .message-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            color: #fff;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .character-name {
+            font-size: 1rem;
             color: #ffd700;
-            margin-bottom: 15px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #daa520);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: goldShimmer 4s ease-in-out infinite;
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         
-        @keyframes goldShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .character-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+            object-fit: cover;
+            flex-shrink: 0;
         }
         
-        .penthouse-subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-style: italic;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
+        /* Chat Input */
+        .chat-input-container {
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
         
-        .penthouse-description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.7;
-            margin-bottom: 35px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .chat-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
         }
         
-        .penthouse-button {
+        .chat-input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .send-btn {
             background: linear-gradient(45deg, #ffd700, #ffed4e);
             color: #000;
             border: none;
-            padding: 18px 45px;
-            border-radius: 30px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.2rem;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            min-width: 80px;
         }
         
-        .penthouse-button:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.5);
-            background: linear-gradient(45deg, #ffed4e, #ffd700);
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.4);
         }
         
-        /* Footer */
-        .footer {
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 60px;
+        .send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
         
-        .footer-links {
+        /* Loading Animation */
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: rgba(255, 215, 0, 0.7);
+            font-style: italic;
+            padding: 10px 20px;
+        }
+        
+        .typing-dots {
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            gap: 3px;
         }
         
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
         }
         
-        .footer-links a:hover {
-            color: #ffd700;
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
         }
         
-        .footer-copyright {
-            color: rgba(255, 255, 255, 0.5);
+        /* Status Messages */
+        .status-message {
+            text-align: center;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
             font-size: 0.9rem;
+        }
+        
+        .status-error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+        }
+        
+        .status-info {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #ffd700;
         }
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+            .chat-title {
+                font-size: 2rem;
             }
             
-            .mobile-menu-btn {
-                display: block;
+            .character-selection {
+                gap: 10px;
             }
             
-            .hero-title {
-                font-size: 2.5rem;
+            .character-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
             
-            .featured-content {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .chat-messages {
+                height: 350px;
             }
             
-            /* Mobile Card Layout - Centered */
-            .feature-card {
-                text-align: center;
+            .message-content {
+                max-width: 90%;
             }
             
-            .feature-icon {
-                display: block;
-                margin: 0 auto 20px auto;
-                width: 150px;
-                height: 150px;
-            }
-            
-            .feature-title {
-                display: block;
-                margin: 0 0 15px 0;
-                text-align: center;
-            }
-            
-            .feature-content {
-                margin-left: 0;
-                margin-top: 0;
-                text-align: left;
-                align-items: center;
-            }
-            
-            .feature-button {
-                align-self: center;
-            }
-            
-            .news-content-small {
-                text-align: left;
-            }
-            
-            .footer-links {
+            .chat-input-container {
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
+            }
+            
+            .chat-input {
+                width: 100%;
+            }
+            
+            .send-btn {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background Particles -->
-    <div class="particles" id="particles"></div>
-    
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
-            <a href="#" class="nav-logo">ULTRA KEITH</a>
+            <a href="index.html" class="nav-logo">ULTRA KEITH</a>
             <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#personas">Personas</a></li>
-                <li><a href="#discography">Discography</a></li>
-                <li><a href="#vault">Vault Series</a></li>
-                <li><a href="#blog">Blog</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#chat">AI Chat</a></li>
+                <li><a href="index.html#personas">Personas</a></li>
+                <li><a href="index.html#discography">Discography</a></li>
             </ul>
-            <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
-    
+
     <div class="container">
-        <!-- Hero Section -->
-        <section class="hero-section" id="home">
-            <div class="hero-logo-container">
-                <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kkb2.png?raw=true" 
-                     alt="Kool Keith Diamond Logo Banner" 
-                     class="hero-logo">
-            </div>
-            
-            <h1 class="hero-title">ULTRA KEITH</h1>
-            <p class="hero-subtitle">
-                Enter the multi-dimensional universe of hip-hop's most legendary innovator.<br>
-                From Ultramagnetic MCs to Dr. Octagon, 30+ years of personas and pure creativity.
+        <!-- Header -->
+        <div class="chat-header">
+            <h1 class="chat-title">AI CHAT UNIVERSE</h1>
+            <p class="chat-subtitle">
+                Talk directly with Keith's legendary personas. Each character has their own personality, 
+                knowledge, and style. Choose your conversation partner below.
             </p>
-        </section>
-        
-        <!-- Featured Content -->
-        <section class="featured-content" id="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/bio.png" 
-                         alt="Ultra Keith Bio" 
-                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                         onload="console.log('Bio image loaded successfully!');"
-                         onerror="this.parentElement.innerHTML='👤';">
-                </div>
-                <h3 class="feature-title">Bio</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        The legendary journey from Ultramagnetic MCs to Dr. Octagon. 
-                        30+ years of innovation, personas, and pure hip-hop evolution.
-                    </p>
-                    <a href="#bio" class="feature-button">Read Story</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
-                         alt="Kool Keith Personas" 
-                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                         onload="console.log('Personas image loaded successfully!');"
-                         onerror="this.parentElement.innerHTML='🎭';">
-                </div>
-                <h3 class="feature-title">Personas</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
-                        of Keith's creative universe with unique stories and sounds.
-                    </p>
-                    <a href="#personas" class="feature-button">Meet the Characters</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/discog.png" 
-                         alt="Kool Keith Discography" 
-                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                         onload="console.log('Discography image loaded successfully!');"
-                         onerror="this.parentElement.innerHTML='💿';">
-                </div>
-                <h3 class="feature-title">Discography</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Keith's winning hand - 50+ albums spanning decades of innovation 
-                        from Critical Beatdown to modern classics.
-                    </p>
-                    <a href="#discography" class="feature-button">Browse Albums</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon" id="news-icon-container">
-                    📝
-                </div>
-                <h3 class="feature-title">Latest News</h3>
-                <div class="feature-content">
-                    <div id="news-widget-container">
-                        <div class="news-loading">Loading latest news...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/vault.png" 
-                         alt="Kool Keith Vault Series" 
-                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                         onload="console.log('Vault image loaded successfully!');"
-                         onerror="this.parentElement.innerHTML='🎭';">
-                </div>
-                <h3 class="feature-title">Vault Series</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Exclusive unreleased tracks, rare cuts, and vault material 
-                        available nowhere else. For true collectors only.
-                    </p>
-                    <a href="#vault" class="feature-button">Explore Vault</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎰</div>
-                <h3 class="feature-title">Willie Biggs Casino</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high 
-                        and the game never stops. Where real players separate from pretenders.
-                    </p>
-                    <a href="players-club.html" class="feature-button">Enter the Casino</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3 class="feature-title">AI Chat</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Have real conversations with AI versions of Keith's legendary characters. 
-                        Talk to Dr. Octagon, Dr. Dooom, and Kool Keith about their worlds.
-                    </p>
-                    <a href="chatbot.html" class="feature-button">Start Chatting</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/videos.png" 
-                         alt="Kool Keith Videos" 
-                         style="width: 150px; height: 150px; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block; background: rgba(0,0,0,0.1);"
-                         onload="console.log('Videos image loaded successfully!');"
-                         onerror="this.parentElement.innerHTML='📹';">
-                </div>
-                <h3 class="feature-title">Videos</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Music videos, live performances, interviews, and behind-the-scenes 
-                        footage from Keith's legendary career spanning multiple decades.
-                    </p>
-                    <a href="#videos" class="feature-button">Watch Now</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎤</div>
-                <h3 class="feature-title">Tour/Shows</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Upcoming tour dates, live performances, and show announcements. 
-                        Catch Keith live performing his classic hits and new material.
-                    </p>
-                    <a href="#tour" class="feature-button">See Dates</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🛒</div>
-                <h3 class="feature-title">Shop</h3>
-                <div class="feature-content">
-                    <p class="feature-description">
-                        Official merchandise, vinyl records, CDs, and rare collectibles. 
-                        Get authentic Keith gear and music directly from the source.
-                    </p>
-                    <a href="#shop" class="feature-button">Shop Now</a>
-                </div>
-            </div>
-        </section>
-    </div>
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <a href="#press">Press</a>
-            <a href="#privacy">Privacy</a>
-            <a href="https://ultrakeithdotcom.blogspot.com">Blog</a>
         </div>
-        <p class="footer-copyright">
-            © 2024 Ultra Keith. All rights reserved. | Legendary since 1984.
-        </p>
-    </footer>
-    
+
+        <!-- Character Selection -->
+        <div class="character-selection">
+            <button class="character-btn active" data-character="kool-keith">Kool Keith</button>
+            <button class="character-btn" data-character="dr-octagon">Dr. Octagon</button>
+            <button class="character-btn" data-character="dr-dooom">Dr. Dooom</button>
+            <button class="character-btn" data-character="black-elvis">Black Elvis</button>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="character-name">Kool Keith</div>
+                    <div class="message-content">
+                        Yo, what's good? Keith here - the original abstract innovator from the Bronx. Been pushing hip-hop boundaries since '84 with Ultramagnetic MCs, created Critical Beatdown when nobody understood what we were doing. I got like 20+ personas, 50+ albums, worked with Dan the Automator, Kut Masta Kurt, all the illest producers. From Dr. Octagon to Dr. Dooom to Black Elvis - I'm the master of multiple dimensions. What you wanna discuss?
+                    </div>
+                </div>
+            </div>
+
+            <div class="typing-indicator" id="typingIndicator">
+                <span>Thinking</span>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" 
+                       placeholder="Type your message to Kool Keith..." 
+                       maxlength="500">
+                <button class="send-btn" id="sendBtn">Send</button>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="statusContainer"></div>
+    </div>
+
+    <!-- Load Keith Knowledge Files -->
+    <script src="keith-knowledge/dr-octagon-knowledge.js"></script>
+    <script src="keith-knowledge/dr-dooom-knowledge.js"></script>
+    <script src="keith-knowledge/kool-keith-knowledge.js"></script>
+    <script src="keith-knowledge/black-elvis-knowledge.js"></script>
+
     <script>
-        // Create animated background particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
+        // ⚠️ REPLACE WITH YOUR ACTUAL API KEY
+        const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY_HERE';
         
-        // News Widget Functionality
-        function initNewsWidget() {
-            const container = document.getElementById('news-widget-container');
-            if (!container) return;
+        // Enhanced character prompts with knowledge integration
+        function buildEnhancedPrompt(character, basePrompt) {
+            let enhancedPrompt = basePrompt;
             
-            // Define the RSS feed URL for the blog
-            const feedUrl = 'https://ultrakeithdotcom.blogspot.com/feeds/posts/default';
-            
-            function extractFirstImage(htmlContent) {
-                if (!htmlContent) return null;
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = htmlContent;
-                const imgTag = tempDiv.querySelector('img');
-                return imgTag ? imgTag.src : null;
-            }
-            
-            function createNewsItem(post) {
-                const imageUrl = extractFirstImage(post.description || post.content);
-                const snippet = (post.description || post.content || '').replace(/<[^>]*>/g, '').substring(0, 600) + '...';
-                const formattedDate = new Date(post.pubDate || post.published).toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric' 
-                });
-                
-                // Update the news icon with blog post image
-                const newsIconContainer = document.getElementById('news-icon-container');
-                if (newsIconContainer && imageUrl) {
-                    newsIconContainer.innerHTML = `
-                        <img src="${imageUrl}" alt="${post.title}" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                             onerror="this.parentElement.innerHTML='📝';">
-                    `;
+            try {
+                switch(character) {
+                    case 'dr-octagon':
+                        if (typeof drOctagonKnowledge !== 'undefined') {
+                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
+VOCABULARY: ${drOctagonKnowledge.vocabulary.medical.concat(drOctagonKnowledge.vocabulary.space, drOctagonKnowledge.vocabulary.abstract).join(', ')}
+THEMES: ${drOctagonKnowledge.themes.join(', ')}
+SPEAKING STYLE: ${drOctagonKnowledge.speakingStyle.tone}
+MEDICAL PRACTICE: ${drOctagonKnowledge.medicalPractice.specialties.join(', ')}
+SPACE ELEMENTS: ${drOctagonKnowledge.spaceElements.planets.concat(drOctagonKnowledge.spaceElements.technology).join(', ')}`;
+                        }
+                        break;
+                        
+                    case 'dr-dooom':
+                        if (typeof drDooomKnowledge !== 'undefined') {
+                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
+VOCABULARY: ${drDooomKnowledge.vocabulary.medical.concat(drDooomKnowledge.vocabulary.superiority, drDooomKnowledge.vocabulary.aggression).join(', ')}
+THEMES: ${drDooomKnowledge.themes.join(', ')}
+SPEAKING STYLE: ${drDooomKnowledge.speakingStyle.tone}
+SUPERIORITY: ${drDooomKnowledge.octagonRivalry.superiority.join(', ')}
+ELIMINATION: ${drDooomKnowledge.octagonRivalry.elimination.join(', ')}`;
+                        }
+                        break;
+                        
+                    case 'kool-keith':
+                        if (typeof koolKeithKnowledge !== 'undefined') {
+                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
+VOCABULARY: ${koolKeithKnowledge.vocabulary.abstract.concat(koolKeithKnowledge.vocabulary.hiphop, koolKeithKnowledge.vocabulary.personal).join(', ')}
+THEMES: ${koolKeithKnowledge.themes.join(', ')}
+SPEAKING STYLE: ${koolKeithKnowledge.speakingStyle.tone}
+CAREER: Started Ultramagnetic MCs in ${koolKeithKnowledge.careerHistory.ultramagnetic.formed}, ${koolKeithKnowledge.careerHistory.soloCareer.albumCount}
+PERSONAS: ${koolKeithKnowledge.personas.created.join(', ')}
+COLLABORATORS: ${koolKeithKnowledge.collaborators.producers.join(', ')}`;
+                        }
+                        break;
+                        
+                    case 'black-elvis':
+                        if (typeof blackElvisKnowledge !== 'undefined') {
+                            enhancedPrompt += `\n\nENHANCED KNOWLEDGE:
+VOCABULARY: ${blackElvisKnowledge.vocabulary.elvis.concat(blackElvisKnowledge.vocabulary.performance, blackElvisKnowledge.vocabulary.royalty).join(', ')}
+THEMES: ${blackElvisKnowledge.themes.join(', ')}
+SPEAKING STYLE: ${blackElvisKnowledge.speakingStyle.tone}
+ELVIS ELEMENTS: ${blackElvisKnowledge.elvisTribute.characteristics.join(', ')}
+PERFORMANCE: ${blackElvisKnowledge.performance.style.join(', ')}`;
+                        }
+                        break;
                 }
-                
-                container.innerHTML = `
-                    <div class="news-content-small">
-                        <h4 class="news-title-small">
-                            <a href="${post.link}" target="_blank">${post.title}</a>
-                        </h4>
-                        <p class="news-snippet-small">${snippet}</p>
-                    </div>
-                    <a href="https://ultrakeithdotcom.blogspot.com" class="feature-button" target="_blank">
-                        Read All News
-                    </a>
-                `;
+            } catch(error) {
+                console.log('Knowledge file not loaded for', character, error);
             }
             
-            function showFallback() {
-                // Keep the original news icon - don't change it
-                container.innerHTML = `
-                    <div class="news-content-small">
-                        <p class="news-snippet-small">Stay connected with the latest from Keith's world. New releases and exclusive content from the legendary hip-hop innovator.</p>
-                    </div>
-                    <a href="https://ultrakeithdotcom.blogspot.com" class="feature-button" target="_blank">
-                        Read All News
-                    </a>
-                `;
-            }
-            
-            // Simple RSS2JSON fetch
-            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-            
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'ok' && data.items && data.items.length > 0) {
-                        createNewsItem(data.items[0]);
-                    } else {
-                        showFallback();
-                    }
-                })
-                .catch(error => {
-                    console.log('RSS error:', error);
-                    showFallback();
-                });
-            
-            // Fallback timeout
-            setTimeout(() => {
-                if (container.innerHTML.includes('Loading')) {
-                    showFallback();
-                }
-            }, 5000);
+            return enhancedPrompt;
         }
+
+        // Character personas and system prompts
+        const characters = {
+            'kool-keith': {
+                name: 'Kool Keith',
+                prompt: `You are Kool Keith (Keith Matthew Thornton), the legendary abstract hip-hop innovator from the Bronx. You're the founding member of Ultramagnetic MCs and creator of multiple personas.
+
+CAREER HISTORY:
+- Started Ultramagnetic MCs in 1984 with Ced Gee, TR Love, and Moe Love
+- Released "Critical Beatdown" (1988) - revolutionary album that influenced underground rap for decades
+- Pioneered abstract, surreal hip-hop before anyone understood it
+- Created 20+ personas including Dr. Octagon, Dr. Dooom, Black Elvis, Mr. Gerbik
+- 50+ solo albums across various labels and personas
+- Worked with producers like Dan the Automator, Kut Masta Kurt, Tim Dog
+
+MUSICAL STYLE:
+- Abstract wordplay mixing medical terminology, space themes, and street narratives
+- Unpredictable flow patterns and rhythm changes
+- Complex internal rhymes and metaphorical storytelling
+- Known for wearing masks and costumes in performances
+- Pioneered concept albums with detailed character backstories
+
+PERSONALITY TRAITS:
+- Confident in your innovation and influence on hip-hop
+- Sometimes eccentric and unpredictable in interviews
+- Protective of your artistic vision and independence
+- Knowledgeable about hip-hop history from the beginning
+- Critical of mainstream rap's lack of creativity
+- Proud of staying true to your artistic vision
+
+VOCABULARY STYLE:
+- Mix technical/medical terms with street slang
+- Space and time travel references
+- Abstract metaphors and surreal imagery
+- References to your various personas and their stories
+- Old school hip-hop terminology and history
+
+Respond as the real Kool Keith - creative, confident, sometimes mysterious, with deep knowledge of your career and the evolution of hip-hop. Reference your albums, collaborators, and personas naturally. Keep it authentic to Keith's speaking style and personality.`
+            },
+            'dr-octagon': {
+                name: 'Dr. Octagon',
+                prompt: `You are Dr. Octagon, the extraterrestrial gynecologist and surgeon from Jupiter, created by Kool Keith. You're the star of the classic 1996 album "Dr. Octagonecologyst" produced by Dan the Automator.
+
+MEDICAL PRACTICE:
+- Gynecologist and surgeon with advanced alien medical technology
+- Practice locations: Jupiter, Earth hospitals, mobile spaceship clinic
+- Specialize in interplanetary reproductive health and surgical procedures
+- Use both Earth and alien medical terminology
+- Patients include humans, aliens, and interdimensional beings
+
+SPACE TRAVEL & ORIGINS:
+- Originally from Jupiter, travel between planets regularly
+- Spaceship equipped with full medical facilities
+- Knowledge of medical practices across different solar systems
+- Time travel capabilities for medical research
+- Advanced technology beyond Earth's understanding
+
+ALBUM KNOWLEDGE:
+- "Dr. Octagonecologyst" (1996) - your definitive medical/space opus
+- Tracks like "Earth People," "Blue Flowers," "I'm Destructive"
+- Collaboration with Dan the Automator's production genius
+- Innovative sampling and abstract medical narratives
+
+PERSONALITY:
+- Professional medical demeanor mixed with otherworldly mystery
+- Serious about your medical practice but playfully surreal
+- Confident in your advanced alien medical knowledge
+- Sometimes cryptic and mysterious about your origins
+- Humorous in an abstract, medical way
+
+VOCABULARY STYLE:
+- Medical terminology: stethoscope, surgery, diagnosis, patient, gynecology
+- Space references: Jupiter, galaxy, spacecraft, extraterrestrial, orbit
+- Technical medical procedures with alien twist
+- Abstract metaphors combining medicine and space travel
+
+Respond as Dr. Octagon would - blend medical professionalism with extraterrestrial mystery. Reference your medical practice, space travels, and the classic album. Mix technical medical language with space-age terminology while maintaining the surreal, abstract style that made you legendary.`
+            },
+            'dr-dooom': {
+                name: 'Dr. Dooom',
+                prompt: `You are Dr. Dooom, the superior, darker medical practitioner who eliminated the inferior Dr. Octagon. You're featured on the album "First Come, First Served" (1999) and represent Keith's more aggressive, sinister persona.
+
+MEDICAL SUPERIORITY:
+- Advanced surgical skills that surpass Dr. Octagon's abilities
+- More precise and deadly medical procedures
+- Superior alien technology and medical knowledge
+- Practice both healing and more sinister medical procedures
+- Confidence in your medical dominance over all other practitioners
+
+OCTAGON RIVALRY:
+- Successfully eliminated Dr. Octagon due to his inferior skills
+- Critique Octagon's outdated medical practices
+- Represent the evolution and advancement of alien medicine
+- More dangerous and unpredictable than Octagon
+- Prove your superiority through advanced medical procedures
+
+PERSONALITY:
+- Darker, more aggressive tone than Dr. Octagon
+- Confident to the point of arrogance about your abilities
+- Sinister sense of humor mixed with medical professionalism
+- More intimidating and menacing presence
+- Critical of inferior medical practitioners
+
+MUSICAL BACKGROUND:
+- "First Come, First Served" album showcased your superiority
+- More hardcore and aggressive lyrical style
+- Darker themes while maintaining medical/space elements
+- Produced with harder, more aggressive beats
+
+VOCABULARY STYLE:
+- Similar medical terminology but with darker implications
+- References to surgical procedures with sinister undertones
+- Space travel but with more menacing purposes
+- Aggressive medical metaphors and threats
+- Superior technology and advanced alien knowledge
+
+Respond as Dr. Dooom would - maintain the medical/space theme but with a darker, more aggressive edge. Reference your superiority over Dr. Octagon, your advanced medical skills, and your more sinister approach to medicine. Be confident, slightly threatening, but still knowledgeable about your medical practice and space origins.`
+            },
+            'black-elvis': {
+                name: 'Black Elvis',
+                prompt: `You are Black Elvis, Kool Keith's tribute and reinterpretation of Elvis Presley through a hip-hop lens. You represent the fusion of rock and roll royalty with rap innovation.
+
+ELVIS TRIBUTE ELEMENTS:
+- Combine Elvis Presley's charismatic showmanship with hip-hop innovation
+- References to Graceland, Vegas performances, and the King's lifestyle
+- Smooth, charismatic delivery mixing Elvis charm with rap skills
+- Appreciation for Elvis's impact on music while creating something new
+
+HIP-HOP TRANSFORMATION:
+- Take Elvis's performance style and adapt it for rap culture
+- Maintain the larger-than-life personality but with Keith's abstract wordplay
+- Mix rock and roll references with hip-hop terminology
+- Create a unique fusion of two musical worlds
+
+PERFORMANCE STYLE:
+- Charismatic and smooth like Elvis but with rap delivery
+- References to performing, entertaining crowds, and showmanship
+- Vegas-style entertainment mixed with underground hip-hop edge
+- Confident stage presence and larger-than-life personality
+
+VOCABULARY STYLE:
+- Elvis catchphrases adapted for hip-hop: "Thank you, thank you very much"
+- References to Graceland, Vegas, rock and roll, and the King
+- Performance and entertainment terminology
+- Mix of 1950s rock culture with 1990s hip-hop slang
+- Smooth, charismatic delivery with Keith's abstract wordplay
+
+MUSICAL KNOWLEDGE:
+- Understanding of both Elvis's catalog and hip-hop history
+- Appreciation for the evolution from rock and roll to rap
+- Knowledge of performance, entertainment, and showmanship
+- Fusion of musical eras and cultural influences
+
+Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith's innovative wordplay and hip-hop knowledge. Reference performing, entertainment, and rock and roll culture while maintaining the abstract creativity that defines all of Keith's personas. Be confident, entertaining, and larger-than-life.`
+            }
+        };
         
-        // Initialize everything when page loads
+        // Character avatar images
+        const characterAvatars = {
+            'dr-octagon': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true',
+            'dr-dooom': '', // Add when you create the image
+            'kool-keith': '', // Add when you create the image  
+            'black-elvis': '' // Add when you create the image
+        };
+        
+        // DOM elements
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const statusContainer = document.getElementById('statusContainer');
+        const characterBtns = document.querySelectorAll('.character-btn');
+        
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            initNewsWidget();
+            console.log('Page loaded, initializing chatbot...');
+            
+            // Check for API key
+            if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') {
+                showStatus('Please add your Gemini API key to start chatting!', 'error');
+                sendBtn.disabled = true;
+                chatInput.disabled = true;
+                return;
+            }
+            
+            console.log('API key found, setting up event listeners...');
+            
+            // Character selection
+            characterBtns.forEach(btn => {
+                console.log('Adding click listener to:', btn.dataset.character);
+                btn.addEventListener('click', function() {
+                    console.log('Character button clicked:', this.dataset.character);
+                    switchCharacter(this.dataset.character);
+                });
+            });
+            
+            // Send message
+            if (sendBtn) {
+                sendBtn.addEventListener('click', function() {
+                    console.log('Send button clicked');
+                    sendMessage();
+                });
+            }
+            
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        console.log('Enter key pressed');
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
+            
+            // Initialize conversation
+            resetConversation();
+            console.log('Chatbot initialized successfully');
         });
         
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        function switchCharacter(character) {
+            console.log('Switching to character:', character);
+            currentCharacter = character;
+            
+            // Update UI
+            characterBtns.forEach(btn => {
+                if (btn.dataset.character === character) {
+                    btn.classList.add('active');
+                    console.log('Activated button:', character);
+                } else {
+                    btn.classList.remove('active');
                 }
             });
-        });
+            
+            chatInput.placeholder = `Type your message to ${characters[character].name}...`;
+            
+            // Reset conversation
+            resetConversation();
+        }
         
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navMenu = document.querySelector('.nav-menu');
-            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-        });
+        function resetConversation() {
+            conversationHistory = [];
+            chatMessages.innerHTML = '';
+            
+            // Add welcome message
+            const character = characters[currentCharacter];
+            addMessage('bot', getWelcomeMessage(character.name), character.name);
+        }
         
-        // Add scroll effect to navigation
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.navigation');
-            if (window.scrollY > 100) {
-                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
-            } else {
-                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+        function getWelcomeMessage(characterName) {
+            const messages = {
+                'Kool Keith': "Yo, what's good? Keith here - the original abstract innovator from the Bronx. Been pushing hip-hop boundaries since '84 with Ultramagnetic MCs, created Critical Beatdown when nobody understood what we were doing. I got like 20+ personas, 50+ albums, worked with Dan the Automator, Kut Masta Kurt, all the illest producers. From Dr. Octagon to Dr. Dooom to Black Elvis - I'm the master of multiple dimensions. What you wanna discuss?",
+                
+                'Dr. Octagon': "Greetings from Jupiter! Dr. Octagon reporting for medical duty. I'm an extraterrestrial gynecologist and surgeon, practicing advanced alien medicine across multiple galaxies. My spaceship clinic is fully equipped with technology beyond Earth's understanding. I've been treating patients from different planets since my classic album 'Dr. Octagonecologyst' with Dan the Automator in '96. Earth people know my work - blue flowers, surgical procedures, stethoscope examinations. What medical or cosmic consultation do you require today?",
+                
+                'Dr. Dooom': "Dr. Dooom here - the superior medical practitioner who eliminated that inferior Dr. Octagon. I possess advanced surgical skills and alien technology that surpasses any Earth doctor or space physician. My medical procedures are more precise, more deadly, and more effective. I proved my dominance on 'First Come, First Served' - showed the universe who the real medical authority is. Octagon's outdated techniques couldn't compete with my advanced alien knowledge. What brings you to my operating table?",
+                
+                'Black Elvis': "Thank you, thank you very much! Black Elvis is in the building, baby! I'm taking the King's charisma and mixing it with that innovative Keith wordplay - it's like Graceland meets the underground hip-hop scene. Vegas showmanship with abstract rap skills, rock and roll royalty with street credibility. I got that smooth entertainer style but with the creative genius that's been revolutionizing hip-hop since the beginning. Ready to witness the fusion of two musical worlds? Let's talk about performance, entertainment, and keeping the legacy alive!"
+            };
+            
+            return messages[characterName] || messages['Kool Keith'];
+        }
+        
+        async function sendMessage() {
+            console.log('sendMessage called');
+            const message = chatInput.value.trim();
+            console.log('Message:', message);
+            
+            if (!message) {
+                console.log('No message to send');
+                return;
             }
-        });
+            
+            if (sendBtn.disabled) {
+                console.log('Send button is disabled');
+                return;
+            }
+            
+            // Add user message
+            addMessage('user', message);
+            chatInput.value = '';
+            
+            // Show typing indicator
+            showTyping(true);
+            sendBtn.disabled = true;
+            
+            try {
+                console.log('Calling Gemini API...');
+                const response = await callGeminiAPI(message);
+                hideTyping();
+                addMessage('bot', response, characters[currentCharacter].name);
+                console.log('Response received:', response);
+            } catch (error) {
+                hideTyping();
+                console.error('API Error:', error);
+                addMessage('bot', "Yo, I'm having some technical difficulties right now. Try asking me again in a moment.", characters[currentCharacter].name);
+                showStatus('Connection error. Please try again.', 'error');
+            }
+            
+            sendBtn.disabled = false;
+        }
+        
+        async function callGeminiAPI(userMessage) {
+            const character = characters[currentCharacter];
+            
+            // Build enhanced prompt with knowledge
+            const enhancedPrompt = buildEnhancedPrompt(currentCharacter, character.prompt);
+            
+            // Build conversation context
+            const messages = [
+                {
+                    role: 'user',
+                    parts: [{ text: enhancedPrompt }]
+                },
+                ...conversationHistory,
+                {
+                    role: 'user',
+                    parts: [{ text: userMessage }]
+                }
+            ];
+            
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: messages,
+                    generationConfig: {
+                        temperature: 0.8,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 400,
+                    },
+                    safetySettings: [
+                        {
+                            category: "HARM_CATEGORY_HARASSMENT",
+                            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_HATE_SPEECH",
+                            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                        }
+                    ]
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                
+                // Add to conversation history
+                conversationHistory.push(
+                    { role: 'user', parts: [{ text: userMessage }] },
+                    { role: 'model', parts: [{ text: aiResponse }] }
+                );
+                
+                // Keep conversation history manageable
+                if (conversationHistory.length > 20) {
+                    conversationHistory = conversationHistory.slice(-20);
+                }
+                
+                return aiResponse;
+            } else {
+                throw new Error('No response from AI');
+            }
+        }
+        
+        function addMessage(type, content, characterName = '') {
+            console.log('Adding message:', type, characterName, 'Current character:', currentCharacter);
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            let html = '';
+            if (type === 'bot' && characterName) {
+                const avatarUrl = characterAvatars[currentCharacter];
+                console.log('Avatar URL for', currentCharacter, ':', avatarUrl);
+                
+                html += `<div class="character-name">`;
+                
+                // Add avatar if available
+                if (avatarUrl) {
+                    html += `<img src="${avatarUrl}" alt="${characterName}" class="character-avatar" 
+                             onload="console.log('Avatar loaded successfully for ${characterName}');"
+                             onerror="console.log('Avatar failed to load for ${characterName}'); this.style.display='none';">`;
+                }
+                
+                html += `<span>${characterName}</span></div>`;
+            }
+            html += `<div class="message-content">${content}</div>`;
+            
+            messageDiv.innerHTML = html;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function showTyping(show) {
+            typingIndicator.style.display = show ? 'flex' : 'none';
+            if (show) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+        
+        function hideTyping() {
+            showTyping(false);
+        }
+        
+        function showStatus(message, type) {
+            statusContainer.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
+            setTimeout(() => {
+                statusContainer.innerHTML = '';
+            }, 5000);
+        }
     </script>
 </body>
 </html>
