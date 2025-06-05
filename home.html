@@ -660,7 +660,7 @@
             .feature-content {
                 margin-left: 0;
                 margin-top: 0;
-                text-align: center;
+                text-align: left;
                 align-items: center;
             }
             
@@ -668,15 +668,16 @@
                 align-self: center;
             }
             
-            .read-all-news-button {
-                align-self: center;
-            }
-            
+            /* Special handling for news content on mobile */
             .news-content-small {
                 text-align: left;
                 align-items: center;
                 display: flex;
                 flex-direction: column;
+            }
+            
+            .read-all-news-button {
+                align-self: center;
             }
             
             .footer-links {
@@ -786,6 +787,9 @@
                     <div id="news-widget-container">
                         <div class="news-loading">Loading latest news...</div>
                     </div>
+                    <a href="https://ultrakeithdotcom.blogspot.com" class="feature-button" target="_blank">
+                        Read All News
+                    </a>
                 </div>
             </div>
             
@@ -952,9 +956,6 @@
                         </h4>
                         <p class="news-snippet-small">${snippet}</p>
                     </div>
-                    <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button" target="_blank">
-                        Read All News
-                    </a>
                 `;
             }
             
@@ -964,9 +965,6 @@
                     <div class="news-content-small">
                         <p class="news-snippet-small">Stay connected with the latest from Keith's world. New releases and exclusive content from the legendary hip-hop innovator.</p>
                     </div>
-                    <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button" target="_blank">
-                        Read All News
-                    </a>
                 `;
             }
             
