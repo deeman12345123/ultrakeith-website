@@ -194,7 +194,8 @@
             text-align: left;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            min-height: 280px;
+            height: 260px;
+            position: relative;
         }
         
         .feature-card:hover {
@@ -231,13 +232,14 @@
         .feature-content {
             margin-left: 165px;
             margin-top: -150px;
-            margin-bottom: 0;
             padding-top: 0;
-            padding-bottom: 0;
             display: flex;
             flex-direction: column;
-            min-height: 170px;
-            justify-content: space-between;
+            position: absolute;
+            right: 30px;
+            bottom: 20px;
+            left: 195px;
+            top: 50px;
         }
         
         .feature-description {
