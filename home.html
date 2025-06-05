@@ -194,9 +194,6 @@
             text-align: left;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            min-height: 280px;
         }
         
         .feature-card:hover {
@@ -238,7 +235,6 @@
             flex-direction: column;
             min-height: 150px;
             justify-content: space-between;
-            flex: 1;
         }
         
         .feature-description {
@@ -270,42 +266,6 @@
         }
         
         /* News Widget Styles */
-        .news-widget-box {
-            background: transparent;
-            border: none;
-            padding: 0;
-            margin-top: 15px;
-        }
-        
-        .news-item {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-        
-        .news-image-small {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            object-fit: cover;
-            flex-shrink: 0;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .news-placeholder-small {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 215, 0, 0.6);
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
         .news-content-small {
             flex: 1;
             min-width: 0;
@@ -344,249 +304,11 @@
             flex: 1;
         }
         
-        .news-date-small {
-            font-size: 0.75rem;
-            color: rgba(255, 215, 0, 0.6);
-            margin-bottom: 5px;
-        }
-        
         .news-loading {
             text-align: center;
             color: rgba(255, 215, 0, 0.7);
             font-style: italic;
             padding: 20px;
-        }
-        
-        .news-fallback {
-            text-align: center;
-            padding: 15px;
-        }
-        
-        .news-fallback p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .read-all-news-button {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            padding: 10px 20px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            margin-top: auto;
-            align-self: flex-start;
-        }
-        
-        .read-all-news-button:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
-            border-color: #ffd700;
-            transform: scale(1.05);
-        }
-        
-        /* Chatbot Styles */
-        .chatbot-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            height: 280px;
-        }
-        
-        .persona-selector {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .persona-selector label {
-            color: #ffd700;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        
-        .persona-selector select {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            border-radius: 8px;
-            color: #ffd700;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-        }
-        
-        .persona-selector select:focus {
-            outline: none;
-            border-color: #ffd700;
-        }
-        
-        #chat-messages {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 8px;
-            padding: 10px;
-            overflow-y: auto;
-            max-height: 150px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-        
-        .chat-input-area {
-            display: flex;
-            gap: 8px;
-        }
-        
-        #chat-input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            border-radius: 8px;
-            color: #ffffff;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-        }
-        
-        #chat-input:focus {
-            outline: none;
-            border-color: #ffd700;
-        }
-        
-        #send-btn {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-        
-        #send-btn:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
-            border-color: #ffd700;
-            transform: scale(1.05);
-        }
-        
-        #send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .chat-message {
-            margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 6px;
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        .user-message {
-            background: rgba(255, 215, 0, 0.1);
-            border-left: 3px solid #ffd700;
-        }
-        
-        .ai-message {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 3px solid rgba(255, 215, 0, 0.5);
-        }
-        
-        .chat-info {
-            text-align: center;
-            color: rgba(255, 215, 0, 0.6);
-            font-size: 0.75rem;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Willie Biggs Casino Section */
-        .penthouse-section {
-            margin: 80px 0 40px;
-            padding: 0 20px;
-        }
-        
-        .penthouse-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 10, 0, 0.8));
-            border: 3px solid rgba(255, 215, 0, 0.6);
-            border-radius: 20px;
-            padding: 50px 40px;
-            text-align: center;
-            backdrop-filter: blur(20px);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.8),
-                inset 0 2px 4px rgba(255, 215, 0, 0.3),
-                0 0 100px rgba(255, 215, 0, 0.1);
-        }
-        
-        .penthouse-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: #ffd700;
-            margin-bottom: 15px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #daa520);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: goldShimmer 4s ease-in-out infinite;
-        }
-        
-        @keyframes goldShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .penthouse-subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-style: italic;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-        }
-        
-        .penthouse-description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.7;
-            margin-bottom: 35px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .penthouse-button {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            border: none;
-            padding: 18px 45px;
-            border-radius: 30px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-        }
-        
-        .penthouse-button:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.5);
-            background: linear-gradient(45deg, #ffed4e, #ffd700);
         }
         
         /* Footer */
@@ -668,18 +390,9 @@
                 align-self: center;
             }
             
-            .read-all-news-button {
-                align-self: center;
-                margin: 0 auto;
-                display: block;
-                text-align: center;
-            }
-            
             .news-content-small {
                 text-align: left;
                 align-items: center;
-                display: flex;
-                flex-direction: column;
             }
             
             .footer-links {
@@ -789,6 +502,9 @@
                     <div id="news-widget-container">
                         <div class="news-loading">Loading latest news...</div>
                     </div>
+                    <a href="https://ultrakeithdotcom.blogspot.com" class="feature-button" target="_blank">
+                        Read All News
+                    </a>
                 </div>
             </div>
             
@@ -933,10 +649,6 @@
             function createNewsItem(post) {
                 const imageUrl = extractFirstImage(post.description || post.content);
                 const snippet = (post.description || post.content || '').replace(/<[^>]*>/g, '').substring(0, 600) + '...';
-                const formattedDate = new Date(post.pubDate || post.published).toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric' 
-                });
                 
                 // Update the news icon with blog post image
                 const newsIconContainer = document.getElementById('news-icon-container');
@@ -955,21 +667,14 @@
                         </h4>
                         <p class="news-snippet-small">${snippet}</p>
                     </div>
-                    <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button" target="_blank">
-                        Read All News
-                    </a>
                 `;
             }
             
             function showFallback() {
-                // Keep the original news icon - don't change it
                 container.innerHTML = `
                     <div class="news-content-small">
                         <p class="news-snippet-small">Stay connected with the latest from Keith's world. New releases and exclusive content from the legendary hip-hop innovator.</p>
                     </div>
-                    <a href="https://ultrakeithdotcom.blogspot.com" class="read-all-news-button" target="_blank">
-                        Read All News
-                    </a>
                 `;
             }
             
@@ -1022,7 +727,7 @@
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
             const navMenu = document.querySelector('.nav-menu');
             navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-        });
+        </div>
         
         // Add scroll effect to navigation
         window.addEventListener('scroll', function() {
