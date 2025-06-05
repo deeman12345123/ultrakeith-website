@@ -195,8 +195,7 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             min-height: 280px;
-            display: flex;
-            flex-direction: column;
+            position: relative;
         }
         
         .feature-card:hover {
@@ -238,7 +237,11 @@
             flex-direction: column;
             min-height: 150px;
             justify-content: space-between;
-            flex: 1;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            left: 195px;
+            top: 50px;
         }
         
         .feature-description {
@@ -365,38 +368,63 @@
                 gap: 20px;
             }
             
-            /* Mobile Card Layout - Centered */
+            /* Mobile Card Layout - Completely Different */
             .feature-card {
                 text-align: center;
+                position: static;
+                min-height: auto;
+                display: flex;
+                flex-direction: column;
+                padding: 25px;
             }
             
             .feature-icon {
                 display: block;
                 margin: 0 auto 20px auto;
-                width: 150px;
-                height: 150px;
+                width: 120px;
+                height: 120px;
+                line-height: 120px;
+                font-size: 3.5rem;
             }
             
             .feature-title {
                 display: block;
-                margin: 0 0 15px 0;
+                margin: 0 0 20px 0;
                 text-align: center;
+                order: 2;
             }
             
             .feature-content {
+                position: static;
                 margin-left: 0;
                 margin-top: 0;
+                right: auto;
+                bottom: auto;
+                left: auto;
+                top: auto;
                 text-align: left;
+                display: flex;
+                flex-direction: column;
                 align-items: center;
+                order: 3;
+                min-height: auto;
+            }
+            
+            .feature-description {
+                text-align: left;
+                margin-bottom: 20px;
+                width: 100%;
             }
             
             .feature-button {
                 align-self: center;
+                margin-top: 0;
             }
             
             .news-content-small {
                 text-align: left;
                 align-items: center;
+                width: 100%;
             }
             
             .footer-links {
