@@ -75,21 +75,28 @@
         battleContainer.innerHTML = `
             <div class="battle-setup" id="battleSetup">
                 <h3>🥊 CHOOSE YOUR BATTLE</h3>
-                <div class="battle-selection">
-                    ${Object.keys(battleMatchups).map(key => {
-                        const battle = battleMatchups[key];
-                        return `
-                            <div class="battle-option" data-battle="${key}">
-                                <div class="battle-fighters">
-                                    ${battle.fighters.map(f => getCharacterData(f).identity?.name || f).join(' VS ')}
-                                </div>
-                                <div class="battle-theme">${battle.theme}</div>
-                                <div class="battle-description">${battle.description}</div>
-                            </div>
-                        `;
-                    }).join('')}
+                <div class="battle-fighters">
+                    <div class="fighter-selection">
+                        <label>Persona 1:</label>
+                        <select id="battleFighter1" class="fighter-select">
+                            <option value="kool-keith">Kool Keith</option>
+                            <option value="dr-octagon">Dr. Octagon</option>
+                            <option value="dr-dooom">Dr. Dooom</option>
+                            <option value="black-elvis">Black Elvis</option>
+                        </select>
+                    </div>
+                    <div class="vs-divider">VS</div>
+                    <div class="fighter-selection">
+                        <label>Persona 2:</label>
+                        <select id="battleFighter2" class="fighter-select">
+                            <option value="dr-octagon">Dr. Octagon</option>
+                            <option value="kool-keith">Kool Keith</option>
+                            <option value="dr-dooom">Dr. Dooom</option>
+                            <option value="black-elvis">Black Elvis</option>
+                        </select>
+                    </div>
                 </div>
-                <button id="startBattleBtn" class="battle-start-btn" disabled>START BATTLE 🔥</button>
+                <button id="startBattleBtn" class="battle-start-btn">START BATTLE 🔥</button>
             </div>
             
             <div class="battle-arena" id="battleArena" style="display: none;">
@@ -134,55 +141,64 @@
                 font-size: 1.8rem;
                 margin-bottom: 30px;
                 text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-            }
-            
-            .battle-selection {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 20px;
-                margin-bottom: 30px;
-            }
-            
-            .battle-option {
-                background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
-                border: 2px solid rgba(255, 215, 0, 0.3);
-                border-radius: 15px;
-                padding: 20px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-            
-            .battle-option:hover {
-                border-color: #ffd700;
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
-            }
-            
-            .battle-option.selected {
-                border-color: #ffd700;
-                background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(26, 0, 0, 0.8));
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+                text-align: center;
             }
             
             .battle-fighters {
-                color: #ffd700;
-                font-family: 'Orbitron', monospace;
-                font-size: 1.2rem;
-                font-weight: 700;
-                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                margin-bottom: 25px;
+                flex-wrap: wrap;
             }
             
-            .battle-theme {
-                color: rgba(255, 255, 255, 0.9);
-                font-size: 1rem;
+            .fighter-selection {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .fighter-selection label {
+                color: rgba(255, 255, 255, 0.8);
                 font-weight: 600;
-                margin-bottom: 8px;
+                font-size: 0.9rem;
+                font-family: 'Orbitron', monospace;
             }
             
-            .battle-description {
-                color: rgba(255, 255, 255, 0.7);
-                font-size: 0.9rem;
-                line-height: 1.4;
+            .fighter-select {
+                background: rgba(0, 0, 0, 0.7);
+                border: 1px solid rgba(255, 215, 0, 0.3);
+                border-radius: 10px;
+                padding: 12px 18px;
+                color: #fff;
+                font-size: 1rem;
+                outline: none;
+                cursor: pointer;
+                min-width: 160px;
+                font-family: 'Orbitron', monospace;
+                font-weight: 600;
+            }
+            
+            .fighter-select:focus {
+                border-color: #ffd700;
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            }
+            
+            .fighter-select option {
+                background: #000;
+                color: #fff;
+                padding: 8px;
+            }
+            
+            .vs-divider {
+                font-family: 'Orbitron', monospace;
+                font-size: 2rem;
+                font-weight: 900;
+                color: #ffd700;
+                text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+                margin: 0 20px;
             }
             
             .battle-start-btn {
@@ -312,17 +328,23 @@
             }
             
             @media (max-width: 768px) {
-                .battle-selection {
-                    grid-template-columns: 1fr;
+                .battle-fighters {
+                    flex-direction: column;
+                    gap: 15px;
+                }
+                
+                .vs-divider {
+                    transform: rotate(90deg);
+                    margin: 10px 0;
+                }
+                
+                .fighter-select {
+                    min-width: 200px;
                 }
                 
                 .fighter-display {
                     flex-direction: column;
                     gap: 20px;
-                }
-                
-                .vs-indicator {
-                    transform: rotate(90deg);
                 }
             }
             </style>
@@ -332,8 +354,23 @@
     }
 
     // Start Battle Function
-    async function startBattle(battleKey) {
-        const battle = battleMatchups[battleKey];
+    async function startBattle() {
+        const fighter1 = document.getElementById('battleFighter1').value;
+        const fighter2 = document.getElementById('battleFighter2').value;
+        
+        if (fighter1 === fighter2) {
+            alert('Please select two different personas!');
+            return;
+        }
+        
+        const battleKey = `${fighter1}-vs-${fighter2}`;
+        const battle = battleMatchups[battleKey] || {
+            fighters: [fighter1, fighter2],
+            theme: `${getCharacterData(fighter1).identity?.name || fighter1} vs ${getCharacterData(fighter2).identity?.name || fighter2}`,
+            description: `Epic battle between two legendary personas!`,
+            strategies: battleMatchups[`${fighter2}-vs-${fighter1}`]?.strategies || {}
+        };
+        
         currentBattle = battle;
         battleRound = 1;
         battleHistory = [];
@@ -522,10 +559,10 @@ Make it authentically fierce and creative. This is a legendary battle!`;
         battleHistory = [];
         
         // Clear battle selection
-        document.querySelectorAll('.battle-option.selected').forEach(option => {
-            option.classList.remove('selected');
-        });
-        document.getElementById('startBattleBtn').disabled = true;
+        const battleFighter1 = document.getElementById('battleFighter1');
+        const battleFighter2 = document.getElementById('battleFighter2');
+        if (battleFighter1) battleFighter1.selectedIndex = 0;
+        if (battleFighter2) battleFighter2.selectedIndex = 1;
     }
 
     // Battle System Initialization
@@ -566,30 +603,8 @@ Make it authentically fierce and creative. This is a legendary battle!`;
     }
 
     function setupBattleEvents() {
-        // Battle option selection
-        document.querySelectorAll('.battle-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Clear previous selections
-                document.querySelectorAll('.battle-option.selected').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                // Select this option
-                this.classList.add('selected');
-                
-                // Enable start button
-                document.getElementById('startBattleBtn').disabled = false;
-                document.getElementById('startBattleBtn').dataset.battle = this.dataset.battle;
-            });
-        });
-
         // Start battle button
-        document.getElementById('startBattleBtn').addEventListener('click', function() {
-            const battleKey = this.dataset.battle;
-            if (battleKey) {
-                startBattle(battleKey);
-            }
-        });
+        document.getElementById('startBattleBtn').addEventListener('click', startBattle);
 
         // Back to setup button
         document.getElementById('backToSetup').addEventListener('click', returnToBattleSetup);
