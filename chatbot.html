@@ -623,6 +623,8 @@
         let battleMode = false;
         let currentBattle = null;
         let battleRound = 1;
+        let battlePaused = false;
+        let nextAction = 'send'; // 'send', 'next-verse', 'next-round'
         
         // Battle configurations for each matchup
         const battlePrompts = {
@@ -952,7 +954,24 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
             console.log('Chatbot initialized successfully');
         });
         
-        function switchMode(mode) {
+        function updateSendButton() {
+            const sendBtn = document.getElementById('sendBtn');
+            switch(nextAction) {
+                case 'next-verse':
+                    sendBtn.textContent = 'NEXT VERSE 🔥';
+                    sendBtn.style.background = 'linear-gradient(45deg, #ff4444, #ff6666)';
+                    break;
+                case 'next-round':
+                    sendBtn.textContent = 'NEXT ROUND 🥊';
+                    sendBtn.style.background = 'linear-gradient(45deg, #ff4444, #ff6666)';
+                    break;
+                case 'send':
+                default:
+                    sendBtn.textContent = 'Send';
+                    sendBtn.style.background = 'linear-gradient(45deg, #ffd700, #ffed4e)';
+                    break;
+            }
+        }
             if (mode === 'chat') {
                 battleMode = false;
                 chatModeBtn.classList.add('active');
@@ -992,6 +1011,7 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
             };
             
             battleRound = 1;
+            battlePaused = false;
             
             // Clear chat and start battle
             chatMessages.innerHTML = '';
@@ -999,22 +1019,22 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
             // Battle announcement
             addMessage('bot', `🥊 EPIC RAP BATTLE STARTING! 🥊`, 'Battle Arena');
             addMessage('bot', `${characters[fighter1].name.toUpperCase()} VS ${characters[fighter2].name.toUpperCase()}`, 'Battle Arena');
-            addRoundMarker(1);
             
             // Fighter introductions
             setTimeout(() => {
                 addMessage('bot', battleIntros[fighter1], characters[fighter1].name, fighter1);
+                setTimeout(() => {
+                    addMessage('bot', battleIntros[fighter2], characters[fighter2].name, fighter2);
+                    setTimeout(() => {
+                        addRoundMarker(1);
+                        // Set up for first verse
+                        nextAction = 'next-verse';
+                        updateSendButton();
+                        battlePaused = true;
+                        addMessage('bot', "Ready for the first verse? Hit that button! 🔥", 'Battle Arena');
+                    }, 1000);
+                }, 1500);
             }, 1000);
-            
-            setTimeout(() => {
-                addMessage('bot', battleIntros[fighter2], characters[fighter2].name, fighter2);
-            }, 2000);
-            
-            // Start the battle
-            setTimeout(() => {
-                addRoundMarker(1);
-                continueBattle();
-            }, 3000);
         }
         
         async function continueBattle() {
@@ -1056,31 +1076,43 @@ Round ${battleRound} - bring the heat!`;
                 // Switch to other fighter
                 currentBattle.currentFighter = opponent;
                 
-                // Continue battle or end it
+                // Determine next action
                 if (battleRound < 3) {
                     if (currentFighter === fighter2) {
+                        // End of round, prepare for next round
                         battleRound++;
-                        setTimeout(() => {
-                            addRoundMarker(battleRound);
-                            setTimeout(() => continueBattle(), 1000);
-                        }, 2000);
+                        nextAction = 'next-round';
+                        updateSendButton();
+                        addMessage('bot', `🔥 Round ${battleRound - 1} complete! Ready for Round ${battleRound}? 🔥`, 'Battle Arena');
                     } else {
-                        setTimeout(() => continueBattle(), 2000);
+                        // Switch fighters within same round
+                        nextAction = 'next-verse';
+                        updateSendButton();
+                        addMessage('bot', `${characters[opponent].name} is about to respond! 🎤`, 'Battle Arena');
                     }
                 } else if (currentFighter === fighter2) {
                     // Battle over
-                    setTimeout(() => {
-                        addMessage('bot', `🏆 BATTLE COMPLETE! Both fighters brought the heat! Who do you think won? 🏆`, 'Battle Arena');
-                        currentBattle = null;
-                    }, 2000);
+                    nextAction = 'send';
+                    updateSendButton();
+                    addMessage('bot', `🏆 BATTLE COMPLETE! Both fighters brought the heat! Who do you think won? 🏆`, 'Battle Arena');
+                    currentBattle = null;
+                    battlePaused = false;
                 } else {
-                    setTimeout(() => continueBattle(), 2000);
+                    // Final verse incoming
+                    nextAction = 'next-verse';
+                    updateSendButton();
+                    addMessage('bot', `${characters[opponent].name} with the final verse! 🎤`, 'Battle Arena');
                 }
+                
+                battlePaused = true;
                 
             } catch (error) {
                 hideTyping();
                 console.error('Battle API Error:', error);
                 addMessage('bot', `Technical difficulties in the battle arena! ${characters[currentFighter].name} will be back!`, characters[currentFighter].name);
+                nextAction = 'next-verse';
+                updateSendButton();
+                battlePaused = true;
             }
         }
         
@@ -1126,7 +1158,25 @@ Round ${battleRound} - bring the heat!`;
         }
         
         async function sendMessage() {
-            console.log('sendMessage called');
+            console.log('sendMessage called, nextAction:', nextAction);
+            
+            // Handle battle controls
+            if (battleMode && battlePaused && currentBattle) {
+                if (nextAction === 'next-verse' || nextAction === 'next-round') {
+                    battlePaused = false;
+                    
+                    // Add round marker if starting new round
+                    if (nextAction === 'next-round') {
+                        addRoundMarker(battleRound);
+                        setTimeout(() => continueBattle(), 500);
+                    } else {
+                        continueBattle();
+                    }
+                    return;
+                }
+            }
+            
+            // Normal chat message handling
             const message = chatInput.value.trim();
             console.log('Message:', message);
             
@@ -1145,7 +1195,7 @@ Round ${battleRound} - bring the heat!`;
             chatInput.value = '';
             
             // In battle mode, user comments don't interrupt the battle
-            if (battleMode && currentBattle) {
+            if (battleMode && currentBattle && !battlePaused) {
                 addMessage('bot', "The battle continues! 🔥", 'Battle Arena');
                 return;
             }
@@ -1185,6 +1235,8 @@ Round ${battleRound} - bring the heat!`;
             });
             
             chatInput.placeholder = `Type your message to ${characters[character].name}...`;
+            nextAction = 'send';
+            updateSendButton();
             
             // Reset conversation
             resetConversation();
