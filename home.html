@@ -194,6 +194,9 @@
             text-align: left;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
         }
         
         .feature-card:hover {
@@ -235,6 +238,7 @@
             flex-direction: column;
             min-height: 150px;
             justify-content: space-between;
+            flex: 1;
         }
         
         .feature-description {
@@ -727,7 +731,7 @@
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
             const navMenu = document.querySelector('.nav-menu');
             navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-        </div>
+        });
         
         // Add scroll effect to navigation
         window.addEventListener('scroll', function() {
