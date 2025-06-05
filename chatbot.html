@@ -1,5 +1,4 @@
-let currentCharacter = 'kool-keith';
-        let conversationHistory = [];<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -111,6 +110,38 @@ let currentCharacter = 'kool-keith';
             margin-bottom: 30px;
         }
         
+        /* Mode Selection */
+        .mode-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .mode-btn {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            color: rgba(255, 215, 0, 0.8);
+            padding: 12px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .mode-btn:hover {
+            border-color: #ffd700;
+            transform: translateY(-2px);
+        }
+        
+        .mode-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
         /* Character Selection */
         .character-selection {
             display: flex;
@@ -143,6 +174,115 @@ let currentCharacter = 'kool-keith';
             color: #000;
             border-color: #ffd700;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Battle Selection */
+        .battle-selection {
+            margin-bottom: 30px;
+        }
+        
+        .battle-setup h3 {
+            text-align: center;
+            color: #ffd700;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .battle-fighters {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .fighter-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .fighter-selection label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .fighter-select {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 10px 15px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            min-width: 140px;
+        }
+        
+        .fighter-select:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .vs-divider {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .start-battle-btn {
+            display: block;
+            margin: 0 auto;
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .start-battle-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 68, 68, 0.4);
+            background: linear-gradient(45deg, #ff3333, #ff5555);
+        }
+        
+        /* Battle Mode Styles */
+        .battle-mode .message.bot {
+            position: relative;
+        }
+        
+        .battle-mode .message.bot.fighter1 .message-content {
+            border-left: 4px solid #ff4444;
+            background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(255, 68, 68, 0.05));
+        }
+        
+        .battle-mode .message.bot.fighter2 .message-content {
+            border-left: 4px solid #4444ff;
+            background: linear-gradient(135deg, rgba(68, 68, 255, 0.1), rgba(68, 68, 255, 0.05));
+        }
+        
+        .battle-round {
+            text-align: center;
+            color: #ffd700;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
         
         /* Chat Container */
@@ -361,6 +501,11 @@ let currentCharacter = 'kool-keith';
             .send-btn {
                 width: 100%;
             }
+            
+            .battle-fighters {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -384,16 +529,51 @@ let currentCharacter = 'kool-keith';
             <h1 class="chat-title">AI CHAT UNIVERSE</h1>
             <p class="chat-subtitle">
                 Talk directly with Keith's legendary personas. Each character has their own personality, 
-                knowledge, and style. Choose your conversation partner below.
+                knowledge, and style. Choose your conversation partner below or watch them battle!
             </p>
         </div>
 
+        <!-- Mode Selection -->
+        <div class="mode-selection">
+            <button class="mode-btn active" id="chatModeBtn">Chat Mode</button>
+            <button class="mode-btn" id="battleModeBtn">Battle Mode</button>
+        </div>
+
         <!-- Character Selection -->
-        <div class="character-selection">
+        <div class="character-selection" id="chatSelection">
             <button class="character-btn active" data-character="kool-keith">Kool Keith</button>
             <button class="character-btn" data-character="dr-octagon">Dr. Octagon</button>
             <button class="character-btn" data-character="dr-dooom">Dr. Dooom</button>
             <button class="character-btn" data-character="black-elvis">Black Elvis</button>
+        </div>
+
+        <!-- Battle Selection -->
+        <div class="battle-selection" id="battleSelection" style="display: none;">
+            <div class="battle-setup">
+                <h3>Choose Your Fighters</h3>
+                <div class="battle-fighters">
+                    <div class="fighter-selection">
+                        <label>Fighter 1:</label>
+                        <select id="fighter1" class="fighter-select">
+                            <option value="kool-keith">Kool Keith</option>
+                            <option value="dr-octagon">Dr. Octagon</option>
+                            <option value="dr-dooom">Dr. Dooom</option>
+                            <option value="black-elvis">Black Elvis</option>
+                        </select>
+                    </div>
+                    <div class="vs-divider">VS</div>
+                    <div class="fighter-selection">
+                        <label>Fighter 2:</label>
+                        <select id="fighter2" class="fighter-select">
+                            <option value="dr-octagon">Dr. Octagon</option>
+                            <option value="kool-keith">Kool Keith</option>
+                            <option value="dr-dooom">Dr. Dooom</option>
+                            <option value="black-elvis">Black Elvis</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="startBattleBtn" class="start-battle-btn">START BATTLE!</button>
+            </div>
         </div>
 
         <!-- Chat Container -->
@@ -437,6 +617,48 @@ let currentCharacter = 'kool-keith';
     <script>
         // ⚠️ REPLACE WITH YOUR ACTUAL API KEY
         const GEMINI_API_KEY = 'AIzaSyB9zU0axhA_e2dhEo0ZIixyHga5Fahqhnk';
+        
+        let currentCharacter = 'kool-keith';
+        let conversationHistory = [];
+        let battleMode = false;
+        let currentBattle = null;
+        let battleRound = 1;
+        
+        // Battle configurations for each matchup
+        const battlePrompts = {
+            'kool-keith-vs-dr-octagon': {
+                'kool-keith': `You're in a rap battle against Dr. Octagon. You're the original creator - roast him for being just one of your personas, mock his alien medical practice, and remind everyone you're the mastermind behind ALL the characters. Use your abstract wordplay to destroy his space doctor act. Drop bars about how you created him and can eliminate him anytime.`,
+                'dr-octagon': `Battle against your creator Kool Keith! Fight back by proving you're the most successful persona - your album was classic, you got the alien technology he could never understand. Diss his Earth-bound thinking and show that the student has surpassed the master. Use medical terminology to surgical destroy his ego.`
+            },
+            'kool-keith-vs-dr-dooom': {
+                'kool-keith': `Battle Dr. Dooom! He thinks he's superior but you created him too. Roast his dark medical practice, call out his fake superiority complex, remind him you're the original abstract pioneer. Use wordplay to show that all his personas are just extensions of your creative genius.`,
+                'dr-dooom': `Face your creator in battle! Prove you've evolved beyond Keith's control - your medical skills are deadlier, your alien technology more advanced. Diss his outdated rap style and show that you're the superior evolution of his creativity. Use surgical precision in your bars.`
+            },
+            'kool-keith-vs-black-elvis': {
+                'kool-keith': `Battle Black Elvis! Mock his Elvis tribute act, roast his Vegas showmanship, and prove that hip-hop innovation beats rock and roll nostalgia. Use abstract bars to destroy his smooth-talking performer persona. Show him who the real entertainment king is.`,
+                'black-elvis': `Battle the creator! Channel Elvis's charisma to outshine Keith's abstract style. Diss his confusing wordplay, mock his multiple personalities, and prove that smooth entertainment and stage presence beats weird experimental rap. Show him how a real king performs.`
+            },
+            'dr-octagon-vs-dr-dooom': {
+                'dr-octagon': `Battle your replacement Dr. Dooom! He claims he eliminated you, but you're back and ready to prove your alien medical practice is superior. Roast his fake superiority, mock his dark procedures, and show that extraterrestrial gynecology beats his sinister surgery. Use space bars to destroy him!`,
+                'dr-dooom': `Face off against the inferior Dr. Octagon! Remind him you eliminated him for good reason - your medical skills are deadlier, your alien technology more advanced. Mock his outdated Jupiter practice and prove once and for all who the superior space doctor really is.`
+            },
+            'dr-octagon-vs-black-elvis': {
+                'dr-octagon': `Battle Black Elvis! Your alien medical practice vs his Earth entertainment. Mock his tribute act, roast his Vegas showmanship with surgical precision. Prove that extraterrestrial gynecology and space travel beats rock and roll nostalgia. Use medical metaphors to dissect his performance!`,
+                'black-elvis': `Battle the space doctor! Your smooth Elvis charisma vs his weird alien medical practice. Roast his Jupiter origins, mock his stethoscope obsession, and prove that real entertainment and stage presence beats outer space medical procedures. Show him how a king really performs!`
+            },
+            'dr-dooom-vs-black-elvis': {
+                'dr-dooom': `Battle Black Elvis! Your superior medical practice vs his tribute entertainment. Mock his Elvis imitation, roast his Vegas act with deadly surgical precision. Prove that advanced alien medicine beats rock and roll showmanship. Use your sinister medical knowledge to destroy his performer persona!`,
+                'black-elvis': `Face Dr. Dooom! Your royal entertainment vs his dark medical practice. Roast his sinister procedures, mock his medical superiority complex, and prove that smooth charisma and stage presence beats scary space surgery. Channel the King's power to destroy this fake doctor!`
+            }
+        };
+        
+        // Battle introductions
+        const battleIntros = {
+            'kool-keith': "Yo, it's the original abstract pioneer stepping in the ring! I created all these personas, now watch me destroy one of my own creations!",
+            'dr-octagon': "Dr. Octagon from Jupiter entering the battle arena! My extraterrestrial medical skills about to operate on this competition!",
+            'dr-dooom': "Dr. Dooom in the building - the superior medical practitioner ready to eliminate all competition with surgical precision!",
+            'black-elvis': "Thank you, thank you very much! The King is here to show these rappers how real entertainment is done, baby!"
+        };
         
         // Enhanced character prompts with knowledge integration
         function buildEnhancedPrompt(character, basePrompt) {
@@ -655,9 +877,9 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
         // Character avatar images
         const characterAvatars = {
             'dr-octagon': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true',
-            'dr-dooom': '', // Add when you create the image
-            'kool-keith': '', // Add when you create the image  
-            'black-elvis': '' // Add when you create the image
+            'dr-dooom': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true',
+            'kool-keith': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true',
+            'black-elvis': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true'
         };
         
         // DOM elements
@@ -667,6 +889,15 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
         const typingIndicator = document.getElementById('typingIndicator');
         const statusContainer = document.getElementById('statusContainer');
         const characterBtns = document.querySelectorAll('.character-btn');
+        
+        // Battle mode elements
+        const chatModeBtn = document.getElementById('chatModeBtn');
+        const battleModeBtn = document.getElementById('battleModeBtn');
+        const chatSelection = document.getElementById('chatSelection');
+        const battleSelection = document.getElementById('battleSelection');
+        const fighter1Select = document.getElementById('fighter1');
+        const fighter2Select = document.getElementById('fighter2');
+        const startBattleBtn = document.getElementById('startBattleBtn');
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -682,6 +913,10 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
             
             console.log('API key found, setting up event listeners...');
             
+            // Mode switching
+            chatModeBtn.addEventListener('click', () => switchMode('chat'));
+            battleModeBtn.addEventListener('click', () => switchMode('battle'));
+            
             // Character selection
             characterBtns.forEach(btn => {
                 console.log('Adding click listener to:', btn.dataset.character);
@@ -690,6 +925,9 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
                     switchCharacter(this.dataset.character);
                 });
             });
+            
+            // Battle controls
+            startBattleBtn.addEventListener('click', startBattle);
             
             // Send message
             if (sendBtn) {
@@ -713,6 +951,224 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
             resetConversation();
             console.log('Chatbot initialized successfully');
         });
+        
+        function switchMode(mode) {
+            if (mode === 'chat') {
+                battleMode = false;
+                chatModeBtn.classList.add('active');
+                battleModeBtn.classList.remove('active');
+                chatSelection.style.display = 'flex';
+                battleSelection.style.display = 'none';
+                chatInput.placeholder = `Type your message to ${characters[currentCharacter].name}...`;
+                document.body.classList.remove('battle-mode');
+                resetConversation();
+            } else if (mode === 'battle') {
+                battleMode = true;
+                battleModeBtn.classList.add('active');
+                chatModeBtn.classList.remove('active');
+                chatSelection.style.display = 'none';
+                battleSelection.style.display = 'block';
+                chatInput.placeholder = "Watch the battle unfold, or type comments...";
+                document.body.classList.add('battle-mode');
+                resetConversation();
+                addMessage('bot', "🔥 BATTLE MODE ACTIVATED! Choose two fighters and watch them battle with epic disses! 🔥");
+            }
+        }
+        
+        function startBattle() {
+            const fighter1 = fighter1Select.value;
+            const fighter2 = fighter2Select.value;
+            
+            if (fighter1 === fighter2) {
+                showStatus('Please select two different fighters!', 'error');
+                return;
+            }
+            
+            currentBattle = {
+                fighter1: fighter1,
+                fighter2: fighter2,
+                currentFighter: fighter1,
+                battleKey: `${fighter1}-vs-${fighter2}`
+            };
+            
+            battleRound = 1;
+            
+            // Clear chat and start battle
+            chatMessages.innerHTML = '';
+            
+            // Battle announcement
+            addMessage('bot', `🥊 EPIC RAP BATTLE STARTING! 🥊`, 'Battle Arena');
+            addMessage('bot', `${characters[fighter1].name.toUpperCase()} VS ${characters[fighter2].name.toUpperCase()}`, 'Battle Arena');
+            addRoundMarker(1);
+            
+            // Fighter introductions
+            setTimeout(() => {
+                addMessage('bot', battleIntros[fighter1], characters[fighter1].name, fighter1);
+            }, 1000);
+            
+            setTimeout(() => {
+                addMessage('bot', battleIntros[fighter2], characters[fighter2].name, fighter2);
+            }, 2000);
+            
+            // Start the battle
+            setTimeout(() => {
+                addRoundMarker(1);
+                continueBattle();
+            }, 3000);
+        }
+        
+        async function continueBattle() {
+            if (!currentBattle) return;
+            
+            const { fighter1, fighter2, currentFighter, battleKey } = currentBattle;
+            const opponent = currentFighter === fighter1 ? fighter2 : fighter1;
+            
+            // Show typing
+            showTyping(true);
+            
+            try {
+                // Get battle prompt
+                const battlePrompt = battlePrompts[battleKey] || battlePrompts[`${fighter2}-vs-${fighter1}`];
+                const prompt = battlePrompt ? battlePrompt[currentFighter] : 
+                    `You're in an epic rap battle! Drop devastating bars against ${characters[opponent].name}. Use your unique style and vocabulary to create crushing disses and prove your superiority!`;
+                
+                // Enhanced prompt for battle
+                const fullPrompt = `${characters[currentFighter].prompt}
+
+BATTLE MODE ACTIVATED! ${prompt}
+
+BATTLE RULES:
+- Drop 4-8 bars of devastating rap lyrics
+- Use YOUR unique vocabulary and style 
+- Reference your opponent's weaknesses
+- Make it clever, creative, and crushing
+- Stay in character but be competitive
+- End with a strong finishing line
+
+Round ${battleRound} - bring the heat!`;
+
+                const response = await callBattleAPI(fullPrompt);
+                hideTyping();
+                
+                // Add battle message with fighter styling
+                addMessage('bot', response, characters[currentFighter].name, currentFighter);
+                
+                // Switch to other fighter
+                currentBattle.currentFighter = opponent;
+                
+                // Continue battle or end it
+                if (battleRound < 3) {
+                    if (currentFighter === fighter2) {
+                        battleRound++;
+                        setTimeout(() => {
+                            addRoundMarker(battleRound);
+                            setTimeout(() => continueBattle(), 1000);
+                        }, 2000);
+                    } else {
+                        setTimeout(() => continueBattle(), 2000);
+                    }
+                } else if (currentFighter === fighter2) {
+                    // Battle over
+                    setTimeout(() => {
+                        addMessage('bot', `🏆 BATTLE COMPLETE! Both fighters brought the heat! Who do you think won? 🏆`, 'Battle Arena');
+                        currentBattle = null;
+                    }, 2000);
+                } else {
+                    setTimeout(() => continueBattle(), 2000);
+                }
+                
+            } catch (error) {
+                hideTyping();
+                console.error('Battle API Error:', error);
+                addMessage('bot', `Technical difficulties in the battle arena! ${characters[currentFighter].name} will be back!`, characters[currentFighter].name);
+            }
+        }
+        
+        async function callBattleAPI(prompt) {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        role: 'user',
+                        parts: [{ text: prompt }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.9,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 300,
+                    }
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                return data.candidates[0].content.parts[0].text;
+            } else {
+                throw new Error('No response from AI');
+            }
+        }
+        
+        function addRoundMarker(round) {
+            const roundDiv = document.createElement('div');
+            roundDiv.className = 'battle-round';
+            roundDiv.innerHTML = `🥊 ROUND ${round} 🥊`;
+            chatMessages.appendChild(roundDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        async function sendMessage() {
+            console.log('sendMessage called');
+            const message = chatInput.value.trim();
+            console.log('Message:', message);
+            
+            if (!message) {
+                console.log('No message to send');
+                return;
+            }
+            
+            if (sendBtn.disabled) {
+                console.log('Send button is disabled');
+                return;
+            }
+            
+            // Add user message
+            addMessage('user', message);
+            chatInput.value = '';
+            
+            // In battle mode, user comments don't interrupt the battle
+            if (battleMode && currentBattle) {
+                addMessage('bot', "The battle continues! 🔥", 'Battle Arena');
+                return;
+            }
+            
+            // Show typing indicator
+            showTyping(true);
+            sendBtn.disabled = true;
+            
+            try {
+                console.log('Calling Gemini API...');
+                const response = await callGeminiAPI(message);
+                hideTyping();
+                addMessage('bot', response, characters[currentCharacter].name);
+                console.log('Response received:', response);
+            } catch (error) {
+                hideTyping();
+                console.error('API Error:', error);
+                addMessage('bot', "Yo, I'm having some technical difficulties right now. Try asking me again in a moment.", characters[currentCharacter].name);
+                showStatus('Connection error. Please try again.', 'error');
+            }
+            
+            sendBtn.disabled = false;
+        }
         
         function switchCharacter(character) {
             console.log('Switching to character:', character);
@@ -755,45 +1211,6 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
             };
             
             return messages[characterName] || messages['Kool Keith'];
-        }
-        
-        async function sendMessage() {
-            console.log('sendMessage called');
-            const message = chatInput.value.trim();
-            console.log('Message:', message);
-            
-            if (!message) {
-                console.log('No message to send');
-                return;
-            }
-            
-            if (sendBtn.disabled) {
-                console.log('Send button is disabled');
-                return;
-            }
-            
-            // Add user message
-            addMessage('user', message);
-            chatInput.value = '';
-            
-            // Show typing indicator
-            showTyping(true);
-            sendBtn.disabled = true;
-            
-            try {
-                console.log('Calling Gemini API...');
-                const response = await callGeminiAPI(message);
-                hideTyping();
-                addMessage('bot', response, characters[currentCharacter].name);
-                console.log('Response received:', response);
-            } catch (error) {
-                hideTyping();
-                console.error('API Error:', error);
-                addMessage('bot', "Yo, I'm having some technical difficulties right now. Try asking me again in a moment.", characters[currentCharacter].name);
-                showStatus('Connection error. Please try again.', 'error');
-            }
-            
-            sendBtn.disabled = false;
         }
         
         async function callGeminiAPI(userMessage) {
@@ -875,16 +1292,27 @@ Respond as Black Elvis would - smooth and charismatic like Elvis, but with Keith
             }
         }
         
-        function addMessage(type, content, characterName = '') {
-            console.log('Adding message:', type, characterName, 'Current character:', currentCharacter);
+        function addMessage(type, content, characterName = '', fighterType = '') {
+            console.log('Adding message:', type, characterName, 'Fighter type:', fighterType);
             
             const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
+            let className = `message ${type}`;
+            
+            // Add battle styling
+            if (battleMode && fighterType) {
+                if (fighterType === currentBattle?.fighter1) {
+                    className += ' fighter1';
+                } else if (fighterType === currentBattle?.fighter2) {
+                    className += ' fighter2';
+                }
+            }
+            
+            messageDiv.className = className;
             
             let html = '';
             if (type === 'bot' && characterName) {
-                const avatarUrl = characterAvatars[currentCharacter];
-                console.log('Avatar URL for', currentCharacter, ':', avatarUrl);
+                const avatarUrl = characterAvatars[fighterType || currentCharacter];
+                console.log('Avatar URL for', fighterType || currentCharacter, ':', avatarUrl);
                 
                 html += `<div class="character-name">`;
                 
