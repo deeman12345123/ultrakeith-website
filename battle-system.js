@@ -419,49 +419,51 @@
     // Battle Round Functions
     async function battleRound1() {
         updateRoundDisplay(1);
-        addBattleMessage('system', '🥊 ROUND 1: Opening Shots!', 'ROUND 1');
+        addBattleMessage('system', '🥊 ROUND 1: First Blood!', 'ROUND 1');
         
         const [fighter1, fighter2] = currentBattle.fighters;
         
-        // Fighter 1 opens
+        // Fighter 1 opens with one verse
         await generateBattleVerse(fighter1, fighter2, 1, 'opening');
         updateSendButton('NEXT VERSE 🔥');
     }
 
     async function battleRound2() {
-        updateRoundDisplay(2);
-        addBattleMessage('system', '🔥 ROUND 2: The Heat Rises!', 'ROUND 2');
-        
         const [fighter1, fighter2] = currentBattle.fighters;
         
-        // Fighter 2 responds
-        await generateBattleVerse(fighter2, fighter1, 2, 'response');
-        updateSendButton('NEXT ROUND 🥊');
+        // Fighter 2 responds with one verse
+        await generateBattleVerse(fighter2, fighter1, 1, 'response');
+        updateSendButton('ROUND 2 🥊');
+        
+        // Add round transition
+        setTimeout(() => {
+            updateRoundDisplay(2);
+            addBattleMessage('system', '🔥 ROUND 2: The Heat Rises!', 'ROUND 2');
+        }, 1500);
     }
 
     async function battleRound3() {
-        updateRoundDisplay(3);
-        addBattleMessage('system', '💥 FINAL ROUND: Finishing Moves!', 'FINAL ROUND');
-        
         const [fighter1, fighter2] = currentBattle.fighters;
         
-        // Both fighters final verses
-        await generateBattleVerse(fighter1, fighter2, 3, 'finisher');
+        // Fighter 1's second verse
+        await generateBattleVerse(fighter1, fighter2, 2, 'escalation');
         updateSendButton('FINAL VERSE 💀');
     }
 
     async function battleFinale() {
         const [fighter1, fighter2] = currentBattle.fighters;
         
-        // Fighter 2 final response
-        await generateBattleVerse(fighter2, fighter1, 3, 'finisher');
+        // Fighter 2's final verse
+        await generateBattleVerse(fighter2, fighter1, 2, 'finisher');
         
         // Battle conclusion
-        addBattleMessage('system', '🏆 BATTLE COMPLETE! 🏆', 'BATTLE SYSTEM');
-        addBattleMessage('system', 'The crowd goes wild! Both fighters showed incredible skill!', 'BATTLE SYSTEM');
-        
-        updateSendButton('NEW BATTLE 🔥');
-        document.getElementById('sendBtn').onclick = () => returnToBattleSetup();
+        setTimeout(() => {
+            addBattleMessage('system', '🏆 BATTLE COMPLETE! 🏆', 'BATTLE SYSTEM');
+            addBattleMessage('system', 'The crowd goes wild! Both fighters brought the heat!', 'BATTLE SYSTEM');
+            
+            updateSendButton('NEW BATTLE 🔥');
+            document.getElementById('sendBtn').onclick = () => returnToBattleSetup();
+        }, 2000);
     }
 
     // Generate Battle Verse
@@ -474,14 +476,14 @@
 
 BATTLE STRATEGY: ${strategy}
 
-This is Round ${round} (${type}). Generate a fierce 4-8 line rap verse that:
+This is Round ${round}. Generate ONE FIERCE VERSE ONLY (4-6 lines maximum) that:
 - Attacks ${defenderData.identity?.name || defender} based on the strategy
-- Uses your character's vocabulary and style
+- Uses your character's vocabulary and style from your knowledge base
 - Includes clever wordplay and metaphors
 - Shows your character's personality
-- ${type === 'finisher' ? 'Delivers a devastating final blow' : 'Sets up for the next round'}
+- Ends with a strong punch line
 
-Make it authentically fierce and creative. This is a legendary battle!`;
+IMPORTANT: Only give me the rap verse - no extra commentary, no "here's my verse", just pure bars!`;
 
         showTyping(true);
         
@@ -505,7 +507,7 @@ Make it authentically fierce and creative. This is a legendary battle!`;
     }
 
     // Battle Message Function
-    function addBattleMessage(type, content, characterName = '', fighterColor = '') {
+    function addBattleMessage(type, content, characterName = '', fighterCharacter = '') {
         const messageDiv = document.createElement('div');
         
         if (type === 'system') {
@@ -516,8 +518,9 @@ Make it authentically fierce and creative. This is a legendary battle!`;
             
             let html = '';
             if (type === 'bot' && characterName) {
-                const avatarUrl = characterAvatars[currentCharacter] || characterAvatars[fighterColor];
-                const borderColor = currentBattle.fighters[0] === fighterColor ? '#ff4444' : '#4444ff';
+                // Use the correct character for avatar lookup
+                const avatarUrl = characterAvatars[fighterCharacter] || characterAvatars[currentCharacter];
+                const borderColor = currentBattle && currentBattle.fighters[0] === fighterCharacter ? '#ff4444' : '#4444ff';
                 
                 html += `<div class="character-name">`;
                 if (avatarUrl) {
