@@ -376,9 +376,205 @@
             transform: scale(1.05);
         }
         
+        /* Chatbot Styles */
+        .chatbot-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 280px;
+        }
+        
+        .persona-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .persona-selector label {
+            color: #ffd700;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .persona-selector select {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 8px;
+            color: #ffd700;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        
+        .persona-selector select:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+        
+        #chat-messages {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            overflow-y: auto;
+            max-height: 150px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .chat-input-area {
+            display: flex;
+            gap: 8px;
+        }
+        
+        #chat-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 8px;
+            color: #ffffff;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+        
+        #chat-input:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+        
+        #send-btn {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        #send-btn:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
+            border-color: #ffd700;
+            transform: scale(1.05);
+        }
+        
+        #send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 6px;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        .user-message {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 3px solid #ffd700;
+        }
+        
+        .ai-message {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid rgba(255, 215, 0, 0.5);
+        }
+        
+        .chat-info {
+            text-align: center;
+            color: rgba(255, 215, 0, 0.6);
+            font-size: 0.75rem;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Willie Biggs Casino Section */
+        .penthouse-section {
+            margin: 80px 0 40px;
+            padding: 0 20px;
+        }
+        
+        .penthouse-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 10, 0, 0.8));
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.8),
+                inset 0 2px 4px rgba(255, 215, 0, 0.3),
+                0 0 100px rgba(255, 215, 0, 0.1);
+        }
+        
+        .penthouse-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #daa520);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldShimmer 4s ease-in-out infinite;
+        }
+        
+        @keyframes goldShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .penthouse-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+        
+        .penthouse-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 35px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .penthouse-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 30px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .penthouse-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(45deg, #ffed4e, #ffd700);
         }
         
         /* Footer */
@@ -593,13 +789,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/williebiggss.png?raw=true" 
-                         alt="Willie Biggs Casino" 
-                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                         onload="console.log('Willie Biggs image loaded successfully!');"
-                         onerror="this.parentElement.innerHTML='🎰';">
-                </div>
+                <div class="feature-icon">🎰</div>
                 <h3 class="feature-title">Willie Biggs Casino</h3>
                 <div class="feature-content">
                     <p class="feature-description">
@@ -614,11 +804,27 @@
                 <div class="feature-icon">🤖</div>
                 <h3 class="feature-title">AI Chat</h3>
                 <div class="feature-content">
-                    <p class="feature-description">
-                        Have real conversations with AI versions of Keith's legendary characters. 
-                        Talk to Dr. Octagon, Dr. Dooom, and Kool Keith about their worlds.
-                    </p>
-                    <a href="chatbot.html" class="feature-button">Start Chatting</a>
+                    <div class="chatbot-container">
+                        <div class="persona-selector">
+                            <label for="persona-select">Choose Your Character:</label>
+                            <select id="persona-select">
+                                <option value="octagon">Dr. Octagon</option>
+                                <option value="dooom">Dr. Dooom</option>
+                                <option value="keith">Kool Keith</option>
+                            </select>
+                        </div>
+                        
+                        <div id="chat-messages"></div>
+                        
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-input" placeholder="Ask Dr. Octagon anything..." maxlength="200">
+                            <button id="send-btn" onclick="sendMessage()">Send</button>
+                        </div>
+                        
+                        <div class="chat-info">
+                            <small>💫 Powered by AI • 5 messages per day limit</small>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -779,3 +985,42 @@
                 }
             }, 5000);
         }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initNewsWidget();
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.navigation');
+            if (window.scrollY > 100) {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
