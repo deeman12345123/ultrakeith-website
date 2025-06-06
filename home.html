@@ -53,9 +53,7 @@
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: 
-                radial-gradient(circle at 20% 80%, var(--keith-dark) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, var(--keith-space) 0%, transparent 50%),
-                linear-gradient(135deg, #000000 0%, var(--keith-dark) 25%, var(--keith-space) 50%, #2a0000 75%, #000000 100%);
+                linear-gradient(135deg, #000000 0%, var(--keith-dark) 40%, var(--keith-space) 70%, #000000 100%);
             color: #ffffff;
             overflow-x: hidden;
             min-height: 100vh;
@@ -63,33 +61,8 @@
         }
         
         /* ===================
-           02. ANIMATED BACKGROUND 
+           02. CLEAN BACKGROUND ELEMENTS 
            =================== */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--gold-primary);
-            animation: float 8s infinite linear;
-            opacity: 0.7;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
         
         /* ===================
            03. NAVIGATION
@@ -288,13 +261,13 @@
         
         /* Staggered Card Animation */
         .feature-card {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
-            border: var(--border-gold);
-            border-radius: var(--spacing-medium);
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.85), rgba(26, 0, 0, 0.65));
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 20px;
             padding: var(--spacing-large);
             text-align: left;
-            transition: all var(--animation-speed) ease;
-            backdrop-filter: blur(var(--blur-strength));
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
             height: var(--card-height);
             display: flex;
             flex-direction: column;
@@ -326,9 +299,9 @@
         }
         
         .feature-card:hover {
-            border-color: rgba(255, 215, 0, 0.8);
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-strong);
+            border-color: var(--gold-primary);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.1);
         }
         
         /* Card Header: Icon + Title */
@@ -386,24 +359,27 @@
         }
         
         .feature-button {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.25));
             color: var(--gold-primary);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 10px var(--spacing-medium);
-            border-radius: var(--spacing-small);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 14px 28px;
+            border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             display: inline-block;
             align-self: flex-start;
             margin-top: auto;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
         
         .feature-button:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.4));
             border-color: var(--gold-primary);
-            transform: scale(1.05);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
         }
         
         /* ===================
@@ -674,8 +650,8 @@
     </style>
 </head>
 <body>
-    <!-- Animated Background Particles -->
-    <div class="particles" id="particles"></div>
+    <!-- Clean Modern Background -->
+    <!-- No particles - clean professional look -->
     
     <!-- Navigation -->
     <nav class="navigation">
@@ -684,10 +660,10 @@
                 <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kkb2.png?raw=true" alt="Kool Keith">
             </a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#music">Music</a></li>
+                <li><a href="music.html">Music</a></li>
                 <li><a href="personas/personas.html">Personas</a></li>
-                <li><a href="#tour">Tour</a></li>
-                <li><a href="#shop">Shop</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="shop.html">Shop</a></li>
             </ul>
             <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
@@ -708,7 +684,7 @@
             <h1 class="hero-title">OFFICIAL MUSIC UNIVERSE</h1>
             <p class="hero-subtitle">
                 Enter the multi-dimensional universe of hip-hop's most legendary innovator.<br>
-                From Ultramagnetic MCs to Dr. Octagon, 30+ years of personas and pure creativity.
+                Nearly 40 years creating personas, pushing boundaries, and defining underground excellence.
             </p>
         </section>
         
@@ -730,7 +706,7 @@
                         The legendary journey from Ultramagnetic MCs to Dr. Octagon. 
                         30+ years of innovation, personas, and pure hip-hop evolution.
                     </p>
-                    <a href="#bio" class="feature-button">Read Story</a>
+                    <a href="bio.html" class="feature-button">Read Story</a>
                 </div>
             </div>
             
@@ -770,7 +746,7 @@
                         Keith's winning hand - 50+ albums spanning decades of innovation 
                         from Critical Beatdown to modern classics.
                     </p>
-                    <a href="#music" class="feature-button">Browse Albums</a>
+                    <a href="music.html" class="feature-button">Browse Albums</a>
                 </div>
             </div>
             
@@ -807,10 +783,13 @@
                         Exclusive unreleased tracks, rare cuts, and vault material 
                         available nowhere else. For true collectors only.
                     </p>
-                    <a href="#vault" class="feature-button">Explore Vault</a>
+                    <a href="vault.html" class="feature-button">Explore Vault</a>
                 </div>
             </div>
             
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="feature-icon">
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
@@ -861,7 +840,7 @@
                         Music videos, live performances, interviews, and behind-the-scenes 
                         footage from Keith's legendary career spanning multiple decades.
                     </p>
-                    <a href="#videos" class="feature-button">Watch Now</a>
+                    <a href="videos.html" class="feature-button">Watch Now</a>
                 </div>
             </div>
             
@@ -875,7 +854,7 @@
                         Upcoming tour dates, live performances, and show announcements. 
                         Catch Keith live performing his classic hits and new material.
                     </p>
-                    <a href="#tour" class="feature-button">See Dates</a>
+                    <a href="tour.html" class="feature-button">See Dates</a>
                 </div>
             </div>
             
@@ -903,7 +882,7 @@
                         Official merchandise, vinyl records, CDs, and rare collectibles. 
                         Get authentic Keith gear and music directly from the source.
                     </p>
-                    <a href="#shop" class="feature-button">Shop Now</a>
+                    <a href="shop.html" class="feature-button">Shop Now</a>
                 </div>
             </div>
         </section>
@@ -924,19 +903,10 @@
     </footer>
     
     <script>
-        // Create animated background particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                particlesContainer.appendChild(particle);
-            }
+        // Create clean modern background (no particles)
+        function createModernBackground() {
+            // No particle creation - clean modern look
+            console.log('Modern clean background loaded');
         }
         
         // Lazy Loading for Images
@@ -1054,7 +1024,7 @@
         
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
+            createModernBackground();
             initLazyLoading();
             initBackToTop();
             initNewsWidget();
