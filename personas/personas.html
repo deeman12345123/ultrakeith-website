@@ -60,6 +60,23 @@
             font-weight: 900;
             color: var(--gold-primary);
             text-decoration: none;
+            /* Prepared for mini diamond logo */
+            display: flex;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            /* Remove when mini diamond ready: */
+            justify-content: center;
+            border: 2px solid var(--gold-primary);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
         
         .nav-menu {
@@ -68,15 +85,64 @@
             gap: 30px;
         }
         
+        /* Desktop menu - visible on desktop */
+        @media (min-width: 769px) {
+            .nav-menu {
+                display: flex !important;
+                position: static !important;
+                background: none !important;
+                flex-direction: row !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+                max-height: none !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+        
         .nav-menu a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-family: 'Orbitron', monospace;
             transition: color 0.3s ease;
+            position: relative;
         }
         
         .nav-menu a:hover {
             color: var(--gold-primary);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold-primary);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
         
         /* Main Content */
@@ -198,8 +264,8 @@
         
         /* Card Front Content */
         .card-image {
-            width: 100%;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
             background: linear-gradient(45deg, var(--keith-dark), var(--keith-space));
             display: flex;
@@ -207,9 +273,11 @@
             justify-content: center;
             font-family: 'Orbitron', monospace;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             color: var(--gold-primary);
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin: 15px auto;
+            border-radius: 8px;
         }
         
         /* Different colors for different personas */
@@ -390,38 +458,173 @@
         
         /* Responsive Design */
         @media (max-width: 768px) {
+            /* Navigation */
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            /* Page content */
             .page-title {
                 font-size: 2.2rem;
             }
             
+            .page-subtitle {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .filter-controls {
+                gap: 15px;
+                padding: 0 15px;
+            }
+            
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .container {
+                padding: 100px 15px 40px;
+            }
+            
             .personas-grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: var(--spacing);
+                gap: 25px;
+                padding: 0 10px;
             }
             
             .persona-card {
-                width: 250px;
+                width: 100%;
+                max-width: 300px;
                 height: 360px;
             }
             
-            :root {
-                --card-width: 250px;
-                --card-height: 360px;
+            .card-image {
+                width: 120px;
+                height: 120px;
+                font-size: 0.8rem;
+            }
+            
+            .card-header {
+                padding: 15px;
+            }
+            
+            .persona-name {
+                font-size: 1.1rem;
+            }
+            
+            .persona-title {
+                font-size: 0.8rem;
+            }
+            
+            .card-stats {
+                padding: 15px;
+            }
+            
+            .stat-name {
+                font-size: 0.75rem;
+            }
+            
+            .stat-bar {
+                width: 80px;
             }
         }
         
         @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
             .personas-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0;
             }
             
             .persona-card {
-                width: 220px;
-                height: 320px;
+                width: 100%;
+                max-width: 280px;
+                height: 340px;
+                margin: 0 auto;
             }
             
             .card-image {
-                height: 160px;
+                width: 100px;
+                height: 100px;
+                font-size: 0.7rem;
+            }
+            
+            .persona-name {
+                font-size: 1rem;
+            }
+            
+            .stat-bar {
+                width: 60px;
+                height: 5px;
+            }
+        }
+        
+        /* ===================
+           MOBILE MENU OVERRIDE - Must be last!
+           =================== */
+        @media screen and (max-width: 768px) {
+            body .navigation .nav-container .nav-menu {
+                position: absolute !important;
+                top: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: rgba(0, 0, 0, 0.98) !important;
+                backdrop-filter: blur(15px) !important;
+                border-top: 1px solid rgba(255, 215, 0, 0.3) !important;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.3) !important;
+                flex-direction: column !important;
+                gap: 0 !important;
+                padding: 20px !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
+                z-index: 1000 !important;
+                display: flex !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transform: translateY(-20px) !important;
+                transition: all 0.3s ease !important;
+                max-height: 0 !important;
+                overflow: hidden !important;
+            }
+            
+            body .navigation .nav-container .nav-menu.show {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: translateY(0) !important;
+                max-height: 400px !important;
+                overflow: visible !important;
+            }
+            
+            body .navigation .nav-container .nav-menu li {
+                margin: 15px 0 !important;
+                text-align: center !important;
+            }
+            
+            body .navigation .nav-container .nav-menu a {
+                display: block !important;
+                padding: 15px 20px !important;
+                font-size: 1.1rem !important;
+                border-radius: 10px !important;
+                transition: all 0.3s ease !important;
+                width: 100% !important;
+            }
+            
+            body .navigation .nav-container .nav-menu a:hover {
+                background: rgba(255, 215, 0, 0.1) !important;
             }
         }
     </style>
@@ -430,14 +633,19 @@
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
-            <a href="../index.html" class="nav-logo">Ultra Keith</a>
-            <ul class="nav-menu">
+            <a href="../index.html" class="nav-logo">
+                <!-- Prepared for mini diamond logo -->
+                <!-- <img src="mini-diamond-logo.png" alt="Kool Keith"> -->
+                KK
+            </a>
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="../music/index.html">Music</a></li>
                 <li><a href="personas.html">Personas</a></li>
                 <li><a href="../tour.html">Tour</a></li>
                 <li><a href="../shop.html">Shop</a></li>
             </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
     </nav>
     
@@ -865,6 +1073,37 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             initFilters();
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            console.log('Mobile menu setup:', { btn: !!mobileMenuBtn, menu: !!navMenu });
+            
+            if (mobileMenuBtn && navMenu) {
+                // Toggle menu
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Hamburger clicked');
+                    navMenu.classList.toggle('show');
+                    console.log('Menu classes:', navMenu.className);
+                });
+                
+                // Close menu when clicking menu items
+                navMenu.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'A') {
+                        console.log('Menu item clicked');
+                        navMenu.classList.remove('show');
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        navMenu.classList.remove('show');
+                    }
+                });
+            }
             
             // Add smooth transitions to cards
             const cards = document.querySelectorAll('.persona-card');
