@@ -228,6 +228,8 @@
             text-align: center;
             margin-bottom: 80px;
             padding: 60px var(--spacing-medium);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
         }
         
         .hero-logo-container {
@@ -260,6 +262,17 @@
             50% { background-position: 100% 50%; }
         }
         
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .hero-subtitle {
             font-size: 1.3rem;
             color: rgba(255, 255, 255, 0.9);
@@ -268,7 +281,44 @@
         }
         
         /* ===================
-           06. FEATURE CARDS
+           06. RECENT ACTIVITY TICKER
+           =================== */
+        .activity-ticker {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.5s forwards;
+            overflow: hidden;
+        }
+        
+        .ticker-content {
+            white-space: nowrap;
+            animation: tickerScroll 15s linear infinite;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+        
+        .ticker-content a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .ticker-content a:hover {
+            text-decoration: underline;
+        }
+        
+        @keyframes tickerScroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* ===================
+           07. FEATURE CARDS WITH STAGGERED ANIMATION
            =================== */
         .featured-content {
             display: grid;
@@ -277,7 +327,7 @@
             margin: 80px 0;
         }
         
-        /* Desktop Card Structure */
+        /* Staggered Card Animation */
         .feature-card {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
             border: var(--border-gold);
@@ -289,6 +339,31 @@
             height: var(--card-height);
             display: flex;
             flex-direction: column;
+            
+            /* Initial state for animation */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 0.6s ease forwards;
+        }
+        
+        /* Staggered delays for each card */
+        .feature-card:nth-child(1) { animation-delay: 0.8s; }
+        .feature-card:nth-child(2) { animation-delay: 0.9s; }
+        .feature-card:nth-child(3) { animation-delay: 1.0s; }
+        .feature-card:nth-child(4) { animation-delay: 1.1s; }
+        .feature-card:nth-child(5) { animation-delay: 1.2s; }
+        .feature-card:nth-child(6) { animation-delay: 1.3s; }
+        .feature-card:nth-child(7) { animation-delay: 1.4s; }
+        .feature-card:nth-child(8) { animation-delay: 1.5s; }
+        .feature-card:nth-child(9) { animation-delay: 1.6s; }
+        .feature-card:nth-child(10) { animation-delay: 1.7s; }
+        .feature-card:nth-child(11) { animation-delay: 1.8s; }
+        
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .feature-card:hover {
@@ -313,6 +388,15 @@
             line-height: var(--icon-size-desktop);
             filter: drop-shadow(var(--glow-gold));
             flex-shrink: 0;
+        }
+        
+        .feature-icon img {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-icon img.loaded {
+            opacity: 1;
         }
         
         .feature-title {
@@ -364,7 +448,41 @@
         }
         
         /* ===================
-           07. NEWS WIDGET
+           08. BACK TO TOP BUTTON
+           =================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* ===================
+           09. NEWS WIDGET
            =================== */
         .news-content-small {
             flex: 1;
@@ -412,7 +530,7 @@
         }
         
         /* ===================
-           08. FOOTER
+           10. FOOTER
            =================== */
         .footer {
             border-top: var(--border-gold);
@@ -445,7 +563,7 @@
         }
         
         /* ===================
-           09. MOBILE RESPONSIVE
+           11. MOBILE RESPONSIVE
            =================== */
         @media (max-width: 768px) {
             /* Navigation */
@@ -460,6 +578,16 @@
             /* Hero */
             .hero-title {
                 font-size: 2.5rem;
+            }
+            
+            /* Activity Ticker */
+            .activity-ticker {
+                margin-bottom: 30px;
+            }
+            
+            .ticker-content {
+                font-size: 0.85rem;
+                animation: tickerScroll 20s linear infinite;
             }
             
             /* Grid */
@@ -524,6 +652,15 @@
                 text-align: left;
             }
             
+            /* Back to top button mobile adjustments */
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            
             .footer-links {
                 flex-direction: column;
                 gap: var(--spacing-small);
@@ -531,7 +668,7 @@
         }
         
         /* ===================
-           10. MOBILE MENU OVERRIDE
+           12. MOBILE MENU OVERRIDE
            =================== */
         /* MOBILE MENU - FINAL OVERRIDE - Must be last! */
         @media screen and (max-width: 768px) {
@@ -604,6 +741,9 @@
         </div>
     </nav>
     
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">↑</button>
+    
     <div class="container">
         <!-- Hero Section -->
         <section class="hero-section" id="home">
@@ -620,68 +760,17 @@
             </p>
         </section>
         
+        <!-- Recent Activity Ticker -->
+        <div class="activity-ticker">
+            <div class="ticker-content" id="activityTicker">
+                🔥 Latest: <a href="#" id="latestNewsLink">Loading recent activity...</a> 
+                | 📰 <a href="#" id="latestForumLink">Latest forum discussion...</a>
+                | 🎵 Stay tuned for upcoming releases and tour announcements
+            </div>
+        </div>
+        
         <!-- Featured Content -->
         <section class="featured-content" id="features">
-            <div class="feature-card">
-                <div class="card-header">
-                    <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/bio.png" 
-                             alt="Ultra Keith Bio" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                             onload="console.log('Bio image loaded successfully!');"
-                             onerror="this.parentElement.innerHTML='👤';">
-                    </div>
-                    <h3 class="feature-title">Bio</h3>
-                </div>
-                <div class="card-content">
-                    <p class="feature-description">
-                        The legendary journey from Ultramagnetic MCs to Dr. Octagon. 
-                        30+ years of innovation, personas, and pure hip-hop evolution.
-                    </p>
-                    <a href="#bio" class="feature-button">Read Story</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="card-header">
-                    <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
-                             alt="Kool Keith Personas" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                             onload="console.log('Personas image loaded successfully!');"
-                             onerror="this.parentElement.innerHTML='🎭';">
-                    </div>
-                    <h3 class="feature-title">Personas</h3>
-                </div>
-                <div class="card-content">
-                    <p class="feature-description">
-                        Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
-                        of Keith's creative universe with unique stories and sounds.
-                    </p>
-                    <a href="#personas" class="feature-button">Meet the Characters</a>
-                </div>
-            </div>
-            
-            <div class="feature-card">
-                <div class="card-header">
-                    <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/discog.png" 
-                             alt="Kool Keith Discography" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                             onload="console.log('Discography image loaded successfully!');"
-                             onerror="this.parentElement.innerHTML='💿';">
-                    </div>
-                    <h3 class="feature-title">Music</h3>
-                </div>
-                <div class="card-content">
-                    <p class="feature-description">
-                        Keith's winning hand - 50+ albums spanning decades of innovation 
-                        from Critical Beatdown to modern classics.
-                    </p>
-                    <a href="#music" class="feature-button">Browse Albums</a>
-                </div>
-            </div>
-            
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon" id="news-icon-container">
@@ -705,7 +794,7 @@
                         <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/vault.png" 
                              alt="Kool Keith Vault Series" 
                              style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                             onload="console.log('Vault image loaded successfully!');"
+                             onload="this.classList.add('loaded'); console.log('Vault image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='🎭';">
                     </div>
                     <h3 class="feature-title">Vault Series</h3>
@@ -725,7 +814,7 @@
                         <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/williebiggss.png?raw=true" 
                              alt="Willie Biggs Casino" 
                              style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
-                             onload="console.log('Willie Biggs image loaded successfully!');"
+                             onload="this.classList.add('loaded'); console.log('Willie Biggs image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='🎰';">
                     </div>
                     <h3 class="feature-title">Willie Biggs Casino</h3>
@@ -759,7 +848,7 @@
                         <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/videos.png" 
                              alt="Kool Keith Videos" 
                              style="width: 150px; height: 150px; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block; background: rgba(0,0,0,0.1);"
-                             onload="console.log('Videos image loaded successfully!');"
+                             onload="this.classList.add('loaded'); console.log('Videos image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='📹';">
                     </div>
                     <h3 class="feature-title">Videos</h3>
@@ -847,12 +936,86 @@
             }
         }
         
+        // Lazy Loading for Images
+        function initLazyLoading() {
+            const images = document.querySelectorAll('.feature-icon img');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        // Image is already loading via src, just add loaded class when ready
+                        if (img.complete) {
+                            img.classList.add('loaded');
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+        }
+        
+        // Back to Top Button
+        function initBackToTop() {
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Activity Ticker with Real Data
+        function initActivityTicker() {
+            const ticker = document.getElementById('activityTicker');
+            const latestNewsLink = document.getElementById('latestNewsLink');
+            const latestForumLink = document.getElementById('latestForumLink');
+            
+            // Fetch latest blog post
+            const blogFeedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + 
+                encodeURIComponent('https://ultrakeithdotcom.blogspot.com/feeds/posts/default');
+            
+            fetch(blogFeedUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        const latestPost = data.items[0];
+                        latestNewsLink.textContent = latestPost.title;
+                        latestNewsLink.href = latestPost.link;
+                    }
+                })
+                .catch(error => {
+                    console.log('Blog feed error:', error);
+                    latestNewsLink.textContent = 'Check out the latest blog posts';
+                    latestNewsLink.href = 'https://ultrakeithdotcom.blogspot.com';
+                });
+            
+            // Forum RSS (ProBoards format) - Note: This might not work due to CORS
+            // For now, we'll use a fallback
+            latestForumLink.textContent = 'Join the community discussion';
+            latestForumLink.href = 'https://koolkeith.proboards.com/';
+            
+            // If forum RSS is available, you could try:
+            // const forumFeedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + 
+            //     encodeURIComponent('https://koolkeith.proboards.com/feed/recent.xml');
+        }
+        
         // News Widget Functionality
         function initNewsWidget() {
             const container = document.getElementById('news-widget-container');
             if (!container) return;
             
-            // Define the RSS feed URL for the blog
             const feedUrl = 'https://ultrakeithdotcom.blogspot.com/feeds/posts/default';
             
             function extractFirstImage(htmlContent) {
@@ -873,6 +1036,7 @@
                     newsIconContainer.innerHTML = `
                         <img src="${imageUrl}" alt="${post.title}" 
                              style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             class="loaded"
                              onerror="this.parentElement.innerHTML='📝';">
                     `;
                 }
@@ -923,27 +1087,25 @@
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            initLazyLoading();
+            initBackToTop();
+            initActivityTicker();
             initNewsWidget();
             
             // Mobile menu functionality
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navMenu = document.getElementById('navMenu');
             
-            console.log('Mobile menu setup:', { btn: !!mobileMenuBtn, menu: !!navMenu });
-            
             if (mobileMenuBtn && navMenu) {
                 // Toggle menu
                 mobileMenuBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('Hamburger clicked');
                     navMenu.classList.toggle('show');
-                    console.log('Menu classes:', navMenu.className);
                 });
                 
                 // Close menu when clicking menu items
                 navMenu.addEventListener('click', function(e) {
                     if (e.target.tagName === 'A') {
-                        console.log('Menu item clicked');
                         navMenu.classList.remove('show');
                     }
                 });
@@ -982,4 +1144,64 @@
         });
     </script>
 </body>
-</html>
+</html> class="card-header">
+                    <div class="feature-icon">
+                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/bio.png" 
+                             alt="Ultra Keith Bio" 
+                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             onload="this.classList.add('loaded'); console.log('Bio image loaded successfully!');"
+                             onerror="this.parentElement.innerHTML='👤';">
+                    </div>
+                    <h3 class="feature-title">Bio</h3>
+                </div>
+                <div class="card-content">
+                    <p class="feature-description">
+                        The legendary journey from Ultramagnetic MCs to Dr. Octagon. 
+                        30+ years of innovation, personas, and pure hip-hop evolution.
+                    </p>
+                    <a href="#bio" class="feature-button">Read Story</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="feature-icon">
+                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
+                             alt="Kool Keith Personas" 
+                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             onload="this.classList.add('loaded'); console.log('Personas image loaded successfully!');"
+                             onerror="this.parentElement.innerHTML='🎭';">
+                    </div>
+                    <h3 class="feature-title">Personas</h3>
+                </div>
+                <div class="card-content">
+                    <p class="feature-description">
+                        Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
+                        of Keith's creative universe with unique stories and sounds.
+                    </p>
+                    <a href="#personas" class="feature-button">Meet the Characters</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="feature-icon">
+                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/discog.png" 
+                             alt="Kool Keith Discography" 
+                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             onload="this.classList.add('loaded'); console.log('Discography image loaded successfully!');"
+                             onerror="this.parentElement.innerHTML='💿';">
+                    </div>
+                    <h3 class="feature-title">Music</h3>
+                </div>
+                <div class="card-content">
+                    <p class="feature-description">
+                        Keith's winning hand - 50+ albums spanning decades of innovation 
+                        from Critical Beatdown to modern classics.
+                    </p>
+                    <a href="#music" class="feature-button">Browse Albums</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div
