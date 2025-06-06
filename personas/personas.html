@@ -1,1 +1,877 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kool Keith Personas - Character Universe</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --gold-primary: #ffd700;
+            --gold-secondary: #ffed4e;
+            --keith-dark: #1a0000;
+            --keith-space: #0a0a0a;
+            --nav-height: 70px;
+            --spacing: 20px;
+            --card-width: 280px;
+            --card-height: 400px;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, var(--keith-dark) 50%, var(--keith-space) 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            z-index: 100;
+            padding: 15px 0;
+            height: var(--nav-height);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 var(--spacing);
+        }
+        
+        .nav-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--gold-primary);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px var(--spacing) 40px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .page-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing);
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing);
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            color: var(--gold-primary);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.4));
+            border-color: var(--gold-primary);
+            transform: scale(1.05);
+        }
+        
+        /* Personas Grid */
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-items: center;
+        }
+        
+        /* Persona Cards */
+        .persona-card {
+            width: var(--card-width);
+            height: var(--card-height);
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .persona-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        }
+        
+        .card-front {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
+        }
+        
+        .card-back {
+            background: linear-gradient(145deg, rgba(26, 0, 0, 0.95), rgba(0, 0, 0, 0.8));
+            transform: rotateY(180deg);
+            padding: var(--spacing);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .persona-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Card Front Content */
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(45deg, var(--keith-dark), var(--keith-space));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--gold-primary);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Different colors for different personas */
+        .card-image.octagon {
+            background: linear-gradient(45deg, #1a0000, #2a0000);
+        }
+        
+        .card-image.dooom {
+            background: linear-gradient(45deg, #000000, #1a0000);
+        }
+        
+        .card-image.elvis {
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+        }
+        
+        .card-image.keith {
+            background: linear-gradient(45deg, #1a0000, #0a0a0a);
+        }
+        
+        .card-image.ultra {
+            background: linear-gradient(45deg, #2a0000, #1a0000);
+        }
+        
+        .card-image.gerbik {
+            background: linear-gradient(45deg, #0a0a0a, #2a2a2a);
+        }
+        
+        .card-image.poppa {
+            background: linear-gradient(45deg, #1a0000, #3a0000);
+        }
+        
+        .card-header {
+            padding: var(--spacing);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .persona-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            margin-bottom: 5px;
+        }
+        
+        .persona-title {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+        
+        .card-stats {
+            padding: var(--spacing);
+            flex: 1;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .stat-name {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+        
+        .stat-bar {
+            width: 100px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .stat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-secondary));
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+        
+        .flip-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.7rem;
+            color: rgba(255, 215, 0, 0.6);
+            font-family: 'Orbitron', monospace;
+        }
+        
+        /* Card Back Content */
+        .back-header {
+            text-align: center;
+            margin-bottom: var(--spacing);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            padding-bottom: 15px;
+        }
+        
+        .back-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--gold-primary);
+            margin-bottom: 5px;
+        }
+        
+        .back-era {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .back-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .persona-bio {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: var(--spacing);
+            flex: 1;
+        }
+        
+        .key-albums {
+            margin-bottom: 15px;
+        }
+        
+        .albums-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .albums-list {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Hidden Content */
+        .personas-hidden {
+            display: none;
+        }
+        
+        .personas-hidden.show {
+            display: contents;
+        }
+        
+        .load-more-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .load-more-btn {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
+            color: var(--gold-primary);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .load-more-btn:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.4));
+            transform: scale(1.05);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .personas-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: var(--spacing);
+            }
+            
+            .persona-card {
+                width: 250px;
+                height: 360px;
+            }
+            
+            :root {
+                --card-width: 250px;
+                --card-height: 360px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .personas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .persona-card {
+                width: 220px;
+                height: 320px;
+            }
+            
+            .card-image {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">Ultra Keith</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../music/index.html">Music</a></li>
+                <li><a href="personas.html">Personas</a></li>
+                <li><a href="../tour.html">Tour</a></li>
+                <li><a href="../shop.html">Shop</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">CHARACTER UNIVERSE</h1>
+            <p class="page-subtitle">
+                Explore the multi-dimensional personas of hip-hop's most creative innovator. 
+                From full album characters to legendary collaborations and mysterious one-time mentions.
+            </p>
+        </header>
+        
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <button class="filter-btn active" data-filter="all">All Personas</button>
+            <button class="filter-btn" data-filter="album">Album Personas</button>
+            <button class="filter-btn" data-filter="collab">Collaborations</button>
+            <button class="filter-btn" data-filter="mention">Honorable Mentions</button>
+        </div>
+        
+        <!-- Personas Grid -->
+        <div class="personas-grid">
+            <!-- Dr. Octagon -->
+            <div class="persona-card" data-category="album">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image octagon">DR. OCTAGON</div>
+                        <div class="card-header">
+                            <h3 class="persona-name">DR. OCTAGON</h3>
+                            <p class="persona-title">Gynecologist & Time Traveler</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-name">🎤 Flow</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 95%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🎭 Character</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 100%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🔥 Impact</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 98%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">💿 Albums</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 85%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flip-hint">HOVER TO FLIP</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-header">
+                            <h3 class="back-name">DR. OCTAGON</h3>
+                            <p class="back-era">1996 - Present</p>
+                        </div>
+                        <div class="back-content">
+                            <p class="persona-bio">
+                                The most famous of Keith's personas, Dr. Octagon is a time-traveling gynecologist 
+                                from Jupiter who performs bizarre medical procedures. Revolutionary abstract lyrics 
+                                mixing medical terminology with sci-fi themes created an entirely new subgenre.
+                            </p>
+                            <div class="key-albums">
+                                <h4 class="albums-title">KEY RELEASES:</h4>
+                                <p class="albums-list">
+                                    • Dr. Octagonecologyst (1996)<br>
+                                    • The Return of Dr. Octagon (2006)<br>
+                                    • Moosebumps: An Exploration Into Modern Day Horripilation (2018)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dr. Dooom -->
+            <div class="persona-card" data-category="album">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image dooom">DR. DOOOM</div>
+                        <div class="card-header">
+                            <h3 class="persona-name">DR. DOOOM</h3>
+                            <p class="persona-title">Octagon's Evil Nemesis</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-name">🎤 Flow</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 92%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🎭 Character</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 88%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🔥 Impact</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 90%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">💿 Albums</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 75%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flip-hint">HOVER TO FLIP</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-header">
+                            <h3 class="back-name">DR. DOOOM</h3>
+                            <p class="back-era">1999 - Present</p>
+                        </div>
+                        <div class="back-content">
+                            <p class="persona-bio">
+                                Created to "kill" Dr. Octagon, Dr. Dooom represents Keith's darker, more aggressive 
+                                side. A destructive force who eliminates other rap personas and fake MCs with 
+                                brutal efficiency. The ultimate hip-hop villain with no mercy for pretenders.
+                            </p>
+                            <div class="key-albums">
+                                <h4 class="albums-title">KEY RELEASES:</h4>
+                                <p class="albums-list">
+                                    • First Come, First Served (1999)<br>
+                                    • Dr. Dooom 2 (2008)<br>
+                                    • Dr. Dooom 3: Space Goretex (2016)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Black Elvis -->
+            <div class="persona-card" data-category="album">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image elvis">BLACK ELVIS</div>
+                        <div class="card-header">
+                            <h3 class="persona-name">BLACK ELVIS</h3>
+                            <p class="persona-title">The Real King of Rock</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-name">🎤 Flow</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 88%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🎭 Character</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 85%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🔥 Impact</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 82%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">💿 Albums</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 70%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flip-hint">HOVER TO FLIP</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-header">
+                            <h3 class="back-name">BLACK ELVIS</h3>
+                            <p class="back-era">1999 - 2000</p>
+                        </div>
+                        <div class="back-content">
+                            <p class="persona-bio">
+                                Keith's take on what Elvis would be like if he were black and from the hood. 
+                                A soulful, charismatic performer who claims to be the real King of Rock and Roll, 
+                                complete with pompadour hair and flashy outfits, but with street credibility.
+                            </p>
+                            <div class="key-albums">
+                                <h4 class="albums-title">KEY RELEASES:</h4>
+                                <p class="albums-list">
+                                    • Black Elvis/Lost in Space (1999)<br>
+                                    • Various live performances<br>
+                                    • Compilation appearances
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kool Keith -->
+            <div class="persona-card" data-category="album">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image keith">KOOL KEITH</div>
+                        <div class="card-header">
+                            <h3 class="persona-name">KOOL KEITH</h3>
+                            <p class="persona-title">The Original Innovator</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-name">🎤 Flow</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 100%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🎭 Character</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 95%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🔥 Impact</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 100%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">💿 Albums</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 100%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flip-hint">HOVER TO FLIP</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-header">
+                            <h3 class="back-name">KOOL KEITH</h3>
+                            <p class="back-era">1984 - Present</p>
+                        </div>
+                        <div class="back-content">
+                            <p class="persona-bio">
+                                The core identity and original persona. Keith Thornton from the Bronx who started 
+                                with Ultramagnetic MCs and revolutionized hip-hop with abstract lyrics, unconventional 
+                                flows, and futuristic concepts. The foundation from which all other personas emerge.
+                            </p>
+                            <div class="key-albums">
+                                <h4 class="albums-title">KEY RELEASES:</h4>
+                                <p class="albums-list">
+                                    • Sex Style (1997)<br>
+                                    • Matthew (2000)<br>
+                                    • Feature Magnetic (2016)<br>
+                                    • 50+ albums as Kool Keith
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ultra Keith (Collaboration) -->
+            <div class="persona-card" data-category="collab">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image ultra">ULTRA KEITH</div>
+                        <div class="card-header">
+                            <h3 class="persona-name">ULTRA KEITH</h3>
+                            <p class="persona-title">Ultramagnetic MCs Era</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-name">🎤 Flow</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 100%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🎭 Character</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 90%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🔥 Impact</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 95%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">💿 Output</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 85%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flip-hint">HOVER TO FLIP</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-header">
+                            <h3 class="back-name">ULTRA KEITH</h3>
+                            <p class="back-era">1984 - 1993</p>
+                        </div>
+                        <div class="back-content">
+                            <p class="persona-bio">
+                                The foundational Keith persona with Ultramagnetic MCs. Revolutionary abstract flows 
+                                and futuristic concepts that changed hip-hop forever. The blueprint for all 
+                                experimental rap that followed.
+                            </p>
+                            <div class="key-albums">
+                                <h4 class="albums-title">KEY RELEASES:</h4>
+                                <p class="albums-list">
+                                    • Critical Beatdown (1988)<br>
+                                    • Funk Your Head Up (1992)<br>
+                                    • The Four Horsemen (1993)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mr. Gerbik (Honorable Mention) -->
+            <div class="persona-card" data-category="mention">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image gerbik">MR. GERBIK</div>
+                        <div class="card-header">
+                            <h3 class="persona-name">MR. GERBIK</h3>
+                            <p class="persona-title">Mysterious One-Off</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-name">🎤 Flow</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 85%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🎭 Mystery</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 95%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">💎 Rarity</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 100%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flip-hint">HOVER TO FLIP</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-header">
+                            <h3 class="back-name">MR. GERBIK</h3>
+                            <p class="back-era">2000</p>
+                        </div>
+                        <div class="back-content">
+                            <p class="persona-bio">
+                                Mysterious character mentioned in Keith tracks. Rumored to be an alien 
+                                observer documenting Earth's hip-hop culture. One of Keith's most enigmatic 
+                                creations with cult status among deep fans.
+                            </p>
+                            <div class="key-albums">
+                                <h4 class="albums-title">APPEARED IN:</h4>
+                                <p class="albums-list">
+                                    • Track references only<br>
+                                    • Underground legend status<br>
+                                    • Fan theories and speculation
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Poppa Large (Honorable Mention) -->
+            <div class="persona-card" data-category="mention">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image poppa">POPPA LARGE</div>
+                        <div class="card-header">
+                            <h3 class="persona-name">POPPA LARGE</h3>
+                            <p class="persona-title">Street Legend</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-name">🎤 Flow</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 80%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">🏙️ Street</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 90%"></div></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-name">💎 Rarity</span>
+                                <div class="stat-bar"><div class="stat-fill" style="width: 85%"></div></div>
+                            </div>
+                        </div>
+                        <div class="flip-hint">HOVER TO FLIP</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-header">
+                            <h3 class="back-name">POPPA LARGE</h3>
+                            <p class="back-era">Various</p>
+                        </div>
+                        <div class="back-content">
+                            <p class="persona-bio">
+                                Street-wise character referenced across multiple Keith projects. 
+                                Represents the old-school hip-hop hustler mentality and underground 
+                                respect. A recurring figure in Keith's lyrical mythology.
+                            </p>
+                            <div class="key-albums">
+                                <h4 class="albums-title">REFERENCES:</h4>
+                                <p class="albums-list">
+                                    • Multiple track mentions<br>
+                                    • Recurring character theme<br>
+                                    • Street credibility symbol
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Filter functionality
+        function initFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.persona-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const filter = btn.dataset.filter;
+                    
+                    // Filter cards
+                    cards.forEach(card => {
+                        const category = card.dataset.category;
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initFilters();
+            
+            // Add smooth transitions to cards
+            const cards = document.querySelectorAll('.persona-card');
+            cards.forEach(card => {
+                card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            });
+        });
+    </script>
+</body>
+</html>
