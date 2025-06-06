@@ -60,12 +60,17 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            width: 45px;
-            height: 45px;
+            height: 55px;
             justify-content: center;
-            border: 2px solid var(--gold-primary);
             border-radius: 8px;
-            font-size: 1rem;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+        
+        .nav-logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
         
         .nav-menu {
@@ -307,6 +312,11 @@
         
         /* Responsive Design */
         @media (max-width: 768px) {
+            /* Navigation - Mobile Logo Fix */
+            .nav-logo {
+                height: 40px;
+            }
+            
             .nav-menu { display: none; }
             .mobile-menu-btn { display: block; }
             
@@ -405,7 +415,9 @@
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
-            <a href="../index.html" class="nav-logo">KK</a>
+            <a href="../index.html" class="nav-logo">
+                <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kkb2.png?raw=true" alt="Kool Keith">
+            </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="../music/index.html">Music</a></li>
