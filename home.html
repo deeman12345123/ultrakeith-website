@@ -221,9 +221,10 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            animation: gradientShift 4s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
             margin-bottom: var(--spacing-medium);
+            letter-spacing: -1px;
         }
         
         @keyframes gradientShift {
@@ -243,10 +244,14 @@
         }
         
         .hero-subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
             margin-bottom: 40px;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* ===================
@@ -261,13 +266,13 @@
         
         /* Staggered Card Animation */
         .feature-card {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.85), rgba(26, 0, 0, 0.65));
-            border: 1px solid rgba(255, 215, 0, 0.25);
-            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
             padding: var(--spacing-large);
             text-align: left;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             height: var(--card-height);
             display: flex;
             flex-direction: column;
@@ -299,8 +304,8 @@
         }
         
         .feature-card:hover {
-            border-color: var(--gold-primary);
-            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(255, 215, 0, 0.5);
+            transform: translateY(-8px);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.1);
         }
         
@@ -359,11 +364,11 @@
         }
         
         .feature-button {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.25));
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
             color: var(--gold-primary);
             border: 1px solid rgba(255, 215, 0, 0.4);
-            padding: 14px 28px;
-            border-radius: 30px;
+            padding: 12px 24px;
+            border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -376,10 +381,10 @@
         }
         
         .feature-button:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.4));
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
             border-color: var(--gold-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
         }
         
         /* ===================
@@ -397,12 +402,12 @@
             border-radius: 50%;
             font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
         }
         
         .back-to-top.show {
@@ -412,8 +417,8 @@
         }
         
         .back-to-top:hover {
-            transform: scale(1.1) translateY(-2px);
-            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
         }
         
         /* ===================
@@ -787,9 +792,6 @@
                 </div>
             </div>
             
-            <div class="feature-card">
-                <div class="card-header">
-                    <div class="feature-icon">
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
