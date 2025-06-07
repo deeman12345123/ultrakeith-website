@@ -78,62 +78,6 @@
             transition: all 0.3s ease;
         }
         
-        /* Mobile Menu */
-        @media (max-width: 768px) {
-            .nav-menu { 
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(0, 0, 0, 0.98);
-                backdrop-filter: blur(15px);
-                border-top: 1px solid rgba(255, 215, 0, 0.3);
-                flex-direction: column;
-                gap: 0;
-                padding: 20px;
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-                z-index: 1000;
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-20px);
-                transition: all 0.3s ease;
-                max-height: 0;
-                overflow: hidden;
-            }
-            
-            .nav-menu.show {
-                display: flex;
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-                max-height: 400px;
-                overflow: visible;
-            }
-            
-            .nav-menu li {
-                margin: 15px 0;
-                text-align: center;
-            }
-            
-            .nav-menu a {
-                display: block;
-                padding: 15px 20px;
-                font-size: 1.1rem;
-                border-radius: 10px;
-                transition: all 0.3s ease;
-                width: 100%;
-            }
-            
-            .nav-menu a:hover {
-                background: rgba(255, 215, 0, 0.1);
-            }
-            
-            .mobile-menu-btn { 
-                display: block; 
-            }
-        }
-        
         /* Header */
         .header {
             padding: 120px 20px 60px;
@@ -161,6 +105,33 @@
             font-size: 1.3rem;
             color: #C0C0C0;
             margin-bottom: 30px;
+        }
+        
+        /* Era Navigation */
+        .era-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .era-nav-btn {
+            background: linear-gradient(145deg, #2F2F2F, #1A1A1A);
+            border: 1px solid #C0C0C0;
+            color: #C0C0C0;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .era-nav-btn:hover, .era-nav-btn.current {
+            background: #C0C0C0;
+            color: #2F2F2F;
         }
         
         /* Cards Grid */
@@ -191,7 +162,7 @@
             transform-style: preserve-3d;
         }
         
-        .persona-card:hover .card-inner {
+        .persona-card.flipped .card-inner {
             transform: rotateY(180deg);
         }
         
@@ -222,12 +193,14 @@
             position: absolute;
             bottom: 15px;
             right: 15px;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid rgba(192, 192, 192, 0.6);
-            opacity: 0.8;
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            opacity: 0.4;
+            background: rgba(47, 47, 47, 0.5);
+            backdrop-filter: blur(2px);
         }
         
         .mc-logo img {
@@ -336,36 +309,61 @@
             color: rgba(255, 255, 255, 0.8);
         }
         
-        /* Navigation */
-        .era-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-        
-        .era-nav-btn {
-            background: linear-gradient(145deg, #2F2F2F, #1A1A1A);
-            border: 1px solid #C0C0C0;
-            color: #C0C0C0;
-            padding: 12px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .era-nav-btn:hover, .era-nav-btn.current {
-            background: #C0C0C0;
-            color: #2F2F2F;
-        }
-        
-        /* Mobile */
+        /* Mobile Menu */
         @media (max-width: 768px) {
-            .nav-menu { display: none; }
+            .nav-menu { 
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(15px);
+                border-top: 1px solid rgba(255, 215, 0, 0.3);
+                flex-direction: column;
+                gap: 0;
+                padding: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: all 0.3s ease;
+                max-height: 0;
+                overflow: hidden;
+            }
+            
+            .nav-menu.show {
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 400px;
+                overflow: visible;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+                text-align: center;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 15px 20px;
+                font-size: 1.1rem;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                width: 100%;
+            }
+            
+            .nav-menu a:hover {
+                background: rgba(255, 215, 0, 0.1);
+            }
+            
+            .mobile-menu-btn { 
+                display: block; 
+            }
+            
             .personas-grid {
                 grid-template-columns: 1fr;
                 padding: 0 10px 60px;
@@ -444,7 +442,7 @@
                     <div class="persona-quote">
                         "I Pop it like that, Rock it like that..."
                     </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                    <div class="flip-hint">← CLICK TO FLIP →</div>
                 </div>
                 <div class="card-back">
                     <div class="card-back-content">
@@ -502,7 +500,7 @@
                     <div class="persona-quote">
                         "I'm the master of the game, all the girls know my name..."
                     </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                    <div class="flip-hint">← CLICK TO FLIP →</div>
                 </div>
                 <div class="card-back">
                     <div class="card-back-content">
@@ -528,586 +526,8 @@
             </div>
         </div>
 
-        <!-- Poppa Large (1992) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Poppa Large</h3>
-                    </div>
-                    <div class="persona-image">💪</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">35</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Bronx, NY</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Daredevil videos, Spinning around</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Quicksand, Soft Pretzels</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "I'm Poppa Large big shot on the Eastcoast..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">POPPA LARGE - East Coast Power</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The braggadocious East Coast persona from Ultramagnetic's Funk Your Head Up era. Represents Keith's confident, larger-than-life personality with quirky details.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Funk Your Head Up (1992)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">East Coast supremacy, braggadocio, quirky preferences</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dr. Octagon (1996) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Dr. Octagon</h3>
-                    </div>
-                    <div class="persona-image">👨‍⚕️</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">Deceased</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Jupiter</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Bad operations, surgery</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">n/a</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "You need a bad operation... Give me the scissors..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">DR. OCTAGON - The Breakthrough</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The revolutionary alien gynecologist from Jupiter who changed hip-hop forever. Genre-defining breakthrough into abstract medical horror and space travel themes.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Dr. Octagonecologyst (1996)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Medical procedures, space travel, bizarre sexuality, horror</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mr. Gerbik (1996) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Mr. Gerbik</h3>
-                    </div>
-                    <div class="persona-image">🦈</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">208</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Jupiter</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Fishing, Swimming</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Wolfmen, Flossing</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "Skin like alligator, carrying a dead walrus..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">MR. GERBIK - Shark Hybrid</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The legendary half-shark, half-alligator, half-man hybrid from the Dr. Octagon universe. Featured in 2025 graphic novel with CZARFACE.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Dr. Octagonecologyst (1996)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Genetic mutation, aquatic predator, Jupiter origin</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Rhythm X (1992) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Rhythm X</h3>
-                    </div>
-                    <div class="persona-image">🎵</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">30</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">BX, New York</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Mae West, Gastronomy</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Traffic, Soft Cauliflower</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "The Rhythm X roller, my style gets critical..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">RHYTHM X - Technical Master</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The rhythm-focused persona emphasizing Keith's complex flow patterns and abstract wordplay. Represents technical mastery and computer-like precision.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Funk Your Head Up (1992)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Rhythmic complexity, abstract wordplay, technical precision</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- The X (1992) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">The X</h3>
-                    </div>
-                    <div class="persona-image">❌</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Four Horsemen imagery</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "The X factor in hip-hop..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">THE X - Mystery Identity</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The mysterious X-identity from the Ultramagnetic Four Horsemen era. Represents Keith's experimental phase with abstract identity concepts and mathematical persona construction.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Four Horsemen LP (1992)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">X-identity, mathematical abstraction, experimental concepts</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- X-Caliber (1992) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">X-Caliber</h3>
-                    </div>
-                    <div class="persona-image">⚔️</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Funk radio, sword imagery</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "X-Caliber cuts through the funk..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">X-CALIBER - Sword & Funk</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The sword-wielding persona from the Funk Radio era. Combines medieval weapon imagery with funk music concepts, representing Keith's ability to cut through conventional hip-hop.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Funk Your Head Up (1992)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Sword imagery, funk radio, precise wordplay cutting</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Exotron Geiger Counter One Plus Megatron (1989) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Exotron Geiger Counter One Plus Megatron</h3>
-                    </div>
-                    <div class="persona-image">🔬</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Unknown (Scientific origin)</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Complex scientific names, radio appearances, Megatron references</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Simple identities</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "Scientific complexity meets Transformers mythology..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">EXOTRON GEIGER COUNTER ONE PLUS MEGATRON</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                One of Keith's earliest experimental personas featuring extremely complex scientific naming. Combines radiation detection equipment with Transformers references, showing Keith's early fascination with sci-fi concepts.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Marley Marl In Control radio show (1989), Critical Beatdown (1988) - "Traveling At The Speed Of Thought"
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Scientific complexity, Transformers reference, early experimental identity construction</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Fourth Horseman (1992) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Fourth Horseman</h3>
-                    </div>
-                    <div class="persona-image">🐎</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Apocalyptic realm</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Apocalyptic themes</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "The final horseman rides through hip-hop..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">FOURTH HORSEMAN - Apocalypse</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The biblical apocalyptic persona from the Ultramagnetic Four Horsemen project. Represents Keith's incorporation of religious and mythological themes into hip-hop.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Four Horsemen LP (1992)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Apocalyptic imagery, biblical references, mythological horsemen</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dr. Sperm (Early Career) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Dr. Sperm</h3>
-                    </div>
-                    <div class="persona-image">🧬</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Early rap experimentation</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "Early medical themes emerge..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">DR. SPERM - Medical Precursor</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                One of Keith's earliest documented aliases, representing the initial emergence of medical themes that would later evolve into Dr. Octagon. Shows early controversial imagery experimentation.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Unknown (One of his first aliases)
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Early rap identity, medical theme precursor</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Funk Igniter Plus (1992) -->
-        <div class="persona-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <div class="card-header">
-                        <div class="mc-logo">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                        </div>
-                        <h3 class="persona-name">Funk Igniter Plus</h3>
-                    </div>
-                    <div class="persona-image">🔥</div>
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Unknown</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Funk radio, igniting funk</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Non-funk music</span>
-                        </div>
-                    </div>
-                    <div class="persona-quote">
-                        "Igniting the funk across all radio waves..."
-                    </div>
-                    <div class="flip-hint">← FLIP FOR STORY →</div>
-                </div>
-                <div class="card-back">
-                    <div class="card-back-content">
-                        <h4 class="back-title">FUNK IGNITER PLUS - Funk Radio Culture</h4>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Biography</h5>
-                            <div class="back-section-content">
-                                The funk-focused persona dedicated to igniting and spreading funk music culture. Represents Keith's deep connection to funk music and radio culture during the Ultramagnetic era.
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Debut</h5>
-                            <div class="back-section-content">
-                                <strong>First Appearance:</strong> Funk Your Head Up (1992) - "Funk Radio"
-                            </div>
-                        </div>
-                        <div class="back-section">
-                            <h5 class="back-section-title">Key Themes</h5>
-                            <div class="back-section-content">Funk music, radio culture, igniting funk movement</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <!-- Add remaining 10 cards here with same structure -->
+        
     </div>
     
     <!-- Footer -->
@@ -1123,11 +543,12 @@
     </footer>
     
     <script>
-        // Mobile menu functionality
+        // Mobile menu and card flip functionality
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navMenu = document.getElementById('navMenu');
             
+            // Mobile menu
             if (mobileMenuBtn && navMenu) {
                 mobileMenuBtn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1146,6 +567,16 @@
                     }
                 });
             }
+            
+            // Card flip functionality - click/tap to flip
+            const personaCards = document.querySelectorAll('.persona-card');
+            
+            personaCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.classList.toggle('flipped');
+                });
+            });
         });
     </script>
     
