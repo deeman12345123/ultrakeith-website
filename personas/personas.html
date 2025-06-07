@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kool Keith Personas - Persona Multiverse</title>
+    <title>Personas 1984-1996 - Origins Era</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
@@ -13,18 +13,9 @@
             box-sizing: border-box;
         }
         
-        :root {
-            --gold-primary: #ffd700;
-            --gold-secondary: #ffed4e;
-            --keith-dark: #1a0000;
-            --keith-space: #0a0a0a;
-            --nav-height: 70px;
-            --spacing: 20px;
-        }
-        
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, var(--keith-dark) 50%, var(--keith-space) 100%);
+            background: linear-gradient(135deg, #000000 0%, #1a0000 50%, #0a0a0a 100%);
             color: #ffffff;
             min-height: 100vh;
         }
@@ -40,7 +31,7 @@
             border-bottom: 1px solid rgba(255, 215, 0, 0.3);
             z-index: 100;
             padding: 15px 0;
-            height: var(--nav-height);
+            height: 70px;
         }
         
         .nav-container {
@@ -49,27 +40,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 var(--spacing);
-        }
-        
-        .nav-logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--gold-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            height: 55px;
-            justify-content: center;
-            border-radius: 8px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            padding: 0 20px;
         }
         
         .nav-logo img {
-            height: 100%;
+            height: 55px;
             width: auto;
-            object-fit: contain;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
         
@@ -79,77 +55,99 @@
             gap: 30px;
         }
         
-        @media (min-width: 769px) {
-            .nav-menu {
-                display: flex !important;
-                position: static !important;
-                background: none !important;
-                flex-direction: row !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                transform: none !important;
-                max-height: none !important;
-                padding: 0 !important;
-                border: none !important;
-                box-shadow: none !important;
-            }
-        }
-        
         .nav-menu a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-family: 'Orbitron', monospace;
             transition: color 0.3s ease;
-            position: relative;
         }
         
         .nav-menu a:hover {
-            color: var(--gold-primary);
+            color: #ffd700;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-        
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold-primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
         }
         
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: var(--gold-primary);
+            color: #ffd700;
             font-size: 1.8rem;
             cursor: pointer;
             padding: 5px;
             transition: all 0.3s ease;
         }
         
-        /* Hero Section */
-        .hero-section {
-            padding: 120px var(--spacing) 80px;
-            text-align: center;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu { 
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(15px);
+                border-top: 1px solid rgba(255, 215, 0, 0.3);
+                flex-direction: column;
+                gap: 0;
+                padding: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: all 0.3s ease;
+                max-height: 0;
+                overflow: hidden;
+            }
+            
+            .nav-menu.show {
+                display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 400px;
+                overflow: visible;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+                text-align: center;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 15px 20px;
+                font-size: 1.1rem;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                width: 100%;
+            }
+            
+            .nav-menu a:hover {
+                background: rgba(255, 215, 0, 0.1);
+            }
+            
+            .mobile-menu-btn { 
+                display: block; 
+            }
         }
         
-        .hero-title {
+        /* Header */
+        .header {
+            padding: 120px 20px 60px;
+            text-align: center;
+        }
+        
+        .era-title {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 900;
-            background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary), var(--gold-primary));
+            background: linear-gradient(45deg, #C0C0C0, #E8E8E8, #C0C0C0);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 20px;
             animation: shimmer 3s ease-in-out infinite;
         }
@@ -159,254 +157,223 @@
             50% { background-position: 100% 50%; }
         }
         
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 800px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
+        .era-subtitle {
+            font-size: 1.3rem;
+            color: #C0C0C0;
+            margin-bottom: 30px;
         }
         
-        .hero-stats {
+        /* Cards Grid */
+        .personas-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px 80px;
+        }
+        
+        /* Silver Platinum Card */
+        .persona-card {
+            width: 100%;
+            max-width: 320px;
+            height: 480px;
+            margin: 0 auto;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .persona-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            border: 1px solid #C0C0C0;
+            background: linear-gradient(145deg, #2F2F2F 0%, #1A1A1A 100%);
+            overflow: hidden;
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        /* Card Front */
+        .card-header {
+            background: linear-gradient(90deg, #1A1A1A, #2F2F2F);
+            border-bottom: 1px solid #C0C0C0;
+            padding: 15px 20px;
+            position: relative;
+        }
+        
+        .mc-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid rgba(192, 192, 192, 0.6);
+            opacity: 0.8;
+        }
+        
+        .mc-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .persona-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #C0C0C0;
+            text-transform: uppercase;
+        }
+        
+        .persona-image {
+            width: 160px;
+            height: 160px;
+            margin: 20px auto;
+            border: 2px solid #C0C0C0;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #1A1A1A, #2F2F2F);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .persona-stats {
+            padding: 0 20px;
+            text-align: left;
+        }
+        
+        .stat-row {
+            display: flex;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        
+        .stat-label {
+            font-weight: 700;
+            color: #C0C0C0;
+            width: 80px;
+            flex-shrink: 0;
+        }
+        
+        .stat-value {
+            color: rgba(255, 255, 255, 0.9);
+            flex: 1;
+        }
+        
+        .persona-quote {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(192, 192, 192, 0.3);
+            margin-top: 15px;
+            font-style: italic;
+            color: #C0C0C0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .flip-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: rgba(192, 192, 192, 0.6);
+            font-family: 'Orbitron', monospace;
+        }
+        
+        /* Card Back */
+        .card-back-content {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .back-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #C0C0C0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .back-section {
+            margin-bottom: 15px;
+        }
+        
+        .back-section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #C0C0C0;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .back-section-content {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Navigation */
+        .era-nav {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 15px;
             margin-bottom: 50px;
             flex-wrap: wrap;
         }
         
-        .stat-box {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 15px;
-            min-width: 150px;
-        }
-        
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--gold-primary);
-            display: block;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 5px;
-        }
-        
-        /* Category Navigation */
-        .categories-section {
-            padding: 80px var(--spacing);
-            background: linear-gradient(180deg, transparent 0%, rgba(26, 0, 0, 0.3) 100%);
-        }
-        
-        .categories-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-        
-        .category-card {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
-            border: 2px solid rgba(255, 215, 0, 0.4);
+        .era-nav-btn {
+            background: linear-gradient(145deg, #2F2F2F, #1A1A1A);
+            border: 1px solid #C0C0C0;
+            color: #C0C0C0;
+            padding: 12px 20px;
             border-radius: 25px;
-            padding: 40px;
-            text-align: center;
-            transition: all 0.4s ease;
             text-decoration: none;
-            color: inherit;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-        
-        .category-card:hover::before {
-            left: 100%;
-        }
-        
-        .category-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: var(--gold-primary);
-            box-shadow: 0 25px 50px rgba(255, 215, 0, 0.3);
-        }
-        
-        .category-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        .category-name {
             font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--gold-primary);
-            margin-bottom: 15px;
-        }
-        
-        .category-count {
-            font-size: 1.1rem;
-            color: var(--gold-secondary);
-            margin-bottom: 20px;
             font-weight: 600;
-        }
-        
-        .category-desc {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 25px;
-        }
-        
-        .category-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
-            color: var(--gold-primary);
-            border: 1px solid rgba(255, 215, 0, 0.6);
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            text-decoration: none;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
         
-        .category-btn:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.4));
-            transform: scale(1.05);
+        .era-nav-btn:hover, .era-nav-btn.current {
+            background: #C0C0C0;
+            color: #2F2F2F;
         }
         
-        /* Footer Section */
-        .footer-section {
-            padding: 40px var(--spacing);
-            text-align: center;
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            background: rgba(0, 0, 0, 0.5);
-        }
-        
-        .footer-text {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        /* Responsive Design */
+        /* Mobile */
         @media (max-width: 768px) {
-            /* Navigation - Mobile Logo Fix */
-            .nav-logo {
-                height: 40px;
-            }
-            
             .nav-menu { display: none; }
-            .mobile-menu-btn { display: block; }
-            
-            .hero-stats {
-                gap: 20px;
-            }
-            
-            .stat-box {
-                min-width: 120px;
-                padding: 15px;
-            }
-            
-            .stat-number {
-                font-size: 2rem;
-            }
-            
-            .categories-grid {
+            .personas-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                padding: 0 10px 60px;
             }
-            
-            .category-card {
-                padding: 30px 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-section {
-                padding: 100px 15px 60px;
-            }
-            
-            .categories-section {
-                padding: 60px 15px;
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-        
-        /* Mobile Menu Override */
-        @media screen and (max-width: 768px) {
-            body .navigation .nav-container .nav-menu {
-                position: absolute !important;
-                top: 100% !important;
-                left: 0 !important;
-                right: 0 !important;
-                background: rgba(0, 0, 0, 0.98) !important;
-                backdrop-filter: blur(15px) !important;
-                border-top: 1px solid rgba(255, 215, 0, 0.3) !important;
-                border-bottom: 1px solid rgba(255, 215, 0, 0.3) !important;
-                flex-direction: column !important;
-                gap: 0 !important;
-                padding: 20px !important;
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
-                z-index: 1000 !important;
-                display: flex !important;
-                opacity: 0 !important;
-                visibility: hidden !important;
-                transform: translateY(-20px) !important;
-                transition: all 0.3s ease !important;
-                max-height: 0 !important;
-                overflow: hidden !important;
-            }
-            
-            body .navigation .nav-container .nav-menu.show {
-                opacity: 1 !important;
-                visibility: visible !important;
-                transform: translateY(0) !important;
-                max-height: 400px !important;
-                overflow: visible !important;
-            }
-            
-            body .navigation .nav-container .nav-menu li {
-                margin: 15px 0 !important;
-                text-align: center !important;
-            }
-            
-            body .navigation .nav-container .nav-menu a {
-                display: block !important;
-                padding: 15px 20px !important;
-                font-size: 1.1rem !important;
-                border-radius: 10px !important;
-                transition: all 0.3s ease !important;
-                width: 100% !important;
-            }
-            
-            body .navigation .nav-container .nav-menu a:hover {
-                background: rgba(255, 215, 0, 0.1) !important;
+            .persona-card {
+                width: 100%;
+                max-width: 300px;
+                height: 450px;
             }
         }
     </style>
@@ -421,7 +388,7 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="../music/index.html">Music</a></li>
-                <li><a href="index.html">Personas</a></li>
+                <li><a href="../personas/index.html">Personas</a></li>
                 <li><a href="../tour.html">Tour</a></li>
                 <li><a href="../shop.html">Shop</a></li>
             </ul>
@@ -429,91 +396,729 @@
         </div>
     </nav>
     
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <h1 class="hero-title">PERSONA MULTIVERSE</h1>
-        <p class="hero-subtitle">
-            Explore the multi-dimensional personas of hip-hop's most prolific character creator.
-            60+ documented identities spanning four decades of revolutionary artistry across infinite realities.
-        </p>
+    <!-- Header -->
+    <section class="header">
+        <h1 class="era-title">1984-1996</h1>
+        <p class="era-subtitle">ORIGINS & BREAKTHROUGH ERA</p>
         
-        <div class="hero-stats">
-            <div class="stat-box">
-                <span class="stat-number">60+</span>
-                <span class="stat-label">Documented Personas</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number">40</span>
-                <span class="stat-label">Years Creating</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Legendary Characters</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-number">∞</span>
-                <span class="stat-label">Innovation</span>
-            </div>
+        <!-- Era Navigation -->
+        <div class="era-nav">
+            <a href="#" class="era-nav-btn current">1984-1996 Origins</a>
+            <a href="personas-1997-2005.html" class="era-nav-btn">1997-2005 Peak</a>
+            <a href="../personas/index.html" class="era-nav-btn">← All Eras</a>
         </div>
     </section>
     
+    <!-- Cards Grid -->
+    <div class="personas-grid">
+        
+        <!-- Activity (1984) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Activity</h3>
+                    </div>
+                    <div class="persona-image">🕺</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">NYC</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Breakdancing, popping and rocking</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "I Pop it like that, Rock it like that..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">ACTIVITY - The Foundation (1984)</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                Keith's first documented persona from the NYC Breakers breakdancing crew. Activity represents the foundation of Keith's character creation, emerging from early hip-hop culture before rap dominated.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> NYC Breakers (1984)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Significance</h5>
+                            <div class="back-section-content">Foundation of Keith's creative persona development, breakdancing culture pioneer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    
-    <!-- Category Navigation -->
-    <section class="categories-section">
-        <div class="categories-grid">
-            <a href="album-personas.html" class="category-card">
-                <span class="category-icon">🌌</span>
-                <h3 class="category-name">ALBUM DIMENSIONS</h3>
-                <p class="category-count">15 Major Realities</p>
-                <p class="category-desc">
-                    Complete solo album identities existing in their own dimensions. From Dr. Octagon's 
-                    medical multiverse to Black Elvis's rock reality. Each character represents a fully 
-                    realized alternate universe.
-                </p>
-                <span class="category-btn">
-                    Enter Dimension
-                    <span>→</span>
-                </span>
-            </a>
-            
-            <a href="collaborations.html" class="category-card">
-                <span class="category-icon">🔗</span>
-                <h3 class="category-name">COLLABORATIVE NEXUS</h3>
-                <p class="category-count">18 Shared Realities</p>
-                <p class="category-desc">
-                    Personas born from dimensional crossovers and group manifestations. Keith Korg, 
-                    Reverend Tom, Ultra Keith - characters that exist where multiple creative universes 
-                    intersect and collaborate.
-                </p>
-                <span class="category-btn">
-                    Access Nexus
-                    <span>→</span>
-                </span>
-            </a>
-            
-            <a href="rare-personas.html" class="category-card">
-                <span class="category-icon">🌀</span>
-                <h3 class="category-name">HIDDEN DIMENSIONS</h3>
-                <p class="category-count">30+ Secret Realities</p>
-                <p class="category-desc">
-                    Mysterious personas from pocket dimensions and alternate timelines. One-off manifestations, 
-                    promotional appearances, and internet era entities that briefly pierced through to our reality.
-                </p>
-                <span class="category-btn">
-                    Discover Hidden
-                    <span>→</span>
-                </span>
-            </a>
+        <!-- Kool Keith (1988) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Kool Keith</h3>
+                    </div>
+                    <div class="persona-image">👑</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">25</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Bronx, NY</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Porn, Animals</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Girls who are not innovative</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "I'm the master of the game, all the girls know my name..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">KOOL KEITH - Primary Identity</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                Keith's primary rap persona. The revolutionary MC who broke all rules with abstract wordplay, sci-fi concepts, and unconventional rhyme patterns that influenced generations.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Critical Beatdown (1988)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Complex rhymes, abstract imagery, sci-fi concepts, innovative flow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+
+        <!-- Poppa Large (1992) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Poppa Large</h3>
+                    </div>
+                    <div class="persona-image">💪</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">35</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Bronx, NY</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Daredevil videos, Spinning around</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Quicksand, Soft Pretzels</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "I'm Poppa Large big shot on the Eastcoast..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">POPPA LARGE - East Coast Power</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The braggadocious East Coast persona from Ultramagnetic's Funk Your Head Up era. Represents Keith's confident, larger-than-life personality with quirky details.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Funk Your Head Up (1992)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">East Coast supremacy, braggadocio, quirky preferences</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dr. Octagon (1996) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Dr. Octagon</h3>
+                    </div>
+                    <div class="persona-image">👨‍⚕️</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Deceased</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Jupiter</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Bad operations, surgery</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">n/a</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "You need a bad operation... Give me the scissors..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">DR. OCTAGON - The Breakthrough</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The revolutionary alien gynecologist from Jupiter who changed hip-hop forever. Genre-defining breakthrough into abstract medical horror and space travel themes.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Dr. Octagonecologyst (1996)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Medical procedures, space travel, bizarre sexuality, horror</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mr. Gerbik (1996) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Mr. Gerbik</h3>
+                    </div>
+                    <div class="persona-image">🦈</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">208</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Jupiter</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Fishing, Swimming</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Wolfmen, Flossing</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "Skin like alligator, carrying a dead walrus..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">MR. GERBIK - Shark Hybrid</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The legendary half-shark, half-alligator, half-man hybrid from the Dr. Octagon universe. Featured in 2025 graphic novel with CZARFACE.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Dr. Octagonecologyst (1996)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Genetic mutation, aquatic predator, Jupiter origin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rhythm X (1992) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Rhythm X</h3>
+                    </div>
+                    <div class="persona-image">🎵</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">30</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">BX, New York</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Mae West, Gastronomy</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Traffic, Soft Cauliflower</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "The Rhythm X roller, my style gets critical..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">RHYTHM X - Technical Master</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The rhythm-focused persona emphasizing Keith's complex flow patterns and abstract wordplay. Represents technical mastery and computer-like precision.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Funk Your Head Up (1992)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Rhythmic complexity, abstract wordplay, technical precision</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The X (1992) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">The X</h3>
+                    </div>
+                    <div class="persona-image">❌</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Four Horsemen imagery</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "The X factor in hip-hop..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">THE X - Mystery Identity</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The mysterious X-identity from the Ultramagnetic Four Horsemen era. Represents Keith's experimental phase with abstract identity concepts and mathematical persona construction.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Four Horsemen LP (1992)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">X-identity, mathematical abstraction, experimental concepts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- X-Caliber (1992) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">X-Caliber</h3>
+                    </div>
+                    <div class="persona-image">⚔️</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Funk radio, sword imagery</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "X-Caliber cuts through the funk..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">X-CALIBER - Sword & Funk</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The sword-wielding persona from the Funk Radio era. Combines medieval weapon imagery with funk music concepts, representing Keith's ability to cut through conventional hip-hop.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Funk Your Head Up (1992)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Sword imagery, funk radio, precise wordplay cutting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exotron Geiger Counter One Plus Megatron (1989) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Exotron Geiger Counter One Plus Megatron</h3>
+                    </div>
+                    <div class="persona-image">🔬</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Unknown (Scientific origin)</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Complex scientific names, radio appearances, Megatron references</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Simple identities</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "Scientific complexity meets Transformers mythology..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">EXOTRON GEIGER COUNTER ONE PLUS MEGATRON</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                One of Keith's earliest experimental personas featuring extremely complex scientific naming. Combines radiation detection equipment with Transformers references, showing Keith's early fascination with sci-fi concepts.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Marley Marl In Control radio show (1989), Critical Beatdown (1988) - "Traveling At The Speed Of Thought"
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Scientific complexity, Transformers reference, early experimental identity construction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fourth Horseman (1992) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Fourth Horseman</h3>
+                    </div>
+                    <div class="persona-image">🐎</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Apocalyptic realm</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Apocalyptic themes</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "The final horseman rides through hip-hop..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">FOURTH HORSEMAN - Apocalypse</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The biblical apocalyptic persona from the Ultramagnetic Four Horsemen project. Represents Keith's incorporation of religious and mythological themes into hip-hop.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Four Horsemen LP (1992)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Apocalyptic imagery, biblical references, mythological horsemen</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dr. Sperm (Early Career) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Dr. Sperm</h3>
+                    </div>
+                    <div class="persona-image">🧬</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Early rap experimentation</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "Early medical themes emerge..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">DR. SPERM - Medical Precursor</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                One of Keith's earliest documented aliases, representing the initial emergence of medical themes that would later evolve into Dr. Octagon. Shows early controversial imagery experimentation.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Unknown (One of his first aliases)
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Early rap identity, medical theme precursor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funk Igniter Plus (1992) -->
+        <div class="persona-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-header">
+                        <div class="mc-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                        </div>
+                        <h3 class="persona-name">Funk Igniter Plus</h3>
+                    </div>
+                    <div class="persona-image">🔥</div>
+                    <div class="persona-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Age:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Birthplace:</span>
+                            <span class="stat-value">Unknown</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Likes:</span>
+                            <span class="stat-value">Funk radio, igniting funk</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Dislikes:</span>
+                            <span class="stat-value">Non-funk music</span>
+                        </div>
+                    </div>
+                    <div class="persona-quote">
+                        "Igniting the funk across all radio waves..."
+                    </div>
+                    <div class="flip-hint">← FLIP FOR STORY →</div>
+                </div>
+                <div class="card-back">
+                    <div class="card-back-content">
+                        <h4 class="back-title">FUNK IGNITER PLUS - Funk Radio Culture</h4>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Biography</h5>
+                            <div class="back-section-content">
+                                The funk-focused persona dedicated to igniting and spreading funk music culture. Represents Keith's deep connection to funk music and radio culture during the Ultramagnetic era.
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Debut</h5>
+                            <div class="back-section-content">
+                                <strong>First Appearance:</strong> Funk Your Head Up (1992) - "Funk Radio"
+                            </div>
+                        </div>
+                        <div class="back-section">
+                            <h5 class="back-section-title">Key Themes</h5>
+                            <div class="back-section-content">Funk music, radio culture, igniting funk movement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     
     <!-- Footer -->
-    <footer class="footer-section">
-        <p class="footer-text">
-            The most comprehensive documentation of Keith Thornton's persona multiverse ever assembled. 
-            From 1984's Ultra Keith through 2025's current dimensions, this collection maps 40+ years 
-            of revolutionary character creation across infinite realities in hip-hop.
+    <footer style="padding: 40px 20px; text-align: center; border-top: 1px solid rgba(192, 192, 192, 0.3);">
+        <div style="margin-bottom: 20px;">
+            <a href="personas-1997-2005.html" style="display: inline-flex; align-items: center; gap: 10px; background: #C0C0C0; color: #2F2F2F; padding: 15px 30px; border-radius: 30px; font-family: 'Orbitron', monospace; font-weight: 700; text-decoration: none;">
+                Next Era: 1997-2005 Peak Creativity →
+            </a>
+        </div>
+        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; max-width: 600px; margin: 0 auto;">
+            <strong>Origins & Breakthrough Era (1984-1996):</strong> From Activity's breakdancing foundation through Dr. Octagon's revolutionary medical multiverse.
         </p>
     </footer>
     
@@ -541,29 +1146,8 @@
                     }
                 });
             }
-            
-            // Add loading animation to stats
-            const statNumbers = document.querySelectorAll('.stat-number');
-            const observerOptions = {
-                threshold: 0.5,
-                rootMargin: '0px 0px -100px 0px'
-            };
-            
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.transform = 'scale(1.1)';
-                        setTimeout(() => {
-                            entry.target.style.transform = 'scale(1)';
-                        }, 200);
-                    }
-                });
-            }, observerOptions);
-            
-            statNumbers.forEach(stat => {
-                observer.observe(stat);
-            });
         });
     </script>
+    
 </body>
 </html>
