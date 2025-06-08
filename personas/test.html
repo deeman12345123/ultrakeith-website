@@ -837,7 +837,7 @@
                 <div class="card-front">
                     <div class="front-container">
                         <div class="card-header">
-                            <h1 class="persona-title long-title">Exotron Geiger Counter One Plus Megatron</h1>
+                            <h1 class="persona-title">Exotron Geiger Counter One Plus Megatron</h1>
                         </div>
                         
                         <div class="image-container">
@@ -875,7 +875,7 @@
                 
                 <div class="card-back">
                     <div class="back-container">
-                        <h2 class="back-title long-title">Exotron Geiger Counter One Plus Megatron (1989)</h2>
+                        <h2 class="back-title">Exotron Geiger Counter One Plus Megatron (1989)</h2>
                         
                         <div class="info-section">
                             <h3 class="section-title">Biography</h3>
@@ -911,7 +911,7 @@
                 <div class="card-front">
                     <div class="front-container">
                         <div class="card-header">
-                            <h1 class="persona-title long-title">Exotron Geiger Counter One Gamma Plus Sequencer</h1>
+                            <h1 class="persona-title">Exotron Geiger Counter One Gamma Plus Sequencer</h1>
                         </div>
                         
                         <div class="image-container">
@@ -949,7 +949,7 @@
                 
                 <div class="card-back">
                     <div class="back-container">
-                        <h2 class="back-title long-title">Exotron Geiger Counter One Gamma Plus Sequencer (1989)</h2>
+                        <h2 class="back-title">Exotron Geiger Counter One Gamma Plus Sequencer (1989)</h2>
                         
                         <div class="info-section">
                             <h3 class="section-title">Biography</h3>
@@ -1427,6 +1427,29 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Smart title sizing - automatically detect long titles
+            function adjustTitleSizes() {
+                const personaTitles = document.querySelectorAll('.persona-title');
+                const backTitles = document.querySelectorAll('.back-title');
+                
+                personaTitles.forEach(title => {
+                    const textLength = title.textContent.length;
+                    if (textLength > 25) { // Long titles get smaller font
+                        title.classList.add('long-title');
+                    }
+                });
+                
+                backTitles.forEach(title => {
+                    const textLength = title.textContent.length;
+                    if (textLength > 25) { // Long titles get smaller font
+                        title.classList.add('long-title');
+                    }
+                });
+            }
+            
+            // Apply smart sizing
+            adjustTitleSizes();
+            
             // Card flip functionality
             const cards = document.querySelectorAll('.trading-card');
             cards.forEach(card => {
