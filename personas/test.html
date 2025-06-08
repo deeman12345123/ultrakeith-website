@@ -36,7 +36,7 @@
         }
         
         /* ========================================
-           DECK BOX ANIMATION SYSTEM
+           DECK BOX ANIMATION SYSTEM - UPRIGHT CARD BOX
            ======================================== */
         
         .deck-box-container {
@@ -47,27 +47,47 @@
         }
         
         .deck-box {
-            width: 200px;
-            height: 120px;
+            width: 120px;
+            height: 180px;
             position: relative;
             transform-style: preserve-3d;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .deck-box:hover {
             transform: scale(1.05);
         }
         
+        .deck-box.opened {
+            animation: box-disappear 2s ease-in-out 1.5s forwards;
+        }
+        
+        @keyframes box-disappear {
+            0% { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+            50% { 
+                opacity: 0.3; 
+                transform: scale(0.8) translateY(-20px); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(0.5) translateY(-100px); 
+                pointer-events: none;
+            }
+        }
+        
         .deck-base {
             width: 100%;
             height: 100%;
-            background: linear-gradient(145deg, #2a1810 0%, #1a1008 50%, #0f0f0f 100%);
+            background: linear-gradient(145deg, #1a1a1a 0%, #000000 50%, #0a0a0a 100%);
             border: 2px solid var(--gold);
-            border-radius: 12px;
+            border-radius: 8px;
             position: relative;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.8),
+                0 8px 32px rgba(0, 0, 0, 0.9),
                 0 0 20px rgba(255, 215, 0, 0.3),
                 inset 0 2px 4px rgba(255, 215, 0, 0.1);
         }
@@ -75,12 +95,12 @@
         .deck-base::before {
             content: '';
             position: absolute;
-            top: 6px;
-            left: 6px;
-            right: 6px;
-            bottom: 6px;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
             border: 1px solid var(--silver);
-            border-radius: 8px;
+            border-radius: 6px;
             opacity: 0.6;
         }
         
@@ -89,19 +109,20 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(145deg, #3a2820 0%, #2a1810 50%, #1a1008 100%);
+            height: 50px;
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #000000 100%);
             border: 2px solid var(--gold);
-            border-radius: 12px;
-            transform-origin: top center;
-            transition: transform 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+            border-radius: 8px 8px 4px 4px;
+            transform-origin: bottom center;
+            transition: transform 1.5s cubic-bezier(0.4, 0.0, 0.2, 1);
             box-shadow: 
-                0 4px 16px rgba(0, 0, 0, 0.6),
+                0 4px 16px rgba(0, 0, 0, 0.8),
                 0 0 15px rgba(255, 215, 0, 0.2);
+            z-index: 10;
         }
         
         .deck-lid.open {
-            transform: rotateX(-130deg) translateZ(2px);
+            transform: rotateX(-180deg) translateZ(2px);
         }
         
         .deck-logo {
@@ -109,8 +130,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 60px;
+            width: 60px;
+            height: 35px;
             opacity: 0.9;
         }
         
@@ -126,27 +147,62 @@
             bottom: 8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 8px;
-            background: linear-gradient(90deg, var(--silver) 0%, #ffffff 50%, var(--silver) 100%);
-            border-radius: 2px;
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(145deg, 
+                var(--silver) 0%, 
+                #ffffff 30%, 
+                var(--silver) 60%,
+                var(--gold) 100%);
+            border-radius: 6px;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .deck-cards-stack::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.8) 0%,
+                rgba(192, 192, 192, 0.6) 100%);
+            border-radius: 4px;
         }
         
         .deck-box.opened .deck-cards-stack {
-            opacity: 0.8;
+            opacity: 0.9;
+            animation: cards-rise 1s ease-out 0.5s forwards;
+        }
+        
+        @keyframes cards-rise {
+            0% { 
+                transform: translateX(-50%) translateY(0); 
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateX(-50%) translateY(-20px); 
+                opacity: 0.6;
+            }
+            100% { 
+                transform: translateX(-50%) translateY(-100px); 
+                opacity: 0;
+            }
         }
         
         .click-hint {
             position: absolute;
-            bottom: -25px;
+            bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Orbitron', monospace;
             font-size: 0.7rem;
             color: rgba(255, 215, 0, 0.8);
             animation: pulse 2s infinite;
+            white-space: nowrap;
         }
         
         .deck-box.opened .click-hint {
@@ -813,13 +869,13 @@
             deckOpened = true;
             deckBox.classList.add('opened');
             
-            // Open the lid
+            // Open the lid (flip up)
             deckLid.classList.add('open');
             
-            // Create sparkle effects
+            // Create sparkle effects from the opening
             createSparkles(deckBox);
             
-            // After lid opens, release the cards
+            // After lid opens and box starts disappearing, release the cards
             setTimeout(() => {
                 // Show cards container
                 cardsContainer.classList.remove('hidden');
@@ -830,22 +886,23 @@
                 // Animate each card flying out
                 animateCardsFlutterIn();
                 
-            }, 600); // Wait for lid to open
+            }, 1000); // Wait for lid animation + box fade start
         }
         
         function createSparkles(container) {
-            // Create enhanced sparkle effects
-            for (let i = 0; i < 15; i++) {
+            // Create enhanced sparkle effects from the upright box opening
+            for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
                     const sparkle = document.createElement('div');
-                    sparkle.className = i % 3 === 0 ? 'sparkle big' : 'sparkle';
-                    sparkle.style.left = (Math.random() * 200) + 'px';
-                    sparkle.style.top = (Math.random() * 120) + 'px';
+                    sparkle.className = i % 4 === 0 ? 'sparkle big' : 'sparkle';
+                    // Sparkles emit from the top opening of the upright box
+                    sparkle.style.left = (40 + Math.random() * 40) + 'px'; // Center around box opening
+                    sparkle.style.top = (10 + Math.random() * 30) + 'px';  // From the lid area
                     container.appendChild(sparkle);
                     
                     // Remove sparkle after animation
                     setTimeout(() => sparkle.remove(), 2500);
-                }, i * 80);
+                }, i * 60);
             }
         }
         
