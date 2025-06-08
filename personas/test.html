@@ -458,8 +458,91 @@
     
     <script>
         // ========================================
+        // VALIDATION & ERROR CHECKING
+        // ========================================
+        
+        function validatePersonaData() {
+            const errors = [];
+            const requiredFields = ['number', 'name', 'year', 'era', 'age', 'origin', 'likes', 'dislikes', 'quote', 'biography', 'debut', 'themes', 'image'];
+            
+            personasData.forEach((persona, index) => {
+                requiredFields.forEach(field => {
+                    if (!persona[field] || persona[field].trim() === '') {
+                        errors.push(`Persona ${index + 1}: Missing ${field}`);
+                    }
+                });
+                
+                // Check era values
+                if (!['old', 'mid', 'new'].includes(persona.era)) {
+                    errors.push(`Persona ${index + 1}: Era must be 'old', 'mid', or 'new'`);
+                }
+                
+                // Check number format
+                if (!/^\d{3}$/.test(persona.number)) {
+                    errors.push(`Persona ${index + 1}: Number must be 3 digits (like '001')`);
+                }
+            });
+            
+            if (errors.length > 0) {
+                console.error('❌ PERSONA DATA ERRORS:');
+                errors.forEach(error => console.error('  • ' + error));
+                alert('❌ PERSONA DATA ERRORS - Check browser console for details');
+                return false;
+            }
+            
+            console.log('✅ All persona data validated successfully!');
+            return true;
+        }
+        
+        // ========================================
+        // AUTO-CONFIGURATION SYSTEM  
+        // ========================================
+        
+        function autoConfigureFilters() {
+            const eras = [...new Set(personasData.map(p => p.era))];
+            const filterContainer = document.querySelector('.filter-buttons');
+            
+            // Clear existing filters
+            filterContainer.innerHTML = '';
+            
+            // Add "Show All" button
+            const allButton = document.createElement('button');
+            allButton.className = 'filter-btn active';
+            allButton.setAttribute('data-era', 'all');
+            allButton.textContent = `Show All (${personasData.length})`;
+            filterContainer.appendChild(allButton);
+            
+            // Add era-specific buttons
+            eras.forEach(era => {
+                const count = personasData.filter(p => p.era === era).length;
+                const button = document.createElement('button');
+                button.className = 'filter-btn';
+                button.setAttribute('data-era', era);
+                button.textContent = `${era.charAt(0).toUpperCase() + era.slice(1)} Era (${count})`;
+                filterContainer.appendChild(button);
+            });
+        }
+        
+        // ========================================
         // PERSONA DATA - EASY TO UPDATE SECTION
         // Just replace this array with any 12 personas you want!
+        // 
+        // COPY/PASTE TEMPLATE FOR NEW PERSONAS:
+        // {
+        //     number: "XXX",
+        //     name: "Persona Name",
+        //     year: "YYYY", 
+        //     era: "old", // old, mid, new
+        //     age: "XX",
+        //     origin: "Location",
+        //     likes: "Things they like",
+        //     dislikes: "Things they dislike", 
+        //     quote: "Their quote...",
+        //     biography: "Biography text...",
+        //     debut: "Album/project name (year)",
+        //     themes: "Key themes, comma separated",
+        //     image: "/personas/filename.png"
+        // },
         // ========================================
         
         const personasData = [
@@ -745,30 +828,33 @@
         // ========================================
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Generate all cards
+            // 🔍 VALIDATE DATA FIRST
+            if (!validatePersonaData()) {
+                return; // Stop if data is invalid
+            }
+            
+            // 🎛️ AUTO-CONFIGURE FILTERS (supports any number of eras)
+            autoConfigureFilters();
+            
+            // 🃏 GENERATE ALL CARDS
             generateCards();
             
-            // Auto-count and update filter buttons
-            updateFilterCounts();
-            
-            // Smart title sizing
+            // 📏 SMART TITLE SIZING
             adjustTitleSizes();
             
-            // Card flip functionality
+            // 🔄 CARD FLIP FUNCTIONALITY
             addCardFlipListeners();
             
-            // Filter functionality
+            // 🎯 FILTER FUNCTIONALITY  
             addFilterListeners();
+            
+            // ✅ SUCCESS MESSAGE
+            console.log(`🎉 Ultra Keith Personas loaded successfully! ${personasData.length} cards generated.`);
         });
         
         function updateFilterCounts() {
-            const oldCount = personasData.filter(p => p.era === 'old').length;
-            const midCount = personasData.filter(p => p.era === 'mid').length;
-            const totalCount = personasData.length;
-            
-            document.querySelector('[data-era="all"]').textContent = `Show All (${totalCount})`;
-            document.querySelector('[data-era="old"]').textContent = `Old Era (${oldCount})`;
-            document.querySelector('[data-era="mid"]').textContent = `Mid Era (${midCount})`;
+            // This function is now handled by autoConfigureFilters()
+            // Keeping for backward compatibility
         }
         
         function adjustTitleSizes() {
