@@ -40,15 +40,17 @@
            ======================================== */
         
         .deck-box-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 50px;
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             perspective: 1000px;
+            z-index: 1000;
         }
         
         .deck-box {
-            width: 120px;
-            height: 180px;
+            width: 300px;
+            height: 450px;
             position: relative;
             transform-style: preserve-3d;
             cursor: pointer;
@@ -60,22 +62,36 @@
         }
         
         .deck-box.opened {
-            animation: box-disappear 2s ease-in-out 1.5s forwards;
+            animation: magical-fade 3s ease-in-out 2s forwards;
         }
         
-        @keyframes box-disappear {
+        @keyframes magical-fade {
             0% { 
                 opacity: 1; 
                 transform: scale(1) translateY(0); 
+                filter: brightness(1) blur(0px);
+            }
+            25% { 
+                opacity: 0.8; 
+                transform: scale(1.05) translateY(-10px); 
+                filter: brightness(1.2) blur(1px);
             }
             50% { 
-                opacity: 0.3; 
-                transform: scale(0.8) translateY(-20px); 
+                opacity: 0.5; 
+                transform: scale(0.95) translateY(-20px); 
+                filter: brightness(1.5) blur(2px);
+            }
+            75% { 
+                opacity: 0.2; 
+                transform: scale(0.8) translateY(-30px); 
+                filter: brightness(2) blur(4px);
             }
             100% { 
                 opacity: 0; 
-                transform: scale(0.5) translateY(-100px); 
+                transform: scale(0.3) translateY(-50px); 
+                filter: brightness(3) blur(8px);
                 pointer-events: none;
+                visibility: hidden;
             }
         }
         
@@ -109,10 +125,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 50px;
+            height: 120px;
             background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #000000 100%);
             border: 2px solid var(--gold);
-            border-radius: 8px 8px 4px 4px;
+            border-radius: 12px 12px 8px 8px;
             transform-origin: bottom center;
             transition: transform 1.5s cubic-bezier(0.4, 0.0, 0.2, 1);
             box-shadow: 
@@ -123,6 +139,25 @@
         
         .deck-lid.open {
             transform: rotateX(-180deg) translateZ(2px);
+            animation: magical-lid-glow 2s ease-in-out;
+        }
+        
+        @keyframes magical-lid-glow {
+            0% { 
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.2);
+            }
+            25% { 
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.6);
+            }
+            50% { 
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 1), 0 0 50px rgba(255, 215, 0, 0.8);
+            }
+            75% { 
+                box-shadow: 0 16px 64px rgba(0, 0, 0, 1), 0 0 70px rgba(255, 215, 0, 1);
+            }
+            100% { 
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.2);
+            }
         }
         
         .deck-logo {
@@ -130,8 +165,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 35px;
+            width: 120px;
+            height: 80px;
             opacity: 0.9;
         }
         
@@ -144,52 +179,73 @@
         
         .deck-cards-stack {
             position: absolute;
-            bottom: 8px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 120px;
+            width: 260px;
+            height: 300px;
             background: linear-gradient(145deg, 
                 var(--silver) 0%, 
                 #ffffff 30%, 
                 var(--silver) 60%,
                 var(--gold) 100%);
-            border-radius: 6px;
+            border-radius: 10px;
             opacity: 0;
             transition: opacity 0.8s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
         }
         
         .deck-cards-stack::before {
             content: '';
             position: absolute;
-            top: 2px;
-            left: 2px;
-            right: 2px;
-            bottom: 2px;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
             background: linear-gradient(145deg, 
                 rgba(255, 255, 255, 0.8) 0%,
                 rgba(192, 192, 192, 0.6) 100%);
-            border-radius: 4px;
+            border-radius: 8px;
         }
         
         .deck-box.opened .deck-cards-stack {
             opacity: 0.9;
-            animation: cards-rise 1s ease-out 0.5s forwards;
         }
         
-        @keyframes cards-rise {
+        .deck-cards-stack.magical-rise {
+            animation: magical-cards-rise 2.5s ease-out 0.8s forwards;
+        }
+        
+        @keyframes magical-cards-rise {
             0% { 
-                transform: translateX(-50%) translateY(0); 
+                transform: translateX(-50%) translateY(0) scale(1); 
                 opacity: 0.9;
+                filter: brightness(1) blur(0px);
             }
-            50% { 
-                transform: translateX(-50%) translateY(-20px); 
-                opacity: 0.6;
+            20% { 
+                transform: translateX(-50%) translateY(-30px) scale(1.1); 
+                opacity: 1;
+                filter: brightness(1.3) blur(1px);
+            }
+            40% { 
+                transform: translateX(-50%) translateY(-60px) scale(1.2); 
+                opacity: 0.8;
+                filter: brightness(1.6) blur(2px);
+            }
+            60% { 
+                transform: translateX(-50%) translateY(-100px) scale(1.1); 
+                opacity: 0.5;
+                filter: brightness(2) blur(4px);
+            }
+            80% { 
+                transform: translateX(-50%) translateY(-150px) scale(0.8); 
+                opacity: 0.2;
+                filter: brightness(2.5) blur(6px);
             }
             100% { 
-                transform: translateX(-50%) translateY(-100px); 
+                transform: translateX(-50%) translateY(-200px) scale(0.3); 
                 opacity: 0;
+                filter: brightness(3) blur(8px);
             }
         }
         
@@ -286,63 +342,126 @@
             100% { opacity: 0; transform: scale(0.8) rotateZ(-5deg); }
         }
         
-        /* Enhanced Sparkle Effects */
+        /* Enhanced Magical Sparkle Effects */
         .sparkle {
             position: absolute;
             width: 6px;
             height: 6px;
-            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+            background: radial-gradient(circle, var(--gold) 0%, rgba(255, 215, 0, 0.8) 40%, transparent 70%);
             border-radius: 50%;
-            animation: enhanced-sparkle 2s ease-out forwards;
+            animation: magical-sparkle 3s ease-out forwards;
             pointer-events: none;
             z-index: 1001;
         }
         
         .sparkle.big {
-            width: 10px;
-            height: 10px;
-            animation: big-sparkle 2.5s ease-out forwards;
+            width: 12px;
+            height: 12px;
+            animation: magical-big-sparkle 3.5s ease-out forwards;
         }
         
-        @keyframes enhanced-sparkle {
+        .sparkle.magical {
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 1) 0%,
+                var(--gold) 30%,
+                rgba(255, 215, 0, 0.6) 60%, 
+                transparent 80%);
+            animation: magical-twinkle 4s ease-out forwards;
+        }
+        
+        @keyframes magical-sparkle {
             0% {
                 opacity: 1;
                 transform: scale(0) rotate(0deg) translateY(0);
+                filter: brightness(2) blur(0px);
             }
             20% {
                 opacity: 1;
-                transform: scale(1.5) rotate(90deg) translateY(-10px);
+                transform: scale(1.8) rotate(90deg) translateY(-15px);
+                filter: brightness(3) blur(1px);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(220deg) translateY(-40px);
+                filter: brightness(4) blur(2px);
             }
             80% {
-                opacity: 0.8;
-                transform: scale(1) rotate(270deg) translateY(-30px);
+                opacity: 0.6;
+                transform: scale(0.8) rotate(350deg) translateY(-80px);
+                filter: brightness(5) blur(3px);
             }
             100% {
                 opacity: 0;
-                transform: scale(0) rotate(360deg) translateY(-50px);
+                transform: scale(0) rotate(480deg) translateY(-120px);
+                filter: brightness(6) blur(4px);
             }
         }
         
-        @keyframes big-sparkle {
+        @keyframes magical-big-sparkle {
             0% {
                 opacity: 1;
                 transform: scale(0) rotate(0deg) translateY(0);
                 box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+                filter: brightness(2);
             }
-            30% {
+            25% {
                 opacity: 1;
-                transform: scale(2) rotate(120deg) translateY(-20px);
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+                transform: scale(2.5) rotate(120deg) translateY(-25px);
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+                filter: brightness(4);
             }
-            70% {
-                opacity: 0.6;
-                transform: scale(1.5) rotate(300deg) translateY(-60px);
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            50% {
+                opacity: 0.9;
+                transform: scale(2) rotate(280deg) translateY(-60px);
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+                filter: brightness(5);
+            }
+            75% {
+                opacity: 0.5;
+                transform: scale(1.2) rotate(420deg) translateY(-100px);
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+                filter: brightness(6);
             }
             100% {
                 opacity: 0;
-                transform: scale(0) rotate(480deg) translateY(-100px);
+                transform: scale(0) rotate(600deg) translateY(-150px);
                 box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+                filter: brightness(8);
+            }
+        }
+        
+        @keyframes magical-twinkle {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+                filter: brightness(3) blur(0px);
+            }
+            15% {
+                opacity: 1;
+                transform: scale(2) rotate(60deg);
+                filter: brightness(5) blur(1px);
+            }
+            30% {
+                opacity: 0.8;
+                transform: scale(1.5) rotate(150deg);
+                filter: brightness(4) blur(2px);
+            }
+            60% {
+                opacity: 0.6;
+                transform: scale(1.8) rotate(300deg);
+                filter: brightness(6) blur(1px);
+            }
+            85% {
+                opacity: 0.3;
+                transform: scale(1) rotate(450deg);
+                filter: brightness(7) blur(3px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(540deg);
+                filter: brightness(8) blur(4px);
             }
         }
         
@@ -753,43 +872,32 @@
             z-index: 15;
         }
         
-        /* TABLET - 3 CARDS PER ROW */
+        /* RESPONSIVE GRID IN CENTER SCREEN */
         @media (min-width: 769px) and (max-width: 1200px) {
             .cards-grid {
-                max-width: 1000px;
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 30px;
-                justify-items: center;
+                gap: 20px;
+                max-width: 85vw;
             }
             
             .trading-card {
                 width: 280px;
                 height: 420px;
-            }
-            
-            .trading-card:hover {
-                transform: scale(1.05);
             }
         }
         
-        /* DESKTOP - 4 CARDS PER ROW */
         @media (min-width: 1201px) {
             .cards-grid {
-                max-width: 1300px;
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
-                gap: 30px;
-                justify-items: center;
+                gap: 20px;
+                max-width: 90vw;
             }
             
             .trading-card {
                 width: 280px;
                 height: 420px;
-            }
-            
-            .trading-card:hover {
-                transform: scale(1.05);
             }
         }
         
@@ -862,6 +970,7 @@
         function openDeckAndReleaseCards() {
             const deckBox = document.getElementById('deckBox');
             const deckLid = document.getElementById('deckLid');
+            const deckStack = document.querySelector('.deck-cards-stack');
             const cardsContainer = document.getElementById('cardsContainer');
             const filterButtons = document.querySelector('.filter-buttons');
             
@@ -869,13 +978,18 @@
             deckOpened = true;
             deckBox.classList.add('opened');
             
-            // Open the lid (flip up)
+            // PHASE 1: Magical opening sequence
             deckLid.classList.add('open');
             
-            // Create sparkle effects from the opening
-            createSparkles(deckBox);
+            // PHASE 2: Enhanced magical sparkles
+            createMagicalSparkles(deckBox);
             
-            // After lid opens and box starts disappearing, release the cards
+            // PHASE 3: Card stack rises magically (after lid opens)
+            setTimeout(() => {
+                deckStack.classList.add('magical-rise');
+            }, 800);
+            
+            // PHASE 4: Cards start appearing as deck fades (seamless transition)
             setTimeout(() => {
                 // Show cards container
                 cardsContainer.classList.remove('hidden');
@@ -883,37 +997,60 @@
                 // Show filter buttons
                 filterButtons.style.opacity = '1';
                 
-                // Animate each card flying out
+                // Cards flutter from deck position to grid
                 animateCardsFlutterIn();
                 
-            }, 1000); // Wait for lid animation + box fade start
+            }, 2200); // Perfectly timed with deck fade
         }
         
-        function createSparkles(container) {
-            // Create enhanced sparkle effects from the upright box opening
-            for (let i = 0; i < 20; i++) {
+        function createMagicalSparkles(container) {
+            // Create enhanced magical sparkle effects
+            for (let i = 0; i < 35; i++) {
                 setTimeout(() => {
                     const sparkle = document.createElement('div');
-                    sparkle.className = i % 4 === 0 ? 'sparkle big' : 'sparkle';
-                    // Sparkles emit from the top opening of the upright box
-                    sparkle.style.left = (40 + Math.random() * 40) + 'px'; // Center around box opening
-                    sparkle.style.top = (10 + Math.random() * 30) + 'px';  // From the lid area
+                    // Mix of different sparkle types for magical variety
+                    if (i % 5 === 0) {
+                        sparkle.className = 'sparkle big';
+                    } else if (i % 3 === 0) {
+                        sparkle.className = 'sparkle magical';
+                    } else {
+                        sparkle.className = 'sparkle';
+                    }
+                    
+                    // Sparkles emit from throughout the opening deck area
+                    sparkle.style.left = (80 + Math.random() * 140) + 'px';
+                    sparkle.style.top = (40 + Math.random() * 100) + 'px';
                     container.appendChild(sparkle);
                     
-                    // Remove sparkle after animation
-                    setTimeout(() => sparkle.remove(), 2500);
-                }, i * 60);
+                    // Remove sparkle after magical animation
+                    setTimeout(() => sparkle.remove(), 4000);
+                }, i * 40); // Faster succession for magical effect
             }
+            
+            // Add extra burst of sparkles when deck fully opens
+            setTimeout(() => {
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        const burstSparkle = document.createElement('div');
+                        burstSparkle.className = 'sparkle magical';
+                        burstSparkle.style.left = (120 + Math.random() * 60) + 'px';
+                        burstSparkle.style.top = (60 + Math.random() * 60) + 'px';
+                        container.appendChild(burstSparkle);
+                        
+                        setTimeout(() => burstSparkle.remove(), 4000);
+                    }, i * 25);
+                }
+            }, 1200); // Burst when deck is fully open
         }
         
         function animateCardsFlutterIn() {
             const cards = document.querySelectorAll('.trading-card');
             
-            // Set initial flutter positions with more dramatic variations
+            // Set initial flutter positions - cards start from deck box position
             cards.forEach((card, index) => {
-                const startX = (Math.random() - 0.5) * 600; // Wider horizontal spread
-                const startRotation = (Math.random() - 0.5) * 180; // More rotation
-                const startRotateY = (Math.random() - 0.5) * 60; // 3D Y rotation
+                const startX = (Math.random() - 0.5) * 200; // Smaller spread from deck position
+                const startRotation = (Math.random() - 0.5) * 90; // Less dramatic rotation
+                const startRotateY = (Math.random() - 0.5) * 30; // Subtle 3D rotation
                 
                 card.style.setProperty('--start-x', startX + 'px');
                 card.style.setProperty('--start-rotation', startRotation + 'deg');
@@ -921,7 +1058,7 @@
                 card.classList.add('card-flutter-start');
             });
             
-            // Animate cards one by one with enhanced effects
+            // Animate cards one by one - they spread out from deck position to grid
             cards.forEach((card, index) => {
                 setTimeout(() => {
                     // Add whoosh effect
@@ -934,7 +1071,7 @@
                     trail.className = 'card-trail';
                     card.appendChild(trail);
                     
-                    // Start main animation
+                    // Start main animation - cards move from deck position to their grid spots
                     card.classList.remove('card-flutter-start');
                     card.classList.add('card-flutter-animate');
                     
@@ -962,7 +1099,7 @@
                         trail.remove();
                     }, 2000);
                     
-                }, index * 120); // Slightly faster stagger for more excitement
+                }, index * 120); // Stagger timing
             });
         }
         
