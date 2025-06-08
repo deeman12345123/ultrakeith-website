@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kool Keith Card Preview - Clean Version</title>
+    <title>Kool Keith Card Preview - Working Version</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
@@ -60,7 +60,7 @@
             transform: rotateY(180deg);
         }
         
-        /* Card Sides - Fixed Flip */
+        /* Card Sides */
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -79,10 +79,9 @@
         
         .card-back {
             transform: rotateY(180deg);
-            background-color: #2F2F2F;
         }
         
-        /* Inner Border - Around Entire Card */
+        /* Inner Border */
         .card-front::before, .card-back::before {
             content: '';
             position: absolute;
@@ -93,10 +92,10 @@
             border: 1px solid #D3D3D3;
             border-radius: 8px;
             pointer-events: none;
-            z-index: 20;
+            z-index: 1;
         }
         
-        /* FRONT CARD CONTENT */
+        /* FRONT CARD */
         .card-front-content {
             position: relative;
             height: 100%;
@@ -111,7 +110,6 @@
             border-bottom: 1px solid #C0C0C0;
             padding: 20px 30px;
             border-radius: 8px 8px 0 0;
-            position: relative;
         }
         
         .persona-name {
@@ -137,8 +135,6 @@
         
         .persona-stats {
             padding: 0 30px;
-            text-align: left;
-            background-color: #2F2F2F;
             margin-bottom: 10px;
         }
         
@@ -207,7 +203,7 @@
             object-fit: contain;
         }
         
-        /* BACK CARD CONTENT */
+        /* BACK CARD */
         .card-back-content {
             position: relative;
             height: 100%;
@@ -249,7 +245,7 @@
             color: rgba(255, 255, 255, 0.8);
         }
         
-        /* Gold Kool Keith Logo on Back - SAFE POSITIONING */
+        /* Gold Logo */
         .back-kool-keith-logo {
             margin-top: auto;
             text-align: center;
@@ -260,7 +256,6 @@
             width: 140px;
             height: auto;
             opacity: 0.8;
-            object-fit: contain;
         }
         
         /* Mobile */
@@ -285,7 +280,7 @@
         <strong>CLICK CARD TO FLIP</strong><br>
         Preview: Kool Keith<br>
         Silver Platinum Design<br>
-        Clean Version - No Bleed
+        Working Version
     </div>
     
     <!-- Kool Keith Card -->
@@ -349,7 +344,7 @@
                         </div>
                     </div>
                     <div class="back-kool-keith-logo">
-                        <img src="https://i.imgur.com/YourImageURL.png" alt="Kool Keith Gold Logo">
+                        <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/koolkeithlogo.png?raw=true" alt="Kool Keith Gold Logo">
                     </div>
                 </div>
             </div>
