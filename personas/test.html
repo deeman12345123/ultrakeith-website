@@ -1541,7 +1541,7 @@
             // 📏 SMART TITLE SIZING
             adjustTitleSizes();
             
-            // 🔄 CARD FLIP FUNCTIONALITY
+            // 🔄 CARD FLIP FUNCTIONALITY - INITIAL SETUP
             addCardFlipListeners();
             
             // 🎯 FILTER FUNCTIONALITY  
@@ -1549,6 +1549,11 @@
             
             // ✅ SUCCESS MESSAGE
             console.log(`🎉 Ultra Keith Personas loaded successfully! ${personasData.length} cards ready to flutter out.`);
+            
+            // 🔄 REFRESH FLIP LISTENERS AFTER ANIMATION
+            setTimeout(() => {
+                refreshCardFlipListeners();
+            }, ANIMATION_CONFIG.CARDS_APPEAR_DELAY + 3000); // After all animations complete
         });
         
         function updateFilterCounts() {
@@ -1573,14 +1578,51 @@
             });
         }
         
+        // ========================================
+        // CARD INTERACTION SYSTEM - FLIP FUNCTIONALITY
+        // ========================================
+        
         function addCardFlipListeners() {
+            // Remove any existing listeners first to prevent duplicates
+            removeExistingFlipListeners();
+            
+            // Add fresh listeners to all cards
+            const cards = document.querySelectorAll('.trading-card');
+            cards.forEach((card, index) => {
+                // Create a named function for this specific card
+                const flipHandler = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    card.classList.toggle('flipped');
+                };
+                
+                // Store the handler on the card for later removal if needed
+                card._flipHandler = flipHandler;
+                
+                // Add the click listener
+                card.addEventListener('click', flipHandler);
+                
+                console.log(`✅ Flip listener added to card ${index + 1}`);
+            });
+        }
+        
+        function removeExistingFlipListeners() {
             const cards = document.querySelectorAll('.trading-card');
             cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    this.classList.toggle('flipped');
-                });
+                if (card._flipHandler) {
+                    card.removeEventListener('click', card._flipHandler);
+                    delete card._flipHandler;
+                }
             });
+        }
+        
+        // Ensure flip listeners are reapplied after cards are generated
+        function refreshCardFlipListeners() {
+            // Wait a bit for cards to fully render
+            setTimeout(() => {
+                addCardFlipListeners();
+                console.log('🔄 Card flip listeners refreshed');
+            }, 500);
         }
         
         function addFilterListeners() {
