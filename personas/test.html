@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kool Keith Card Preview - Working Version</title>
+    <title>Kool Keith Card - Fixed Layout</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
@@ -24,7 +24,6 @@
             padding: 20px;
         }
         
-        /* Instructions */
         .instructions {
             position: fixed;
             top: 20px;
@@ -43,7 +42,7 @@
         /* Card Container */
         .persona-card {
             width: 360px;
-            height: 720px;
+            height: 650px;
             perspective: 1000px;
             cursor: pointer;
         }
@@ -60,7 +59,7 @@
             transform: rotateY(180deg);
         }
         
-        /* Card Sides */
+        /* Card Base */
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -85,69 +84,70 @@
         .card-front::before, .card-back::before {
             content: '';
             position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
-            bottom: 8px;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
             border: 1px solid #D3D3D3;
             border-radius: 8px;
             pointer-events: none;
             z-index: 1;
         }
         
-        /* FRONT CARD */
-        .card-front-content {
-            position: relative;
-            height: 100%;
+        /* FRONT CARD - TIGHT LAYOUT */
+        .front-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
             z-index: 10;
-            background-color: #2F2F2F;
-            border-radius: 8px;
-            margin: 8px;
         }
         
         .card-header {
             background-color: #1A1A1A;
             border-bottom: 1px solid #C0C0C0;
-            padding: 20px 30px;
-            border-radius: 8px 8px 0 0;
+            padding: 15px 20px;
+            border-radius: 6px 6px 0 0;
+            margin-bottom: 15px;
         }
         
         .persona-name {
             font-family: 'Orbitron', monospace;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 900;
             color: #C0C0C0;
             text-transform: uppercase;
         }
         
         .persona-image {
-            width: 180px;
-            height: 180px;
-            margin: 30px auto;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px auto;
             border: 2px solid #C0C0C0;
             border-radius: 10px;
             background-color: #1A1A1A;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4.5rem;
+            font-size: 3.5rem;
         }
         
         .persona-stats {
-            padding: 0 30px;
+            padding: 0 20px;
             margin-bottom: 10px;
         }
         
         .stat-row {
             display: flex;
-            margin-bottom: 16px;
-            font-size: 1rem;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
         }
         
         .stat-label {
             font-weight: 700;
             color: #C0C0C0;
-            width: 90px;
+            width: 85px;
             flex-shrink: 0;
         }
         
@@ -158,43 +158,36 @@
         }
         
         .persona-quote {
-            padding: 30px 30px 40px 30px;
+            padding: 15px 20px;
             border-top: 1px solid rgba(192, 192, 192, 0.3);
-            margin-top: 20px;
             font-style: italic;
             color: #C0C0C0;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-align: center;
-            line-height: 1.4;
+            line-height: 1.3;
             background-color: #2F2F2F;
-            border-radius: 0 0 8px 8px;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 0 0 6px 6px;
+            margin-bottom: 25px;
         }
         
         .flip-hint {
             position: absolute;
-            bottom: 25px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.7rem;
             color: rgba(192, 192, 192, 0.6);
             font-family: 'Orbitron', monospace;
+            z-index: 15;
         }
         
         .mc-logo {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid rgba(192, 192, 192, 0.4);
-            background-color: rgba(26, 26, 26, 0.8);
-            z-index: 15;
+            bottom: 8px;
+            right: 8px;
+            width: 40px;
+            height: 40px;
+            z-index: 20;
         }
         
         .mc-logo img {
@@ -203,67 +196,83 @@
             object-fit: contain;
         }
         
+        .card-number {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #C0C0C0;
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(192, 192, 192, 0.4);
+            z-index: 20;
+        }
+        
         /* BACK CARD */
-        .card-back-content {
-            position: relative;
-            height: 100%;
+        .back-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
             z-index: 10;
-            background-color: #2F2F2F;
-            border-radius: 8px;
-            margin: 8px;
-            padding: 30px 30px 20px 30px;
             display: flex;
             flex-direction: column;
         }
         
         .back-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: #C0C0C0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
             text-transform: uppercase;
         }
         
         .back-section {
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
         
         .back-section-title {
             font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: #C0C0C0;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             text-transform: uppercase;
         }
         
         .back-section-content {
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            line-height: 1.4;
             color: rgba(255, 255, 255, 0.8);
         }
         
-        /* Gold Logo */
-        .back-kool-keith-logo {
-            margin-top: auto;
-            text-align: center;
-            padding: 20px 0 30px 0;
+        .back-logo-space {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
         }
         
         .back-kool-keith-logo img {
-            width: 140px;
+            width: 180px;
             height: auto;
             opacity: 0.8;
+            max-height: 120px;
+            object-fit: contain;
         }
         
-        /* Mobile */
         @media (max-width: 768px) {
             .persona-card {
                 width: 100%;
                 max-width: 340px;
-                height: 680px;
+                height: 600px;
             }
             
             .instructions {
@@ -279,8 +288,7 @@
     <div class="instructions">
         <strong>CLICK CARD TO FLIP</strong><br>
         Preview: Kool Keith<br>
-        Silver Platinum Design<br>
-        Working Version
+        Fixed Layout - Tight Spacing
     </div>
     
     <!-- Kool Keith Card -->
@@ -288,11 +296,13 @@
         <div class="card-inner">
             <!-- FRONT SIDE -->
             <div class="card-front">
-                <div class="card-front-content">
+                <div class="front-container">
                     <div class="card-header">
                         <h3 class="persona-name">Kool Keith</h3>
                     </div>
+                    
                     <div class="persona-image">👑</div>
+                    
                     <div class="persona-stats">
                         <div class="stat-row">
                             <span class="stat-label">Age:</span>
@@ -311,19 +321,22 @@
                             <span class="stat-value">Girls who are not innovative that don't like to take pictures</span>
                         </div>
                     </div>
+                    
                     <div class="persona-quote">
                         "I'm the master of the game, all the girls know my name."
                     </div>
-                    <div class="mc-logo">
-                        <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
-                    </div>
-                    <div class="flip-hint">← CLICK TO FLIP →</div>
                 </div>
+                
+                <div class="flip-hint">← CLICK TO FLIP →</div>
+                <div class="mc-logo">
+                    <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
+                </div>
+                <div class="card-number">#001</div>
             </div>
             
             <!-- BACK SIDE -->
             <div class="card-back">
-                <div class="card-back-content">
+                <div class="back-container">
                     <h4 class="back-title">Kool Keith</h4>
                     <div class="back-section">
                         <h5 class="back-section-title">Biography</h5>
@@ -343,8 +356,10 @@
                             Complex rhymes, abstract imagery, sci-fi concepts, innovative flow
                         </div>
                     </div>
-                    <div class="back-kool-keith-logo">
-                        <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/koolkeithlogo.png?raw=true" alt="Kool Keith Gold Logo">
+                    <div class="back-logo-space">
+                        <div class="back-kool-keith-logo">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/koolkeithlogo.png?raw=true" alt="Kool Keith Gold Logo">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -352,7 +367,6 @@
     </div>
     
     <script>
-        // Card flip functionality
         document.addEventListener('DOMContentLoaded', function() {
             const personaCard = document.querySelector('.persona-card');
             
