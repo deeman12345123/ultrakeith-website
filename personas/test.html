@@ -15,6 +15,8 @@
             --secondary-dark: #050505;
             --silver: #C0C0C0;
             --silver-transparent: rgba(192, 192, 192, 0.5);
+            --gold: #FFD700;
+            --dark-gold: #B8860B;
             --border-radius: 15px;
             --inner-border-radius: 8px;
             --image-size: 120px;
@@ -86,14 +88,15 @@
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             border-radius: var(--border-radius);
-            border: 2px solid var(--silver);
+            border: 1px solid var(--gold);
             background: 
-                radial-gradient(circle at 30% 20%, rgba(192, 192, 192, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(192, 192, 192, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 215, 0, 0.02) 0%, transparent 50%),
                 linear-gradient(145deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.8),
-                inset 0 1px 0 rgba(192, 192, 192, 0.1);
+                0 0 8px rgba(255, 215, 0, 0.3),
+                inset 0 1px 0 rgba(255, 215, 0, 0.1);
             transition: all 0.3s ease;
         }
         
@@ -101,8 +104,8 @@
         .persona-card:hover .card-back {
             box-shadow: 
                 0 12px 40px rgba(0, 0, 0, 0.9),
-                0 0 20px var(--silver-transparent),
-                inset 0 1px 0 rgba(192, 192, 192, 0.2);
+                0 0 20px rgba(255, 215, 0, 0.5),
+                inset 0 1px 0 rgba(255, 215, 0, 0.2);
         }
         
         .card-front {
@@ -146,20 +149,23 @@
         
         .card-header {
             background: linear-gradient(145deg, var(--secondary-dark) 0%, var(--primary-dark) 100%);
-            border-bottom: 1px solid var(--silver);
+            border-bottom: 1px solid var(--gold);
             padding: 15px 20px;
             border-radius: 6px 6px 0 0;
             margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
         }
         
         .persona-name {
             font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
             font-weight: 900;
-            color: var(--silver);
+            color: var(--dark-gold);
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.4),
+                0 2px 4px rgba(0, 0, 0, 0.8);
         }
         
         .persona-image {
@@ -315,10 +321,13 @@
             font-family: 'Orbitron', monospace;
             font-size: 1.3rem;
             font-weight: 900;
-            color: #C0C0C0;
+            color: var(--dark-gold);
             margin-bottom: 15px;
             text-align: center;
             text-transform: uppercase;
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.4),
+                0 2px 4px rgba(0, 0, 0, 0.8);
         }
         
         .back-section {
