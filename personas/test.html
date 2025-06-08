@@ -35,6 +35,188 @@
             margin-bottom: 30px;
         }
         
+        /* ========================================
+           DECK BOX ANIMATION SYSTEM
+           ======================================== */
+        
+        .deck-box-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            perspective: 1000px;
+        }
+        
+        .deck-box {
+            width: 200px;
+            height: 120px;
+            position: relative;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .deck-box:hover {
+            transform: scale(1.05);
+        }
+        
+        .deck-base {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #2a1810 0%, #1a1008 50%, #0f0f0f 100%);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.3),
+                inset 0 2px 4px rgba(255, 215, 0, 0.1);
+        }
+        
+        .deck-base::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 1px solid var(--silver);
+            border-radius: 8px;
+            opacity: 0.6;
+        }
+        
+        .deck-lid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #3a2820 0%, #2a1810 50%, #1a1008 100%);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            transform-origin: top center;
+            transition: transform 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.6),
+                0 0 15px rgba(255, 215, 0, 0.2);
+        }
+        
+        .deck-lid.open {
+            transform: rotateX(-130deg) translateZ(2px);
+        }
+        
+        .deck-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+            line-height: 1.2;
+            text-align: center;
+        }
+        
+        .deck-cards-stack {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 8px;
+            background: linear-gradient(90deg, var(--silver) 0%, #ffffff 50%, var(--silver) 100%);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .deck-box.opened .deck-cards-stack {
+            opacity: 0.8;
+        }
+        
+        .click-hint {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 215, 0, 0.8);
+            animation: pulse 2s infinite;
+        }
+        
+        .deck-box.opened .click-hint {
+            display: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* Card Flutter Animation */
+        .cards-grid.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .card-flutter-start {
+            opacity: 0;
+            transform: 
+                translateY(-300px) 
+                translateX(var(--start-x, 0px))
+                rotateZ(var(--start-rotation, 45deg)) 
+                scale(0.3);
+            transition: none;
+        }
+        
+        .card-flutter-animate {
+            opacity: 1;
+            transform: translateY(0) translateX(0) rotateZ(0deg) scale(1);
+            transition: 
+                transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1),
+                opacity 0.6s ease;
+        }
+        
+        .card-flutter-bounce {
+            animation: card-land 0.3s ease forwards;
+        }
+        
+        @keyframes card-land {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.02); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        
+        /* Sparkle Effects */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes sparkle {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(360deg);
+            }
+        }
+        
         .main-title {
             font-family: 'Orbitron', monospace;
             font-size: clamp(2rem, 5vw, 3rem);
@@ -445,18 +627,121 @@
         <h1 class="main-title">Ultra Keith Personas</h1>
         <p class="subtitle">Trading Card Collection - First 12 Cards</p>
         
-        <div class="filter-buttons">
+        <!-- DECK BOX ANIMATION -->
+        <div class="deck-box-container">
+            <div class="deck-box" id="deckBox">
+                <div class="deck-base">
+                    <div class="deck-cards-stack"></div>
+                </div>
+                <div class="deck-lid" id="deckLid">
+                    <div class="deck-logo">Ultra<br>Keith<br>Personas</div>
+                </div>
+                <div class="click-hint">← CLICK TO OPEN →</div>
+            </div>
+        </div>
+        
+        <div class="filter-buttons" style="opacity: 0; transition: opacity 0.5s ease;">
             <button class="filter-btn active" data-era="all">Show All (12)</button>
             <button class="filter-btn" data-era="old">Old Era (10)</button>
             <button class="filter-btn" data-era="mid">Mid Era (2)</button>
         </div>
     </div>
     
-    <div class="cards-grid" id="cardsContainer">
+    <div class="cards-grid hidden" id="cardsContainer">
         <!-- Cards will be generated here by JavaScript -->
     </div>
     
     <script>
+        // ========================================
+        // DECK BOX ANIMATION SYSTEM
+        // ========================================
+        
+        let deckOpened = false;
+        
+        function initDeckBox() {
+            const deckBox = document.getElementById('deckBox');
+            const deckLid = document.getElementById('deckLid');
+            
+            deckBox.addEventListener('click', function() {
+                if (!deckOpened) {
+                    openDeckAndReleaseCards();
+                }
+            });
+        }
+        
+        function openDeckAndReleaseCards() {
+            const deckBox = document.getElementById('deckBox');
+            const deckLid = document.getElementById('deckLid');
+            const cardsContainer = document.getElementById('cardsContainer');
+            const filterButtons = document.querySelector('.filter-buttons');
+            
+            // Mark as opened
+            deckOpened = true;
+            deckBox.classList.add('opened');
+            
+            // Open the lid
+            deckLid.classList.add('open');
+            
+            // Create sparkle effects
+            createSparkles(deckBox);
+            
+            // After lid opens, release the cards
+            setTimeout(() => {
+                // Show cards container
+                cardsContainer.classList.remove('hidden');
+                
+                // Show filter buttons
+                filterButtons.style.opacity = '1';
+                
+                // Animate each card flying out
+                animateCardsFlutterIn();
+                
+            }, 600); // Wait for lid to open
+        }
+        
+        function createSparkles(container) {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = (Math.random() * 200) + 'px';
+                    sparkle.style.top = (Math.random() * 120) + 'px';
+                    container.appendChild(sparkle);
+                    
+                    // Remove sparkle after animation
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, i * 100);
+            }
+        }
+        
+        function animateCardsFlutterIn() {
+            const cards = document.querySelectorAll('.trading-card');
+            
+            // Set initial flutter positions
+            cards.forEach((card, index) => {
+                const startX = (Math.random() - 0.5) * 400; // Random horizontal start
+                const startRotation = (Math.random() - 0.5) * 90; // Random rotation
+                
+                card.style.setProperty('--start-x', startX + 'px');
+                card.style.setProperty('--start-rotation', startRotation + 'deg');
+                card.classList.add('card-flutter-start');
+            });
+            
+            // Animate cards one by one
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.remove('card-flutter-start');
+                    card.classList.add('card-flutter-animate');
+                    
+                    // Add bounce effect when landing
+                    setTimeout(() => {
+                        card.classList.add('card-flutter-bounce');
+                    }, 800);
+                    
+                }, index * 150); // Stagger by 150ms
+            });
+        }
+        
         // ========================================
         // VALIDATION & ERROR CHECKING
         // ========================================
@@ -836,8 +1121,11 @@
             // 🎛️ AUTO-CONFIGURE FILTERS (supports any number of eras)
             autoConfigureFilters();
             
-            // 🃏 GENERATE ALL CARDS
+            // 🃏 GENERATE ALL CARDS (but keep them hidden)
             generateCards();
+            
+            // 🎪 INITIALIZE DECK BOX ANIMATION
+            initDeckBox();
             
             // 📏 SMART TITLE SIZING
             adjustTitleSizes();
@@ -849,7 +1137,7 @@
             addFilterListeners();
             
             // ✅ SUCCESS MESSAGE
-            console.log(`🎉 Ultra Keith Personas loaded successfully! ${personasData.length} cards generated.`);
+            console.log(`🎉 Ultra Keith Personas loaded successfully! ${personasData.length} cards ready to flutter out.`);
         });
         
         function updateFilterCounts() {
