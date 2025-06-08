@@ -204,9 +204,9 @@
         
         /* Special smaller size for very long titles */
         .persona-title.long-title {
-            font-size: clamp(0.6rem, 1.5vw, 0.9rem);
-            letter-spacing: clamp(0.2px, 0.5vw, 0.5px);
-            line-height: 0.95;
+            font-size: clamp(0.55rem, 1.2vw, 0.8rem);
+            letter-spacing: clamp(0.1px, 0.3vw, 0.3px);
+            line-height: 0.9;
         }
         
         .image-container {
@@ -320,9 +320,9 @@
         
         /* Special smaller size for very long back titles */
         .back-title.long-title {
-            font-size: clamp(0.6rem, 1.5vw, 0.9rem);
-            letter-spacing: clamp(0.2px, 0.5vw, 0.5px);
-            line-height: 0.95;
+            font-size: clamp(0.55rem, 1.2vw, 0.8rem);
+            letter-spacing: clamp(0.1px, 0.3vw, 0.3px);
+            line-height: 0.9;
         }
         
         .info-section {
@@ -1434,14 +1434,14 @@
                 
                 personaTitles.forEach(title => {
                     const textLength = title.textContent.length;
-                    if (textLength > 25) { // Long titles get smaller font
+                    if (textLength > 20) { // Catches long titles like Exotron names
                         title.classList.add('long-title');
                     }
                 });
                 
                 backTitles.forEach(title => {
                     const textLength = title.textContent.length;
-                    if (textLength > 25) { // Long titles get smaller font
+                    if (textLength > 20) { // Catches long titles like Exotron names
                         title.classList.add('long-title');
                     }
                 });
