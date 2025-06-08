@@ -366,17 +366,124 @@
             object-fit: contain;
         }
         
+        /* Mobile Optimization */
         @media (max-width: 768px) {
             .persona-card {
                 width: 100%;
                 max-width: 300px;
-                height: 510px;
+                height: 500px;
+                margin: 0 auto;
             }
             
             .instructions {
                 position: relative;
                 margin-bottom: 20px;
                 max-width: 100%;
+                font-size: 0.75rem;
+                padding: 12px;
+            }
+            
+            /* Mobile Font Adjustments */
+            .persona-name {
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
+            }
+            
+            .back-title {
+                font-size: 1.1rem;
+            }
+            
+            /* Mobile Image Size */
+            .persona-image {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 10px auto;
+                font-size: 2.5rem;
+            }
+            
+            /* Mobile Stats */
+            .stat-row {
+                margin-bottom: 6px;
+                font-size: 0.8rem;
+            }
+            
+            .stat-label {
+                width: 70px;
+                font-size: 0.75rem;
+            }
+            
+            .stat-value {
+                font-size: 0.8rem;
+                line-height: 1.2;
+            }
+            
+            /* Mobile Quote */
+            .persona-quote {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+                margin-bottom: 15px;
+            }
+            
+            /* Mobile Back Content */
+            .back-container {
+                padding: 20px 15px 15px 15px;
+            }
+            
+            .back-section {
+                margin-bottom: 10px;
+            }
+            
+            .back-section-title {
+                font-size: 0.7rem;
+                margin-bottom: 5px;
+            }
+            
+            .back-section-content {
+                font-size: 0.75rem;
+                line-height: 1.3;
+            }
+            
+            /* Mobile Logos */
+            .mc-logo {
+                width: 35px;
+                height: 35px;
+                bottom: 20px;
+                right: 15px;
+            }
+            
+            .card-number {
+                bottom: 20px;
+                left: 15px;
+                font-size: 0.7rem;
+                padding: 3px 6px;
+            }
+            
+            /* Mobile Back Logo */
+            .back-kool-keith-logo img {
+                width: 180px;
+                max-height: 80px;
+            }
+            
+            /* Mobile Header */
+            .card-header {
+                padding: 12px 15px;
+                margin-bottom: 10px;
+            }
+            
+            /* Mobile Hover Effects */
+            .persona-card:hover {
+                transform: scale(1.01);
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .persona-card {
+                transition: transform 0.2s ease;
+            }
+            
+            .persona-card:active {
+                transform: scale(0.98);
             }
         }
     </style>
