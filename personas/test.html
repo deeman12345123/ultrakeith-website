@@ -109,15 +109,16 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            font-weight: 900;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-            line-height: 1.2;
-            text-align: center;
+            width: 80px;
+            height: 60px;
+            opacity: 0.9;
+        }
+        
+        .deck-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
         }
         
         .deck-cards-stack {
@@ -157,7 +158,7 @@
             50% { opacity: 1; }
         }
         
-        /* Card Flutter Animation */
+        /* Enhanced Card Flutter Animation with Dramatic Exit */
         .cards-grid.hidden {
             opacity: 0;
             pointer-events: none;
@@ -166,29 +167,160 @@
         .card-flutter-start {
             opacity: 0;
             transform: 
-                translateY(-300px) 
+                translateY(-400px) 
                 translateX(var(--start-x, 0px))
                 rotateZ(var(--start-rotation, 45deg)) 
-                scale(0.3);
+                rotateY(var(--start-rotateY, 0deg))
+                scale(0.2);
             transition: none;
+            z-index: 1000;
         }
         
         .card-flutter-animate {
             opacity: 1;
-            transform: translateY(0) translateX(0) rotateZ(0deg) scale(1);
+            transform: translateY(0) translateX(0) rotateZ(0deg) rotateY(0deg) scale(1);
             transition: 
-                transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1),
-                opacity 0.6s ease;
+                transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.8s ease;
         }
         
         .card-flutter-bounce {
-            animation: card-land 0.3s ease forwards;
+            animation: dramatic-land 0.5s ease forwards;
         }
         
-        @keyframes card-land {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-10px) scale(1.02); }
-            100% { transform: translateY(0) scale(1); }
+        @keyframes dramatic-land {
+            0% { 
+                transform: translateY(0) scale(1) rotateZ(0deg); 
+            }
+            30% { 
+                transform: translateY(-20px) scale(1.08) rotateZ(2deg); 
+                box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+            }
+            60% { 
+                transform: translateY(5px) scale(0.98) rotateZ(-1deg); 
+            }
+            80% { 
+                transform: translateY(-5px) scale(1.02) rotateZ(0.5deg); 
+            }
+            100% { 
+                transform: translateY(0) scale(1) rotateZ(0deg); 
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 215, 0, 0.3);
+            }
+        }
+        
+        /* Card Trail Effect */
+        .card-trail {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(255, 215, 0, 0.3) 0%,
+                rgba(255, 215, 0, 0.1) 50%,
+                transparent 100%);
+            border-radius: var(--border-radius);
+            opacity: 0;
+            transform: scale(1.1);
+            animation: trail-fade 0.6s ease-out;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes trail-fade {
+            0% { opacity: 0.8; transform: scale(1.2) rotateZ(5deg); }
+            100% { opacity: 0; transform: scale(0.8) rotateZ(-5deg); }
+        }
+        
+        /* Enhanced Sparkle Effects */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: enhanced-sparkle 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 1001;
+        }
+        
+        .sparkle.big {
+            width: 10px;
+            height: 10px;
+            animation: big-sparkle 2.5s ease-out forwards;
+        }
+        
+        @keyframes enhanced-sparkle {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg) translateY(0);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1.5) rotate(90deg) translateY(-10px);
+            }
+            80% {
+                opacity: 0.8;
+                transform: scale(1) rotate(270deg) translateY(-30px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(360deg) translateY(-50px);
+            }
+        }
+        
+        @keyframes big-sparkle {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg) translateY(0);
+                box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+            }
+            30% {
+                opacity: 1;
+                transform: scale(2) rotate(120deg) translateY(-20px);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            }
+            70% {
+                opacity: 0.6;
+                transform: scale(1.5) rotate(300deg) translateY(-60px);
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(480deg) translateY(-100px);
+                box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+            }
+        }
+        
+        /* Card Whoosh Sound Effect Simulation */
+        .card-whoosh {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background: radial-gradient(ellipse, 
+                rgba(255, 215, 0, 0.1) 0%,
+                rgba(255, 215, 0, 0.05) 40%,
+                transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: whoosh-effect 0.8s ease-out;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes whoosh-effect {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.5) rotate(0deg); 
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: scale(1.2) rotate(180deg); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: scale(2) rotate(360deg); 
+            }
         }
         
         /* Sparkle Effects */
@@ -634,7 +766,9 @@
                     <div class="deck-cards-stack"></div>
                 </div>
                 <div class="deck-lid" id="deckLid">
-                    <div class="deck-logo">Ultra<br>Keith<br>Personas</div>
+                    <div class="deck-logo">
+                        <img src="/personas/logoback.png" alt="Ultra Keith Logo">
+                    </div>
                 </div>
                 <div class="click-hint">← CLICK TO OPEN →</div>
             </div>
@@ -700,45 +834,78 @@
         }
         
         function createSparkles(container) {
-            for (let i = 0; i < 8; i++) {
+            // Create enhanced sparkle effects
+            for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle';
+                    sparkle.className = i % 3 === 0 ? 'sparkle big' : 'sparkle';
                     sparkle.style.left = (Math.random() * 200) + 'px';
                     sparkle.style.top = (Math.random() * 120) + 'px';
                     container.appendChild(sparkle);
                     
                     // Remove sparkle after animation
-                    setTimeout(() => sparkle.remove(), 1500);
-                }, i * 100);
+                    setTimeout(() => sparkle.remove(), 2500);
+                }, i * 80);
             }
         }
         
         function animateCardsFlutterIn() {
             const cards = document.querySelectorAll('.trading-card');
             
-            // Set initial flutter positions
+            // Set initial flutter positions with more dramatic variations
             cards.forEach((card, index) => {
-                const startX = (Math.random() - 0.5) * 400; // Random horizontal start
-                const startRotation = (Math.random() - 0.5) * 90; // Random rotation
+                const startX = (Math.random() - 0.5) * 600; // Wider horizontal spread
+                const startRotation = (Math.random() - 0.5) * 180; // More rotation
+                const startRotateY = (Math.random() - 0.5) * 60; // 3D Y rotation
                 
                 card.style.setProperty('--start-x', startX + 'px');
                 card.style.setProperty('--start-rotation', startRotation + 'deg');
+                card.style.setProperty('--start-rotateY', startRotateY + 'deg');
                 card.classList.add('card-flutter-start');
             });
             
-            // Animate cards one by one
+            // Animate cards one by one with enhanced effects
             cards.forEach((card, index) => {
                 setTimeout(() => {
+                    // Add whoosh effect
+                    const whoosh = document.createElement('div');
+                    whoosh.className = 'card-whoosh';
+                    card.appendChild(whoosh);
+                    
+                    // Add trail effect
+                    const trail = document.createElement('div');
+                    trail.className = 'card-trail';
+                    card.appendChild(trail);
+                    
+                    // Start main animation
                     card.classList.remove('card-flutter-start');
                     card.classList.add('card-flutter-animate');
                     
-                    // Add bounce effect when landing
+                    // Add dramatic bounce when landing
                     setTimeout(() => {
                         card.classList.add('card-flutter-bounce');
-                    }, 800);
+                        
+                        // Create mini sparkles on landing
+                        for (let i = 0; i < 3; i++) {
+                            setTimeout(() => {
+                                const miniSparkle = document.createElement('div');
+                                miniSparkle.className = 'sparkle';
+                                miniSparkle.style.left = (Math.random() * 280) + 'px';
+                                miniSparkle.style.top = (Math.random() * 420) + 'px';
+                                card.appendChild(miniSparkle);
+                                
+                                setTimeout(() => miniSparkle.remove(), 2000);
+                            }, i * 100);
+                        }
+                    }, 1200);
                     
-                }, index * 150); // Stagger by 150ms
+                    // Clean up effect elements
+                    setTimeout(() => {
+                        whoosh.remove();
+                        trail.remove();
+                    }, 2000);
+                    
+                }, index * 120); // Slightly faster stagger for more excitement
             });
         }
         
