@@ -3,26 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kool Keith Card - Fixed Layout</title>
+    <title>Ultra Keith Trading Card Template</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
-        /* CSS Variables for Easy Customization */
+        /* ==========================================
+           ULTRA KEITH TRADING CARD TEMPLATE
+           Easy to customize for any persona
+           ========================================== */
+        
+        /* CUSTOMIZATION VARIABLES - EDIT THESE FOR EASY CHANGES */
         :root {
+            /* Card Dimensions */
             --card-width: 320px;
             --card-height: 540px;
-            --primary-dark: #0F0F0F;
-            --secondary-dark: #050505;
-            --silver: #C0C0C0;
-            --silver-transparent: rgba(192, 192, 192, 0.5);
-            --gold: #FFD700;
-            --dark-gold: #B8860B;
-            --border-radius: 15px;
-            --inner-border-radius: 8px;
             --image-size: 120px;
             --mc-logo-size: 50px;
+            
+            /* Colors */
+            --primary-dark: #0F0F0F;
+            --secondary-dark: #050505;
+            --gold: #FFD700;
+            --dark-gold: #B8860B;
+            --silver: #C0C0C0;
+            --silver-light: #D3D3D3;
+            
+            /* Border Radius */
+            --border-radius: 15px;
+            --inner-border-radius: 8px;
+            
+            /* Spacing */
+            --card-padding: 20px;
+            --section-spacing: 15px;
         }
         
+        /* BASE STYLES */
         * {
             margin: 0;
             padding: 0;
@@ -40,23 +55,8 @@
             padding: 20px;
         }
         
-        .instructions {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #C0C0C0;
-            border-radius: 10px;
-            padding: 15px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: #C0C0C0;
-            max-width: 200px;
-            z-index: 1000;
-        }
-        
-        /* Card Container */
-        .persona-card {
+        /* CARD CONTAINER */
+        .trading-card {
             width: var(--card-width);
             height: var(--card-height);
             perspective: 1000px;
@@ -64,7 +64,7 @@
             transition: transform 0.3s ease;
         }
         
-        .persona-card:hover {
+        .trading-card:hover {
             transform: scale(1.02);
         }
         
@@ -76,12 +76,12 @@
             transform-style: preserve-3d;
         }
         
-        .persona-card.flipped .card-inner {
+        .trading-card.flipped .card-inner {
             transform: rotateY(180deg);
         }
         
-        /* Card Base */
-        .card-front, .card-back {
+        /* CARD SIDES BASE */
+        .card-side {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -100,31 +100,26 @@
             transition: all 0.3s ease;
         }
         
-        .persona-card:hover .card-front,
-        .persona-card:hover .card-back {
+        .trading-card:hover .card-side {
             box-shadow: 
                 0 12px 40px rgba(0, 0, 0, 0.9),
                 0 0 20px rgba(255, 215, 0, 0.5),
                 inset 0 1px 0 rgba(255, 215, 0, 0.2);
         }
         
-        .card-front {
-            transform: rotateY(0deg);
-        }
-        
         .card-back {
             transform: rotateY(180deg);
         }
         
-        /* Inner Border */
-        .card-front::before, .card-back::before {
+        /* INNER BORDER SHIMMER */
+        .card-side::before {
             content: '';
             position: absolute;
             top: 12px;
             left: 12px;
             right: 12px;
             bottom: 12px;
-            border: 1px solid #D3D3D3;
+            border: 1px solid var(--silver-light);
             border-radius: var(--inner-border-radius);
             pointer-events: none;
             z-index: 1;
@@ -137,26 +132,33 @@
             50% { opacity: 1; }
         }
         
-        /* FRONT CARD - TIGHT LAYOUT */
-        .front-container {
+        /* CARD CONTENT CONTAINERS */
+        .card-content {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
+            top: var(--card-padding);
+            left: var(--card-padding);
+            right: var(--card-padding);
+            bottom: var(--card-padding);
             z-index: 10;
         }
         
-        .card-header {
+        /* FRONT CARD STYLES */
+        .front-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .header {
             background: linear-gradient(145deg, var(--secondary-dark) 0%, var(--primary-dark) 100%);
-            border-bottom: 1px solid var(--gold);
-            padding: 15px 20px;
+            border: 1px solid var(--gold);
             border-radius: 6px 6px 0 0;
-            margin-bottom: 15px;
+            padding: var(--section-spacing);
+            margin-bottom: var(--section-spacing);
             box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
         }
         
-        .persona-name {
+        .persona-title {
             font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
             font-weight: 900;
@@ -168,17 +170,13 @@
                 0 2px 4px rgba(0, 0, 0, 0.8);
         }
         
-        .persona-image {
+        .image-container {
             width: var(--image-size);
             height: var(--image-size);
             margin: 0 auto 12px auto;
-            border: 1px solid var(--silver-transparent);
+            border: 1px solid rgba(192, 192, 192, 0.5);
             border-radius: 10px;
             background: linear-gradient(45deg, var(--secondary-dark), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
             overflow: hidden;
             box-shadow: 
                 0 4px 15px rgba(0, 0, 0, 0.7),
@@ -186,7 +184,7 @@
             position: relative;
         }
         
-        .persona-image::after {
+        .image-container::after {
             content: '';
             position: absolute;
             top: 0;
@@ -197,7 +195,7 @@
             pointer-events: none;
         }
         
-        .persona-image img {
+        .persona-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -205,12 +203,11 @@
             z-index: 1;
         }
         
-        .persona-stats {
-            padding: 0 20px;
+        .stats-section {
             margin-bottom: 10px;
         }
         
-        .stat-row {
+        .stat-item {
             display: flex;
             margin-bottom: 8px;
             font-size: 0.85rem;
@@ -218,7 +215,7 @@
         
         .stat-label {
             font-weight: 700;
-            color: #C0C0C0;
+            color: var(--silver);
             width: 75px;
             flex-shrink: 0;
         }
@@ -229,22 +226,22 @@
             line-height: 1.3;
         }
         
-        .persona-quote {
+        .quote-section {
             padding: 12px 18px;
             border-top: 1px solid rgba(192, 192, 192, 0.3);
             font-style: italic;
-            color: #C0C0C0;
+            color: var(--silver);
             font-size: 0.85rem;
             text-align: center;
             line-height: 1.3;
-            background: linear-gradient(145deg, #0F0F0F 0%, #050505 100%);
+            background: linear-gradient(145deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
             border-radius: 0 0 6px 6px;
             margin-bottom: 20px;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
             position: relative;
         }
         
-        .persona-quote::before {
+        .quote-section::before {
             content: '"';
             position: absolute;
             left: 15px;
@@ -254,7 +251,7 @@
             font-family: serif;
         }
         
-        .persona-quote::after {
+        .quote-section::after {
             content: '"';
             position: absolute;
             right: 15px;
@@ -264,17 +261,63 @@
             font-family: serif;
         }
         
-        .flip-hint {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            color: rgba(192, 192, 192, 0.6);
-            font-family: 'Orbitron', monospace;
-            z-index: 15;
+        /* BACK CARD STYLES */
+        .back-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
+        .back-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--dark-gold);
+            margin-bottom: var(--section-spacing);
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.4),
+                0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .info-section {
+            margin-bottom: 12px;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--silver);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .section-content {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .logo-space {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .back-logo {
+            width: 260px;
+            height: auto;
+            opacity: 0.8;
+            max-height: 140px;
+            object-fit: contain;
+        }
+        
+        /* CARD ELEMENTS */
         .mc-logo {
             position: absolute;
             bottom: 30px;
@@ -297,7 +340,7 @@
             font-family: 'Orbitron', monospace;
             font-size: 0.75rem;
             font-weight: 700;
-            color: #C0C0C0;
+            color: var(--silver);
             background-color: rgba(26, 26, 26, 0.8);
             padding: 4px 8px;
             border-radius: 4px;
@@ -305,86 +348,33 @@
             z-index: 20;
         }
         
-        /* BACK CARD */
-        .back-container {
+        .flip-hint {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .back-title {
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: rgba(192, 192, 192, 0.6);
             font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: var(--dark-gold);
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 
-                0 0 10px rgba(255, 215, 0, 0.4),
-                0 2px 4px rgba(0, 0, 0, 0.8);
+            z-index: 15;
         }
         
-        .back-section {
-            margin-bottom: 12px;
-        }
-        
-        .back-section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #C0C0C0;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .back-section-content {
-            font-size: 0.85rem;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .back-logo-space {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        
-        .back-kool-keith-logo img {
-            width: 260px;
-            height: auto;
-            opacity: 0.8;
-            max-height: 140px;
-            object-fit: contain;
-        }
-        
-        /* Mobile Optimization */
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .persona-card {
-                width: 100%;
-                max-width: 300px;
-                height: 500px;
+            :root {
+                --card-width: 300px;
+                --card-height: 500px;
+                --image-size: 100px;
+                --mc-logo-size: 35px;
+                --card-padding: 15px;
+                --section-spacing: 10px;
+            }
+            
+            .trading-card {
                 margin: 0 auto;
             }
             
-            .instructions {
-                position: relative;
-                margin-bottom: 20px;
-                max-width: 100%;
-                font-size: 0.75rem;
-                padding: 12px;
-            }
-            
-            /* Mobile Font Adjustments */
-            .persona-name {
+            .persona-title {
                 font-size: 1.3rem;
                 letter-spacing: 1.5px;
             }
@@ -393,16 +383,7 @@
                 font-size: 1.1rem;
             }
             
-            /* Mobile Image Size */
-            .persona-image {
-                width: 100px;
-                height: 100px;
-                margin: 0 auto 10px auto;
-                font-size: 2.5rem;
-            }
-            
-            /* Mobile Stats */
-            .stat-row {
+            .stat-item {
                 margin-bottom: 6px;
                 font-size: 0.8rem;
             }
@@ -412,41 +393,28 @@
                 font-size: 0.75rem;
             }
             
-            .stat-value {
-                font-size: 0.8rem;
-                line-height: 1.2;
-            }
-            
-            /* Mobile Quote */
-            .persona-quote {
+            .quote-section {
                 padding: 10px 15px;
                 font-size: 0.8rem;
                 margin-bottom: 15px;
             }
             
-            /* Mobile Back Content */
-            .back-container {
-                padding: 20px 15px 15px 15px;
-            }
-            
-            .back-section {
-                margin-bottom: 10px;
-            }
-            
-            .back-section-title {
+            .section-title {
                 font-size: 0.7rem;
                 margin-bottom: 5px;
             }
             
-            .back-section-content {
+            .section-content {
                 font-size: 0.75rem;
                 line-height: 1.3;
             }
             
-            /* Mobile Logos */
+            .back-logo {
+                width: 180px;
+                max-height: 80px;
+            }
+            
             .mc-logo {
-                width: 35px;
-                height: 35px;
                 bottom: 20px;
                 right: 15px;
             }
@@ -458,141 +426,158 @@
                 padding: 3px 6px;
             }
             
-            /* Mobile Back Logo */
-            .back-kool-keith-logo img {
-                width: 180px;
-                max-height: 80px;
-            }
-            
-            /* Mobile Header */
-            .card-header {
-                padding: 12px 15px;
-                margin-bottom: 10px;
-            }
-            
-            /* Mobile Hover Effects */
-            .persona-card:hover {
+            .trading-card:hover {
                 transform: scale(1.01);
             }
         }
         
-        /* Touch Device Optimizations */
+        /* TOUCH DEVICES */
         @media (hover: none) and (pointer: coarse) {
-            .persona-card {
+            .trading-card {
                 transition: transform 0.2s ease;
             }
             
-            .persona-card:active {
+            .trading-card:active {
                 transform: scale(0.98);
             }
         }
     </style>
 </head>
 <body>
+    <!-- 
+    =========================================
+    ULTRA KEITH TRADING CARD TEMPLATE
+    =========================================
     
-    <div class="instructions" style="display: none;">
-        <strong>CLICK CARD TO FLIP</strong><br>
-        Preview: Kool Keith<br>
-        Fixed Layout - Tight Spacing
-    </div>
+    TO CREATE A NEW PERSONA CARD:
+    1. Copy this entire file
+    2. Edit the data below
+    3. Update image URLs
+    4. Change card number
     
-    <!-- Kool Keith Card -->
-    <div class="persona-card">
+    PERSONA DATA TO EDIT:
+    - Persona Name
+    - Image URL  
+    - Age, Birthplace, Likes, Dislikes
+    - Quote
+    - Biography, Debut, Key Themes
+    - Card Number
+    -->
+    
+    <div class="trading-card" id="personaCard">
         <div class="card-inner">
+            
             <!-- FRONT SIDE -->
-            <div class="card-front">
-                <div class="front-container">
-                    <div class="card-header">
-                        <h3 class="persona-name">Kool Keith</h3>
-                    </div>
-                    
-                    <div class="persona-image">
-                        <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/koolkeith.png?raw=true" alt="Kool Keith">
-                    </div>
-                    
-                    <div class="persona-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">Age:</span>
-                            <span class="stat-value">25</span>
+            <div class="card-side card-front">
+                <div class="card-content">
+                    <div class="front-content">
+                        
+                        <!-- HEADER WITH PERSONA NAME -->
+                        <div class="header">
+                            <h1 class="persona-title">Kool Keith</h1>
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Birthplace:</span>
-                            <span class="stat-value">Bronx, NY</span>
+                        
+                        <!-- PERSONA IMAGE -->
+                        <div class="image-container">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/koolkeith.png?raw=true" 
+                                 alt="Kool Keith" 
+                                 class="persona-image">
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Likes:</span>
-                            <span class="stat-value">Porn, Animals</span>
+                        
+                        <!-- STATS SECTION -->
+                        <div class="stats-section">
+                            <div class="stat-item">
+                                <span class="stat-label">Age:</span>
+                                <span class="stat-value">25</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Birthplace:</span>
+                                <span class="stat-value">Bronx, NY</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Likes:</span>
+                                <span class="stat-value">Porn, Animals</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Dislikes:</span>
+                                <span class="stat-value">Girls who are not innovative that don't like to take pictures</span>
+                            </div>
                         </div>
-                        <div class="stat-row">
-                            <span class="stat-label">Dislikes:</span>
-                            <span class="stat-value">Girls who are not innovative that don't like to take pictures</span>
+                        
+                        <!-- QUOTE SECTION -->
+                        <div class="quote-section">
+                            I'm the master of the game, all the girls know my name.
                         </div>
-                    </div>
-                    
-                    <div class="persona-quote">
-                        "I'm the master of the game, all the girls know my name."
+                        
                     </div>
                 </div>
                 
+                <!-- CARD ELEMENTS -->
                 <div class="flip-hint">← CLICK TO FLIP →</div>
                 <div class="mc-logo">
                     <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
                 </div>
-                <!-- CARD NUMBER - Easy to change -->
-                <div class="card-number" data-card-number="#001">#001</div>
+                <div class="card-number">#001</div>
             </div>
             
             <!-- BACK SIDE -->
-            <div class="card-back">
-                <div class="back-container">
-                    <!-- BACK TITLE - Easy to change -->
-                    <h4 class="back-title" data-back-name="Kool Keith">Kool Keith</h4>
-                    
-                    <!-- BIOGRAPHY SECTION - Easy to change -->
-                    <div class="back-section">
-                        <h5 class="back-section-title">Biography</h5>
-                        <div class="back-section-content" data-biography="Keith's primary rap persona. The revolutionary MC who broke all rules with abstract wordplay, sci-fi concepts, and unconventional rhyme patterns that influenced generations.">
-                            Keith's primary rap persona. The revolutionary MC who broke all rules with abstract wordplay, sci-fi concepts, and unconventional rhyme patterns that influenced generations.
+            <div class="card-side card-back">
+                <div class="card-content">
+                    <div class="back-content">
+                        
+                        <!-- BACK TITLE -->
+                        <h2 class="back-title">Kool Keith</h2>
+                        
+                        <!-- BIOGRAPHY -->
+                        <div class="info-section">
+                            <h3 class="section-title">Biography</h3>
+                            <div class="section-content">
+                                Keith's primary rap persona. The revolutionary MC who broke all rules with abstract wordplay, sci-fi concepts, and unconventional rhyme patterns that influenced generations.
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- DEBUT SECTION - Easy to change -->
-                    <div class="back-section">
-                        <h5 class="back-section-title">Debut</h5>
-                        <div class="back-section-content" data-debut="Critical Beatdown (1988) with Ultramagnetic MCs">
-                            <strong>Critical Beatdown (1988)</strong> with Ultramagnetic MCs
+                        
+                        <!-- DEBUT -->
+                        <div class="info-section">
+                            <h3 class="section-title">Debut</h3>
+                            <div class="section-content">
+                                <strong>Critical Beatdown (1988)</strong> with Ultramagnetic MCs
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- KEY THEMES SECTION - Easy to change -->
-                    <div class="back-section">
-                        <h5 class="back-section-title">Key Themes</h5>
-                        <div class="back-section-content" data-themes="Complex rhymes, abstract imagery, sci-fi concepts, innovative flow">
-                            Complex rhymes, abstract imagery, sci-fi concepts, innovative flow
+                        
+                        <!-- KEY THEMES -->
+                        <div class="info-section">
+                            <h3 class="section-title">Key Themes</h3>
+                            <div class="section-content">
+                                Complex rhymes, abstract imagery, sci-fi concepts, innovative flow
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- BACK LOGO - Easy to change -->
-                    <div class="back-logo-space">
-                        <div class="back-kool-keith-logo" data-back-logo="logoback.png">
-                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/logoback.png?raw=true" alt="Kool Keith Logo">
+                        
+                        <!-- BACK LOGO -->
+                        <div class="logo-space">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/logoback.png?raw=true" 
+                                 alt="Kool Keith Logo" 
+                                 class="back-logo">
                         </div>
+                        
                     </div>
                 </div>
-                <!-- CARD NUMBER ON BACK - Easy to change -->
-                <div class="card-number" data-card-number="#001">#001</div>
+                
+                <!-- CARD ELEMENTS -->
                 <div class="mc-logo">
                     <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/personas/mc.png?raw=true" alt="MC">
                 </div>
+                <div class="card-number">#001</div>
             </div>
+            
         </div>
     </div>
     
     <script>
+        // CARD FLIP FUNCTIONALITY
         document.addEventListener('DOMContentLoaded', function() {
-            const personaCard = document.querySelector('.persona-card');
+            const card = document.getElementById('personaCard');
             
-            personaCard.addEventListener('click', function(e) {
+            card.addEventListener('click', function(e) {
                 e.preventDefault();
                 this.classList.toggle('flipped');
             });
