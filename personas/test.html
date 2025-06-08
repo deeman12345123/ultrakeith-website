@@ -216,16 +216,10 @@
         }
         
         .persona-image {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #333, #555);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--silver);
-            font-size: 0.7rem;
-            text-align: center;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
         }
         
         .stats-section {
@@ -334,6 +328,22 @@
             color: rgba(255, 255, 255, 0.8);
         }
         
+        .logo-space {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .back-logo {
+            width: 180px;
+            height: auto;
+            opacity: 0.8;
+            max-height: 100px;
+            object-fit: contain;
+        }
+        
         /* CARD ELEMENTS */
         .mc-logo {
             position: absolute;
@@ -342,14 +352,12 @@
             width: var(--mc-logo-size);
             height: var(--mc-logo-size);
             z-index: 20;
-            background: linear-gradient(45deg, #333, #555);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--silver);
-            font-size: 0.6rem;
-            text-align: center;
+        }
+        
+        .mc-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .card-number {
@@ -489,7 +497,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/activity.png" alt="Activity" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -517,7 +525,9 @@
                     </div>
                     
                     <div class="flip-hint">← CLICK TO FLIP →</div>
-                    <div class="mc-logo">MC</div>
+                    <div class="mc-logo">
+                        <img src="/mc.png" alt="MC">
+                    </div>
                     <div class="card-number">#001</div>
                 </div>
                 
@@ -545,9 +555,15 @@
                                 Breakdancing culture, early hip-hop foundation, character creation origins
                             </div>
                         </div>
+                        
+                        <div class="logo-space">
+                            <img src="/logoback.png" alt="Ultra Keith Logo" class="back-logo">
+                        </div>
                     </div>
                     
-                    <div class="mc-logo">MC</div>
+                    <div class="mc-logo">
+                        <img src="/mc.png" alt="MC">
+                    </div>
                     <div class="card-number">#001</div>
                 </div>
             </div>
@@ -563,7 +579,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/koolkeith.png" alt="Kool Keith" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -591,7 +607,9 @@
                     </div>
                     
                     <div class="flip-hint">← CLICK TO FLIP →</div>
-                    <div class="mc-logo">MC</div>
+                    <div class="mc-logo">
+                        <img src="/mc.png" alt="MC">
+                    </div>
                     <div class="card-number">#002</div>
                 </div>
                 
@@ -619,9 +637,15 @@
                                 Complex rhymes, abstract imagery, sci-fi concepts, innovative flow
                             </div>
                         </div>
+                        
+                        <div class="logo-space">
+                            <img src="/logoback.png" alt="Ultra Keith Logo" class="back-logo">
+                        </div>
                     </div>
                     
-                    <div class="mc-logo">MC</div>
+                    <div class="mc-logo">
+                        <img src="/mc.png" alt="MC">
+                    </div>
                     <div class="card-number">#002</div>
                 </div>
             </div>
@@ -637,7 +661,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/mcultra.png" alt="MC Ultra" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -665,7 +689,9 @@
                     </div>
                     
                     <div class="flip-hint">← CLICK TO FLIP →</div>
-                    <div class="mc-logo">MC</div>
+                    <div class="mc-logo">
+                        <img src="/mc.png" alt="MC">
+                    </div>
                     <div class="card-number">#003</div>
                 </div>
                 
@@ -693,9 +719,15 @@
                                 Bronx identity, early MC development, Ultramagnetic foundation
                             </div>
                         </div>
+                        
+                        <div class="logo-space">
+                            <img src="/logoback.png" alt="Ultra Keith Logo" class="back-logo">
+                        </div>
                     </div>
                     
-                    <div class="mc-logo">MC</div>
+                    <div class="mc-logo">
+                        <img src="/mc.png" alt="MC">
+                    </div>
                     <div class="card-number">#003</div>
                 </div>
             </div>
@@ -711,7 +743,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/drsperm.png" alt="Dr. Sperm" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -739,7 +771,9 @@
                     </div>
                     
                     <div class="flip-hint">← CLICK TO FLIP →</div>
-                    <div class="mc-logo">MC</div>
+                    <div class="mc-logo">
+                        <img src="/mc.png" alt="MC">
+                    </div>
                     <div class="card-number">#004</div>
                 </div>
                 
@@ -785,7 +819,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/exotron.png" alt="Exotron Geiger Counter One Plus Megatron" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -859,7 +893,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/exotrongamma.png" alt="Exotron Geiger Counter One Gamma Plus Sequencer" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -933,7 +967,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/bigwilliesmith.png" alt="Big Willie Smith" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -1007,7 +1041,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/x74.png" alt="X-74" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -1081,7 +1115,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/poppalarge.png" alt="Poppa Large" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -1155,7 +1189,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/rhythmx.png" alt="Rhythm X" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -1229,7 +1263,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/thex.png" alt="The X" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
@@ -1303,7 +1337,7 @@
                         </div>
                         
                         <div class="image-container">
-                            <div class="persona-image">IMG</div>
+                            <img src="/xcaliber.png" alt="X-Caliber" class="persona-image">
                         </div>
                         
                         <div class="stats-section">
