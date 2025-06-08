@@ -132,14 +132,17 @@
         
         .persona-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 3.5vw, 1.5rem);
             font-weight: 900;
             color: var(--dark-gold);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: clamp(0.5px, 1vw, 2px);
+            line-height: 1.1;
             text-shadow: 
                 0 0 10px rgba(255, 215, 0, 0.4),
                 0 2px 4px rgba(0, 0, 0, 0.8);
+            word-wrap: break-word;
+            hyphens: auto;
         }
         
         .image-container {
@@ -230,15 +233,19 @@
         
         .back-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
+            font-size: clamp(0.9rem, 3vw, 1.3rem);
             font-weight: 900;
             color: var(--dark-gold);
             margin-bottom: 15px;
             text-align: center;
             text-transform: uppercase;
+            line-height: 1.1;
+            letter-spacing: clamp(0.5px, 1vw, 1.5px);
             text-shadow: 
                 0 0 10px rgba(255, 215, 0, 0.4),
                 0 2px 4px rgba(0, 0, 0, 0.8);
+            word-wrap: break-word;
+            hyphens: auto;
         }
         
         .info-section {
@@ -329,12 +336,15 @@
             }
             
             .persona-title {
-                font-size: 1.3rem;
-                letter-spacing: 1.5px;
+                font-size: clamp(0.9rem, 4vw, 1.3rem);
+                letter-spacing: clamp(0.5px, 1.5vw, 1.5px);
+                line-height: 1.0;
             }
             
             .back-title {
-                font-size: 1.1rem;
+                font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+                letter-spacing: clamp(0.5px, 1.5vw, 1px);
+                line-height: 1.0;
             }
             
             .stat-item {
