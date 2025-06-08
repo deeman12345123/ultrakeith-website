@@ -7,6 +7,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
+        /* ========================================
+           CUSTOMIZATION VARIABLES - EASY TO ADJUST
+           ======================================== */
+        
         :root {
             --primary-dark: #0F0F0F;
             --secondary-dark: #050505;
@@ -14,6 +18,18 @@
             --dark-gold: #B8860B;
             --silver: #C0C0C0;
             --border-radius: 12px;
+            
+            /* ANIMATION TIMING CONTROLS */
+            --deck-lid-speed: 0.8s;
+            --deck-fade-speed: 1.5s;
+            --card-flutter-speed: 0.7s;
+            --card-stagger-delay: 80ms;
+            --sparkle-count: 35;
+            
+            /* TIMING DELAYS */
+            --card-stack-delay: 0.4s;
+            --deck-fade-delay: 1s;
+            --cards-appear-delay: 2000ms;
         }
         
         * {
@@ -36,7 +52,7 @@
         }
         
         /* ========================================
-           DECK BOX ANIMATION SYSTEM - UPRIGHT CARD BOX
+           DECK BOX STRUCTURE & POSITIONING
            ======================================== */
         
         .deck-box-container {
@@ -61,8 +77,25 @@
             transform: scale(1.05);
         }
         
+        /* ========================================
+           DECK BOX VISUAL DESIGN
+           ======================================== */
+        
+        /* ========================================
+           DECK BOX ANIMATIONS - OPENING SEQUENCE
+           ======================================== */
+        
         .deck-box.opened {
-            animation: quick-black-fade 1.5s ease-out 1s forwards;
+            animation: quick-black-fade var(--deck-fade-speed) ease-out var(--deck-fade-delay) forwards;
+        }
+        
+        .deck-lid.open {
+            transform: rotateX(-180deg) translateZ(2px);
+            animation: quick-lid-glow 1s ease-out;
+        }
+        
+        .deck-cards-stack.magical-rise {
+            animation: quick-cards-rise 1.2s ease-out var(--card-stack-delay) forwards;
         }
         
         @keyframes quick-black-fade {
@@ -124,7 +157,7 @@
             border: 1px solid var(--gold);
             border-radius: 12px 12px 8px 8px;
             transform-origin: bottom center;
-            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: transform var(--deck-lid-speed) cubic-bezier(0.4, 0.0, 0.2, 1);
             box-shadow: 
                 0 4px 16px rgba(0, 0, 0, 0.8),
                 0 0 15px rgba(255, 215, 0, 0.2);
@@ -274,11 +307,15 @@
             z-index: 1000;
         }
         
+        /* ========================================
+           CARD FLUTTER ANIMATIONS - ENTRANCE EFFECTS
+           ======================================== */
+        
         .card-flutter-animate {
             opacity: 1;
             transform: translateY(0) translateX(0) rotateZ(0deg) rotateY(0deg) scale(1);
             transition: 
-                transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform var(--card-flutter-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 opacity 0.5s ease-out;
         }
         
@@ -938,7 +975,21 @@
     
     <script>
         // ========================================
-        // DECK BOX ANIMATION SYSTEM
+        // CONFIGURATION CONSTANTS - EASY CUSTOMIZATION
+        // ========================================
+        
+        const ANIMATION_CONFIG = {
+            TOTAL_SPARKLES: 35,
+            BURST_SPARKLES: 15,
+            SPARKLE_DELAY: 40,
+            BURST_DELAY: 25,
+            CARD_STAGGER: 80,
+            CARDS_APPEAR_DELAY: 2000,
+            SPARKLE_BURST_TIMING: 1200
+        };
+        
+        // ========================================
+        // DECK BOX ANIMATION CONTROLLER
         // ========================================
         
         let deckOpened = false;
@@ -991,43 +1042,55 @@
         }
         
         function createMagicalSparkles(container) {
-            // Create enhanced magical sparkle effects
-            for (let i = 0; i < 35; i++) {
+            // Create main sparkle burst
+            for (let i = 0; i < ANIMATION_CONFIG.TOTAL_SPARKLES; i++) {
                 setTimeout(() => {
-                    const sparkle = document.createElement('div');
-                    // Mix of different sparkle types for magical variety
-                    if (i % 5 === 0) {
-                        sparkle.className = 'sparkle big';
-                    } else if (i % 3 === 0) {
-                        sparkle.className = 'sparkle magical';
-                    } else {
-                        sparkle.className = 'sparkle';
-                    }
-                    
-                    // Sparkles emit from throughout the opening deck area
-                    sparkle.style.left = (80 + Math.random() * 140) + 'px';
-                    sparkle.style.top = (40 + Math.random() * 100) + 'px';
+                    const sparkle = createSparkleElement(i);
+                    positionSparkle(sparkle, container);
                     container.appendChild(sparkle);
                     
-                    // Remove sparkle after magical animation
+                    // Auto-cleanup after animation
                     setTimeout(() => sparkle.remove(), 4000);
-                }, i * 40); // Faster succession for magical effect
+                }, i * ANIMATION_CONFIG.SPARKLE_DELAY);
             }
             
-            // Add extra burst of sparkles when deck fully opens
+            // Create extra burst when deck fully opens
             setTimeout(() => {
-                for (let i = 0; i < 15; i++) {
-                    setTimeout(() => {
-                        const burstSparkle = document.createElement('div');
-                        burstSparkle.className = 'sparkle magical';
-                        burstSparkle.style.left = (120 + Math.random() * 60) + 'px';
-                        burstSparkle.style.top = (60 + Math.random() * 60) + 'px';
-                        container.appendChild(burstSparkle);
-                        
-                        setTimeout(() => burstSparkle.remove(), 4000);
-                    }, i * 25);
-                }
-            }, 1200); // Burst when deck is fully open
+                createSparkle_burst(container);
+            }, ANIMATION_CONFIG.SPARKLE_BURST_TIMING);
+        }
+        
+        function createSparkleElement(index) {
+            const sparkle = document.createElement('div');
+            // Mix different sparkle types for variety
+            if (index % 5 === 0) {
+                sparkle.className = 'sparkle big';
+            } else if (index % 3 === 0) {
+                sparkle.className = 'sparkle magical';
+            } else {
+                sparkle.className = 'sparkle';
+            }
+            return sparkle;
+        }
+        
+        function positionSparkle(sparkle, container) {
+            // Position sparkles around the deck opening area
+            sparkle.style.left = (80 + Math.random() * 140) + 'px';
+            sparkle.style.top = (40 + Math.random() * 100) + 'px';
+        }
+        
+        function createSparkle_burst(container) {
+            for (let i = 0; i < ANIMATION_CONFIG.BURST_SPARKLES; i++) {
+                setTimeout(() => {
+                    const burstSparkle = document.createElement('div');
+                    burstSparkle.className = 'sparkle magical';
+                    burstSparkle.style.left = (120 + Math.random() * 60) + 'px';
+                    burstSparkle.style.top = (60 + Math.random() * 60) + 'px';
+                    container.appendChild(burstSparkle);
+                    
+                    setTimeout(() => burstSparkle.remove(), 4000);
+                }, i * ANIMATION_CONFIG.BURST_DELAY);
+            }
         }
         
         function animateCardsFlutterIn() {
