@@ -1,8 +1,4 @@
-<!-- Floating Particles -->
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,7 +21,7 @@
                 linear-gradient(135deg, #000000 0%, #1a0000 25%, #0a0a0a 50%, #2a0000 75%, #000000 100%);
             color: #ffffff;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
         
@@ -301,8 +297,6 @@
             height: 300px;
         }
         
-
-        
         /* Loading Overlay */
         .loading-overlay {
             position: fixed;
@@ -400,12 +394,6 @@
         <div class="circuit-line"></div>
         <div class="circuit-line"></div>
     </div>
-    
-    <!-- Floating Particles -->
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
 
     <!-- Main AI Interface -->
     <div class="ai-container">
@@ -457,7 +445,7 @@
             
             // Simulate loading time then redirect
             setTimeout(() => {
-                window.location.href = 'chat.html'; // Your chat page filename
+                window.location.href = 'chat.html'; // Change this to your chat page filename
             }, 2500);
         });
 
