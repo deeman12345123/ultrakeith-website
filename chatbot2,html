@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Keith AI Chat - Talk to the Legends</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: 
+                radial-gradient(circle at 20% 80%, #1a0000 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #0a0a0a 0%, transparent 50%),
+                linear-gradient(135deg, #000000 0%, #1a0000 25%, #0a0a0a 50%, #2a0000 75%, #000000 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            z-index: 100;
+            padding: 15px 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: #ffd700;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Header */
+        .chat-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .chat-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .chat-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Mode Selection */
+        .mode-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .mode-btn {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            color: rgba(255, 215, 0, 0.8);
+            padding: 12px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .mode-btn:hover {
+            border-color: #ffd700;
+            transform: translateY(-2px);
+        }
+        
+        .mode-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Character Selection */
+        .character-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .character-btn {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            color: #ffd700;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .character-btn:hover {
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .character-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Chat Container */
+        .chat-container {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Chat Messages */
+        .chat-messages {
+            height: 400px;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            animation: messageAppear 0.5s ease-out;
+        }
+        
+        @keyframes messageAppear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.user {
+            text-align: right;
+        }
+        
+        .message.bot {
+            text-align: left;
+        }
+        
+        .message-content {
+            display: inline-block;
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            line-height: 1.5;
+        }
+        
+        .message.user .message-content {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #000;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.bot .message-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            color: #fff;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .character-name {
+            font-size: 1rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .character-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        /* Chat Input */
+        .chat-input-container {
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .chat-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .send-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.4);
+        }
+        
+        .send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Loading Animation */
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: rgba(255, 215, 0, 0.7);
+            font-style: italic;
+            padding: 10px 20px;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        
+        /* Name Modal */
+        .name-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .name-modal-content {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.8));
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            backdrop-filter: blur(15px);
+        }
+        
+        .name-modal h2 {
+            color: #ffd700;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 15px;
+        }
+        
+        #nameInput {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .name-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .name-btn, .name-btn-skip {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .name-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+        }
+        
+        .name-btn-skip {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .chat-title {
+                font-size: 2rem;
+            }
+            
+            .character-selection {
+                gap: 10px;
+            }
+            
+            .character-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .chat-messages {
+                height: 350px;
+            }
+            
+            .message-content {
+                max-width: 90%;
+            }
+            
+            .chat-input-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .chat-input {
+                width: 100%;
+            }
+            
+            .send-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Name Modal -->
+    <div id="nameModal" class="name-modal" style="display: none;">
+        <div class="name-modal-content">
+            <h2>Welcome to Ultra Keith!</h2>
+            <p>What should we call you?</p>
+            <input type="text" id="nameInput" placeholder="Enter your name..." maxlength="20">
+            <div class="name-buttons">
+                <button id="submitName" class="name-btn">Let's Go!</button>
+                <button id="skipName" class="name-btn-skip">Skip</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ULTRA KEITH</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#chat">AI Chat</a></li>
+                <li><a href="index.html#personas">Personas</a></li>
+                <li><a href="index.html#discography">Discography</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="chat-header">
+            <h1 class="chat-title">AI CHAT UNIVERSE</h1>
+            <p class="chat-subtitle">
+                Talk directly with Keith's legendary personas. Each character has their own personality, 
+                knowledge, and style. Choose your conversation partner below or watch them battle!
+            </p>
+        </div>
+
+        <!-- Mode Selection -->
+        <div class="mode-selection">
+            <button class="mode-btn active" id="chatModeBtn">Chat Mode</button>
+            <button class="mode-btn" id="battleModeBtn">Battle Mode</button>
+        </div>
+
+        <!-- Character Selection -->
+        <div class="character-selection" id="chatSelection">
+            <button class="character-btn active" data-character="kool-keith">Kool Keith</button>
+            <button class="character-btn" data-character="dr-octagon">Dr. Octagon</button>
+            <button class="character-btn" data-character="dr-dooom">Dr. Dooom</button>
+            <button class="character-btn" data-character="black-elvis">Black Elvis</button>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages"></div>
+
+            <div class="typing-indicator" id="typingIndicator">
+                <span>Thinking</span>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" 
+                       placeholder="Type your message to Kool Keith..." 
+                       maxlength="500">
+                <button class="send-btn" id="sendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Keith Knowledge Files -->
+    <script src="keith-knowledge/dr-octagon-knowledge.js"></script>
+    <script src="keith-knowledge/dr-dooom-knowledge.js"></script>
+    <script src="keith-knowledge/kool-keith-knowledge.js"></script>
+    <script src="keith-knowledge/black-elvis-knowledge.js"></script>
+
+    <script>
+        // ⚠️ REPLACE WITH YOUR ACTUAL API KEY
+        const GEMINI_API_KEY = 'AIzaSyB9zU0axhA_e2dhEo0ZIixyHga5Fahqhnk';
+        
+        // User Storage
+        const UserStorage = {
+            getName: () => localStorage.getItem('ultrakeith_username'),
+            setName: (name) => { localStorage.setItem('ultrakeith_username', name); currentUserName = name; },
+            hasName: () => !!localStorage.getItem('ultrakeith_username')
+        };
+
+        // Global State
+        let currentCharacter = 'kool-keith';
+        let conversationHistory = [];
+        let currentUserName = UserStorage.getName();
+
+        // Avatar URLs
+        const characterAvatars = {
+            'dr-octagon': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true',
+            'dr-dooom': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true',
+            'kool-keith': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true',
+            'black-elvis': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true'
+        };
+
+        // Get character data from knowledge files
+        function getCharacterData(character) {
+            const knowledgeMap = {
+                'kool-keith': window.koolKeithKnowledge,
+                'dr-octagon': window.drOctagonKnowledge,
+                'dr-dooom': window.drDooomKnowledge,
+                'black-elvis': window.blackElvisKnowledge
+            };
+            return knowledgeMap[character] || {};
+        }
+
+        // Build prompt from knowledge files
+        function buildPrompt(character) {
+            const data = getCharacterData(character);
+            if (!data.identity) return `You are ${character}. Respond in character.`;
+            
+            let prompt = `You are ${data.identity.name}`;
+            if (data.identity.concept) prompt += `, ${data.identity.concept}`;
+            if (data.identity.significance) prompt += `. ${data.identity.significance}`;
+            
+            if (data.vocabulary) {
+                const allVocab = Object.values(data.vocabulary).flat();
+                if (allVocab.length > 0) {
+                    prompt += `\n\nUse vocabulary like: ${allVocab.slice(0, 10).join(', ')}`;
+                }
+            }
+            
+            if (data.themes) {
+                prompt += `\n\nKey themes: ${data.themes.slice(0, 3).join(', ')}`;
+            }
+            
+            if (data.speakingStyle) {
+                prompt += `\n\nSpeaking style: ${data.speakingStyle.tone}`;
+            }
+            
+            // Add personalization
+            if (currentUserName && data.namePatterns) {
+                const patterns = data.namePatterns.greetings || data.namePatterns.responses || [];
+                if (patterns.length > 0) {
+                    const example = patterns[0].replace('{name}', currentUserName);
+                    prompt += `\n\nUse the user's name "${currentUserName}" naturally. Example: "${example}"`;
+                }
+            }
+            
+            return prompt;
+        }
+
+        // Add message to chat
+        function addMessage(type, content, characterName = '') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            let html = '';
+            if (type === 'bot' && characterName) {
+                const avatarUrl = characterAvatars[currentCharacter];
+                html += `<div class="character-name">`;
+                if (avatarUrl) {
+                    html += `<img src="${avatarUrl}" alt="${characterName}" class="character-avatar" onerror="this.style.display='none';">`;
+                }
+                html += `<span>${characterName}</span></div>`;
+            }
+            html += `<div class="message-content">${content}</div>`;
+            
+            messageDiv.innerHTML = html;
+            document.getElementById('chatMessages').appendChild(messageDiv);
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+        }
+
+        // Get welcome message
+        function getWelcomeMessage() {
+            const data = getCharacterData(currentCharacter);
+            if (data.welcomeMessage) {
+                return currentUserName ? data.welcomeMessage.replace('{name}', currentUserName) : data.welcomeMessage;
+            }
+            
+            const defaultMessages = {
+                'kool-keith': `Yo${currentUserName ? ' ' + currentUserName : ''}, what's good? Keith here - the original abstract innovator from the Bronx.`,
+                'dr-octagon': `Greetings${currentUserName ? ' ' + currentUserName : ''} from Jupiter! Dr. Octagon reporting for medical duty.`,
+                'dr-dooom': `Dr. Dooom here${currentUserName ? ', ' + currentUserName : ''} - the superior medical practitioner.`,
+                'black-elvis': `Thank you${currentUserName ? ' ' + currentUserName : ''}, thank you very much! Black Elvis is in the building!`
+            };
+            
+            return defaultMessages[currentCharacter] || `Hello${currentUserName ? ' ' + currentUserName : ''}!`;
+        }
+
+        // API call
+        async function callGeminiAPI(userMessage) {
+            const prompt = buildPrompt(currentCharacter);
+            
+            const messages = [
+                { role: 'user', parts: [{ text: prompt }] },
+                ...conversationHistory,
+                { role: 'user', parts: [{ text: userMessage }] }
+            ];
+            
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: messages,
+                    generationConfig: { temperature: 0.8, topK: 40, topP: 0.95, maxOutputTokens: 400 },
+                    safetySettings: [
+                        {
+                            category: "HARM_CATEGORY_HARASSMENT",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_HATE_SPEECH",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                            threshold: "BLOCK_NONE"
+                        }
+                    ]
+                })
+            });
+            
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const data = await response.json();
+            if (data.candidates?.[0]?.content) {
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                conversationHistory.push(
+                    { role: 'user', parts: [{ text: userMessage }] },
+                    { role: 'model', parts: [{ text: aiResponse }] }
+                );
+                if (conversationHistory.length > 20) conversationHistory = conversationHistory.slice(-20);
+                return aiResponse;
+            } else {
+                throw new Error('No response from AI');
+            }
+        }
+
+        // Send message
+        async function sendMessage() {
+            const message = document.getElementById('chatInput').value.trim();
+            if (!message || document.getElementById('sendBtn').disabled) return;
+            
+            addMessage('user', message);
+            document.getElementById('chatInput').value = '';
+            
+            showTyping(true);
+            document.getElementById('sendBtn').disabled = true;
+            
+            try {
+                const response = await callGeminiAPI(message);
+                hideTyping();
+                const data = getCharacterData(currentCharacter);
+                addMessage('bot', response, data.identity?.name || currentCharacter);
+            } catch (error) {
+                hideTyping();
+                console.error('API Error:', error);
+                addMessage('bot', "Technical difficulties right now. Try again in a moment.");
+            }
+            
+            document.getElementById('sendBtn').disabled = false;
+        }
+
+        function switchCharacter(character) {
+            currentCharacter = character;
+            
+            document.querySelectorAll('.character-btn').forEach(btn => {
+                if (btn.dataset.character === character) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            const data = getCharacterData(character);
+            document.getElementById('chatInput').placeholder = `Type your message to ${data.identity?.name || character}...`;
+            resetConversation();
+        }
+
+        function resetConversation() {
+            conversationHistory = [];
+            document.getElementById('chatMessages').innerHTML = '';
+            
+            const data = getCharacterData(currentCharacter);
+            addMessage('bot', getWelcomeMessage(), data.identity?.name || currentCharacter);
+        }
+
+        function showTyping(show) {
+            document.getElementById('typingIndicator').style.display = show ? 'flex' : 'none';
+            if (show) {
+                document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+            }
+        }
+
+        function hideTyping() { showTyping(false); }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') {
+                alert('Please add your Gemini API key!');
+                return;
+            }
+
+            // Show name modal
+            if (!UserStorage.hasName()) {
+                setTimeout(() => { document.getElementById('nameModal').style.display = 'flex'; }, 1000);
+            }
+
+            // Name modal events
+            document.getElementById('submitName').addEventListener('click', () => {
+                const name = document.getElementById('nameInput').value.trim();
+                if (name) {
+                    UserStorage.setName(name);
+                    document.getElementById('nameModal').style.display = 'none';
+                    resetConversation();
+                }
+            });
+
+            document.getElementById('skipName').addEventListener('click', () => {
+                document.getElementById('nameModal').style.display = 'none';
+            });
+
+            document.getElementById('nameInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') document.getElementById('submitName').click();
+            });
+
+            // Mode button (battle mode loads external script)
+            document.getElementById('battleModeBtn').addEventListener('click', () => {
+                if (!window.battleSystemLoaded) {
+                    const script = document.createElement('script');
+                    script.src = 'battle-system.js';
+                    script.onload = () => { window.battleSystemLoaded = true; activateBattleMode(); };
+                    document.head.appendChild(script);
+                } else {
+                    activateBattleMode();
+                }
+            });
+
+            document.getElementById('chatModeBtn').addEventListener('click', () => {
+                document.getElementById('chatModeBtn').classList.add('active');
+                document.getElementById('battleModeBtn').classList.remove('active');
+            });
+
+            // Character selection
+            document.querySelectorAll('.character-btn').forEach(btn => {
+                btn.addEventListener('click', function() { switchCharacter(this.dataset.character); });
+            });
+
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            resetConversation();
+        });
+
+        // Placeholder for battle mode (will be loaded from battle-system.js)
+        function activateBattleMode() {
+            if (window.initBattleMode) {
+                window.initBattleMode();
+            } else {
+                alert('Battle system loading... try again in a moment!');
+            }
+        }
+    </script>
+</body>
+</html>
