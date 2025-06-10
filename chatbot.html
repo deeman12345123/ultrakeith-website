@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keith AI Laboratory - Control Interface</title>
+    <title>Keith AI - Digital Laboratory</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@300;400;700&family=Roboto:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
         * {
             margin: 0;
@@ -16,15 +16,16 @@
         body {
             font-family: 'Roboto', sans-serif;
             background: 
-                radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%),
-                linear-gradient(45deg, #001122 0%, #000000 50%, #001100 100%);
+                radial-gradient(circle at 20% 80%, #1a0000 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #0a0a0a 0%, transparent 50%),
+                linear-gradient(135deg, #000000 0%, #1a0000 25%, #0a0a0a 50%, #2a0000 75%, #000000 100%);
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
         
-        /* Laboratory Grid Background */
+        /* Subtle Grid Background */
         .lab-grid {
             position: fixed;
             top: 0;
@@ -32,16 +33,51 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(255, 215, 0, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
             z-index: 1;
-            animation: gridPulse 4s ease-in-out infinite;
+            animation: gridPulse 6s ease-in-out infinite;
         }
         
         @keyframes gridPulse {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 0.6; }
+        }
+        
+        /* Circuit Lines (Fewer for Mobile) */
+        .circuit-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            z-index: 1;
+        }
+        
+        .circuit-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            height: 1px;
+            animation: circuitFlow 5s linear infinite;
+        }
+        
+        .circuit-line:nth-child(1) {
+            top: 25%;
+            width: 200px;
+            animation-delay: 0s;
+        }
+        
+        .circuit-line:nth-child(2) {
+            top: 75%;
+            width: 300px;
+            animation-delay: 2s;
+        }
+        
+        @keyframes circuitFlow {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         
         /* Navigation */
@@ -91,9 +127,10 @@
             color: #ffd700;
         }
         
-        /* Main Laboratory Container */
-        .lab-container {
+        /* Main Container */
+        .ai-container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -102,206 +139,67 @@
             padding: 100px 20px 40px;
         }
         
-        /* Control Panel Layout */
-        .control-panel {
-            display: grid;
-            grid-template-columns: 300px 1fr 300px;
-            grid-template-rows: auto 1fr auto;
-            gap: 30px;
-            max-width: 1400px;
-            width: 100%;
-            height: 80vh;
-            background: linear-gradient(145deg, rgba(0, 20, 40, 0.8), rgba(0, 10, 20, 0.9));
+        /* Lab Frame Around Everything */
+        .lab-frame {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(0, 20, 40, 0.6));
             border: 2px solid rgba(255, 215, 0, 0.3);
             border-radius: 20px;
-            padding: 30px;
+            padding: 40px 30px;
             backdrop-filter: blur(15px);
             box-shadow: 
-                0 0 50px rgba(0, 0, 0, 0.8),
-                inset 0 0 50px rgba(255, 215, 0, 0.05);
-        }
-        
-        /* Header Section */
-        .lab-header {
-            grid-column: 1 / -1;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-            padding-bottom: 20px;
-        }
-        
-        .lab-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            margin-bottom: 10px;
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .lab-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-family: 'Roboto Mono', monospace;
-            font-size: 1rem;
-            letter-spacing: 2px;
-        }
-        
-        /* Left Control Panel */
-        .left-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .control-group {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-        }
-        
-        .control-label {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.8rem;
-            color: #ffd700;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .control-slider {
+                0 0 40px rgba(0, 0, 0, 0.8),
+                inset 0 0 40px rgba(255, 215, 0, 0.05);
+            max-width: 600px;
             width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            outline: none;
-            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* AI Keith Image with Hologram Effect */
+        .ai-keith-wrapper {
             position: relative;
+            margin-bottom: 30px;
+            display: inline-block;
         }
         
-        .control-slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #ffd700;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-        }
-        
-        .status-light {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: statusPulse 1.5s ease-in-out infinite;
-        }
-        
-        .status-dot.online {
-            background: #00ff00;
-            box-shadow: 0 0 10px #00ff00;
-        }
-        
-        .status-dot.processing {
-            background: #ffd700;
-            box-shadow: 0 0 10px #ffd700;
-        }
-        
-        .status-dot.standby {
-            background: #ff6600;
-            box-shadow: 0 0 10px #ff6600;
-        }
-        
-        @keyframes statusPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.1); }
-        }
-        
-        .status-text {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        /* Center AI Display */
-        .ai-display {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(0, 20, 40, 0.8));
-            border: 3px solid rgba(255, 215, 0, 0.4);
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 
-                0 0 40px rgba(255, 215, 0, 0.3),
-                inset 0 0 40px rgba(255, 215, 0, 0.1);
-        }
-        
-        .ai-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, transparent 49%, rgba(255, 215, 0, 0.1) 50%, transparent 51%),
-                linear-gradient(-45deg, transparent 49%, rgba(255, 215, 0, 0.1) 50%, transparent 51%);
-            background-size: 20px 20px;
-            animation: glassPattern 10s linear infinite;
-        }
-        
-        @keyframes glassPattern {
-            0% { transform: translateX(0) translateY(0); }
-            100% { transform: translateX(20px) translateY(20px); }
-        }
-        
-        .hologram-frame {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .ai-keith-hologram {
+        .ai-keith-image {
             width: 280px;
             height: 370px;
             object-fit: cover;
             border-radius: 15px;
-            border: 2px solid rgba(255, 215, 0, 0.6);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-            animation: hologramFlicker 3s ease-in-out infinite;
-            filter: hue-rotate(20deg) brightness(1.1);
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 
+                0 0 40px rgba(255, 215, 0, 0.4),
+                inset 0 0 40px rgba(255, 215, 0, 0.1);
+            transition: all 0.5s ease;
+            animation: hologramGlow 3s ease-in-out infinite alternate;
+            filter: hue-rotate(10deg) brightness(1.05);
         }
         
-        @keyframes hologramFlicker {
-            0%, 100% { 
-                opacity: 0.9; 
-                transform: scale(1);
-                filter: hue-rotate(20deg) brightness(1.1);
+        @keyframes hologramGlow {
+            0% { 
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.3),
+                    inset 0 0 30px rgba(255, 215, 0, 0.1);
+                filter: hue-rotate(10deg) brightness(1.05);
             }
-            50% { 
-                opacity: 1; 
-                transform: scale(1.02);
-                filter: hue-rotate(30deg) brightness(1.2);
+            100% { 
+                box-shadow: 
+                    0 0 60px rgba(255, 215, 0, 0.6),
+                    inset 0 0 60px rgba(255, 215, 0, 0.2);
+                filter: hue-rotate(20deg) brightness(1.15);
             }
         }
         
-        .hologram-scan {
+        .ai-keith-image:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 80px rgba(255, 215, 0, 0.8),
+                inset 0 0 80px rgba(255, 215, 0, 0.3);
+            filter: hue-rotate(30deg) brightness(1.2);
+        }
+        
+        /* Scanning Lines Effect */
+        .scan-lines {
             position: absolute;
             top: 0;
             left: 0;
@@ -310,75 +208,102 @@
             background: linear-gradient(
                 0deg,
                 transparent 0%,
-                rgba(0, 255, 255, 0.3) 50%,
+                rgba(0, 255, 255, 0.2) 50%,
                 transparent 100%
             );
-            height: 30px;
-            animation: hologramScan 2.5s linear infinite;
+            height: 25px;
+            animation: scanAnimation 3s linear infinite;
             border-radius: 15px;
+            pointer-events: none;
         }
         
-        @keyframes hologramScan {
-            0% { transform: translateY(-30px); }
-            100% { transform: translateY(400px); }
+        @keyframes scanAnimation {
+            0% { transform: translateY(-25px); }
+            100% { transform: translateY(395px); }
         }
         
-        /* Right Control Panel */
-        .right-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .data-readout {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            font-family: 'Roboto Mono', monospace;
-        }
-        
-        .data-readout h4 {
-            color: #00ffff;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        
-        .data-line {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.8rem;
-        }
-        
-        .data-label {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .data-value {
-            color: #ffd700;
-            font-weight: bold;
-        }
-        
-        /* Control Buttons */
-        .control-buttons {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        
-        .lab-btn {
-            background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            color: #ffd700;
-            padding: 15px 30px;
-            border-radius: 10px;
+        /* Text Content */
+        .ai-title {
             font-family: 'Orbitron', monospace;
-            font-weight: 600;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .ai-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .ai-description {
+            color: rgba(255, 255, 255, 0.7);
             font-size: 1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Simple Status Display */
+        .ai-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: #ffd700;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: statusPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+        
+        /* Enter Button */
+        .enter-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
@@ -387,21 +312,34 @@
             overflow: hidden;
         }
         
-        .lab-btn:hover {
-            background: linear-gradient(145deg, rgba(255, 215, 0, 0.4), rgba(255, 215, 0, 0.2));
-            border-color: #ffd700;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        .enter-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 
+                0 15px 30px rgba(255, 215, 0, 0.4),
+                0 0 40px rgba(255, 215, 0, 0.6);
         }
         
-        .lab-btn.primary {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            border-color: #ffd700;
+        .enter-btn:active {
+            transform: scale(0.98);
         }
         
-        .lab-btn.primary:hover {
-            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.5);
+        /* Button Ripple Effect */
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .enter-btn:active::before {
+            width: 300px;
+            height: 300px;
         }
         
         /* Loading Overlay */
@@ -425,8 +363,8 @@
         }
         
         .loading-spinner {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border: 4px solid rgba(255, 215, 0, 0.3);
             border-top: 4px solid #ffd700;
             border-radius: 50%;
@@ -440,47 +378,58 @@
         }
         
         /* Mobile Responsive */
-        @media (max-width: 1200px) {
-            .control-panel {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto auto;
-                gap: 20px;
-                height: auto;
-            }
-            
-            .left-controls,
-            .right-controls {
-                grid-column: 1;
-            }
-            
-            .ai-display {
-                min-height: 400px;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .lab-title {
-                font-size: 2rem;
+            .lab-frame {
+                padding: 30px 20px;
+                margin: 0 10px;
             }
             
-            .ai-keith-hologram {
-                width: 220px;
-                height: 290px;
+            .ai-keith-image {
+                width: 230px;
+                height: 305px;
             }
             
-            .control-buttons {
+            .ai-title {
+                font-size: 2.2rem;
+            }
+            
+            .ai-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .ai-description {
+                font-size: 0.9rem;
+            }
+            
+            .ai-status {
                 flex-direction: column;
-                align-items: center;
-                gap: 15px;
+                gap: 10px;
             }
             
-            .lab-btn {
+            .enter-btn {
+                padding: 15px 35px;
+                font-size: 1rem;
                 width: 100%;
                 max-width: 300px;
             }
             
             .nav-menu {
                 display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .ai-keith-image {
+                width: 200px;
+                height: 265px;
+            }
+            
+            .ai-title {
+                font-size: 1.9rem;
+            }
+            
+            .lab-frame {
+                padding: 25px 15px;
             }
         }
     </style>
@@ -499,146 +448,38 @@
         </div>
     </nav>
 
-    <!-- Laboratory Grid Background -->
+    <!-- Background Effects -->
     <div class="lab-grid"></div>
+    <div class="circuit-bg">
+        <div class="circuit-line"></div>
+        <div class="circuit-line"></div>
+    </div>
 
-    <!-- Main Laboratory Container -->
-    <div class="lab-container">
-        <div class="control-panel">
-            <!-- Header -->
-            <div class="lab-header">
-                <h1 class="lab-title">KEITH AI LABORATORY</h1>
-                <p class="lab-subtitle">NEURAL NETWORK CONTROL INTERFACE</p>
+    <!-- Main AI Interface -->
+    <div class="ai-container">
+        <div class="lab-frame">
+            <div class="ai-keith-wrapper">
+                <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
+                <div class="scan-lines"></div>
             </div>
             
-            <!-- Left Control Panel -->
-            <div class="left-controls">
-                <div class="control-group">
-                    <div class="control-label">System Status</div>
-                    <div class="status-light">
-                        <div class="status-dot online"></div>
-                        <div class="status-text">AI Core Online</div>
-                    </div>
-                    <div class="status-light">
-                        <div class="status-dot processing"></div>
-                        <div class="status-text">Neural Networks Active</div>
-                    </div>
-                    <div class="status-light">
-                        <div class="status-dot standby"></div>
-                        <div class="status-text">Personality Matrix Ready</div>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <div class="control-label">Personality Mix</div>
-                    <div style="margin-bottom: 10px;">
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 5px;">Kool Keith</div>
-                        <input type="range" class="control-slider" min="0" max="100" value="85">
-                    </div>
-                    <div style="margin-bottom: 10px;">
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 5px;">Dr. Octagon</div>
-                        <input type="range" class="control-slider" min="0" max="100" value="70">
-                    </div>
-                    <div style="margin-bottom: 10px;">
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 5px;">Dr. Dooom</div>
-                        <input type="range" class="control-slider" min="0" max="100" value="60">
-                    </div>
-                    <div>
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 5px;">Black Elvis</div>
-                        <input type="range" class="control-slider" min="0" max="100" value="55">
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <div class="control-label">Response Parameters</div>
-                    <div style="margin-bottom: 10px;">
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 5px;">Creativity Level</div>
-                        <input type="range" class="control-slider" min="0" max="100" value="90">
-                    </div>
-                    <div>
-                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 5px;">Abstract Factor</div>
-                        <input type="range" class="control-slider" min="0" max="100" value="95">
-                    </div>
+            <h1 class="ai-title">KEITH AI</h1>
+            <p class="ai-subtitle">Digital Laboratory Interface</p>
+            <p class="ai-description">
+                Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
+                Chat with the digital personas containing decades of lyrical genius and abstract wisdom.
+            </p>
+            
+            <div class="ai-status">
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>NEURAL NETWORK ONLINE</span>
                 </div>
             </div>
             
-            <!-- Center AI Display -->
-            <div class="ai-display">
-                <div class="hologram-frame">
-                    <img src="aikeith.png" alt="Keith AI Hologram" class="ai-keith-hologram" id="aiKeithHologram">
-                    <div class="hologram-scan"></div>
-                </div>
-            </div>
-            
-            <!-- Right Control Panel -->
-            <div class="right-controls">
-                <div class="data-readout">
-                    <h4>System Metrics</h4>
-                    <div class="data-line">
-                        <span class="data-label">CPU Usage:</span>
-                        <span class="data-value">87.3%</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Memory:</span>
-                        <span class="data-value">12.4GB</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Neural Load:</span>
-                        <span class="data-value">94.7%</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Uptime:</span>
-                        <span class="data-value">847:23:11</span>
-                    </div>
-                </div>
-                
-                <div class="data-readout">
-                    <h4>Active Protocols</h4>
-                    <div class="data-line">
-                        <span class="data-label">Language Model:</span>
-                        <span class="data-value">KEITH-GPT-4.0</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Personality Engine:</span>
-                        <span class="data-value">MULTI-KEITH v2.3</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Lyrical Database:</span>
-                        <span class="data-value">40+ Years</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Abstract Level:</span>
-                        <span class="data-value">MAXIMUM</span>
-                    </div>
-                </div>
-                
-                <div class="data-readout">
-                    <h4>Connection Quality</h4>
-                    <div class="data-line">
-                        <span class="data-label">Signal Strength:</span>
-                        <span class="data-value">98.2%</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Latency:</span>
-                        <span class="data-value">12ms</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Data Rate:</span>
-                        <span class="data-value">1.2 GB/s</span>
-                    </div>
-                    <div class="data-line">
-                        <span class="data-label">Status:</span>
-                        <span class="data-value">OPTIMAL</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Control Buttons -->
-            <div class="control-buttons">
-                <button class="lab-btn" id="calibrateBtn">Calibrate System</button>
-                <button class="lab-btn primary" id="activateBtn">Activate Keith AI</button>
-                <button class="lab-btn" id="diagnosticBtn">Run Diagnostic</button>
-            </div>
+            <button class="enter-btn" id="enterChatBtn">
+                Initialize Connection
+            </button>
         </div>
     </div>
 
@@ -652,90 +493,59 @@
     </div>
 
     <script>
-        // System metrics animation
-        function updateMetrics() {
-            const cpuElement = document.querySelector('.data-readout .data-value');
-            if (cpuElement) {
-                const cpu = (85 + Math.random() * 10).toFixed(1);
-                cpuElement.textContent = cpu + '%';
-            }
-        }
-        
-        setInterval(updateMetrics, 2000);
-
-        // Hologram click interaction
-        document.getElementById('aiKeithHologram').addEventListener('click', function() {
+        // Enhanced hologram click interaction
+        document.getElementById('aiKeithImage').addEventListener('click', function() {
             this.style.transform = 'scale(1.1) rotateY(15deg)';
             this.style.filter = 'hue-rotate(60deg) brightness(1.3)';
             setTimeout(() => {
                 this.style.transform = 'scale(1) rotateY(0deg)';
-                this.style.filter = 'hue-rotate(20deg) brightness(1.1)';
+                this.style.filter = 'hue-rotate(10deg) brightness(1.05)';
             }, 300);
         });
 
-        // Control button functionality
-        document.getElementById('calibrateBtn').addEventListener('click', function() {
-            this.style.background = 'linear-gradient(145deg, rgba(0, 255, 255, 0.3), rgba(0, 255, 255, 0.1))';
-            this.style.borderColor = '#00ffff';
-            this.textContent = 'CALIBRATING...';
-            
-            setTimeout(() => {
-                this.style.background = 'linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1))';
-                this.style.borderColor = 'rgba(255, 215, 0, 0.5)';
-                this.textContent = 'CALIBRATE SYSTEM';
-            }, 2000);
-        });
-
-        document.getElementById('diagnosticBtn').addEventListener('click', function() {
-            this.style.background = 'linear-gradient(145deg, rgba(255, 0, 255, 0.3), rgba(255, 0, 255, 0.1))';
-            this.style.borderColor = '#ff00ff';
-            this.textContent = 'SCANNING...';
-            
-            setTimeout(() => {
-                this.style.background = 'linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1))';
-                this.style.borderColor = 'rgba(255, 215, 0, 0.5)';
-                this.textContent = 'RUN DIAGNOSTIC';
-            }, 3000);
-        });
-
-        // Activate Keith AI button
-        document.getElementById('activateBtn').addEventListener('click', function() {
+        // Enter chat button functionality
+        document.getElementById('enterChatBtn').addEventListener('click', function() {
             // Show loading overlay
             document.getElementById('loadingOverlay').style.display = 'flex';
             
-            // Simulate activation sequence
+            // Simulate loading time then redirect
             setTimeout(() => {
                 window.location.href = 'chat.html'; // Change this to your chat page filename
-            }, 3000);
+            }, 2500);
         });
 
-        // Slider interactions
-        document.querySelectorAll('.control-slider').forEach(slider => {
-            slider.addEventListener('input', function() {
-                const value = this.value;
-                this.style.background = `linear-gradient(to right, #ffd700 0%, #ffd700 ${value}%, rgba(255,255,255,0.1) ${value}%, rgba(255,255,255,0.1) 100%)`;
-            });
-        });
-
-        // Initialize sliders
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.control-slider').forEach(slider => {
-                const value = slider.value;
-                slider.style.background = `linear-gradient(to right, #ffd700 0%, #ffd700 ${value}%, rgba(255,255,255,0.1) ${value}%, rgba(255,255,255,0.1) 100%)`;
-            });
-        });
-
-        // Keyboard shortcuts
+        // Add keyboard shortcut (Enter key)
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                document.getElementById('activateBtn').click();
+                document.getElementById('enterChatBtn').click();
             }
-            if (e.key === 'c' || e.key === 'C') {
-                document.getElementById('calibrateBtn').click();
-            }
-            if (e.key === 'd' || e.key === 'D') {
-                document.getElementById('diagnosticBtn').click();
-            }
+        });
+
+        // Random hologram flicker effect
+        function randomFlicker() {
+            const image = document.getElementById('aiKeithImage');
+            const originalOpacity = getComputedStyle(image).opacity;
+            
+            image.style.opacity = '0.7';
+            setTimeout(() => {
+                image.style.opacity = originalOpacity;
+            }, 100);
+        }
+        
+        // Random flicker every 8-15 seconds
+        setInterval(randomFlicker, Math.random() * 7000 + 8000);
+
+        // Initialize on page load with entrance animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const frame = document.querySelector('.lab-frame');
+            frame.style.opacity = '0';
+            frame.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                frame.style.transition = 'opacity 1s ease, transform 1s ease';
+                frame.style.opacity = '1';
+                frame.style.transform = 'translateY(0)';
+            }, 200);
         });
     </script>
 </body>
