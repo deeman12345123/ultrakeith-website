@@ -391,43 +391,20 @@
         }
         
         .trading-card.card-flying {
-            animation: 
-                card-fly-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-                card-spin 1.2s linear forwards;
+            animation: card-fly-and-spin 1.2s ease-out forwards;
         }
         
-        @keyframes card-fly-in {
+        @keyframes card-fly-and-spin {
             0% {
                 opacity: 1;
-                transform: scale(0.1);
+                transform: scale(0.1) rotate(0deg);
             }
-            20% {
-                transform: scale(0.4);
-            }
-            40% {
-                transform: scale(0.7);
-            }
-            60% {
-                transform: scale(0.9);
-            }
-            80% {
-                transform: scale(1.05);
-            }
-            90% {
-                transform: scale(1.1);
+            50% {
+                transform: scale(0.8) rotate(180deg);
             }
             100% {
                 opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes card-spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
+                transform: scale(1) rotate(360deg);
             }
         }
         
@@ -735,112 +712,176 @@
     <script>
         console.log('🚀 Starting Ultra Keith Personas...');
         
-        // CONFIGURATION
+        // ===== CONFIGURATION - EASY TO MODIFY =====
         var CONFIG = {
+            // Animation Timing (in milliseconds)
             ANIMATION_SPEEDS: {
-                PORTAL_PHASES: [0, 600, 1200, 1600, 2200, 3000],
-                CARD_FLIGHT: 1200,
-                CARD_LAUNCH_INTERVAL: 100,
-                PARTICLE_BURST: 2000,
-                ENERGY_WAVE: 1500,
-                SCREEN_FLASH: 2000
+                PORTAL_PHASES: [0, 600, 1200, 1600, 2200, 3000], // [start, phase2, phase3, phase4, phase5, phase6]
+                CARD_FLIGHT: 1200,        // How long cards take to fly and land
+                CARD_LAUNCH_INTERVAL: 100, // Time between each card launch
+                PARTICLE_BURST: 2000,     // Particle animation duration
+                ENERGY_WAVE: 1500,        // Energy wave animation duration
+                SCREEN_FLASH: 2000        // Screen flash duration
             },
+            
+            // Card Settings
             CARD_LIMITS: {
-                LONG_TITLE_THRESHOLD: 20
+                LONG_TITLE_THRESHOLD: 20  // Characters before title shrinks
             },
+            
+            // Visual Effects Counts
             PARTICLE_COUNTS: {
-                MYSTICAL_PARTICLES: 60,
-                ENERGY_WAVES: 6,
-                CARD_BURSTS: 40
+                MYSTICAL_PARTICLES: 60,   // Particles that burst from deck
+                ENERGY_WAVES: 6,          // Number of energy wave rings
+                CARD_BURSTS: 40           // Mini card bursts during animation
+            },
+            
+            // File Paths - EASY TO CHANGE
+            IMAGES: {
+                DECK_LOGO: 'logoback.png',
+                MC_LOGO: 'mc.png',
+                BACK_LOGO: 'logoback.png',
+                CARD_PLACEHOLDER: 'IMG'   // Text shown when no card image
+            },
+            
+            // Easy Color Customization
+            COLORS: {
+                PARTICLE_COLORS: ['var(--mystical-blue)', 'var(--energy-purple)', 'var(--plasma-pink)', 'var(--gold)']
             }
         };
         
-        // PERSONA DATA
+        // ===== PERSONA DATA - EASY TO ADD MORE =====
         var personasData = [
+            // OLD ERA PERSONAS (1984-1995)
             {
-                number: "001", name: "Activity", year: "1984", era: "old", age: "20 (young breakdancer age)", origin: "NYC",
-                likes: "Breakdancing, popping and rocking", dislikes: "Sitting still, slow music",
+                number: "001", name: "Activity", year: "1984", era: "old", 
+                age: "20 (young breakdancer age)", origin: "NYC",
+                likes: "Breakdancing, popping and rocking", 
+                dislikes: "Sitting still, slow music",
                 quote: "I Pop it like that, Rock it like that...",
                 biography: "Keith's first documented persona from the NYC Breakers breakdancing crew. Activity represents the foundation of Keith's character creation, emerging from early hip-hop culture before rap dominated.",
-                debut: "NYC Breakers (1984) - Pre-rap career", themes: "Breakdancing culture, early hip-hop foundation, character creation origins"
+                debut: "NYC Breakers (1984) - Pre-rap career", 
+                themes: "Breakdancing culture, early hip-hop foundation, character creation origins"
             },
             {
-                number: "002", name: "Kool Keith", year: "1988", era: "old", age: "25", origin: "Bronx, NY",
-                likes: "Porn, Animals", dislikes: "Girls who are not innovative that don't like to take pictures",
+                number: "002", name: "Kool Keith", year: "1988", era: "old", 
+                age: "25", origin: "Bronx, NY",
+                likes: "Porn, Animals", 
+                dislikes: "Girls who are not innovative that don't like to take pictures",
                 quote: "I'm the master of the game, all the girls know my name.",
                 biography: "Keith's primary rap persona. The revolutionary MC who broke all rules with abstract wordplay, sci-fi concepts, and unconventional rhyme patterns that influenced generations.",
-                debut: "Critical Beatdown (1988) with Ultramagnetic MCs", themes: "Complex rhymes, abstract imagery, sci-fi concepts, innovative flow"
+                debut: "Critical Beatdown (1988) with Ultramagnetic MCs", 
+                themes: "Complex rhymes, abstract imagery, sci-fi concepts, innovative flow"
             },
             {
-                number: "003", name: "MC Ultra", year: "1988", era: "old", age: "24 (pre-Kool Keith maturity)", origin: "Bronx",
-                likes: "Echo chambers, reverb effects, early sampling", dislikes: "Wack MCs, digital delays",
+                number: "003", name: "MC Ultra", year: "1988", era: "old", 
+                age: "24 (pre-Kool Keith maturity)", origin: "Bronx",
+                likes: "Echo chambers, reverb effects, early sampling", 
+                dislikes: "Wack MCs, digital delays",
                 quote: "MC Ultra sound, echo through your town...",
                 biography: "Early Bronx-based persona representing Keith's foundational MC identity during the late 1980s Ultramagnetic era.",
-                debut: "Late 1980s (Ultramagnetic era)", themes: "Bronx identity, early MC development, Ultramagnetic foundation"
+                debut: "Late 1980s (Ultramagnetic era)", 
+                themes: "Bronx identity, early MC development, Ultramagnetic foundation"
             },
             {
-                number: "004", name: "Dr. Sperm", year: "1988", era: "old", age: "32 (medical school graduate age)", origin: "Laboratory test tube",
-                likes: "Early rap experimentation, reproductive science, petri dishes", dislikes: "Birth control, sterile environments",
+                number: "004", name: "Dr. Sperm", year: "1988", era: "old", 
+                age: "32 (medical school graduate age)", origin: "Laboratory test tube",
+                likes: "Early rap experimentation, reproductive science, petri dishes", 
+                dislikes: "Birth control, sterile environments",
                 quote: "Dr. Sperm in the house, making life from scratch...",
                 biography: "One of Keith's earliest aliases representing his experimental approach to rap persona development and foreshadowing his later medical-themed characters.",
-                debut: "Early career alias (1988)", themes: "Early rap identity, medical theme precursor, experimental persona development"
+                debut: "Early career alias (1988)", 
+                themes: "Early rap identity, medical theme precursor, experimental persona development"
             },
             {
-                number: "005", name: "Exotron Geiger Counter One Plus Megatron", year: "1989", era: "old", age: "10,000 (robot years)", origin: "Cybertron (Scientific laboratory division)",
-                likes: "Complex scientific names, radio appearances, Megatron references, radiation detection", dislikes: "Simple identities, Autobots",
+                number: "005", name: "Exotron Geiger Counter One Plus Megatron", year: "1989", era: "old", 
+                age: "10,000 (robot years)", origin: "Cybertron (Scientific laboratory division)",
+                likes: "Complex scientific names, radio appearances, Megatron references, radiation detection", 
+                dislikes: "Simple identities, Autobots",
                 quote: "Exotron readings off the meter, Geiger Counter be the leader...",
                 biography: "Keith's experimental radio persona combining scientific complexity with Transformers references. Represents early character experimentation on Marley Marl's influential radio show.",
-                debut: "Marley Marl In Control radio show (1989), Critical Beatdown (1988)", themes: "Scientific complexity, Transformers reference, radio culture, early experimentation"
+                debut: "Marley Marl In Control radio show (1989), Critical Beatdown (1988)", 
+                themes: "Scientific complexity, Transformers reference, radio culture, early experimentation"
             },
             {
-                number: "006", name: "Exotron Geiger Counter One Gamma Plus Sequencer", year: "1989", era: "old", age: "10,001 (upgraded model)", origin: "Cybertron (Advanced Scientific Division)",
-                likes: "Complex scientific names, radio appearances, sequencer technology, gamma radiation", dislikes: "Simple identities, analog equipment",
+                number: "006", name: "Exotron Geiger Counter One Gamma Plus Sequencer", year: "1989", era: "old", 
+                age: "10,001 (upgraded model)", origin: "Cybertron (Advanced Scientific Division)",
+                likes: "Complex scientific names, radio appearances, sequencer technology, gamma radiation", 
+                dislikes: "Simple identities, analog equipment",
                 quote: "Gamma sequences activate, Exotron don't hesitate...",
                 biography: "Extended version of Keith's scientific radio persona, emphasizing sequencer technology and complex naming conventions that became his trademark.",
-                debut: "Marley Marl In Control radio show (1989) - longer version", themes: "Scientific complexity, sequencer technology, radio experimentation"
+                debut: "Marley Marl In Control radio show (1989) - longer version", 
+                themes: "Scientific complexity, sequencer technology, radio experimentation"
             },
             {
-                number: "007", name: "Big Willie Smith", year: "1995", era: "old", age: "22", origin: "Uptown",
-                likes: "Blondes, Cold Duck, big status, Beat Terrorists", dislikes: "Landlords, Antennas",
+                number: "007", name: "Big Willie Smith", year: "1995", era: "old", 
+                age: "22", origin: "Uptown",
+                likes: "Blondes, Cold Duck, big status, Beat Terrorists", 
+                dislikes: "Landlords, Antennas",
                 quote: "Keep it real, represent what? My nuts!...",
                 biography: "Keith's street credibility persona from his Beat Terrorists EP era, representing raw uptown attitude and early independent releases before major label success.",
-                debut: "Big Willie Smith EP (1995) with Beat Terrorists", themes: "Street credibility, representing, early EP work, independent releases"
+                debut: "Big Willie Smith EP (1995) with Beat Terrorists", 
+                themes: "Street credibility, representing, early EP work, independent releases"
             },
             {
-                number: "008", name: "X-74", year: "1995", era: "old", age: "74 (the number in his name)", origin: "Cenobite dimension",
-                likes: "Dope verses, mathematical equations, X-variables", dislikes: "Wack rhymes, solved equations",
+                number: "008", name: "X-74", year: "1995", era: "old", 
+                age: "74 (the number in his name)", origin: "Cenobite dimension",
+                likes: "Dope verses, mathematical equations, X-variables", 
+                dislikes: "Wack rhymes, solved equations",
                 quote: "X marks the spot where the dope verse drops...",
                 biography: "Keith's Cenobites collaboration persona, exploring abstract rhyming and philosophical concepts within the underground collective's experimental approach.",
-                debut: "Cenobites EP - \"Kick a Dope Verse\" (1995)", themes: "Abstract rhyming, cenobite philosophy, underground collaboration"
+                debut: "Cenobites EP - \"Kick a Dope Verse\" (1995)", 
+                themes: "Abstract rhyming, cenobite philosophy, underground collaboration"
             },
             {
-                number: "009", name: "Poppa Large", year: "1992", era: "old", age: "35", origin: "Bronx, NY",
-                likes: "Daredevil videos, Spinning around in circles", dislikes: "Quicksand, Soft Pretzels",
+                number: "009", name: "Poppa Large", year: "1992", era: "old", 
+                age: "35", origin: "Bronx, NY",
+                likes: "Daredevil videos, Spinning around in circles", 
+                dislikes: "Quicksand, Soft Pretzels",
                 quote: "I'm Poppa Large, Big Shot On The East Coast",
                 biography: "Keith's East Coast supremacy persona, emphasizing regional pride and daredevil attitude during Ultramagnetic's funk era expansion.",
-                debut: "Funk Your Head Up (1992) with Ultramagnetic MCs", themes: "East Coast supremacy, braggadocio, daredevil attitude"
+                debut: "Funk Your Head Up (1992) with Ultramagnetic MCs", 
+                themes: "East Coast supremacy, braggadocio, daredevil attitude"
             },
             {
-                number: "010", name: "Rhythm X", year: "1992", era: "old", age: "30", origin: "BX, New York",
-                likes: "Mae West, Gastronomy", dislikes: "Traffic, Soft Cauliflower",
+                number: "010", name: "Rhythm X", year: "1992", era: "old", 
+                age: "30", origin: "BX, New York",
+                likes: "Mae West, Gastronomy", 
+                dislikes: "Traffic, Soft Cauliflower",
                 quote: "Rhythm X roller, my style gets critical, Brain connects, computer rhymes get physical.",
                 biography: "Keith's rhythmic complexity persona, combining abstract wordplay with culinary interests and classic Hollywood references, later featured by The Prodigy.",
-                debut: "Funk Your Head Up (1992) with Ultramagnetic MCs - \"Funk Radio\"", themes: "Rhythmic complexity, abstract wordplay, gastronomy, crossover appeal"
+                debut: "Funk Your Head Up (1992) with Ultramagnetic MCs - \"Funk Radio\"", 
+                themes: "Rhythmic complexity, abstract wordplay, gastronomy, crossover appeal"
             },
+            
+            // MID ERA PERSONAS (1992)
             {
-                number: "011", name: "The X", year: "1992", era: "mid", age: "Infinite (X equals infinity)", origin: "Algebraic dimension",
-                likes: "Four Horsemen imagery, mathematical mysteries", dislikes: "Being solved, simple equations",
+                number: "011", name: "The X", year: "1992", era: "mid", 
+                age: "Infinite (X equals infinity)", origin: "Algebraic dimension",
+                likes: "Four Horsemen imagery, mathematical mysteries", 
+                dislikes: "Being solved, simple equations",
                 quote: "The X factor remains unsolved...",
                 biography: "Mysterious X-identity connected to Ultramagnetic's Four Horsemen concept, representing Keith's exploration of apocalyptic and biblical themes.",
-                debut: "Ultramagnetic MC's Four Horsemen LP (inside cover) (1992)", themes: "X-identity, Ultramagnetic era, apocalyptic imagery"
+                debut: "Ultramagnetic MC's Four Horsemen LP (inside cover) (1992)", 
+                themes: "X-identity, Ultramagnetic era, apocalyptic imagery"
             },
             {
-                number: "012", name: "X-Caliber", year: "1992", era: "mid", age: "1000 (medieval sword age)", origin: "Stone (where Arthur pulled the sword)",
-                likes: "Funk radio, sword imagery, medieval combat", dislikes: "Rust, modern weapons",
+                number: "012", name: "X-Caliber", year: "1992", era: "mid", 
+                age: "1000 (medieval sword age)", origin: "Stone (where Arthur pulled the sword)",
+                likes: "Funk radio, sword imagery, medieval combat", 
+                dislikes: "Rust, modern weapons",
                 quote: "X-Caliber slice through funk like butter...",
                 biography: "Sword-themed persona combining medieval weaponry with funk radio culture, representing Keith's ability to blend historical references with contemporary hip-hop.",
-                debut: "Funk Your Head Up (1992) - \"Funk Radio\"", themes: "Sword/weapon imagery, funk radio culture, medieval hip-hop fusion"
+                debut: "Funk Your Head Up (1992) - \"Funk Radio\"", 
+                themes: "Sword/weapon imagery, funk radio culture, medieval hip-hop fusion"
             }
+            
+            // TO ADD MORE PERSONAS:
+            // 1. Copy the structure above
+            // 2. Increment the number ("013", "014", etc.)
+            // 3. Add era: "new" for newer personas
+            // 4. Fill in all the fields
+            // 5. Add comma after previous entry
         ];
         
         var deckOpened = false;
@@ -880,7 +921,7 @@
                             '<div class="card-header">' +
                                 '<h1 class="persona-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + '</h1>' +
                             '</div>' +
-                            '<div class="image-container">IMG</div>' +
+                            '<div class="image-container">' + CONFIG.IMAGES.CARD_PLACEHOLDER + '</div>' +
                             '<div class="stats-section">' +
                                 '<div class="stat-item">' +
                                     '<span class="stat-label">Age:</span>' +
@@ -902,7 +943,7 @@
                             '<div class="quote-section">"' + persona.quote + '"</div>' +
                         '</div>' +
                         '<div class="mc-logo">' +
-                            '<img src="mc.png" alt="MC" class="mc-logo-img">' +
+                            '<img src="' + CONFIG.IMAGES.MC_LOGO + '" alt="MC" class="mc-logo-img">' +
                         '</div>' +
                         '<div class="flip-hint">Click to flip</div>' +
                         '<div class="card-number">#' + persona.number + '</div>' +
@@ -924,10 +965,10 @@
                             '</div>' +
                         '</div>' +
                         '<div class="logo-space">' +
-                            '<img src="logoback.png" alt="Ultra Keith Logo" class="back-logo">' +
+                            '<img src="' + CONFIG.IMAGES.BACK_LOGO + '" alt="Ultra Keith Logo" class="back-logo">' +
                         '</div>' +
                         '<div class="mc-logo">' +
-                            '<img src="mc.png" alt="MC" class="mc-logo-img">' +
+                            '<img src="' + CONFIG.IMAGES.MC_LOGO + '" alt="MC" class="mc-logo-img">' +
                         '</div>' +
                         '<div class="card-number">#' + persona.number + '</div>' +
                     '</div>' +
@@ -964,7 +1005,7 @@
                         particle.style.left = (centerX + Math.cos(angle) * radius) + 'px';
                         particle.style.top = (centerY + Math.sin(angle) * radius) + 'px';
                         
-                        var colors = ['var(--mystical-blue)', 'var(--energy-purple)', 'var(--plasma-pink)', 'var(--gold)'];
+                        var colors = CONFIG.COLORS.PARTICLE_COLORS;
                         particle.style.background = colors[Math.floor(Math.random() * colors.length)];
                         particle.style.animation = 'particle-burst 2s ease-out forwards';
                         
