@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keith AI - Digital Mind Interface</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family:Roboto:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
         * {
             margin: 0;
@@ -125,16 +125,18 @@
             padding: 100px 20px 40px;
         }
         
-        /* AI Keith Image */
+        /* AI Keith Image - Simple Approach */
         .ai-keith-wrapper {
             position: relative;
             margin-bottom: 40px;
+            padding-top: 30px;
         }
         
         .ai-keith-image {
             width: 300px;
             height: 400px;
             object-fit: cover;
+            object-position: center bottom;
             border-radius: 20px;
             border: 1px solid rgba(255, 215, 0, 0.6);
             box-shadow: 
@@ -142,8 +144,7 @@
                 inset 0 0 30px rgba(255, 215, 0, 0.08);
             transition: all 0.5s ease;
             animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
-            position: relative;
-            z-index: 2;
+            margin-top: -30px;
         }
         
         @keyframes aiGlow {
@@ -188,27 +189,6 @@
             box-shadow: 
                 0 0 35px rgba(255, 215, 0, 0.5),
                 inset 0 0 40px rgba(255, 215, 0, 0.15);
-        }
-        
-        /* Hair Overflow Effect */
-        .hair-overflow {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 15px;
-            background: 
-                linear-gradient(ellipse, rgba(255, 215, 0, 0.4) 20%, rgba(218, 165, 32, 0.2) 60%, transparent 100%);
-            border-radius: 50%;
-            z-index: 3;
-            animation: hairGlow 3s ease-in-out infinite alternate;
-            filter: blur(1px);
-        }
-        
-        @keyframes hairGlow {
-            0% { opacity: 0.6; }
-            100% { opacity: 0.8; }
         }
         
         /* Scanning Lines Effect */
