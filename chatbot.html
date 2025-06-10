@@ -152,6 +152,8 @@
             animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
             position: relative;
             z-index: 2;
+            /* Move image up so hair pokes out above border */
+            transform: translateY(-40px);
         }
         
         @keyframes aiGlow {
@@ -166,24 +168,24 @@
         /* Wave Distortion */
         @keyframes waveDistortion {
             0% { 
-                transform: perspective(1000px) rotateX(0deg) skewX(0deg);
+                transform: translateY(-40px) perspective(1000px) rotateX(0deg) skewX(0deg);
             }
             25% { 
-                transform: perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
+                transform: translateY(-40px) perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
             }
             50% { 
-                transform: perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
+                transform: translateY(-40px) perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
             }
             75% { 
-                transform: perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
+                transform: translateY(-40px) perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
             }
             100% { 
-                transform: perspective(1000px) rotateX(0deg) skewX(0deg);
+                transform: translateY(-40px) perspective(1000px) rotateX(0deg) skewX(0deg);
             }
         }
         
         .ai-keith-image:hover {
-            transform: scale(1.05);
+            transform: translateY(-40px) scale(1.05);
         }
         
         /* Border Frame */
@@ -568,6 +570,29 @@
             .ai-keith-image {
                 width: 250px;
                 height: 375px;
+                transform: translateY(-30px);
+            }
+            
+            @keyframes waveDistortion {
+                0% { 
+                    transform: translateY(-30px) perspective(1000px) rotateX(0deg) skewX(0deg);
+                }
+                25% { 
+                    transform: translateY(-30px) perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
+                }
+                50% { 
+                    transform: translateY(-30px) perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
+                }
+                75% { 
+                    transform: translateY(-30px) perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
+                }
+                100% { 
+                    transform: translateY(-30px) perspective(1000px) rotateX(0deg) skewX(0deg);
+                }
+            }
+            
+            .ai-keith-image:hover {
+                transform: translateY(-30px) scale(1.05);
             }
             
             .border-frame {
@@ -637,6 +662,11 @@
             .ai-keith-image {
                 width: 200px;
                 height: 300px;
+                transform: translateY(-25px);
+            }
+            
+            .ai-keith-image:hover {
+                transform: translateY(-25px) scale(1.05);
             }
             
             .border-frame {
@@ -847,9 +877,9 @@
         
         // Image interactions
         document.getElementById('aiKeithImage').addEventListener('click', function() {
-            this.style.transform = 'scale(1.1) rotateY(10deg)';
+            this.style.transform = 'translateY(-40px) scale(1.1) rotateY(10deg)';
             setTimeout(() => {
-                this.style.transform = 'scale(1) rotateY(0deg)';
+                this.style.transform = 'translateY(-40px) scale(1) rotateY(0deg)';
             }, 200);
         });
 
