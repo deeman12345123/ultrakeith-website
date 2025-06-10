@@ -3,10 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keith AI - Digital Mind Interface</title>
+    <title>KeithGPT - Galaxy Persona Transformer</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
+        /* ===== CSS CUSTOM PROPERTIES ===== */
+        :root {
+            /* Colors */
+            --primary-gold: #ffd700;
+            --primary-gold-light: #ffed4e;
+            --primary-gold-dim: rgba(255, 215, 0, 0.7);
+            --primary-gold-subtle: rgba(255, 215, 0, 0.3);
+            --primary-gold-faint: rgba(255, 215, 0, 0.1);
+            
+            --bg-black: #000000;
+            --bg-dark-red: #1a0000;
+            --bg-dark-gray: #0a0a0a;
+            --bg-medium-red: #2a0000;
+            
+            --text-white: #ffffff;
+            --text-white-dim: rgba(255, 255, 255, 0.9);
+            --text-white-subtle: rgba(255, 255, 255, 0.7);
+            --text-white-faint: rgba(255, 255, 255, 0.8);
+            
+            --accent-green: #00ff00;
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-xxl: 5rem;
+            
+            /* Typography */
+            --font-primary: 'Roboto', sans-serif;
+            --font-accent: 'Orbitron', monospace;
+            
+            --text-xs: 0.6rem;
+            --text-sm: 0.7rem;
+            --text-base: 1rem;
+            --text-lg: 1.2rem;
+            --text-xl: 1.5rem;
+            --text-2xl: 2.2rem;
+            --text-3xl: 3rem;
+            
+            /* Layout */
+            --border-radius-sm: 8px;
+            --border-radius-md: 15px;
+            --border-radius-lg: 20px;
+            
+            --container-max-width: 1200px;
+            
+            /* Images */
+            --img-width-desktop: 300px;
+            --img-height-desktop: 450px;
+            --img-width-tablet: 250px;
+            --img-height-tablet: 375px;
+            --img-width-mobile: 200px;
+            --img-height-mobile: 300px;
+            
+            /* Terminal */
+            --terminal-width-desktop: 350px;
+            --terminal-height: 120px;
+            --terminal-width-tablet: 320px;
+            --terminal-width-mobile: 300px;
+            
+            /* Animations */
+            --animation-fast: 0.3s;
+            --animation-medium: 1.5s;
+            --animation-slow: 3s;
+        }
+        
+        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -14,17 +83,23 @@
         }
         
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: var(--font-primary);
             background: 
-                radial-gradient(circle at 20% 80%, #1a0000 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, #0a0a0a 0%, transparent 50%),
-                linear-gradient(135deg, #000000 0%, #1a0000 25%, #0a0a0a 50%, #2a0000 75%, #000000 100%);
-            color: #ffffff;
+                radial-gradient(circle at 20% 80%, var(--bg-dark-red) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--bg-dark-gray) 0%, transparent 50%),
+                linear-gradient(135deg, 
+                    var(--bg-black) 0%, 
+                    var(--bg-dark-red) 25%, 
+                    var(--bg-dark-gray) 50%, 
+                    var(--bg-medium-red) 75%, 
+                    var(--bg-black) 100%
+                );
+            color: var(--text-white);
             min-height: 100vh;
             overflow-x: hidden;
         }
         
-        /* Navigation */
+        /* ===== NAVIGATION ===== */
         .navigation {
             position: fixed;
             top: 0;
@@ -32,162 +107,185 @@
             right: 0;
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            border-bottom: 1px solid var(--primary-gold-subtle);
             z-index: 100;
-            padding: 15px 0;
+            padding: var(--space-sm) 0;
         }
         
         .nav-container {
-            max-width: 1200px;
+            max-width: var(--container-max-width);
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 var(--space-lg);
         }
         
         .nav-logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
+            font-family: var(--font-accent);
+            font-size: var(--text-xl);
             font-weight: 900;
-            color: #ffd700;
+            color: var(--primary-gold);
             text-decoration: none;
         }
         
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: var(--space-xl);
         }
         
         .nav-menu a {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-white-faint);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color var(--animation-fast) ease;
         }
         
         .nav-menu a:hover {
-            color: #ffd700;
+            color: var(--primary-gold);
         }
         
-        /* Main Container */
+        /* ===== MAIN LAYOUT ===== */
         .ai-container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 100px 20px 40px;
+            padding: calc(var(--space-xxl) + var(--space-lg)) var(--space-lg) var(--space-xl);
         }
         
-        /* Text Content */
+        /* ===== TYPOGRAPHY ===== */
         .ai-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
+            font-family: var(--font-accent);
+            font-size: var(--text-3xl);
             font-weight: 900;
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+            background: linear-gradient(45deg, var(--primary-gold), var(--primary-gold-light), var(--primary-gold));
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            margin-bottom: 15px;
+            animation: gradientShift var(--animation-slow) ease-in-out infinite;
+            margin-bottom: var(--space-sm);
             text-align: center;
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
         
         .ai-subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            color: var(--text-white-dim);
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-xs);
             text-align: center;
             font-weight: 300;
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-accent);
             text-transform: uppercase;
             letter-spacing: 2px;
         }
         
         .ai-description {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            margin-bottom: 40px;
+            color: var(--text-white-subtle);
+            font-size: var(--text-base);
+            margin-bottom: var(--space-xl);
             text-align: center;
             max-width: 600px;
             line-height: 1.6;
         }
         
-        /* Image Container */
+        /* ===== ANIMATIONS ===== */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes borderGlow {
+            0% { 
+                border-color: var(--primary-gold-dim);
+                box-shadow: 
+                    0 0 20px var(--primary-gold-subtle),
+                    inset 0 0 25px var(--primary-gold-faint);
+            }
+            100% { 
+                border-color: var(--primary-gold);
+                box-shadow: 
+                    0 0 35px var(--primary-gold-subtle),
+                    inset 0 0 35px var(--primary-gold-faint);
+            }
+        }
+        
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px var(--primary-gold-subtle);
+            }
+            100% {
+                text-shadow: 
+                    0 0 10px var(--primary-gold),
+                    0 0 20px var(--primary-gold-dim),
+                    0 0 30px var(--primary-gold-subtle);
+            }
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== IMAGE SECTION ===== */
         .ai-keith-wrapper {
             position: relative;
-            margin-bottom: 180px;
+            margin-bottom: calc(var(--space-xxl) * 2.5);
             display: flex;
             justify-content: center;
             align-items: center;
         }
         
-        /* Keith Image - Clean, No Effects */
         .ai-keith-image {
-            width: 300px;
-            height: 450px;
+            width: var(--img-width-desktop);
+            height: var(--img-height-desktop);
             object-fit: contain;
             object-position: center bottom;
-            border-radius: 20px;
+            border-radius: var(--border-radius-lg);
             position: relative;
             z-index: 2;
+            will-change: transform; /* Performance optimization */
         }
         
-        /* Tight Border Frame */
+        /* ===== BORDER FRAME ===== */
         .border-frame {
             position: absolute;
             top: -5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 308px;
-            height: 458px;
-            border: 1px solid rgba(255, 215, 0, 0.9);
-            border-radius: 20px;
+            width: calc(var(--img-width-desktop) + 8px);
+            height: calc(var(--img-height-desktop) + 8px);
+            border: 1px solid var(--primary-gold-dim);
+            border-radius: var(--border-radius-lg);
             box-shadow: 
-                0 0 25px rgba(255, 215, 0, 0.4),
-                inset 0 0 30px rgba(255, 215, 0, 0.1);
-            animation: borderGlow 3s ease-in-out infinite alternate;
+                0 0 25px var(--primary-gold-subtle),
+                inset 0 0 30px var(--primary-gold-faint);
+            animation: borderGlow var(--animation-slow) ease-in-out infinite alternate;
             pointer-events: none;
             z-index: 1;
         }
         
-        @keyframes borderGlow {
-            0% { 
-                border-color: rgba(255, 215, 0, 0.7);
-                box-shadow: 
-                    0 0 20px rgba(255, 215, 0, 0.3),
-                    inset 0 0 25px rgba(255, 215, 0, 0.06);
-            }
-            100% { 
-                border-color: rgba(255, 215, 0, 1);
-                box-shadow: 
-                    0 0 35px rgba(255, 215, 0, 0.6),
-                    inset 0 0 35px rgba(255, 215, 0, 0.15);
-            }
-        }
-        
-        /* Terminal Display */
+        /* ===== TERMINAL ===== */
         .terminal-display {
             position: absolute;
-            bottom: -160px;
+            bottom: calc(var(--terminal-height) * -1.3);
             left: 50%;
             transform: translateX(-50%);
-            width: 350px;
-            height: 120px;
+            width: var(--terminal-width-desktop);
+            height: var(--terminal-height);
             background: rgba(0, 0, 0, 0.95);
-            border: 1px solid rgba(255, 215, 0, 0.6);
-            border-radius: 8px;
-            padding: 15px;
-            font-family: 'Orbitron', monospace;
-            color: #ffd700;
+            border: 1px solid var(--primary-gold-subtle);
+            border-radius: var(--border-radius-sm);
+            padding: var(--space-sm);
+            font-family: var(--font-accent);
+            color: var(--primary-gold);
             backdrop-filter: blur(10px);
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
             z-index: 20;
@@ -196,26 +294,26 @@
         .terminal-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-            font-size: 0.7rem;
+            margin-bottom: var(--space-xs);
+            padding-bottom: var(--space-xs);
+            border-bottom: 1px solid var(--primary-gold-subtle);
+            font-size: var(--text-sm);
         }
         
         .terminal-version {
-            color: #ffd700;
+            color: var(--primary-gold);
             font-weight: bold;
         }
         
         .terminal-status {
-            color: #00ff00;
+            color: var(--accent-green);
             font-weight: bold;
         }
         
         .terminal-content {
-            font-size: 0.7rem;
+            font-size: var(--text-sm);
             line-height: 1.4;
-            height: 2.8em;
+            height: 2.8em; /* Fixed height for 2 lines */
             display: flex;
             align-items: flex-start;
         }
@@ -229,72 +327,55 @@
         }
         
         .terminal-prompt {
-            color: rgba(255, 215, 0, 0.8);
-            margin-right: 8px;
+            color: var(--primary-gold-dim);
+            margin-right: var(--space-xs);
             flex-shrink: 0;
         }
         
         .terminal-text {
-            color: #ffd700;
+            color: var(--primary-gold);
             flex: 1;
         }
         
         .terminal-text.typing::after {
             content: '█';
-            color: #ffd700;
+            color: var(--primary-gold);
             animation: blink 1s infinite;
             margin-left: 1px;
-        }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
         }
         
         .terminal-stats {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            font-size: 0.6rem;
-            color: rgba(255, 215, 0, 0.7);
+            margin-top: var(--space-xs);
+            padding-top: var(--space-xs);
+            border-top: 1px solid var(--primary-gold-subtle);
+            font-size: var(--text-xs);
+            color: var(--primary-gold-dim);
         }
         
-        /* Enter Button - Professional Design with Glowing Text */
+        /* ===== BUTTON ===== */
         .enter-btn {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
-            color: #ffd700;
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            padding: 16px 32px;
-            border-radius: 8px;
-            font-size: 1rem;
+            background: linear-gradient(135deg, var(--primary-gold-faint) 0%, rgba(255, 215, 0, 0.05) 100%);
+            color: var(--primary-gold);
+            border: 2px solid var(--primary-gold-subtle);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--text-base);
             font-weight: 600;
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-accent);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--animation-fast) ease;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             backdrop-filter: blur(10px);
             box-shadow: 
                 0 4px 15px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 215, 0, 0.1);
+                inset 0 1px 0 var(--primary-gold-faint);
             position: relative;
             overflow: hidden;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-            animation: textGlow 1.5s ease-in-out infinite alternate;
-        }
-        
-        @keyframes textGlow {
-            0% {
-                text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-            }
-            100% {
-                text-shadow: 
-                    0 0 10px rgba(255, 215, 0, 1),
-                    0 0 20px rgba(255, 215, 0, 0.8),
-                    0 0 30px rgba(255, 215, 0, 0.6);
-            }
+            text-shadow: 0 0 10px var(--primary-gold-subtle);
+            animation: textGlow var(--animation-medium) ease-in-out infinite alternate;
         }
         
         .enter-btn::before {
@@ -304,17 +385,17 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, var(--primary-gold-faint), transparent);
             transition: left 0.6s ease;
         }
         
         .enter-btn:hover {
-            border-color: rgba(255, 215, 0, 0.7);
+            border-color: var(--primary-gold-dim);
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%);
             box-shadow: 
                 0 6px 20px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(255, 215, 0, 0.2),
-                inset 0 1px 0 rgba(255, 215, 0, 0.2);
+                0 0 30px var(--primary-gold-subtle),
+                inset 0 1px 0 var(--primary-gold-faint);
             transform: translateY(-1px);
         }
         
@@ -326,10 +407,10 @@
             transform: translateY(0);
             box-shadow: 
                 0 2px 10px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 215, 0, 0.1);
+                inset 0 1px 0 var(--primary-gold-faint);
         }
         
-        /* Loading Overlay */
+        /* ===== LOADING OVERLAY ===== */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -345,51 +426,46 @@
         
         .loading-content {
             text-align: center;
-            color: #ffd700;
-            font-family: 'Orbitron', monospace;
+            color: var(--primary-gold);
+            font-family: var(--font-accent);
         }
         
         .loading-spinner {
             width: 60px;
             height: 60px;
-            border: 3px solid rgba(255, 215, 0, 0.3);
-            border-top: 3px solid #ffd700;
+            border: 3px solid var(--primary-gold-subtle);
+            border-top: 3px solid var(--primary-gold);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto var(--space-lg);
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Mobile Responsive */
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
+            :root {
+                --text-3xl: var(--text-2xl);
+                --space-xl: var(--space-lg);
+            }
+            
             .ai-keith-wrapper {
-                margin-bottom: 160px;
+                margin-bottom: calc(var(--space-xxl) * 2.2);
             }
             
             .ai-keith-image {
-                width: 250px;
-                height: 375px;
+                width: var(--img-width-tablet);
+                height: var(--img-height-tablet);
             }
             
             .border-frame {
-                width: 258px;
-                height: 383px;
+                width: calc(var(--img-width-tablet) + 8px);
+                height: calc(var(--img-height-tablet) + 8px);
                 top: -4px;
             }
             
             .terminal-display {
-                width: 320px;
-                height: 120px;
-                bottom: -140px;
-                padding: 12px;
-            }
-            
-            .ai-title {
-                font-size: 2.2rem;
+                width: var(--terminal-width-tablet);
+                bottom: calc(var(--terminal-height) * -1.2);
+                padding: var(--space-sm);
             }
             
             .nav-menu {
@@ -398,39 +474,59 @@
         }
         
         @media (max-width: 480px) {
+            :root {
+                --text-3xl: 1.8rem;
+                --space-lg: var(--space-md);
+            }
+            
             .ai-keith-wrapper {
-                margin-bottom: 150px;
+                margin-bottom: calc(var(--space-xxl) * 2.1);
             }
             
             .ai-keith-image {
-                width: 200px;
-                height: 300px;
+                width: var(--img-width-mobile);
+                height: var(--img-height-mobile);
             }
             
             .border-frame {
-                width: 208px;
-                height: 308px;
+                width: calc(var(--img-width-mobile) + 8px);
+                height: calc(var(--img-height-mobile) + 8px);
                 top: -4px;
             }
             
             .terminal-display {
-                width: 300px;
+                width: var(--terminal-width-mobile);
                 height: 110px;
-                bottom: -130px;
-                padding: 8px;
+                bottom: calc(110px * -1.1);
+                padding: var(--space-xs);
             }
-            
-            .ai-title {
-                font-size: 1.8rem;
+        }
+        
+        /* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
+        }
+        
+        .enter-btn:focus {
+            outline: 2px solid var(--primary-gold);
+            outline-offset: 2px;
+        }
+        
+        .ai-keith-image:focus {
+            outline: 2px solid var(--primary-gold);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navigation">
+    <nav class="navigation" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">ULTRA KEITH</a>
+            <a href="index.html" class="nav-logo" aria-label="Ultra Keith Home">ULTRA KEITH</a>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="personas/personas.html">Personas</a></li>
@@ -440,155 +536,270 @@
         </div>
     </nav>
 
-    <!-- Main AI Interface -->
-    <div class="ai-container">
-        <!-- Title and Description -->
-        <h1 class="ai-title">KEITHGPT</h1>
-        <p class="ai-subtitle">Galaxy Persona Transformer</p>
-        <p class="ai-description">
-            Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
-            Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
-            Each AI personality contains decades of lyrical genius and abstract wisdom.
-        </p>
+    <!-- Main Content -->
+    <main class="ai-container" role="main">
+        <!-- Header Section -->
+        <header class="hero-section">
+            <h1 class="ai-title">KEITHGPT</h1>
+            <p class="ai-subtitle">Galaxy Persona Transformer</p>
+            <p class="ai-description">
+                Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
+                Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
+                Each AI personality contains decades of lyrical genius and abstract wisdom.
+            </p>
+        </header>
         
-        <!-- Keith Image with Border and Effects -->
-        <div class="ai-keith-wrapper">
-            <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
-            <div class="border-frame"></div>
+        <!-- Keith AI Display -->
+        <section class="ai-keith-wrapper" aria-label="Keith AI Interface">
+            <img 
+                src="aikeith.png" 
+                alt="Keith AI - Digital representation of Kool Keith in golden metallic style" 
+                class="ai-keith-image" 
+                id="aiKeithImage"
+                tabindex="0"
+            >
+            <div class="border-frame" aria-hidden="true"></div>
             
             <!-- Terminal Display -->
-            <div class="terminal-display">
+            <div class="terminal-display" role="log" aria-label="AI Status Terminal" aria-live="polite">
                 <div class="terminal-header">
                     <span class="terminal-version">KEITH.GPT v4.2</span>
                     <span class="terminal-status">ONLINE</span>
                 </div>
                 <div class="terminal-content">
                     <div class="terminal-line">
-                        <span class="terminal-prompt">></span>
+                        <span class="terminal-prompt" aria-hidden="true">></span>
                         <span class="terminal-text typing" id="terminalText">Initializing...</span>
                     </div>
                 </div>
-                <div class="terminal-stats">
+                <div class="terminal-stats" aria-label="System statistics">
                     <span>CPU: <span id="cpuUsage">87.3%</span></span>
                     <span>MEM: <span id="memUsage">12.4GB</span></span>
                     <span>PING: <span id="pingTime">8ms</span></span>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <button class="enter-btn" id="enterChatBtn">
+        <!-- Call to Action -->
+        <button 
+            class="enter-btn" 
+            id="enterChatBtn"
+            aria-label="Initialize connection to Keith AI chat interface"
+        >
             Initialize Connection
         </button>
-    </div>
+    </main>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
+    <!-- Loading State -->
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
         <div class="loading-content">
-            <div class="loading-spinner"></div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>Connecting to Keith AI...</p>
             <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Initializing neural networks...</p>
         </div>
     </div>
 
     <script>
-        // Terminal messages
-        const messages = [
-            "Initializing quantum neural pathways...",
-            "Loading KeithGPT consciousness matrix...",
-            "Calibrating persona transformation protocols...",
-            "Scanning lyrical pattern databases...",
-            "Synchronizing galaxy-class AI framework...",
-            "Activating multi-dimensional creativity engine...",
-            "Processing infinite flow algorithms...",
-            "Integrating abstract thought networks...",
-            "Optimizing artistic intelligence cores...",
-            "Establishing deep learning connections...",
-            "Verifying persona authenticity markers...",
-            "Mapping cognitive response patterns...",
-            "Finalizing consciousness transfer protocol...",
-            "AI persona transformation complete...",
-            "KeithGPT ready for interaction..."
-        ];
+        'use strict';
         
-        let currentMessageIndex = 0;
-        let currentText = "";
-        let isTyping = false;
+        // ===== CONFIGURATION =====
+        const CONFIG = {
+            TERMINAL_MESSAGES: [
+                "Initializing quantum neural pathways...",
+                "Loading KeithGPT consciousness matrix...",
+                "Calibrating persona transformation protocols...",
+                "Scanning lyrical pattern databases...",
+                "Synchronizing galaxy-class AI framework...",
+                "Activating multi-dimensional creativity engine...",
+                "Processing infinite flow algorithms...",
+                "Integrating abstract thought networks...",
+                "Optimizing artistic intelligence cores...",
+                "Establishing deep learning connections...",
+                "Verifying persona authenticity markers...",
+                "Mapping cognitive response patterns...",
+                "Finalizing consciousness transfer protocol...",
+                "AI persona transformation complete...",
+                "KeithGPT ready for interaction..."
+            ],
+            TYPING_SPEED: 100,
+            MESSAGE_DELAY: 2000,
+            STATS_UPDATE_INTERVAL: 4000,
+            LOADING_DELAY: 2500
+        };
         
-        function typeMessage() {
-            if (isTyping) return;
+        // ===== TERMINAL CONTROLLER =====
+        class TerminalController {
+            constructor() {
+                this.currentMessageIndex = 0;
+                this.isTyping = false;
+                this.terminalTextElement = null;
+                
+                this.init();
+            }
             
-            const message = messages[currentMessageIndex];
-            const terminalText = document.getElementById('terminalText');
-            
-            isTyping = true;
-            currentText = "";
-            let charIndex = 0;
-            
-            terminalText.className = 'terminal-text typing';
-            
-            const typeInterval = setInterval(() => {
-                if (charIndex < message.length) {
-                    currentText += message[charIndex];
-                    terminalText.textContent = currentText;
-                    charIndex++;
-                } else {
-                    clearInterval(typeInterval);
-                    setTimeout(() => {
-                        isTyping = false;
-                        currentMessageIndex = (currentMessageIndex + 1) % messages.length;
-                        typeMessage();
-                    }, 2000);
+            init() {
+                this.terminalTextElement = document.getElementById('terminalText');
+                if (!this.terminalTextElement) {
+                    console.error('Terminal text element not found');
+                    return;
                 }
-            }, 100);
+                
+                // Start terminal after delay
+                setTimeout(() => {
+                    this.typeMessage();
+                }, 2000);
+            }
+            
+            async typeMessage() {
+                if (this.isTyping || !this.terminalTextElement) return;
+                
+                const message = CONFIG.TERMINAL_MESSAGES[this.currentMessageIndex];
+                this.isTyping = true;
+                
+                this.terminalTextElement.className = 'terminal-text typing';
+                
+                // Type out message character by character
+                for (let i = 0; i <= message.length; i++) {
+                    this.terminalTextElement.textContent = message.substring(0, i);
+                    await this.delay(CONFIG.TYPING_SPEED);
+                }
+                
+                // Wait before next message
+                await this.delay(CONFIG.MESSAGE_DELAY);
+                
+                this.isTyping = false;
+                this.currentMessageIndex = (this.currentMessageIndex + 1) % CONFIG.TERMINAL_MESSAGES.length;
+                this.typeMessage();
+            }
+            
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
         }
         
-        // Update stats
-        function updateStats() {
-            const cpuElement = document.getElementById('cpuUsage');
-            const memElement = document.getElementById('memUsage');
-            const pingElement = document.getElementById('pingTime');
-            
-            if (cpuElement) {
-                const cpu = (85 + Math.random() * 10).toFixed(1);
-                cpuElement.textContent = cpu + '%';
+        // ===== STATS CONTROLLER =====
+        class StatsController {
+            constructor() {
+                this.elements = {
+                    cpu: document.getElementById('cpuUsage'),
+                    memory: document.getElementById('memUsage'),
+                    ping: document.getElementById('pingTime')
+                };
+                
+                this.init();
             }
             
-            if (memElement) {
-                const mem = (12 + Math.random() * 2).toFixed(1);
-                memElement.textContent = mem + 'GB';
+            init() {
+                // Start stats updates
+                setTimeout(() => {
+                    this.updateStats();
+                    setInterval(() => this.updateStats(), CONFIG.STATS_UPDATE_INTERVAL);
+                }, 2000);
             }
             
-            if (pingElement) {
-                const ping = Math.floor(6 + Math.random() * 8);
-                pingElement.textContent = ping + 'ms';
+            updateStats() {
+                try {
+                    if (this.elements.cpu) {
+                        const cpu = (85 + Math.random() * 10).toFixed(1);
+                        this.elements.cpu.textContent = cpu + '%';
+                    }
+                    
+                    if (this.elements.memory) {
+                        const memory = (12 + Math.random() * 2).toFixed(1);
+                        this.elements.memory.textContent = memory + 'GB';
+                    }
+                    
+                    if (this.elements.ping) {
+                        const ping = Math.floor(6 + Math.random() * 8);
+                        this.elements.ping.textContent = ping + 'ms';
+                    }
+                } catch (error) {
+                    console.error('Error updating stats:', error);
+                }
             }
         }
         
-        // Start terminal
-        setTimeout(() => {
-            typeMessage();
-            updateStats();
-            setInterval(updateStats, 4000);
-        }, 2000);
-        
-        // Image click
-        document.getElementById('aiKeithImage').addEventListener('click', function() {
-            // No effects - clean image
-        });
-
-        // Enter chat button
-        document.getElementById('enterChatBtn').addEventListener('click', function() {
-            document.getElementById('loadingOverlay').style.display = 'flex';
-            setTimeout(() => {
-                window.location.href = 'chat.html';
-            }, 2500);
-        });
-
-        // Keyboard shortcut
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('enterChatBtn').click();
+        // ===== NAVIGATION CONTROLLER =====
+        class NavigationController {
+            constructor() {
+                this.loadingOverlay = null;
+                this.enterButton = null;
+                this.keithImage = null;
+                
+                this.init();
             }
+            
+            init() {
+                this.loadingOverlay = document.getElementById('loadingOverlay');
+                this.enterButton = document.getElementById('enterChatBtn');
+                this.keithImage = document.getElementById('aiKeithImage');
+                
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                // Enter button click
+                if (this.enterButton) {
+                    this.enterButton.addEventListener('click', () => this.handleEnterClick());
+                }
+                
+                // Keyboard shortcuts
+                document.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && document.activeElement !== this.enterButton) {
+                        this.handleEnterClick();
+                    }
+                });
+                
+                // Image interaction (no visual effect, just for accessibility)
+                if (this.keithImage) {
+                    this.keithImage.addEventListener('click', () => {
+                        this.keithImage.focus();
+                    });
+                }
+            }
+            
+            handleEnterClick() {
+                try {
+                    if (this.loadingOverlay) {
+                        this.loadingOverlay.style.display = 'flex';
+                        this.loadingOverlay.setAttribute('aria-hidden', 'false');
+                    }
+                    
+                    setTimeout(() => {
+                        window.location.href = 'chat.html';
+                    }, CONFIG.LOADING_DELAY);
+                } catch (error) {
+                    console.error('Error handling enter click:', error);
+                }
+            }
+        }
+        
+        // ===== APPLICATION INITIALIZATION =====
+        class App {
+            constructor() {
+                this.terminal = null;
+                this.stats = null;
+                this.navigation = null;
+            }
+            
+            init() {
+                try {
+                    // Initialize all controllers
+                    this.terminal = new TerminalController();
+                    this.stats = new StatsController();
+                    this.navigation = new NavigationController();
+                    
+                    console.log('KeithGPT application initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing application:', error);
+                }
+            }
+        }
+        
+        // ===== START APPLICATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new App();
+            app.init();
         });
     </script>
 </body>
