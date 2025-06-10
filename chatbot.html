@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<!-- Floating Particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -297,59 +301,7 @@
             height: 300px;
         }
         
-        /* Floating Particles */
-        .particle {
-            position: absolute;
-            background: #ffd700;
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: floatParticle 6s linear infinite;
-        }
-        
-        .particle:nth-child(1) {
-            width: 3px;
-            height: 3px;
-            left: 10%;
-            animation-delay: 0s;
-        }
-        
-        .particle:nth-child(2) {
-            width: 4px;
-            height: 4px;
-            left: 20%;
-            animation-delay: 1s;
-        }
-        
-        .particle:nth-child(3) {
-            width: 2px;
-            height: 2px;
-            left: 80%;
-            animation-delay: 3s;
-        }
-        
-        .particle:nth-child(4) {
-            width: 5px;
-            height: 5px;
-            left: 90%;
-            animation-delay: 4s;
-        }
-        
-        @keyframes floatParticle {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
+
         
         /* Loading Overlay */
         .loading-overlay {
