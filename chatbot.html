@@ -125,26 +125,43 @@
             padding: 100px 20px 40px;
         }
         
-        /* AI Keith Image - Simple Approach */
+        /* AI Keith Image - With Transparent Background */
         .ai-keith-wrapper {
             position: relative;
             margin-bottom: 40px;
-            padding-top: 30px;
+            overflow: visible;
         }
         
+        /* Full Keith Image - Transparent Background */
         .ai-keith-image {
             width: 300px;
-            height: 400px;
-            object-fit: cover;
+            height: 450px;
+            object-fit: contain;
             object-position: center bottom;
+            border-radius: 0;
+            border: none;
+            transition: all 0.5s ease;
+            animation: waveDistortion 6s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Border Frame - Positioned Over Image */
+        .border-frame {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 400px;
             border-radius: 20px;
             border: 1px solid rgba(255, 215, 0, 0.6);
             box-shadow: 
                 0 0 20px rgba(255, 215, 0, 0.3),
                 inset 0 0 30px rgba(255, 215, 0, 0.08);
-            transition: all 0.5s ease;
-            animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
-            margin-top: -30px;
+            animation: aiGlow 3s ease-in-out infinite alternate;
+            z-index: 1;
+            pointer-events: none;
         }
         
         @keyframes aiGlow {
@@ -186,9 +203,6 @@
         
         .ai-keith-image:hover {
             transform: scale(1.05);
-            box-shadow: 
-                0 0 35px rgba(255, 215, 0, 0.5),
-                inset 0 0 40px rgba(255, 215, 0, 0.15);
         }
         
         /* Scanning Lines Effect */
@@ -509,6 +523,7 @@
     <div class="ai-container">
         <div class="ai-keith-wrapper">
             <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
+            <div class="border-frame"></div>
             <div class="scan-lines"></div>
             <div class="digital-static"></div>
             <div class="signal-interference"></div>
