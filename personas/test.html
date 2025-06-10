@@ -30,9 +30,12 @@
             padding: 20px;
         }
         
+        /* HEADER - NORMAL PAGE FLOW */
         .header {
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 10;
         }
         
         .main-title {
@@ -85,14 +88,25 @@
             transform: translateY(-2px);
         }
         
-        /* DECK BOX - EXACTLY AS REQUESTED */
-        .deck-box-container {
+        /* DECK BOX - FIXED POSITION OVERLAY */
+        .deck-overlay {
             position: fixed;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            perspective: 1000px;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 1000;
+            transition: all 1s ease;
+        }
+        
+        .deck-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
         
         .deck-box {
@@ -228,68 +242,58 @@
             50% { opacity: 1; }
         }
         
-        /* DECK ANIMATIONS */
-        .deck-box.opened {
-            animation: deck-fade 1.5s ease-out 1s forwards;
-        }
-        
-        @keyframes deck-fade {
-            0% { 
-                transform: translate(-50%, -50%) scale(1);
-                filter: blur(0px);
-                visibility: visible;
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(0.85);
-                filter: blur(4px);
-                visibility: visible;
-            }
-            99% { 
-                transform: translate(-50%, -50%) scale(0.3);
-                filter: blur(8px);
-                visibility: visible;
-            }
-            100% { 
-                transform: translate(-50%, -50%) scale(0.3);
-                filter: blur(8px);
-                visibility: hidden;
-                pointer-events: none;
-            }
-        }
-        
-        /* CARDS - FIXED POSITIONING AND SCROLLING */
-        .cards-grid {
-            position: fixed;
-            top: 60%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-            max-width: 95vw;
-            max-height: 75vh;
-            overflow-y: auto;
-            overflow-x: hidden;
+        /* CARDS CONTAINER - NORMAL PAGE FLOW */
+        .cards-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
             opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: all 0.5s ease;
-            padding: 10px;
+            transition: opacity 0.5s ease;
         }
         
-        .cards-grid.show {
+        .cards-container.show {
             opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
         }
         
+        /* RESPONSIVE CARD GRID - NORMAL LAYOUT */
+        .cards-grid {
+            display: grid;
+            gap: 30px;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        
+        /* Mobile: 1 column */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+        }
+        
+        /* Tablet: 2 columns */
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Desktop: 3 columns */
+        @media (min-width: 1201px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* INDIVIDUAL TRADING CARDS */
         .trading-card {
             width: 300px;
             height: 450px;
             perspective: 1000px;
             cursor: pointer;
             transition: transform 0.3s ease;
+            justify-self: center;
         }
         
         .trading-card:hover {
@@ -572,65 +576,6 @@
             z-index: 15;
         }
         
-        /* MOBILE LAYOUT FIX - SINGLE COLUMN */
-        @media (max-width: 768px) {
-            .cards-grid {
-                display: flex !important;
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-                max-width: 95vw;
-                max-height: 70vh;
-                top: 50%;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-            
-            .trading-card {
-                width: 280px;
-                height: 420px;
-                flex-shrink: 0;
-            }
-        }
-        
-        /* TABLET LAYOUT - 2 COLUMNS FIT BETTER */
-        @media (min-width: 769px) and (max-width: 1200px) {
-            .cards-grid {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-                max-width: 90vw;
-                max-height: 75vh;
-                align-items: start;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-            
-            .trading-card {
-                width: 280px;
-                height: 420px;
-            }
-        }
-        
-        /* DESKTOP LAYOUT - 3 COLUMNS TO PREVENT SCROLLBAR */
-        @media (min-width: 1201px) {
-            .cards-grid {
-                display: grid !important;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-                max-width: 95vw;
-                max-height: 75vh;
-                align-items: start;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-            
-            .trading-card {
-                width: 280px;
-                height: 420px;
-            }
-        }
-        
         /* SPARKLES */
         .sparkle {
             position: absolute;
@@ -680,22 +625,10 @@
 </head>
 <body>
     
+    <!-- HEADER - NORMAL PAGE FLOW -->
     <div class="header">
         <h1 class="main-title">Ultra Keith Personas</h1>
         <p class="subtitle">Trading Card Collection - First 12 Cards</p>
-        
-        <div class="deck-box-container">
-            <div class="deck-box" id="deckBox">
-                <div class="deck-base">
-                    <div class="deck-logo">
-                        <img src="/personas/logoback.png" alt="Ultra Keith Logo">
-                    </div>
-                    <div class="deck-cards-stack"></div>
-                </div>
-                <div class="deck-lid" id="deckLid"></div>
-                <div class="click-hint">← CLICK TO OPEN →</div>
-            </div>
-        </div>
         
         <div class="filter-buttons">
             <button class="filter-btn active" data-era="all">Show All (12)</button>
@@ -704,8 +637,25 @@
         </div>
     </div>
     
-    <div class="cards-grid" id="cardsContainer">
-        <!-- Cards generated by JavaScript -->
+    <!-- DECK OVERLAY - FIXED POSITION -->
+    <div class="deck-overlay" id="deckOverlay">
+        <div class="deck-box" id="deckBox">
+            <div class="deck-base">
+                <div class="deck-logo">
+                    <img src="/personas/logoback.png" alt="Ultra Keith Logo">
+                </div>
+                <div class="deck-cards-stack"></div>
+            </div>
+            <div class="deck-lid" id="deckLid"></div>
+            <div class="click-hint">← CLICK TO OPEN →</div>
+        </div>
+    </div>
+    
+    <!-- CARDS CONTAINER - NORMAL PAGE FLOW -->
+    <div class="cards-container" id="cardsContainer">
+        <div class="cards-grid" id="cardsGrid">
+            <!-- Cards generated by JavaScript -->
+        </div>
     </div>
     
     <script>
@@ -799,7 +749,7 @@
         
         function generateCards() {
             console.log('Generating cards...');
-            const container = document.getElementById('cardsContainer');
+            const container = document.getElementById('cardsGrid');
             container.innerHTML = '';
             
             console.log(`Processing ${personasData.length} personas...`);
@@ -912,6 +862,7 @@
         function setupDeckBox() {
             const deckBox = document.getElementById('deckBox');
             const deckLid = document.getElementById('deckLid');
+            const deckOverlay = document.getElementById('deckOverlay');
             const cardsContainer = document.getElementById('cardsContainer');
             const filterButtons = document.querySelector('.filter-buttons');
             
@@ -922,11 +873,6 @@
                     
                     // Open lid immediately
                     deckLid.classList.add('open');
-                    
-                    // Start deck fade after short delay
-                    setTimeout(() => {
-                        deckBox.classList.add('opened');
-                    }, 500);
                     
                     // Create sparkles
                     for (let i = 0; i < 25; i++) {
@@ -940,9 +886,10 @@
                         }, i * 50);
                     }
                     
-                    // Show cards after deck completely fades
+                    // Hide deck overlay and show cards
                     setTimeout(() => {
-                        console.log('Showing cards...');
+                        console.log('Hiding deck overlay and showing cards...');
+                        deckOverlay.classList.add('hidden');
                         cardsContainer.classList.add('show');
                         filterButtons.style.opacity = '1';
                         
@@ -950,7 +897,7 @@
                         setTimeout(() => {
                             setupCardFlipping();
                         }, 500);
-                    }, 2500); // Wait longer for deck to fade completely
+                    }, 1500);
                 }
             };
         }
@@ -1008,8 +955,6 @@
             // Setup systems
             setupDeckBox();
             setupFilters();
-            
-            // DON'T setup card flipping yet - wait for deck animation
             
             console.log('Ready! Click the deck to begin...');
         });
