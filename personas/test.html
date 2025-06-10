@@ -185,7 +185,7 @@
             height: 200px;
             margin-bottom: 30px;
             background: transparent;
-            border: 1px solid var(--silver);
+            border: none;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -219,6 +219,10 @@
         }
         
         .click-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 1rem;
             animation: mystical-pulse-text 2s infinite;
         }
@@ -564,7 +568,7 @@
         
         .logo-space {
             position: absolute;
-            bottom: 20px;
+            bottom: 25px;
             left: 15px;
             right: 15px;
             height: 80px;
@@ -705,8 +709,8 @@
                 <div class="deck-logo">
                     <img src="logoback.png" alt="Ultra Keith Logo">
                 </div>
-                <div class="click-hint">Click to Open the Portal</div>
             </div>
+            <div class="click-hint">Click to Open the Portal</div>
         </div>
     </div>
     
