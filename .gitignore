@@ -1,0 +1,15 @@
+# API Keys and Secrets - NEVER COMMIT THESE!
+config.js
+api-keys.js
+*.env
+.env
+.env.local
+.env.production
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
