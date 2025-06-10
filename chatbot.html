@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keith AI - Digital Laboratory</title>
+    <title>Keith AI - Digital Mind Interface</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
@@ -25,34 +25,14 @@
             position: relative;
         }
         
-        /* Subtle Grid Background */
-        .lab-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 215, 0, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 215, 0, 0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: 1;
-            animation: gridPulse 6s ease-in-out infinite;
-        }
-        
-        @keyframes gridPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-        
-        /* Circuit Lines (Fewer for Mobile) */
+        /* Animated Background Elements */
         .circuit-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.08;
+            opacity: 0.1;
             z-index: 1;
         }
         
@@ -60,18 +40,24 @@
             position: absolute;
             background: linear-gradient(90deg, transparent, #ffd700, transparent);
             height: 1px;
-            animation: circuitFlow 5s linear infinite;
+            animation: circuitFlow 4s linear infinite;
         }
         
         .circuit-line:nth-child(1) {
-            top: 25%;
-            width: 200px;
+            top: 20%;
+            width: 300px;
             animation-delay: 0s;
         }
         
         .circuit-line:nth-child(2) {
-            top: 75%;
-            width: 300px;
+            top: 60%;
+            width: 400px;
+            animation-delay: 1s;
+        }
+        
+        .circuit-line:nth-child(3) {
+            top: 80%;
+            width: 250px;
             animation-delay: 2s;
         }
         
@@ -139,54 +125,35 @@
             padding: 100px 20px 40px;
         }
         
-        /* Lab Frame Around Everything */
-        .lab-frame {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(0, 20, 40, 0.6));
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px 30px;
-            backdrop-filter: blur(15px);
-            box-shadow: 
-                0 0 40px rgba(0, 0, 0, 0.8),
-                inset 0 0 40px rgba(255, 215, 0, 0.05);
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
-        
-        /* AI Keith Image with Hologram Effect */
+        /* AI Keith Image */
         .ai-keith-wrapper {
             position: relative;
-            margin-bottom: 30px;
-            display: inline-block;
+            margin-bottom: 40px;
         }
         
         .ai-keith-image {
-            width: 280px;
-            height: 370px;
+            width: 300px;
+            height: 400px;
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 20px;
             border: 3px solid rgba(255, 215, 0, 0.6);
             box-shadow: 
-                0 0 40px rgba(255, 215, 0, 0.4),
-                inset 0 0 40px rgba(255, 215, 0, 0.1);
+                0 0 50px rgba(255, 215, 0, 0.4),
+                inset 0 0 50px rgba(255, 215, 0, 0.1);
             transition: all 0.5s ease;
-            animation: hologramGlow 3s ease-in-out infinite alternate;
-            filter: hue-rotate(10deg) brightness(1.05);
+            animation: aiGlow 3s ease-in-out infinite alternate;
         }
         
-        @keyframes hologramGlow {
+        @keyframes aiGlow {
             0% { 
                 box-shadow: 
                     0 0 30px rgba(255, 215, 0, 0.3),
                     inset 0 0 30px rgba(255, 215, 0, 0.1);
-                filter: hue-rotate(10deg) brightness(1.05);
             }
             100% { 
                 box-shadow: 
                     0 0 60px rgba(255, 215, 0, 0.6),
                     inset 0 0 60px rgba(255, 215, 0, 0.2);
-                filter: hue-rotate(20deg) brightness(1.15);
             }
         }
         
@@ -195,7 +162,6 @@
             box-shadow: 
                 0 0 80px rgba(255, 215, 0, 0.8),
                 inset 0 0 80px rgba(255, 215, 0, 0.3);
-            filter: hue-rotate(30deg) brightness(1.2);
         }
         
         /* Scanning Lines Effect */
@@ -208,24 +174,23 @@
             background: linear-gradient(
                 0deg,
                 transparent 0%,
-                rgba(0, 255, 255, 0.2) 50%,
+                rgba(255, 215, 0, 0.1) 50%,
                 transparent 100%
             );
-            height: 25px;
-            animation: scanAnimation 3s linear infinite;
-            border-radius: 15px;
-            pointer-events: none;
+            height: 20px;
+            animation: scanAnimation 2s linear infinite;
+            border-radius: 20px;
         }
         
         @keyframes scanAnimation {
-            0% { transform: translateY(-25px); }
-            100% { transform: translateY(395px); }
+            0% { transform: translateY(-20px); }
+            100% { transform: translateY(420px); }
         }
         
         /* Text Content */
         .ai-title {
             font-family: 'Orbitron', monospace;
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 900;
             background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
             background-size: 200% 200%;
@@ -234,6 +199,7 @@
             background-clip: text;
             animation: gradientShift 3s ease-in-out infinite;
             margin-bottom: 15px;
+            text-align: center;
         }
         
         @keyframes gradientShift {
@@ -243,55 +209,44 @@
         
         .ai-subtitle {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 10px;
+            text-align: center;
             font-weight: 300;
         }
         
         .ai-description {
             color: rgba(255, 255, 255, 0.7);
             font-size: 1rem;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 600px;
             line-height: 1.6;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
         }
         
-        /* Simple Status Display */
+        /* Status Indicator */
         .ai-status {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 30px;
             font-family: 'Orbitron', monospace;
             font-size: 0.9rem;
             color: #ffd700;
         }
         
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
         .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #00ff00;
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
             border-radius: 50%;
             animation: statusPulse 1.5s ease-in-out infinite;
-            box-shadow: 0 0 10px #00ff00;
         }
         
         @keyframes statusPulse {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.2); }
+            50% { opacity: 0.5; transform: scale(1.2); }
         }
         
         /* Enter Button */
@@ -349,7 +304,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             justify-content: center;
             align-items: center;
@@ -363,10 +318,10 @@
         }
         
         .loading-spinner {
-            width: 70px;
-            height: 70px;
-            border: 4px solid rgba(255, 215, 0, 0.3);
-            border-top: 4px solid #ffd700;
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            border-top: 3px solid #ffd700;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
@@ -379,14 +334,9 @@
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .lab-frame {
-                padding: 30px 20px;
-                margin: 0 10px;
-            }
-            
             .ai-keith-image {
-                width: 230px;
-                height: 305px;
+                width: 250px;
+                height: 330px;
             }
             
             .ai-title {
@@ -399,18 +349,12 @@
             
             .ai-description {
                 font-size: 0.9rem;
-            }
-            
-            .ai-status {
-                flex-direction: column;
-                gap: 10px;
+                padding: 0 20px;
             }
             
             .enter-btn {
                 padding: 15px 35px;
                 font-size: 1rem;
-                width: 100%;
-                max-width: 300px;
             }
             
             .nav-menu {
@@ -421,15 +365,11 @@
         @media (max-width: 480px) {
             .ai-keith-image {
                 width: 200px;
-                height: 265px;
+                height: 280px;
             }
             
             .ai-title {
-                font-size: 1.9rem;
-            }
-            
-            .lab-frame {
-                padding: 25px 15px;
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -448,59 +388,54 @@
         </div>
     </nav>
 
-    <!-- Background Effects -->
-    <div class="lab-grid"></div>
+    <!-- Animated Background -->
     <div class="circuit-bg">
+        <div class="circuit-line"></div>
         <div class="circuit-line"></div>
         <div class="circuit-line"></div>
     </div>
 
     <!-- Main AI Interface -->
     <div class="ai-container">
-        <div class="lab-frame">
-            <div class="ai-keith-wrapper">
-                <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
-                <div class="scan-lines"></div>
-            </div>
-            
-            <h1 class="ai-title">KEITH AI</h1>
-            <p class="ai-subtitle">Digital Laboratory Interface</p>
-            <p class="ai-description">
-                Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
-                Chat with the digital personas containing decades of lyrical genius and abstract wisdom.
-            </p>
-            
-            <div class="ai-status">
-                <div class="status-indicator">
-                    <div class="status-dot"></div>
-                    <span>NEURAL NETWORK ONLINE</span>
-                </div>
-            </div>
-            
-            <button class="enter-btn" id="enterChatBtn">
-                Initialize Connection
-            </button>
+        <div class="ai-keith-wrapper">
+            <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
+            <div class="scan-lines"></div>
         </div>
+        
+        <h1 class="ai-title">KEITH AI</h1>
+        <p class="ai-subtitle">Digital Mind Interface</p>
+        <p class="ai-description">
+            Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
+            Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
+            Each AI personality contains decades of lyrical genius and abstract wisdom.
+        </p>
+        
+        <div class="ai-status">
+            <div class="status-dot"></div>
+            <span>AI SYSTEM ONLINE</span>
+        </div>
+        
+        <button class="enter-btn" id="enterChatBtn">
+            Initialize Connection
+        </button>
     </div>
 
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
             <div class="loading-spinner"></div>
-            <p>Activating Keith AI Protocol...</p>
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Establishing neural connection...</p>
+            <p>Connecting to Keith AI...</p>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 10px;">Initializing neural networks...</p>
         </div>
     </div>
 
     <script>
-        // Enhanced hologram click interaction
+        // Add click event to Keith AI image
         document.getElementById('aiKeithImage').addEventListener('click', function() {
-            this.style.transform = 'scale(1.1) rotateY(15deg)';
-            this.style.filter = 'hue-rotate(60deg) brightness(1.3)';
+            this.style.transform = 'scale(1.1) rotateY(10deg)';
             setTimeout(() => {
                 this.style.transform = 'scale(1) rotateY(0deg)';
-                this.style.filter = 'hue-rotate(10deg) brightness(1.05)';
-            }, 300);
+            }, 200);
         });
 
         // Enter chat button functionality
@@ -521,31 +456,23 @@
             }
         });
 
-        // Random hologram flicker effect
-        function randomFlicker() {
-            const image = document.getElementById('aiKeithImage');
-            const originalOpacity = getComputedStyle(image).opacity;
-            
-            image.style.opacity = '0.7';
-            setTimeout(() => {
-                image.style.opacity = originalOpacity;
-            }, 100);
+        // Add some interactive sound effects (optional)
+        function playStartupSound() {
+            // You can add audio elements here if you have Keith voice samples
+            console.log('Keith AI startup sound would play here');
         }
-        
-        // Random flicker every 8-15 seconds
-        setInterval(randomFlicker, Math.random() * 7000 + 8000);
 
-        // Initialize on page load with entrance animation
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const frame = document.querySelector('.lab-frame');
-            frame.style.opacity = '0';
-            frame.style.transform = 'translateY(30px)';
+            // Optional: play startup sound
+            setTimeout(playStartupSound, 1000);
             
+            // Add entrance animation
+            document.querySelector('.ai-container').style.opacity = '0';
             setTimeout(() => {
-                frame.style.transition = 'opacity 1s ease, transform 1s ease';
-                frame.style.opacity = '1';
-                frame.style.transform = 'translateY(0)';
-            }, 200);
+                document.querySelector('.ai-container').style.transition = 'opacity 1s ease';
+                document.querySelector('.ai-container').style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
