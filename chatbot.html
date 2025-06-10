@@ -142,6 +142,61 @@
                 inset 0 0 30px rgba(255, 215, 0, 0.08);
             transition: all 0.5s ease;
             animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Hair Poking Out Effect */
+        .hair-extension {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 20px;
+            background: 
+                radial-gradient(ellipse, rgba(184, 134, 11, 0.8) 20%, rgba(218, 165, 32, 0.6) 40%, transparent 70%);
+            border-radius: 50% 50% 20% 20%;
+            z-index: 3;
+            animation: hairGlow 3s ease-in-out infinite alternate;
+            filter: blur(1px);
+        }
+        
+        .hair-extension::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 20%;
+            width: 30px;
+            height: 15px;
+            background: 
+                radial-gradient(ellipse, rgba(255, 215, 0, 0.4) 30%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(0.5px);
+        }
+        
+        .hair-extension::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: 25%;
+            width: 25px;
+            height: 12px;
+            background: 
+                radial-gradient(ellipse, rgba(255, 215, 0, 0.3) 40%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(0.5px);
+        }
+        
+        @keyframes hairGlow {
+            0% { 
+                opacity: 0.6;
+                filter: blur(1px);
+            }
+            100% { 
+                opacity: 0.8;
+                filter: blur(0.8px);
+            }
         }
         
         @keyframes aiGlow {
@@ -502,6 +557,7 @@
     <!-- Main AI Interface -->
     <div class="ai-container">
         <div class="ai-keith-wrapper">
+            <div class="hair-extension"></div>
             <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
             <div class="scan-lines"></div>
             <div class="digital-static"></div>
