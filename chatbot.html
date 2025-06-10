@@ -129,12 +129,14 @@
         .ai-keith-wrapper {
             position: relative;
             margin-bottom: 40px;
+            overflow: visible;
         }
         
         .ai-keith-image {
             width: 300px;
             height: 400px;
             object-fit: cover;
+            object-position: center top;
             border-radius: 20px;
             border: 1px solid rgba(255, 215, 0, 0.6);
             box-shadow: 
@@ -144,59 +146,24 @@
             animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
             position: relative;
             z-index: 2;
+            clip-path: polygon(0 8%, 100% 8%, 100% 100%, 0 100%);
         }
         
-        /* Hair Poking Out Effect */
-        .hair-extension {
+        /* Image Overflow at Top */
+        .ai-keith-image::before {
+            content: '';
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 20px;
-            background: 
-                radial-gradient(ellipse, rgba(184, 134, 11, 0.8) 20%, rgba(218, 165, 32, 0.6) 40%, transparent 70%);
-            border-radius: 50% 50% 20% 20%;
+            top: -32px;
+            left: -1px;
+            right: -1px;
+            height: 40px;
+            background-image: inherit;
+            background-size: 300px 400px;
+            background-position: center top;
+            background-repeat: no-repeat;
+            border-radius: 20px 20px 0 0;
             z-index: 3;
-            animation: hairGlow 3s ease-in-out infinite alternate;
-            filter: blur(1px);
-        }
-        
-        .hair-extension::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 20%;
-            width: 30px;
-            height: 15px;
-            background: 
-                radial-gradient(ellipse, rgba(255, 215, 0, 0.4) 30%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(0.5px);
-        }
-        
-        .hair-extension::after {
-            content: '';
-            position: absolute;
-            top: -3px;
-            right: 25%;
-            width: 25px;
-            height: 12px;
-            background: 
-                radial-gradient(ellipse, rgba(255, 215, 0, 0.3) 40%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(0.5px);
-        }
-        
-        @keyframes hairGlow {
-            0% { 
-                opacity: 0.6;
-                filter: blur(1px);
-            }
-            100% { 
-                opacity: 0.8;
-                filter: blur(0.8px);
-            }
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 80%);
         }
         
         @keyframes aiGlow {
@@ -557,7 +524,6 @@
     <!-- Main AI Interface -->
     <div class="ai-container">
         <div class="ai-keith-wrapper">
-            <div class="hair-extension"></div>
             <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
             <div class="scan-lines"></div>
             <div class="digital-static"></div>
