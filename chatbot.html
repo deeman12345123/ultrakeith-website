@@ -143,9 +143,63 @@
                 0 0 50px rgba(255, 215, 0, 0.4),
                 inset 0 0 50px rgba(255, 215, 0, 0.1);
             transition: all 0.5s ease;
-            animation: aiGlow 3s ease-in-out infinite alternate;
+            animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 4s ease-in-out infinite;
             position: relative;
             z-index: 2;
+        }
+        
+        /* Wave Distortion Animation */
+        @keyframes waveDistortion {
+            0% { 
+                filter: 
+                    blur(0px) 
+                    hue-rotate(0deg);
+                transform: 
+                    perspective(1000px) 
+                    rotateX(0deg) 
+                    rotateY(0deg) 
+                    skewX(0deg);
+            }
+            25% { 
+                filter: 
+                    blur(0.5px) 
+                    hue-rotate(5deg);
+                transform: 
+                    perspective(1000px) 
+                    rotateX(1deg) 
+                    rotateY(-0.5deg) 
+                    skewX(0.5deg);
+            }
+            50% { 
+                filter: 
+                    blur(0px) 
+                    hue-rotate(10deg);
+                transform: 
+                    perspective(1000px) 
+                    rotateX(-1deg) 
+                    rotateY(1deg) 
+                    skewX(-0.5deg);
+            }
+            75% { 
+                filter: 
+                    blur(0.3px) 
+                    hue-rotate(5deg);
+                transform: 
+                    perspective(1000px) 
+                    rotateX(0.5deg) 
+                    rotateY(-0.5deg) 
+                    skewX(0.3deg);
+            }
+            100% { 
+                filter: 
+                    blur(0px) 
+                    hue-rotate(0deg);
+                transform: 
+                    perspective(1000px) 
+                    rotateX(0deg) 
+                    rotateY(0deg) 
+                    skewX(0deg);
+            }
         }
         
         @keyframes aiGlow {
@@ -265,35 +319,72 @@
             100% { transform: translateY(4px); }
         }
         
-        /* Glitch Effect */
-        .glitch-overlay {
+        /* Signal Interference Lines */
+        .interference-lines {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                rgba(255, 0, 0, 0.1) 10%,
-                transparent 20%,
-                rgba(0, 255, 255, 0.1) 30%,
-                transparent 40%
-            );
-            opacity: 0;
-            animation: glitchWave 8s infinite;
+            background: 
+                linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.1) 25%,
+                    transparent 50%,
+                    rgba(0, 0, 0, 0.1) 75%,
+                    transparent 100%
+                );
             pointer-events: none;
-            z-index: 5;
+            z-index: 9;
             border-radius: 20px;
+            animation: interferenceWave 2s ease-in-out infinite;
+            transform-origin: center;
         }
         
-        @keyframes glitchWave {
-            0%, 95% { opacity: 0; transform: translateX(0); }
-            96% { opacity: 0.7; transform: translateX(-2px); }
-            97% { opacity: 0.8; transform: translateX(2px); }
-            98% { opacity: 0.6; transform: translateX(-1px); }
-            99% { opacity: 0.4; transform: translateX(1px); }
-            100% { opacity: 0; transform: translateX(0); }
+        @keyframes interferenceWave {
+            0% { 
+                transform: 
+                    translateX(0px) 
+                    scaleY(1) 
+                    skewY(0deg);
+                opacity: 0;
+            }
+            20% { 
+                transform: 
+                    translateX(5px) 
+                    scaleY(1.02) 
+                    skewY(0.5deg);
+                opacity: 0.3;
+            }
+            40% { 
+                transform: 
+                    translateX(-3px) 
+                    scaleY(0.98) 
+                    skewY(-0.3deg);
+                opacity: 0.5;
+            }
+            60% { 
+                transform: 
+                    translateX(2px) 
+                    scaleY(1.01) 
+                    skewY(0.2deg);
+                opacity: 0.2;
+            }
+            80% { 
+                transform: 
+                    translateX(-1px) 
+                    scaleY(0.99) 
+                    skewY(-0.1deg);
+                opacity: 0.1;
+            }
+            100% { 
+                transform: 
+                    translateX(0px) 
+                    scaleY(1) 
+                    skewY(0deg);
+                opacity: 0;
+            }
         }
         
         /* RGB Split Effect (on hover) */
@@ -332,29 +423,65 @@
             }
         }
         
-        /* Scanning Lines Effect */
-        .scan-lines {
+        /* Horizontal Scanning Lines that Bend the Image */
+        .scan-bend-lines {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                0deg,
-                transparent 0%,
-                rgba(255, 215, 0, 0.15) 50%,
-                transparent 100%
-            );
-            height: 20px;
-            animation: scanAnimation 3s linear infinite;
-            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.05) 3px,
+                    transparent 4px
+                );
             pointer-events: none;
-            z-index: 6;
+            z-index: 8;
+            border-radius: 20px;
+            animation: scanBend 3s ease-in-out infinite;
+            mix-blend-mode: overlay;
         }
         
-        @keyframes scanAnimation {
-            0% { transform: translateY(-20px); }
-            100% { transform: translateY(420px); }
+        @keyframes scanBend {
+            0% { 
+                transform: 
+                    skewX(0deg) 
+                    scaleX(1) 
+                    translateX(0px);
+                filter: contrast(1);
+            }
+            25% { 
+                transform: 
+                    skewX(1deg) 
+                    scaleX(1.02) 
+                    translateX(2px);
+                filter: contrast(1.1);
+            }
+            50% { 
+                transform: 
+                    skewX(-0.5deg) 
+                    scaleX(0.98) 
+                    translateX(-1px);
+                filter: contrast(0.9);
+            }
+            75% { 
+                transform: 
+                    skewX(0.8deg) 
+                    scaleX(1.01) 
+                    translateX(1px);
+                filter: contrast(1.05);
+            }
+            100% { 
+                transform: 
+                    skewX(0deg) 
+                    scaleX(1) 
+                    translateX(0px);
+                filter: contrast(1);
+            }
         }
         
         /* Random Static Burst - B&W TV Style */
@@ -539,18 +666,79 @@
             height: 300px;
         }
         
-        /* Loading Overlay */
+        /* Loading Overlay with B&W Static */
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: 
+                radial-gradient(circle, black 0.5px, transparent 0.5px),
+                radial-gradient(circle, white 0.5px, transparent 0.5px),
+                radial-gradient(circle, #666 0.5px, transparent 0.5px),
+                radial-gradient(circle, #333 0.5px, transparent 0.5px),
+                rgba(0, 0, 0, 0.85);
+            background-size: 
+                6px 6px,
+                8px 8px,
+                4px 4px,
+                10px 10px,
+                100% 100%;
+            background-position:
+                0 0,
+                3px 3px,
+                1px 1px,
+                5px 5px,
+                0 0;
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            animation: loadingStatic 0.15s infinite;
+        }
+        
+        @keyframes loadingStatic {
+            0% { 
+                background-position:
+                    0 0,
+                    3px 3px,
+                    1px 1px,
+                    5px 5px,
+                    0 0;
+            }
+            25% { 
+                background-position:
+                    2px 1px,
+                    5px 1px,
+                    3px 3px,
+                    7px 3px,
+                    0 0;
+            }
+            50% { 
+                background-position:
+                    4px 2px,
+                    1px 5px,
+                    5px 1px,
+                    3px 7px,
+                    0 0;
+            }
+            75% { 
+                background-position:
+                    1px 4px,
+                    7px 2px,
+                    2px 4px,
+                    8px 1px,
+                    0 0;
+            }
+            100% { 
+                background-position:
+                    0 0,
+                    3px 3px,
+                    1px 1px,
+                    5px 5px,
+                    0 0;
+            }
         }
         
         .loading-content {
@@ -643,9 +831,9 @@
             <img src="aikeith.png" alt="Keith AI" class="ai-keith-image tv-turnon" id="aiKeithImage">
             <div class="tv-static"></div>
             <div class="crt-scanlines"></div>
-            <div class="glitch-overlay"></div>
+            <div class="scan-bend-lines"></div>
+            <div class="interference-lines"></div>
             <div class="static-burst"></div>
-            <div class="scan-lines"></div>
         </div>
         
         <h1 class="ai-title">KEITH AI</h1>
