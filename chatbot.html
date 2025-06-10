@@ -1,28 +1,4 @@
-/* Keith Image */
-        .ai-keith-image {
-            width: 300px;
-            height: 450px;
-            object-fit: contain;
-            object-position: center bottom;
-            border-radius: 20px;
-            transition: all 0.5s ease;
-            animation: aiGlow 3s ease-in-out infinite alternate;
-            position: relative;
-            z-index: 2;
-        }
-        
-        @keyframes aiGlow {
-            0% { 
-                filter: brightness(1) contrast(1);
-            }
-            100% { 
-                filter: brightness(1.1) contrast(1.05);
-            }
-        }
-        
-        .ai-keith-image:hover {
-            transform: scale(1.05);
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -124,19 +100,17 @@
             align-items: center;
         }
         
-        /* Keith Image - positioned to extend above border */
+        /* Keith Image - stays in same position */
         .ai-keith-image {
             width: 300px;
             height: 450px;
             object-fit: contain;
             object-position: center bottom;
-            border-radius: 0;
-            border: none;
+            border-radius: 20px;
             transition: all 0.5s ease;
-            animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
+            animation: aiGlow 3s ease-in-out infinite alternate;
             position: relative;
             z-index: 2;
-            transform: translateY(-80px);
         }
         
         @keyframes aiGlow {
@@ -148,82 +122,27 @@
             }
         }
         
-        @keyframes waveDistortion {
-            0% { 
-                transform: translateY(-80px) perspective(1000px) rotateX(0deg) skewX(0deg);
-            }
-            25% { 
-                transform: translateY(-80px) perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
-            }
-            50% { 
-                transform: translateY(-80px) perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
-            }
-            75% { 
-                transform: translateY(-80px) perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
-            }
-            100% { 
-                transform: translateY(-80px) perspective(1000px) rotateX(0deg) skewX(0deg);
-            }
-        }
-        
         .ai-keith-image:hover {
-            transform: translateY(-80px) scale(1.05);
+            transform: scale(1.05);
         }
         
-        /* Complete border frame - positioned for proper layering */
+        /* Border frame - wider and moved up to contain the image */
         .border-frame {
             position: absolute;
-            bottom: 50px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 300px;
-            height: 350px;
+            width: 340px;
+            height: 480px;
+            border: 1px solid rgba(255, 215, 0, 0.9);
+            border-radius: 20px;
+            box-shadow: 
+                0 0 25px rgba(255, 215, 0, 0.4),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: borderGlow 3s ease-in-out infinite alternate;
             pointer-events: none;
             z-index: 1;
-        }
-        
-        .border-frame::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 1px solid rgba(255, 215, 0, 0.9);
-            border-radius: 20px;
-            box-shadow: 
-                0 0 25px rgba(255, 215, 0, 0.4),
-                inset 0 0 30px rgba(255, 215, 0, 0.1);
-            animation: borderGlow 3s ease-in-out infinite alternate;
-        }3;
-        }
-        
-        .border-frame::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 1px solid rgba(255, 215, 0, 0.9);
-            border-radius: 20px;
-            box-shadow: 
-                0 0 25px rgba(255, 215, 0, 0.4),
-                inset 0 0 30px rgba(255, 215, 0, 0.1);
-            animation: borderGlow 3s ease-in-out infinite alternate;
-            /* Custom clip path to curve around hair and cut across bottom */
-            clip-path: polygon(
-                0% 40%,           /* Start left side below hair level */
-                0% 100%,          /* Left bottom corner */
-                100% 100%,        /* Right bottom corner */
-                100% 40%,         /* Right side below hair level */
-                85% 35%,          /* Start curve around hair */
-                75% 25%,          /* Curve point 1 */
-                60% 20%,          /* Curve point 2 */
-                40% 20%,          /* Curve point 3 */
-                25% 25%,          /* Curve point 4 */
-                15% 35%           /* End curve back to left */
-            );
+            background: transparent;
         }
         
         @keyframes borderGlow {
@@ -244,11 +163,11 @@
         /* Scanning Lines Effect */
         .scan-lines {
             position: absolute;
-            bottom: 80px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
+            width: 340px;
+            height: 480px;
             border-radius: 20px;
             pointer-events: none;
             z-index: 4;
@@ -273,17 +192,17 @@
         
         @keyframes scanAnimation {
             0% { transform: translateY(-20px); }
-            100% { transform: translateY(320px); }
+            100% { transform: translateY(500px); }
         }
         
         /* Digital Static */
         .digital-static {
             position: absolute;
-            bottom: 80px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
+            width: 340px;
+            height: 480px;
             background: 
                 radial-gradient(circle, rgba(160, 160, 160, 0.03) 1px, transparent 1px),
                 radial-gradient(circle, rgba(120, 120, 120, 0.02) 0.5px, transparent 0.5px);
@@ -302,36 +221,6 @@
             96% { opacity: 0.2; }
             98% { opacity: 0; }
             100% { opacity: 0; }
-        }
-        
-        /* Bottom border overlay - goes over Keith's lower body */
-        .border-bottom-overlay {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 80px;
-            border-left: 1px solid rgba(255, 215, 0, 0.9);
-            border-right: 1px solid rgba(255, 215, 0, 0.9);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.9);
-            border-radius: 0 0 20px 20px;
-            box-shadow: 
-                0 0 25px rgba(255, 215, 0, 0.4),
-                inset 0 0 30px rgba(255, 215, 0, 0.1);
-            animation: borderGlow 3s ease-in-out infinite alternate;
-            pointer-events: none;
-            z-index: 5;
-            background: transparent;
-        }
-        
-        @keyframes interferenceWave {
-            0%, 85% { opacity: 0; transform: translateX(-50%) translateX(0); }
-            87% { opacity: 0.4; transform: translateX(-50%) translateX(2px); }
-            89% { opacity: 0.2; transform: translateX(-50%) translateX(-1px); }
-            91% { opacity: 0.1; transform: translateX(-50%) translateX(1px); }
-            93% { opacity: 0; transform: translateX(-50%) translateX(0); }
-            100% { opacity: 0; transform: translateX(-50%) translateX(0); }
         }
         
         /* Terminal Display */
@@ -550,59 +439,35 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 170px;
+                margin-bottom: 70px;
             }
             
             .ai-keith-image {
                 width: 250px;
                 height: 375px;
-                transform: translateY(-50px);
-            }
-            
-            @keyframes waveDistortion {
-                0% { 
-                    transform: translateY(-50px) perspective(1000px) rotateX(0deg) skewX(0deg);
-                }
-                25% { 
-                    transform: translateY(-50px) perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
-                }
-                50% { 
-                    transform: translateY(-50px) perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
-                }
-                75% { 
-                    transform: translateY(-50px) perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
-                }
-                100% { 
-                    transform: translateY(-50px) perspective(1000px) rotateX(0deg) skewX(0deg);
-                }
-            }
-            
-            .ai-keith-image:hover {
-                transform: translateY(-50px) scale(1.05);
             }
             
             .border-frame {
-                width: 250px;
-                height: 250px;
-                bottom: 60px;
+                width: 280px;
+                height: 400px;
+                top: -25px;
             }
             
             .scan-lines {
-                width: 250px;
-                height: 250px;
-                bottom: 60px;
+                width: 280px;
+                height: 400px;
+                top: -25px;
             }
             
-            .digital-static,
-            .signal-interference {
-                width: 250px;
-                height: 250px;
-                bottom: 60px;
+            .digital-static {
+                width: 280px;
+                height: 400px;
+                top: -25px;
             }
             
             .terminal-display {
                 width: 320px;
-                bottom: -145px;
+                bottom: -70px;
                 font-size: 0.7rem;
                 padding: 12px;
             }
@@ -641,41 +506,35 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 165px;
+                margin-bottom: 65px;
             }
             
             .ai-keith-image {
                 width: 200px;
                 height: 300px;
-                transform: translateY(-40px);
-            }
-            
-            .ai-keith-image:hover {
-                transform: translateY(-40px) scale(1.05);
             }
             
             .border-frame {
-                width: 200px;
-                height: 200px;
-                bottom: 40px;
+                width: 230px;
+                height: 330px;
+                top: -20px;
             }
             
             .scan-lines {
-                width: 200px;
-                height: 200px;
-                bottom: 40px;
+                width: 230px;
+                height: 330px;
+                top: -20px;
             }
             
-            .digital-static,
-            .signal-interference {
-                width: 200px;
-                height: 200px;
-                bottom: 40px;
+            .digital-static {
+                width: 230px;
+                height: 330px;
+                top: -20px;
             }
             
             .terminal-display {
                 width: 280px;
-                bottom: -140px;
+                bottom: -65px;
                 font-size: 0.65rem;
                 padding: 10px;
             }
