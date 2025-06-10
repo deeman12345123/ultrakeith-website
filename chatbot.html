@@ -619,7 +619,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 70px;
+                margin-bottom: 85px;
             }
             
             .ai-keith-image {
@@ -633,10 +633,14 @@
             }
             
             .terminal-display {
-                width: 280px;
-                bottom: -40px;
-                font-size: 0.7rem;
+                width: 300px;
+                bottom: -55px;
+                font-size: 0.65rem;
                 padding: 10px 12px;
+            }
+            
+            .terminal-header, .terminal-stats {
+                font-size: 0.55rem;
             }
             
             .ai-title {
@@ -664,7 +668,7 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 65px;
+                margin-bottom: 80px;
             }
             
             .ai-keith-image {
@@ -678,10 +682,14 @@
             }
             
             .terminal-display {
-                width: 240px;
-                bottom: -35px;
-                font-size: 0.65rem;
+                width: 260px;
+                bottom: -50px;
+                font-size: 0.6rem;
                 padding: 8px 10px;
+            }
+            
+            .terminal-header, .terminal-stats {
+                font-size: 0.5rem;
             }
             
             .ai-title {
@@ -728,11 +736,20 @@
             <div class="digital-static"></div>
             <div class="signal-interference"></div>
             
-            <!-- Terminal Display -->
+            <!-- Enhanced Terminal Display -->
             <div class="terminal-display">
+                <div class="terminal-header">
+                    <span class="terminal-version">KEITH.GPT v4.2</span>
+                    <span class="terminal-status">ONLINE</span>
+                </div>
                 <div class="terminal-line">
                     <span class="terminal-prompt">$</span>
                     <span class="terminal-text" id="terminalText">Initializing neural networks...</span>
+                </div>
+                <div class="terminal-stats">
+                    <span>CPU: <span id="cpuUsage">87%</span></span>
+                    <span>MEM: <span id="memUsage">12.4GB</span></span>
+                    <span>PING: <span id="pingTime">8ms</span></span>
                 </div>
             </div>
         </div>
@@ -791,52 +808,88 @@
             }
         });
 
-        // Terminal text cycling with AI diagnostic messages
+        // Enhanced terminal with Keith.GPT and system stats
         const terminalMessages = [
             "Initializing neural networks...",
-            "Loading language models...",
+            "Loading KEITH.GPT language model...",
             "Calibrating response parameters...",
             "Running system diagnostics...",
             "Checking memory allocation...",
-            "Verifying data integrity...",
+            "Verifying persona integrity...",
             "Optimizing processing cores...",
-            "Establishing secure connection...",
             "Loading personality matrices...",
-            "Synchronizing databases...",
-            "Analyzing input patterns...",
+            "Synchronizing lyrical databases...",
+            "Analyzing abstract patterns...",
             "Configuring output filters...",
             "Testing response algorithms...",
             "Validating system status...",
+            "Establishing secure connection...",
             "AI ready for interaction..."
         ];
         
         let currentMessageIndex = 0;
+        let isTyping = false;
         
         function typeMessage(message, callback) {
+            if (isTyping) return;
+            isTyping = true;
+            
             const terminalText = document.getElementById('terminalText');
-            terminalText.textContent = '';
+            terminalText.textContent = message;
+            terminalText.className = 'terminal-text typing';
             terminalText.style.width = '0';
-            terminalText.style.animation = 'none';
+            
+            // Reset animation
+            setTimeout(() => {
+                terminalText.style.animation = 'typeText 2.5s steps(50) forwards, blinkCursor 0.8s infinite';
+            }, 50);
             
             setTimeout(() => {
-                terminalText.textContent = message;
-                terminalText.style.animation = 'typeWriter 2s steps(40) forwards, cursorBlink 0.8s infinite';
-            }, 100);
-            
-            if (callback) {
-                setTimeout(callback, 3000);
-            }
+                terminalText.className = 'terminal-text completed';
+                isTyping = false;
+                if (callback) callback();
+            }, 3000);
         }
         
         function cycleTerminalMessages() {
-            typeMessage(terminalMessages[currentMessageIndex], () => {
-                currentMessageIndex = (currentMessageIndex + 1) % terminalMessages.length;
-                setTimeout(cycleTerminalMessages, 1500);
-            });
+            if (!isTyping) {
+                typeMessage(terminalMessages[currentMessageIndex], () => {
+                    currentMessageIndex = (currentMessageIndex + 1) % terminalMessages.length;
+                    setTimeout(cycleTerminalMessages, 1500);
+                });
+            } else {
+                setTimeout(cycleTerminalMessages, 500);
+            }
         }
         
-        // Start terminal cycling after page load
-        setTimeout(cycleTerminalMessages, 2000);
+        // Update system stats randomly
+        function updateSystemStats() {
+            const cpuElement = document.getElementById('cpuUsage');
+            const memElement = document.getElementById('memUsage');
+            const pingElement = document.getElementById('pingTime');
+            
+            if (cpuElement) {
+                const cpu = (85 + Math.random() * 10).toFixed(1);
+                cpuElement.textContent = cpu + '%';
+            }
+            
+            if (memElement) {
+                const mem = (12 + Math.random() * 2).toFixed(1);
+                memElement.textContent = mem + 'GB';
+            }
+            
+            if (pingElement) {
+                const ping = Math.floor(6 + Math.random() * 8);
+                pingElement.textContent = ping + 'ms';
+            }
+        }
+        
+        // Start terminal and stats
+        setTimeout(() => {
+            cycleTerminalMessages();
+            updateSystemStats();
+            setInterval(updateSystemStats, 4000);
+        }, 2000);
 
         // Random digital glitch
         function triggerDigitalGlitch() {
