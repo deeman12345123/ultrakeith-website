@@ -193,6 +193,14 @@
             color: var(--silver);
             font-size: 1rem;
             transition: all 0.5s ease;
+            overflow: hidden;
+        }
+        
+        .deck-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0.9);
         }
         
         .deck-box.energy-building .deck-logo {
@@ -614,7 +622,9 @@
             <div class="mystical-crack crack-4"></div>
             
             <div class="deck-content">
-                <div class="deck-logo">LOGO</div>
+                <div class="deck-logo">
+                    <img src="logoback.png" alt="Ultra Keith Logo">
+                </div>
                 <div class="click-hint">Click to Open the Portal</div>
             </div>
         </div>
