@@ -390,11 +390,40 @@
             transition: all 0.3s ease;
         }
         
-        .trading-card.card-flying {
-            animation: 
-                card-scale 1.2s ease-out both,
-                card-smooth-spin 1.2s linear both;
-            transform-origin: center center;
+        /* MOBILE: Only first card animates (saves performance) */
+        @media (max-width: 768px) {
+            .trading-card:not(:first-child).card-flying {
+                animation: card-scale-only 0.8s ease-out both;
+            }
+            
+            .trading-card:first-child.card-flying {
+                animation: 
+                    card-scale 1.2s ease-out both,
+                    card-smooth-spin 1.2s linear both;
+                transform-origin: center center;
+            }
+        }
+        
+        /* DESKTOP: All cards animate but with consistent timing */
+        @media (min-width: 769px) {
+            .trading-card.card-flying {
+                animation: 
+                    card-scale 1.2s ease-out both,
+                    card-smooth-spin 1.2s linear both;
+                transform-origin: center center;
+                will-change: transform;
+            }
+        }
+        
+        @keyframes card-scale-only {
+            0% {
+                opacity: 1;
+                transform: scale(0.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         
         @keyframes card-scale {
@@ -410,10 +439,10 @@
         
         @keyframes card-smooth-spin {
             0% {
-                transform: rotateZ(0deg);
+                transform: rotateZ(0turn);
             }
             100% {
-                transform: rotateZ(360deg);
+                transform: rotateZ(1turn);
             }
         }
         
