@@ -22,7 +22,6 @@
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
         }
         
         /* Navigation */
@@ -65,7 +64,7 @@
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
         
         .nav-menu a:hover {
@@ -79,61 +78,82 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            position: relative;
-            z-index: 10;
             padding: 100px 20px 40px;
         }
         
-        /* Top Content Section */
-        .top-content {
+        /* Text Content */
+        .ai-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 15px;
             text-align: center;
-            margin-bottom: 20px;
         }
         
-        /* AI Keith Image Container */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .ai-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 300;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .ai-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        /* Image Container */
         .ai-keith-wrapper {
             position: relative;
-            margin-bottom: 200px;
-            overflow: visible;
+            margin-bottom: 120px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         
-        /* Keith Image - stays in same position */
+        /* Keith Image */
         .ai-keith-image {
             width: 300px;
             height: 450px;
             object-fit: contain;
             object-position: center bottom;
             border-radius: 20px;
-            transition: all 0.5s ease;
-            animation: aiGlow 3s ease-in-out infinite alternate;
+            transition: transform 0.5s ease;
             position: relative;
             z-index: 2;
-        }
-        
-        @keyframes aiGlow {
-            0% { 
-                filter: brightness(1) contrast(1);
-            }
-            100% { 
-                filter: brightness(1.1) contrast(1.05);
-            }
         }
         
         .ai-keith-image:hover {
             transform: scale(1.05);
         }
         
-        /* Border frame - tight around image with proper spacing */
+        /* Tight Border Frame */
         .border-frame {
             position: absolute;
-            top: -10px;
+            top: -5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 310px;
-            height: 460px;
+            width: 308px;
+            height: 458px;
             border: 1px solid rgba(255, 215, 0, 0.9);
             border-radius: 20px;
             box-shadow: 
@@ -142,7 +162,6 @@
             animation: borderGlow 3s ease-in-out infinite alternate;
             pointer-events: none;
             z-index: 1;
-            background: transparent;
         }
         
         @keyframes borderGlow {
@@ -160,17 +179,17 @@
             }
         }
         
-        /* Scanning Lines Effect */
+        /* Scan Lines */
         .scan-lines {
             position: absolute;
-            top: -10px;
+            top: -5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 310px;
-            height: 460px;
+            width: 308px;
+            height: 458px;
             border-radius: 20px;
             pointer-events: none;
-            z-index: 4;
+            z-index: 3;
             overflow: hidden;
         }
         
@@ -192,41 +211,13 @@
         
         @keyframes scanAnimation {
             0% { transform: translateY(-20px); }
-            100% { transform: translateY(480px); }
+            100% { transform: translateY(478px); }
         }
         
-        /* Digital Static */
-        .digital-static {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 310px;
-            height: 460px;
-            background: 
-                radial-gradient(circle, rgba(160, 160, 160, 0.03) 1px, transparent 1px),
-                radial-gradient(circle, rgba(120, 120, 120, 0.02) 0.5px, transparent 0.5px);
-            background-size: 8px 8px, 12px 12px;
-            opacity: 0;
-            animation: digitalFlicker 4s infinite;
-            pointer-events: none;
-            border-radius: 20px;
-            z-index: 5;
-        }
-        
-        @keyframes digitalFlicker {
-            0%, 90% { opacity: 0; }
-            92% { opacity: 0.3; }
-            94% { opacity: 0.1; }
-            96% { opacity: 0.2; }
-            98% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-        
-        /* Terminal Display - much more spacing from border */
+        /* Terminal Display */
         .terminal-display {
             position: absolute;
-            bottom: -200px;
+            bottom: -120px;
             left: 50%;
             transform: translateX(-50%);
             width: 350px;
@@ -286,13 +277,8 @@
         .terminal-text.typing::after {
             content: '█';
             color: #ffd700;
-            font-weight: normal;
             animation: blink 1s infinite;
             margin-left: 1px;
-        }
-        
-        .cursor {
-            display: none;
         }
         
         @keyframes blink {
@@ -310,46 +296,6 @@
             color: rgba(255, 215, 0, 0.7);
         }
         
-        /* Text Content */
-        .ai-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .ai-subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            text-align: center;
-            font-weight: 300;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .ai-description {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            margin-bottom: 40px;
-            text-align: center;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-        
         /* Enter Button */
         .enter-btn {
             background: linear-gradient(45deg, #ffd700, #ffed4e);
@@ -364,8 +310,6 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
         }
         
         .enter-btn:hover {
@@ -375,10 +319,6 @@
                 0 0 40px rgba(255, 215, 0, 0.6);
         }
         
-        .enter-btn:active {
-            transform: scale(0.98);
-        }
-        
         /* Loading Overlay */
         .loading-overlay {
             position: fixed;
@@ -386,33 +326,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle, black 0.5px, transparent 0.5px),
-                radial-gradient(circle, white 0.5px, transparent 0.5px),
-                radial-gradient(circle, #666 0.5px, transparent 0.5px),
-                rgba(0, 0, 0, 0.9);
-            background-size: 
-                6px 6px,
-                8px 8px,
-                4px 4px,
-                100% 100%;
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            animation: loadingStatic 0.2s infinite;
-        }
-        
-        @keyframes loadingStatic {
-            0% { 
-                background-position: 0 0, 3px 3px, 1px 1px, 0 0;
-            }
-            50% { 
-                background-position: 2px 1px, 1px 5px, 3px 2px, 0 0;
-            }
-            100% { 
-                background-position: 0 0, 3px 3px, 1px 1px, 0 0;
-            }
         }
         
         .loading-content {
@@ -439,7 +357,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 180px;
+                margin-bottom: 100px;
             }
             
             .ai-keith-image {
@@ -448,55 +366,26 @@
             }
             
             .border-frame {
-                width: 260px;
-                height: 385px;
-                top: -8px;
+                width: 258px;
+                height: 383px;
+                top: -4px;
             }
             
             .scan-lines {
-                width: 260px;
-                height: 385px;
-                top: -8px;
-            }
-            
-            .digital-static {
-                width: 260px;
-                height: 385px;
-                top: -8px;
+                width: 258px;
+                height: 383px;
+                top: -4px;
             }
             
             .terminal-display {
                 width: 320px;
-                bottom: -180px;
+                bottom: -100px;
                 font-size: 0.7rem;
                 padding: 12px;
             }
             
-            .terminal-header,
-            .terminal-stats {
-                font-size: 0.6rem;
-            }
-            
-            .terminal-content {
-                font-size: 0.65rem;
-            }
-            
             .ai-title {
                 font-size: 2.2rem;
-            }
-            
-            .ai-subtitle {
-                font-size: 1rem;
-            }
-            
-            .ai-description {
-                font-size: 0.9rem;
-                padding: 0 20px;
-            }
-            
-            .enter-btn {
-                padding: 15px 35px;
-                font-size: 1rem;
             }
             
             .nav-menu {
@@ -506,7 +395,7 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 170px;
+                margin-bottom: 90px;
             }
             
             .ai-keith-image {
@@ -515,49 +404,26 @@
             }
             
             .border-frame {
-                width: 210px;
-                height: 310px;
-                top: -6px;
+                width: 208px;
+                height: 308px;
+                top: -4px;
             }
             
             .scan-lines {
-                width: 210px;
-                height: 310px;
-                top: -6px;
-            }
-            
-            .digital-static {
-                width: 210px;
-                height: 310px;
-                top: -6px;
+                width: 208px;
+                height: 308px;
+                top: -4px;
             }
             
             .terminal-display {
                 width: 280px;
-                bottom: -170px;
+                bottom: -90px;
                 font-size: 0.65rem;
                 padding: 10px;
             }
             
-            .terminal-header,
-            .terminal-stats {
-                font-size: 0.55rem;
-            }
-            
-            .terminal-content {
-                font-size: 0.6rem;
-            }
-            
             .ai-title {
                 font-size: 1.8rem;
-            }
-            
-            .ai-subtitle {
-                font-size: 0.9rem;
-            }
-            
-            .ai-description {
-                font-size: 0.8rem;
             }
         }
     </style>
@@ -578,23 +444,20 @@
 
     <!-- Main AI Interface -->
     <div class="ai-container">
-        <!-- Title and Description at Top -->
-        <div class="top-content">
-            <h1 class="ai-title">KEITH AI</h1>
-            <p class="ai-subtitle">Neural Interface Active</p>
-            <p class="ai-description">
-                Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
-                Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
-                Each AI personality contains decades of lyrical genius and abstract wisdom.
-            </p>
-        </div>
+        <!-- Title and Description -->
+        <h1 class="ai-title">KEITH AI</h1>
+        <p class="ai-subtitle">Neural Interface Active</p>
+        <p class="ai-description">
+            Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
+            Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
+            Each AI personality contains decades of lyrical genius and abstract wisdom.
+        </p>
         
-        <!-- Keith Image and Terminal -->
+        <!-- Keith Image with Border and Effects -->
         <div class="ai-keith-wrapper">
             <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
             <div class="border-frame"></div>
             <div class="scan-lines"></div>
-            <div class="digital-static"></div>
             
             <!-- Terminal Display -->
             <div class="terminal-display">
@@ -664,7 +527,6 @@
             currentText = "";
             let charIndex = 0;
             
-            // Add typing class to show cursor
             terminalText.className = 'terminal-text typing';
             
             const typeInterval = setInterval(() => {
@@ -674,8 +536,6 @@
                     charIndex++;
                 } else {
                     clearInterval(typeInterval);
-                    
-                    // Keep cursor blinking for a moment, then move to next message
                     setTimeout(() => {
                         isTyping = false;
                         currentMessageIndex = (currentMessageIndex + 1) % messages.length;
@@ -707,14 +567,14 @@
             }
         }
         
-        // Start terminal after page load
+        // Start terminal
         setTimeout(() => {
             typeMessage();
             updateStats();
             setInterval(updateStats, 4000);
         }, 2000);
         
-        // Image interactions
+        // Image click
         document.getElementById('aiKeithImage').addEventListener('click', function() {
             this.style.transform = 'scale(1.1) rotateY(10deg)';
             setTimeout(() => {
@@ -725,38 +585,16 @@
         // Enter chat button
         document.getElementById('enterChatBtn').addEventListener('click', function() {
             document.getElementById('loadingOverlay').style.display = 'flex';
-            
             setTimeout(() => {
                 window.location.href = 'chat.html';
             }, 2500);
         });
 
-        // Keyboard shortcuts
+        // Keyboard shortcut
         document.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('enterChatBtn').click();
             }
-        });
-
-        // Digital glitch effect
-        function triggerDigitalGlitch() {
-            const image = document.getElementById('aiKeithImage');
-            image.style.filter = 'contrast(1.2) brightness(1.1)';
-            
-            setTimeout(() => {
-                image.style.filter = '';
-            }, 150);
-        }
-
-        setInterval(triggerDigitalGlitch, Math.random() * 10000 + 10000);
-
-        // Page load animation
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.ai-container').style.opacity = '0';
-            setTimeout(() => {
-                document.querySelector('.ai-container').style.transition = 'opacity 1s ease';
-                document.querySelector('.ai-container').style.opacity = '1';
-            }, 100);
         });
     </script>
 </body>
