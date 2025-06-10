@@ -93,7 +93,7 @@
         /* AI Keith Image Container */
         .ai-keith-wrapper {
             position: relative;
-            margin-bottom: 80px;
+            margin-bottom: 200px;
             overflow: visible;
             display: flex;
             justify-content: center;
@@ -126,14 +126,14 @@
             transform: scale(1.05);
         }
         
-        /* Border frame - wider and moved up to contain the image */
+        /* Border frame - tight around image with proper spacing */
         .border-frame {
             position: absolute;
-            top: -30px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 340px;
-            height: 480px;
+            width: 310px;
+            height: 460px;
             border: 1px solid rgba(255, 215, 0, 0.9);
             border-radius: 20px;
             box-shadow: 
@@ -163,11 +163,11 @@
         /* Scanning Lines Effect */
         .scan-lines {
             position: absolute;
-            top: -30px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 340px;
-            height: 480px;
+            width: 310px;
+            height: 460px;
             border-radius: 20px;
             pointer-events: none;
             z-index: 4;
@@ -187,22 +187,22 @@
                 rgba(255, 215, 0, 0.15) 50%,
                 transparent 100%
             );
-            animation: scanAnimation 2s linear infinite;
+            animation: scanAnimation 6s linear infinite;
         }
         
         @keyframes scanAnimation {
             0% { transform: translateY(-20px); }
-            100% { transform: translateY(500px); }
+            100% { transform: translateY(480px); }
         }
         
         /* Digital Static */
         .digital-static {
             position: absolute;
-            top: -30px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 340px;
-            height: 480px;
+            width: 310px;
+            height: 460px;
             background: 
                 radial-gradient(circle, rgba(160, 160, 160, 0.03) 1px, transparent 1px),
                 radial-gradient(circle, rgba(120, 120, 120, 0.02) 0.5px, transparent 0.5px);
@@ -223,10 +223,10 @@
             100% { opacity: 0; }
         }
         
-        /* Terminal Display */
+        /* Terminal Display - much more spacing from border */
         .terminal-display {
             position: absolute;
-            bottom: -80px;
+            bottom: -200px;
             left: 50%;
             transform: translateX(-50%);
             width: 350px;
@@ -439,7 +439,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 70px;
+                margin-bottom: 180px;
             }
             
             .ai-keith-image {
@@ -448,26 +448,26 @@
             }
             
             .border-frame {
-                width: 280px;
-                height: 400px;
-                top: -25px;
+                width: 260px;
+                height: 385px;
+                top: -8px;
             }
             
             .scan-lines {
-                width: 280px;
-                height: 400px;
-                top: -25px;
+                width: 260px;
+                height: 385px;
+                top: -8px;
             }
             
             .digital-static {
-                width: 280px;
-                height: 400px;
-                top: -25px;
+                width: 260px;
+                height: 385px;
+                top: -8px;
             }
             
             .terminal-display {
                 width: 320px;
-                bottom: -70px;
+                bottom: -180px;
                 font-size: 0.7rem;
                 padding: 12px;
             }
@@ -506,7 +506,7 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 65px;
+                margin-bottom: 170px;
             }
             
             .ai-keith-image {
@@ -515,26 +515,26 @@
             }
             
             .border-frame {
-                width: 230px;
-                height: 330px;
-                top: -20px;
+                width: 210px;
+                height: 310px;
+                top: -6px;
             }
             
             .scan-lines {
-                width: 230px;
-                height: 330px;
-                top: -20px;
+                width: 210px;
+                height: 310px;
+                top: -6px;
             }
             
             .digital-static {
-                width: 230px;
-                height: 330px;
-                top: -20px;
+                width: 210px;
+                height: 310px;
+                top: -6px;
             }
             
             .terminal-display {
                 width: 280px;
-                bottom: -65px;
+                bottom: -170px;
                 font-size: 0.65rem;
                 padding: 10px;
             }
