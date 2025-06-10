@@ -391,20 +391,28 @@
         }
         
         .trading-card.card-flying {
-            animation: card-fly-and-spin 1.2s ease-out forwards;
+            animation: 
+                card-scale 1.2s ease-out forwards,
+                card-rotate 1.2s linear forwards;
         }
         
-        @keyframes card-fly-and-spin {
+        @keyframes card-scale {
             0% {
                 opacity: 1;
-                transform: scale(0.1) rotate(0deg);
-            }
-            50% {
-                transform: scale(0.8) rotate(180deg);
+                transform: scale(0.1);
             }
             100% {
                 opacity: 1;
-                transform: scale(1) rotate(360deg);
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes card-rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
             }
         }
         
