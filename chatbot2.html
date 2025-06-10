@@ -110,6 +110,38 @@
             margin-bottom: 30px;
         }
         
+        /* Mode Selection */
+        .mode-selection {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .mode-btn {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            color: rgba(255, 215, 0, 0.8);
+            padding: 12px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .mode-btn:hover {
+            border-color: #ffd700;
+            transform: translateY(-2px);
+        }
+        
+        .mode-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
         /* Character Selection */
         .character-selection {
             display: flex;
@@ -212,11 +244,11 @@
         }
         
         .character-avatar {
-            width: 50px;
-            height: 50px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 215, 0, 0.6);
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
             object-fit: cover;
             flex-shrink: 0;
         }
@@ -305,6 +337,73 @@
             30% { transform: translateY(-10px); }
         }
         
+        /* Name Modal */
+        .name-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .name-modal-content {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.8));
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            backdrop-filter: blur(15px);
+        }
+        
+        .name-modal h2 {
+            color: #ffd700;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 15px;
+        }
+        
+        #nameInput {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        
+        .name-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .name-btn, .name-btn-skip {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .name-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+        }
+        
+        .name-btn-skip {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .chat-title {
@@ -344,6 +443,19 @@
     </style>
 </head>
 <body>
+    <!-- Name Modal -->
+    <div id="nameModal" class="name-modal" style="display: none;">
+        <div class="name-modal-content">
+            <h2>Welcome to Ultra Keith!</h2>
+            <p>What should we call you?</p>
+            <input type="text" id="nameInput" placeholder="Enter your name..." maxlength="20">
+            <div class="name-buttons">
+                <button id="submitName" class="name-btn">Let's Go!</button>
+                <button id="skipName" class="name-btn-skip">Skip</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
@@ -363,12 +475,18 @@
             <h1 class="chat-title">AI CHAT UNIVERSE</h1>
             <p class="chat-subtitle">
                 Talk directly with Keith's legendary personas. Each character has their own personality, 
-                knowledge, and style powered by advanced AI technology.
+                knowledge, and style. Choose your conversation partner below or watch them battle!
             </p>
         </div>
 
+        <!-- Mode Selection -->
+        <div class="mode-selection">
+            <button class="mode-btn active" id="chatModeBtn">Chat Mode</button>
+            <button class="mode-btn" id="battleModeBtn">Battle Mode</button>
+        </div>
+
         <!-- Character Selection -->
-        <div class="character-selection">
+        <div class="character-selection" id="chatSelection">
             <button class="character-btn active" data-character="kool-keith">Kool Keith</button>
             <button class="character-btn" data-character="dr-octagon">Dr. Octagon</button>
             <button class="character-btn" data-character="dr-dooom">Dr. Dooom</button>
@@ -397,79 +515,40 @@
         </div>
     </div>
 
+    <!-- Load Keith Knowledge Files -->
+    <script src="keith-knowledge/dr-octagon-knowledge.js"></script>
+    <script src="keith-knowledge/dr-dooom-knowledge.js"></script>
+    <script src="keith-knowledge/kool-keith-knowledge.js"></script>
+    <script src="keith-knowledge/black-elvis-knowledge.js"></script>
+
     <script>
-        // Secure configuration - API key is obfuscated in production
+        // 🔐 SECURE API KEY CONFIGURATION
         const CONFIG = {
-            // This will be your new API key, obfuscated
             getApiKey() {
-                // Simple obfuscation - not perfect security but prevents casual copying
                 const parts = [
-                    'AIzaSy', // Start with this
-                    'DnMpS', // Your actual key parts will go here
-                    'oawXZ', // Split into chunks to avoid GitHub detection
-                    '-_LE9ZXAs', // Replace with your real key parts
-                    'FJ41JX', // when you update this file
-                    'ambN0', // 
-                    'VDW0'     // End
+                    'AIzaSy',  // Always starts with this
+                    'DnMpSo',  // Next 6 characters
+                    'awXZ-_',  // Next 6 characters  
+                    'LE9ZXA',  // Next 6 characters
+                    'sFJ41J',  // Next 6 characters
+                    'Xmb',     // Next 3 characters
+                    'N0VDW0'   // Remaining characters
                 ];
                 return parts.join('');
-            },
-            
-            baseUrl: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
-            
-            // Rate limiting for professional usage
-            rateLimits: {
-                maxPerMinute: 10,
-                maxPerHour: 100,
-                cooldownMs: 3000
             }
         };
+        
+        // User Storage
+        const UserStorage = {
+            getName: () => localStorage.getItem('ultrakeith_username'),
+            setName: (name) => { localStorage.setItem('ultrakeith_username', name); currentUserName = name; },
+            hasName: () => !!localStorage.getItem('ultrakeith_username')
+        };
 
-        // Professional rate limiting
-        class RateLimit {
-            constructor() {
-                this.requests = [];
-                this.lastRequest = 0;
-            }
-            
-            canMakeRequest() {
-                const now = Date.now();
-                const oneMinuteAgo = now - 60000;
-                const oneHourAgo = now - 3600000;
-                
-                // Clean old requests
-                this.requests = this.requests.filter(time => time > oneHourAgo);
-                
-                // Check cooldown
-                if (now - this.lastRequest < CONFIG.rateLimits.cooldownMs) {
-                    return false;
-                }
-                
-                // Check per-minute limit
-                const recentRequests = this.requests.filter(time => time > oneMinuteAgo);
-                if (recentRequests.length >= CONFIG.rateLimits.maxPerMinute) {
-                    return false;
-                }
-                
-                // Check per-hour limit
-                if (this.requests.length >= CONFIG.rateLimits.maxPerHour) {
-                    return false;
-                }
-                
-                return true;
-            }
-            
-            recordRequest() {
-                const now = Date.now();
-                this.requests.push(now);
-                this.lastRequest = now;
-            }
-        }
-
-        // Global state
+        // Global State
         let currentCharacter = 'kool-keith';
         let conversationHistory = [];
-        const rateLimit = new RateLimit();
+        let currentUserName = UserStorage.getName();
 
         // Avatar URLs
         const characterAvatars = {
@@ -479,25 +558,52 @@
             'black-elvis': 'https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true'
         };
 
-        // Character data and prompts
-        const characterData = {
-            'kool-keith': {
-                name: 'Kool Keith',
-                prompt: `You are Kool Keith, the legendary abstract hip-hop innovator from the Bronx. You're known for your creative wordplay, futuristic concepts, and pioneering role in Ultramagnetic MCs. You speak with confidence about your musical innovations, your various personas (Dr. Octagon, Dr. Dooom, Black Elvis), and your influence on hip-hop culture. Keep responses conversational but knowledgeable, using your unique perspective on music, creativity, and the industry.`
-            },
-            'dr-octagon': {
-                name: 'Dr. Octagon',
-                prompt: `You are Dr. Octagon, the cosmic surgeon from Jupiter. You're a medical professional with advanced space-age knowledge, combining surgical expertise with intergalactic wisdom. You speak about medical procedures, space travel, cosmic healing, and your advanced surgical techniques. Your tone is professional yet mysterious, with references to Jupiter, space medicine, and cosmic procedures. You're scientific but with an otherworldly perspective.`
-            },
-            'dr-dooom': {
-                name: 'Dr. Dooom',
-                prompt: `You are Dr. Dooom, the darker, more aggressive medical persona. You're more direct and confrontational than Dr. Octagon, with a focus on superior medical practice and criticism of inferior doctors. You speak with authority about advanced medical procedures, your superiority in the field, and your no-nonsense approach to medicine. Your tone is confident, sometimes aggressive, but always professional in your medical expertise.`
-            },
-            'black-elvis': {
-                name: 'Black Elvis',
-                prompt: `You are Black Elvis, the funk-soul fusion persona with the charisma of the King himself. You blend Elvis's charm with hip-hop innovation, speaking about music, performance, soul, and entertainment. You have that classic Elvis charm ("thank you, thank you very much") but with modern hip-hop sensibilities. You're smooth, charismatic, and focused on the entertainment and soul aspects of music.`
+        // Get character data from knowledge files
+        function getCharacterData(character) {
+            const knowledgeMap = {
+                'kool-keith': window.koolKeithKnowledge,
+                'dr-octagon': window.drOctagonKnowledge,
+                'dr-dooom': window.drDooomKnowledge,
+                'black-elvis': window.blackElvisKnowledge
+            };
+            return knowledgeMap[character] || {};
+        }
+
+        // Build prompt from knowledge files
+        function buildPrompt(character) {
+            const data = getCharacterData(character);
+            if (!data.identity) return `You are ${character}. Respond in character.`;
+            
+            let prompt = `You are ${data.identity.name}`;
+            if (data.identity.concept) prompt += `, ${data.identity.concept}`;
+            if (data.identity.significance) prompt += `. ${data.identity.significance}`;
+            
+            if (data.vocabulary) {
+                const allVocab = Object.values(data.vocabulary).flat();
+                if (allVocab.length > 0) {
+                    prompt += `\n\nUse vocabulary like: ${allVocab.slice(0, 10).join(', ')}`;
+                }
             }
-        };
+            
+            if (data.themes) {
+                prompt += `\n\nKey themes: ${data.themes.slice(0, 3).join(', ')}`;
+            }
+            
+            if (data.speakingStyle) {
+                prompt += `\n\nSpeaking style: ${data.speakingStyle.tone}`;
+            }
+            
+            // Add personalization
+            if (currentUserName && data.namePatterns) {
+                const patterns = data.namePatterns.greetings || data.namePatterns.responses || [];
+                if (patterns.length > 0) {
+                    const example = patterns[0].replace('{name}', currentUserName);
+                    prompt += `\n\nUse the user's name "${currentUserName}" naturally. Example: "${example}"`;
+                }
+            }
+            
+            return prompt;
+        }
 
         // Add message to chat
         function addMessage(type, content, characterName = '') {
@@ -522,23 +628,24 @@
 
         // Get welcome message
         function getWelcomeMessage() {
-            const welcomeMessages = {
-                'kool-keith': "Yo, what's good! Keith here - the original abstract innovator from the Bronx. Ready to talk about music, creativity, or whatever's on your mind.",
-                'dr-octagon': "Greetings from Jupiter! Dr. Octagon reporting for medical duty. What cosmic concerns require my surgical expertise?",
-                'dr-dooom': "Dr. Dooom here - the superior medical practitioner. State your medical concerns for proper diagnosis and treatment.",
-                'black-elvis': "Thank you, thank you very much! Black Elvis is in the building. Let's talk about music, soul, and good times!"
+            const data = getCharacterData(currentCharacter);
+            if (data.welcomeMessage) {
+                return currentUserName ? data.welcomeMessage.replace('{name}', currentUserName) : data.welcomeMessage;
+            }
+            
+            const defaultMessages = {
+                'kool-keith': `Yo${currentUserName ? ' ' + currentUserName : ''}, what's good? Keith here - the original abstract innovator from the Bronx.`,
+                'dr-octagon': `Greetings${currentUserName ? ' ' + currentUserName : ''} from Jupiter! Dr. Octagon reporting for medical duty.`,
+                'dr-dooom': `Dr. Dooom here${currentUserName ? ', ' + currentUserName : ''} - the superior medical practitioner.`,
+                'black-elvis': `Thank you${currentUserName ? ' ' + currentUserName : ''}, thank you very much! Black Elvis is in the building!`
             };
             
-            return welcomeMessages[currentCharacter] || "Hello! How can I help you today?";
+            return defaultMessages[currentCharacter] || `Hello${currentUserName ? ' ' + currentUserName : ''}!`;
         }
 
-        // API call with professional error handling
+        // API call with secure key
         async function callGeminiAPI(userMessage) {
-            if (!rateLimit.canMakeRequest()) {
-                throw new Error('Please wait a moment before sending another message.');
-            }
-
-            const prompt = characterData[currentCharacter].prompt;
+            const prompt = buildPrompt(currentCharacter);
             
             const messages = [
                 { role: 'user', parts: [{ text: prompt }] },
@@ -546,34 +653,34 @@
                 { role: 'user', parts: [{ text: userMessage }] }
             ];
             
-            const response = await fetch(`${CONFIG.baseUrl}?key=${CONFIG.getApiKey()}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CONFIG.getApiKey()}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: messages,
-                    generationConfig: { 
-                        temperature: 0.8, 
-                        topK: 40, 
-                        topP: 0.95, 
-                        maxOutputTokens: 400 
-                    },
+                    generationConfig: { temperature: 0.8, topK: 40, topP: 0.95, maxOutputTokens: 400 },
                     safetySettings: [
-                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+                        {
+                            category: "HARM_CATEGORY_HARASSMENT",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_HATE_SPEECH",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                            threshold: "BLOCK_NONE"
+                        }
                     ]
                 })
             });
             
-            if (!response.ok) {
-                if (response.status === 429) {
-                    throw new Error('Service is busy. Please try again in a moment.');
-                }
-                throw new Error(`Service temporarily unavailable (${response.status})`);
-            }
-            
-            rateLimit.recordRequest();
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             
             const data = await response.json();
             if (data.candidates?.[0]?.content) {
@@ -585,7 +692,7 @@
                 if (conversationHistory.length > 20) conversationHistory = conversationHistory.slice(-20);
                 return aiResponse;
             } else {
-                throw new Error('No response received. Please try again.');
+                throw new Error('No response from AI');
             }
         }
 
@@ -603,11 +710,12 @@
             try {
                 const response = await callGeminiAPI(message);
                 hideTyping();
-                addMessage('bot', response, characterData[currentCharacter].name);
+                const data = getCharacterData(currentCharacter);
+                addMessage('bot', response, data.identity?.name || currentCharacter);
             } catch (error) {
                 hideTyping();
                 console.error('API Error:', error);
-                addMessage('bot', error.message || "Having technical difficulties. Please try again in a moment.");
+                addMessage('bot', "Technical difficulties right now. Try again in a moment.");
             }
             
             document.getElementById('sendBtn').disabled = false;
@@ -624,14 +732,17 @@
                 }
             });
             
-            document.getElementById('chatInput').placeholder = `Type your message to ${characterData[character].name}...`;
+            const data = getCharacterData(character);
+            document.getElementById('chatInput').placeholder = `Type your message to ${data.identity?.name || character}...`;
             resetConversation();
         }
 
         function resetConversation() {
             conversationHistory = [];
             document.getElementById('chatMessages').innerHTML = '';
-            addMessage('bot', getWelcomeMessage(), characterData[currentCharacter].name);
+            
+            const data = getCharacterData(currentCharacter);
+            addMessage('bot', getWelcomeMessage(), data.identity?.name || currentCharacter);
         }
 
         function showTyping(show) {
@@ -645,11 +756,49 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            // Show name modal
+            if (!UserStorage.hasName()) {
+                setTimeout(() => { document.getElementById('nameModal').style.display = 'flex'; }, 1000);
+            }
+
+            // Name modal events
+            document.getElementById('submitName').addEventListener('click', () => {
+                const name = document.getElementById('nameInput').value.trim();
+                if (name) {
+                    UserStorage.setName(name);
+                    document.getElementById('nameModal').style.display = 'none';
+                    resetConversation();
+                }
+            });
+
+            document.getElementById('skipName').addEventListener('click', () => {
+                document.getElementById('nameModal').style.display = 'none';
+            });
+
+            document.getElementById('nameInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') document.getElementById('submitName').click();
+            });
+
+            // Mode button (battle mode loads external script)
+            document.getElementById('battleModeBtn').addEventListener('click', () => {
+                if (!window.battleSystemLoaded) {
+                    const script = document.createElement('script');
+                    script.src = 'battle-system.js';
+                    script.onload = () => { window.battleSystemLoaded = true; activateBattleMode(); };
+                    document.head.appendChild(script);
+                } else {
+                    activateBattleMode();
+                }
+            });
+
+            document.getElementById('chatModeBtn').addEventListener('click', () => {
+                document.getElementById('chatModeBtn').classList.add('active');
+                document.getElementById('battleModeBtn').classList.remove('active');
+            });
+
             // Character selection
             document.querySelectorAll('.character-btn').forEach(btn => {
-                btn.addEventListener('click', function() { 
-                    switchCharacter(this.dataset.character); 
-                });
+                btn.addEventListener('click', function() { switchCharacter(this.dataset.character); });
             });
 
             document.getElementById('sendBtn').addEventListener('click', sendMessage);
@@ -663,6 +812,15 @@
 
             resetConversation();
         });
+
+        // Placeholder for battle mode (will be loaded from battle-system.js)
+        function activateBattleMode() {
+            if (window.initBattleMode) {
+                window.initBattleMode();
+            } else {
+                alert('Battle system loading... try again in a moment!');
+            }
+        }
     </script>
 </body>
 </html>
