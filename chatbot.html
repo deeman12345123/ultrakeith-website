@@ -136,10 +136,10 @@
             height: 400px;
             object-fit: cover;
             border-radius: 20px;
-            border: 3px solid rgba(255, 215, 0, 0.6);
+            border: 1px solid rgba(255, 215, 0, 0.6);
             box-shadow: 
-                0 0 50px rgba(255, 215, 0, 0.4),
-                inset 0 0 50px rgba(255, 215, 0, 0.1);
+                0 0 20px rgba(255, 215, 0, 0.3),
+                inset 0 0 30px rgba(255, 215, 0, 0.08);
             transition: all 0.5s ease;
             animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
         }
@@ -147,13 +147,13 @@
         @keyframes aiGlow {
             0% { 
                 box-shadow: 
-                    0 0 30px rgba(255, 215, 0, 0.3),
-                    inset 0 0 30px rgba(255, 215, 0, 0.1);
+                    0 0 15px rgba(255, 215, 0, 0.25),
+                    inset 0 0 25px rgba(255, 215, 0, 0.06);
             }
             100% { 
                 box-shadow: 
-                    0 0 60px rgba(255, 215, 0, 0.6),
-                    inset 0 0 60px rgba(255, 215, 0, 0.2);
+                    0 0 25px rgba(255, 215, 0, 0.4),
+                    inset 0 0 35px rgba(255, 215, 0, 0.1);
             }
         }
         
@@ -184,8 +184,8 @@
         .ai-keith-image:hover {
             transform: scale(1.05);
             box-shadow: 
-                0 0 80px rgba(255, 215, 0, 0.8),
-                inset 0 0 80px rgba(255, 215, 0, 0.3);
+                0 0 35px rgba(255, 215, 0, 0.5),
+                inset 0 0 40px rgba(255, 215, 0, 0.15);
         }
         
         /* Scanning Lines Effect */
