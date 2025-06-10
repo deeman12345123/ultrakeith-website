@@ -100,7 +100,7 @@
             align-items: center;
         }
         
-        /* Keith Image - positioned to poke out of top */
+        /* Keith Image - positioned to extend above border */
         .ai-keith-image {
             width: 300px;
             height: 450px;
@@ -112,7 +112,7 @@
             animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
             position: relative;
             z-index: 2;
-            transform: translateY(-60px);
+            transform: translateY(-80px);
         }
         
         @keyframes aiGlow {
@@ -126,36 +126,52 @@
         
         @keyframes waveDistortion {
             0% { 
-                transform: translateY(-60px) perspective(1000px) rotateX(0deg) skewX(0deg);
+                transform: translateY(-80px) perspective(1000px) rotateX(0deg) skewX(0deg);
             }
             25% { 
-                transform: translateY(-60px) perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
+                transform: translateY(-80px) perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
             }
             50% { 
-                transform: translateY(-60px) perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
+                transform: translateY(-80px) perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
             }
             75% { 
-                transform: translateY(-60px) perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
+                transform: translateY(-80px) perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
             }
             100% { 
-                transform: translateY(-60px) perspective(1000px) rotateX(0deg) skewX(0deg);
+                transform: translateY(-80px) perspective(1000px) rotateX(0deg) skewX(0deg);
             }
         }
         
         .ai-keith-image:hover {
-            transform: translateY(-60px) scale(1.05);
+            transform: translateY(-80px) scale(1.05);
         }
         
-        /* Custom shaped border that curves around hair */
+        /* Complete border frame - positioned for proper layering */
         .border-frame {
             position: absolute;
-            bottom: 80px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
             width: 300px;
-            height: 300px;
+            height: 350px;
             pointer-events: none;
-            z-index: 3;
+            z-index: 1;
+        }
+        
+        .border-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255, 215, 0, 0.9);
+            border-radius: 20px;
+            box-shadow: 
+                0 0 25px rgba(255, 215, 0, 0.4),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }3;
         }
         
         .border-frame::before {
@@ -264,28 +280,25 @@
             100% { opacity: 0; }
         }
         
-        /* Signal Interference */
-        .signal-interference {
+        /* Bottom border overlay - goes over Keith's lower body */
+        .border-bottom-overlay {
             position: absolute;
             bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
             width: 300px;
-            height: 330px;
-            background: 
-                linear-gradient(
-                    90deg,
-                    transparent 0%,
-                    rgba(180, 180, 180, 0.05) 25%,
-                    transparent 50%,
-                    rgba(150, 150, 150, 0.03) 75%,
-                    transparent 100%
-                );
-            opacity: 0;
-            animation: interferenceWave 8s infinite;
+            height: 80px;
+            border-left: 1px solid rgba(255, 215, 0, 0.9);
+            border-right: 1px solid rgba(255, 215, 0, 0.9);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.9);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 
+                0 0 25px rgba(255, 215, 0, 0.4),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            animation: borderGlow 3s ease-in-out infinite alternate;
             pointer-events: none;
-            border-radius: 20px;
-            z-index: 6;
+            z-index: 5;
+            background: transparent;
         }
         
         @keyframes interferenceWave {
@@ -696,10 +709,6 @@
         <!-- Keith Image and Terminal -->
         <div class="ai-keith-wrapper">
             <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
-            <div class="border-frame"></div>
-            <div class="scan-lines"></div>
-            <div class="digital-static"></div>
-            <div class="signal-interference"></div>
             
             <!-- Terminal Display -->
             <div class="terminal-display">
@@ -821,9 +830,9 @@
         
         // Image interactions
         document.getElementById('aiKeithImage').addEventListener('click', function() {
-            this.style.transform = 'translateY(-60px) scale(1.1) rotateY(10deg)';
+            this.style.transform = 'scale(1.1) rotateY(10deg)';
             setTimeout(() => {
-                this.style.transform = 'translateY(-60px) scale(1) rotateY(0deg)';
+                this.style.transform = 'scale(1) rotateY(0deg)';
             }, 200);
         });
 
