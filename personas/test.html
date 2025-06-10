@@ -499,7 +499,9 @@
         }
         
         .persona-title.long-title {
-            font-size: 0.9rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            line-height: 0.95;
         }
         
         .image-container {
@@ -604,6 +606,12 @@
             text-transform: uppercase;
         }
         
+        .back-title.long-title {
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            line-height: 0.95;
+        }
+        
         .info-section {
             margin-bottom: 15px;
         }
@@ -640,7 +648,8 @@
         .flip-hint {
             position: absolute;
             bottom: 15px;
-            right: 15px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 0.7rem;
             color: rgba(192, 192, 192, 0.6);
             font-family: 'Orbitron', monospace;
@@ -814,7 +823,7 @@
                     '<div class="card-front">' +
                         '<div class="front-container">' +
                             '<div class="card-header">' +
-                                '<h1 class="persona-title ' + (persona.name.length > 15 ? 'long-title' : '') + '">' + persona.name + '</h1>' +
+                                '<h1 class="persona-title ' + (persona.name.length > 20 ? 'long-title' : '') + '">' + persona.name + '</h1>' +
                             '</div>' +
                             '<div class="image-container">IMG</div>' +
                             '<div class="stats-section">' +
@@ -837,12 +846,15 @@
                             '</div>' +
                             '<div class="quote-section">"' + persona.quote + '"</div>' +
                         '</div>' +
+                        '<div class="mc-logo">' +
+                            '<img src="mc.png" alt="MC" class="mc-logo-img">' +
+                        '</div>' +
                         '<div class="flip-hint">Click to flip</div>' +
                         '<div class="card-number">#' + persona.number + '</div>' +
                     '</div>' +
                     '<div class="card-back">' +
                         '<div class="back-container">' +
-                            '<h2 class="back-title">' + persona.name + ' (' + persona.year + ')</h2>' +
+                            '<h2 class="back-title ' + (persona.name.length > 20 ? 'long-title' : '') + '">' + persona.name + ' (' + persona.year + ')</h2>' +
                             '<div class="info-section">' +
                                 '<h3 class="section-title">Biography</h3>' +
                                 '<div class="section-content">' + persona.biography + '</div>' +
