@@ -125,10 +125,12 @@
             padding: 100px 20px 40px;
         }
         
-        /* AI Keith Image */
+        /* AI Keith Image with TV Effects */
         .ai-keith-wrapper {
             position: relative;
             margin-bottom: 40px;
+            border-radius: 20px;
+            overflow: hidden;
         }
         
         .ai-keith-image {
@@ -142,6 +144,8 @@
                 inset 0 0 50px rgba(255, 215, 0, 0.1);
             transition: all 0.5s ease;
             animation: aiGlow 3s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
         }
         
         @keyframes aiGlow {
@@ -162,6 +166,133 @@
             box-shadow: 
                 0 0 80px rgba(255, 215, 0, 0.8),
                 inset 0 0 80px rgba(255, 215, 0, 0.3);
+            filter: 
+                drop-shadow(2px 0 0 red) 
+                drop-shadow(-2px 0 0 cyan) 
+                drop-shadow(0 2px 0 lime);
+        }
+        
+        /* TV Static Overlay */
+        .tv-static {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 2px,
+                    rgba(255, 255, 255, 0.03) 4px
+                );
+            opacity: 0;
+            animation: staticFlicker 0.1s infinite;
+            pointer-events: none;
+            z-index: 4;
+            border-radius: 20px;
+        }
+        
+        @keyframes staticFlicker {
+            0% { opacity: 0; }
+            2% { opacity: 0.1; }
+            4% { opacity: 0; }
+            6% { opacity: 0.15; }
+            8% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        
+        /* CRT Scanlines */
+        .crt-scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 1px,
+                rgba(0, 255, 0, 0.05) 1px,
+                rgba(0, 255, 0, 0.05) 2px
+            );
+            pointer-events: none;
+            z-index: 3;
+            border-radius: 20px;
+            animation: scanlineMove 2s linear infinite;
+        }
+        
+        @keyframes scanlineMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+        
+        /* Glitch Effect */
+        .glitch-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 0, 0, 0.1) 10%,
+                transparent 20%,
+                rgba(0, 255, 255, 0.1) 30%,
+                transparent 40%
+            );
+            opacity: 0;
+            animation: glitchWave 8s infinite;
+            pointer-events: none;
+            z-index: 5;
+            border-radius: 20px;
+        }
+        
+        @keyframes glitchWave {
+            0%, 95% { opacity: 0; transform: translateX(0); }
+            96% { opacity: 0.7; transform: translateX(-2px); }
+            97% { opacity: 0.8; transform: translateX(2px); }
+            98% { opacity: 0.6; transform: translateX(-1px); }
+            99% { opacity: 0.4; transform: translateX(1px); }
+            100% { opacity: 0; transform: translateX(0); }
+        }
+        
+        /* RGB Split Effect (on hover) */
+        .ai-keith-image.rgb-split {
+            filter: 
+                drop-shadow(3px 0 0 rgba(255, 0, 0, 0.8)) 
+                drop-shadow(-3px 0 0 rgba(0, 255, 255, 0.8));
+        }
+        
+        /* TV Turn-On Effect */
+        .tv-turnon {
+            animation: tvTurnOn 2s ease-out;
+        }
+        
+        @keyframes tvTurnOn {
+            0% {
+                transform: scaleY(0.01) scaleX(1);
+                opacity: 0;
+            }
+            15% {
+                transform: scaleY(0.01) scaleX(1);
+                opacity: 1;
+            }
+            30% {
+                transform: scaleY(0.1) scaleX(0.95);
+            }
+            50% {
+                transform: scaleY(0.6) scaleX(0.9);
+            }
+            70% {
+                transform: scaleY(0.9) scaleX(0.98);
+            }
+            100% {
+                transform: scaleY(1) scaleX(1);
+                opacity: 1;
+            }
         }
         
         /* Scanning Lines Effect */
@@ -174,17 +305,44 @@
             background: linear-gradient(
                 0deg,
                 transparent 0%,
-                rgba(255, 215, 0, 0.1) 50%,
+                rgba(255, 215, 0, 0.15) 50%,
                 transparent 100%
             );
             height: 20px;
-            animation: scanAnimation 2s linear infinite;
+            animation: scanAnimation 3s linear infinite;
             border-radius: 20px;
+            pointer-events: none;
+            z-index: 6;
         }
         
         @keyframes scanAnimation {
             0% { transform: translateY(-20px); }
             100% { transform: translateY(420px); }
+        }
+        
+        /* Random Static Burst */
+        .static-burst {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px, 40px 40px;
+            opacity: 0;
+            animation: staticBurst 12s infinite;
+            pointer-events: none;
+            z-index: 7;
+            border-radius: 20px;
+        }
+        
+        @keyframes staticBurst {
+            0%, 97% { opacity: 0; }
+            98% { opacity: 0.6; }
+            99% { opacity: 0.8; }
+            100% { opacity: 0; }
         }
         
         /* Text Content */
@@ -398,7 +556,11 @@
     <!-- Main AI Interface -->
     <div class="ai-container">
         <div class="ai-keith-wrapper">
-            <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
+            <img src="aikeith.png" alt="Keith AI" class="ai-keith-image tv-turnon" id="aiKeithImage">
+            <div class="tv-static"></div>
+            <div class="crt-scanlines"></div>
+            <div class="glitch-overlay"></div>
+            <div class="static-burst"></div>
             <div class="scan-lines"></div>
         </div>
         
@@ -430,13 +592,30 @@
     </div>
 
     <script>
-        // Add click event to Keith AI image
+        // Enhanced image interactions with TV effects
         document.getElementById('aiKeithImage').addEventListener('click', function() {
             this.style.transform = 'scale(1.1) rotateY(10deg)';
+            this.classList.add('rgb-split');
+            
+            // Remove RGB split effect after animation
             setTimeout(() => {
                 this.style.transform = 'scale(1) rotateY(0deg)';
-            }, 200);
+                this.classList.remove('rgb-split');
+            }, 300);
         });
+
+        // Random glitch effect
+        function triggerGlitch() {
+            const image = document.getElementById('aiKeithImage');
+            image.style.filter = 'hue-rotate(180deg) saturate(2)';
+            
+            setTimeout(() => {
+                image.style.filter = '';
+            }, 150);
+        }
+
+        // Trigger glitch every 15-25 seconds
+        setInterval(triggerGlitch, Math.random() * 10000 + 15000);
 
         // Enter chat button functionality
         document.getElementById('enterChatBtn').addEventListener('click', function() {
@@ -456,22 +635,26 @@
             }
         });
 
-        // Add some interactive sound effects (optional)
-        function playStartupSound() {
-            // You can add audio elements here if you have Keith voice samples
-            console.log('Keith AI startup sound would play here');
-        }
-
-        // Initialize on page load
+        // TV turn-on effect on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Optional: play startup sound
-            setTimeout(playStartupSound, 1000);
-            
             // Add entrance animation
             document.querySelector('.ai-container').style.opacity = '0';
             setTimeout(() => {
                 document.querySelector('.ai-container').style.transition = 'opacity 1s ease';
                 document.querySelector('.ai-container').style.opacity = '1';
+            }, 100);
+        });
+
+        // Optional: Add mouse movement glitch
+        document.getElementById('aiKeithImage').addEventListener('mouseenter', function() {
+            // Brief static burst on hover
+            const staticBurst = document.querySelector('.static-burst');
+            staticBurst.style.animation = 'none';
+            staticBurst.style.opacity = '0.3';
+            
+            setTimeout(() => {
+                staticBurst.style.animation = 'staticBurst 12s infinite';
+                staticBurst.style.opacity = '';
             }, 100);
         });
     </script>
