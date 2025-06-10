@@ -125,6 +125,12 @@
             padding: 100px 20px 40px;
         }
         
+        /* Top Content Section */
+        .top-content {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
         /* AI Keith Image */
         .ai-keith-wrapper {
             position: relative;
@@ -695,6 +701,18 @@
 
     <!-- Main AI Interface -->
     <div class="ai-container">
+        <!-- Title and Description at Top -->
+        <div class="top-content">
+            <h1 class="ai-title">KEITH AI</h1>
+            <p class="ai-subtitle">Neural Interface Active</p>
+            <p class="ai-description">
+                Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
+                Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
+                Each AI personality contains decades of lyrical genius and abstract wisdom.
+            </p>
+        </div>
+        
+        <!-- Keith Image and Terminal -->
         <div class="ai-keith-wrapper">
             <img src="aikeith.png" alt="Keith AI" class="ai-keith-image" id="aiKeithImage">
             <div class="border-frame"></div>
@@ -720,19 +738,6 @@
                     <span>PING: <span id="pingTime">8ms</span></span>
                 </div>
             </div>
-        </div>
-        
-        <h1 class="ai-title">KEITH AI</h1>
-        <p class="ai-subtitle">Neural Interface Active</p>
-        <p class="ai-description">
-            Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
-            Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
-            Each AI personality contains decades of lyrical genius and abstract wisdom.
-        </p>
-        
-        <div class="ai-status">
-            <div class="status-dot"></div>
-            <span>NEURAL NETWORK ONLINE</span>
         </div>
         
         <button class="enter-btn" id="enterChatBtn">
