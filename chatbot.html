@@ -619,7 +619,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 80px;
+                margin-bottom: 70px;
             }
             
             .ai-keith-image {
@@ -632,33 +632,11 @@
                 height: 330px;
             }
             
-            .status-left, .status-right {
-                font-size: 0.6rem;
-                padding: 3px 6px;
-                top: 5px;
-            }
-            
-            .status-left {
-                left: 5px;
-            }
-            
-            .status-right {
-                right: 5px;
-            }
-            
-            .data-stream-panel {
-                width: 240px;
-                bottom: -35px;
-                font-size: 0.55rem;
-                padding: 6px;
-            }
-            
-            .data-stream-item {
-                font-size: 0.5rem;
-            }
-            
-            .stream-arrow {
-                font-size: 0.45rem;
+            .terminal-display {
+                width: 280px;
+                bottom: -40px;
+                font-size: 0.7rem;
+                padding: 10px 12px;
             }
             
             .ai-title {
@@ -686,7 +664,7 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 70px;
+                margin-bottom: 65px;
             }
             
             .ai-keith-image {
@@ -699,22 +677,11 @@
                 height: 250px;
             }
             
-            .status-left, .status-right {
-                font-size: 0.55rem;
-                padding: 2px 5px;
-            }
-            
-            .data-stream-panel {
-                width: 180px;
-                bottom: -30px;
-                padding: 5px;
-                flex-direction: column;
-                gap: 3px;
-            }
-            
-            .data-stream-item {
-                font-size: 0.45rem;
-                justify-content: center;
+            .terminal-display {
+                width: 240px;
+                bottom: -35px;
+                font-size: 0.65rem;
+                padding: 8px 10px;
             }
             
             .ai-title {
@@ -761,38 +728,11 @@
             <div class="digital-static"></div>
             <div class="signal-interference"></div>
             
-            <!-- Terminal Interface Overlay -->
-            <div class="terminal-overlay">
-                <!-- Status Indicators -->
-                <div class="status-left">
-                    <div>NEURAL: <span id="neuralPercent">94%</span></div>
-                </div>
-                <div class="status-right">
-                    <div>v4.0 ONLINE</div>
-                </div>
-                
-                <!-- Data Stream Panel -->
-                <div class="data-stream-panel">
-                    <div class="data-stream-item">
-                        <span class="stream-arrow">▼</span>
-                        <span>INIT</span>
-                    </div>
-                    <div class="data-stream-item">
-                        <span class="stream-arrow">▼</span>
-                        <span>SCAN</span>
-                    </div>
-                    <div class="data-stream-item">
-                        <span class="stream-arrow">▼</span>
-                        <span>ABSTRACT</span>
-                    </div>
-                    <div class="data-stream-item">
-                        <span class="stream-arrow">▼</span>
-                        <span>READY</span>
-                    </div>
-                    <div class="data-stream-item">
-                        <span class="stream-arrow">▼</span>
-                        <span>STANDBY</span>
-                    </div>
+            <!-- Terminal Display -->
+            <div class="terminal-display">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-text" id="terminalText">Initializing neural networks...</span>
                 </div>
             </div>
         </div>
@@ -851,17 +791,52 @@
             }
         });
 
-        // Random neural percentage updates
-        function updateNeuralPercent() {
-            const neuralElement = document.getElementById('neuralPercent');
-            if (neuralElement) {
-                const percent = (92 + Math.random() * 6).toFixed(1);
-                neuralElement.textContent = percent + '%';
+        // Terminal text cycling with AI diagnostic messages
+        const terminalMessages = [
+            "Initializing neural networks...",
+            "Loading language models...",
+            "Calibrating response parameters...",
+            "Running system diagnostics...",
+            "Checking memory allocation...",
+            "Verifying data integrity...",
+            "Optimizing processing cores...",
+            "Establishing secure connection...",
+            "Loading personality matrices...",
+            "Synchronizing databases...",
+            "Analyzing input patterns...",
+            "Configuring output filters...",
+            "Testing response algorithms...",
+            "Validating system status...",
+            "AI ready for interaction..."
+        ];
+        
+        let currentMessageIndex = 0;
+        
+        function typeMessage(message, callback) {
+            const terminalText = document.getElementById('terminalText');
+            terminalText.textContent = '';
+            terminalText.style.width = '0';
+            terminalText.style.animation = 'none';
+            
+            setTimeout(() => {
+                terminalText.textContent = message;
+                terminalText.style.animation = 'typeWriter 2s steps(40) forwards, cursorBlink 0.8s infinite';
+            }, 100);
+            
+            if (callback) {
+                setTimeout(callback, 3000);
             }
         }
         
-        // Update neural percentage every 3 seconds
-        setInterval(updateNeuralPercent, 3000);
+        function cycleTerminalMessages() {
+            typeMessage(terminalMessages[currentMessageIndex], () => {
+                currentMessageIndex = (currentMessageIndex + 1) % terminalMessages.length;
+                setTimeout(cycleTerminalMessages, 1500);
+            });
+        }
+        
+        // Start terminal cycling after page load
+        setTimeout(cycleTerminalMessages, 2000);
 
         // Random digital glitch
         function triggerDigitalGlitch() {
