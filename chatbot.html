@@ -128,7 +128,7 @@
         /* AI Keith Image */
         .ai-keith-wrapper {
             position: relative;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
             overflow: visible;
             display: flex;
             justify-content: center;
@@ -310,7 +310,7 @@
         /* Terminal Display */
         .terminal-display {
             position: absolute;
-            bottom: -70px;
+            bottom: -90px;
             left: 50%;
             transform: translateX(-50%);
             width: 350px;
@@ -369,10 +369,11 @@
         .cursor {
             display: inline-block;
             background: #ffd700;
-            width: 8px;
+            width: 2px;
             height: 14px;
             margin-left: 2px;
             animation: blink 1s infinite;
+            vertical-align: top;
         }
         
         @keyframes blink {
@@ -549,7 +550,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 90px;
+                margin-bottom: 110px;
             }
             
             .ai-keith-image {
@@ -575,7 +576,7 @@
             
             .terminal-display {
                 width: 320px;
-                bottom: -65px;
+                bottom: -85px;
                 font-size: 0.7rem;
                 padding: 12px;
             }
@@ -614,7 +615,7 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 85px;
+                margin-bottom: 105px;
             }
             
             .ai-keith-image {
@@ -640,7 +641,7 @@
             
             .terminal-display {
                 width: 280px;
-                bottom: -60px;
+                bottom: -80px;
                 font-size: 0.65rem;
                 padding: 10px;
             }
@@ -781,7 +782,7 @@
             currentText = "";
             let charIndex = 0;
             
-            // Show cursor
+            // Always show cursor during typing
             cursor.style.display = 'inline-block';
             
             const typeInterval = setInterval(() => {
@@ -792,16 +793,12 @@
                 } else {
                     clearInterval(typeInterval);
                     
-                    // Hide cursor briefly then show it again
+                    // Keep cursor blinking for a moment, then move to next message
                     setTimeout(() => {
-                        cursor.style.display = 'none';
-                        
-                        setTimeout(() => {
-                            isTyping = false;
-                            currentMessageIndex = (currentMessageIndex + 1) % messages.length;
-                            typeMessage();
-                        }, 2000);
-                    }, 500);
+                        isTyping = false;
+                        currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                        typeMessage();
+                    }, 2000);
                 }
             }, 100);
         }
