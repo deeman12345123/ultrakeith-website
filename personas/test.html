@@ -382,26 +382,43 @@
         }
         
         .trading-card.card-flying {
-            animation: card-fly-in 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: 
+                card-fly-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+                card-spin 1.2s linear forwards;
         }
         
         @keyframes card-fly-in {
             0% {
                 opacity: 1;
-                transform: scale(0.1) rotate(0deg);
+                transform: scale(0.1);
             }
-            30% {
-                transform: scale(0.6) rotate(180deg);
+            20% {
+                transform: scale(0.4);
+            }
+            40% {
+                transform: scale(0.7);
             }
             60% {
-                transform: scale(0.9) rotate(360deg);
+                transform: scale(0.9);
             }
             80% {
-                transform: scale(1.1) rotate(375deg);
+                transform: scale(1.05);
+            }
+            90% {
+                transform: scale(1.1);
             }
             100% {
                 opacity: 1;
-                transform: scale(1) rotate(360deg);
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes card-spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
             }
         }
         
@@ -538,9 +555,43 @@
             top: 15px;
             left: 15px;
             right: 15px;
-            bottom: 15px;
+            bottom: 110px;
             display: flex;
             flex-direction: column;
+        }
+        
+        .logo-space {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-logo {
+            width: 180px;
+            height: auto;
+            opacity: 0.8;
+            max-height: 100px;
+            object-fit: contain;
+        }
+        
+        .mc-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            z-index: 20;
+        }
+        
+        .mc-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .back-title {
@@ -805,6 +856,12 @@
                                 '<div class="section-content">' + persona.themes + '</div>' +
                             '</div>' +
                         '</div>' +
+                        '<div class="logo-space">' +
+                            '<img src="logoback.png" alt="Ultra Keith Logo" class="back-logo">' +
+                        '</div>' +
+                        '<div class="mc-logo">' +
+                            '<img src="mc.png" alt="MC" class="mc-logo-img">' +
+                        '</div>' +
                         '<div class="card-number">#' + persona.number + '</div>' +
                     '</div>' +
                 '</div>';
@@ -926,7 +983,7 @@
                             cardElement.classList.remove('card-flying');
                             cardElement.classList.add('card-landed');
                             console.log('✅ Card ' + (index + 1) + ' landed!');
-                        }, 1500);
+                        }, 1200);
                     };
                 }(i, card), i * 150);
             }
@@ -973,22 +1030,22 @@
                     setTimeout(function() {
                         console.log('🌊 Phase 2: Energy waves expanding...');
                         createEnergyWaves(deckContainer, 6);
-                    }, 1000);
+                    }, 600);
                     
                     setTimeout(function() {
                         console.log('💫 Phase 3: Mystical particle explosion!');
                         createMysticalParticles(deckContainer, 60);
-                    }, 2000);
+                    }, 1200);
                     
                     setTimeout(function() {
                         console.log('🃏 Phase 4: Card burst sequence!');
                         createCardBurst(deckContainer, 40);
-                    }, 2500);
+                    }, 1600);
                     
                     setTimeout(function() {
                         console.log('⚡ Phase 5: Reality-bending screen flash!');
                         createScreenFlash();
-                    }, 3500);
+                    }, 2200);
                     
                     setTimeout(function() {
                         console.log('✨ Phase 6: Portal opened - cards flying out!');
@@ -998,10 +1055,10 @@
                         
                         setTimeout(function() {
                             animateCardsFromDeck();
-                        }, 300);
+                        }, 200);
                         
                         console.log('🎮 Card interaction system will activate after flight!');
-                    }, 5000);
+                    }, 3000);
                 } else {
                     console.log('⚠️ Portal already opened');
                 }
