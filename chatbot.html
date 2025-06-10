@@ -130,7 +130,7 @@
             align-items: center;
         }
         
-        /* Keith Image with Glitch Effect */
+        /* Keith Image - Clean, No Effects */
         .ai-keith-image {
             width: 300px;
             height: 450px;
@@ -139,49 +139,6 @@
             border-radius: 20px;
             position: relative;
             z-index: 2;
-            animation: 
-                glitchEffect1 2s infinite,
-                glitchEffect2 2.3s infinite,
-                glitchEffect3 1.7s infinite;
-        }
-        
-        @keyframes glitchEffect1 {
-            0%, 88%, 100% {
-                transform: translate(0);
-                filter: hue-rotate(0deg) contrast(1) brightness(1);
-            }
-            89% {
-                transform: translate(2px, -1px);
-                filter: hue-rotate(8deg) contrast(1.03) brightness(1.01);
-            }
-            91% {
-                transform: translate(-1px, 2px);
-                filter: hue-rotate(-5deg) contrast(0.98) brightness(0.99);
-            }
-        }
-        
-        @keyframes glitchEffect2 {
-            0%, 85%, 100% {
-                transform: translate(0);
-            }
-            87% {
-                transform: translate(-2px, 1px);
-            }
-            89% {
-                transform: translate(1px, -2px);
-            }
-        }
-        
-        @keyframes glitchEffect3 {
-            0%, 90%, 100% {
-                filter: hue-rotate(0deg) contrast(1);
-            }
-            92% {
-                filter: hue-rotate(-10deg) contrast(1.04);
-            }
-            94% {
-                filter: hue-rotate(12deg) contrast(0.97);
-            }
         }
         
         /* Tight Border Frame */
@@ -616,10 +573,7 @@
         
         // Image click
         document.getElementById('aiKeithImage').addEventListener('click', function() {
-            this.style.transform = 'scale(1.1) rotateY(10deg)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1) rotateY(0deg)';
-            }, 200);
+            // No effects - clean image
         });
 
         // Enter chat button
