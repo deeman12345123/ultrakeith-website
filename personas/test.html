@@ -56,6 +56,7 @@
             margin-bottom: 20px;
         }
         
+        /* DECK CONTAINER */
         .deck-container {
             display: flex;
             justify-content: center;
@@ -69,18 +70,16 @@
             display: none;
         }
         
+        /* DECK BOX */
         .deck-box {
             width: 300px;
             height: 450px;
             background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            border: 3px solid var(--gold);
+            border: 1px solid var(--gold);
             border-radius: 12px;
             cursor: pointer;
             position: relative;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .deck-box:hover {
@@ -113,6 +112,7 @@
             75% { transform: translateX(2px) scale(1.04); }
         }
         
+        /* MYSTICAL CRACKS */
         .mystical-crack {
             position: absolute;
             background: linear-gradient(45deg, var(--mystical-blue), var(--energy-purple));
@@ -169,15 +169,15 @@
             }
         }
         
+        /* DECK CONTENT */
         .deck-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
             color: var(--gold);
             font-family: 'Orbitron', monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-            justify-content: center;
         }
         
         .deck-logo {
@@ -190,8 +190,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--silver);
-            font-size: 1rem;
             transition: all 0.5s ease;
             overflow: hidden;
         }
@@ -218,6 +216,7 @@
             }
         }
         
+        /* CLICK HINT - ABSOLUTELY CENTERED */
         .click-hint {
             position: absolute;
             bottom: 20px;
@@ -225,21 +224,26 @@
             transform: translateX(-50%);
             font-size: 1rem;
             animation: mystical-pulse-text 2s infinite;
+            text-align: center;
+            white-space: nowrap;
+            color: var(--gold);
+            font-family: 'Orbitron', monospace;
         }
         
         @keyframes mystical-pulse-text {
             0%, 100% { 
                 opacity: 0.6; 
                 text-shadow: 0 0 8px currentColor;
-                transform: scale(1);
+                transform: translateX(-50%) scale(1);
             }
             50% { 
                 opacity: 1; 
                 text-shadow: 0 0 20px currentColor, 0 0 30px var(--mystical-blue);
-                transform: scale(1.02);
+                transform: translateX(-50%) scale(1.02);
             }
         }
         
+        /* PARTICLES */
         .mystical-particle {
             position: absolute;
             width: 4px;
@@ -336,6 +340,7 @@
             100% { opacity: 0; }
         }
         
+        /* CARDS */
         .cards-container {
             display: none;
             max-width: 1200px;
@@ -449,7 +454,7 @@
             height: 100%;
             backface-visibility: hidden;
             border-radius: var(--border-radius);
-            border: 2px solid var(--gold);
+            border: 1px solid var(--gold);
             background: linear-gradient(145deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
         }
@@ -566,40 +571,6 @@
             flex-direction: column;
         }
         
-        .logo-space {
-            position: absolute;
-            bottom: 25px;
-            left: 15px;
-            right: 15px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .back-logo {
-            width: 180px;
-            height: auto;
-            opacity: 0.8;
-            max-height: 100px;
-            object-fit: contain;
-        }
-        
-        .mc-logo {
-            position: absolute;
-            bottom: 15px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            z-index: 20;
-        }
-        
-        .mc-logo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
         .back-title {
             font-family: 'Orbitron', monospace;
             font-size: 1rem;
@@ -633,6 +604,40 @@
             font-size: 0.8rem;
             line-height: 1.4;
             color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .logo-space {
+            position: absolute;
+            bottom: 25px;
+            left: 15px;
+            right: 15px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-logo {
+            width: 180px;
+            height: auto;
+            opacity: 0.8;
+            max-height: 100px;
+            object-fit: contain;
+        }
+        
+        .mc-logo {
+            position: absolute;
+            bottom: 15px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            z-index: 20;
+        }
+        
+        .mc-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
         .card-number {
@@ -700,16 +705,20 @@
     
     <div class="deck-container" id="deckContainer">
         <div class="deck-box" id="deckBox">
+            <!-- MYSTICAL CRACKS -->
             <div class="mystical-crack crack-1"></div>
             <div class="mystical-crack crack-2"></div>
             <div class="mystical-crack crack-3"></div>
             <div class="mystical-crack crack-4"></div>
             
+            <!-- DECK CONTENT -->
             <div class="deck-content">
                 <div class="deck-logo">
                     <img src="logoback.png" alt="Ultra Keith Logo">
                 </div>
             </div>
+            
+            <!-- CLICK HINT - SEPARATE ELEMENT -->
             <div class="click-hint">Click to Open the Portal</div>
         </div>
     </div>
@@ -726,18 +735,18 @@
     <script>
         console.log('🚀 Starting Ultra Keith Personas...');
         
-        // ===== CONFIGURATION =====
+        // CONFIGURATION
         var CONFIG = {
             ANIMATION_SPEEDS: {
-                PORTAL_PHASES: [0, 600, 1200, 1600, 2200, 3000], // Phase timings
-                CARD_FLIGHT: 1200, // Card animation duration
-                CARD_LAUNCH_INTERVAL: 100, // Time between card launches
+                PORTAL_PHASES: [0, 600, 1200, 1600, 2200, 3000],
+                CARD_FLIGHT: 1200,
+                CARD_LAUNCH_INTERVAL: 100,
                 PARTICLE_BURST: 2000,
                 ENERGY_WAVE: 1500,
                 SCREEN_FLASH: 2000
             },
             CARD_LIMITS: {
-                LONG_TITLE_THRESHOLD: 20 // Characters before shrinking text
+                LONG_TITLE_THRESHOLD: 20
             },
             PARTICLE_COUNTS: {
                 MYSTICAL_PARTICLES: 60,
@@ -746,8 +755,7 @@
             }
         };
         
-        // ===== PERSONA DATA =====
-        
+        // PERSONA DATA
         var personasData = [
             {
                 number: "001", name: "Activity", year: "1984", era: "old", age: "20 (young breakdancer age)", origin: "NYC",
@@ -835,7 +843,9 @@
             }
         ];
         
-        // ===== UTILITY FUNCTIONS =====
+        var deckOpened = false;
+        
+        // UTILITY FUNCTIONS
         function safeRemoveElement(element) {
             if (element && element.parentNode) {
                 element.parentNode.removeChild(element);
@@ -854,10 +864,7 @@
             }
         }
         
-        var deckOpened = false;
-        
-        // ===== CARD GENERATION =====
-        
+        // CARD GENERATION
         function generateCards() {
             console.log('📋 Generating cards...');
             var container = document.getElementById('cardsGrid');
@@ -938,10 +945,11 @@
             console.log('✅ Generated ' + personasData.length + ' cards');
         }
         
-        // ===== ANIMATION FUNCTIONS =====
+        // ANIMATION FUNCTIONS
         function createMysticalParticles(container, count) {
             if (!container) return;
             count = count || CONFIG.PARTICLE_COUNTS.MYSTICAL_PARTICLES;
+            
             for (var i = 0; i < count; i++) {
                 setTimeout(function(index) {
                     return function() {
@@ -973,6 +981,7 @@
         function createEnergyWaves(container, count) {
             if (!container) return;
             count = count || CONFIG.PARTICLE_COUNTS.ENERGY_WAVES;
+            
             for (var i = 0; i < count; i++) {
                 setTimeout(function() {
                     var wave = document.createElement('div');
@@ -1001,6 +1010,7 @@
         function createCardBurst(container, count) {
             if (!container) return;
             count = count || CONFIG.PARTICLE_COUNTS.CARD_BURSTS;
+            
             for (var i = 0; i < count; i++) {
                 setTimeout(function() {
                     var cardBurst = document.createElement('div');
@@ -1025,6 +1035,7 @@
             }
         }
         
+        // CARD FLIGHT ANIMATION
         function animateCardsFromDeck() {
             console.log('🎆 Animating cards flying from deck...');
             var cards = document.querySelectorAll('.trading-card');
@@ -1036,18 +1047,19 @@
                     return function() {
                         var personaName = cardElement.querySelector('.persona-title').textContent;
                         console.log('🃏 Launching card ' + (index + 1) + ': ' + personaName);
-                        cardElement.classList.add('card-flying');
+                        addClassSafely(cardElement, 'card-flying');
                         
                         setTimeout(function() {
-                            cardElement.classList.remove('card-flying');
-                            cardElement.classList.add('card-landed');
+                            removeClassSafely(cardElement, 'card-flying');
+                            addClassSafely(cardElement, 'card-landed');
                             console.log('✅ Card ' + (index + 1) + ' landed!');
-                        }, 1200);
+                        }, CONFIG.ANIMATION_SPEEDS.CARD_FLIGHT);
                     };
-                }(i, card), i * 150);
+                }(i, card), i * CONFIG.ANIMATION_SPEEDS.CARD_LAUNCH_INTERVAL);
             }
         }
         
+        // MAIN DECK SETUP
         function setupDeck() {
             console.log('🎮 Setting up mystical deck...');
             var deckBox = document.getElementById('deckBox');
@@ -1065,12 +1077,12 @@
             deckBox.addEventListener('mouseenter', function() {
                 if (!deckOpened) {
                     console.log('🌟 Mystical aura activated...');
-                    deckBox.classList.add('mystical-hover');
+                    addClassSafely(deckBox, 'mystical-hover');
                 }
             });
             
             deckBox.addEventListener('mouseleave', function() {
-                deckBox.classList.remove('mystical-hover');
+                removeClassSafely(deckBox, 'mystical-hover');
             });
             
             deckBox.addEventListener('click', function() {
@@ -1080,11 +1092,11 @@
                     console.log('🎭 MYSTICAL PORTAL OPENING SEQUENCE INITIATED...');
                     deckOpened = true;
                     
-                    deckBox.classList.remove('mystical-hover');
+                    removeClassSafely(deckBox, 'mystical-hover');
                     
                     console.log('⚡ Phase 1: Mystical cracks appearing...');
-                    deckBox.classList.add('cracking');
-                    deckBox.classList.add('energy-building');
+                    addClassSafely(deckBox, 'cracking');
+                    addClassSafely(deckBox, 'energy-building');
                     
                     setTimeout(function() {
                         console.log('🌊 Phase 2: Energy waves expanding...');
@@ -1126,7 +1138,7 @@
             console.log('✅ Mystical deck setup complete');
         }
         
-        // ===== INITIALIZATION =====
+        // INITIALIZATION
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🎬 Page loaded - initializing...');
             
