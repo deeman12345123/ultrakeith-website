@@ -716,41 +716,63 @@
     <script>
         console.log('🚀 Starting Ultra Keith Personas...');
         
-        // ===== CONFIGURATION - EASY TO MODIFY =====
+        // ===== CONFIGURATION - MASTER CONTROL PANEL =====
         var CONFIG = {
-            // Animation Timing (in milliseconds)
+            // Animation Timing (in milliseconds) - EASY SPEED CONTROL
             ANIMATION_SPEEDS: {
                 PORTAL_PHASES: [0, 600, 1200, 1600, 2200, 3000], // [start, phase2, phase3, phase4, phase5, phase6]
                 CARD_FLIGHT: 1200,        // How long cards take to fly and land
-                CARD_LAUNCH_INTERVAL: 100, // Time between each card launch
+                CARD_LAUNCH_INTERVAL: 100, // Time between each card launch (smaller = faster succession)
                 PARTICLE_BURST: 2000,     // Particle animation duration
                 ENERGY_WAVE: 1500,        // Energy wave animation duration
                 SCREEN_FLASH: 2000        // Screen flash duration
             },
             
-            // Card Settings
+            // Card Settings - LAYOUT CONTROL
             CARD_LIMITS: {
-                LONG_TITLE_THRESHOLD: 20  // Characters before title shrinks
+                LONG_TITLE_THRESHOLD: 20, // Characters before title shrinks (increase for more tolerance)
+                CARDS_PER_ROW: {          // Responsive grid breakpoints
+                    MOBILE: 1,            // Mobile: 1 column
+                    TABLET: 2,            // Tablet: 2 columns  
+                    DESKTOP: 3            // Desktop: 3 columns
+                }
             },
             
-            // Visual Effects Counts
+            // Visual Effects Counts - SPECTACLE CONTROL
             PARTICLE_COUNTS: {
-                MYSTICAL_PARTICLES: 60,   // Particles that burst from deck
-                ENERGY_WAVES: 6,          // Number of energy wave rings
-                CARD_BURSTS: 40           // Mini card bursts during animation
+                MYSTICAL_PARTICLES: 60,   // Particles that burst from deck (more = more spectacular)
+                ENERGY_WAVES: 6,          // Number of energy wave rings (more = more dramatic)
+                CARD_BURSTS: 40           // Mini card bursts during animation (more = more chaos)
             },
             
-            // File Paths - EASY TO CHANGE
+            // File Paths - ASSET MANAGEMENT (change once, updates everywhere)
             IMAGES: {
-                DECK_LOGO: 'logoback.png',
-                MC_LOGO: 'mc.png',
-                BACK_LOGO: 'logoback.png',
-                CARD_PLACEHOLDER: 'IMG'   // Text shown when no card image
+                DECK_LOGO: 'logoback.png',     // Logo shown on deck
+                MC_LOGO: 'mc.png',             // MC logo on cards (front & back)
+                BACK_LOGO: 'logoback.png',     // Logo on card backs
+                CARD_PLACEHOLDER: 'IMG'        // Text shown when no card image available
             },
             
-            // Easy Color Customization
+            // Visual Customization - THEME CONTROL
             COLORS: {
                 PARTICLE_COLORS: ['var(--mystical-blue)', 'var(--energy-purple)', 'var(--plasma-pink)', 'var(--gold)']
+            },
+            
+            // Text Content - EASY COPY CHANGES
+            TEXT: {
+                PAGE_TITLE: 'Ultra Keith Personas',
+                PAGE_SUBTITLE: 'Trading Card Collection - First 12 Cards',
+                DECK_HINT: 'Click to Open the Portal',
+                CARD_FLIP_HINT: 'Click to flip',
+                NEXT_BUTTON: 'Next →'
+            },
+            
+            // Feature Toggles - EASY ON/OFF SWITCHES
+            FEATURES: {
+                HOVER_EFFECTS: true,      // Enable/disable deck hover glow
+                CARD_ROTATION: true,      // Enable/disable card spinning during flight
+                SCREEN_FLASH: true,       // Enable/disable dramatic screen flash
+                CONSOLE_LOGGING: true     // Enable/disable debug messages
             }
         };
         
@@ -890,7 +912,7 @@
         
         var deckOpened = false;
         
-        // UTILITY FUNCTIONS
+        // ===== UTILITY FUNCTIONS - REUSABLE HELPERS =====
         function safeRemoveElement(element) {
             if (element && element.parentNode) {
                 element.parentNode.removeChild(element);
@@ -909,85 +931,98 @@
             }
         }
         
-        // CARD GENERATION
+        function logSafely(message) {
+            if (CONFIG.FEATURES.CONSOLE_LOGGING && console && console.log) {
+                console.log(message);
+            }
+        }
+        
+        // Helper to create HTML card structure - REDUCES REPETITION
+        function buildCardHTML(persona, isLongTitle) {
+            return '<div class="card-inner">' +
+                '<div class="card-front">' +
+                    '<div class="front-container">' +
+                        '<div class="card-header">' +
+                            '<h1 class="persona-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + '</h1>' +
+                        '</div>' +
+                        '<div class="image-container">' + CONFIG.IMAGES.CARD_PLACEHOLDER + '</div>' +
+                        '<div class="stats-section">' +
+                            '<div class="stat-item">' +
+                                '<span class="stat-label">Age:</span>' +
+                                '<span class="stat-value">' + persona.age + '</span>' +
+                            '</div>' +
+                            '<div class="stat-item">' +
+                                '<span class="stat-label">Origin:</span>' +
+                                '<span class="stat-value">' + persona.origin + '</span>' +
+                            '</div>' +
+                            '<div class="stat-item">' +
+                                '<span class="stat-label">Likes:</span>' +
+                                '<span class="stat-value">' + persona.likes + '</span>' +
+                            '</div>' +
+                            '<div class="stat-item">' +
+                                '<span class="stat-label">Dislikes:</span>' +
+                                '<span class="stat-value">' + persona.dislikes + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="quote-section">"' + persona.quote + '"</div>' +
+                    '</div>' +
+                    '<div class="mc-logo">' +
+                        '<img src="' + CONFIG.IMAGES.MC_LOGO + '" alt="MC" class="mc-logo-img">' +
+                    '</div>' +
+                    '<div class="flip-hint">' + CONFIG.TEXT.CARD_FLIP_HINT + '</div>' +
+                    '<div class="card-number">#' + persona.number + '</div>' +
+                '</div>' +
+                '<div class="card-back">' +
+                    '<div class="back-container">' +
+                        '<h2 class="back-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + ' (' + persona.year + ')</h2>' +
+                        '<div class="info-section">' +
+                            '<h3 class="section-title">Biography</h3>' +
+                            '<div class="section-content">' + persona.biography + '</div>' +
+                        '</div>' +
+                        '<div class="info-section">' +
+                            '<h3 class="section-title">Debut</h3>' +
+                            '<div class="section-content">' + persona.debut + '</div>' +
+                        '</div>' +
+                        '<div class="info-section">' +
+                            '<h3 class="section-title">Key Themes</h3>' +
+                            '<div class="section-content">' + persona.themes + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="logo-space">' +
+                        '<img src="' + CONFIG.IMAGES.BACK_LOGO + '" alt="Ultra Keith Logo" class="back-logo">' +
+                    '</div>' +
+                    '<div class="mc-logo">' +
+                        '<img src="' + CONFIG.IMAGES.MC_LOGO + '" alt="MC" class="mc-logo-img">' +
+                    '</div>' +
+                    '<div class="card-number">#' + persona.number + '</div>' +
+                '</div>' +
+            '</div>';
+        }
+        
+        // ===== CARD GENERATION - CLEAN & ORGANIZED =====
         function generateCards() {
-            console.log('📋 Generating cards...');
+            logSafely('📋 Generating cards...');
             var container = document.getElementById('cardsGrid');
             
             for (var i = 0; i < personasData.length; i++) {
                 var persona = personasData[i];
                 var isLongTitle = persona.name.length > CONFIG.CARD_LIMITS.LONG_TITLE_THRESHOLD;
                 var card = document.createElement('div');
-                card.className = 'trading-card';
-                card.innerHTML = '<div class="card-inner">' +
-                    '<div class="card-front">' +
-                        '<div class="front-container">' +
-                            '<div class="card-header">' +
-                                '<h1 class="persona-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + '</h1>' +
-                            '</div>' +
-                            '<div class="image-container">' + CONFIG.IMAGES.CARD_PLACEHOLDER + '</div>' +
-                            '<div class="stats-section">' +
-                                '<div class="stat-item">' +
-                                    '<span class="stat-label">Age:</span>' +
-                                    '<span class="stat-value">' + persona.age + '</span>' +
-                                '</div>' +
-                                '<div class="stat-item">' +
-                                    '<span class="stat-label">Origin:</span>' +
-                                    '<span class="stat-value">' + persona.origin + '</span>' +
-                                '</div>' +
-                                '<div class="stat-item">' +
-                                    '<span class="stat-label">Likes:</span>' +
-                                    '<span class="stat-value">' + persona.likes + '</span>' +
-                                '</div>' +
-                                '<div class="stat-item">' +
-                                    '<span class="stat-label">Dislikes:</span>' +
-                                    '<span class="stat-value">' + persona.dislikes + '</span>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="quote-section">"' + persona.quote + '"</div>' +
-                        '</div>' +
-                        '<div class="mc-logo">' +
-                            '<img src="' + CONFIG.IMAGES.MC_LOGO + '" alt="MC" class="mc-logo-img">' +
-                        '</div>' +
-                        '<div class="flip-hint">Click to flip</div>' +
-                        '<div class="card-number">#' + persona.number + '</div>' +
-                    '</div>' +
-                    '<div class="card-back">' +
-                        '<div class="back-container">' +
-                            '<h2 class="back-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + ' (' + persona.year + ')</h2>' +
-                            '<div class="info-section">' +
-                                '<h3 class="section-title">Biography</h3>' +
-                                '<div class="section-content">' + persona.biography + '</div>' +
-                            '</div>' +
-                            '<div class="info-section">' +
-                                '<h3 class="section-title">Debut</h3>' +
-                                '<div class="section-content">' + persona.debut + '</div>' +
-                            '</div>' +
-                            '<div class="info-section">' +
-                                '<h3 class="section-title">Key Themes</h3>' +
-                                '<div class="section-content">' + persona.themes + '</div>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="logo-space">' +
-                            '<img src="' + CONFIG.IMAGES.BACK_LOGO + '" alt="Ultra Keith Logo" class="back-logo">' +
-                        '</div>' +
-                        '<div class="mc-logo">' +
-                            '<img src="' + CONFIG.IMAGES.MC_LOGO + '" alt="MC" class="mc-logo-img">' +
-                        '</div>' +
-                        '<div class="card-number">#' + persona.number + '</div>' +
-                    '</div>' +
-                '</div>';
                 
+                card.className = 'trading-card';
+                card.innerHTML = buildCardHTML(persona, isLongTitle);
+                
+                // Add flip functionality
                 card.addEventListener('click', function() {
                     var personaName = this.querySelector('.persona-title').textContent;
-                    console.log('🃏 Flipping card: ' + personaName);
+                    logSafely('🃏 Flipping card: ' + personaName);
                     this.classList.toggle('flipped');
                 });
                 
                 container.appendChild(card);
             }
             
-            console.log('✅ Generated ' + personasData.length + ' cards');
+            logSafely('✅ Generated ' + personasData.length + ' cards');
         }
         
         // ANIMATION FUNCTIONS
@@ -1042,6 +1077,8 @@
         }
         
         function createScreenFlash() {
+            if (!CONFIG.FEATURES.SCREEN_FLASH) return;
+            
             var flash = document.createElement('div');
             flash.className = 'screen-flash';
             flash.style.animation = 'screen-flash-effect ' + (CONFIG.ANIMATION_SPEEDS.SCREEN_FLASH / 1000) + 's ease-out forwards';
@@ -1120,8 +1157,8 @@
             console.log('✅ Deck box found:', deckBox);
             
             deckBox.addEventListener('mouseenter', function() {
-                if (!deckOpened) {
-                    console.log('🌟 Mystical aura activated...');
+                if (!deckOpened && CONFIG.FEATURES.HOVER_EFFECTS) {
+                    logSafely('🌟 Mystical aura activated...');
                     addClassSafely(deckBox, 'mystical-hover');
                 }
             });
@@ -1134,36 +1171,36 @@
                 console.log('🎯 MYSTICAL DECK CLICKED!');
                 
                 if (!deckOpened) {
-                    console.log('🎭 MYSTICAL PORTAL OPENING SEQUENCE INITIATED...');
+                    logSafely('🎭 MYSTICAL PORTAL OPENING SEQUENCE INITIATED...');
                     deckOpened = true;
                     
                     removeClassSafely(deckBox, 'mystical-hover');
                     
-                    console.log('⚡ Phase 1: Energy building...');
+                    logSafely('⚡ Phase 1: Energy building...');
                     addClassSafely(deckBox, 'energy-building');
                     
                     setTimeout(function() {
-                        console.log('🌊 Phase 2: Energy waves expanding...');
+                        logSafely('🌊 Phase 2: Energy waves expanding...');
                         createEnergyWaves(deckContainer);
                     }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[1]);
                     
                     setTimeout(function() {
-                        console.log('💫 Phase 3: Mystical particle explosion!');
+                        logSafely('💫 Phase 3: Mystical particle explosion!');
                         createMysticalParticles(deckContainer);
                     }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[2]);
                     
                     setTimeout(function() {
-                        console.log('🃏 Phase 4: Card burst sequence!');
+                        logSafely('🃏 Phase 4: Card burst sequence!');
                         createCardBurst(deckContainer);
                     }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[3]);
                     
                     setTimeout(function() {
-                        console.log('⚡ Phase 5: Reality-bending screen flash!');
+                        logSafely('⚡ Phase 5: Reality-bending screen flash!');
                         createScreenFlash();
                     }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[4]);
                     
                     setTimeout(function() {
-                        console.log('✨ Phase 6: Portal opened - cards flying out!');
+                        logSafely('✨ Phase 6: Portal opened - cards flying out!');
                         addClassSafely(deckContainer, 'hidden');
                         addClassSafely(cardsContainer, 'show');
                         addClassSafely(nextButton, 'show');
@@ -1172,10 +1209,10 @@
                             animateCardsFromDeck();
                         }, 200);
                         
-                        console.log('🎮 Card interaction system will activate after flight!');
+                        logSafely('🎮 Card interaction system will activate after flight!');
                     }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[5]);
                 } else {
-                    console.log('⚠️ Portal already opened');
+                    logSafely('⚠️ Portal already opened');
                 }
             });
             
