@@ -14,6 +14,9 @@
             --dark-gold: #B8860B;
             --silver: #C0C0C0;
             --border-radius: 12px;
+            --mystical-blue: #00BFFF;
+            --energy-purple: #8A2BE2;
+            --plasma-pink: #FF1493;
         }
         
         * {
@@ -28,6 +31,7 @@
             color: #ffffff;
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
         }
         
         /* HEADER - NORMAL PAGE FLOW */
@@ -55,7 +59,7 @@
             margin-bottom: 20px;
         }
         
-        /* DECK BOX - NORMAL DOCUMENT FLOW */
+        /* MYSTICAL DECK BOX - NORMAL DOCUMENT FLOW */
         .deck-container {
             display: flex;
             justify-content: center;
@@ -63,6 +67,7 @@
             min-height: 60vh;
             margin: 40px 0;
             transition: all 1s ease;
+            position: relative;
         }
         
         .deck-container.hidden {
@@ -84,6 +89,21 @@
             transform: scale(1.05);
         }
         
+        .deck-box.mystical-hover {
+            animation: mystical-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes mystical-pulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.3));
+                transform: scale(1.05);
+            }
+            50% { 
+                filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.6));
+                transform: scale(1.08);
+            }
+        }
+        
         .deck-base {
             width: 100%;
             height: 100%;
@@ -95,6 +115,7 @@
                 0 8px 32px rgba(0, 0, 0, 0.9),
                 0 0 20px rgba(255, 215, 0, 0.3),
                 inset 0 2px 4px rgba(255, 215, 0, 0.1);
+            transition: all 0.5s ease;
         }
         
         .deck-base::before {
@@ -107,6 +128,63 @@
             border: 1px solid var(--silver);
             border-radius: 6px;
             opacity: 0.6;
+            transition: all 0.5s ease;
+        }
+        
+        /* MYSTICAL CRACKS */
+        .mystical-crack {
+            position: absolute;
+            background: linear-gradient(45deg, var(--mystical-blue), var(--energy-purple));
+            opacity: 0;
+            transition: all 0.8s ease;
+            box-shadow: 0 0 10px currentColor;
+            z-index: 5;
+        }
+        
+        .crack-1 {
+            top: 30%;
+            left: 0;
+            width: 2px;
+            height: 40%;
+            transform: rotate(15deg);
+        }
+        
+        .crack-2 {
+            top: 20%;
+            right: 0;
+            width: 2px;
+            height: 35%;
+            transform: rotate(-20deg);
+        }
+        
+        .crack-3 {
+            bottom: 25%;
+            left: 20%;
+            width: 60%;
+            height: 2px;
+            transform: rotate(5deg);
+        }
+        
+        .crack-4 {
+            top: 15%;
+            left: 30%;
+            width: 40%;
+            height: 2px;
+            transform: rotate(-10deg);
+        }
+        
+        .deck-box.cracking .mystical-crack {
+            opacity: 1;
+            animation: crack-glow 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes crack-glow {
+            0% { 
+                filter: brightness(1) drop-shadow(0 0 5px currentColor);
+            }
+            100% { 
+                filter: brightness(2) drop-shadow(0 0 15px currentColor);
+            }
         }
         
         .deck-lid {
@@ -126,8 +204,24 @@
             z-index: 10;
         }
         
-        .deck-lid.open {
-            transform: rotateX(-180deg) translateZ(2px);
+        .deck-lid.explosive-open {
+            transform: rotateX(-200deg) translateZ(20px);
+            animation: lid-explosion 0.8s ease-out;
+        }
+        
+        @keyframes lid-explosion {
+            0% { 
+                transform: rotateX(0deg) translateZ(0px);
+            }
+            30% { 
+                transform: rotateX(-90deg) translateZ(10px) scale(1.1);
+            }
+            60% { 
+                transform: rotateX(-160deg) translateZ(25px) scale(1.05);
+            }
+            100% { 
+                transform: rotateX(-200deg) translateZ(20px) scale(1);
+            }
         }
         
         .deck-logo {
@@ -139,13 +233,25 @@
             height: 60%;
             opacity: 0.9;
             z-index: 15;
+            transition: all 0.5s ease;
         }
         
         .deck-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: brightness(0.8) !important;
+            filter: brightness(0.8);
+            transition: all 0.5s ease;
+        }
+        
+        .deck-box.energy-building .deck-logo img {
+            filter: brightness(1.5) drop-shadow(0 0 20px var(--mystical-blue));
+            animation: logo-energy 1s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logo-energy {
+            0% { filter: brightness(1.5) drop-shadow(0 0 20px var(--mystical-blue)); }
+            100% { filter: brightness(2) drop-shadow(0 0 30px var(--energy-purple)); }
         }
         
         .deck-cards-stack {
@@ -185,14 +291,15 @@
         
         .click-hint {
             position: absolute;
-            bottom: -30px;
+            bottom: -40px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Orbitron', monospace;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: rgba(255, 215, 0, 0.8);
             animation: pulse 2s infinite;
             white-space: nowrap;
+            z-index: 20;
         }
         
         .deck-box.opened .click-hint {
@@ -200,8 +307,110 @@
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            0%, 100% { 
+                opacity: 0.6; 
+                text-shadow: 0 0 5px currentColor;
+            }
+            50% { 
+                opacity: 1; 
+                text-shadow: 0 0 15px currentColor;
+            }
+        }
+        
+        /* MYSTICAL PARTICLES */
+        .mystical-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--mystical-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1001;
+            opacity: 0;
+        }
+        
+        .energy-wave {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border: 2px solid var(--energy-purple);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .screen-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(0, 191, 255, 0.6) 30%, 
+                rgba(138, 43, 226, 0.3) 60%, 
+                transparent 100%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* CARD BURST ANIMATIONS */
+        .card-burst {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: linear-gradient(145deg, var(--gold), var(--dark-gold));
+            border-radius: 3px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1002;
+        }
+        
+        @keyframes particle-burst {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1.5) rotate(90deg);
+            }
+            80% {
+                opacity: 0.8;
+                transform: scale(1) rotate(270deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(360deg);
+            }
+        }
+        
+        @keyframes energy-wave-expand {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                width: 800px;
+                height: 800px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes screen-flash-effect {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            30% { opacity: 0.8; }
+            100% { opacity: 0; }
         }
         
         /* CARDS CONTAINER - NORMAL PAGE FLOW */
@@ -210,11 +419,23 @@
             max-width: 1200px;
             margin: 0 auto;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 1s ease;
         }
         
         .cards-container.show {
             opacity: 1;
+            animation: cards-appear 1s ease-out;
+        }
+        
+        @keyframes cards-appear {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* RESPONSIVE CARD GRID - NORMAL LAYOUT */
@@ -538,37 +759,6 @@
             z-index: 15;
         }
         
-        /* SPARKLES */
-        .sparkle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: sparkle-fly 3s ease-out forwards;
-            pointer-events: none;
-            z-index: 1001;
-        }
-        
-        @keyframes sparkle-fly {
-            0% {
-                opacity: 1;
-                transform: scale(0) rotate(0deg) translateY(0);
-            }
-            20% {
-                opacity: 1;
-                transform: scale(1.5) rotate(90deg) translateY(-10px);
-            }
-            80% {
-                opacity: 0.8;
-                transform: scale(1) rotate(270deg) translateY(-30px);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0) rotate(360deg) translateY(-50px);
-            }
-        }
-        
         /* NEXT BUTTON */
         .next-button-container {
             display: flex;
@@ -615,17 +805,23 @@
         <p class="subtitle">Trading Card Collection - First 12 Cards</p>
     </div>
     
-    <!-- DECK CONTAINER - NORMAL PAGE FLOW -->
+    <!-- MYSTICAL DECK CONTAINER - NORMAL PAGE FLOW -->
     <div class="deck-container" id="deckContainer">
         <div class="deck-box" id="deckBox">
             <div class="deck-base">
+                <!-- MYSTICAL CRACKS -->
+                <div class="mystical-crack crack-1"></div>
+                <div class="mystical-crack crack-2"></div>
+                <div class="mystical-crack crack-3"></div>
+                <div class="mystical-crack crack-4"></div>
+                
                 <div class="deck-logo">
                     <img src="/personas/logoback.png" alt="Ultra Keith Logo">
                 </div>
                 <div class="deck-cards-stack"></div>
             </div>
             <div class="deck-lid" id="deckLid"></div>
-            <div class="click-hint">← CLICK TO OPEN →</div>
+            <div class="click-hint">← CLICK TO OPEN THE MYSTICAL DECK →</div>
         </div>
     </div>
     
@@ -842,6 +1038,83 @@
             console.log('All card flipping setup complete!');
         }
         
+        function createMysticalParticles(container, count = 50) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'mystical-particle';
+                    
+                    // Random position around deck center
+                    const centerX = container.offsetWidth / 2;
+                    const centerY = container.offsetHeight / 2;
+                    const angle = (Math.PI * 2 * i) / count;
+                    const radius = 30 + Math.random() * 100;
+                    
+                    particle.style.left = (centerX + Math.cos(angle) * radius) + 'px';
+                    particle.style.top = (centerY + Math.sin(angle) * radius) + 'px';
+                    
+                    // Random color
+                    const colors = ['var(--mystical-blue)', 'var(--energy-purple)', 'var(--plasma-pink)', 'var(--gold)'];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Animation
+                    particle.style.animation = `particle-burst 2s ease-out forwards`;
+                    
+                    container.appendChild(particle);
+                    
+                    // Remove after animation
+                    setTimeout(() => particle.remove(), 2000);
+                }, i * 30);
+            }
+        }
+        
+        function createEnergyWaves(container, count = 5) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const wave = document.createElement('div');
+                    wave.className = 'energy-wave';
+                    wave.style.animation = `energy-wave-expand 1.5s ease-out forwards`;
+                    container.appendChild(wave);
+                    
+                    setTimeout(() => wave.remove(), 1500);
+                }, i * 200);
+            }
+        }
+        
+        function createScreenFlash() {
+            const flash = document.createElement('div');
+            flash.className = 'screen-flash';
+            flash.style.animation = 'screen-flash-effect 1.5s ease-out forwards';
+            document.body.appendChild(flash);
+            
+            setTimeout(() => flash.remove(), 1500);
+        }
+        
+        function createCardBurst(container, count = 30) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const cardBurst = document.createElement('div');
+                    cardBurst.className = 'card-burst';
+                    
+                    // Random position from deck center
+                    const centerX = container.offsetWidth / 2;
+                    const centerY = container.offsetHeight / 2;
+                    cardBurst.style.left = (centerX + (Math.random() - 0.5) * 200) + 'px';
+                    cardBurst.style.top = (centerY + (Math.random() - 0.5) * 200) + 'px';
+                    
+                    // Random animation direction
+                    const moveX = (Math.random() - 0.5) * 500;
+                    const moveY = (Math.random() - 0.5) * 500;
+                    cardBurst.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${Math.random() * 360}deg)`;
+                    cardBurst.style.animation = `particle-burst 2.5s ease-out forwards`;
+                    
+                    container.appendChild(cardBurst);
+                    
+                    setTimeout(() => cardBurst.remove(), 2500);
+                }, i * 50);
+            }
+        }
+        
         function setupDeckBox() {
             const deckBox = document.getElementById('deckBox');
             const deckLid = document.getElementById('deckLid');
@@ -849,29 +1122,58 @@
             const cardsContainer = document.getElementById('cardsContainer');
             const nextButtonContainer = document.getElementById('nextButtonContainer');
             
+            // Hover effect for mystical aura
+            deckBox.addEventListener('mouseenter', function() {
+                if (!deckOpened) {
+                    deckBox.classList.add('mystical-hover');
+                }
+            });
+            
+            deckBox.addEventListener('mouseleave', function() {
+                deckBox.classList.remove('mystical-hover');
+            });
+            
             deckBox.onclick = function() {
                 if (!deckOpened) {
-                    console.log('Deck clicked - starting animation...');
+                    console.log('🎭 MYSTICAL DECK ACTIVATION SEQUENCE INITIATED...');
                     deckOpened = true;
                     
-                    // Open lid immediately
-                    deckLid.classList.add('open');
+                    // Remove hover effects
+                    deckBox.classList.remove('mystical-hover');
                     
-                    // Create sparkles
-                    for (let i = 0; i < 25; i++) {
-                        setTimeout(() => {
-                            const sparkle = document.createElement('div');
-                            sparkle.className = 'sparkle';
-                            sparkle.style.left = (80 + Math.random() * 140) + 'px';
-                            sparkle.style.top = (40 + Math.random() * 100) + 'px';
-                            deckBox.appendChild(sparkle);
-                            setTimeout(() => sparkle.remove(), 3000);
-                        }, i * 50);
-                    }
+                    // PHASE 1: MYSTICAL CRACK APPEARANCE (0-1s)
+                    console.log('⚡ Phase 1: Mystical cracks appearing...');
+                    deckBox.classList.add('cracking');
+                    deckBox.classList.add('energy-building');
                     
-                    // Hide deck container and show cards
+                    // PHASE 2: ENERGY WAVES (1-2s)
                     setTimeout(() => {
-                        console.log('Hiding deck and showing cards...');
+                        console.log('🌊 Phase 2: Energy waves expanding...');
+                        createEnergyWaves(deckContainer);
+                    }, 1000);
+                    
+                    // PHASE 3: EXPLOSIVE OPENING (2-3s)
+                    setTimeout(() => {
+                        console.log('💥 Phase 3: EXPLOSIVE DECK OPENING!');
+                        deckLid.classList.add('explosive-open');
+                        createMysticalParticles(deckContainer, 60);
+                    }, 2000);
+                    
+                    // PHASE 4: CARD BURST (2.5-4s)
+                    setTimeout(() => {
+                        console.log('🃏 Phase 4: Card burst sequence!');
+                        createCardBurst(deckContainer, 40);
+                    }, 2500);
+                    
+                    // PHASE 5: SCREEN FLASH (3.5-5s)
+                    setTimeout(() => {
+                        console.log('⚡ Phase 5: Reality-bending screen flash!');
+                        createScreenFlash();
+                    }, 3500);
+                    
+                    // PHASE 6: DECK DISAPPEARS, CARDS APPEAR (5-6s)
+                    setTimeout(() => {
+                        console.log('✨ Phase 6: Mystical transformation complete - revealing cards!');
                         deckContainer.classList.add('hidden');
                         cardsContainer.classList.add('show');
                         nextButtonContainer.classList.add('show');
@@ -879,14 +1181,11 @@
                         // Setup card flipping after cards appear
                         setTimeout(() => {
                             setupCardFlipping();
+                            console.log('🎮 Card interaction system activated!');
                         }, 500);
-                    }, 1500);
+                    }, 5000);
                 }
             };
-        }
-        
-        function setupFilters() {
-            // Removed filter functionality
         }
         
         function adjustTitleSizes() {
@@ -907,18 +1206,14 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Starting Ultra Keith Personas...');
+            console.log('🚀 ULTRA KEITH MYSTICAL PERSONAS PORTAL INITIALIZING...');
             
             // Generate cards but keep them hidden
             generateCards();
             adjustTitleSizes();
             
-            // Setup systems
+            // Setup mystical deck system
             setupDeckBox();
             
-            console.log('Ready! Click the deck to begin...');
+            console.log('🎭 Ready! Click the mystical deck to open the portal to Keith\'s dimension...');
         });
-    </script>
-    
-</body>
-</html>
