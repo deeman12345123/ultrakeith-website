@@ -391,14 +391,13 @@
         }
         
         .trading-card.card-flying {
-            animation: card-fly 1.2s ease-out forwards;
+            animation: 
+                card-scale 1.2s ease-out both,
+                card-smooth-spin 1.2s linear both;
+            transform-origin: center center;
         }
         
-        .trading-card.card-flying .card-inner {
-            animation: ultra-smooth-spin 1.2s linear forwards;
-        }
-        
-        @keyframes card-fly {
+        @keyframes card-scale {
             0% {
                 opacity: 1;
                 transform: scale(0.1);
@@ -409,13 +408,23 @@
             }
         }
         
-        @keyframes ultra-smooth-spin {
+        @keyframes card-smooth-spin {
             0% {
-                transform: rotate(0deg);
+                transform: rotateZ(0deg);
             }
             100% {
-                transform: rotate(360deg);
+                transform: rotateZ(360deg);
             }
+        }
+        
+        .trading-card.card-landed {
+            opacity: 1;
+            transform: scale(1) rotateZ(0deg);
+            animation: none;
+        }
+        
+        .trading-card.card-flying .card-inner {
+            animation: none;
         }
         
         .trading-card.card-landed {
