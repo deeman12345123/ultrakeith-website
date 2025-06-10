@@ -125,14 +125,16 @@
             padding: 100px 20px 40px;
         }
         
-        /* AI Keith Image - With Transparent Background */
+        /* AI Keith Image */
         .ai-keith-wrapper {
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 80px;
             overflow: visible;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        /* Full Keith Image - Transparent Background */
         .ai-keith-image {
             width: 300px;
             height: 450px;
@@ -141,12 +143,44 @@
             border-radius: 0;
             border: none;
             transition: all 0.5s ease;
-            animation: waveDistortion 6s ease-in-out infinite;
+            animation: aiGlow 3s ease-in-out infinite alternate, waveDistortion 6s ease-in-out infinite;
             position: relative;
             z-index: 2;
         }
         
-        /* Border Frame - Positioned Over Image */
+        @keyframes aiGlow {
+            0% { 
+                filter: brightness(1) contrast(1);
+            }
+            100% { 
+                filter: brightness(1.1) contrast(1.05);
+            }
+        }
+        
+        /* Wave Distortion */
+        @keyframes waveDistortion {
+            0% { 
+                transform: perspective(1000px) rotateX(0deg) skewX(0deg);
+            }
+            25% { 
+                transform: perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
+            }
+            50% { 
+                transform: perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
+            }
+            75% { 
+                transform: perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
+            }
+            100% { 
+                transform: perspective(1000px) rotateX(0deg) skewX(0deg);
+            }
+        }
+        
+        .ai-keith-image:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Border Frame */
         .border-frame {
             position: absolute;
             bottom: 0;
@@ -159,12 +193,12 @@
             box-shadow: 
                 0 0 20px rgba(255, 215, 0, 0.3),
                 inset 0 0 30px rgba(255, 215, 0, 0.08);
-            animation: aiGlow 3s ease-in-out infinite alternate;
+            animation: borderGlow 3s ease-in-out infinite alternate;
             z-index: 1;
             pointer-events: none;
         }
         
-        @keyframes aiGlow {
+        @keyframes borderGlow {
             0% { 
                 box-shadow: 
                     0 0 15px rgba(255, 215, 0, 0.25),
@@ -177,35 +211,7 @@
             }
         }
         
-        /* Wave Distortion */
-        @keyframes waveDistortion {
-            0% { 
-                filter: blur(0px);
-                transform: perspective(1000px) rotateX(0deg) skewX(0deg);
-            }
-            25% { 
-                filter: blur(0.3px);
-                transform: perspective(1000px) rotateX(0.5deg) skewX(0.2deg);
-            }
-            50% { 
-                filter: blur(0px);
-                transform: perspective(1000px) rotateX(-0.3deg) skewX(-0.1deg);
-            }
-            75% { 
-                filter: blur(0.2px);
-                transform: perspective(1000px) rotateX(0.2deg) skewX(0.1deg);
-            }
-            100% { 
-                filter: blur(0px);
-                transform: perspective(1000px) rotateX(0deg) skewX(0deg);
-            }
-        }
-        
-        .ai-keith-image:hover {
-            transform: scale(1.05);
-        }
-        
-        /* Scanning Lines Effect - Inside Border Only */
+        /* Scanning Lines Effect */
         .scan-lines {
             position: absolute;
             bottom: 0;
@@ -213,12 +219,6 @@
             transform: translateX(-50%);
             width: 300px;
             height: 400px;
-            background: linear-gradient(
-                0deg,
-                transparent 0%,
-                rgba(255, 215, 0, 0.1) 50%,
-                transparent 100%
-            );
             border-radius: 20px;
             pointer-events: none;
             z-index: 4;
@@ -246,13 +246,14 @@
             100% { transform: translateY(400px); }
         }
         
-        /* Digital Static Overlay */
+        /* Digital Static */
         .digital-static {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 400px;
             background: 
                 radial-gradient(circle, rgba(160, 160, 160, 0.03) 1px, transparent 1px),
                 radial-gradient(circle, rgba(120, 120, 120, 0.02) 0.5px, transparent 0.5px);
@@ -276,10 +277,11 @@
         /* Signal Interference */
         .signal-interference {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 400px;
             background: 
                 linear-gradient(
                     90deg,
@@ -297,151 +299,98 @@
         }
         
         @keyframes interferenceWave {
-            0%, 85% { opacity: 0; transform: translateX(0); }
-            87% { opacity: 0.4; transform: translateX(2px); }
-            89% { opacity: 0.2; transform: translateX(-1px); }
-            91% { opacity: 0.1; transform: translateX(1px); }
-            93% { opacity: 0; transform: translateX(0); }
-            100% { opacity: 0; transform: translateX(0); }
+            0%, 85% { opacity: 0; transform: translateX(-50%) translateX(0); }
+            87% { opacity: 0.4; transform: translateX(-50%) translateX(2px); }
+            89% { opacity: 0.2; transform: translateX(-50%) translateX(-1px); }
+            91% { opacity: 0.1; transform: translateX(-50%) translateX(1px); }
+            93% { opacity: 0; transform: translateX(-50%) translateX(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateX(0); }
         }
         
-        /* AI Terminal Interface Elements */
-        .terminal-overlay {
+        /* Terminal Display */
+        .terminal-display {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        /* Status Indicators - Top Corners */
-        .status-left, .status-right {
-            position: absolute;
-            top: 10px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: rgba(255, 215, 0, 0.8);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            animation: statusBlink 3s ease-in-out infinite;
-        }
-        
-        .status-left {
-            left: 10px;
-        }
-        
-        .status-right {
-            right: 10px;
-            text-align: right;
-        }
-        
-        @keyframes statusBlink {
-            0%, 90% { opacity: 0.8; }
-            95% { opacity: 1; }
-            100% { opacity: 0.8; }
-        }
-        
-        /* Data Stream - Side Panel */
-        .data-stream-panel {
-            position: absolute;
-            right: -180px;
-            top: 50px;
-            width: 160px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px 10px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.7rem;
-            color: rgba(255, 215, 0, 0.7);
-            backdrop-filter: blur(5px);
-        }
-        
-        .data-stream-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            opacity: 0;
-            animation: dataStreamIn 0.5s ease-out forwards;
-        }
-        
-        .data-stream-item:nth-child(1) { animation-delay: 0.5s; }
-        .data-stream-item:nth-child(2) { animation-delay: 1s; }
-        .data-stream-item:nth-child(3) { animation-delay: 1.5s; }
-        .data-stream-item:nth-child(4) { animation-delay: 2s; }
-        .data-stream-item:nth-child(5) { animation-delay: 2.5s; }
-        
-        @keyframes dataStreamIn {
-            from { 
-                opacity: 0; 
-                transform: translateX(20px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateX(0);
-            }
-        }
-        
-        .stream-arrow {
-            color: #ffd700;
-            margin-right: 5px;
-            animation: arrowPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes arrowPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-        
-        /* Bottom Terminal Prompt */
-        .terminal-prompt {
-            position: absolute;
-            bottom: -50px;
+            bottom: -70px;
             left: 50%;
             transform: translateX(-50%);
-            width: 400px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 5px;
-            padding: 10px 15px;
+            width: 350px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            border-radius: 8px;
+            padding: 15px;
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
             color: #ffd700;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
+            z-index: 20;
         }
         
-        .prompt-line {
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            font-size: 0.7rem;
+        }
+        
+        .terminal-version {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .terminal-status {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .terminal-content {
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        
+        .terminal-line {
             margin-bottom: 5px;
+            display: flex;
+            align-items: flex-start;
         }
         
-        .prompt-cursor {
+        .terminal-prompt {
+            color: rgba(255, 215, 0, 0.8);
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        
+        .terminal-text {
+            color: #ffd700;
+            flex: 1;
+        }
+        
+        .cursor {
             display: inline-block;
             background: #ffd700;
             width: 8px;
-            height: 12px;
-            animation: cursorBlink 1s infinite;
+            height: 14px;
+            margin-left: 2px;
+            animation: blink 1s infinite;
         }
         
-        @keyframes cursorBlink {
+        @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
         
-        /* Typing Effect */
-        .typing-text {
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typeWriter 3s steps(40) 1s forwards;
-            width: 0;
+        .terminal-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            font-size: 0.6rem;
+            color: rgba(255, 215, 0, 0.7);
         }
         
-        @keyframes typeWriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
+        /* Text Content */
         .ai-title {
             font-family: 'Orbitron', monospace;
             font-size: 3rem;
@@ -540,26 +489,7 @@
             transform: scale(0.98);
         }
         
-        /* Button Ripple Effect */
-        .enter-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .enter-btn:active::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        /* Loading Overlay with B&W Static */
+        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -619,7 +549,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 85px;
+                margin-bottom: 90px;
             }
             
             .ai-keith-image {
@@ -632,15 +562,31 @@
                 height: 330px;
             }
             
-            .terminal-display {
-                width: 300px;
-                bottom: -55px;
-                font-size: 0.65rem;
-                padding: 10px 12px;
+            .scan-lines {
+                width: 250px;
+                height: 330px;
             }
             
-            .terminal-header, .terminal-stats {
-                font-size: 0.55rem;
+            .digital-static,
+            .signal-interference {
+                width: 250px;
+                height: 330px;
+            }
+            
+            .terminal-display {
+                width: 320px;
+                bottom: -65px;
+                font-size: 0.7rem;
+                padding: 12px;
+            }
+            
+            .terminal-header,
+            .terminal-stats {
+                font-size: 0.6rem;
+            }
+            
+            .terminal-content {
+                font-size: 0.65rem;
             }
             
             .ai-title {
@@ -668,7 +614,7 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 80px;
+                margin-bottom: 85px;
             }
             
             .ai-keith-image {
@@ -681,15 +627,31 @@
                 height: 250px;
             }
             
-            .terminal-display {
-                width: 260px;
-                bottom: -50px;
-                font-size: 0.6rem;
-                padding: 8px 10px;
+            .scan-lines {
+                width: 200px;
+                height: 250px;
             }
             
-            .terminal-header, .terminal-stats {
-                font-size: 0.5rem;
+            .digital-static,
+            .signal-interference {
+                width: 200px;
+                height: 250px;
+            }
+            
+            .terminal-display {
+                width: 280px;
+                bottom: -60px;
+                font-size: 0.65rem;
+                padding: 10px;
+            }
+            
+            .terminal-header,
+            .terminal-stats {
+                font-size: 0.55rem;
+            }
+            
+            .terminal-content {
+                font-size: 0.6rem;
             }
             
             .ai-title {
@@ -736,18 +698,21 @@
             <div class="digital-static"></div>
             <div class="signal-interference"></div>
             
-            <!-- Enhanced Terminal Display -->
+            <!-- Terminal Display -->
             <div class="terminal-display">
                 <div class="terminal-header">
                     <span class="terminal-version">KEITH.GPT v4.2</span>
                     <span class="terminal-status">ONLINE</span>
                 </div>
-                <div class="terminal-line">
-                    <span class="terminal-prompt">$</span>
-                    <span class="terminal-text" id="terminalText">Initializing neural networks...</span>
+                <div class="terminal-content">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-text" id="terminalText">Initializing...</span>
+                        <span class="cursor" id="cursor"></span>
+                    </div>
                 </div>
                 <div class="terminal-stats">
-                    <span>CPU: <span id="cpuUsage">87%</span></span>
+                    <span>CPU: <span id="cpuUsage">87.3%</span></span>
                     <span>MEM: <span id="memUsage">12.4GB</span></span>
                     <span>PING: <span id="pingTime">8ms</span></span>
                 </div>
@@ -782,34 +747,8 @@
     </div>
 
     <script>
-        // Add click event to Keith AI image
-        document.getElementById('aiKeithImage').addEventListener('click', function() {
-            this.style.transform = 'scale(1.1) rotateY(10deg)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1) rotateY(0deg)';
-            }, 200);
-        });
-
-        // Enter chat button functionality
-        document.getElementById('enterChatBtn').addEventListener('click', function() {
-            // Show loading overlay
-            document.getElementById('loadingOverlay').style.display = 'flex';
-            
-            // Simulate loading time then redirect
-            setTimeout(() => {
-                window.location.href = 'chat.html'; // Change this to your chat page filename
-            }, 2500);
-        });
-
-        // Add keyboard shortcut (Enter key)
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('enterChatBtn').click();
-            }
-        });
-
-        // Fixed terminal typing animation
-        const terminalMessages = [
+        // Terminal messages
+        const messages = [
             "Initializing neural networks...",
             "Loading KEITH.GPT language model...",
             "Calibrating response parameters...",
@@ -828,41 +767,47 @@
         ];
         
         let currentMessageIndex = 0;
-        let typewriterInterval;
+        let currentText = "";
+        let isTyping = false;
         
-        function typeMessage(message) {
+        function typeMessage() {
+            if (isTyping) return;
+            
+            const message = messages[currentMessageIndex];
             const terminalText = document.getElementById('terminalText');
-            let currentChar = 0;
+            const cursor = document.getElementById('cursor');
             
-            // Clear previous content
-            terminalText.textContent = '';
-            terminalText.className = 'terminal-text typing';
+            isTyping = true;
+            currentText = "";
+            let charIndex = 0;
             
-            // Clear any existing interval
-            if (typewriterInterval) {
-                clearInterval(typewriterInterval);
-            }
+            // Show cursor
+            cursor.style.display = 'inline-block';
             
-            typewriterInterval = setInterval(() => {
-                if (currentChar < message.length) {
-                    terminalText.textContent = message.substring(0, currentChar + 1);
-                    currentChar++;
+            const typeInterval = setInterval(() => {
+                if (charIndex < message.length) {
+                    currentText += message[charIndex];
+                    terminalText.textContent = currentText;
+                    charIndex++;
                 } else {
-                    // Typing complete
-                    clearInterval(typewriterInterval);
-                    terminalText.className = 'terminal-text';
+                    clearInterval(typeInterval);
                     
-                    // Wait then start next message
+                    // Hide cursor briefly then show it again
                     setTimeout(() => {
-                        currentMessageIndex = (currentMessageIndex + 1) % terminalMessages.length;
-                        typeMessage(terminalMessages[currentMessageIndex]);
-                    }, 2000);
+                        cursor.style.display = 'none';
+                        
+                        setTimeout(() => {
+                            isTyping = false;
+                            currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                            typeMessage();
+                        }, 2000);
+                    }, 500);
                 }
-            }, 80); // Typing speed
+            }, 100);
         }
         
-        // Update system stats randomly
-        function updateSystemStats() {
+        // Update stats
+        function updateStats() {
             const cpuElement = document.getElementById('cpuUsage');
             const memElement = document.getElementById('memUsage');
             const pingElement = document.getElementById('pingTime');
@@ -883,14 +828,38 @@
             }
         }
         
-        // Start everything after page load
+        // Start terminal after page load
         setTimeout(() => {
-            typeMessage(terminalMessages[0]);
-            updateSystemStats();
-            setInterval(updateSystemStats, 4000);
+            typeMessage();
+            updateStats();
+            setInterval(updateStats, 4000);
         }, 2000);
+        
+        // Image interactions
+        document.getElementById('aiKeithImage').addEventListener('click', function() {
+            this.style.transform = 'scale(1.1) rotateY(10deg)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1) rotateY(0deg)';
+            }, 200);
+        });
 
-        // Random digital glitch
+        // Enter chat button
+        document.getElementById('enterChatBtn').addEventListener('click', function() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            setTimeout(() => {
+                window.location.href = 'chat.html';
+            }, 2500);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('enterChatBtn').click();
+            }
+        });
+
+        // Digital glitch effect
         function triggerDigitalGlitch() {
             const image = document.getElementById('aiKeithImage');
             image.style.filter = 'contrast(1.2) brightness(1.1)';
@@ -900,12 +869,10 @@
             }, 150);
         }
 
-        // Trigger glitch every 10-20 seconds
         setInterval(triggerDigitalGlitch, Math.random() * 10000 + 10000);
 
-        // Initialize on page load
+        // Page load animation
         document.addEventListener('DOMContentLoaded', function() {
-            // Add entrance animation
             document.querySelector('.ai-container').style.opacity = '0';
             setTimeout(() => {
                 document.querySelector('.ai-container').style.transition = 'opacity 1s ease';
