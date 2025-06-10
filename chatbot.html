@@ -128,7 +128,7 @@
         /* AI Keith Image */
         .ai-keith-wrapper {
             position: relative;
-            margin-bottom: 100px;
+            margin-bottom: 140px;
             overflow: visible;
             display: flex;
             justify-content: center;
@@ -310,7 +310,7 @@
         /* Terminal Display */
         .terminal-display {
             position: absolute;
-            bottom: -90px;
+            bottom: -130px;
             left: 50%;
             transform: translateX(-50%);
             width: 350px;
@@ -353,6 +353,7 @@
             margin-bottom: 5px;
             display: flex;
             align-items: flex-start;
+            white-space: nowrap;
         }
         
         .terminal-prompt {
@@ -366,14 +367,16 @@
             flex: 1;
         }
         
-        .cursor {
-            display: inline-block;
-            background: #ffd700;
-            width: 2px;
-            height: 14px;
-            margin-left: 2px;
+        .terminal-text.typing::after {
+            content: '█';
+            color: #ffd700;
+            font-weight: normal;
             animation: blink 1s infinite;
-            vertical-align: top;
+            margin-left: 1px;
+        }
+        
+        .cursor {
+            display: none;
         }
         
         @keyframes blink {
@@ -550,7 +553,7 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .ai-keith-wrapper {
-                margin-bottom: 110px;
+                margin-bottom: 150px;
             }
             
             .ai-keith-image {
@@ -576,7 +579,7 @@
             
             .terminal-display {
                 width: 320px;
-                bottom: -85px;
+                bottom: -125px;
                 font-size: 0.7rem;
                 padding: 12px;
             }
@@ -615,7 +618,7 @@
         
         @media (max-width: 480px) {
             .ai-keith-wrapper {
-                margin-bottom: 105px;
+                margin-bottom: 145px;
             }
             
             .ai-keith-image {
@@ -641,7 +644,7 @@
             
             .terminal-display {
                 width: 280px;
-                bottom: -80px;
+                bottom: -120px;
                 font-size: 0.65rem;
                 padding: 10px;
             }
@@ -708,8 +711,7 @@
                 <div class="terminal-content">
                     <div class="terminal-line">
                         <span class="terminal-prompt">$</span>
-                        <span class="terminal-text" id="terminalText">Initializing...</span>
-                        <span class="cursor" id="cursor"></span>
+                        <span class="terminal-text typing" id="terminalText">Initializing...</span>
                     </div>
                 </div>
                 <div class="terminal-stats">
@@ -776,14 +778,13 @@
             
             const message = messages[currentMessageIndex];
             const terminalText = document.getElementById('terminalText');
-            const cursor = document.getElementById('cursor');
             
             isTyping = true;
             currentText = "";
             let charIndex = 0;
             
-            // Always show cursor during typing
-            cursor.style.display = 'inline-block';
+            // Add typing class to show cursor
+            terminalText.className = 'terminal-text typing';
             
             const typeInterval = setInterval(() => {
                 if (charIndex < message.length) {
