@@ -137,13 +137,8 @@
             object-fit: contain;
             object-position: center bottom;
             border-radius: 20px;
-            transition: transform 0.5s ease;
             position: relative;
             z-index: 2;
-        }
-        
-        .ai-keith-image:hover {
-            transform: scale(1.05);
         }
         
         /* Tight Border Frame */
@@ -221,6 +216,7 @@
             left: 50%;
             transform: translateX(-50%);
             width: 350px;
+            height: 120px;
             background: rgba(0, 0, 0, 0.95);
             border: 1px solid rgba(255, 215, 0, 0.6);
             border-radius: 8px;
@@ -252,15 +248,19 @@
         }
         
         .terminal-content {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             line-height: 1.4;
+            height: 2.8em;
+            display: flex;
+            align-items: flex-start;
         }
         
         .terminal-line {
             margin-bottom: 5px;
             display: flex;
             align-items: flex-start;
-            white-space: nowrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         .terminal-prompt {
@@ -296,27 +296,58 @@
             color: rgba(255, 215, 0, 0.7);
         }
         
-        /* Enter Button */
+        /* Enter Button - Professional Design */
         .enter-btn {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+            color: #ffd700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             font-family: 'Orbitron', monospace;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 215, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.6s ease;
         }
         
         .enter-btn:hover {
-            transform: scale(1.05) translateY(-2px);
+            border-color: rgba(255, 215, 0, 0.7);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%);
             box-shadow: 
-                0 15px 30px rgba(255, 215, 0, 0.4),
-                0 0 40px rgba(255, 215, 0, 0.6);
+                0 6px 20px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.2),
+                inset 0 1px 0 rgba(255, 215, 0, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .enter-btn:hover::before {
+            left: 100%;
+        }
+        
+        .enter-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 215, 0, 0.1);
         }
         
         /* Loading Overlay */
@@ -379,8 +410,8 @@
             
             .terminal-display {
                 width: 320px;
+                height: 120px;
                 bottom: -140px;
-                font-size: 0.7rem;
                 padding: 12px;
             }
             
@@ -416,10 +447,10 @@
             }
             
             .terminal-display {
-                width: 280px;
+                width: 300px;
+                height: 110px;
                 bottom: -130px;
-                font-size: 0.65rem;
-                padding: 10px;
+                padding: 8px;
             }
             
             .ai-title {
