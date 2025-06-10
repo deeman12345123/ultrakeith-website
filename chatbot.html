@@ -808,7 +808,7 @@
             }
         });
 
-        // Enhanced terminal with Keith.GPT and system stats
+        // Fixed terminal typing animation
         const terminalMessages = [
             "Initializing neural networks...",
             "Loading KEITH.GPT language model...",
@@ -828,38 +828,37 @@
         ];
         
         let currentMessageIndex = 0;
-        let isTyping = false;
+        let typewriterInterval;
         
-        function typeMessage(message, callback) {
-            if (isTyping) return;
-            isTyping = true;
-            
+        function typeMessage(message) {
             const terminalText = document.getElementById('terminalText');
-            terminalText.textContent = message;
+            let currentChar = 0;
+            
+            // Clear previous content
+            terminalText.textContent = '';
             terminalText.className = 'terminal-text typing';
-            terminalText.style.width = '0';
             
-            // Reset animation
-            setTimeout(() => {
-                terminalText.style.animation = 'typeText 2.5s steps(50) forwards, blinkCursor 0.8s infinite';
-            }, 50);
-            
-            setTimeout(() => {
-                terminalText.className = 'terminal-text completed';
-                isTyping = false;
-                if (callback) callback();
-            }, 3000);
-        }
-        
-        function cycleTerminalMessages() {
-            if (!isTyping) {
-                typeMessage(terminalMessages[currentMessageIndex], () => {
-                    currentMessageIndex = (currentMessageIndex + 1) % terminalMessages.length;
-                    setTimeout(cycleTerminalMessages, 1500);
-                });
-            } else {
-                setTimeout(cycleTerminalMessages, 500);
+            // Clear any existing interval
+            if (typewriterInterval) {
+                clearInterval(typewriterInterval);
             }
+            
+            typewriterInterval = setInterval(() => {
+                if (currentChar < message.length) {
+                    terminalText.textContent = message.substring(0, currentChar + 1);
+                    currentChar++;
+                } else {
+                    // Typing complete
+                    clearInterval(typewriterInterval);
+                    terminalText.className = 'terminal-text';
+                    
+                    // Wait then start next message
+                    setTimeout(() => {
+                        currentMessageIndex = (currentMessageIndex + 1) % terminalMessages.length;
+                        typeMessage(terminalMessages[currentMessageIndex]);
+                    }, 2000);
+                }
+            }, 80); // Typing speed
         }
         
         // Update system stats randomly
@@ -884,9 +883,9 @@
             }
         }
         
-        // Start terminal and stats
+        // Start everything after page load
         setTimeout(() => {
-            cycleTerminalMessages();
+            typeMessage(terminalMessages[0]);
             updateSystemStats();
             setInterval(updateSystemStats, 4000);
         }, 2000);
