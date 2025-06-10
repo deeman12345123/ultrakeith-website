@@ -218,13 +218,6 @@
             }
         }
         
-        .deck-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        
         .click-hint {
             font-size: 1rem;
             animation: mystical-pulse-text 2s infinite;
@@ -343,16 +336,11 @@
             display: none;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
         
         .cards-container.show {
             display: block;
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
         }
         
         .cards-grid {
@@ -388,6 +376,38 @@
             perspective: 1000px;
             cursor: pointer;
             justify-self: center;
+            opacity: 0;
+            transform: scale(0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .trading-card.card-flying {
+            animation: card-fly-in 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        @keyframes card-fly-in {
+            0% {
+                opacity: 1;
+                transform: scale(0.1) rotate(0deg);
+            }
+            30% {
+                transform: scale(0.6) rotate(180deg);
+            }
+            60% {
+                transform: scale(0.9) rotate(360deg);
+            }
+            80% {
+                transform: scale(1.1) rotate(375deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(360deg);
+            }
+        }
+        
+        .trading-card.card-landed {
+            opacity: 1;
+            transform: scale(1);
         }
         
         .card-inner {
@@ -642,7 +662,7 @@
     <script>
         console.log('🚀 Starting Ultra Keith Personas...');
         
-        const personasData = [
+        var personasData = [
             {
                 number: "001", name: "Activity", year: "1984", era: "old", age: "20 (young breakdancer age)", origin: "NYC",
                 likes: "Breakdancing, popping and rocking", dislikes: "Sitting still, slow music",
@@ -729,164 +749,195 @@
             }
         ];
         
-        let deckOpened = false;
+        var deckOpened = false;
         
         function generateCards() {
             console.log('📋 Generating cards...');
-            const container = document.getElementById('cardsGrid');
+            var container = document.getElementById('cardsGrid');
             
-            personasData.forEach(function(persona, index) {
-                const card = document.createElement('div');
+            for (var i = 0; i < personasData.length; i++) {
+                var persona = personasData[i];
+                var card = document.createElement('div');
                 card.className = 'trading-card';
-                card.innerHTML = `
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="front-container">
-                                <div class="card-header">
-                                    <h1 class="persona-title ${persona.name.length > 15 ? 'long-title' : ''}">${persona.name}</h1>
-                                </div>
-                                <div class="image-container">
-                                    IMG
-                                </div>
-                                <div class="stats-section">
-                                    <div class="stat-item">
-                                        <span class="stat-label">Age:</span>
-                                        <span class="stat-value">${persona.age}</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-label">Origin:</span>
-                                        <span class="stat-value">${persona.origin}</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-label">Likes:</span>
-                                        <span class="stat-value">${persona.likes}</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-label">Dislikes:</span>
-                                        <span class="stat-value">${persona.dislikes}</span>
-                                    </div>
-                                </div>
-                                <div class="quote-section">"${persona.quote}"</div>
-                            </div>
-                            <div class="flip-hint">Click to flip</div>
-                            <div class="card-number">#${persona.number}</div>
-                        </div>
-                        <div class="card-back">
-                            <div class="back-container">
-                                <h2 class="back-title">${persona.name} (${persona.year})</h2>
-                                <div class="info-section">
-                                    <h3 class="section-title">Biography</h3>
-                                    <div class="section-content">${persona.biography}</div>
-                                </div>
-                                <div class="info-section">
-                                    <h3 class="section-title">Debut</h3>
-                                    <div class="section-content">${persona.debut}</div>
-                                </div>
-                                <div class="info-section">
-                                    <h3 class="section-title">Key Themes</h3>
-                                    <div class="section-content">${persona.themes}</div>
-                                </div>
-                            </div>
-                            <div class="card-number">#${persona.number}</div>
-                        </div>
-                    </div>
-                `;
+                card.innerHTML = '<div class="card-inner">' +
+                    '<div class="card-front">' +
+                        '<div class="front-container">' +
+                            '<div class="card-header">' +
+                                '<h1 class="persona-title ' + (persona.name.length > 15 ? 'long-title' : '') + '">' + persona.name + '</h1>' +
+                            '</div>' +
+                            '<div class="image-container">IMG</div>' +
+                            '<div class="stats-section">' +
+                                '<div class="stat-item">' +
+                                    '<span class="stat-label">Age:</span>' +
+                                    '<span class="stat-value">' + persona.age + '</span>' +
+                                '</div>' +
+                                '<div class="stat-item">' +
+                                    '<span class="stat-label">Origin:</span>' +
+                                    '<span class="stat-value">' + persona.origin + '</span>' +
+                                '</div>' +
+                                '<div class="stat-item">' +
+                                    '<span class="stat-label">Likes:</span>' +
+                                    '<span class="stat-value">' + persona.likes + '</span>' +
+                                '</div>' +
+                                '<div class="stat-item">' +
+                                    '<span class="stat-label">Dislikes:</span>' +
+                                    '<span class="stat-value">' + persona.dislikes + '</span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="quote-section">"' + persona.quote + '"</div>' +
+                        '</div>' +
+                        '<div class="flip-hint">Click to flip</div>' +
+                        '<div class="card-number">#' + persona.number + '</div>' +
+                    '</div>' +
+                    '<div class="card-back">' +
+                        '<div class="back-container">' +
+                            '<h2 class="back-title">' + persona.name + ' (' + persona.year + ')</h2>' +
+                            '<div class="info-section">' +
+                                '<h3 class="section-title">Biography</h3>' +
+                                '<div class="section-content">' + persona.biography + '</div>' +
+                            '</div>' +
+                            '<div class="info-section">' +
+                                '<h3 class="section-title">Debut</h3>' +
+                                '<div class="section-content">' + persona.debut + '</div>' +
+                            '</div>' +
+                            '<div class="info-section">' +
+                                '<h3 class="section-title">Key Themes</h3>' +
+                                '<div class="section-content">' + persona.themes + '</div>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="card-number">#' + persona.number + '</div>' +
+                    '</div>' +
+                '</div>';
                 
                 card.addEventListener('click', function() {
-                    console.log(`🃏 Flipping card: ${persona.name}`);
+                    var personaName = this.querySelector('.persona-title').textContent;
+                    console.log('🃏 Flipping card: ' + personaName);
                     this.classList.toggle('flipped');
                 });
                 
                 container.appendChild(card);
-            });
+            }
             
-            console.log(`✅ Generated ${personasData.length} cards`);
+            console.log('✅ Generated ' + personasData.length + ' cards');
         }
         
         function createMysticalParticles(container, count) {
-            for (let i = 0; i < count; i++) {
-                setTimeout(function() {
-                    const particle = document.createElement('div');
-                    particle.className = 'mystical-particle';
-                    
-                    const centerX = container.offsetWidth / 2;
-                    const centerY = container.offsetHeight / 2;
-                    const angle = (Math.PI * 2 * i) / count;
-                    const radius = 30 + Math.random() * 100;
-                    
-                    particle.style.left = (centerX + Math.cos(angle) * radius) + 'px';
-                    particle.style.top = (centerY + Math.sin(angle) * radius) + 'px';
-                    
-                    const colors = ['var(--mystical-blue)', 'var(--energy-purple)', 'var(--plasma-pink)', 'var(--gold)'];
-                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    particle.style.animation = 'particle-burst 2s ease-out forwards';
-                    
-                    container.appendChild(particle);
-                    
-                    setTimeout(function() {
-                        particle.remove();
-                    }, 2000);
-                }, i * 30);
+            for (var i = 0; i < count; i++) {
+                setTimeout(function(index) {
+                    return function() {
+                        var particle = document.createElement('div');
+                        particle.className = 'mystical-particle';
+                        
+                        var centerX = container.offsetWidth / 2;
+                        var centerY = container.offsetHeight / 2;
+                        var angle = (Math.PI * 2 * index) / count;
+                        var radius = 30 + Math.random() * 100;
+                        
+                        particle.style.left = (centerX + Math.cos(angle) * radius) + 'px';
+                        particle.style.top = (centerY + Math.sin(angle) * radius) + 'px';
+                        
+                        var colors = ['var(--mystical-blue)', 'var(--energy-purple)', 'var(--plasma-pink)', 'var(--gold)'];
+                        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        particle.style.animation = 'particle-burst 2s ease-out forwards';
+                        
+                        container.appendChild(particle);
+                        
+                        setTimeout(function() {
+                            if (particle.parentNode) {
+                                particle.parentNode.removeChild(particle);
+                            }
+                        }, 2000);
+                    };
+                }(i), i * 30);
             }
         }
         
         function createEnergyWaves(container, count) {
-            for (let i = 0; i < count; i++) {
+            for (var i = 0; i < count; i++) {
                 setTimeout(function() {
-                    const wave = document.createElement('div');
+                    var wave = document.createElement('div');
                     wave.className = 'energy-wave';
                     wave.style.animation = 'energy-wave-expand 1.5s ease-out forwards';
                     container.appendChild(wave);
                     
                     setTimeout(function() {
-                        wave.remove();
+                        if (wave.parentNode) {
+                            wave.parentNode.removeChild(wave);
+                        }
                     }, 1500);
                 }, i * 200);
             }
         }
         
         function createScreenFlash() {
-            const flash = document.createElement('div');
+            var flash = document.createElement('div');
             flash.className = 'screen-flash';
             flash.style.animation = 'screen-flash-effect 2s ease-out forwards';
             document.body.appendChild(flash);
             
             setTimeout(function() {
-                flash.remove();
+                if (flash.parentNode) {
+                    flash.parentNode.removeChild(flash);
+                }
             }, 2000);
         }
         
         function createCardBurst(container, count) {
-            for (let i = 0; i < count; i++) {
+            for (var i = 0; i < count; i++) {
                 setTimeout(function() {
-                    const cardBurst = document.createElement('div');
+                    var cardBurst = document.createElement('div');
                     cardBurst.className = 'card-burst';
                     
-                    const centerX = container.offsetWidth / 2;
-                    const centerY = container.offsetHeight / 2;
+                    var centerX = container.offsetWidth / 2;
+                    var centerY = container.offsetHeight / 2;
                     cardBurst.style.left = (centerX + (Math.random() - 0.5) * 200) + 'px';
                     cardBurst.style.top = (centerY + (Math.random() - 0.5) * 200) + 'px';
                     
-                    const moveX = (Math.random() - 0.5) * 400;
-                    const moveY = (Math.random() - 0.5) * 400;
-                    cardBurst.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${Math.random() * 360}deg)`;
+                    var moveX = (Math.random() - 0.5) * 400;
+                    var moveY = (Math.random() - 0.5) * 400;
+                    cardBurst.style.transform = 'translate(' + moveX + 'px, ' + moveY + 'px) rotate(' + (Math.random() * 360) + 'deg)';
                     cardBurst.style.animation = 'particle-burst 2.5s ease-out forwards';
                     
                     container.appendChild(cardBurst);
                     
                     setTimeout(function() {
-                        cardBurst.remove();
+                        if (cardBurst.parentNode) {
+                            cardBurst.parentNode.removeChild(cardBurst);
+                        }
                     }, 2500);
                 }, i * 50);
             }
         }
         
+        function animateCardsFromDeck() {
+            console.log('🎆 Animating cards flying from deck...');
+            var cards = document.querySelectorAll('.trading-card');
+            
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+                
+                setTimeout(function(index, cardElement) {
+                    return function() {
+                        var personaName = cardElement.querySelector('.persona-title').textContent;
+                        console.log('🃏 Launching card ' + (index + 1) + ': ' + personaName);
+                        cardElement.classList.add('card-flying');
+                        
+                        setTimeout(function() {
+                            cardElement.classList.remove('card-flying');
+                            cardElement.classList.add('card-landed');
+                            console.log('✅ Card ' + (index + 1) + ' landed!');
+                        }, 1500);
+                    };
+                }(i, card), i * 150);
+            }
+        }
+        
         function setupDeck() {
             console.log('🎮 Setting up mystical deck...');
-            const deckBox = document.getElementById('deckBox');
-            const deckContainer = document.getElementById('deckContainer');
-            const cardsContainer = document.getElementById('cardsContainer');
-            const nextButton = document.getElementById('nextButtonContainer');
+            var deckBox = document.getElementById('deckBox');
+            var deckContainer = document.getElementById('deckContainer');
+            var cardsContainer = document.getElementById('cardsContainer');
+            var nextButton = document.getElementById('nextButtonContainer');
             
             if (!deckBox) {
                 console.error('❌ Deck box not found!');
@@ -940,12 +991,16 @@
                     }, 3500);
                     
                     setTimeout(function() {
-                        console.log('✨ Phase 6: Portal opened - revealing Keith\'s personas!');
+                        console.log('✨ Phase 6: Portal opened - cards flying out!');
                         deckContainer.classList.add('hidden');
                         cardsContainer.classList.add('show');
                         nextButton.classList.add('show');
                         
-                        console.log('🎮 Card interaction system activated!');
+                        setTimeout(function() {
+                            animateCardsFromDeck();
+                        }, 300);
+                        
+                        console.log('🎮 Card interaction system will activate after flight!');
                     }, 5000);
                 } else {
                     console.log('⚠️ Portal already opened');
