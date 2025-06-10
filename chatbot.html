@@ -172,7 +172,7 @@
                 drop-shadow(0 2px 0 lime);
         }
         
-        /* TV Static Overlay */
+        /* TV Static Overlay - Classic B&W */
         .tv-static {
             position: absolute;
             top: 0;
@@ -180,26 +180,63 @@
             width: 100%;
             height: 100%;
             background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(255, 255, 255, 0.03) 2px,
-                    rgba(255, 255, 255, 0.03) 4px
-                );
+                radial-gradient(circle, black 1px, transparent 1px),
+                radial-gradient(circle, white 1px, transparent 1px),
+                radial-gradient(circle, #666 1px, transparent 1px);
+            background-size: 
+                4px 4px,
+                6px 6px,
+                3px 3px;
+            background-position: 
+                0 0,
+                2px 2px,
+                1px 1px;
             opacity: 0;
-            animation: staticFlicker 0.1s infinite;
+            animation: staticNoise 0.1s infinite, staticFlicker 3s infinite;
             pointer-events: none;
             z-index: 4;
             border-radius: 20px;
         }
         
+        @keyframes staticNoise {
+            0% { 
+                background-position: 
+                    0 0,
+                    2px 2px,
+                    1px 1px;
+            }
+            25% { 
+                background-position: 
+                    1px 1px,
+                    3px 0px,
+                    2px 2px;
+            }
+            50% { 
+                background-position: 
+                    2px 0px,
+                    1px 3px,
+                    0px 1px;
+            }
+            75% { 
+                background-position: 
+                    3px 2px,
+                    0px 1px,
+                    3px 3px;
+            }
+            100% { 
+                background-position: 
+                    0 0,
+                    2px 2px,
+                    1px 1px;
+            }
+        }
+        
         @keyframes staticFlicker {
-            0% { opacity: 0; }
-            2% { opacity: 0.1; }
-            4% { opacity: 0; }
-            6% { opacity: 0.15; }
-            8% { opacity: 0; }
+            0%, 95% { opacity: 0; }
+            96% { opacity: 0.15; }
+            97% { opacity: 0.25; }
+            98% { opacity: 0.1; }
+            99% { opacity: 0.2; }
             100% { opacity: 0; }
         }
         
@@ -320,7 +357,7 @@
             100% { transform: translateY(420px); }
         }
         
-        /* Random Static Burst */
+        /* Random Static Burst - B&W TV Style */
         .static-burst {
             position: absolute;
             top: 0;
@@ -328,21 +365,68 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px),
-                radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 20px 20px, 40px 40px;
+                radial-gradient(circle, black 0.5px, transparent 0.5px),
+                radial-gradient(circle, white 0.5px, transparent 0.5px),
+                radial-gradient(circle, #888 0.5px, transparent 0.5px),
+                radial-gradient(circle, #444 0.5px, transparent 0.5px);
+            background-size: 
+                8px 8px,
+                12px 12px,
+                6px 6px,
+                10px 10px;
+            background-position:
+                0 0,
+                4px 4px,
+                2px 2px,
+                6px 6px;
             opacity: 0;
-            animation: staticBurst 12s infinite;
+            animation: staticBurst 10s infinite;
             pointer-events: none;
             z-index: 7;
             border-radius: 20px;
         }
         
         @keyframes staticBurst {
-            0%, 97% { opacity: 0; }
-            98% { opacity: 0.6; }
-            99% { opacity: 0.8; }
-            100% { opacity: 0; }
+            0%, 96% { 
+                opacity: 0; 
+                background-position:
+                    0 0,
+                    4px 4px,
+                    2px 2px,
+                    6px 6px;
+            }
+            97% { 
+                opacity: 0.4; 
+                background-position:
+                    2px 1px,
+                    6px 2px,
+                    4px 4px,
+                    8px 8px;
+            }
+            98% { 
+                opacity: 0.6; 
+                background-position:
+                    4px 2px,
+                    2px 6px,
+                    6px 1px,
+                    4px 4px;
+            }
+            99% { 
+                opacity: 0.3; 
+                background-position:
+                    1px 4px,
+                    8px 1px,
+                    3px 5px,
+                    7px 2px;
+            }
+            100% { 
+                opacity: 0; 
+                background-position:
+                    0 0,
+                    4px 4px,
+                    2px 2px,
+                    6px 6px;
+            }
         }
         
         /* Text Content */
@@ -645,17 +729,24 @@
             }, 100);
         });
 
-        // Optional: Add mouse movement glitch
+        // Enhanced mouse movement with B&W static
         document.getElementById('aiKeithImage').addEventListener('mouseenter', function() {
-            // Brief static burst on hover
+            // Brief B&W static burst on hover
             const staticBurst = document.querySelector('.static-burst');
+            const tvStatic = document.querySelector('.tv-static');
+            
+            // Trigger immediate static
             staticBurst.style.animation = 'none';
-            staticBurst.style.opacity = '0.3';
+            tvStatic.style.animation = 'none';
+            staticBurst.style.opacity = '0.4';
+            tvStatic.style.opacity = '0.2';
             
             setTimeout(() => {
-                staticBurst.style.animation = 'staticBurst 12s infinite';
+                staticBurst.style.animation = 'staticBurst 10s infinite';
+                tvStatic.style.animation = 'staticNoise 0.1s infinite, staticFlicker 3s infinite';
                 staticBurst.style.opacity = '';
-            }, 100);
+                tvStatic.style.opacity = '';
+            }, 200);
         });
     </script>
 </body>
