@@ -305,7 +305,143 @@
             100% { opacity: 0; transform: translateX(0); }
         }
         
-        /* Text Content */
+        /* AI Terminal Interface Elements */
+        .terminal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        /* Status Indicators - Top Corners */
+        .status-left, .status-right {
+            position: absolute;
+            top: 10px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: rgba(255, 215, 0, 0.8);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            animation: statusBlink 3s ease-in-out infinite;
+        }
+        
+        .status-left {
+            left: 10px;
+        }
+        
+        .status-right {
+            right: 10px;
+            text-align: right;
+        }
+        
+        @keyframes statusBlink {
+            0%, 90% { opacity: 0.8; }
+            95% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        
+        /* Data Stream - Side Panel */
+        .data-stream-panel {
+            position: absolute;
+            right: -180px;
+            top: 50px;
+            width: 160px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px 10px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 215, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .data-stream-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: dataStreamIn 0.5s ease-out forwards;
+        }
+        
+        .data-stream-item:nth-child(1) { animation-delay: 0.5s; }
+        .data-stream-item:nth-child(2) { animation-delay: 1s; }
+        .data-stream-item:nth-child(3) { animation-delay: 1.5s; }
+        .data-stream-item:nth-child(4) { animation-delay: 2s; }
+        .data-stream-item:nth-child(5) { animation-delay: 2.5s; }
+        
+        @keyframes dataStreamIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
+        }
+        
+        .stream-arrow {
+            color: #ffd700;
+            margin-right: 5px;
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* Bottom Terminal Prompt */
+        .terminal-prompt {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: #ffd700;
+        }
+        
+        .prompt-line {
+            margin-bottom: 5px;
+        }
+        
+        .prompt-cursor {
+            display: inline-block;
+            background: #ffd700;
+            width: 8px;
+            height: 12px;
+            animation: cursorBlink 1s infinite;
+        }
+        
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Typing Effect */
+        .typing-text {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typeWriter 3s steps(40) 1s forwards;
+            width: 0;
+        }
+        
+        @keyframes typeWriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
         .ai-title {
             font-family: 'Orbitron', monospace;
             font-size: 3rem;
@@ -327,10 +463,13 @@
         
         .ai-subtitle {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 10px;
             text-align: center;
             font-weight: 300;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         .ai-description {
@@ -347,11 +486,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 30px;
             font-family: 'Orbitron', monospace;
             font-size: 0.9rem;
             color: #ffd700;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
         
         .status-dot {
@@ -543,10 +687,52 @@
             <div class="scan-lines"></div>
             <div class="digital-static"></div>
             <div class="signal-interference"></div>
+            
+            <!-- Terminal Interface Overlay -->
+            <div class="terminal-overlay">
+                <!-- Status Indicators -->
+                <div class="status-left">
+                    <div>NEURAL: <span id="neuralPercent">94%</span></div>
+                </div>
+                <div class="status-right">
+                    <div>v4.0 ONLINE</div>
+                </div>
+                
+                <!-- Data Stream Panel -->
+                <div class="data-stream-panel">
+                    <div class="data-stream-item">
+                        <span class="stream-arrow">▼</span>
+                        <span>KEITH.AI INIT</span>
+                    </div>
+                    <div class="data-stream-item">
+                        <span class="stream-arrow">▼</span>
+                        <span>SCANNING LYRICS</span>
+                    </div>
+                    <div class="data-stream-item">
+                        <span class="stream-arrow">▼</span>
+                        <span>ABSTRACT: MAX</span>
+                    </div>
+                    <div class="data-stream-item">
+                        <span class="stream-arrow">▼</span>
+                        <span>PERSONAS READY</span>
+                    </div>
+                    <div class="data-stream-item">
+                        <span class="stream-arrow">▼</span>
+                        <span>STANDBY MODE</span>
+                    </div>
+                </div>
+                
+                <!-- Terminal Prompt -->
+                <div class="terminal-prompt">
+                    <div class="prompt-line">keith@ultraverse:~$ </div>
+                    <div class="prompt-line typing-text">connection established...</div>
+                    <div class="prompt-line">ready for input<span class="prompt-cursor"></span></div>
+                </div>
+            </div>
         </div>
         
         <h1 class="ai-title">KEITH AI</h1>
-        <p class="ai-subtitle">Digital Mind Interface</p>
+        <p class="ai-subtitle">Neural Interface Active</p>
         <p class="ai-description">
             Enter the revolutionary AI consciousness of hip-hop's most innovative legend. 
             Chat with the digital personas of Kool Keith, Dr. Octagon, Dr. Dooom, and Black Elvis. 
@@ -555,7 +741,7 @@
         
         <div class="ai-status">
             <div class="status-dot"></div>
-            <span>AI SYSTEM ONLINE</span>
+            <span>NEURAL NETWORK ONLINE</span>
         </div>
         
         <button class="enter-btn" id="enterChatBtn">
@@ -598,6 +784,18 @@
                 document.getElementById('enterChatBtn').click();
             }
         });
+
+        // Random neural percentage updates
+        function updateNeuralPercent() {
+            const neuralElement = document.getElementById('neuralPercent');
+            if (neuralElement) {
+                const percent = (92 + Math.random() * 6).toFixed(1);
+                neuralElement.textContent = percent + '%';
+            }
+        }
+        
+        // Update neural percentage every 3 seconds
+        setInterval(updateNeuralPercent, 3000);
 
         // Random digital glitch
         function triggerDigitalGlitch() {
