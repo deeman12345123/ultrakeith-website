@@ -184,7 +184,7 @@
             width: 200px;
             height: 200px;
             margin-bottom: 30px;
-            background: var(--secondary-dark);
+            background: transparent;
             border: 1px solid var(--silver);
             border-radius: 8px;
             display: flex;
@@ -722,6 +722,28 @@
     <script>
         console.log('🚀 Starting Ultra Keith Personas...');
         
+        // ===== CONFIGURATION =====
+        var CONFIG = {
+            ANIMATION_SPEEDS: {
+                PORTAL_PHASES: [0, 600, 1200, 1600, 2200, 3000], // Phase timings
+                CARD_FLIGHT: 1200, // Card animation duration
+                CARD_LAUNCH_INTERVAL: 100, // Time between card launches
+                PARTICLE_BURST: 2000,
+                ENERGY_WAVE: 1500,
+                SCREEN_FLASH: 2000
+            },
+            CARD_LIMITS: {
+                LONG_TITLE_THRESHOLD: 20 // Characters before shrinking text
+            },
+            PARTICLE_COUNTS: {
+                MYSTICAL_PARTICLES: 60,
+                ENERGY_WAVES: 6,
+                CARD_BURSTS: 40
+            }
+        };
+        
+        // ===== PERSONA DATA =====
+        
         var personasData = [
             {
                 number: "001", name: "Activity", year: "1984", era: "old", age: "20 (young breakdancer age)", origin: "NYC",
@@ -809,7 +831,28 @@
             }
         ];
         
+        // ===== UTILITY FUNCTIONS =====
+        function safeRemoveElement(element) {
+            if (element && element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
+        }
+        
+        function addClassSafely(element, className) {
+            if (element && element.classList) {
+                element.classList.add(className);
+            }
+        }
+        
+        function removeClassSafely(element, className) {
+            if (element && element.classList) {
+                element.classList.remove(className);
+            }
+        }
+        
         var deckOpened = false;
+        
+        // ===== CARD GENERATION =====
         
         function generateCards() {
             console.log('📋 Generating cards...');
@@ -817,13 +860,14 @@
             
             for (var i = 0; i < personasData.length; i++) {
                 var persona = personasData[i];
+                var isLongTitle = persona.name.length > CONFIG.CARD_LIMITS.LONG_TITLE_THRESHOLD;
                 var card = document.createElement('div');
                 card.className = 'trading-card';
                 card.innerHTML = '<div class="card-inner">' +
                     '<div class="card-front">' +
                         '<div class="front-container">' +
                             '<div class="card-header">' +
-                                '<h1 class="persona-title ' + (persona.name.length > 20 ? 'long-title' : '') + '">' + persona.name + '</h1>' +
+                                '<h1 class="persona-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + '</h1>' +
                             '</div>' +
                             '<div class="image-container">IMG</div>' +
                             '<div class="stats-section">' +
@@ -854,7 +898,7 @@
                     '</div>' +
                     '<div class="card-back">' +
                         '<div class="back-container">' +
-                            '<h2 class="back-title ' + (persona.name.length > 20 ? 'long-title' : '') + '">' + persona.name + ' (' + persona.year + ')</h2>' +
+                            '<h2 class="back-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + ' (' + persona.year + ')</h2>' +
                             '<div class="info-section">' +
                                 '<h3 class="section-title">Biography</h3>' +
                                 '<div class="section-content">' + persona.biography + '</div>' +
@@ -890,7 +934,10 @@
             console.log('✅ Generated ' + personasData.length + ' cards');
         }
         
+        // ===== ANIMATION FUNCTIONS =====
         function createMysticalParticles(container, count) {
+            if (!container) return;
+            count = count || CONFIG.PARTICLE_COUNTS.MYSTICAL_PARTICLES;
             for (var i = 0; i < count; i++) {
                 setTimeout(function(index) {
                     return function() {
@@ -912,16 +959,16 @@
                         container.appendChild(particle);
                         
                         setTimeout(function() {
-                            if (particle.parentNode) {
-                                particle.parentNode.removeChild(particle);
-                            }
-                        }, 2000);
+                            safeRemoveElement(particle);
+                        }, CONFIG.ANIMATION_SPEEDS.PARTICLE_BURST);
                     };
                 }(i), i * 30);
             }
         }
         
         function createEnergyWaves(container, count) {
+            if (!container) return;
+            count = count || CONFIG.PARTICLE_COUNTS.ENERGY_WAVES;
             for (var i = 0; i < count; i++) {
                 setTimeout(function() {
                     var wave = document.createElement('div');
@@ -930,10 +977,8 @@
                     container.appendChild(wave);
                     
                     setTimeout(function() {
-                        if (wave.parentNode) {
-                            wave.parentNode.removeChild(wave);
-                        }
-                    }, 1500);
+                        safeRemoveElement(wave);
+                    }, CONFIG.ANIMATION_SPEEDS.ENERGY_WAVE);
                 }, i * 200);
             }
         }
@@ -941,17 +986,17 @@
         function createScreenFlash() {
             var flash = document.createElement('div');
             flash.className = 'screen-flash';
-            flash.style.animation = 'screen-flash-effect 2s ease-out forwards';
+            flash.style.animation = 'screen-flash-effect ' + (CONFIG.ANIMATION_SPEEDS.SCREEN_FLASH / 1000) + 's ease-out forwards';
             document.body.appendChild(flash);
             
             setTimeout(function() {
-                if (flash.parentNode) {
-                    flash.parentNode.removeChild(flash);
-                }
-            }, 2000);
+                safeRemoveElement(flash);
+            }, CONFIG.ANIMATION_SPEEDS.SCREEN_FLASH);
         }
         
         function createCardBurst(container, count) {
+            if (!container) return;
+            count = count || CONFIG.PARTICLE_COUNTS.CARD_BURSTS;
             for (var i = 0; i < count; i++) {
                 setTimeout(function() {
                     var cardBurst = document.createElement('div');
@@ -970,9 +1015,7 @@
                     container.appendChild(cardBurst);
                     
                     setTimeout(function() {
-                        if (cardBurst.parentNode) {
-                            cardBurst.parentNode.removeChild(cardBurst);
-                        }
+                        safeRemoveElement(cardBurst);
                     }, 2500);
                 }, i * 50);
             }
@@ -1041,36 +1084,36 @@
                     
                     setTimeout(function() {
                         console.log('🌊 Phase 2: Energy waves expanding...');
-                        createEnergyWaves(deckContainer, 6);
-                    }, 600);
+                        createEnergyWaves(deckContainer);
+                    }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[1]);
                     
                     setTimeout(function() {
                         console.log('💫 Phase 3: Mystical particle explosion!');
-                        createMysticalParticles(deckContainer, 60);
-                    }, 1200);
+                        createMysticalParticles(deckContainer);
+                    }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[2]);
                     
                     setTimeout(function() {
                         console.log('🃏 Phase 4: Card burst sequence!');
-                        createCardBurst(deckContainer, 40);
-                    }, 1600);
+                        createCardBurst(deckContainer);
+                    }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[3]);
                     
                     setTimeout(function() {
                         console.log('⚡ Phase 5: Reality-bending screen flash!');
                         createScreenFlash();
-                    }, 2200);
+                    }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[4]);
                     
                     setTimeout(function() {
                         console.log('✨ Phase 6: Portal opened - cards flying out!');
-                        deckContainer.classList.add('hidden');
-                        cardsContainer.classList.add('show');
-                        nextButton.classList.add('show');
+                        addClassSafely(deckContainer, 'hidden');
+                        addClassSafely(cardsContainer, 'show');
+                        addClassSafely(nextButton, 'show');
                         
                         setTimeout(function() {
                             animateCardsFromDeck();
                         }, 200);
                         
                         console.log('🎮 Card interaction system will activate after flight!');
-                    }, 3000);
+                    }, CONFIG.ANIMATION_SPEEDS.PORTAL_PHASES[5]);
                 } else {
                     console.log('⚠️ Portal already opened');
                 }
@@ -1079,13 +1122,17 @@
             console.log('✅ Mystical deck setup complete');
         }
         
+        // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🎬 Page loaded - initializing...');
             
-            generateCards();
-            setupDeck();
-            
-            console.log('🎉 Ready! Click the mystical deck to open the portal!');
+            try {
+                generateCards();
+                setupDeck();
+                console.log('🎉 Ready! Click the mystical deck to open the portal!');
+            } catch (error) {
+                console.error('❌ Initialization failed:', error);
+            }
         });
     </script>
     
