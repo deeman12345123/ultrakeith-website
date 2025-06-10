@@ -618,9 +618,47 @@
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .ai-keith-wrapper {
+                margin-bottom: 80px;
+            }
+            
             .ai-keith-image {
                 width: 250px;
+                height: 375px;
+            }
+            
+            .border-frame {
+                width: 250px;
                 height: 330px;
+            }
+            
+            .status-left, .status-right {
+                font-size: 0.6rem;
+                padding: 3px 6px;
+                top: 5px;
+            }
+            
+            .status-left {
+                left: 5px;
+            }
+            
+            .status-right {
+                right: 5px;
+            }
+            
+            .data-stream-panel {
+                width: 240px;
+                bottom: -35px;
+                font-size: 0.55rem;
+                padding: 6px;
+            }
+            
+            .data-stream-item {
+                font-size: 0.5rem;
+            }
+            
+            .stream-arrow {
+                font-size: 0.45rem;
             }
             
             .ai-title {
@@ -628,7 +666,7 @@
             }
             
             .ai-subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             
             .ai-description {
@@ -647,13 +685,48 @@
         }
         
         @media (max-width: 480px) {
+            .ai-keith-wrapper {
+                margin-bottom: 70px;
+            }
+            
             .ai-keith-image {
                 width: 200px;
-                height: 280px;
+                height: 300px;
+            }
+            
+            .border-frame {
+                width: 200px;
+                height: 250px;
+            }
+            
+            .status-left, .status-right {
+                font-size: 0.55rem;
+                padding: 2px 5px;
+            }
+            
+            .data-stream-panel {
+                width: 180px;
+                bottom: -30px;
+                padding: 5px;
+                flex-direction: column;
+                gap: 3px;
+            }
+            
+            .data-stream-item {
+                font-size: 0.45rem;
+                justify-content: center;
             }
             
             .ai-title {
                 font-size: 1.8rem;
+            }
+            
+            .ai-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .ai-description {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -702,31 +775,24 @@
                 <div class="data-stream-panel">
                     <div class="data-stream-item">
                         <span class="stream-arrow">▼</span>
-                        <span>KEITH.AI INIT</span>
+                        <span>INIT</span>
                     </div>
                     <div class="data-stream-item">
                         <span class="stream-arrow">▼</span>
-                        <span>SCANNING LYRICS</span>
+                        <span>SCAN</span>
                     </div>
                     <div class="data-stream-item">
                         <span class="stream-arrow">▼</span>
-                        <span>ABSTRACT: MAX</span>
+                        <span>ABSTRACT</span>
                     </div>
                     <div class="data-stream-item">
                         <span class="stream-arrow">▼</span>
-                        <span>PERSONAS READY</span>
+                        <span>READY</span>
                     </div>
                     <div class="data-stream-item">
                         <span class="stream-arrow">▼</span>
-                        <span>STANDBY MODE</span>
+                        <span>STANDBY</span>
                     </div>
-                </div>
-                
-                <!-- Terminal Prompt -->
-                <div class="terminal-prompt">
-                    <div class="prompt-line">keith@ultraverse:~$ </div>
-                    <div class="prompt-line typing-text">connection established...</div>
-                    <div class="prompt-line">ready for input<span class="prompt-cursor"></span></div>
                 </div>
             </div>
         </div>
