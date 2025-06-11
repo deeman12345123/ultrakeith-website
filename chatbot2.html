@@ -1,4 +1,12 @@
-<div class="persona-option" data-character="black-elvis">
+<div class="persona-option" data-character="dr-dooom">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true" 
+                                 alt="Dr. Dooom" class="persona-avatar">
+                            <div class="persona-info">
+                                <div class="persona-name">Dr. Dooom</div>
+                                <div class="persona-status">Industry executioner</div>
+                            </div>
+                        </div>
+                        <div class="persona-option" data-character="black-elvis">
                             <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true" 
                                  alt="Black Elvis" class="persona-avatar">
                             <div class="persona-info">
@@ -532,14 +540,15 @@ VOCABULARY TO USE:`;
                 console.log(`=== CALLING BATTLE API WITH KNOWLEDGE v9 ===`);
                 console.log(`Character: ${character}, Topic: ${topic}, Round: ${round}`);
                 
-                const characterKnowledge = getCharacterKnowledge(character);
+                // Get character name
                 const characterName = characterData[character]?.name || character;
                 
-                const prompt = `${characterKnowledge}
+                const prompt = `CRITICAL: DO NOT start with "Yo, check the mic" or "one two" or "this ain't no" - BANNED PHRASES!
 
-You are in a rap battle. Topic: ${topic}, Round: ${round}
+You are ${characterName}. Write a 4-line rap battle verse with proper rhymes that flows naturally. Start immediately with your authentic character voice.
 
-Write a 4-line rap battle verse that flows naturally. Start immediately with your authentic character voice - no introductions or announcements.
+Battle topic: ${topic}
+Round: ${round}
 
 Write your verse now:`;
                 
@@ -670,148 +679,7 @@ Response as character:`;
                     console.error('API Error:', error);
                     this.addBotMessage("Technical difficulties right now. Try again in a moment.");
                 }
-            }
-
-            addSystemMessage(content) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message system';
-                messageDiv.innerHTML = `<div class="message-content">${content}</div>`;
-                document.getElementById('chatMessages').appendChild(messageDiv);
-                this.scrollToBottom();
-            }
-
-            addBattleMessage(content, characterName, round) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message battle';
-                messageDiv.innerHTML = `
-                    <div class="battle-header">
-                        <span class="battle-round">Round ${round}</span>
-                        <span class="battle-character">${characterName}</span>
-                    </div>
-                    <div class="message-content">${content}</div>
-                `;
-                document.getElementById('chatMessages').appendChild(messageDiv);
-                this.scrollToBottom();
-            }
-
-            addUserMessage(content) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message user';
-                const userAvatar = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=';
-                messageDiv.innerHTML = `
-                    <img src="${userAvatar}" alt="You" class="message-avatar">
-                    <div style="flex: 1;"><div class="message-content">${content}</div></div>
-                `;
-                document.getElementById('chatMessages').appendChild(messageDiv);
-                this.scrollToBottom();
-            }
-
-            addBotMessage(content) {
-                const data = characterData[currentCharacter];
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'message bot';
-                messageDiv.innerHTML = `
-                    <img src="${data.avatar}" alt="${data.name}" class="message-avatar">
-                    <div style="flex: 1;"><div class="message-content">${content}</div></div>
-                `;
-                document.getElementById('chatMessages').appendChild(messageDiv);
-                this.scrollToBottom();
-            }
-
-            showTyping(show = true, character = null) {
-                document.getElementById('typingIndicator').style.display = show ? 'flex' : 'none';
-                
-                if (show && character && characterData[character]) {
-                    document.getElementById('typingAvatar').src = characterData[character].avatar;
-                    document.getElementById('typingName').textContent = characterData[character].name;
-                }
-                
-                if (show) this.scrollToBottom();
-            }
-
-            scrollToBottom() {
-                const chatMessages = document.getElementById('chatMessages');
-                setTimeout(() => {
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 100);
-            }
-
-            handleInputChange() {
-                const hasText = document.getElementById('chatInput').value.trim().length > 0;
-                document.getElementById('sendBtn').disabled = !hasText;
-            }
-
-            resetConversation() {
-                conversationHistory = [];
-                document.getElementById('chatMessages').innerHTML = '';
-                
-                if (currentMode === 'chat') {
-                    const data = characterData[currentCharacter];
-                    const welcomeMessage = `Yo, what's good? ${data.name} here - ready to chat! KeithGPT v9 is loaded with authentic knowledge.`;
-                    this.addBotMessage(welcomeMessage);
-                }
-                
-                battleState.active = false;
-                document.getElementById('battleStatus').classList.remove('active');
-            }
-
-            toggleMobile() {
-                document.getElementById('sidebar').classList.toggle('open');
-                document.getElementById('mobileOverlay').classList.toggle('show');
-            }
-
-            closeMobile() {
-                document.getElementById('sidebar').classList.remove('open');
-                document.getElementById('mobileOverlay').classList.remove('show');
-            }
-        }
-
-        let app;
-        document.addEventListener('DOMContentLoaded', () => {
-            app = new KeithGPT();
-            console.log('KeithGPT v9 initialized with enhanced knowledge files');
-        });
-
-        function handleViewportChange() {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
-        
-        window.addEventListener('resize', handleViewportChange);
-        window.addEventListener('orientationchange', handleViewportChange);
-        handleViewportChange();
-
-        let startY = 0;
-        let currentY = 0;
-        let pullStarted = false;
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const chatMessages = document.getElementById('chatMessages');
-            
-            chatMessages.addEventListener('touchstart', (e) => {
-                if (chatMessages.scrollTop === 0) {
-                    startY = e.touches[0].pageY;
-                    pullStarted = true;
-                }
-            }, { passive: true });
-            
-            chatMessages.addEventListener('touchmove', (e) => {
-                if (!pullStarted) return;
-                currentY = e.touches[0].pageY;
-            }, { passive: true });
-            
-            chatMessages.addEventListener('touchend', () => {
-                if (pullStarted && currentY > startY + 100) {
-                    window.location.reload();
-                }
-                pullStarted = false;
-                startY = 0;
-                currentY = 0;
-            }, { passive: true });
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -843,7 +711,7 @@ Response as character:`;
             --radius-md: 12px;
             --radius-lg: 16px;
             
-            --sidebar-width: 280px;
+            --sidebar-width: 320px;
         }
         
         * {
@@ -861,95 +729,6 @@ Response as character:`;
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
         }
-
-        /* Welcome Modal */
-        #welcomeScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999999;
-        }
-
-        #welcomeBox {
-            background: var(--bg-secondary);
-            border: 1px solid var(--primary-gold);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            max-width: 90%;
-        }
-
-        #robotImg {
-            width: auto;
-            height: 220px;
-            max-width: 100%;
-            margin-bottom: 15px;
-        }
-
-        #welcomeTitle {
-            font-family: 'Orbitron', monospace;
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--primary-gold);
-            margin-bottom: 8px;
-        }
-
-        #welcomeSubtitle {
-            font-size: 14px;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-        }
-
-        #welcomeText {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
-        }
-
-        #welcomeDesc {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-        }
-
-        #disclaimer {
-            font-size: 9px;
-            color: var(--text-tertiary);
-            background: var(--bg-tertiary);
-            padding: 8px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        #enterButton {
-            background: var(--primary-gold);
-            color: var(--bg-primary);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        #enterButton:hover {
-            background: var(--primary-gold-light);
-        }
-
-        @media (max-width: 768px) {
-            #robotImg {
-                height: 180px;
-            }
-            #welcomeTitle {
-                font-size: 20px;
-            }
-        }
         
         .app-container {
             display: flex;
@@ -960,8 +739,6 @@ Response as character:`;
         
         .sidebar {
             width: var(--sidebar-width);
-            min-width: var(--sidebar-width);
-            max-width: var(--sidebar-width);
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -969,7 +746,6 @@ Response as character:`;
             position: relative;
             z-index: 20;
             transition: transform 0.3s ease;
-            flex-shrink: 0;
         }
         
         .sidebar-header {
@@ -1302,11 +1078,9 @@ Response as character:`;
         
         .main-content {
             flex: 1;
-            min-width: 0;
             display: flex;
             flex-direction: column;
             background: var(--bg-chat);
-            overflow: hidden;
         }
         
         .chat-header {
@@ -1686,10 +1460,99 @@ Response as character:`;
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-gold-dim);
         }
+
+        /* Welcome Screen Styles - ONLY ADDITION */
+        #welcomeScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+        }
+
+        #welcomeBox {
+            background: var(--bg-secondary);
+            border: 1px solid var(--primary-gold);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        #robotImg {
+            width: auto;
+            height: 220px;
+            max-width: 100%;
+            margin-bottom: 15px;
+        }
+
+        #welcomeTitle {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+        }
+
+        #welcomeSubtitle {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        #welcomeText {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        #welcomeDesc {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        #disclaimer {
+            font-size: 9px;
+            color: var(--text-tertiary);
+            background: var(--bg-tertiary);
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        #enterButton {
+            background: var(--primary-gold);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #enterButton:hover {
+            background: var(--primary-gold-light);
+        }
+
+        @media (max-width: 768px) {
+            #robotImg {
+                height: 180px;
+            }
+            #welcomeTitle {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Welcome Screen -->
+    <!-- Welcome Screen - ONLY ADDITION -->
     <div id="welcomeScreen">
         <div id="welcomeBox">
             <img id="robotImg" src="https://ultrakeith.com/aikeith.png" alt="KEITHGPT Robot">
@@ -1702,6 +1565,7 @@ Response as character:`;
         </div>
     </div>
 
+    <!-- YOUR EXACT ORIGINAL HTML - ZERO CHANGES -->
     <div class="app-container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -1759,8 +1623,4 @@ Response as character:`;
                                  alt="Dr. Dooom" class="persona-avatar">
                             <div class="persona-info">
                                 <div class="persona-name">Dr. Dooom</div>
-                                <div class="persona-status">Industry executioner</div>
-                            </div>
-                        </div>
-                        <div class="persona-option" data-character="black-elvis">
-                            <img src="https://github.com/deeman12345123/ultra
+                                <div class="persona-status">
