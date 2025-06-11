@@ -781,6 +781,13 @@
             body {
                 position: fixed;
                 overflow: hidden;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .app-container {
+                touch-action: pan-y;
+                overscroll-behavior: contain;
             }
             
             .sidebar {
@@ -817,6 +824,8 @@
             .chat-messages {
                 padding: 16px;
                 gap: 16px;
+                overscroll-behavior: contain;
+                -webkit-overflow-scrolling: touch;
             }
             
             .chat-input-area {
@@ -859,6 +868,8 @@
                 font-size: 12px;
                 line-height: 1.4;
                 padding: 10px 14px;
+                white-space: pre-wrap;
+                word-wrap: break-word;
             }
             
             .battle-round {
@@ -1406,6 +1417,19 @@
                 // Close sidebar button
                 document.getElementById('closeSidebarBtn')?.addEventListener('click', () => this.closeMobileMenu());
 
+                // Close menu when clicking anywhere in main content area on mobile
+                this.elements.chatMessages?.addEventListener('click', () => {
+                    if (window.innerWidth <= 768 && isMobileMenuOpen) {
+                        this.closeMobileMenu();
+                    }
+                });
+                
+                this.elements.chatInput?.addEventListener('focus', () => {
+                    if (window.innerWidth <= 768 && isMobileMenuOpen) {
+                        this.closeMobileMenu();
+                    }
+                });
+
                 // Persona dropdown
                 this.elements.personaSelected?.addEventListener('click', () => this.togglePersonaDropdown());
                 
@@ -1675,9 +1699,10 @@
                 const data = this.getCharacterData(character);
                 let prompt = `You are ${data.identity?.name || character} in a rap battle. `;
                 prompt += `This is round ${round} of 3. The battle topic is "${topic}". `;
-                prompt += `Drop a short, aggressive battle verse (4-8 lines) that shows your skills and attacks your opponent. `;
-                prompt += `Use your signature style and vocabulary. Be confrontational and competitive. `;
-                prompt += `This is a battle, so be direct and hard-hitting.`;
+                prompt += `Write a short rap verse (4-8 lines) that shows your skills and disses your opponent. `;
+                prompt += `Use your signature style, vocabulary, and personality. Be confrontational and competitive. `;
+                prompt += `Format your response as a rap verse with line breaks. Make it punchy and memorable. `;
+                prompt += `This is a battle, so be direct, clever, and hard-hitting with your wordplay.`;
                 
                 return prompt;
             }
@@ -1789,6 +1814,8 @@
                 
                 const messageContent = document.createElement('div');
                 messageContent.className = 'message-content';
+                // Preserve line breaks in battle verses
+                messageContent.style.whiteSpace = 'pre-wrap';
                 messageContent.textContent = content;
                 
                 contentWrapper.appendChild(messageHeader);
@@ -2037,15 +2064,58 @@
         // Prevent zoom on iOS when focusing input
         document.addEventListener('touchstart', function() {}, {passive: true});
         
-        // Handle viewport changes on mobile
+        // Handle viewport changes on mobile and enable pull-to-refresh
         function handleViewportChange() {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         }
         
+        // Enable pull-to-refresh on mobile
+        let startY = 0;
+        let currentY = 0;
+        let pullStarted = false;
+        
+        function enablePullToRefresh() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+            
+            chatMessages.addEventListener('touchstart', (e) => {
+                if (chatMessages.scrollTop === 0) {
+                    startY = e.touches[0].pageY;
+                    pullStarted = true;
+                }
+            }, { passive: true });
+            
+            chatMessages.addEventListener('touchmove', (e) => {
+                if (!pullStarted) return;
+                currentY = e.touches[0].pageY;
+                
+                if (currentY > startY + 100) { // 100px threshold
+                    // Visual feedback could go here
+                }
+            }, { passive: true });
+            
+            chatMessages.addEventListener('touchend', () => {
+                if (pullStarted && currentY > startY + 100) {
+                    // Trigger refresh
+                    window.location.reload();
+                }
+                pullStarted = false;
+                startY = 0;
+                currentY = 0;
+            }, { passive: true });
+        }
+        
         window.addEventListener('resize', handleViewportChange);
         window.addEventListener('orientationchange', handleViewportChange);
         handleViewportChange();
+        
+        // Initialize pull-to-refresh after DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth <= 768) {
+                enablePullToRefresh();
+            }
+        });
     </script>
 </body>
 </html>
