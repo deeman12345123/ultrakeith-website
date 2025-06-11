@@ -80,8 +80,8 @@
 
         .welcome-robot-img {
             width: auto !important;
-            height: 80px !important;
-            max-width: 100px !important;
+            height: 220px !important;
+            max-width: 300px !important;
             margin: 0 auto 10px !important;
             display: block !important;
         }
@@ -168,8 +168,8 @@
             }
             .welcome-robot-img {
                 width: auto !important;
-                height: 70px !important;
-                max-width: 90px !important;
+                height: 200px !important;
+                max-width: 280px !important;
             }
             .welcome-title {
                 font-size: 14px !important;
@@ -920,7 +920,7 @@
             <div class="welcome-disclaimer">
                 Entertainment purposes only. All responses are AI-generated and may not reflect actual views.
             </div>
-            <button class="welcome-btn" onclick="hideWelcomeModal()">Enter</button>
+            <button type="button" class="welcome-btn" onclick="hideWelcomeModal(); return false;">Enter</button>
         </div>
     </div>
 
@@ -1102,20 +1102,28 @@
     <script src="keith-knowledge/black-elvis-knowledge.js"></script>
 
     <script>
-        // BUTTON FIX - Put function in window scope to avoid conflicts
+        // BUTTON FIX - Multiple approaches based on research
         window.hideWelcomeModal = function() {
             try {
-                console.log('Button clicked - hiding modal');
+                console.log('=== BUTTON CLICKED ===');
                 var overlay = document.getElementById('welcomeOverlay');
                 if (overlay) {
                     overlay.style.display = 'none';
-                    console.log('Modal hidden successfully');
+                    console.log('✅ Modal hidden successfully');
+                    return false;
                 } else {
-                    console.log('ERROR: welcomeOverlay not found');
+                    console.log('❌ ERROR: welcomeOverlay element not found');
                 }
             } catch (error) {
-                console.log('ERROR in hideWelcomeModal:', error);
+                console.log('❌ ERROR in hideWelcomeModal:', error);
             }
+            return false;
+        }
+
+        // Alternative method - direct DOM approach
+        function closeWelcomeWindow() {
+            document.getElementById('welcomeOverlay').style.display = 'none';
+            return false;
         }
 
         // TYPING ANIMATION
