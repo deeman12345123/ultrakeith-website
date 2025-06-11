@@ -1312,6 +1312,12 @@ VOCABULARY TO USE:`;
                 document.getElementById('chatInput').addEventListener('input', () => this.handleInputChange());
                 document.getElementById('newChatBtn').addEventListener('click', () => this.resetConversation());
 
+                // Auto-resize textarea
+                document.getElementById('chatInput').addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+                });
+
                 document.getElementById('mobileToggle').addEventListener('click', () => this.toggleMobile());
                 document.getElementById('closeSidebarBtn').addEventListener('click', () => this.closeMobile());
                 document.getElementById('mobileOverlay').addEventListener('click', () => this.closeMobile());
@@ -1628,15 +1634,14 @@ VOCABULARY TO USE:`;
                 console.log(`=== CALLING BATTLE API WITH KNOWLEDGE v9 ===`);
                 console.log(`Character: ${character}, Topic: ${topic}, Round: ${round}`);
                 
-                // Get character name
+                const characterKnowledge = getCharacterKnowledge(character);
                 const characterName = characterData[character]?.name || character;
                 
-                const prompt = `CRITICAL: DO NOT start with "Yo, check the mic" or "one two" or "this ain't no" - BANNED PHRASES!
+                const prompt = `${characterKnowledge}
 
-You are ${characterName}. Write a 4-line rap battle verse with proper rhymes that flows naturally. Start immediately with your authentic character voice.
+You are in a rap battle. Topic: ${topic}, Round: ${round}
 
-Battle topic: ${topic}
-Round: ${round}
+Write a 4-line rap battle verse that flows naturally. Start immediately with your authentic character voice - no introductions or announcements.
 
 Write your verse now:`;
                 
