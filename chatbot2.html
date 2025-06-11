@@ -989,7 +989,7 @@
                 Entertainment purposes only. All responses are AI-generated and may not reflect actual views.
             </div>
             <div class="welcome-buttons">
-                <button type="button" class="welcome-btn primary" id="closeWelcomeBtn">Enter</button>
+                <button type="button" class="welcome-btn primary" onclick="document.getElementById('welcomeOverlay').style.display='none'">Enter</button>
             </div>
         </div>
     </div>
@@ -1172,7 +1172,6 @@
     <script src="keith-knowledge/black-elvis-knowledge.js"></script>
 
     <script>
-        // Welcome Modal Functions
         function startTypingAnimation() {
             const subtitle = document.getElementById('welcomeSubtitle');
             const description = document.getElementById('welcomeDescription');
@@ -1203,17 +1202,6 @@
             }
             
             typeNextChar();
-        }
-
-        function hideWelcome() {
-            const overlay = document.getElementById('welcomeOverlay');
-            if (overlay) {
-                overlay.style.display = 'none';
-            }
-        }
-
-        function closeWelcome() {
-            hideWelcome();
         }
 
         const CONFIG = {
