@@ -191,10 +191,10 @@
 
         @keyframes glow {
             from { 
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
             }
             to { 
-                box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
             }
         }
 
@@ -1201,7 +1201,10 @@
         }
 
         function closeWelcome() {
-            document.getElementById('welcomeOverlay').classList.add('hidden');
+            const overlay = document.getElementById('welcomeOverlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
         }
 
         const CONFIG = {
