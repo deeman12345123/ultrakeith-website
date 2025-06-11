@@ -79,8 +79,9 @@
         }
 
         .welcome-robot-img {
-            width: 80px !important;
+            width: auto !important;
             height: 80px !important;
+            max-width: 100px !important;
             margin: 0 auto 10px !important;
             display: block !important;
         }
@@ -166,8 +167,9 @@
                 padding: 12px !important;
             }
             .welcome-robot-img {
-                width: 70px !important;
+                width: auto !important;
                 height: 70px !important;
+                max-width: 90px !important;
             }
             .welcome-title {
                 font-size: 14px !important;
@@ -1100,11 +1102,19 @@
     <script src="keith-knowledge/black-elvis-knowledge.js"></script>
 
     <script>
-        // SIMPLE MODAL CLOSE FUNCTION
-        function hideWelcomeModal() {
-            var overlay = document.getElementById('welcomeOverlay');
-            if (overlay) {
-                overlay.style.display = 'none';
+        // BUTTON FIX - Put function in window scope to avoid conflicts
+        window.hideWelcomeModal = function() {
+            try {
+                console.log('Button clicked - hiding modal');
+                var overlay = document.getElementById('welcomeOverlay');
+                if (overlay) {
+                    overlay.style.display = 'none';
+                    console.log('Modal hidden successfully');
+                } else {
+                    console.log('ERROR: welcomeOverlay not found');
+                }
+            } catch (error) {
+                console.log('ERROR in hideWelcomeModal:', error);
             }
         }
 
