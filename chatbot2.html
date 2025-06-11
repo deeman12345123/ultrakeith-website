@@ -392,6 +392,32 @@
             overflow-y: auto;
         }
         
+        .history-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .close-sidebar-btn {
+            display: none;
+            width: 32px;
+            height: 32px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .close-sidebar-btn:hover {
+            background: var(--bg-primary);
+            color: var(--primary-gold);
+        }
+        
         .history-item {
             padding: 8px 12px;
             border-radius: var(--radius-sm);
@@ -401,6 +427,9 @@
             font-size: 13px;
             color: var(--text-secondary);
             border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
         .history-item:hover {
@@ -411,6 +440,36 @@
             background: var(--primary-gold-subtle);
             border-left-color: var(--primary-gold);
             color: var(--text-primary);
+        }
+        
+        .history-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .delete-chat-btn {
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+        }
+        
+        .history-item:hover .delete-chat-btn {
+            display: flex;
+        }
+        
+        .delete-chat-btn:hover {
+            background: var(--bg-primary);
+            color: #ff4444;
         }
         
         /* ===== MAIN CHAT AREA ===== */
@@ -747,6 +806,10 @@
                 display: flex;
             }
             
+            .close-sidebar-btn {
+                display: flex;
+            }
+            
             .chat-header {
                 padding: 0 16px;
             }
@@ -785,6 +848,27 @@
             .send-btn {
                 width: 36px;
                 height: 36px;
+            }
+            
+            /* Battle messages mobile fix */
+            .message.battle {
+                max-width: 98%;
+            }
+            
+            .message.battle .message-content {
+                font-size: 12px;
+                line-height: 1.4;
+                padding: 10px 14px;
+            }
+            
+            .battle-round {
+                font-size: 9px;
+                padding: 1px 6px;
+            }
+            
+            .message-header {
+                font-size: 11px;
+                margin-bottom: 6px;
             }
             
             /* Ensure input area stays above keyboard */
@@ -963,7 +1047,9 @@
                                     <span>Black Elvis</span>
                                 </div>
                                 <div class="battle-option" data-character="user">
-                                    <div class="battle-avatar" style="background: var(--primary-gold); display: flex; align-items: center; justify-content: center; color: var(--bg-primary); font-weight: bold; font-size: 10px;">U</div>
+                                    <div class="battle-avatar" style="background: var(--bg-tertiary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>
+                                    </div>
                                     <span>You</span>
                                 </div>
                             </div>
@@ -1002,7 +1088,9 @@
                                     <span>Black Elvis</span>
                                 </div>
                                 <div class="battle-option" data-character="user">
-                                    <div class="battle-avatar" style="background: var(--primary-gold); display: flex; align-items: center; justify-content: center; color: var(--bg-primary); font-weight: bold; font-size: 10px;">U</div>
+                                    <div class="battle-avatar" style="background: var(--bg-tertiary); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-secondary);">
+                                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>
+                                    </div>
                                     <span>You</span>
                                 </div>
                             </div>
@@ -1013,7 +1101,14 @@
             </div>
             
             <div class="chat-history" id="chatHistory">
-                <div class="section-title">Recent Chats</div>
+                <div class="history-header">
+                    <div class="section-title">Recent Chats</div>
+                    <button class="close-sidebar-btn" id="closeSidebarBtn">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                        </svg>
+                    </button>
+                </div>
                 <!-- Chat history items will be loaded here -->
             </div>
         </aside>
@@ -1189,15 +1284,42 @@
                 if (!historyElement) return;
                 
                 const chats = this.loadChatHistory();
-                historyElement.innerHTML = '<div class="section-title">Recent Chats</div>';
+                const headerHtml = `
+                    <div class="history-header">
+                        <div class="section-title">Recent Chats</div>
+                        <button class="close-sidebar-btn" id="closeSidebarBtn">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                historyElement.innerHTML = headerHtml;
+                
+                // Re-attach close button event
+                document.getElementById('closeSidebarBtn')?.addEventListener('click', () => ui.closeMobileMenu());
                 
                 chats.slice(0, 10).forEach((chat, index) => {
                     const historyItem = document.createElement('div');
                     historyItem.className = 'history-item';
-                    historyItem.textContent = chat.preview;
+                    historyItem.innerHTML = `
+                        <span class="history-text">${chat.preview}</span>
+                        <button class="delete-chat-btn" onclick="ChatStorage.deleteChat(${chat.id}); event.stopPropagation();">
+                            <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg>
+                        </button>
+                    `;
                     historyItem.onclick = () => this.loadChat(chat);
                     historyElement.appendChild(historyItem);
                 });
+            }
+            
+            static deleteChat(chatId) {
+                const chats = this.loadChatHistory();
+                const filteredChats = chats.filter(chat => chat.id !== chatId);
+                localStorage.setItem('keithgpt_chats', JSON.stringify(filteredChats));
+                this.updateChatHistoryUI();
             }
             
             static loadChat(chat) {
@@ -1280,6 +1402,9 @@
                 // Mobile menu toggle
                 this.elements.mobileToggle?.addEventListener('click', () => this.toggleMobileMenu());
                 this.elements.mobileOverlay?.addEventListener('click', () => this.closeMobileMenu());
+                
+                // Close sidebar button
+                document.getElementById('closeSidebarBtn')?.addEventListener('click', () => this.closeMobileMenu());
 
                 // Persona dropdown
                 this.elements.personaSelected?.addEventListener('click', () => this.togglePersonaDropdown());
@@ -1390,14 +1515,14 @@
                 const span = selected.querySelector('span');
 
                 if (character === 'user') {
-                    img.style.background = 'var(--primary-gold)';
+                    // Create generic person icon instead of "U"
+                    img.style.background = 'var(--bg-tertiary)';
+                    img.style.border = '1px solid var(--border-color)';
                     img.style.display = 'flex';
                     img.style.alignItems = 'center';
                     img.style.justifyContent = 'center';
-                    img.style.color = 'var(--bg-primary)';
-                    img.style.fontWeight = 'bold';
-                    img.style.fontSize = '10px';
-                    img.textContent = 'U';
+                    img.style.color = 'var(--text-secondary)';
+                    img.innerHTML = '<svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>';
                     img.src = '';
                     span.textContent = 'You';
                 } else {
@@ -1614,7 +1739,7 @@
                 } else {
                     const messageAvatar = document.createElement('img');
                     messageAvatar.className = 'message-avatar';
-                    messageAvatar.src = avatar || (type === 'user' ? 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNmZmQ3MDAiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGE0IDQgMCAxIDAgMC04IDQgNCAwIDAgMCAwIDhaTTMgMTRzLTEgMC0xLTEgMS00IDYtNCA2IDMgNiA0LTEgMS0xIDF6Ii8+PC9zdmc+' : characterData[currentCharacter]?.avatar);
+                    messageAvatar.src = avatar || (type === 'user' ? 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=' : characterData[currentCharacter]?.avatar);
                     
                     const messageContent = document.createElement('div');
                     messageContent.className = 'message-content';
@@ -1800,7 +1925,8 @@
                     const currentPersona = battleState.nextUp === 'persona1' ? battleState.persona1 : battleState.persona2;
                     if (currentPersona === 'user') {
                         // User submitted battle verse
-                        this.addBattleMessage(message, 'You', '', battleState.currentRound);
+                        const userAvatar = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=';
+                        this.addBattleMessage(message, 'You', userAvatar, battleState.currentRound);
                         
                         // Move to next
                         if (battleState.nextUp === 'persona1') {
