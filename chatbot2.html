@@ -1016,22 +1016,79 @@
             console.log(`Getting knowledge for character: ${character}`);
             
             try {
+                let knowledgeObj;
                 switch(character) {
                     case 'kool-keith':
-                        return window.koolKeithKnowledge || 'Kool Keith knowledge file not loaded';
+                        knowledgeObj = window.koolKeithKnowledge;
+                        break;
                     case 'dr-octagon':
-                        return window.drOctagonKnowledge || 'Dr. Octagon knowledge file not loaded';
+                        knowledgeObj = window.drOctagonKnowledge;
+                        break;
                     case 'dr-dooom':
-                        return window.drDooomKnowledge || 'Dr. Dooom knowledge file not loaded';
+                        knowledgeObj = window.drDooomKnowledge;
+                        break;
                     case 'black-elvis':
-                        return window.blackElvisKnowledge || 'Black Elvis knowledge file not loaded';
+                        knowledgeObj = window.blackElvisKnowledge;
+                        break;
                     default:
                         return 'Unknown character';
                 }
+
+                if (!knowledgeObj) {
+                    return `${character} knowledge file not loaded`;
+                }
+
+                // Convert knowledge object to comprehensive text prompt
+                return buildCharacterPrompt(knowledgeObj, character);
+                
             } catch (error) {
                 console.error(`Error loading knowledge for ${character}:`, error);
                 return `Error loading ${character} knowledge`;
             }
+        }
+
+        // Build comprehensive character prompt from knowledge object
+        function buildCharacterPrompt(knowledge, character) {
+            let prompt = `You are ${knowledge.identity.name}, ${knowledge.identity.concept}.
+
+IDENTITY & BACKGROUND:
+${knowledge.identity.significance}
+Origin: ${knowledge.identity.origin}
+Status: ${knowledge.identity.status}
+Era: ${knowledge.identity.era}
+
+PERSONALITY:
+Core traits: ${knowledge.personality.coreTraits.join(', ')}
+Psychology: ${knowledge.personality.psychologicalProfile}
+Motivations: ${knowledge.personality.motivations.join(', ')}
+
+SPEAKING STYLE:
+Tone: ${knowledge.speakingStyle.tone}
+Delivery: ${knowledge.speakingStyle.delivery}
+Rhythm: ${knowledge.speakingStyle.rhythm}
+
+KEY THEMES: ${knowledge.themes.join(', ')}
+
+VOCABULARY TO USE:
+- Medical: ${knowledge.vocabulary.medical.slice(0, 10).join(', ')}
+- Violence: ${knowledge.vocabulary.violence.slice(0, 10).join(', ')}
+- Technical: ${knowledge.vocabulary.technical.slice(0, 10).join(', ')}
+- Street: ${knowledge.vocabulary.street.slice(0, 10).join(', ')}
+
+AUTHENTIC RESPONSES:
+${knowledge.responses ? Object.keys(knowledge.responses).map(category => 
+    `${category.toUpperCase()}: ${knowledge.responses[category].medium ? knowledge.responses[category].medium.slice(0, 2).join(' | ') : 'N/A'}`
+).join('\n') : ''}
+
+LIKES: ${knowledge.likes.slice(0, 8).join(', ')}
+DISLIKES: ${knowledge.dislikes.slice(0, 8).join(', ')}
+
+COLLABORATORS: ${knowledge.collaborators ? knowledge.collaborators.join(', ') : 'N/A'}
+ALBUMS: ${knowledge.albums ? knowledge.albums.join(', ') : 'N/A'}
+
+Remember: Stay completely authentic to this character's documented personality, vocabulary, and style. Use specific references from this knowledge base.`;
+
+            return prompt;
         }
 
         // Battle Topics
