@@ -34,7 +34,7 @@
             --radius-md: 12px;
             --radius-lg: 16px;
             
-            --sidebar-width: 280px;
+            --sidebar-width: 320px;
             --header-height: 60px;
             --input-area-height: 80px;
         }
@@ -287,6 +287,7 @@
         .battle-dropdowns {
             display: flex;
             gap: 8px;
+            align-items: center;
         }
         
         .battle-dropdown {
@@ -317,6 +318,14 @@
             height: 24px;
             border-radius: 50%;
             border: 1px solid var(--primary-gold-dim);
+        }
+        
+        .battle-vs {
+            font-weight: bold;
+            color: var(--primary-gold);
+            font-size: 12px;
+            text-align: center;
+            min-width: 30px;
         }
         
         .battle-options {
@@ -505,8 +514,8 @@
         }
         
         .message-avatar {
-            width: 64px;
-            height: 64px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 3px solid var(--primary-gold-dim);
             flex-shrink: 0;
@@ -638,6 +647,7 @@
             outline: none;
             transition: all 0.2s ease;
             overflow-y: auto;
+            text-align: left;
         }
         
         .chat-input:focus {
@@ -705,7 +715,7 @@
         
         @media (max-width: 768px) {
             :root {
-                --sidebar-width: 280px;
+                --sidebar-width: 100vw;
                 --input-area-height: 90px;
             }
             
@@ -718,6 +728,7 @@
                 position: fixed;
                 top: 0;
                 left: 0;
+                width: 100vw;
                 height: 100vh;
                 height: 100dvh;
                 z-index: 25;
@@ -756,8 +767,8 @@
             }
             
             .message-avatar {
-                width: 48px;
-                height: 48px;
+                width: 60px;
+                height: 60px;
             }
             
             .message-content {
@@ -768,6 +779,7 @@
             .chat-input {
                 font-size: 16px; /* Prevents zoom on iOS */
                 padding: 12px 50px 12px 14px;
+                text-align: left;
             }
             
             .send-btn {
@@ -957,7 +969,7 @@
                             </div>
                         </div>
                         
-                        <div style="display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary-gold);">VS</div>
+                        <div class="battle-vs">VS</div>
                         
                         <div class="battle-dropdown" id="battleDropdown2">
                             <div class="battle-selected" id="battleSelected2">
@@ -1002,10 +1014,7 @@
             
             <div class="chat-history" id="chatHistory">
                 <div class="section-title">Recent Chats</div>
-                <div class="history-item active">Discussing abstract hip-hop with Keith</div>
-                <div class="history-item">Dr. Octagon's cosmic medical advice</div>
-                <div class="history-item">Dr. Dooom's industry critique</div>
-                <div class="history-item">Black Elvis funk philosophy</div>
+                <!-- Chat history items will be loaded here -->
             </div>
         </aside>
         
@@ -1027,7 +1036,7 @@
                          alt="Kool Keith" class="header-avatar" id="headerAvatar">
                     <div class="header-info">
                         <h3 id="headerName">Kool Keith</h3>
-                        <p id="headerStatus">Abstract innovator from the Bronx</p>
+                        <p id="headerStatus">Abstract innovator</p>
                     </div>
                 </div>
                 
@@ -1104,22 +1113,22 @@
         const characterData = {
             'kool-keith': {
                 name: 'Kool Keith',
-                status: 'Abstract innovator from the Bronx',
+                status: 'Abstract innovator',
                 avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true'
             },
             'dr-octagon': {
                 name: 'Dr. Octagon',
-                status: 'Cosmic surgeon from Jupiter',
+                status: 'Cosmic surgeon',
                 avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true'
             },
             'dr-dooom': {
                 name: 'Dr. Dooom',
-                status: 'Industry executioner from Apartment 223',
+                status: 'Industry executioner',
                 avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true'
             },
             'black-elvis': {
                 name: 'Black Elvis',
-                status: 'Funk master with soul power',
+                status: 'Funk master',
                 avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true'
             }
         };
@@ -1137,6 +1146,71 @@
             "musical collaboration and features",
             "the future of hip-hop culture"
         ];
+
+        // ===== CHAT STORAGE =====
+        class ChatStorage {
+            static saveChatHistory() {
+                const chats = JSON.parse(localStorage.getItem('keithgpt_chats') || '[]');
+                const currentChat = {
+                    id: Date.now(),
+                    timestamp: new Date().toISOString(),
+                    character: currentCharacter,
+                    mode: currentMode,
+                    preview: this.generateChatPreview(),
+                    messages: [...conversationHistory]
+                };
+                
+                chats.unshift(currentChat);
+                // Keep only last 20 chats
+                if (chats.length > 20) chats.splice(20);
+                
+                localStorage.setItem('keithgpt_chats', JSON.stringify(chats));
+                this.updateChatHistoryUI();
+            }
+            
+            static generateChatPreview() {
+                if (conversationHistory.length === 0) return 'New conversation';
+                
+                const firstUserMessage = conversationHistory.find(msg => msg.role === 'user');
+                if (firstUserMessage) {
+                    const preview = firstUserMessage.parts[0].text.substring(0, 40);
+                    return preview + (firstUserMessage.parts[0].text.length > 40 ? '...' : '');
+                }
+                
+                return `Chat with ${characterData[currentCharacter].name}`;
+            }
+            
+            static loadChatHistory() {
+                return JSON.parse(localStorage.getItem('keithgpt_chats') || '[]');
+            }
+            
+            static updateChatHistoryUI() {
+                const historyElement = document.getElementById('chatHistory');
+                if (!historyElement) return;
+                
+                const chats = this.loadChatHistory();
+                historyElement.innerHTML = '<div class="section-title">Recent Chats</div>';
+                
+                chats.slice(0, 10).forEach((chat, index) => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.textContent = chat.preview;
+                    historyItem.onclick = () => this.loadChat(chat);
+                    historyElement.appendChild(historyItem);
+                });
+            }
+            
+            static loadChat(chat) {
+                currentCharacter = chat.character;
+                currentMode = chat.mode || 'chat';
+                conversationHistory = [...chat.messages];
+                
+                ui.setMode(currentMode);
+                ui.updatePersonaUI();
+                ui.recreateChatFromHistory();
+                ui.closeMobileMenu();
+            }
+        }
 
         // ===== GLOBAL STATE =====
         let currentCharacter = 'kool-keith';
@@ -1199,6 +1273,7 @@
                 this.resetConversation();
                 this.setupAutoResize();
                 this.setupBattleDropdowns();
+                ChatStorage.updateChatHistoryUI();
             }
 
             setupEventListeners() {
@@ -1482,6 +1557,25 @@
                 return prompt;
             }
 
+            recreateChatFromHistory() {
+                if (!this.elements.chatMessages) return;
+                this.elements.chatMessages.innerHTML = '';
+                
+                for (let i = 0; i < conversationHistory.length; i += 2) {
+                    const userMsg = conversationHistory[i];
+                    const botMsg = conversationHistory[i + 1];
+                    
+                    if (userMsg && userMsg.role === 'user') {
+                        this.addMessage('user', userMsg.parts[0].text);
+                    }
+                    
+                    if (botMsg && botMsg.role === 'model') {
+                        const data = characterData[currentCharacter];
+                        this.addMessage('bot', botMsg.parts[0].text, data.name, data.avatar);
+                    }
+                }
+            }
+
             handleInputChange() {
                 const hasText = this.elements.chatInput?.value.trim().length > 0;
                 if (this.elements.sendBtn) {
@@ -1604,6 +1698,11 @@
             }
 
             resetConversation() {
+                // Save current conversation if it has messages
+                if (conversationHistory.length > 0) {
+                    ChatStorage.saveChatHistory();
+                }
+                
                 conversationHistory = [];
                 if (this.elements.chatMessages) {
                     this.elements.chatMessages.innerHTML = '';
@@ -1629,7 +1728,7 @@
                 }
                 
                 const defaultMessages = {
-                    'kool-keith': `Yo${currentUserName ? ' ' + currentUserName : ''}, what's good? Keith here - the original abstract innovator from the Bronx.`,
+                    'kool-keith': `Yo${currentUserName ? ' ' + currentUserName : ''}, what's good? Keith here - the original abstract innovator.`,
                     'dr-octagon': `Greetings${currentUserName ? ' ' + currentUserName : ''} from Jupiter! Dr. Octagon reporting for medical duty.`,
                     'dr-dooom': `Dr. Dooom here${currentUserName ? ', ' + currentUserName : ''} - reporting from Apartment 223 where fake rappers come to die.`,
                     'black-elvis': `Thank you${currentUserName ? ' ' + currentUserName : ''}, thank you very much! Black Elvis is in the building!`
