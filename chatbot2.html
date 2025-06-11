@@ -1302,18 +1302,22 @@ VOCABULARY TO USE:`;
 
                 document.getElementById('startBattleBtn').addEventListener('click', () => this.startBattle());
 
-                document.getElementById('sendBtn').addEventListener('click', () => this.sendMessage());
-                document.getElementById('chatInput').addEventListener('keydown', (e) => {
+                // Fix the this context issues
+                const sendBtn = document.getElementById('sendBtn');
+                const chatInput = document.getElementById('chatInput');
+                const newChatBtn = document.getElementById('newChatBtn');
+                
+                sendBtn.addEventListener('click', () => this.sendMessage());
+                chatInput.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
                         this.sendMessage();
                     }
                 });
-                document.getElementById('chatInput').addEventListener('input', () => this.handleInputChange());
-                document.getElementById('newChatBtn').addEventListener('click', () => this.resetConversation());
+                chatInput.addEventListener('input', () => this.handleInputChange());
+                newChatBtn.addEventListener('click', () => this.resetConversation());
 
                 // Auto-resize textarea
-                const chatInput = document.getElementById('chatInput');
                 chatInput.addEventListener('input', function() {
                     this.style.height = 'auto';
                     this.style.height = Math.min(this.scrollHeight, 120) + 'px';
