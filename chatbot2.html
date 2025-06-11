@@ -116,6 +116,47 @@
     <script src="keith-knowledge/black-elvis-knowledge.js"></script>
 
     <script>
+        // DEBUG - Multiple methods to close welcome
+        console.log('=== SCRIPT LOADED ===');
+        
+        // Method 1: Direct onclick (already in HTML)
+        
+        // Method 2: addEventListener when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== DOM LOADED ===');
+            
+            const btn = document.getElementById('enterButton');
+            const screen = document.getElementById('welcomeScreen');
+            
+            console.log('Button found:', !!btn);
+            console.log('Screen found:', !!screen);
+            
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    console.log('=== BUTTON CLICKED VIA LISTENER ===');
+                    if (screen) {
+                        screen.style.display = 'none';
+                        console.log('Screen hidden');
+                    } else {
+                        console.log('Screen not found!');
+                    }
+                });
+            }
+        });
+        
+        // Method 3: Global function
+        window.closeWelcome = function() {
+            console.log('=== GLOBAL FUNCTION CALLED ===');
+            document.getElementById('welcomeScreen').style.display = 'none';
+        }
+        
+        // Method 4: Test if elements exist
+        setTimeout(function() {
+            console.log('=== TESTING ELEMENTS ===');
+            console.log('welcomeScreen exists:', !!document.getElementById('welcomeScreen'));
+            console.log('enterButton exists:', !!document.getElementById('enterButton'));
+        }, 1000);
+
         // SUPER SIMPLE WELCOME SCREEN CLOSE
         document.getElementById('enterButton').addEventListener('click', function() {
             document.getElementById('welcomeScreen').style.display = 'none';
@@ -1698,7 +1739,7 @@ Response as character:`;
             <div id="welcomeText">Welcome to the abstract universe!</div>
             <div id="welcomeDesc">Four legendary personas, one wild conversation</div>
             <div id="disclaimer">Entertainment purposes only. All responses are AI-generated and may not reflect actual views.</div>
-            <button id="enterButton">Enter</button>
+            <button id="enterButton" onclick="document.getElementById('welcomeScreen').style.display='none';">Enter</button>
         </div>
     </div>
 
