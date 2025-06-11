@@ -1313,10 +1313,14 @@ VOCABULARY TO USE:`;
                 document.getElementById('newChatBtn').addEventListener('click', () => this.resetConversation());
 
                 // Auto-resize textarea
-                document.getElementById('chatInput').addEventListener('input', function() {
+                const chatInput = document.getElementById('chatInput');
+                chatInput.addEventListener('input', function() {
                     this.style.height = 'auto';
                     this.style.height = Math.min(this.scrollHeight, 120) + 'px';
                 });
+
+                // Initialize send button state
+                this.handleInputChange();
 
                 document.getElementById('mobileToggle').addEventListener('click', () => this.toggleMobile());
                 document.getElementById('closeSidebarBtn').addEventListener('click', () => this.closeMobile());
@@ -1532,8 +1536,11 @@ VOCABULARY TO USE:`;
             }
 
             handleInputChange() {
-                const hasText = document.getElementById('chatInput').value.trim().length > 0;
-                document.getElementById('sendBtn').disabled = !hasText;
+                const chatInput = document.getElementById('chatInput');
+                const sendBtn = document.getElementById('sendBtn');
+                const hasText = chatInput.value.trim().length > 0;
+                sendBtn.disabled = !hasText;
+                console.log('Input changed, hasText:', hasText, 'disabled:', sendBtn.disabled);
             }
 
             resetConversation() {
