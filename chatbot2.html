@@ -69,11 +69,11 @@
             border: 1px solid var(--primary-gold) !important;
             border-radius: 8px !important;
             padding: 15px !important;
-            width: 300px !important;
+            width: auto !important;
             max-width: 90vw !important;
-            max-height: 70vh !important;
+            max-height: 90vh !important;
             text-align: center !important;
-            overflow-y: auto !important;
+            overflow: visible !important;
             position: relative !important;
             z-index: 100000 !important;
         }
@@ -920,7 +920,7 @@
             <div class="welcome-disclaimer">
                 Entertainment purposes only. All responses are AI-generated and may not reflect actual views.
             </div>
-            <button type="button" class="welcome-btn" onclick="hideWelcomeModal(); return false;">Enter</button>
+            <button type="button" class="welcome-btn" onclick="document.getElementById('welcomeOverlay').style.display='none'">Enter</button>
         </div>
     </div>
 
@@ -1102,29 +1102,7 @@
     <script src="keith-knowledge/black-elvis-knowledge.js"></script>
 
     <script>
-        // BUTTON FIX - Multiple approaches based on research
-        window.hideWelcomeModal = function() {
-            try {
-                console.log('=== BUTTON CLICKED ===');
-                var overlay = document.getElementById('welcomeOverlay');
-                if (overlay) {
-                    overlay.style.display = 'none';
-                    console.log('✅ Modal hidden successfully');
-                    return false;
-                } else {
-                    console.log('❌ ERROR: welcomeOverlay element not found');
-                }
-            } catch (error) {
-                console.log('❌ ERROR in hideWelcomeModal:', error);
-            }
-            return false;
-        }
-
-        // Alternative method - direct DOM approach
-        function closeWelcomeWindow() {
-            document.getElementById('welcomeOverlay').style.display = 'none';
-            return false;
-        }
+        // NO FUNCTIONS - JUST SIMPLE INLINE CODE
 
         // TYPING ANIMATION
         function startTypingAnimation() {
