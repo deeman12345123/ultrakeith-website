@@ -837,12 +837,12 @@
                 max-width: 350px;
             }
 
-            .welcome-robot {
+            .welcome-robot-img {
                 width: 70px;
                 height: 70px;
-                border: none !important;
-                border-radius: 0 !important;
-                box-shadow: none !important;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
             }
 
             .welcome-title {
@@ -978,7 +978,7 @@
     <!-- Welcome Modal -->
     <div class="welcome-overlay" id="welcomeOverlay">
         <div class="welcome-modal">
-            <img src="https://ultrakeith.com/aikeith.png" alt="KEITHGPT Robot" class="welcome-robot">
+            <img src="https://ultrakeith.com/aikeith.png" alt="KEITHGPT Robot" class="welcome-robot-img">
             <h1 class="welcome-title">KEITHGPT</h1>
             <div class="welcome-tagline">Galaxy Persona Transformer</div>
             <p class="welcome-subtitle" id="welcomeSubtitle"></p>
@@ -987,7 +987,7 @@
                 Entertainment purposes only. All responses are AI-generated and may not reflect actual views.
             </div>
             <div class="welcome-buttons">
-                <button class="welcome-btn primary" id="enterBtn">Enter</button>
+                <button class="welcome-btn primary" id="enterBtn" onclick="hideWelcome()">Enter</button>
             </div>
         </div>
     </div>
@@ -1203,15 +1203,12 @@
             typeNextChar();
         }
 
+        function hideWelcome() {
+            document.getElementById('welcomeOverlay').style.display = 'none';
+        }
+
         function closeWelcome() {
-            console.log('closeWelcome function called');
-            const overlay = document.getElementById('welcomeOverlay');
-            if (overlay) {
-                overlay.style.display = 'none';
-                console.log('Welcome overlay hidden');
-            } else {
-                console.log('Welcome overlay not found');
-            }
+            hideWelcome();
         }
 
         const CONFIG = {
