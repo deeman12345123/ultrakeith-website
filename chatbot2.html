@@ -191,10 +191,10 @@
 
         @keyframes glow {
             from { 
-                box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+                box-shadow: none;
             }
             to { 
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+                box-shadow: none;
             }
         }
 
@@ -840,6 +840,9 @@
             .welcome-robot {
                 width: 70px;
                 height: 70px;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
             }
 
             .welcome-title {
@@ -1201,8 +1204,14 @@
         }
 
         function closeWelcome() {
+            console.log('closeWelcome function called');
             const overlay = document.getElementById('welcomeOverlay');
-            overlay.style.display = 'none';
+            if (overlay) {
+                overlay.style.display = 'none';
+                console.log('Welcome overlay hidden');
+            } else {
+                console.log('Welcome overlay not found');
+            }
         }
 
         const CONFIG = {
