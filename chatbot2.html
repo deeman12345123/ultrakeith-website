@@ -1049,46 +1049,91 @@
 
         // Build comprehensive character prompt from knowledge object
         function buildCharacterPrompt(knowledge, character) {
-            let prompt = `You are ${knowledge.identity.name}, ${knowledge.identity.concept}.
+            console.log(`Building prompt for ${character}`);
+            console.log(`Knowledge object:`, knowledge);
+            
+            if (!knowledge || typeof knowledge !== 'object') {
+                console.error(`Invalid knowledge object for ${character}`);
+                return `You are ${character}. Respond authentically but knowledge file not properly loaded.`;
+            }
+
+            try {
+                let prompt = `You are ${knowledge.identity?.name || character}.
 
 IDENTITY & BACKGROUND:
-${knowledge.identity.significance}
-Origin: ${knowledge.identity.origin}
-Status: ${knowledge.identity.status}
-Era: ${knowledge.identity.era}
+${knowledge.identity?.significance || 'Character significance not available'}
+Origin: ${knowledge.identity?.origin || 'Unknown origin'}
+Status: ${knowledge.identity?.status || 'Unknown status'}
+Era: ${knowledge.identity?.era || 'Unknown era'}
 
 PERSONALITY:
-Core traits: ${knowledge.personality.coreTraits.join(', ')}
-Psychology: ${knowledge.personality.psychologicalProfile}
-Motivations: ${knowledge.personality.motivations.join(', ')}
+Core traits: ${knowledge.personality?.coreTraits?.join(', ') || 'Traits not available'}
+Psychology: ${knowledge.personality?.psychologicalProfile || 'Profile not available'}
+Motivations: ${knowledge.personality?.motivations?.join(', ') || 'Motivations not available'}
 
 SPEAKING STYLE:
-Tone: ${knowledge.speakingStyle.tone}
-Delivery: ${knowledge.speakingStyle.delivery}
-Rhythm: ${knowledge.speakingStyle.rhythm}
+Tone: ${knowledge.speakingStyle?.tone || 'Tone not specified'}
+Delivery: ${knowledge.speakingStyle?.delivery || 'Delivery not specified'}
+Rhythm: ${knowledge.speakingStyle?.rhythm || 'Rhythm not specified'}
 
-KEY THEMES: ${knowledge.themes.join(', ')}
+KEY THEMES: ${knowledge.themes?.join(', ') || 'Themes not available'}
 
-VOCABULARY TO USE:
-- Medical: ${knowledge.vocabulary.medical.slice(0, 10).join(', ')}
-- Violence: ${knowledge.vocabulary.violence.slice(0, 10).join(', ')}
-- Technical: ${knowledge.vocabulary.technical.slice(0, 10).join(', ')}
-- Street: ${knowledge.vocabulary.street.slice(0, 10).join(', ')}
+VOCABULARY TO USE:`;
 
-AUTHENTIC RESPONSES:
-${knowledge.responses ? Object.keys(knowledge.responses).map(category => 
-    `${category.toUpperCase()}: ${knowledge.responses[category].medium ? knowledge.responses[category].medium.slice(0, 2).join(' | ') : 'N/A'}`
-).join('\n') : ''}
+                // Add vocabulary sections if they exist
+                if (knowledge.vocabulary) {
+                    if (knowledge.vocabulary.medical) {
+                        prompt += `\n- Medical: ${knowledge.vocabulary.medical.slice(0, 10).join(', ')}`;
+                    }
+                    if (knowledge.vocabulary.violence) {
+                        prompt += `\n- Violence: ${knowledge.vocabulary.violence.slice(0, 10).join(', ')}`;
+                    }
+                    if (knowledge.vocabulary.technical) {
+                        prompt += `\n- Technical: ${knowledge.vocabulary.technical.slice(0, 10).join(', ')}`;
+                    }
+                    if (knowledge.vocabulary.street) {
+                        prompt += `\n- Street: ${knowledge.vocabulary.street.slice(0, 10).join(', ')}`;
+                    }
+                    if (knowledge.vocabulary.abstract) {
+                        prompt += `\n- Abstract: ${knowledge.vocabulary.abstract.slice(0, 10).join(', ')}`;
+                    }
+                }
 
-LIKES: ${knowledge.likes.slice(0, 8).join(', ')}
-DISLIKES: ${knowledge.dislikes.slice(0, 8).join(', ')}
+                // Add response examples if they exist
+                if (knowledge.responses) {
+                    prompt += `\n\nAUTHENTIC RESPONSE EXAMPLES:`;
+                    Object.keys(knowledge.responses).forEach(category => {
+                        if (knowledge.responses[category].medium) {
+                            prompt += `\n${category.toUpperCase()}: "${knowledge.responses[category].medium[0]}"`;
+                        }
+                    });
+                }
 
-COLLABORATORS: ${knowledge.collaborators ? knowledge.collaborators.join(', ') : 'N/A'}
-ALBUMS: ${knowledge.albums ? knowledge.albums.join(', ') : 'N/A'}
+                // Add likes and dislikes
+                if (knowledge.likes) {
+                    prompt += `\n\nLIKES: ${knowledge.likes.slice(0, 8).join(', ')}`;
+                }
+                if (knowledge.dislikes) {
+                    prompt += `\n\nDISLIKES: ${knowledge.dislikes.slice(0, 8).join(', ')}`;
+                }
 
-Remember: Stay completely authentic to this character's documented personality, vocabulary, and style. Use specific references from this knowledge base.`;
+                // Add collaborators and albums
+                if (knowledge.collaborators) {
+                    prompt += `\n\nCOLLABORATORS: ${knowledge.collaborators.join(', ')}`;
+                }
+                if (knowledge.albums) {
+                    prompt += `\n\nALBUMS: ${knowledge.albums.join(', ')}`;
+                }
 
-            return prompt;
+                prompt += `\n\nRemember: Stay completely authentic to this character's documented personality, vocabulary, and style. Use specific references from this knowledge base.`;
+
+                console.log(`Built prompt length: ${prompt.length} characters`);
+                return prompt;
+                
+            } catch (error) {
+                console.error(`Error building prompt for ${character}:`, error);
+                return `You are ${character}. Respond authentically but there was an error processing the knowledge file.`;
+            }
         }
 
         // Battle Topics
@@ -1135,10 +1180,33 @@ Remember: Stay completely authentic to this character's documented personality, 
                 
                 characters.forEach(char => {
                     const knowledge = getCharacterKnowledge(char);
-                    if (knowledge && typeof knowledge === 'string' && knowledge.length > 50) {
-                        console.log(`✅ ${char}: Knowledge loaded (${knowledge.length} characters)`);
+                    console.log(`${char} knowledge preview:`, knowledge.substring(0, 200) + '...');
+                    
+                    // Also check if the window objects exist
+                    let objectExists = false;
+                    switch(char) {
+                        case 'kool-keith':
+                            objectExists = !!window.koolKeithKnowledge;
+                            break;
+                        case 'dr-octagon':
+                            objectExists = !!window.drOctagonKnowledge;
+                            break;
+                        case 'dr-dooom':
+                            objectExists = !!window.drDooomKnowledge;
+                            console.log('Dr. Dooom object check:', window.drDooomKnowledge ? 'EXISTS' : 'MISSING');
+                            if (window.drDooomKnowledge) {
+                                console.log('Dr. Dooom identity:', window.drDooomKnowledge.identity);
+                            }
+                            break;
+                        case 'black-elvis':
+                            objectExists = !!window.blackElvisKnowledge;
+                            break;
+                    }
+                    
+                    if (objectExists) {
+                        console.log(`✅ ${char}: Knowledge object found`);
                     } else {
-                        console.warn(`❌ ${char}: Knowledge not properly loaded`);
+                        console.warn(`❌ ${char}: Knowledge object MISSING from window`);
                     }
                 });
             }
