@@ -1,7 +1,7 @@
 // kool-keith-knowledge.js
 // Kool Keith persona knowledge base for authentic AI character training
 
-const koolKeithKnowledge = {
+window.koolKeithKnowledge = {
     // Core character identity
     identity: {
         name: "Kool Keith",
