@@ -843,7 +843,7 @@ Response as character:`;
             --radius-md: 12px;
             --radius-lg: 16px;
             
-            --sidebar-width: 320px;
+            --sidebar-width: 280px;
         }
         
         * {
@@ -960,6 +960,8 @@ Response as character:`;
         
         .sidebar {
             width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
+            max-width: var(--sidebar-width);
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -967,6 +969,7 @@ Response as character:`;
             position: relative;
             z-index: 20;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
         
         .sidebar-header {
@@ -1299,9 +1302,11 @@ Response as character:`;
         
         .main-content {
             flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
             background: var(--bg-chat);
+            overflow: hidden;
         }
         
         .chat-header {
