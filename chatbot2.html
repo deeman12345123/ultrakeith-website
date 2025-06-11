@@ -79,8 +79,8 @@
         }
 
         .welcome-robot-img {
-            width: 50px !important;
-            height: 50px !important;
+            width: 80px !important;
+            height: 80px !important;
             margin: 0 auto 10px !important;
             display: block !important;
         }
@@ -166,8 +166,8 @@
                 padding: 12px !important;
             }
             .welcome-robot-img {
-                width: 40px !important;
-                height: 40px !important;
+                width: 70px !important;
+                height: 70px !important;
             }
             .welcome-title {
                 font-size: 14px !important;
@@ -918,7 +918,7 @@
             <div class="welcome-disclaimer">
                 Entertainment purposes only. All responses are AI-generated and may not reflect actual views.
             </div>
-            <button class="welcome-btn" onclick="closeModal()">Enter</button>
+            <button class="welcome-btn" onclick="hideWelcomeModal()">Enter</button>
         </div>
     </div>
 
@@ -1101,8 +1101,11 @@
 
     <script>
         // SIMPLE MODAL CLOSE FUNCTION
-        function closeModal() {
-            document.getElementById('welcomeOverlay').style.display = 'none';
+        function hideWelcomeModal() {
+            var overlay = document.getElementById('welcomeOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
         }
 
         // TYPING ANIMATION
