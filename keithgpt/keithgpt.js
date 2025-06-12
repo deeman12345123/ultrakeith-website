@@ -85,26 +85,38 @@ class KeithUniverse {
     }
 
     // ========================================
-    // MOBILE USER LIST TOGGLE
+    // MOBILE USER LIST TOGGLE (FIXED)
     // ========================================
 
     toggleUserList() {
         const userList = document.getElementById('userList');
         const overlay = document.getElementById('mobileOverlay');
+        const toggleBtn = document.getElementById('toggleUserList');
         
         if (userList && overlay) {
-            userList.classList.toggle('show');
-            overlay.classList.toggle('show');
+            const isShowing = userList.classList.contains('show');
+            
+            if (isShowing) {
+                userList.classList.remove('show');
+                overlay.classList.remove('show');
+                if (toggleBtn) toggleBtn.style.background = 'var(--bg-tertiary)';
+            } else {
+                userList.classList.add('show');
+                overlay.classList.add('show');
+                if (toggleBtn) toggleBtn.style.background = 'var(--primary-silver-subtle)';
+            }
         }
     }
 
     closeUserList() {
         const userList = document.getElementById('userList');
         const overlay = document.getElementById('mobileOverlay');
+        const toggleBtn = document.getElementById('toggleUserList');
         
         if (userList && overlay) {
             userList.classList.remove('show');
             overlay.classList.remove('show');
+            if (toggleBtn) toggleBtn.style.background = 'var(--bg-tertiary)';
         }
     }
 
