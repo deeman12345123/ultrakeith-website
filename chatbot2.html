@@ -12,7 +12,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .entry-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;z-index:1000;transition:opacity 0.5s ease}
 .entry-overlay.fade-out{opacity:0;pointer-events:none}
 .entry-content{text-align:center;max-width:400px;padding:20px}
-.entry-logo{max-width:90vw;max-height:40vh;border:2px solid var(--primary-gold);margin:0 auto 20px;display:block}
+.entry-logo{max-width:95vw;max-height:60vh;border:1px solid var(--primary-gold);margin:20px auto;display:block}
 .entry-title{font-family:'Orbitron',monospace;font-size:28px;font-weight:900;background:linear-gradient(45deg,var(--primary-gold),var(--primary-gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
 .entry-subtitle{color:var(--text-secondary);font-size:16px;margin-bottom:15px}
 .entry-description{color:var(--text-tertiary);font-size:14px;line-height:1.4;margin-bottom:20px}
@@ -111,10 +111,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 <body>
 <div class="entry-overlay" id="entryOverlay">
 <div class="entry-content">
-<img src="aikeith.png" alt="AI Keith" class="entry-logo" onerror="this.style.display='none'">
 <h1 class="entry-title">KEITHGPT</h1>
+<img src="aikeith.png" alt="AI Keith" class="entry-logo" onerror="this.style.display='none'">
 <p class="entry-subtitle">Galaxy Persona Transformer</p>
-<p class="entry-description">Welcome to the abstract universe!<br>Four legendary personas, one wild conversation</p>
 <p class="entry-disclaimer">Entertainment purposes only. All responses are AI-generated and may not reflect actual views.</p>
 <button class="entry-btn" onclick="enterKeithGPT()">Enter KeithGPT</button>
 </div>
