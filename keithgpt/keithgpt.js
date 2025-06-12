@@ -27,7 +27,6 @@ class KeithUniverse {
         // User input
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
-        const userName = document.getElementById('userName');
         
         if (chatInput) {
             chatInput.addEventListener('keydown', (e) => {
@@ -44,13 +43,37 @@ class KeithUniverse {
         }
 
         // Control buttons
-        const lurkerBtn = document.getElementById('lurkerMode');
-        const battleBtn = document.getElementById('requestBattle');
         const newSessionBtn = document.getElementById('newSession');
+        const toggleUserList = document.getElementById('toggleUserList');
+        const mobileOverlay = document.getElementById('mobileOverlay');
 
-        if (lurkerBtn) lurkerBtn.addEventListener('click', () => this.toggleLurkerMode());
-        if (battleBtn) battleBtn.addEventListener('click', () => this.requestBattle());
         if (newSessionBtn) newSessionBtn.addEventListener('click', () => this.startNewSession());
+        if (toggleUserList) toggleUserList.addEventListener('click', () => this.toggleUserList());
+        if (mobileOverlay) mobileOverlay.addEventListener('click', () => this.closeUserList());
+    }
+
+    // ========================================
+    // MOBILE USER LIST TOGGLE
+    // ========================================
+
+    toggleUserList() {
+        const userList = document.getElementById('userList');
+        const overlay = document.getElementById('mobileOverlay');
+        
+        if (userList && overlay) {
+            userList.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+    }
+
+    closeUserList() {
+        const userList = document.getElementById('userList');
+        const overlay = document.getElementById('mobileOverlay');
+        
+        if (userList && overlay) {
+            userList.classList.remove('show');
+            overlay.classList.remove('show');
+        }
     }
 
     // ========================================
@@ -240,25 +263,112 @@ class KeithUniverse {
     }
 
     personasEnterChat() {
-        this.addSystemMessage('🎭 Main personas entering the universe...');
+        // Skip the "entering" phase - they're already chatting
+        this.addSystemMessage('🎭 You\'ve entered Keith\'s Inner Universe mid-conversation...');
         
-        const enterMessages = [
-            { persona: 'kool-keith', message: 'Abstract foundation in the building', delay: 1000 },
-            { persona: 'dr-octagon', message: 'Cosmic surgical procedures initiated', delay: 2000 },
-            { persona: 'dr-dooom', message: 'The executioner has arrived', delay: 3000 },
-            { persona: 'black-elvis', message: 'Funk dimension activated, y\'all', delay: 4000 }
+        // Simulate ongoing conversation
+        const ongoingChat = [
+            { persona: 'dr-octagon', message: 'The cosmic surgical procedures continue to evolve...', delay: 1000 },
+            { persona: 'dr-dooom', message: 'Still cleaning out fake MCs from the industry', delay: 2500 },
+            { persona: 'kool-keith', message: 'Abstract foundation always in motion', delay: 4000 },
+            { persona: 'black-elvis', message: 'Funk dimensions staying consistent, y\'all', delay: 5500 }
         ];
         
-        enterMessages.forEach(({ persona, message, delay }) => {
+        ongoingChat.forEach(({ persona, message, delay }) => {
             setTimeout(() => {
                 this.addPersonaMessage(persona, message);
             }, delay);
         });
         
-        // Start natural conversation
+        // Start natural flow after initial messages
         setTimeout(async () => {
-            await this.generatePersonaResponse('kool-keith', 'Welcome everyone to the universe chat');
-        }, 6000);
+            await this.generatePersonaResponse('dr-dooom', 'Notice new person entered the chat');
+        }, 7000);
+    }
+
+    addGuestToList(guestName) {
+        const guestList = document.getElementById('guestList');
+        if (!guestList) return;
+        
+        // Remove "Guest personas appear randomly..." text
+        const guestNote = guestList.querySelector('.guest-note');
+        if (guestNote) guestNote.style.display = 'none';
+        
+        const guestDiv = document.createElement('div');
+        guestDiv.className = 'guest-item';
+        guestDiv.innerHTML = `
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" alt="${guestName}">
+            <div class="guest-info">
+                <span class="guest-name">${guestName}</span>
+                <span class="guest-status">Visiting</span>
+            </div>
+            <div class="status-dot online"></div>
+        `;
+        
+        guestList.appendChild(guestDiv);
+        this.updateUserCount();
+        
+        return guestDiv;
+    }
+
+    removeGuestFromList(guestName) {
+        const guestList = document.getElementById('guestList');
+        if (!guestList) return;
+        
+        const guestItems = guestList.querySelectorAll('.guest-item');
+        guestItems.forEach(item => {
+            const nameSpan = item.querySelector('.guest-name');
+            if (nameSpan && nameSpan.textContent === guestName) {
+                item.classList.add('leaving');
+                setTimeout(() => {
+                    item.remove();
+                    this.updateUserCount();
+                    
+                    // Show note again if no guests
+                    const remainingGuests = guestList.querySelectorAll('.guest-item');
+                    if (remainingGuests.length === 0) {
+                        const guestNote = guestList.querySelector('.guest-note');
+                        if (guestNote) guestNote.style.display = 'block';
+                    }
+                }, 300);
+            }
+        });
+    }
+
+    addUserToList(userName) {
+        const fanList = document.getElementById('fanList');
+        if (!fanList) return;
+        
+        // Check if user already in list
+        const existingUser = fanList.querySelector(`[data-user="${userName}"]`);
+        if (existingUser) return;
+        
+        const userDiv = document.createElement('div');
+        userDiv.className = 'fan-item';
+        userDiv.setAttribute('data-user', userName);
+        userDiv.innerHTML = `
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIGZpbGw9IiNmZmQ3MDAiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" alt="${userName}">
+            <div class="fan-info">
+                <span class="fan-name">${userName}</span>
+                <span class="fan-status">Fan</span>
+            </div>
+            <div class="status-dot online"></div>
+        `;
+        
+        fanList.appendChild(userDiv);
+        this.updateUserCount();
+    }
+
+    updateUserCount() {
+        const userCountEl = document.getElementById('userCount');
+        if (!userCountEl) return;
+        
+        const mainPersonas = 4; // Always 4 main personas
+        const guests = document.querySelectorAll('#guestList .guest-item').length;
+        const fans = document.querySelectorAll('#fanList .fan-item').length;
+        const total = mainPersonas + guests + fans;
+        
+        userCountEl.textContent = `${total} online`;
     }
 
     // ========================================
