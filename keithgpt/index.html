@@ -29,94 +29,103 @@
                     <span class="live-indicator">● LIVE</span>
                 </div>
             </div>
-            <div class="chat-controls">
-                <button id="lurkerMode" class="control-btn">👁️ Lurk</button>
-                <button id="requestBattle" class="control-btn">⚔️ Battle</button>
-                <button id="newSession" class="control-btn">🔄 New</button>
+            <div class="mobile-controls">
+                <button id="toggleUserList" class="mobile-toggle">👥</button>
+                <button id="newSession" class="control-btn">🔄</button>
             </div>
         </header>
 
-        <!-- Active Personas Bar -->
-        <div class="personas-bar">
-            <div class="section-title">Currently in the Universe:</div>
-            <div class="active-personas">
-                <div class="persona-chip active" data-persona="kool-keith">
-                    <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true" alt="Kool Keith">
-                    <span>Kool Keith</span>
+        <!-- Main Chat Layout -->
+        <div class="chat-layout">
+            <!-- Main Chat Area -->
+            <div class="chat-main">
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages appear here -->
                 </div>
-                <div class="persona-chip active" data-persona="dr-octagon">
-                    <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true" alt="Dr. Octagon">
-                    <span>Dr. Octagon</span>
-                </div>
-                <div class="persona-chip active" data-persona="dr-dooom">
-                    <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true" alt="Dr. Dooom">
-                    <span>Dr. Dooom</span>
-                </div>
-                <div class="persona-chip active" data-persona="black-elvis">
-                    <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true" alt="Black Elvis">
-                    <span>Black Elvis</span>
-                </div>
-                <div class="guest-personas" id="guestPersonas">
-                    <!-- Dynamic guest personas appear here -->
-                </div>
-            </div>
-        </div>
 
-        <!-- Main Chat Area -->
-        <div class="chat-main">
-            <!-- Chat Messages -->
-            <div class="chat-messages" id="chatMessages">
-                <div class="system-message">
-                    <div class="message-content">
-                        🎭 Welcome to Keith's Inner Universe Chat Room<br>
-                        Four personas are currently active. Spontaneous events may occur...<br>
-                        <em>You can lurk and watch, or jump in anytime!</em>
+                <!-- Typing Indicators -->
+                <div class="typing-area" id="typingArea">
+                    <!-- Multiple typing indicators for different personas -->
+                </div>
+
+                <!-- User Input Area -->
+                <div class="chat-input-area">
+                    <div class="input-container">
+                        <input type="text" id="userName" class="name-input" placeholder="Your name..." maxlength="15">
+                        <textarea class="chat-input" id="chatInput" placeholder="Drop your line in the universe..." rows="1" maxlength="500"></textarea>
+                        <button class="send-btn" id="sendBtn" disabled>
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M15.854.146a.5.5 0 0 1 .11.54L13.026 15.147a.5.5 0 0 1-.925-.234l-1.3-5.98-5.98-1.3a.5.5 0 0 1-.234-.925L15.146.037a.5.5 0 0 1 .708.109z"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Typing Indicators -->
-            <div class="typing-area" id="typingArea">
-                <!-- Multiple typing indicators for different personas -->
-            </div>
+            <!-- User List Sidebar (Desktop) / Overlay (Mobile) -->
+            <aside class="user-list" id="userList">
+                <div class="user-list-header">
+                    <h3>In The Universe</h3>
+                    <span class="user-count" id="userCount">5 online</span>
+                </div>
+                
+                <div class="personas-section">
+                    <div class="section-label">Main Personas</div>
+                    <div class="persona-list" id="mainPersonaList">
+                        <div class="persona-item active" data-persona="kool-keith">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true" alt="Kool Keith">
+                            <div class="persona-info">
+                                <span class="persona-name">Kool Keith</span>
+                                <span class="persona-status">Abstract innovator</span>
+                            </div>
+                            <div class="status-dot online"></div>
+                        </div>
+                        <div class="persona-item active" data-persona="dr-octagon">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true" alt="Dr. Octagon">
+                            <div class="persona-info">
+                                <span class="persona-name">Dr. Octagon</span>
+                                <span class="persona-status">Cosmic surgeon</span>
+                            </div>
+                            <div class="status-dot online"></div>
+                        </div>
+                        <div class="persona-item active" data-persona="dr-dooom">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true" alt="Dr. Dooom">
+                            <div class="persona-info">
+                                <span class="persona-name">Dr. Dooom</span>
+                                <span class="persona-status">Industry executioner</span>
+                            </div>
+                            <div class="status-dot online"></div>
+                        </div>
+                        <div class="persona-item active" data-persona="black-elvis">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true" alt="Black Elvis">
+                            <div class="persona-info">
+                                <span class="persona-name">Black Elvis</span>
+                                <span class="persona-status">Funk master</span>
+                            </div>
+                            <div class="status-dot online"></div>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- User Input Area -->
-            <div class="chat-input-area">
-                <div class="user-info">
-                    <input type="text" id="userName" class="name-input" placeholder="Your name (optional)" maxlength="20">
+                <div class="guests-section">
+                    <div class="section-label">Visitors</div>
+                    <div class="guest-list" id="guestList">
+                        <div class="guest-note">Guest personas appear randomly...</div>
+                    </div>
                 </div>
-                <div class="input-container">
-                    <textarea class="chat-input" id="chatInput" placeholder="Jump into the conversation..." rows="1" maxlength="500"></textarea>
-                    <button class="send-btn" id="sendBtn" disabled>
-                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M15.854.146a.5.5 0 0 1 .11.54L13.026 15.147a.5.5 0 0 1-.925-.234l-1.3-5.98-5.98-1.3a.5.5 0 0 1-.234-.925L15.146.037a.5.5 0 0 1 .708.109z"/>
-                        </svg>
-                    </button>
+
+                <div class="user-section">
+                    <div class="section-label">Fans</div>
+                    <div class="fan-list" id="fanList">
+                        <!-- User appears here when they type -->
+                    </div>
                 </div>
-            </div>
+            </aside>
         </div>
 
-        <!-- Events Sidebar (Optional - for future) -->
-        <aside class="events-panel" id="eventsPanel" style="display: none;">
-            <div class="panel-header">Universe Events</div>
-            <div class="event-list" id="eventList">
-                <!-- Recent events, battle announcements, etc. -->
-            </div>
-        </aside>
-    </div>
-
-    <!-- Battle Overlay (When battles happen) -->
-    <div class="battle-overlay" id="battleOverlay" style="display: none;">
-        <div class="battle-content">
-            <h3>⚔️ SPONTANEOUS BATTLE</h3>
-            <div class="battle-info" id="battleInfo">
-                <!-- Battle participants and topic -->
-            </div>
-            <div class="battle-messages" id="battleMessages">
-                <!-- Battle verses appear here -->
-            </div>
-            <button class="close-battle" onclick="closeBattle()">Return to Chat</button>
-        </div>
+        <!-- Mobile User List Overlay -->
+        <div class="mobile-overlay" id="mobileOverlay"></div>
     </div>
 
     <!-- Load Scripts -->
