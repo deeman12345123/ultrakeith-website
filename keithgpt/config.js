@@ -2,7 +2,7 @@
    KEITH STUDIO - INNER UNIVERSE CONFIG
    ======================================== */
 
-// Entry Window Function
+// Entry Window Function (MUST match HTML onclick)
 function enterKeithStudio() {
     const overlay = document.getElementById('entryOverlay');
     if (overlay) {
@@ -15,6 +15,11 @@ function enterKeithStudio() {
             }
         }, 500);
     }
+}
+
+// Backup function name (in case of conflicts)
+function enterKeithGPT() {
+    enterKeithStudio();
 }
 
 // Load Knowledge Files
@@ -148,17 +153,98 @@ const conflictTriggers = {
     }
 };
 
-// Chat Room Topics (Auto-Generated Conversations)
-const chatTopics = [
-    "the evolution of Keith's personas over 40+ years",
-    "working with legendary producers like Dan the Automator",
-    "the influence of Ultramagnetic MCs on hip-hop",
-    "differences between cosmic and street personas",
-    "Keith's approach to character development",
-    "memorable studio sessions and collaborations",
-    "the authenticity of underground vs mainstream",
-    "how different personas approach creativity"
+// Structured Conversation Topics (Natural Flow)
+const conversationTopics = [
+    {
+        topic: "90s hip-hop golden era memories",
+        starters: [
+            { persona: 'kool-keith', line: 'Man, the 90s was when hip-hop really evolved...' },
+            { persona: 'dr-octagon', line: 'Those cosmic frequencies in 96 were unprecedented' },
+            { persona: 'dr-dooom', line: 'Back when MCs had real skills, not like these fakes today' }
+        ],
+        followUps: [
+            { trigger: 'evolved', responses: ['That\'s when we broke all the rules', 'Ultramagnetic changed everything'] },
+            { trigger: 'cosmic', responses: ['Space-age beats hit different', 'Dan the Automator understood the vision'] },
+            { trigger: 'skills', responses: ['Real recognize real', 'Wordplay was an art form'] }
+        ]
+    },
+    {
+        topic: "studio experiences and producer stories",
+        starters: [
+            { persona: 'black-elvis', line: 'Y\'all remember those late night studio sessions?' },
+            { persona: 'kool-keith', line: 'Working with different producers always brought new energy' },
+            { persona: 'dr-octagon', line: 'The laboratory where sonic surgery takes place' }
+        ],
+        followUps: [
+            { trigger: 'studio', responses: ['That creative energy was unmatched', 'Magic happened after midnight'] },
+            { trigger: 'producer', responses: ['Each one brought their own flavor', 'Finding the right sound for each persona'] },
+            { trigger: 'laboratory', responses: ['Precision beats meet abstract flows', 'Where personas come to life'] }
+        ]
+    },
+    {
+        topic: "industry changes and evolution",
+        starters: [
+            { persona: 'dr-dooom', line: 'The game ain\'t the same as it used to be' },
+            { persona: 'kool-keith', line: 'Hip-hop has definitely evolved since we started' },
+            { persona: 'black-elvis', line: 'Funk influences still relevant though' }
+        ],
+        followUps: [
+            { trigger: 'game', responses: ['Too many fake personas now', 'Real creativity gets overlooked'] },
+            { trigger: 'evolved', responses: ['Some changes good, some not so much', 'Foundation still matters'] },
+            { trigger: 'funk', responses: ['Genre-blending was ahead of its time', 'Music has no boundaries'] }
+        ]
+    },
+    {
+        topic: "creative process and character development",
+        starters: [
+            { persona: 'kool-keith', line: 'Creating different personas is like method acting' },
+            { persona: 'dr-octagon', line: 'Each dimension requires its own consciousness' },
+            { persona: 'dr-dooom', line: 'Sometimes you gotta kill old personas to evolve' }
+        ],
+        followUps: [
+            { trigger: 'acting', responses: ['You become the character completely', 'Each persona has its own voice'] },
+            { trigger: 'consciousness', responses: ['Cosmic awareness in each transformation', 'Multidimensional creativity'] },
+            { trigger: 'kill', responses: ['Death is just transformation', 'Out with the old, in with the new'] }
+        ]
+    }
 ];
+
+// Natural Timing Patterns
+const timingPatterns = {
+    quickResponse: { min: 2000, max: 4000 },      // 2-4 seconds
+    normalResponse: { min: 3000, max: 7000 },     // 3-7 seconds  
+    thoughtfulResponse: { min: 5000, max: 10000 }, // 5-10 seconds
+    topicChange: { min: 8000, max: 15000 },       // 8-15 seconds
+    interruption: { min: 1000, max: 3000 }        // 1-3 seconds (interrupting)
+};
+
+// Persona Interaction Patterns
+const interactionPatterns = {
+    'dr-dooom': {
+        likelyToInterrupt: ['dr-octagon'],
+        triggerWords: ['fake', 'cosmic', 'surgery'],
+        responseStyle: 'aggressive',
+        interruptChance: 0.4
+    },
+    'dr-octagon': {
+        likelyToIgnore: ['dr-dooom'],
+        triggerWords: ['space', 'cosmic', 'dimension'],
+        responseStyle: 'philosophical',
+        interruptChance: 0.2
+    },
+    'kool-keith': {
+        mediates: true,
+        triggerWords: ['foundation', 'original', 'ultramagnetic'],
+        responseStyle: 'foundational',
+        interruptChance: 0.3
+    },
+    'black-elvis': {
+        peacemaker: true,
+        triggerWords: ['funk', 'music', 'genre'],
+        responseStyle: 'diplomatic',
+        interruptChance: 0.25
+    }
+};
 
 // Session Management
 let sessionState = {
@@ -168,7 +254,9 @@ let sessionState = {
     currentTopic: null,
     battleInProgress: false,
     userLurking: true,
-    lastActivity: null
+    lastActivity: null,
+    lastSpeaker: null,
+    conversationFlow: 'natural'
 };
 
 // Knowledge System Functions (Updated for Multi-Persona)
