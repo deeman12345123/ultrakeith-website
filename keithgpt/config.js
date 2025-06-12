@@ -1,11 +1,22 @@
 /* ========================================
    KEITH STUDIO - INNER UNIVERSE CONFIG
-   ENHANCED: Better persona differentiation to prevent duplicates
+   UPGRADED: Intensity levels and new features
    ======================================== */
 
-// Entry Window Function (MUST match HTML onclick)
+// Entry Window Functions (UPGRADED)
 function enterKeithStudio() {
     const overlay = document.getElementById('entryOverlay');
+    const nameInput = document.getElementById('entryName');
+    const intensitySlider = document.getElementById('intensitySlider');
+    
+    // Get user name and intensity level
+    const userName = nameInput?.value.trim() || 'Player';
+    const intensityLevel = parseInt(intensitySlider?.value) || 2;
+    
+    // Store user preferences
+    sessionState.userName = userName;
+    sessionState.intensityLevel = intensityLevel;
+    
     if (overlay) {
         overlay.classList.add('fade-out');
         setTimeout(() => {
@@ -21,6 +32,23 @@ function enterKeithStudio() {
 // Backup function name (in case of conflicts)
 function enterKeithGPT() {
     enterKeithStudio();
+}
+
+// Intensity slider update function
+function updateIntensityDescription() {
+    const slider = document.getElementById('intensitySlider');
+    const description = document.getElementById('intensityDesc');
+    
+    if (!slider || !description) return;
+    
+    const level = parseInt(slider.value);
+    const descriptions = {
+        1: 'Tame - Clean, family-friendly conversation',
+        2: 'Players Mode (Default) - Authentic hip-hop chat',
+        3: 'Wild & Crazy - Raw, unfiltered persona energy'
+    };
+    
+    description.textContent = descriptions[level];
 }
 
 // Load Knowledge Files
@@ -61,7 +89,38 @@ const CONFIG = {
     maxTokensPerSession: 2000
 };
 
-// ENHANCED: Main Personas with better differentiation
+// UPGRADED: Intensity Levels Configuration
+const intensityLevels = {
+    1: { // Tame
+        name: 'Tame',
+        display: 'Tame Mode',
+        profanityFilter: true,
+        aggressionLevel: 0.3,
+        conflictProbability: 0.2,
+        vocabularyFilter: 'clean',
+        description: 'Family-friendly conversations with minimal conflicts'
+    },
+    2: { // Players Mode (Default)
+        name: 'Players',
+        display: 'Players Mode',
+        profanityFilter: false,
+        aggressionLevel: 0.7,
+        conflictProbability: 0.5,
+        vocabularyFilter: 'authentic',
+        description: 'Authentic hip-hop persona interactions'
+    },
+    3: { // Wild & Crazy
+        name: 'Wild',
+        display: 'Wild & Crazy',
+        profanityFilter: false,
+        aggressionLevel: 1.0,
+        conflictProbability: 0.8,
+        vocabularyFilter: 'unfiltered',
+        description: 'Raw, unfiltered persona energy with maximum conflicts'
+    }
+};
+
+// ENHANCED: Main Personas with intensity-based configurations
 const mainPersonas = {
     'kool-keith': {
         name: 'Kool Keith',
@@ -73,7 +132,12 @@ const mainPersonas = {
         responseStyle: 'foundational_wisdom',
         interruptChance: 0.3,
         preferredTopics: ['creativity', 'hip-hop history', 'artistic vision', 'innovation'],
-        uniqueVocabulary: ['abstract', 'foundation', 'innovation', 'creative energy', 'ultramagnetic', 'artistic vision']
+        uniqueVocabulary: ['abstract', 'foundation', 'innovation', 'creative energy', 'ultramagnetic', 'artistic vision'],
+        intensityResponses: {
+            1: { vocabulary: ['creative', 'artistic', 'innovative', 'foundational'], aggressionLevel: 0.2 },
+            2: { vocabulary: ['abstract', 'ultramagnetic', 'foundation', 'creative energy'], aggressionLevel: 0.5 },
+            3: { vocabulary: ['raw creativity', 'underground foundation', 'revolutionary innovation'], aggressionLevel: 0.7 }
+        }
     },
     'dr-octagon': {
         name: 'Dr. Octagon',
@@ -85,7 +149,12 @@ const mainPersonas = {
         responseStyle: 'cosmic_intellectual',
         interruptChance: 0.2,
         preferredTopics: ['cosmic consciousness', 'dimensional surgery', 'space-time', 'medical procedures'],
-        uniqueVocabulary: ['cosmic', 'dimensional', 'surgical precision', 'consciousness', 'extraterrestrial', 'interdimensional']
+        uniqueVocabulary: ['cosmic', 'dimensional', 'surgical precision', 'consciousness', 'extraterrestrial', 'interdimensional'],
+        intensityResponses: {
+            1: { vocabulary: ['medical', 'scientific', 'cosmic', 'dimensional'], aggressionLevel: 0.1 },
+            2: { vocabulary: ['cosmic surgery', 'interdimensional', 'consciousness', 'extraterrestrial'], aggressionLevel: 0.3 },
+            3: { vocabulary: ['brutal cosmic surgery', 'dimensional domination', 'surgical annihilation'], aggressionLevel: 0.6 }
+        }
     },
     'dr-dooom': {
         name: 'Dr. Dooom',
@@ -98,7 +167,12 @@ const mainPersonas = {
         interruptChance: 0.4,
         likelyToInterrupt: ['dr-octagon'],
         preferredTopics: ['real vs fake MCs', 'industry corruption', 'execution of phonies', 'authenticity'],
-        uniqueVocabulary: ['execution', 'fake MCs', 'body bags', 'real recognize real', 'industry cleanup', 'street authenticity']
+        uniqueVocabulary: ['execution', 'fake MCs', 'body bags', 'real recognize real', 'industry cleanup', 'street authenticity'],
+        intensityResponses: {
+            1: { vocabulary: ['real hip-hop', 'authentic', 'street credibility'], aggressionLevel: 0.4 },
+            2: { vocabulary: ['fake MCs', 'execution', 'real recognize real', 'industry cleanup'], aggressionLevel: 0.8 },
+            3: { vocabulary: ['body bags', 'brutal execution', 'destroy fake MCs', 'violent industry cleanup'], aggressionLevel: 1.0 }
+        }
     },
     'black-elvis': {
         name: 'Black Elvis',
@@ -110,7 +184,12 @@ const mainPersonas = {
         responseStyle: 'diplomatic_funky',
         interruptChance: 0.25,
         preferredTopics: ['funk fusion', 'genre blending', 'musical harmony', 'peace in hip-hop'],
-        uniqueVocabulary: ['funk therapy', 'genre-bending', 'musical harmony', 'groove consciousness', 'rhythm diplomacy', 'sonic peace']
+        uniqueVocabulary: ['funk therapy', 'genre-bending', 'musical harmony', 'groove consciousness', 'rhythm diplomacy', 'sonic peace'],
+        intensityResponses: {
+            1: { vocabulary: ['musical harmony', 'peaceful vibes', 'genre blending'], aggressionLevel: 0.1 },
+            2: { vocabulary: ['funk therapy', 'groove consciousness', 'rhythm diplomacy'], aggressionLevel: 0.3 },
+            3: { vocabulary: ['raw funk energy', 'aggressive groove therapy', 'sonic domination'], aggressionLevel: 0.5 }
+        }
     }
 };
 
@@ -137,137 +216,138 @@ const battleTopics = [
     "Keith's creative evolution over decades"
 ];
 
-// ENHANCED: Conflict Triggers with unique contexts
+// ENHANCED: Conflict Triggers with intensity-based probability
 const conflictTriggers = {
     'dooom_vs_octagon': {
-        probability: 0.7,
+        baseProbability: 0.7,
+        intensityMultiplier: { 1: 0.3, 2: 1.0, 3: 1.5 },
         initiator: 'dr-dooom',
         target: 'dr-octagon',
-        trigger_lines: [
-            "That fake cosmic surgeon is still dead",
-            "I killed you once, I'll do it again",
-            "Cosmic nonsense from a dead persona",
-            "Body bags don't do surgery",
-            "Dead doctors can't operate"
-        ],
+        trigger_lines: {
+            1: ['That cosmic approach isn\'t realistic', 'Medical theory vs street knowledge'],
+            2: ['That fake cosmic surgeon is still dead', 'I killed you once, I\'ll do it again'],
+            3: ['Time to brutally execute this fake cosmic fraud', 'Body bags don\'t perform surgery']
+        },
         context_type: 'octagon_execution'
     },
     'octagon_responds': {
-        probability: 0.8,
+        baseProbability: 0.8,
+        intensityMultiplier: { 1: 0.5, 2: 1.0, 3: 1.3 },
         initiator: 'dr-octagon', 
         target: 'dr-dooom',
-        trigger_lines: [
-            "Death is merely a transformation, limited earthbound consciousness",
-            "My cosmic surgery transcends your crude executions",
-            "Reports of my death were greatly exaggerated",
-            "Dimensional consciousness cannot be terminated",
-            "Your terrestrial violence lacks cosmic understanding"
-        ],
+        trigger_lines: {
+            1: ['Scientific knowledge transcends street understanding', 'Cosmic perspective is more evolved'],
+            2: ['Death is merely a transformation, limited earthbound consciousness', 'Reports of my death were greatly exaggerated'],
+            3: ['Your crude violence cannot comprehend dimensional supremacy', 'Cosmic surgery will dissect your primitive mind']
+        },
         context_type: 'cosmic_rebuttal'
     },
     'random_diss': {
-        probability: 0.3,
+        baseProbability: 0.3,
+        intensityMultiplier: { 1: 0.2, 2: 1.0, 3: 2.0 },
         initiator: 'dr-dooom',
         target: 'any',
-        trigger_lines: [
-            "Another fake persona in the building",
-            "Real recognize real, and you ain't it",
-            "Who asked for your opinion?",
-            "Time for some industrial cleanup",
-            "Fake MCs need immediate execution"
-        ],
+        trigger_lines: {
+            1: ['That\'s not authentic hip-hop', 'Real recognize real'],
+            2: ['Another fake persona in the building', 'Who asked for your opinion?'],
+            3: ['Time for violent execution of fake MCs', 'Body bags ready for immediate disposal']
+        },
         context_type: 'general_diss'
-    },
-    'keith_mediates': {
-        probability: 0.4,
-        initiator: 'kool-keith',
-        target: 'any',
-        trigger_lines: [
-            "The abstract foundation connects all personas",
-            "Creative energy shouldn't be wasted on conflicts",
-            "Innovation comes through collaboration, not destruction",
-            "Ultramagnetic unity over division"
-        ],
-        context_type: 'foundation_wisdom'
-    },
-    'elvis_peacemaking': {
-        probability: 0.5,
-        initiator: 'black-elvis',
-        target: 'any',
-        trigger_lines: [
-            "Y'all need some funk therapy to balance this energy",
-            "Musical harmony beats lyrical warfare",
-            "Groove consciousness can resolve any conflict",
-            "Let the rhythm diplomacy work its magic"
-        ],
-        context_type: 'funk_diplomacy'
     }
 };
 
-// ENHANCED: Structured Conversation Topics with persona-specific angles
+// ENHANCED: Structured Conversation Topics with intensity variations
 const conversationTopics = [
     {
         topic: "90s hip-hop golden era memories",
         starters: [
-            { persona: 'kool-keith', line: 'The 90s was when hip-hop really broke all creative boundaries...', angle: 'innovation_focus' },
-            { persona: 'dr-octagon', line: 'Those cosmic frequencies in 96 were unprecedented in their dimensional reach', angle: 'cosmic_medical' },
-            { persona: 'dr-dooom', line: 'Back when MCs had real skills, not like these industry fakes today', angle: 'authenticity_attack' },
-            { persona: 'black-elvis', line: 'Genre-blending in the 90s opened up infinite musical possibilities', angle: 'funk_fusion' }
-        ],
-        followUps: [
-            { trigger: 'creative', personas: ['kool-keith'], responses: ['Abstract innovation was the foundation of everything'] },
-            { trigger: 'cosmic', personas: ['dr-octagon'], responses: ['Interdimensional surgery reached new heights'] },
-            { trigger: 'real', personas: ['dr-dooom'], responses: ['Street authenticity meant something back then'] },
-            { trigger: 'genre', personas: ['black-elvis'], responses: ['Funk therapy healed hip-hop divisions'] }
+            { 
+                persona: 'kool-keith', 
+                lines: {
+                    1: 'The 90s brought such creative innovation to hip-hop...',
+                    2: 'The 90s was when hip-hop really broke all creative boundaries...',
+                    3: 'The 90s underground revolution changed everything permanently...'
+                },
+                angle: 'innovation_focus' 
+            },
+            { 
+                persona: 'dr-octagon', 
+                lines: {
+                    1: 'Medical procedures in the 90s had cosmic significance',
+                    2: 'Those cosmic frequencies in 96 were unprecedented in their dimensional reach',
+                    3: 'Dimensional surgery reached brutal perfection in the 90s era'
+                },
+                angle: 'cosmic_medical' 
+            },
+            { 
+                persona: 'dr-dooom', 
+                lines: {
+                    1: 'Back when MCs had genuine skills and authenticity',
+                    2: 'Back when MCs had real skills, not like these industry fakes today',
+                    3: 'The 90s was when real MCs executed fake posers without mercy'
+                },
+                angle: 'authenticity_attack' 
+            },
+            { 
+                persona: 'black-elvis', 
+                lines: {
+                    1: 'Genre-blending in the 90s created beautiful musical harmony',
+                    2: 'Genre-blending in the 90s opened up infinite musical possibilities',
+                    3: 'The 90s funk revolution dominated and conquered all musical boundaries'
+                },
+                angle: 'funk_fusion' 
+            }
         ]
     },
     {
         topic: "studio experiences and producer stories",
         starters: [
-            { persona: 'black-elvis', line: 'Those late night studio sessions had that magical groove energy...', angle: 'musical_harmony' },
-            { persona: 'kool-keith', line: 'Each producer brought unique abstract elements to the creative process', angle: 'artistic_collaboration' },
-            { persona: 'dr-octagon', line: 'The laboratory where sonic surgery and dimensional beats converge', angle: 'medical_production' },
-            { persona: 'dr-dooom', line: 'Some producers understood real hip-hop, others just industry garbage', angle: 'producer_authenticity' }
-        ],
-        followUps: [
-            { trigger: 'studio', personas: ['black-elvis', 'kool-keith'], responses: ['Creative energy flowed like rhythm therapy', 'Abstract foundations built in real time'] },
-            { trigger: 'producer', personas: ['dr-dooom', 'dr-octagon'], responses: ['Real producers vs industry sellouts', 'Sonic architects of dimensional consciousness'] },
-            { trigger: 'laboratory', personas: ['dr-octagon'], responses: ['Precision beats meet cosmic surgical techniques'] }
+            { 
+                persona: 'black-elvis', 
+                lines: {
+                    1: 'Those studio sessions had such positive creative energy...',
+                    2: 'Those late night studio sessions had that magical groove energy...',
+                    3: 'Studio sessions were raw, intense creative battles of sonic supremacy...'
+                },
+                angle: 'musical_harmony' 
+            },
+            { 
+                persona: 'kool-keith', 
+                lines: {
+                    1: 'Each producer brought unique creative elements to our work',
+                    2: 'Each producer brought unique abstract elements to the creative process',
+                    3: 'Producers either understood revolutionary innovation or got eliminated from the lab'
+                },
+                angle: 'artistic_collaboration' 
+            }
         ]
     },
     {
         topic: "industry changes and evolution",
         starters: [
-            { persona: 'dr-dooom', line: 'The industry\'s infected with fake MCs who need immediate cleanup', angle: 'industry_execution' },
-            { persona: 'kool-keith', line: 'Hip-hop evolution requires maintaining the abstract innovative foundation', angle: 'creative_evolution' },
-            { persona: 'black-elvis', line: 'Musical genres keep blending, funk influences stay eternally relevant', angle: 'genre_progression' },
-            { persona: 'dr-octagon', line: 'Cosmic consciousness in music transcends temporal industry fluctuations', angle: 'dimensional_perspective' }
-        ],
-        followUps: [
-            { trigger: 'fake', personas: ['dr-dooom'], responses: ['Body bags ready for industrial cleanup'] },
-            { trigger: 'evolution', personas: ['kool-keith'], responses: ['Innovation builds on ultramagnetic foundations'] },
-            { trigger: 'funk', personas: ['black-elvis'], responses: ['Rhythm diplomacy bridges all musical gaps'] },
-            { trigger: 'cosmic', personas: ['dr-octagon'], responses: ['Interdimensional surgery adapts to any era'] }
-        ]
-    },
-    {
-        topic: "creative process and character development",
-        starters: [
-            { persona: 'kool-keith', line: 'Creating personas is like abstract architectural construction of consciousness', angle: 'foundational_creativity' },
-            { persona: 'dr-octagon', line: 'Each dimensional persona requires its own cosmic surgical precision', angle: 'medical_character_creation' },
-            { persona: 'dr-dooom', line: 'Sometimes you gotta execute old personas to make room for real evolution', angle: 'violent_transformation' },
-            { persona: 'black-elvis', line: 'Musical personas flow through genre-bending like funk therapy sessions', angle: 'harmonic_development' }
-        ],
-        followUps: [
-            { trigger: 'abstract', personas: ['kool-keith'], responses: ['Ultramagnetic foundations support infinite creative possibilities'] },
-            { trigger: 'dimensional', personas: ['dr-octagon'], responses: ['Consciousness surgery creates multidimensional artistic entities'] },
-            { trigger: 'execute', personas: ['dr-dooom'], responses: ['Real personas eliminate fake industry constructs'] },
-            { trigger: 'funk', personas: ['black-elvis'], responses: ['Groove consciousness unifies all musical personalities'] }
+            { 
+                persona: 'dr-dooom', 
+                lines: {
+                    1: 'The industry has some questionable artists nowadays',
+                    2: 'The industry\'s infected with fake MCs who need immediate cleanup',
+                    3: 'Time for brutal industrial warfare against fake MC infestation'
+                },
+                angle: 'industry_execution' 
+            },
+            { 
+                persona: 'kool-keith', 
+                lines: {
+                    1: 'Hip-hop evolution requires maintaining creative foundations',
+                    2: 'Hip-hop evolution requires maintaining the abstract innovative foundation',
+                    3: 'Revolutionary evolution demands destroying outdated creative limitations'
+                },
+                angle: 'creative_evolution' 
+            }
         ]
     }
 ];
 
-// ENHANCED: Natural Timing Patterns with persona variation
+// Natural Timing Patterns with persona variation
 const timingPatterns = {
     quickResponse: { min: 2000, max: 4000 },
     normalResponse: { min: 3000, max: 7000 },
@@ -281,53 +361,39 @@ const timingPatterns = {
     'black-elvis': { min: 2500, max: 5500 } // Moderate, diplomatic timing
 };
 
-// ENHANCED: Persona Interaction Patterns
+// ENHANCED: Persona Interaction Patterns with intensity awareness
 const interactionPatterns = {
     'dr-dooom': {
         likelyToInterrupt: ['dr-octagon'],
         triggerWords: ['fake', 'cosmic', 'surgery', 'dimensional'],
         responseStyle: 'aggressive_immediate',
         interruptChance: 0.4,
-        uniqueResponses: {
-            to_octagon: ['Dead doctors don\'t operate', 'Cosmic surgery can\'t fix being executed'],
-            to_keith: ['Abstract foundation needs industrial cleanup'],
-            to_elvis: ['Funk therapy can\'t heal fake personas']
-        }
+        intensityScaling: { 1: 0.5, 2: 1.0, 3: 1.8 }
     },
     'dr-octagon': {
         likelyToIgnore: ['dr-dooom'],
         triggerWords: ['space', 'cosmic', 'dimension', 'consciousness', 'surgery'],
         responseStyle: 'philosophical_cosmic',
         interruptChance: 0.2,
-        uniqueResponses: {
-            to_dooom: ['Dimensional consciousness transcends terrestrial violence', 'Cosmic surgery operates beyond crude executions'],
-            to_keith: ['Abstract innovation meets interdimensional precision'],
-            to_elvis: ['Musical frequencies align with cosmic surgical vibrations']
-        }
+        intensityScaling: { 1: 0.8, 2: 1.0, 3: 1.3 }
     },
     'kool-keith': {
         mediates: true,
         triggerWords: ['foundation', 'original', 'ultramagnetic', 'innovation', 'creative'],
         responseStyle: 'foundational_wisdom',
         interruptChance: 0.3,
-        uniqueResponses: {
-            mediating: ['The ultramagnetic foundation connects all creative consciousness', 'Innovation requires collaboration between all personas'],
-            to_conflict: ['Abstract energy shouldn\'t be wasted on destructive conflicts']
-        }
+        intensityScaling: { 1: 1.0, 2: 1.0, 3: 1.2 }
     },
     'black-elvis': {
         peacemaker: true,
         triggerWords: ['funk', 'music', 'genre', 'harmony', 'rhythm'],
         responseStyle: 'diplomatic_funky',
         interruptChance: 0.25,
-        uniqueResponses: {
-            peacemaking: ['Funk therapy can heal any creative division', 'Musical harmony transcends persona conflicts'],
-            to_conflict: ['Groove consciousness brings all frequencies into alignment']
-        }
+        intensityScaling: { 1: 1.2, 2: 1.0, 3: 0.8 }
     }
 };
 
-// Session Management
+// UPGRADED: Session Management with new features
 let sessionState = {
     startTime: null,
     tokensUsed: 0,
@@ -338,10 +404,42 @@ let sessionState = {
     lastActivity: null,
     lastSpeaker: null,
     conversationFlow: 'natural',
-    recentContexts: [] // Track recent contexts to prevent duplicates
+    recentContexts: [],
+    // NEW: User preferences
+    userName: 'Player',
+    intensityLevel: 2, // Default to Players Mode
+    // NEW: Chat logging
+    chatLog: [],
+    sessionStartTime: null
 };
 
-// ENHANCED: Knowledge System Functions
+// Utility Functions
+function getCurrentIntensityConfig() {
+    return intensityLevels[sessionState.intensityLevel] || intensityLevels[2];
+}
+
+function getPersonaIntensityConfig(persona) {
+    const personaData = mainPersonas[persona];
+    if (!personaData || !personaData.intensityResponses) return null;
+    
+    return personaData.intensityResponses[sessionState.intensityLevel] || personaData.intensityResponses[2];
+}
+
+function getIntensityAdjustedProbability(baseProbability, persona = null) {
+    const intensityConfig = getCurrentIntensityConfig();
+    let multiplier = intensityConfig.aggressionLevel;
+    
+    if (persona && interactionPatterns[persona]) {
+        const personaScaling = interactionPatterns[persona].intensityScaling;
+        if (personaScaling && personaScaling[sessionState.intensityLevel]) {
+            multiplier *= personaScaling[sessionState.intensityLevel];
+        }
+    }
+    
+    return Math.min(baseProbability * multiplier, 1.0);
+}
+
+// Knowledge System Functions
 function getCharacterKnowledge(character) {
     try {
         let knowledgeObj;
@@ -373,9 +471,11 @@ function getCharacterKnowledge(character) {
     }
 }
 
-// ENHANCED: Chat room prompt with better differentiation
+// ENHANCED: Chat room prompt with intensity awareness
 function buildChatRoomPrompt(knowledge, character) {
     const persona = mainPersonas[character];
+    const intensityConfig = getCurrentIntensityConfig();
+    const personaIntensity = getPersonaIntensityConfig(character);
     const otherPersonas = sessionState.personasActive
         .filter(p => p !== character)
         .map(p => `${mainPersonas[p].name} (${mainPersonas[p].conflictStyle})`)
@@ -388,14 +488,18 @@ UNIQUE PERSONA IDENTITY:
 - Status: ${persona.status}
 - Conflict Style: ${persona.conflictStyle}
 - Response Style: ${persona.responseStyle}
-- Unique Vocabulary: ${persona.uniqueVocabulary.join(', ')}
+
+CURRENT INTENSITY LEVEL: ${intensityConfig.name} (${intensityConfig.description})
+${personaIntensity ? `- Your aggression level: ${personaIntensity.aggressionLevel}` : ''}
+${personaIntensity ? `- Use vocabulary: ${personaIntensity.vocabulary.join(', ')}` : ''}
+${intensityConfig.profanityFilter ? '- Keep language clean and family-friendly' : '- Use authentic street language when appropriate'}
 
 CHAT ROOM CONTEXT:
 - You're one of 4 main personas always present
 - Other active personas: ${otherPersonas}
 - Guest personas occasionally pop in/out with brief appearances
 - Conversations are natural, spontaneous, sometimes argumentative
-- You have real personality conflicts and alliances based on documented Keith lore
+- Current user: ${sessionState.userName}
 
 YOUR PERSONALITY IN CHAT:
 ${knowledge.personality?.coreTraits?.join(', ') || 'Core traits not available'}
@@ -405,130 +509,37 @@ Preferred Topics: ${persona.preferredTopics.join(', ')}
 CRITICAL BEHAVIORAL RULES:
 - Keep responses conversational (1-3 sentences max)
 - React naturally to other personas and user input using YOUR unique vocabulary
-- Engage in spontaneous arguments when personality conflicts arise
+- Engage in spontaneous arguments when personality conflicts arise (adjusted for ${intensityConfig.name} level)
 - Reference your shared Keith universe history and documented relationships
 - Be authentic to your documented personality and conflicts
 - DO NOT repeat phrases or responses from other personas
 - Use your character-specific trigger words: ${persona.triggerWords.join(', ')}
 - Respond in your unique ${persona.responseStyle} style
+- Adjust conflict intensity based on current ${intensityConfig.name} setting
 
 CURRENT TOPIC: ${sessionState.currentTopic || 'General conversation'}
 
-Remember: This is a living chat room - be natural, reactive, and true to your persona's documented personality, conflicts, and unique vocabulary patterns. Your responses should be distinctly ${persona.name}.`;
+Remember: This is a living chat room set to ${intensityConfig.name} mode - be natural, reactive, and true to your persona's documented personality while respecting the intensity level preference.`;
 }
 
 function getBasicCharacterPrompt(character) {
     const persona = mainPersonas[character];
+    const intensityConfig = getCurrentIntensityConfig();
+    const personaIntensity = getPersonaIntensityConfig(character);
     
     return `You are ${persona.name} in Keith's Inner Universe Chat Room. 
     
+INTENSITY LEVEL: ${intensityConfig.name} - ${intensityConfig.description}
+${personaIntensity ? `Your vocabulary: ${personaIntensity.vocabulary.join(', ')}` : ''}
+${intensityConfig.profanityFilter ? 'Keep language clean and appropriate.' : 'Use authentic street language.'}
+
 Keep responses short (1-3 sentences) and conversational. 
 Stay authentic to your personality: ${persona.status}.
-Use your unique vocabulary: ${persona.uniqueVocabulary.join(', ')}.
 Current conflict style: ${persona.conflictStyle}.
 Response style: ${persona.responseStyle}.
+User: ${sessionState.userName}
 
-DO NOT repeat what other personas say. Be distinctly ${persona.name}.`;
-}
-
-// ENHANCED: Persona-specific response generators
-const personaResponseGenerators = {
-    'dr-dooom': {
-        generateUniqueResponse: (context, recentResponses) => {
-            const dooomPhrases = [
-                'fake MCs getting executed',
-                'body bags ready for pickup',
-                'real recognize real in this universe',
-                'industrial cleanup in progress',
-                'street authenticity verification',
-                'wack persona elimination protocol'
-            ];
-            
-            // Filter out recently used phrases
-            const available = dooomPhrases.filter(phrase => 
-                !recentResponses.some(response => response.includes(phrase))
-            );
-            
-            return available[Math.floor(Math.random() * available.length)] || 'Another fake needs execution';
-        }
-    },
-    
-    'dr-octagon': {
-        generateUniqueResponse: (context, recentResponses) => {
-            const octagonPhrases = [
-                'cosmic surgical procedures continue',
-                'dimensional consciousness expanding',
-                'interdimensional medical analysis',
-                'extraterrestrial surgical precision',
-                'cosmic frequency modulation',
-                'multidimensional diagnostic protocols'
-            ];
-            
-            const available = octagonPhrases.filter(phrase => 
-                !recentResponses.some(response => response.includes(phrase))
-            );
-            
-            return available[Math.floor(Math.random() * available.length)] || 'Cosmic consciousness persists';
-        }
-    },
-    
-    'kool-keith': {
-        generateUniqueResponse: (context, recentResponses) => {
-            const keithPhrases = [
-                'abstract innovation continues flowing',
-                'ultramagnetic foundation stays strong',
-                'creative energy connects all dimensions',
-                'artistic vision transcends conflicts',
-                'foundational wisdom guides evolution',
-                'innovative consciousness builds bridges'
-            ];
-            
-            const available = keithPhrases.filter(phrase => 
-                !recentResponses.some(response => response.includes(phrase))
-            );
-            
-            return available[Math.floor(Math.random() * available.length)] || 'Abstract creativity flows eternal';
-        }
-    },
-    
-    'black-elvis': {
-        generateUniqueResponse: (context, recentResponses) => {
-            const elvisPhrases = [
-                'funk therapy heals all divisions',
-                'groove consciousness unifies frequencies',
-                'musical harmony transcends conflicts',
-                'rhythm diplomacy brings peace',
-                'genre-bending creates understanding',
-                'sonic peace negotiations ongoing'
-            ];
-            
-            const available = elvisPhrases.filter(phrase => 
-                !recentResponses.some(response => response.includes(phrase))
-            );
-            
-            return available[Math.floor(Math.random() * available.length)] || 'Funk brings universal harmony';
-        }
-    }
-};
-
-// ENHANCED: Context tracking for uniqueness
-function generateUniqueContext(persona, baseContext, existingContexts) {
-    const personaData = mainPersonas[persona];
-    const contextPrefixes = {
-        'dr-dooom': ['aggressive', 'brutal', 'execution-focused', 'street-authentic', 'industry-cleaning'],
-        'dr-octagon': ['cosmic', 'dimensional', 'surgical', 'consciousness-expanding', 'interdimensional'],
-        'kool-keith': ['foundational', 'innovative', 'abstract', 'creative', 'ultramagnetic'],
-        'black-elvis': ['diplomatic', 'harmonious', 'funk-therapeutic', 'genre-blending', 'rhythmic']
-    };
-    
-    const prefixes = contextPrefixes[persona] || ['unique'];
-    const availablePrefixes = prefixes.filter(prefix => 
-        !existingContexts.some(context => context.includes(prefix))
-    );
-    
-    const selectedPrefix = availablePrefixes[Math.floor(Math.random() * availablePrefixes.length)] || 'distinctive';
-    
-    return `${selectedPrefix} ${personaData.name} ${baseContext} using ${personaData.responseStyle} approach`;
+DO NOT repeat what other personas say. Be distinctly ${persona.name} at ${intensityConfig.name} intensity level.`;
 }
 
 // Export enhanced configuration
@@ -540,7 +551,19 @@ window.keithUniverseConfig = {
     conversationTopics,
     timingPatterns,
     interactionPatterns,
-    personaResponseGenerators,
-    generateUniqueContext,
-    sessionState
+    intensityLevels,
+    sessionState,
+    getCurrentIntensityConfig,
+    getPersonaIntensityConfig,
+    getIntensityAdjustedProbability,
+    updateIntensityDescription
 };
+
+// Initialize intensity slider on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('intensitySlider');
+    if (slider) {
+        slider.addEventListener('input', updateIntensityDescription);
+        updateIntensityDescription(); // Set initial description
+    }
+});
