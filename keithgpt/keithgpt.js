@@ -261,15 +261,147 @@ class KeithUniverse {
         }, 2000 + Math.random() * 3000);
     }
 
+    // ========================================
+    // NATURAL CONVERSATION ENGINE
+    // ========================================
+
+    async startNaturalConversation() {
+        // Pick a random topic to start with
+        const topic = conversationTopics[Math.floor(Math.random() * conversationTopics.length)];
+        sessionState.currentTopic = topic.topic;
+        
+        // Randomly select a starter from the topic
+        const starter = topic.starters[Math.floor(Math.random() * topic.starters.length)];
+        
+        // Natural delay before starting
+        setTimeout(async () => {
+            await this.addPersonaMessageWithTyping(starter.persona, starter.line);
+            
+            // Schedule follow-up responses
+            this.scheduleTopicFollowUps(topic, starter.line);
+            
+        }, this.getRandomTiming('normalResponse'));
+    }
+
+    scheduleTopicFollowUps(topic, triggerLine) {
+        // Check for trigger words in the starter line
+        topic.followUps.forEach(followUp => {
+            if (triggerLine.toLowerCase().includes(followUp.trigger)) {
+                // Different personas respond to triggers
+                const availablePersonas = sessionState.personasActive.filter(p => 
+                    p !== sessionState.lastSpeaker
+                );
+                
+                followUp.responses.forEach((response, index) => {
+                    if (availablePersonas[index]) {
+                        setTimeout(async () => {
+                            await this.addPersonaMessageWithTyping(
+                                availablePersonas[index], 
+                                response
+                            );
+                        }, this.getRandomTiming('normalResponse') * (index + 1));
+                    }
+                });
+            }
+        });
+        
+        // Schedule next topic change
+        setTimeout(() => {
+            this.triggerTopicChange();
+        }, this.getRandomTiming('topicChange') + 30000); // 30+ seconds for topic change
+    }
+
+    async addPersonaMessageWithTyping(persona, message) {
+        // Check for interruptions
+        if (this.shouldInterrupt(persona, message)) {
+            // Shorter delay for interruptions
+            const delay = this.getRandomTiming('interruption');
+            setTimeout(async () => {
+                this.showTyping(persona);
+                await this.simulateTypingDelay(message.length);
+                this.hideTyping();
+                this.addPersonaMessage(persona, message);
+                sessionState.lastSpeaker = persona;
+                this.addToHistory(mainPersonas[persona].name, message);
+            }, delay);
+        } else {
+            // Normal response timing
+            const delay = this.getRandomTiming('normalResponse');
+            setTimeout(async () => {
+                this.showTyping(persona);
+                await this.simulateTypingDelay(message.length);
+                this.hideTyping();
+                this.addPersonaMessage(persona, message);
+                sessionState.lastSpeaker = persona;
+                this.addToHistory(mainPersonas[persona].name, message);
+            }, delay);
+        }
+    }
+
+    shouldInterrupt(persona, message) {
+        const pattern = interactionPatterns[persona];
+        if (!pattern) return false;
+        
+        // Check if this persona tends to interrupt
+        if (pattern.interruptChance && Math.random() < pattern.interruptChance) {
+            // Check if they're likely to interrupt the current speaker
+            if (pattern.likelyToInterrupt && 
+                pattern.likelyToInterrupt.includes(sessionState.lastSpeaker)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    simulateTypingDelay(messageLength) {
+        // Simulate realistic typing speed (40-80 WPM)
+        const wordsPerMinute = 40 + Math.random() * 40;
+        const wordsPerSecond = wordsPerMinute / 60;
+        const wordCount = messageLength / 5; // Average 5 characters per word
+        const typingTime = (wordCount / wordsPerSecond) * 1000;
+        
+        // Add some randomness (±30%)
+        const variance = typingTime * 0.3;
+        const finalTime = typingTime + (Math.random() * variance * 2 - variance);
+        
+        return new Promise(resolve => {
+            setTimeout(resolve, Math.max(1000, Math.min(finalTime, 4000))); // 1-4 seconds max
+        });
+    }
+
+    getRandomTiming(type) {
+        const pattern = timingPatterns[type];
+        if (!pattern) return 3000; // Default 3 seconds
+        
+        return pattern.min + Math.random() * (pattern.max - pattern.min);
+    }
+
     async triggerTopicChange() {
-        const newTopic = chatTopics[Math.floor(Math.random() * chatTopics.length)];
-        sessionState.currentTopic = newTopic;
+        // Natural topic transitions
+        const transitions = [
+            "Speaking of that...",
+            "That reminds me...",
+            "On a different note...",
+            "But check this out...",
+            "Y'know what else..."
+        ];
         
-        // Random persona brings up the topic
-        const personas = sessionState.personasActive;
+        const transition = transitions[Math.floor(Math.random() * transitions.length)];
+        const newTopic = conversationTopics[Math.floor(Math.random() * conversationTopics.length)];
+        
+        // Random persona starts new topic
+        const personas = sessionState.personasActive.filter(p => p !== sessionState.lastSpeaker);
         const speaker = personas[Math.floor(Math.random() * personas.length)];
+        const starter = newTopic.starters.find(s => s.persona === speaker) || 
+                        newTopic.starters[0];
         
-        await this.generatePersonaResponse(speaker, `Start discussing: ${newTopic}`);
+        const fullMessage = `${transition} ${starter.line}`;
+        
+        await this.addPersonaMessageWithTyping(speaker, fullMessage);
+        
+        sessionState.currentTopic = newTopic.topic;
+        this.scheduleTopicFollowUps(newTopic, starter.line);
     }
 
     triggerGuestAppearance() {
@@ -307,27 +439,72 @@ class KeithUniverse {
     }
 
     personasEnterChat() {
-        // Skip the "entering" phase - they're already chatting
+        // User enters mid-conversation with more natural flow
         this.addSystemMessage('🎭 You\'ve entered Keith\'s Inner Universe mid-conversation...');
         
-        // Simulate ongoing conversation
-        const ongoingChat = [
-            { persona: 'dr-octagon', message: 'The cosmic surgical procedures continue to evolve...', delay: 1000 },
-            { persona: 'dr-dooom', message: 'Still cleaning out fake MCs from the industry', delay: 2500 },
-            { persona: 'kool-keith', message: 'Abstract foundation always in motion', delay: 4000 },
-            { persona: 'black-elvis', message: 'Funk dimensions staying consistent, y\'all', delay: 5500 }
+        // Staggered natural conversation flow
+        const naturalFlow = [
+            { 
+                persona: 'dr-octagon', 
+                message: 'The cosmic surgical procedures continue evolving through dimensions...', 
+                delay: 2000,
+                typing: true
+            },
+            { 
+                persona: 'dr-dooom', 
+                message: 'Still cleaning out these fake MCs, one execution at a time', 
+                delay: 5500,
+                typing: true
+            },
+            { 
+                persona: 'black-elvis', 
+                message: 'Y\'all need some funk therapy to balance this energy', 
+                delay: 8000,
+                typing: true
+            },
+            { 
+                persona: 'kool-keith', 
+                message: 'Abstract foundation keeps everything connected though', 
+                delay: 11500,
+                typing: true
+            }
         ];
         
-        ongoingChat.forEach(({ persona, message, delay }) => {
-            setTimeout(() => {
+        naturalFlow.forEach(({ persona, message, delay, typing }) => {
+            setTimeout(async () => {
+                if (typing) {
+                    this.showTyping(persona);
+                    await this.simulateTypingDelay(message.length);
+                    this.hideTyping();
+                }
                 this.addPersonaMessage(persona, message);
+                sessionState.lastSpeaker = persona;
+                this.addToHistory(mainPersonas[persona].name, message);
             }, delay);
         });
         
-        // Start natural flow after initial messages
+        // Dr. Dooom notices new person and makes a comment
         setTimeout(async () => {
-            await this.generatePersonaResponse('dr-dooom', 'Notice new person entered the chat');
-        }, 7000);
+            const newcomerComments = [
+                "Who's this new face in the universe?",
+                "Another fan joins the conversation...",
+                "Fresh ears in the building",
+                "Welcome to the real hip-hop discussion"
+            ];
+            const comment = newcomerComments[Math.floor(Math.random() * newcomerComments.length)];
+            
+            this.showTyping('dr-dooom');
+            await this.simulateTypingDelay(comment.length);
+            this.hideTyping();
+            this.addPersonaMessage('dr-dooom', comment);
+            sessionState.lastSpeaker = 'dr-dooom';
+            
+            // Start natural conversation flow
+            setTimeout(() => {
+                this.startNaturalConversation();
+            }, 8000);
+            
+        }, 15000);
     }
 
     addGuestToList(guestName) {
