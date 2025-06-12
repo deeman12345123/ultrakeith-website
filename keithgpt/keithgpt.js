@@ -9,6 +9,38 @@ class KeithUniverse {
         this.isProcessing = false;
         this.conversationHistory = [];
         this.guestAppearanceTimer = null;
+        this.lastResponder = null;
+    }
+
+    displayWelcomeMessage() {
+        // Skip welcome message since personas are already chatting
+        // Just update the user count
+        this.updateUserCount();
+    }
+
+    scheduleGuestAppearance() {
+        const delay = 30000 + Math.random() * 60000; // 30-90 seconds
+        this.guestAppearanceTimer = setTimeout(() => {
+            this.triggerGuestAppearance();
+            this.scheduleGuestAppearance(); // Schedule next one
+        }, delay);
+    }
+
+    selectResponder(userMessage) {
+        // Check for trigger words
+        for (const [persona, data] of Object.entries(mainPersonas)) {
+            for (const trigger of data.triggerWords) {
+                if (userMessage.toLowerCase().includes(trigger)) {
+                    this.lastResponder = persona;
+                    return persona;
+                }
+            }
+        }
+        
+        // Random responder
+        const responder = sessionState.personasActive[Math.floor(Math.random() * sessionState.personasActive.length)];
+        this.lastResponder = responder;
+        return responder;
     }
 
     // ========================================
