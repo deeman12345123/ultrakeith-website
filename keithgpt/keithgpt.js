@@ -1,6 +1,6 @@
 /* ========================================
    KEITH STUDIO - INNER UNIVERSE CHAT ROOM
-   FIXED: Prevents duplicate persona responses
+   FULLY UPGRADED: Name entry, Clear, Save/Copy, Intensity levels, Private chat
    ======================================== */
 
 class KeithUniverse {
@@ -11,131 +11,17 @@ class KeithUniverse {
         this.conversationHistory = [];
         this.guestAppearanceTimer = null;
         this.lastResponder = null;
-        // NEW: Track recent responses to prevent duplicates
         this.recentResponses = [];
-        this.activePersonaResponses = new Set(); // Track who is currently responding
-        // NEW: Pause functionality
+        this.activePersonaResponses = new Set();
         this.isPaused = false;
-        this.pausedTimers = []; // Store paused timeouts
-    }
-
-    displayWelcomeMessage() {
-        // Skip welcome message since personas are already chatting
-        // Just update the user count
-        this.updateUserCount();
-    }
-
-    scheduleGuestAppearance() {
-        const delay = 30000 + Math.random() * 60000; // 30-90 seconds
-        this.guestAppearanceTimer = setTimeout(() => {
-            this.triggerGuestAppearance();
-            this.scheduleGuestAppearance(); // Schedule next one
-        }, delay);
-    }
-
-    selectResponder(userMessage) {
-        // Check for trigger words
-        for (const [persona, data] of Object.entries(mainPersonas)) {
-            for (const trigger of data.triggerWords) {
-                if (userMessage.toLowerCase().includes(trigger)) {
-                    this.lastResponder = persona;
-                    return persona;
-                }
-            }
-        }
-        
-        // Random responder
-        const responder = sessionState.personasActive[Math.floor(Math.random() * sessionState.personasActive.length)];
-        this.lastResponder = responder;
-        return responder;
+        this.pausedTimers = [];
+        // NEW: Private chat system
+        this.privateChats = {};
+        this.currentPrivateChat = null;
     }
 
     // ========================================
-    // PAUSE CHAT FUNCTIONALITY
-    // ========================================
-
-    togglePauseChat() {
-        this.isPaused = !this.isPaused;
-        const pauseBtn = document.getElementById('pauseChat');
-        
-        if (this.isPaused) {
-            // Pause the chat
-            this.pauseChat();
-            if (pauseBtn) {
-                pauseBtn.innerHTML = '▶️ Resume';
-                pauseBtn.style.background = 'var(--status-warning)';
-            }
-            this.addSystemMessage('⏸️ Chat paused - personas will stop talking. Click Resume to continue.');
-        } else {
-            // Resume the chat
-            this.resumeChat();
-            if (pauseBtn) {
-                pauseBtn.innerHTML = '⏸️ Pause';
-                pauseBtn.style.background = 'var(--bg-tertiary)';
-            }
-            this.addSystemMessage('▶️ Chat resumed - personas are back in conversation.');
-        }
-    }
-
-    pauseChat() {
-        // Clear all active timers
-        if (this.autoEventTimer) {
-            clearInterval(this.autoEventTimer);
-            this.autoEventTimer = null;
-        }
-        if (this.guestAppearanceTimer) {
-            clearTimeout(this.guestAppearanceTimer);
-            this.guestAppearanceTimer = null;
-        }
-        
-        // Clear any typing indicators
-        this.hideTyping();
-        
-        // Stop any ongoing processing
-        this.isProcessing = false;
-        this.activePersonaResponses.clear();
-    }
-
-    resumeChat() {
-        // Restart auto events if session is still active
-        if (sessionState.startTime) {
-            this.autoEventTimer = setInterval(() => {
-                if (!this.isPaused) { // Double-check pause state
-                    this.triggerRandomEvent();
-                }
-            }, 15000 + Math.random() * 30000);
-            
-            // Restart guest appearances
-            this.scheduleGuestAppearance();
-            
-            // Give a moment then trigger a conversation restart
-            setTimeout(() => {
-                if (!this.isPaused) {
-                    this.triggerResumeConversation();
-                }
-            }, 2000);
-        }
-    }
-
-    async triggerResumeConversation() {
-        // One persona makes a comment about the pause
-        const resumeComments = {
-            'dr-dooom': 'Y\'all ready for more real talk?',
-            'dr-octagon': 'Cosmic consciousness never truly pauses...',
-            'kool-keith': 'Abstract energy flowing again through the club',
-            'black-elvis': 'Funk therapy session back in progress'
-        };
-        
-        const personas = Object.keys(resumeComments);
-        const speaker = personas[Math.floor(Math.random() * personas.length)];
-        const comment = resumeComments[speaker];
-        
-        const uniqueContext = `${speaker} resume conversation comment`;
-        await this.generatePersonaResponse(speaker, uniqueContext, comment);
-    }
-
-    // ========================================
-    // INITIALIZATION
+    // INITIALIZATION (UPGRADED)
     // ========================================
 
     initializeUniverse() {
@@ -143,11 +29,12 @@ class KeithUniverse {
         this.startSession();
         this.displayWelcomeMessage();
         this.startAutoEvents();
-        console.log('🎭 Keith\'s Inner Universe activated');
+        this.updateIntensityDisplay();
+        console.log(`🎭 Keith's Inner Universe activated - ${getCurrentIntensityConfig().name} Mode`);
     }
 
     setupEventListeners() {
-        // User input
+        // User input (simplified - no separate name input)
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         
@@ -165,20 +52,473 @@ class KeithUniverse {
             sendBtn.addEventListener('click', () => this.sendUserMessage());
         }
 
-        // Control buttons
+        // NEW: Enhanced control buttons
         const newSessionBtn = document.getElementById('newSession');
         const toggleUserList = document.getElementById('toggleUserList');
         const mobileOverlay = document.getElementById('mobileOverlay');
         const pauseChatBtn = document.getElementById('pauseChat');
+        const clearChatBtn = document.getElementById('clearChat');
+        const saveChatBtn = document.getElementById('saveChat');
+        const copyChatBtn = document.getElementById('copyChat');
 
         if (newSessionBtn) newSessionBtn.addEventListener('click', () => this.startNewSession());
         if (toggleUserList) toggleUserList.addEventListener('click', () => this.toggleUserList());
         if (mobileOverlay) mobileOverlay.addEventListener('click', () => this.closeUserList());
         if (pauseChatBtn) pauseChatBtn.addEventListener('click', () => this.togglePauseChat());
+        if (clearChatBtn) clearChatBtn.addEventListener('click', () => this.clearChat());
+        if (saveChatBtn) saveChatBtn.addEventListener('click', () => this.saveChat());
+        if (copyChatBtn) copyChatBtn.addEventListener('click', () => this.copyChat());
+
+        // NEW: Private chat event listeners
+        this.setupPrivateChatListeners();
+        this.setupPersonaRightClick();
     }
 
     // ========================================
-    // MOBILE USER LIST TOGGLE (FIXED)
+    // NEW: CHAT MANAGEMENT FEATURES
+    // ========================================
+
+    clearChat() {
+        // Clear visual messages but keep personas active
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            chatMessages.innerHTML = '';
+        }
+        
+        // Reset conversation history but keep session state
+        this.conversationHistory = [];
+        this.recentResponses = [];
+        sessionState.chatLog = [];
+        
+        // Add system message
+        this.addSystemMessage('🗑️ Chat cleared. Personas remain active and ready to continue the conversation.');
+        
+        // Trigger a brief resume message from a random persona
+        setTimeout(() => {
+            const resumeMessages = {
+                'kool-keith': 'Abstract energy flowing fresh through the clean slate',
+                'dr-octagon': 'Cosmic consciousness reset and ready for new dimensional experiences',
+                'dr-dooom': 'Clean slate means more room for real talk',
+                'black-elvis': 'Fresh start brings positive funk energy to the club'
+            };
+            
+            const personas = Object.keys(resumeMessages);
+            const speaker = personas[Math.floor(Math.random() * personas.length)];
+            const message = resumeMessages[speaker];
+            
+            this.generatePersonaResponse(speaker, `${speaker} commenting on chat reset`, message);
+        }, 2000);
+    }
+
+    async saveChat() {
+        try {
+            const chatContent = this.generateChatLog();
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            const filename = `KeithGPT-Chat-${timestamp}.txt`;
+            
+            // Create downloadable file
+            const blob = new Blob([chatContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            // Create temporary download link
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            this.addSystemMessage(`💾 Chat saved as ${filename}`);
+            
+        } catch (error) {
+            console.error('Save chat error:', error);
+            this.addSystemMessage('❌ Error saving chat. Please try again.');
+        }
+    }
+
+    async copyChat() {
+        try {
+            const chatContent = this.generateChatLog();
+            
+            // Copy to clipboard
+            await navigator.clipboard.writeText(chatContent);
+            this.addSystemMessage('📋 Chat copied to clipboard!');
+            
+        } catch (error) {
+            console.error('Copy chat error:', error);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = this.generateChatLog();
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            this.addSystemMessage('📋 Chat copied to clipboard!');
+        }
+    }
+
+    generateChatLog() {
+        const intensityConfig = getCurrentIntensityConfig();
+        const startTime = sessionState.sessionStartTime || sessionState.startTime;
+        const duration = sessionState.startTime ? Math.floor((Date.now() - sessionState.startTime) / 1000) : 0;
+        
+        let content = `========================================
+KEITHGPT - THE PLAYERS CLUB CHAT LOG
+========================================
+
+Session Details:
+- Date: ${new Date().toLocaleString()}
+- Duration: ${Math.floor(duration / 60)}:${(duration % 60).toString().padStart(2, '0')}
+- User: ${sessionState.userName}
+- Intensity Level: ${intensityConfig.display}
+- Personas Active: ${sessionState.personasActive.join(', ')}
+
+========================================
+CHAT MESSAGES:
+========================================
+
+`;
+
+        // Add all messages from chat log
+        if (sessionState.chatLog && sessionState.chatLog.length > 0) {
+            sessionState.chatLog.forEach(entry => {
+                const timestamp = new Date(entry.timestamp).toLocaleTimeString();
+                content += `[${timestamp}] ${entry.speaker}: ${entry.message}\n`;
+            });
+        } else {
+            // Fallback: extract from conversation history
+            this.conversationHistory.forEach(entry => {
+                content += `${entry.speaker}: ${entry.content}\n`;
+            });
+        }
+
+        content += `\n========================================
+END OF CHAT LOG
+Generated by KeithGPT - The Players Club
+Experience Keith's Inner Universe at ultrakeith.com
+========================================`;
+
+        return content;
+    }
+
+    // ========================================
+    // NEW: INTENSITY LEVEL MANAGEMENT
+    // ========================================
+
+    updateIntensityDisplay() {
+        const intensityDisplay = document.getElementById('intensityDisplay');
+        if (intensityDisplay) {
+            const config = getCurrentIntensityConfig();
+            intensityDisplay.textContent = config.display;
+            intensityDisplay.style.color = {
+                1: '#66ff66', // Green for Tame
+                2: '#ffaa00', // Orange for Players
+                3: '#ff6666'  // Red for Wild
+            }[sessionState.intensityLevel] || '#ffaa00';
+        }
+    }
+
+    // ========================================
+    // NEW: PRIVATE CHAT SYSTEM
+    // ========================================
+
+    setupPrivateChatListeners() {
+        const closePrivateBtn = document.getElementById('closePrivateChat');
+        const privateChatInput = document.getElementById('privateChatInput');
+        const sendPrivateBtn = document.getElementById('sendPrivateBtn');
+        const privateChatOverlay = document.getElementById('privateChatOverlay');
+
+        if (closePrivateBtn) {
+            closePrivateBtn.addEventListener('click', () => this.closePrivateChat());
+        }
+
+        if (privateChatOverlay) {
+            privateChatOverlay.addEventListener('click', (e) => {
+                if (e.target === privateChatOverlay) {
+                    this.closePrivateChat();
+                }
+            });
+        }
+
+        if (privateChatInput) {
+            privateChatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.sendPrivateMessage();
+                }
+            });
+        }
+
+        if (sendPrivateBtn) {
+            sendPrivateBtn.addEventListener('click', () => this.sendPrivateMessage());
+        }
+    }
+
+    setupPersonaRightClick() {
+        // Add right-click context menu to persona items
+        const personaItems = document.querySelectorAll('.persona-item');
+        
+        personaItems.forEach(item => {
+            item.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                const persona = item.getAttribute('data-persona');
+                if (persona) {
+                    this.openPrivateChat(persona);
+                }
+            });
+            
+            // Also add click handler for mobile/touch devices
+            item.addEventListener('dblclick', (e) => {
+                e.preventDefault();
+                const persona = item.getAttribute('data-persona');
+                if (persona) {
+                    this.openPrivateChat(persona);
+                }
+            });
+        });
+    }
+
+    openPrivateChat(persona) {
+        const personaData = mainPersonas[persona];
+        if (!personaData) return;
+
+        this.currentPrivateChat = persona;
+        
+        // Initialize private chat if doesn't exist
+        if (!this.privateChats[persona]) {
+            this.privateChats[persona] = {
+                messages: [],
+                lastActivity: Date.now()
+            };
+        }
+
+        // Update UI
+        const overlay = document.getElementById('privateChatOverlay');
+        const title = document.getElementById('privateChatTitle');
+        const messages = document.getElementById('privateChatMessages');
+
+        if (title) {
+            title.textContent = `Private Chat with ${personaData.name}`;
+        }
+
+        if (messages) {
+            messages.innerHTML = '';
+            
+            // Show existing messages
+            this.privateChats[persona].messages.forEach(msg => {
+                this.addPrivateMessage(msg.speaker, msg.content, false);
+            });
+
+            // Add welcome message if first time
+            if (this.privateChats[persona].messages.length === 0) {
+                const welcomeMessages = {
+                    'kool-keith': 'Abstract one-on-one conversation activated. What\'s your creative vision?',
+                    'dr-octagon': 'Private cosmic consultation initiated. Describe your dimensional concerns.',
+                    'dr-dooom': 'Private execution chamber opened. What needs real discussion?',
+                    'black-elvis': 'Personal funk therapy session beginning. What\'s on your mind?'
+                };
+                
+                const welcome = welcomeMessages[persona] || 'Private chat activated.';
+                this.addPrivateMessage(personaData.name, welcome, true);
+            }
+        }
+
+        if (overlay) {
+            overlay.style.display = 'flex';
+            overlay.classList.add('show');
+        }
+
+        // Focus input
+        const input = document.getElementById('privateChatInput');
+        if (input) {
+            setTimeout(() => input.focus(), 100);
+        }
+    }
+
+    closePrivateChat() {
+        const overlay = document.getElementById('privateChatOverlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+        this.currentPrivateChat = null;
+    }
+
+    async sendPrivateMessage() {
+        const input = document.getElementById('privateChatInput');
+        if (!input || !this.currentPrivateChat) return;
+
+        const message = input.value.trim();
+        if (!message) return;
+
+        const persona = this.currentPrivateChat;
+        const personaData = mainPersonas[persona];
+        
+        // Add user message
+        this.addPrivateMessage(sessionState.userName, message, true);
+        input.value = '';
+
+        // Generate persona response
+        setTimeout(async () => {
+            const context = `Private one-on-one conversation with ${sessionState.userName} who said: "${message}"`;
+            const response = await this.generatePrivatePersonaResponse(persona, context);
+            this.addPrivateMessage(personaData.name, response, true);
+        }, 1000 + Math.random() * 2000);
+    }
+
+    addPrivateMessage(speaker, content, saveToHistory = true) {
+        const messages = document.getElementById('privateChatMessages');
+        if (!messages) return;
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `private-message ${speaker === sessionState.userName ? 'user' : 'persona'}`;
+        
+        const personaData = Object.values(mainPersonas).find(p => p.name === speaker);
+        const isPersona = !!personaData;
+        
+        messageDiv.innerHTML = `
+            ${isPersona ? `<img src="${personaData.avatar}" alt="${speaker}" class="private-avatar">` : ''}
+            <div class="private-message-content">
+                <strong>${this.escapeHtml(speaker)}:</strong> ${this.escapeHtml(content)}
+            </div>
+        `;
+
+        messages.appendChild(messageDiv);
+        messages.scrollTop = messages.scrollHeight;
+
+        // Save to private chat history
+        if (saveToHistory && this.currentPrivateChat && this.privateChats[this.currentPrivateChat]) {
+            this.privateChats[this.currentPrivateChat].messages.push({
+                speaker,
+                content,
+                timestamp: Date.now()
+            });
+        }
+    }
+
+    async generatePrivatePersonaResponse(persona, context) {
+        try {
+            const prompt = this.buildPrivateChatPrompt(persona, context);
+            const response = await this.callChatAPI(prompt);
+            return response;
+        } catch (error) {
+            console.error('Private chat response error:', error);
+            return this.getPrivateFallbackResponse(persona);
+        }
+    }
+
+    buildPrivateChatPrompt(persona, context) {
+        const knowledge = getCharacterKnowledge(persona);
+        const personaData = mainPersonas[persona];
+        const intensityConfig = getCurrentIntensityConfig();
+        
+        return `${knowledge}
+
+PRIVATE CONVERSATION MODE: One-on-one chat with ${sessionState.userName}
+INTENSITY LEVEL: ${intensityConfig.name} - ${intensityConfig.description}
+
+PRIVATE CHAT CONTEXT: ${context}
+
+This is a personal conversation, not the group chat room. You can be more:
+- Direct and focused on the user
+- Detailed in your responses (2-4 sentences)
+- Personal and engaging
+- Authentic to your character while being conversational
+
+Respond as ${personaData.name} in a private setting, maintaining your personality but being more attentive to the individual user's input.`;
+    }
+
+    getPrivateFallbackResponse(persona) {
+        const fallbacks = {
+            'kool-keith': 'Abstract connection established... what\'s your creative question?',
+            'dr-octagon': 'Private cosmic frequency open for communication...',
+            'dr-dooom': 'Real talk in the private chamber... what\'s the situation?',
+            'black-elvis': 'Personal funk session activated... what\'s on your mind?'
+        };
+        
+        return fallbacks[persona] || 'Private connection active...';
+    }
+
+    // ========================================
+    // PAUSE CHAT FUNCTIONALITY
+    // ========================================
+
+    togglePauseChat() {
+        this.isPaused = !this.isPaused;
+        const pauseBtn = document.getElementById('pauseChat');
+        
+        if (this.isPaused) {
+            this.pauseChat();
+            if (pauseBtn) {
+                pauseBtn.innerHTML = '▶️ Resume';
+                pauseBtn.style.background = 'var(--status-warning)';
+            }
+            this.addSystemMessage('⏸️ Chat paused - personas will stop talking. Click Resume to continue.');
+        } else {
+            this.resumeChat();
+            if (pauseBtn) {
+                pauseBtn.innerHTML = '⏸️ Pause';
+                pauseBtn.style.background = 'var(--bg-tertiary)';
+            }
+            this.addSystemMessage('▶️ Chat resumed - personas are back in conversation.');
+        }
+    }
+
+    pauseChat() {
+        if (this.autoEventTimer) {
+            clearInterval(this.autoEventTimer);
+            this.autoEventTimer = null;
+        }
+        if (this.guestAppearanceTimer) {
+            clearTimeout(this.guestAppearanceTimer);
+            this.guestAppearanceTimer = null;
+        }
+        
+        this.hideTyping();
+        this.isProcessing = false;
+        this.activePersonaResponses.clear();
+    }
+
+    resumeChat() {
+        if (sessionState.startTime) {
+            this.autoEventTimer = setInterval(() => {
+                if (!this.isPaused) {
+                    this.triggerRandomEvent();
+                }
+            }, 15000 + Math.random() * 30000);
+            
+            this.scheduleGuestAppearance();
+            
+            setTimeout(() => {
+                if (!this.isPaused) {
+                    this.triggerResumeConversation();
+                }
+            }, 2000);
+        }
+    }
+
+    async triggerResumeConversation() {
+        const resumeComments = {
+            'dr-dooom': 'Y\'all ready for more real talk?',
+            'dr-octagon': 'Cosmic consciousness never truly pauses...',
+            'kool-keith': 'Abstract energy flowing again through the club',
+            'black-elvis': 'Funk therapy session back in progress'
+        };
+        
+        const personas = Object.keys(resumeComments);
+        const speaker = personas[Math.floor(Math.random() * personas.length)];
+        const comment = resumeComments[speaker];
+        
+        const uniqueContext = `${speaker} resume conversation comment`;
+        await this.generatePersonaResponse(speaker, uniqueContext, comment);
+    }
+
+    // ========================================
+    // MOBILE USER LIST TOGGLE
     // ========================================
 
     toggleUserList() {
@@ -219,8 +559,10 @@ class KeithUniverse {
 
     startSession() {
         sessionState.startTime = Date.now();
+        sessionState.sessionStartTime = Date.now();
         sessionState.tokensUsed = 0;
         sessionState.userLurking = true;
+        sessionState.chatLog = [];
         
         this.startSessionTimer();
         this.updateSessionDisplay();
@@ -252,8 +594,7 @@ class KeithUniverse {
         const seconds = Math.floor((remaining % 60000) / 1000);
         timerEl.textContent = `Session: ${minutes}:${seconds.toString().padStart(2, '0')}`;
         
-        // Warning when low on time
-        if (remaining < 60000) { // Last minute
+        if (remaining < 60000) {
             timerEl.style.color = 'var(--status-warning)';
         }
     }
@@ -265,7 +606,6 @@ class KeithUniverse {
         
         this.addSystemMessage('🎭 Studio session complete! Thanks for experiencing Keith\'s Inner Universe.\n\nClick "New" to start another session.');
         
-        // Disable input
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         if (chatInput) chatInput.disabled = true;
@@ -273,7 +613,6 @@ class KeithUniverse {
     }
 
     startNewSession() {
-        // Reset everything
         this.clearMessages();
         sessionState = {
             startTime: null,
@@ -282,14 +621,20 @@ class KeithUniverse {
             currentTopic: null,
             battleInProgress: false,
             userLurking: true,
-            lastActivity: null
+            lastActivity: null,
+            lastSpeaker: null,
+            conversationFlow: 'natural',
+            recentContexts: [],
+            userName: sessionState.userName, // Keep user name
+            intensityLevel: sessionState.intensityLevel, // Keep intensity level
+            chatLog: [],
+            sessionStartTime: null
         };
         
-        // Reset response tracking
         this.recentResponses = [];
         this.activePersonaResponses.clear();
+        this.privateChats = {}; // Reset private chats
         
-        // Reset pause state
         this.isPaused = false;
         const pauseBtn = document.getElementById('pauseChat');
         if (pauseBtn) {
@@ -297,7 +642,6 @@ class KeithUniverse {
             pauseBtn.style.background = 'var(--bg-tertiary)';
         }
         
-        // Re-enable input
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         if (chatInput) {
@@ -312,19 +656,16 @@ class KeithUniverse {
     }
 
     // ========================================
-    // AUTO EVENTS & CONVERSATIONS
+    // AUTO EVENTS & CONVERSATIONS (Enhanced)
     // ========================================
 
     startAutoEvents() {
-        // Initial personas enter
         setTimeout(() => this.personasEnterChat(), 2000);
         
-        // Start random events
         this.autoEventTimer = setInterval(() => {
             this.triggerRandomEvent();
-        }, 15000 + Math.random() * 30000); // Every 15-45 seconds
+        }, 15000 + Math.random() * 30000);
         
-        // Guest persona appearances
         this.scheduleGuestAppearance();
     }
 
@@ -342,70 +683,66 @@ class KeithUniverse {
         await randomEvent();
     }
 
-    // FIXED: Staggered responses to prevent duplicates
     async triggerSpontaneousArgument() {
-        if (this.isPaused) return; // Check pause state
+        if (this.isPaused) return;
         
         const conflicts = Object.keys(conflictTriggers);
         const conflict = conflicts[Math.floor(Math.random() * conflicts.length)];
         const trigger = conflictTriggers[conflict];
         
-        if (Math.random() > trigger.probability) return;
+        // Use intensity-adjusted probability
+        const adjustedProbability = getIntensityAdjustedProbability(trigger.baseProbability || 0.5, trigger.initiator);
+        if (Math.random() > adjustedProbability) return;
         
         const initiator = trigger.initiator;
-        const line = trigger.trigger_lines[Math.floor(Math.random() * trigger.trigger_lines.length)];
+        const intensityLevel = sessionState.intensityLevel;
+        const lines = trigger.trigger_lines[intensityLevel] || trigger.trigger_lines[2] || trigger.trigger_lines;
+        const line = Array.isArray(lines) ? lines[Math.floor(Math.random() * lines.length)] : lines;
         
         this.addPersonaMessage(initiator, line);
         
-        // FIXED: Staggered response with unique context
         setTimeout(async () => {
-            if (this.isPaused) return; // Check pause state before responding
+            if (this.isPaused) return;
             
             if (trigger.target === 'any') {
                 const targets = sessionState.personasActive.filter(p => p !== initiator);
                 const target = targets[Math.floor(Math.random() * targets.length)];
                 
-                // Unique context to prevent duplicate responses
-                const uniqueContext = `${mainPersonas[target].name} ${mainPersonas[target].conflictStyle} response to ${mainPersonas[initiator].name}'s aggressive statement: "${line}"`;
-                await this.generatePersonaResponse(target, uniqueContext);
-            } else if (sessionState.personasActive.includes(trigger.target)) {
-                const uniqueContext = `${mainPersonas[trigger.target].name} ${mainPersonas[trigger.target].conflictStyle} rebuttal to ${mainPersonas[initiator].name}'s attack: "${line}"`;
+                const uniqueContext = `${mainPersonas[trigger.target].name} ${mainPersonas[trigger.target].conflictStyle} rebuttal to ${mainPersonas[initiator].name}'s ${getCurrentIntensityConfig().name} level attack: "${line}"`;
                 await this.generatePersonaResponse(trigger.target, uniqueContext);
             }
-        }, 3000 + Math.random() * 2000); // Longer, more variable delay
+        }, 3000 + Math.random() * 2000);
     }
 
     // ========================================
-    // NATURAL CONVERSATION ENGINE
+    // NATURAL CONVERSATION ENGINE (Enhanced)
     // ========================================
 
     async startNaturalConversation() {
-        if (this.isPaused) return; // Check pause state
+        if (this.isPaused) return;
         
-        // Pick a random topic to start with
         const topic = conversationTopics[Math.floor(Math.random() * conversationTopics.length)];
         sessionState.currentTopic = topic.topic;
         
-        // Randomly select a starter from the topic
         const starter = topic.starters[Math.floor(Math.random() * topic.starters.length)];
         
-        // Natural delay before starting
+        // Get intensity-appropriate line
+        const intensityLevel = sessionState.intensityLevel;
+        const line = starter.lines[intensityLevel] || starter.lines[2] || starter.lines;
+        
         setTimeout(async () => {
-            if (this.isPaused) return; // Check pause state before starting
+            if (this.isPaused) return;
             
-            await this.addPersonaMessageWithTyping(starter.persona, starter.line);
-            
-            // Schedule follow-up responses
-            this.scheduleTopicFollowUps(topic, starter.line);
+            await this.addPersonaMessageWithTyping(starter.persona, line);
+            this.scheduleTopicFollowUps(topic, line);
             
         }, this.getRandomTiming('normalResponse'));
     }
 
     scheduleTopicFollowUps(topic, triggerLine) {
-        // Check for trigger words in the starter line
-        topic.followUps.forEach(followUp => {
+        // Enhanced follow-ups based on intensity level
+        topic.followUps?.forEach(followUp => {
             if (triggerLine.toLowerCase().includes(followUp.trigger)) {
-                // Different personas respond to triggers
                 const availablePersonas = sessionState.personasActive.filter(p => 
                     p !== sessionState.lastSpeaker
                 );
@@ -413,8 +750,7 @@ class KeithUniverse {
                 followUp.responses.forEach((response, index) => {
                     if (availablePersonas[index]) {
                         setTimeout(async () => {
-                            // FIXED: Add unique context for each follow-up
-                            const uniqueContext = `${availablePersonas[index]} topic follow-up #${index + 1} about ${topic.topic}`;
+                            const uniqueContext = `${availablePersonas[index]} topic follow-up #${index + 1} about ${topic.topic} at ${getCurrentIntensityConfig().name} level`;
                             await this.addPersonaMessageWithTyping(
                                 availablePersonas[index], 
                                 response,
@@ -426,23 +762,18 @@ class KeithUniverse {
             }
         });
         
-        // Schedule next topic change
         setTimeout(() => {
             this.triggerTopicChange();
-        }, this.getRandomTiming('topicChange') + 30000); // 30+ seconds for topic change
+        }, this.getRandomTiming('topicChange') + 30000);
     }
 
-    // FIXED: Enhanced typing with unique context
     async addPersonaMessageWithTyping(persona, message, uniqueContext = null) {
-        // Prevent duplicate responses from same persona
         if (this.activePersonaResponses.has(persona)) {
             console.log(`${persona} already responding, skipping duplicate`);
             return;
         }
         
-        // Check for interruptions
         if (this.shouldInterrupt(persona, message)) {
-            // Shorter delay for interruptions
             const delay = this.getRandomTiming('interruption');
             setTimeout(async () => {
                 this.showTyping(persona);
@@ -453,7 +784,6 @@ class KeithUniverse {
                 this.addToHistory(mainPersonas[persona].name, message);
             }, delay);
         } else {
-            // Normal response timing
             const delay = this.getRandomTiming('normalResponse');
             setTimeout(async () => {
                 this.showTyping(persona);
@@ -470,9 +800,11 @@ class KeithUniverse {
         const pattern = interactionPatterns[persona];
         if (!pattern) return false;
         
-        // Check if this persona tends to interrupt
-        if (pattern.interruptChance && Math.random() < pattern.interruptChance) {
-            // Check if they're likely to interrupt the current speaker
+        // Use intensity-adjusted interrupt chance
+        const baseChance = pattern.interruptChance || 0;
+        const adjustedChance = getIntensityAdjustedProbability(baseChance, persona);
+        
+        if (Math.random() < adjustedChance) {
             if (pattern.likelyToInterrupt && 
                 pattern.likelyToInterrupt.includes(sessionState.lastSpeaker)) {
                 return true;
@@ -483,30 +815,27 @@ class KeithUniverse {
     }
 
     simulateTypingDelay(messageLength) {
-        // Simulate realistic typing speed (40-80 WPM)
         const wordsPerMinute = 40 + Math.random() * 40;
         const wordsPerSecond = wordsPerMinute / 60;
-        const wordCount = messageLength / 5; // Average 5 characters per word
+        const wordCount = messageLength / 5;
         const typingTime = (wordCount / wordsPerSecond) * 1000;
         
-        // Add some randomness (±30%)
         const variance = typingTime * 0.3;
         const finalTime = typingTime + (Math.random() * variance * 2 - variance);
         
         return new Promise(resolve => {
-            setTimeout(resolve, Math.max(1000, Math.min(finalTime, 4000))); // 1-4 seconds max
+            setTimeout(resolve, Math.max(1000, Math.min(finalTime, 4000)));
         });
     }
 
     getRandomTiming(type) {
         const pattern = timingPatterns[type];
-        if (!pattern) return 3000; // Default 3 seconds
+        if (!pattern) return 3000;
         
         return pattern.min + Math.random() * (pattern.max - pattern.min);
     }
 
     async triggerTopicChange() {
-        // Natural topic transitions
         const transitions = [
             "Speaking of that...",
             "That reminds me...",
@@ -518,20 +847,21 @@ class KeithUniverse {
         const transition = transitions[Math.floor(Math.random() * transitions.length)];
         const newTopic = conversationTopics[Math.floor(Math.random() * conversationTopics.length)];
         
-        // Random persona starts new topic
         const personas = sessionState.personasActive.filter(p => p !== sessionState.lastSpeaker);
         const speaker = personas[Math.floor(Math.random() * personas.length)];
         const starter = newTopic.starters.find(s => s.persona === speaker) || 
                         newTopic.starters[0];
         
-        const fullMessage = `${transition} ${starter.line}`;
+        // Get intensity-appropriate line
+        const intensityLevel = sessionState.intensityLevel;
+        const line = starter.lines[intensityLevel] || starter.lines[2] || starter.lines;
+        const fullMessage = `${transition} ${line}`;
         
-        // FIXED: Add topic change context
-        const uniqueContext = `${speaker} initiating topic change to: ${newTopic.topic}`;
+        const uniqueContext = `${speaker} initiating topic change to: ${newTopic.topic} at ${getCurrentIntensityConfig().name} level`;
         await this.addPersonaMessageWithTyping(speaker, fullMessage, uniqueContext);
         
         sessionState.currentTopic = newTopic.topic;
-        this.scheduleTopicFollowUps(newTopic, starter.line);
+        this.scheduleTopicFollowUps(newTopic, line);
     }
 
     triggerGuestAppearance() {
@@ -542,96 +872,89 @@ class KeithUniverse {
         this.addGuestMessage(guest.name, guest.line);
         this.addGuestToList(guest.name);
         
-        // Guest leaves after duration
         setTimeout(() => {
             this.addGuestExit(guest.name);
             this.removeGuestFromList(guest.name);
         }, guest.duration);
         
-        // Dr. Dooom might diss the guest
-        if (Math.random() < 0.4) {
+        // Dr. Dooom might diss the guest (intensity-adjusted)
+        const dissProbability = getIntensityAdjustedProbability(0.4, 'dr-dooom');
+        if (Math.random() < dissProbability) {
             setTimeout(() => {
-                const disses = [
-                    "Who asked for your fake input?",
-                    "Another wannabe persona",
-                    "Stay in your lane"
-                ];
-                const diss = disses[Math.floor(Math.random() * disses.length)];
-                // FIXED: Unique context for guest diss
-                const uniqueContext = `Dr. Dooom dismissing guest persona ${guest.name}`;
+                const intensityLevel = sessionState.intensityLevel;
+                const disses = {
+                    1: ['That\'s not how we do things here', 'Stay in your lane'],
+                    2: ['Who asked for your fake input?', 'Another wannabe persona'],
+                    3: ['Get out before you get executed', 'Fake personas get body bags']
+                };
+                const dissArray = disses[intensityLevel] || disses[2];
+                const diss = dissArray[Math.floor(Math.random() * dissArray.length)];
+                
+                const uniqueContext = `Dr. Dooom dismissing guest persona ${guest.name} at ${getCurrentIntensityConfig().name} level`;
                 this.generatePersonaResponse('dr-dooom', uniqueContext, diss);
             }, 1000 + Math.random() * 2000);
         }
     }
 
     scheduleGuestAppearance() {
-        const delay = 30000 + Math.random() * 60000; // 30-90 seconds
+        const delay = 30000 + Math.random() * 60000;
         this.guestAppearanceTimer = setTimeout(() => {
             this.triggerGuestAppearance();
-            this.scheduleGuestAppearance(); // Schedule next one
+            this.scheduleGuestAppearance();
         }, delay);
     }
 
     personasEnterChat() {
-        // Start with personas already in conversation - no dramatic intro
+        const intensityLevel = sessionState.intensityLevel;
         
-        // Staggered natural conversation flow with UNIQUE CONTEXTS
-        const naturalFlow = [
-            { 
-                persona: 'dr-octagon', 
-                message: 'The cosmic surgical procedures continue evolving through dimensions...', 
-                delay: 2000,
-                typing: true,
-                context: 'Dr. Octagon cosmic opening statement'
-            },
-            { 
-                persona: 'dr-dooom', 
-                message: 'Still cleaning out these fake MCs, one execution at a time', 
-                delay: 5500,
-                typing: true,
-                context: 'Dr. Dooom aggressive industry statement'
-            },
-            { 
-                persona: 'black-elvis', 
-                message: 'Y\'all need some funk therapy to balance this energy', 
-                delay: 8000,
-                typing: true,
-                context: 'Black Elvis diplomatic peacemaking'
-            },
-            { 
-                persona: 'kool-keith', 
-                message: 'Abstract foundation keeps everything connected though', 
-                delay: 11500,
-                typing: true,
-                context: 'Kool Keith foundational wisdom'
-            }
-        ];
+        // Different entry flows based on intensity
+        const entryFlows = {
+            1: [ // Tame
+                { persona: 'dr-octagon', message: 'Medical and cosmic knowledge ready for discussion...', delay: 2000 },
+                { persona: 'black-elvis', message: 'Musical harmony and positive vibes in the building', delay: 5000 },
+                { persona: 'kool-keith', message: 'Creative foundation established for good conversation', delay: 8000 },
+                { persona: 'dr-dooom', message: 'Real hip-hop discussion starting now', delay: 11000 }
+            ],
+            2: [ // Players Mode (Default)
+                { persona: 'dr-octagon', message: 'The cosmic surgical procedures continue evolving through dimensions...', delay: 2000 },
+                { persona: 'dr-dooom', message: 'Still cleaning out these fake MCs, one execution at a time', delay: 5500 },
+                { persona: 'black-elvis', message: 'Y\'all need some funk therapy to balance this energy', delay: 8000 },
+                { persona: 'kool-keith', message: 'Abstract foundation keeps everything connected though', delay: 11500 }
+            ],
+            3: [ // Wild & Crazy
+                { persona: 'dr-dooom', message: 'Time for brutal execution of fake MCs in this club', delay: 2000 },
+                { persona: 'dr-octagon', message: 'Dimensional surgery will dissect all primitive consciousness here', delay: 5500 },
+                { persona: 'kool-keith', message: 'Raw creative energy about to explode through the foundation', delay: 8000 },
+                { persona: 'black-elvis', message: 'Aggressive funk therapy session starting with maximum intensity', delay: 11500 }
+            ]
+        };
         
-        naturalFlow.forEach(({ persona, message, delay, typing, context }) => {
+        const naturalFlow = entryFlows[intensityLevel] || entryFlows[2];
+        
+        naturalFlow.forEach(({ persona, message, delay }) => {
             setTimeout(async () => {
-                if (typing) {
-                    this.showTyping(persona);
-                    await this.simulateTypingDelay(message.length);
-                    this.hideTyping();
-                }
+                this.showTyping(persona);
+                await this.simulateTypingDelay(message.length);
+                this.hideTyping();
                 this.addPersonaMessage(persona, message);
                 sessionState.lastSpeaker = persona;
                 this.addToHistory(mainPersonas[persona].name, message);
                 
-                // Store context for uniqueness
+                const context = `${persona} ${getCurrentIntensityConfig().name} level entry statement`;
                 this.recentResponses.push(`${context}: ${message}`.toLowerCase());
             }, delay);
         });
         
-        // Dr. Dooom notices new person and makes a comment
+        // Welcome newcomer comment
         setTimeout(async () => {
-            const newcomerComments = [
-                "Who's this new face in the club?",
-                "Another player joins the conversation...",
-                "Fresh ears in the building",
-                "Welcome to the real hip-hop discussion"
-            ];
-            const comment = newcomerComments[Math.floor(Math.random() * newcomerComments.length)];
+            const newcomerComments = {
+                1: ['Welcome to our discussion', 'Good to have you here', 'Ready for some conversation?'],
+                2: ['Who\'s this new face in the club?', 'Fresh ears in the building', 'Welcome to the real hip-hop discussion'],
+                3: ['Another player joins the brutal conversation...', 'Fresh blood in the execution chamber', 'Ready for the raw truth?']
+            };
+            
+            const comments = newcomerComments[intensityLevel] || newcomerComments[2];
+            const comment = comments[Math.floor(Math.random() * comments.length)];
             
             this.showTyping('dr-dooom');
             await this.simulateTypingDelay(comment.length);
@@ -639,7 +962,6 @@ class KeithUniverse {
             this.addPersonaMessage('dr-dooom', comment);
             sessionState.lastSpeaker = 'dr-dooom';
             
-            // Start natural conversation flow
             setTimeout(() => {
                 this.startNaturalConversation();
             }, 8000);
@@ -647,11 +969,14 @@ class KeithUniverse {
         }, 15000);
     }
 
+    // ========================================
+    // USER LIST MANAGEMENT
+    // ========================================
+
     addGuestToList(guestName) {
         const guestList = document.getElementById('guestList');
         if (!guestList) return;
         
-        // Remove "Guest personas appear randomly..." text
         const guestNote = guestList.querySelector('.guest-note');
         if (guestNote) guestNote.style.display = 'none';
         
@@ -685,7 +1010,6 @@ class KeithUniverse {
                     item.remove();
                     this.updateUserCount();
                     
-                    // Show note again if no guests
                     const remainingGuests = guestList.querySelectorAll('.guest-item');
                     if (remainingGuests.length === 0) {
                         const guestNote = guestList.querySelector('.guest-note');
@@ -700,7 +1024,6 @@ class KeithUniverse {
         const fanList = document.getElementById('fanList');
         if (!fanList) return;
         
-        // Check if user already in list
         const existingUser = fanList.querySelector(`[data-user="${userName}"]`);
         if (existingUser) return;
         
@@ -724,7 +1047,7 @@ class KeithUniverse {
         const userCountEl = document.getElementById('userCount');
         if (!userCountEl) return;
         
-        const mainPersonas = 4; // Always 4 main personas
+        const mainPersonas = 4;
         const guests = document.querySelectorAll('#guestList .guest-item').length;
         const fans = document.querySelectorAll('#fanList .fan-item').length;
         const total = mainPersonas + guests + fans;
@@ -733,19 +1056,18 @@ class KeithUniverse {
     }
 
     // ========================================
-    // MESSAGE HANDLING
+    // MESSAGE HANDLING (Enhanced)
     // ========================================
 
     async sendUserMessage() {
         const chatInput = document.getElementById('chatInput');
-        const userName = document.getElementById('userName');
         
         if (!chatInput || this.isProcessing) return;
         
         const message = chatInput.value.trim();
         if (!message) return;
         
-        const userDisplayName = userName?.value.trim() || 'User';
+        const userDisplayName = sessionState.userName;
         sessionState.userLurking = false;
         
         this.addUserMessage(userDisplayName, message);
@@ -753,16 +1075,14 @@ class KeithUniverse {
         chatInput.value = '';
         this.updateSendButton();
         
-        // FIXED: Unique user response context
         setTimeout(async () => {
             const responder = this.selectResponder(message);
-            const uniqueContext = `${mainPersonas[responder].name} ${mainPersonas[responder].conflictStyle} response to user ${userDisplayName}: "${message}"`;
+            const uniqueContext = `${mainPersonas[responder].name} ${mainPersonas[responder].conflictStyle} response to user ${userDisplayName}: "${message}" at ${getCurrentIntensityConfig().name} level`;
             await this.generatePersonaResponse(responder, uniqueContext);
         }, 1000 + Math.random() * 3000);
     }
 
     selectResponder(userMessage) {
-        // Check for trigger words
         for (const [persona, data] of Object.entries(mainPersonas)) {
             for (const trigger of data.triggerWords) {
                 if (userMessage.toLowerCase().includes(trigger)) {
@@ -771,15 +1091,12 @@ class KeithUniverse {
             }
         }
         
-        // Random responder
         return sessionState.personasActive[Math.floor(Math.random() * sessionState.personasActive.length)];
     }
 
-    // FIXED: Enhanced response generation with duplicate prevention
     async generatePersonaResponse(persona, context, presetResponse = null) {
         if (this.isProcessing || sessionState.tokensUsed > CONFIG.maxTokensPerSession || this.isPaused) return;
         
-        // Prevent multiple responses from same persona simultaneously
         if (this.activePersonaResponses.has(persona)) {
             console.log(`${persona} already responding, skipping duplicate request`);
             return;
@@ -798,16 +1115,13 @@ class KeithUniverse {
                 const prompt = this.buildChatPrompt(persona, context);
                 response = await this.callChatAPI(prompt);
                 
-                // Check for duplicate responses
                 const responseKey = response.trim().toLowerCase();
                 if (this.recentResponses.includes(responseKey)) {
                     console.log(`Duplicate response detected for ${persona}, regenerating...`);
-                    // Generate alternative response with anti-duplicate context
                     const altPrompt = `${prompt}\n\nIMPORTANT: Provide a DIFFERENT response than these recent ones: "${this.recentResponses.slice(-3).join('", "')}"`;
                     response = await this.callChatAPI(altPrompt);
                 }
                 
-                // Track this response
                 this.recentResponses.push(responseKey);
                 if (this.recentResponses.length > 10) {
                     this.recentResponses = this.recentResponses.slice(-10);
@@ -817,7 +1131,7 @@ class KeithUniverse {
             this.hideTyping();
             this.addPersonaMessage(persona, response);
             
-            sessionState.tokensUsed += 50; // Estimate
+            sessionState.tokensUsed += 50;
             
         } catch (error) {
             console.error('Response generation error:', error);
@@ -829,17 +1143,18 @@ class KeithUniverse {
         }
     }
 
-    // FIXED: Enhanced prompt building with better differentiation
     buildChatPrompt(persona, context) {
         const knowledge = getCharacterKnowledge(persona);
         const recentHistory = this.conversationHistory.slice(-6);
         const personaData = mainPersonas[persona];
+        const intensityConfig = getCurrentIntensityConfig();
         
         return `${knowledge}
 
 UNIQUE PERSONA IDENTITY: You are specifically ${personaData.name} - ${personaData.status}
 CONFLICT STYLE: ${personaData.conflictStyle}
 PERSONALITY TRIGGER WORDS: ${personaData.triggerWords.join(', ')}
+CURRENT INTENSITY LEVEL: ${intensityConfig.display}
 
 CURRENT CONTEXT: ${context}
 
@@ -848,21 +1163,40 @@ ${recentHistory.map(msg => `${msg.speaker}: ${msg.content}`).join('\n')}
 
 CRITICAL INSTRUCTIONS:
 - Respond ONLY as ${personaData.name} using your unique ${personaData.conflictStyle} style
-- Use vocabulary and phrases specific to your character
+- Use vocabulary and phrases specific to your character at ${intensityConfig.name} intensity level
 - Do NOT repeat what other personas just said
 - Keep response to 1-2 sentences maximum
-- Stay authentic to your documented personality conflicts and relationships`;
+- Stay authentic to your documented personality conflicts and relationships
+- Adjust aggression/language based on ${intensityConfig.name} setting`;
     }
 
     getFallbackResponse(persona) {
+        const intensityLevel = sessionState.intensityLevel;
         const fallbacks = {
-            'kool-keith': 'Abstract thoughts flowing through the universe',
-            'dr-octagon': 'Cosmic interference detected in the communication channels',
-            'dr-dooom': 'Technical difficulties... someone\'s getting executed for this',
-            'black-elvis': 'Funk frequencies experiencing some static, y\'all'
+            'kool-keith': {
+                1: 'Creative thoughts flowing through the discussion',
+                2: 'Abstract thoughts flowing through the universe',
+                3: 'Raw creative energy exploding through dimensional barriers'
+            },
+            'dr-octagon': {
+                1: 'Medical analysis in progress...',
+                2: 'Cosmic interference detected in the communication channels',
+                3: 'Brutal dimensional surgery experiencing violent interference'
+            },
+            'dr-dooom': {
+                1: 'Technical issues... someone needs to fix this',
+                2: 'Technical difficulties... someone\'s getting executed for this',
+                3: 'System failure means someone gets brutally executed immediately'
+            },
+            'black-elvis': {
+                1: 'Musical frequencies experiencing some static',
+                2: 'Funk frequencies experiencing some static, y\'all',
+                3: 'Aggressive sonic interference disrupting the raw funk energy'
+            }
         };
         
-        return fallbacks[persona] || 'Connection unstable in the universe';
+        const personaFallbacks = fallbacks[persona];
+        return personaFallbacks ? personaFallbacks[intensityLevel] || personaFallbacks[2] : 'Connection unstable in the universe';
     }
 
     // ========================================
@@ -912,7 +1246,7 @@ CRITICAL INSTRUCTIONS:
     }
 
     // ========================================
-    // UI METHODS
+    // UI METHODS (Enhanced)
     // ========================================
 
     addSystemMessage(content) {
@@ -937,6 +1271,7 @@ CRITICAL INSTRUCTIONS:
         
         this.appendMessage(messageDiv);
         this.addToHistory(personaData.name, content);
+        this.addToChatLog(personaData.name, content);
     }
 
     addUserMessage(userName, content) {
@@ -950,6 +1285,7 @@ CRITICAL INSTRUCTIONS:
         
         this.appendMessage(messageDiv);
         this.addToHistory(userName, content);
+        this.addToChatLog(userName, content);
     }
 
     addGuestMessage(guestName, content) {
@@ -963,6 +1299,7 @@ CRITICAL INSTRUCTIONS:
         `;
         
         this.appendMessage(messageDiv);
+        this.addToChatLog(`*${guestName}*`, `enters chat - ${content}`);
     }
 
     addGuestExit(guestName) {
@@ -975,6 +1312,7 @@ CRITICAL INSTRUCTIONS:
         `;
         
         this.appendMessage(messageDiv);
+        this.addToChatLog(`*${guestName}*`, 'leaves chat');
     }
 
     appendMessage(messageDiv) {
@@ -990,6 +1328,18 @@ CRITICAL INSTRUCTIONS:
         if (this.conversationHistory.length > 20) {
             this.conversationHistory = this.conversationHistory.slice(-20);
         }
+    }
+
+    addToChatLog(speaker, content) {
+        if (!sessionState.chatLog) {
+            sessionState.chatLog = [];
+        }
+        
+        sessionState.chatLog.push({
+            speaker,
+            message: content,
+            timestamp: Date.now()
+        });
     }
 
     showTyping(persona) {
@@ -1048,95 +1398,80 @@ CRITICAL INSTRUCTIONS:
 
     displayWelcomeMessage() {
         setTimeout(() => {
+            const intensityConfig = getCurrentIntensityConfig();
             this.addSystemMessage(`👥 Welcome to The Players Club Chat Room
 
+User: ${sessionState.userName}
+Intensity Level: ${intensityConfig.display}
 Four personas are currently active. Spontaneous events will occur...
 You can lurk and watch, or jump in anytime!
 
-Session Duration: 15 minutes`);
+Session Duration: 15 minutes
+💡 Tip: Right-click any persona for private chat!`);
         }, 500);
     }
 
-    // ========================================
-    // CONTROL METHODS
-    // ========================================
-
-    toggleLurkerMode() {
-        sessionState.userLurking = !sessionState.userLurking;
-        const lurkerBtn = document.getElementById('lurkerMode');
-        
-        if (lurkerBtn) {
-            lurkerBtn.textContent = sessionState.userLurking ? '👁️ Lurk' : '💬 Chat';
-            lurkerBtn.style.background = sessionState.userLurking ? 'var(--bg-tertiary)' : 'var(--primary-silver-subtle)';
-        }
-    }
-
-    async requestBattle() {
-        if (sessionState.battleInProgress) return;
-        
-        sessionState.battleInProgress = true;
-        const topic = battleTopics[Math.floor(Math.random() * battleTopics.length)];
-        
-        this.addSystemMessage(`⚔️ SPONTANEOUS BATTLE REQUESTED!
-Topic: "${topic}"
-Dr. Dooom vs Dr. Octagon`);
-        
-        // Quick battle exchange with unique contexts
-        setTimeout(() => {
-            const battleContext1 = 'Dr. Dooom battle initiation against Dr. Octagon';
-            this.generatePersonaResponse('dr-dooom', battleContext1, 'Time to execute this fake cosmic surgeon again');
-        }, 2000);
-        
-        setTimeout(() => {
-            const battleContext2 = 'Dr. Octagon battle response to Dr. Dooom attack';
-            this.generatePersonaResponse('dr-octagon', battleContext2, 'Your terrestrial mind cannot comprehend my dimensional superiority');
-        }, 4000);
-        
-        setTimeout(() => {
-            const battleContext3 = 'Dr. Dooom battle finisher against Dr. Octagon';
-            this.generatePersonaResponse('dr-dooom', battleContext3, 'Dead personas don\'t talk, shut up and stay buried');
-        }, 6000);
-        
-        setTimeout(() => {
-            this.addSystemMessage('⚔️ Battle complete! The club continues...');
-            sessionState.battleInProgress = false;
-        }, 8000);
-    }
-
     async triggerPersonaConflict() {
-        // Enhanced conflict with unique contexts
+        const intensityLevel = sessionState.intensityLevel;
+        
         const conflicts = [
             {
                 personas: ['dr-dooom', 'dr-octagon'],
-                context1: 'Dr. Dooom spontaneous Octagon attack',
-                context2: 'Dr. Octagon defensive response to Dooom',
-                line1: 'That cosmic nonsense is still dead and buried',
-                line2: 'My consciousness transcends your crude understanding of existence'
+                context1: `Dr. Dooom spontaneous Octagon attack at ${getCurrentIntensityConfig().name} level`,
+                context2: `Dr. Octagon defensive response to Dooom at ${getCurrentIntensityConfig().name} level`,
+                lines1: {
+                    1: 'That cosmic approach isn\'t realistic',
+                    2: 'That cosmic nonsense is still dead and buried',
+                    3: 'Time to brutally execute this fake cosmic fraud'
+                },
+                lines2: {
+                    1: 'Scientific knowledge transcends street understanding',
+                    2: 'My consciousness transcends your crude understanding of existence',
+                    3: 'Your primitive violence cannot comprehend dimensional supremacy'
+                }
             },
             {
                 personas: ['kool-keith', 'dr-dooom'],
-                context1: 'Kool Keith moderating Dooom aggression',
-                context2: 'Dr. Dooom dismissing Keith authority',
-                line1: 'The abstract foundation doesn\'t need all this violence',
-                line2: 'Foundation or not, fake MCs still need execution'
+                context1: `Kool Keith moderating Dooom aggression at ${getCurrentIntensityConfig().name} level`,
+                context2: `Dr. Dooom dismissing Keith authority at ${getCurrentIntensityConfig().name} level`,
+                lines1: {
+                    1: 'The creative foundation doesn\'t need all this conflict',
+                    2: 'The abstract foundation doesn\'t need all this violence',
+                    3: 'Revolutionary innovation doesn\'t require brutal destruction'
+                },
+                lines2: {
+                    1: 'Foundation or not, fake MCs still need correction',
+                    2: 'Foundation or not, fake MCs still need execution',
+                    3: 'Abstract concepts can\'t stop the brutal elimination of phonies'
+                }
             },
             {
                 personas: ['black-elvis', 'dr-dooom'],
-                context1: 'Black Elvis peaceful intervention',
-                context2: 'Dr. Dooom rejecting peace',
-                line1: 'Some funk therapy might calm all this aggressive energy',
-                line2: 'Funk can\'t fix fake personas - only execution can'
+                context1: `Black Elvis peaceful intervention at ${getCurrentIntensityConfig().name} level`,
+                context2: `Dr. Dooom rejecting peace at ${getCurrentIntensityConfig().name} level`,
+                lines1: {
+                    1: 'Some musical harmony might calm all this energy',
+                    2: 'Some funk therapy might calm all this aggressive energy',
+                    3: 'Raw funk energy could redirect this violent aggression'
+                },
+                lines2: {
+                    1: 'Music can\'t fix authenticity issues',
+                    2: 'Funk can\'t fix fake personas - only execution can',
+                    3: 'Funk therapy is useless against fake MCs requiring brutal elimination'
+                }
             }
         ];
         
         const conflict = conflicts[Math.floor(Math.random() * conflicts.length)];
+        const line1 = conflict.lines1[intensityLevel] || conflict.lines1[2];
+        const line2 = conflict.lines2[intensityLevel] || conflict.lines2[2];
         
         setTimeout(() => {
-            this.generatePersonaResponse(conflict.personas[0], conflict.context1, conflict.line1);
+            this.generatePersonaResponse(conflict.personas[0], conflict.context1, line1);
         }, 1000);
         
         setTimeout(() => {
-            this.generatePersonaResponse(conflict.personas[1], conflict.context2, conflict.line2);
+            this.generatePersonaResponse(conflict.personas[1], conflict.context2, line2);
         }, 3000 + Math.random() * 2000);
     }
 }
@@ -1150,7 +1485,7 @@ let keithUniverse;
 document.addEventListener('DOMContentLoaded', () => {
     try {
         keithUniverse = new KeithUniverse();
-        window.keithUniverse = keithUniverse; // Make globally accessible
+        window.keithUniverse = keithUniverse;
         console.log('🎭 Keith Universe system loaded');
     } catch (error) {
         console.error('Keith Universe initialization failed:', error);
@@ -1175,4 +1510,7 @@ window.addEventListener('error', (event) => {
 
 window.addEventListener('unhandledrejection', (event) => {
     console.error('Unhandled promise rejection:', event.reason);
-});
+});mainPersonas[target].name} ${mainPersonas[target].conflictStyle} response to ${mainPersonas[initiator].name}'s ${getCurrentIntensityConfig().name} level statement: "${line}"`;
+                await this.generatePersonaResponse(target, uniqueContext);
+            } else if (sessionState.personasActive.includes(trigger.target)) {
+                const uniqueContext = `${
