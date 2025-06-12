@@ -1,314 +1,363 @@
 /* ========================================
-   KEITHGPT v9 - MAIN APPLICATION LOGIC
+   KEITH STUDIO - INNER UNIVERSE CHAT ROOM
    ======================================== */
 
-class KeithGPT {
+class KeithUniverse {
     constructor() {
-        this.init();
+        this.sessionTimer = null;
+        this.autoEventTimer = null;
+        this.isProcessing = false;
+        this.conversationHistory = [];
+        this.guestAppearanceTimer = null;
     }
 
-    init() {
+    // ========================================
+    // INITIALIZATION
+    // ========================================
+
+    initializeUniverse() {
         this.setupEventListeners();
-        this.updatePersonaUI();
-        this.resetConversation();
-        console.log('KeithGPT v9 Bulletproof Edition initialized');
+        this.startSession();
+        this.displayWelcomeMessage();
+        this.startAutoEvents();
+        console.log('🎭 Keith\'s Inner Universe activated');
     }
-
-    // ========================================
-    // UTILITY METHODS
-    // ========================================
-
-    getElement(id) {
-        return document.getElementById(id);
-    }
-
-    safeSetText(id, text) {
-        const el = this.getElement(id);
-        if (el) el.textContent = text;
-    }
-
-    safeSetSrc(id, src) {
-        const el = this.getElement(id);
-        if (el) el.src = src;
-    }
-
-    safeToggleClass(id, className, condition) {
-        const el = this.getElement(id);
-        if (el) el.classList.toggle(className, condition);
-    }
-
-    showError(message, duration = 5000) {
-        const errorEl = this.getElement('errorMessage');
-        if (errorEl) {
-            errorEl.textContent = `⚠️ ${message}`;
-            errorEl.classList.add('active');
-            setTimeout(() => errorEl.classList.remove('active'), duration);
-        }
-    }
-
-    hideError() {
-        this.safeToggleClass('errorMessage', 'active', false);
-    }
-
-    // ========================================
-    // EVENT LISTENERS SETUP
-    // ========================================
 
     setupEventListeners() {
-        // Mode buttons
-        const chatModeBtn = this.getElement('chatModeBtn');
-        const battleModeBtn = this.getElement('battleModeBtn');
-        if (chatModeBtn) chatModeBtn.addEventListener('click', () => this.setMode('chat'));
-        if (battleModeBtn) battleModeBtn.addEventListener('click', () => this.setMode('battle'));
-
-        // Persona dropdown
-        const personaSelected = this.getElement('personaSelected');
-        if (personaSelected) personaSelected.addEventListener('click', () => this.togglePersonaDropdown());
-
-        // Battle controls
-        const startBattleBtn = this.getElement('startBattleBtn');
-        if (startBattleBtn) startBattleBtn.addEventListener('click', () => this.startBattle());
-
-        const battleSelected1 = this.getElement('battleSelected1');
-        const battleSelected2 = this.getElement('battleSelected2');
-        if (battleSelected1) battleSelected1.addEventListener('click', () => this.toggleBattleDropdown(1));
-        if (battleSelected2) battleSelected2.addEventListener('click', () => this.toggleBattleDropdown(2));
-
-        // Main controls
-        const sendBtn = this.getElement('sendBtn');
-        const newChatBtn = this.getElement('newChatBtn');
-        const mobileToggle = this.getElement('mobileToggle');
-        const mobileOverlay = this.getElement('mobileOverlay');
-
-        if (sendBtn) sendBtn.addEventListener('click', () => this.sendMessage());
-        if (newChatBtn) newChatBtn.addEventListener('click', () => this.resetConversation());
-        if (mobileToggle) mobileToggle.addEventListener('click', () => this.toggleMobile());
-        if (mobileOverlay) mobileOverlay.addEventListener('click', () => this.closeMobile());
-
-        // Persona options
-        document.querySelectorAll('.persona-option').forEach(option => {
-            option.addEventListener('click', () => this.switchCharacter(option.dataset.character));
-        });
-
-        // Battle options
-        document.querySelectorAll('#battleDropdown1 .battle-option').forEach(option => {
-            option.addEventListener('click', () => this.selectBattleFighter(1, option.dataset.character));
-        });
-
-        document.querySelectorAll('#battleDropdown2 .battle-option').forEach(option => {
-            option.addEventListener('click', () => this.selectBattleFighter(2, option.dataset.character));
-        });
-
-        // Chat input
-        const chatInput = this.getElement('chatInput');
+        // User input
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const userName = document.getElementById('userName');
+        
         if (chatInput) {
             chatInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    this.sendMessage();
+                    this.sendUserMessage();
                 }
             });
-            chatInput.addEventListener('input', () => this.handleInputChange());
+            chatInput.addEventListener('input', () => this.updateSendButton());
+        }
+        
+        if (sendBtn) {
+            sendBtn.addEventListener('click', () => this.sendUserMessage());
         }
 
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('#personaDropdown')) this.closePersonaDropdown();
-            if (!e.target.closest('#battleDropdown1')) this.closeBattleDropdown(1);
-            if (!e.target.closest('#battleDropdown2')) this.closeBattleDropdown(2);
+        // Control buttons
+        const lurkerBtn = document.getElementById('lurkerMode');
+        const battleBtn = document.getElementById('requestBattle');
+        const newSessionBtn = document.getElementById('newSession');
+
+        if (lurkerBtn) lurkerBtn.addEventListener('click', () => this.toggleLurkerMode());
+        if (battleBtn) battleBtn.addEventListener('click', () => this.requestBattle());
+        if (newSessionBtn) newSessionBtn.addEventListener('click', () => this.startNewSession());
+    }
+
+    // ========================================
+    // SESSION MANAGEMENT
+    // ========================================
+
+    startSession() {
+        sessionState.startTime = Date.now();
+        sessionState.tokensUsed = 0;
+        sessionState.userLurking = true;
+        
+        this.startSessionTimer();
+        this.updateSessionDisplay();
+    }
+
+    startSessionTimer() {
+        this.sessionTimer = setInterval(() => {
+            const elapsed = Date.now() - sessionState.startTime;
+            const remaining = CONFIG.sessionDuration - elapsed;
+            
+            if (remaining <= 0) {
+                this.endSession();
+                return;
+            }
+            
+            this.updateSessionDisplay(remaining);
+        }, 1000);
+    }
+
+    updateSessionDisplay(remaining = null) {
+        const timerEl = document.getElementById('sessionTimer');
+        if (!timerEl) return;
+        
+        if (remaining === null) {
+            remaining = CONFIG.sessionDuration - (Date.now() - sessionState.startTime);
+        }
+        
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        timerEl.textContent = `Session: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Warning when low on time
+        if (remaining < 60000) { // Last minute
+            timerEl.style.color = 'var(--status-warning)';
+        }
+    }
+
+    endSession() {
+        clearInterval(this.sessionTimer);
+        clearInterval(this.autoEventTimer);
+        clearTimeout(this.guestAppearanceTimer);
+        
+        this.addSystemMessage('🎭 Studio session complete! Thanks for experiencing Keith\'s Inner Universe.\n\nClick "New" to start another session.');
+        
+        // Disable input
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        if (chatInput) chatInput.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
+    }
+
+    startNewSession() {
+        // Reset everything
+        this.clearMessages();
+        sessionState = {
+            startTime: null,
+            tokensUsed: 0,
+            personasActive: ['kool-keith', 'dr-octagon', 'dr-dooom', 'black-elvis'],
+            currentTopic: null,
+            battleInProgress: false,
+            userLurking: true,
+            lastActivity: null
+        };
+        
+        // Re-enable input
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        if (chatInput) {
+            chatInput.disabled = false;
+            chatInput.style.color = 'var(--text-primary)';
+        }
+        if (sendBtn) sendBtn.disabled = false;
+        
+        this.startSession();
+        this.displayWelcomeMessage();
+        this.startAutoEvents();
+    }
+
+    // ========================================
+    // AUTO EVENTS & CONVERSATIONS
+    // ========================================
+
+    startAutoEvents() {
+        // Initial personas enter
+        setTimeout(() => this.personasEnterChat(), 2000);
+        
+        // Start random events
+        this.autoEventTimer = setInterval(() => {
+            this.triggerRandomEvent();
+        }, 15000 + Math.random() * 30000); // Every 15-45 seconds
+        
+        // Guest persona appearances
+        this.scheduleGuestAppearance();
+    }
+
+    async triggerRandomEvent() {
+        if (this.isProcessing || sessionState.battleInProgress) return;
+        
+        const events = [
+            () => this.triggerSpontaneousArgument(),
+            () => this.triggerTopicChange(),
+            () => this.triggerPersonaConflict(),
+            () => this.triggerGuestAppearance()
+        ];
+        
+        const randomEvent = events[Math.floor(Math.random() * events.length)];
+        await randomEvent();
+    }
+
+    async triggerSpontaneousArgument() {
+        const conflicts = Object.keys(conflictTriggers);
+        const conflict = conflicts[Math.floor(Math.random() * conflicts.length)];
+        const trigger = conflictTriggers[conflict];
+        
+        if (Math.random() > trigger.probability) return;
+        
+        const initiator = trigger.initiator;
+        const line = trigger.trigger_lines[Math.floor(Math.random() * trigger.trigger_lines.length)];
+        
+        this.addPersonaMessage(initiator, line);
+        
+        // Target responds
+        setTimeout(async () => {
+            if (trigger.target === 'any') {
+                const targets = sessionState.personasActive.filter(p => p !== initiator);
+                const target = targets[Math.floor(Math.random() * targets.length)];
+                await this.generatePersonaResponse(target, `Responding to ${mainPersonas[initiator].name}'s diss`);
+            } else if (sessionState.personasActive.includes(trigger.target)) {
+                await this.generatePersonaResponse(trigger.target, `Responding to ${mainPersonas[initiator].name}'s attack`);
+            }
+        }, 2000 + Math.random() * 3000);
+    }
+
+    async triggerTopicChange() {
+        const newTopic = chatTopics[Math.floor(Math.random() * chatTopics.length)];
+        sessionState.currentTopic = newTopic;
+        
+        // Random persona brings up the topic
+        const personas = sessionState.personasActive;
+        const speaker = personas[Math.floor(Math.random() * personas.length)];
+        
+        await this.generatePersonaResponse(speaker, `Start discussing: ${newTopic}`);
+    }
+
+    triggerGuestAppearance() {
+        const guestKeys = Object.keys(guestPersonas);
+        const guestKey = guestKeys[Math.floor(Math.random() * guestKeys.length)];
+        const guest = guestPersonas[guestKey];
+        
+        this.addGuestMessage(guest.name, guest.line);
+        
+        // Guest leaves after duration
+        setTimeout(() => {
+            this.addGuestExit(guest.name);
+        }, guest.duration);
+        
+        // Dr. Dooom might diss the guest
+        if (Math.random() < 0.4) {
+            setTimeout(() => {
+                const disses = [
+                    "Who asked for your fake input?",
+                    "Another wannabe persona",
+                    "Stay in your lane"
+                ];
+                const diss = disses[Math.floor(Math.random() * disses.length)];
+                this.addPersonaMessage('dr-dooom', diss);
+            }, 1000 + Math.random() * 2000);
+        }
+    }
+
+    scheduleGuestAppearance() {
+        const delay = 30000 + Math.random() * 60000; // 30-90 seconds
+        this.guestAppearanceTimer = setTimeout(() => {
+            this.triggerGuestAppearance();
+            this.scheduleGuestAppearance(); // Schedule next one
+        }, delay);
+    }
+
+    personasEnterChat() {
+        this.addSystemMessage('🎭 Main personas entering the universe...');
+        
+        const enterMessages = [
+            { persona: 'kool-keith', message: 'Abstract foundation in the building', delay: 1000 },
+            { persona: 'dr-octagon', message: 'Cosmic surgical procedures initiated', delay: 2000 },
+            { persona: 'dr-dooom', message: 'The executioner has arrived', delay: 3000 },
+            { persona: 'black-elvis', message: 'Funk dimension activated, y\'all', delay: 4000 }
+        ];
+        
+        enterMessages.forEach(({ persona, message, delay }) => {
+            setTimeout(() => {
+                this.addPersonaMessage(persona, message);
+            }, delay);
         });
+        
+        // Start natural conversation
+        setTimeout(async () => {
+            await this.generatePersonaResponse('kool-keith', 'Welcome everyone to the universe chat');
+        }, 6000);
     }
 
     // ========================================
-    // MODE MANAGEMENT
+    // MESSAGE HANDLING
     // ========================================
 
-    setMode(mode) {
-        currentMode = mode;
-        this.safeToggleClass('chatModeBtn', 'active', mode === 'chat');
-        this.safeToggleClass('battleModeBtn', 'active', mode === 'battle');
+    async sendUserMessage() {
+        const chatInput = document.getElementById('chatInput');
+        const userName = document.getElementById('userName');
+        
+        if (!chatInput || this.isProcessing) return;
+        
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        const userDisplayName = userName?.value.trim() || 'User';
+        sessionState.userLurking = false;
+        
+        this.addUserMessage(userDisplayName, message);
+        chatInput.value = '';
+        this.updateSendButton();
+        
+        // Random persona responds
+        setTimeout(async () => {
+            const responder = this.selectResponder(message);
+            await this.generatePersonaResponse(responder, `Responding to ${userDisplayName}: ${message}`);
+        }, 1000 + Math.random() * 3000);
+    }
 
-        const chatSection = this.getElement('chatPersonaSection');
-        if (chatSection) chatSection.style.display = mode === 'chat' ? 'block' : 'none';
-
-        this.safeToggleClass('battleSection', 'active', mode === 'battle');
-
-        if (mode === 'chat') {
-            battleState.active = false;
-            this.safeToggleClass('battleStatus', 'active', false);
+    selectResponder(userMessage) {
+        // Check for trigger words
+        for (const [persona, data] of Object.entries(mainPersonas)) {
+            for (const trigger of data.triggerWords) {
+                if (userMessage.toLowerCase().includes(trigger)) {
+                    return persona;
+                }
+            }
         }
-
-        this.resetConversation();
+        
+        // Random responder
+        return sessionState.personasActive[Math.floor(Math.random() * sessionState.personasActive.length)];
     }
 
-    // ========================================
-    // PERSONA MANAGEMENT
-    // ========================================
-
-    togglePersonaDropdown() {
-        this.safeToggleClass('personaDropdown', 'open');
-    }
-
-    closePersonaDropdown() {
-        this.safeToggleClass('personaDropdown', 'open', false);
-    }
-
-    switchCharacter(character) {
-        if (!characterData[character]) return;
-
-        currentCharacter = character;
-
-        document.querySelectorAll('.persona-option').forEach(option => {
-            option.classList.toggle('active', option.dataset.character === character);
-        });
-
-        this.updatePersonaUI();
-        this.closePersonaDropdown();
-        this.resetConversation();
-    }
-
-    updatePersonaUI() {
-        const data = characterData[currentCharacter];
-        if (!data) return;
-
-        this.safeSetSrc('selectedAvatar', data.avatar);
-        this.safeSetText('selectedName', data.name);
-        this.safeSetSrc('headerAvatar', data.avatar);
-        this.safeSetText('headerName', data.name);
-        this.safeSetText('headerStatus', data.status);
-        this.safeSetSrc('typingAvatar', data.avatar);
-        this.safeSetText('typingName', data.name);
-
-        const chatInput = this.getElement('chatInput');
-        if (chatInput) chatInput.placeholder = `Message ${data.name}...`;
-    }
-
-    // ========================================
-    // BATTLE MANAGEMENT
-    // ========================================
-
-    toggleBattleDropdown(num) {
-        this.safeToggleClass(`battleDropdown${num}`, 'open');
-        const otherNum = num === 1 ? 2 : 1;
-        this.safeToggleClass(`battleDropdown${otherNum}`, 'open', false);
-    }
-
-    closeBattleDropdown(num) {
-        this.safeToggleClass(`battleDropdown${num}`, 'open', false);
-    }
-
-    selectBattleFighter(num, character) {
-        if (num === 1) battleState.fighter1 = character;
-        else battleState.fighter2 = character;
-
-        const fighterName = character === 'user' ? 'You' : (characterData[character]?.name || character);
-        this.safeSetText(`battleSelected${num}`, fighterName);
-        this.closeBattleDropdown(num);
-    }
-
-    async startBattle() {
-        if (battleState.fighter1 === battleState.fighter2) {
-            alert('Please select different fighters!');
-            return;
-        }
-
-        if (isProcessing) return;
-
-        battleState.active = true;
-        battleState.currentRound = 1;
-        battleState.topic = battleTopics[Math.floor(Math.random() * battleTopics.length)];
-        battleState.nextUp = 'fighter1';
-
-        this.safeToggleClass('battleStatus', 'active', true);
-        this.safeSetText('currentRound', '1');
-        this.resetConversation();
-
-        const fighter1Name = battleState.fighter1 === 'user' ? 'You' : (characterData[battleState.fighter1]?.name || battleState.fighter1);
-        const fighter2Name = battleState.fighter2 === 'user' ? 'You' : (characterData[battleState.fighter2]?.name || battleState.fighter2);
-
-        this.addSystemMessage(`🥊 BATTLE ROYALE: ${fighter1Name} vs ${fighter2Name}\n\nTopic: "${battleState.topic}"\n\n3 rounds of lyrical warfare begins NOW!`);
-
-        setTimeout(() => this.battleLoop(), 1000);
-    }
-
-    async battleLoop() {
-        if (battleState.currentRound > battleState.maxRounds) {
-            this.addSystemMessage('🏆 BATTLE COMPLETE! Both warriors showed incredible skill!');
-            this.safeToggleClass('battleStatus', 'active', false);
-            battleState.active = false;
-            return;
-        }
-
-        const fighter = battleState.nextUp === 'fighter1' ? battleState.fighter1 : battleState.fighter2;
-        const fighterName = fighter === 'user' ? 'You' : (characterData[fighter]?.name || fighter);
-
-        if (fighter === 'user') {
-            this.addSystemMessage(`Your turn! Drop your verse for round ${battleState.currentRound}`);
-            const chatInput = this.getElement('chatInput');
-            if (chatInput) chatInput.placeholder = `Your battle verse for round ${battleState.currentRound}...`;
-            return;
-        }
-
-        this.showTyping(true, fighter);
-
+    async generatePersonaResponse(persona, context) {
+        if (this.isProcessing || sessionState.tokensUsed > CONFIG.maxTokensPerSession) return;
+        
+        this.isProcessing = true;
+        this.showTyping(persona);
+        
         try {
-            const verse = await this.callWithRetry(() => this.callBattleAPI(fighter, battleState.topic, battleState.currentRound));
-            this.showTyping(false);
-            this.addBattleMessage(verse, fighterName, battleState.currentRound);
-            this.advanceBattleState();
-            setTimeout(() => this.battleLoop(), 3000);
+            const prompt = this.buildChatPrompt(persona, context);
+            const response = await this.callChatAPI(prompt);
+            
+            this.hideTyping();
+            this.addPersonaMessage(persona, response);
+            
+            sessionState.tokensUsed += 50; // Estimate
+            
         } catch (error) {
-            console.error('Battle verse error:', error);
-            this.showTyping(false);
-            this.showError('Battle verse failed, retrying...');
-            setTimeout(() => this.battleLoop(), 2000);
+            console.error('Response generation error:', error);
+            this.hideTyping();
+            this.addPersonaMessage(persona, this.getFallbackResponse(persona));
+        } finally {
+            this.isProcessing = false;
         }
     }
 
-    advanceBattleState() {
-        if (battleState.nextUp === 'fighter1') {
-            battleState.nextUp = 'fighter2';
-        } else {
-            battleState.nextUp = 'fighter1';
-            battleState.currentRound++;
-            this.safeSetText('currentRound', battleState.currentRound.toString());
-        }
+    buildChatPrompt(persona, context) {
+        const knowledge = getCharacterKnowledge(persona);
+        const recentHistory = this.conversationHistory.slice(-6);
+        
+        return `${knowledge}
+
+CURRENT CONTEXT: ${context}
+
+RECENT CONVERSATION:
+${recentHistory.map(msg => `${msg.speaker}: ${msg.content}`).join('\n')}
+
+Respond as ${mainPersonas[persona].name} with 1-2 sentences maximum. Keep it conversational and authentic to your personality.`;
+    }
+
+    getFallbackResponse(persona) {
+        const fallbacks = {
+            'kool-keith': 'Abstract thoughts flowing through the universe',
+            'dr-octagon': 'Cosmic interference detected in the communication channels',
+            'dr-dooom': 'Technical difficulties... someone\'s getting executed for this',
+            'black-elvis': 'Funk frequencies experiencing some static, y\'all'
+        };
+        
+        return fallbacks[persona] || 'Connection unstable in the universe';
     }
 
     // ========================================
     // API CALLS
     // ========================================
 
-    async callWithRetry(apiFunction) {
-        let lastError;
-        for (let attempt = 1; attempt <= CONFIG.retryAttempts; attempt++) {
-            try {
-                const result = await apiFunction();
-                this.hideError();
-                return result;
-            } catch (error) {
-                lastError = error;
-                console.warn(`API attempt ${attempt} failed:`, error.message);
-                if (attempt < CONFIG.retryAttempts) {
-                    this.showError(`Connection issue, retrying... (${attempt}/${CONFIG.retryAttempts})`);
-                    await new Promise(resolve => setTimeout(resolve, CONFIG.retryDelay * attempt));
-                }
-            }
-        }
-        throw lastError;
-    }
-
-    async callChatAPI(userMessage) {
+    async callChatAPI(prompt) {
         const apiKey = CONFIG.getApiKey();
         if (!apiKey) throw new Error('API configuration error');
-
-        const characterKnowledge = getCharacterKnowledge(currentCharacter);
-        const prompt = `${characterKnowledge}\n\nBased on the above knowledge, respond to the user as this character. Stay authentic to their documented personality, style, vocabulary, and themes.\n\nUser message: ${userMessage}\n\nResponse as character:`;
-
-        const messages = [
-            { role: 'user', parts: [{ text: prompt }] },
-            ...conversationHistory.slice(-6)
-        ];
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), CONFIG.apiTimeout);
@@ -316,16 +365,14 @@ class KeithGPT {
         try {
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    contents: messages,
+                    contents: [{ role: 'user', parts: [{ text: prompt }] }],
                     generationConfig: {
-                        temperature: 0.8,
+                        temperature: 0.9,
                         topK: 40,
                         topP: 0.95,
-                        maxOutputTokens: 400
+                        maxOutputTokens: 100
                     },
                     safetySettings: [
                         { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
@@ -341,17 +388,7 @@ class KeithGPT {
 
             const data = await response.json();
             if (data.candidates?.[0]?.content) {
-                const aiResponse = data.candidates[0].content.parts[0].text;
-                conversationHistory.push(
-                    { role: 'user', parts: [{ text: userMessage }] },
-                    { role: 'model', parts: [{ text: aiResponse }] }
-                );
-
-                if (conversationHistory.length > 20) {
-                    conversationHistory = conversationHistory.slice(-20);
-                }
-
-                return aiResponse;
+                return data.candidates[0].content.parts[0].text.trim();
             } else {
                 throw new Error('No response content from AI');
             }
@@ -360,157 +397,133 @@ class KeithGPT {
         }
     }
 
-    async callBattleAPI(character, topic, round) {
-        const apiKey = CONFIG.getApiKey();
-        if (!apiKey) throw new Error('API configuration error');
-
-        const characterName = characterData[character]?.name || character;
-        const prompt = `CRITICAL: DO NOT start with "Yo, check the mic" or "one two" or "this ain't no" - BANNED PHRASES!\n\nYou are ${characterName}. Write a 4-line rap battle verse with proper rhymes that flows naturally. Start immediately with your authentic character voice.\n\nBattle topic: ${topic}\nRound: ${round}\n\nWrite your verse now:`;
-
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), CONFIG.apiTimeout);
-
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    contents: [{ role: 'user', parts: [{ text: prompt }] }],
-                    generationConfig: {
-                        temperature: 1.0,
-                        topK: 40,
-                        topP: 0.9,
-                        maxOutputTokens: 150
-                    },
-                    safetySettings: [
-                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-                    ]
-                }),
-                signal: controller.signal
-            });
-
-            if (!response.ok) throw new Error(`API Error: ${response.status}`);
-
-            const data = await response.json();
-            if (data.candidates?.[0]?.content) {
-                return data.candidates[0].content.parts[0].text;
-            } else {
-                throw new Error('No battle verse content in API response');
-            }
-        } finally {
-            clearTimeout(timeoutId);
-        }
-    }
-
     // ========================================
-    // MESSAGE HANDLING
-    // ========================================
-
-    async sendMessage() {
-        const chatInput = this.getElement('chatInput');
-        const sendBtn = this.getElement('sendBtn');
-        if (!chatInput || !sendBtn) return;
-
-        const message = chatInput.value.trim();
-        if (!message || sendBtn.disabled || isProcessing) return;
-
-        isProcessing = true;
-        this.addUserMessage(message);
-        chatInput.value = '';
-        this.handleInputChange();
-
-        // Handle battle mode user input
-        if (battleState.active) {
-            const currentFighter = battleState.nextUp === 'fighter1' ? battleState.fighter1 : battleState.fighter2;
-            if (currentFighter === 'user') {
-                this.addBattleMessage(message, 'You', battleState.currentRound);
-                this.advanceBattleState();
-                isProcessing = false;
-                setTimeout(() => this.battleLoop(), 1500);
-                return;
-            }
-        }
-
-        this.showTyping(true);
-
-        try {
-            const response = await this.callWithRetry(() => this.callChatAPI(message));
-            this.showTyping(false);
-            this.addBotMessage(response);
-        } catch (error) {
-            this.showTyping(false);
-            console.error('Chat API Error:', error);
-            this.showError('Connection failed - please try again');
-            this.addBotMessage("I'm having trouble connecting right now. Please try again in a moment.");
-        } finally {
-            isProcessing = false;
-        }
-    }
-
-    // ========================================
-    // MESSAGE DISPLAY
+    // UI METHODS
     // ========================================
 
     addSystemMessage(content) {
         const messageDiv = document.createElement('div');
-        messageDiv.className = 'message system';
+        messageDiv.className = 'system-message';
         messageDiv.innerHTML = `<div class="message-content">${this.escapeHtml(content)}</div>`;
         this.appendMessage(messageDiv);
     }
 
-    addBattleMessage(content, characterName, round) {
+    addPersonaMessage(persona, content) {
+        const personaData = mainPersonas[persona];
+        if (!personaData) return;
+
         const messageDiv = document.createElement('div');
-        messageDiv.className = 'message battle';
+        messageDiv.className = `message ${persona}`;
         messageDiv.innerHTML = `
-            <div class="battle-header">
-                <span class="battle-round">Round ${round}</span>
-                <span class="battle-character">${this.escapeHtml(characterName)}</span>
+            <img src="${personaData.avatar}" alt="${personaData.name}" class="message-avatar">
+            <div class="message-content">
+                <strong>${personaData.name}:</strong> ${this.escapeHtml(content)}
             </div>
-            <div class="message-content">${this.escapeHtml(content)}</div>
         `;
+        
         this.appendMessage(messageDiv);
+        this.addToHistory(personaData.name, content);
     }
 
-    addUserMessage(content) {
-        const userAvatar = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=';
-        
+    addUserMessage(userName, content) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message user';
         messageDiv.innerHTML = `
-            <img src="${userAvatar}" alt="You" class="message-avatar">
-            <div style="flex: 1;">
-                <div class="message-content">${this.escapeHtml(content)}</div>
+            <div class="message-content">
+                <strong>${this.escapeHtml(userName)}:</strong> ${this.escapeHtml(content)}
             </div>
         `;
+        
+        this.appendMessage(messageDiv);
+        this.addToHistory(userName, content);
+    }
+
+    addGuestMessage(guestName, content) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message guest';
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <em>*${this.escapeHtml(guestName)} enters*</em><br>
+                <strong>${this.escapeHtml(guestName)}:</strong> ${this.escapeHtml(content)}
+            </div>
+        `;
+        
         this.appendMessage(messageDiv);
     }
 
-    addBotMessage(content) {
-        const data = characterData[currentCharacter];
-        if (data) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message bot';
-            messageDiv.innerHTML = `
-                <img src="${data.avatar}" alt="${data.name}" class="message-avatar">
-                <div style="flex: 1;">
-                    <div class="message-content">${this.escapeHtml(content)}</div>
-                </div>
-            `;
-            this.appendMessage(messageDiv);
-        }
+    addGuestExit(guestName) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message guest';
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <em>*${this.escapeHtml(guestName)} has left the universe*</em>
+            </div>
+        `;
+        
+        this.appendMessage(messageDiv);
     }
 
     appendMessage(messageDiv) {
-        const chatMessages = this.getElement('chatMessages');
+        const chatMessages = document.getElementById('chatMessages');
         if (chatMessages) {
             chatMessages.appendChild(messageDiv);
             this.scrollToBottom();
         }
+    }
+
+    addToHistory(speaker, content) {
+        this.conversationHistory.push({ speaker, content });
+        if (this.conversationHistory.length > 20) {
+            this.conversationHistory = this.conversationHistory.slice(-20);
+        }
+    }
+
+    showTyping(persona) {
+        const typingArea = document.getElementById('typingArea');
+        if (!typingArea) return;
+        
+        const personaData = mainPersonas[persona];
+        typingArea.innerHTML = `
+            <div class="typing-indicator">
+                <img src="${personaData.avatar}" alt="${personaData.name}">
+                <span>${personaData.name} is thinking...</span>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    hideTyping() {
+        const typingArea = document.getElementById('typingArea');
+        if (typingArea) typingArea.innerHTML = '';
+    }
+
+    updateSendButton() {
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        if (chatInput && sendBtn) {
+            const hasText = chatInput.value.trim().length > 0;
+            sendBtn.disabled = !hasText || this.isProcessing;
+        }
+    }
+
+    scrollToBottom() {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 100);
+        }
+    }
+
+    clearMessages() {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) chatMessages.innerHTML = '';
+        this.conversationHistory = [];
     }
 
     escapeHtml(text) {
@@ -519,95 +532,69 @@ class KeithGPT {
         return div.innerHTML;
     }
 
-    // ========================================
-    // UI HELPERS
-    // ========================================
+    displayWelcomeMessage() {
+        setTimeout(() => {
+            this.addSystemMessage(`🎭 Welcome to Keith's Inner Universe Chat Room
 
-    showTyping(show = true, character = null) {
-        const typingIndicator = this.getElement('typingIndicator');
-        if (typingIndicator) {
-            typingIndicator.style.display = show ? 'flex' : 'none';
-            
-            if (show && character && characterData[character]) {
-                this.safeSetSrc('typingAvatar', characterData[character].avatar);
-                this.safeSetText('typingName', characterData[character].name);
-            }
-            
-            if (show) this.scrollToBottom();
-        }
-    }
+Four personas are currently active. Spontaneous events will occur...
+You can lurk and watch, or jump in anytime!
 
-    scrollToBottom() {
-        const chatMessages = this.getElement('chatMessages');
-        if (chatMessages) {
-            setTimeout(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 100);
-        }
-    }
-
-    handleInputChange() {
-        const chatInput = this.getElement('chatInput');
-        const sendBtn = this.getElement('sendBtn');
-        if (chatInput && sendBtn) {
-            const hasText = chatInput.value.trim().length > 0;
-            sendBtn.disabled = !hasText || isProcessing;
-        }
-    }
-
-    resetConversation() {
-        conversationHistory = [];
-        const chatMessages = this.getElement('chatMessages');
-        if (chatMessages) chatMessages.innerHTML = '';
-
-        if (currentMode === 'chat') {
-            const data = characterData[currentCharacter];
-            if (data) {
-                const welcomeMessage = `Yo, what's good? ${data.name} here - ready to chat! KeithGPT v9 Bulletproof Edition is loaded with enhanced knowledge.`;
-                this.addBotMessage(welcomeMessage);
-            }
-        }
-
-        battleState.active = false;
-        this.safeToggleClass('battleStatus', 'active', false);
-
-        const chatInput = this.getElement('chatInput');
-        const data = characterData[currentCharacter];
-        if (chatInput && data) {
-            chatInput.placeholder = `Message ${data.name}...`;
-        }
+Session Duration: 15 minutes`);
+        }, 500);
     }
 
     // ========================================
-    // MOBILE SUPPORT
+    // CONTROL METHODS
     // ========================================
 
-    toggleMobile() {
-        this.safeToggleClass('sidebar', 'open');
-        this.safeToggleClass('mobileOverlay', 'show');
+    toggleLurkerMode() {
+        sessionState.userLurking = !sessionState.userLurking;
+        const lurkerBtn = document.getElementById('lurkerMode');
+        
+        if (lurkerBtn) {
+            lurkerBtn.textContent = sessionState.userLurking ? '👁️ Lurk' : '💬 Chat';
+            lurkerBtn.style.background = sessionState.userLurking ? 'var(--bg-tertiary)' : 'var(--primary-silver-subtle)';
+        }
     }
 
-    closeMobile() {
-        this.safeToggleClass('sidebar', 'open', false);
-        this.safeToggleClass('mobileOverlay', 'show', false);
+    async requestBattle() {
+        if (sessionState.battleInProgress) return;
+        
+        sessionState.battleInProgress = true;
+        const topic = battleTopics[Math.floor(Math.random() * battleTopics.length)];
+        
+        this.addSystemMessage(`⚔️ SPONTANEOUS BATTLE REQUESTED!
+Topic: "${topic}"
+Dr. Dooom vs Dr. Octagon`);
+        
+        // Quick battle exchange
+        setTimeout(() => this.addPersonaMessage('dr-dooom', 'Time to execute this fake cosmic surgeon again'), 2000);
+        setTimeout(() => this.addPersonaMessage('dr-octagon', 'Your terrestrial mind cannot comprehend my dimensional superiority'), 4000);
+        setTimeout(() => this.addPersonaMessage('dr-dooom', 'Dead personas don\'t talk, shut up and stay buried'), 6000);
+        setTimeout(() => {
+            this.addSystemMessage('⚔️ Battle complete! The universe continues...');
+            sessionState.battleInProgress = false;
+        }, 8000);
     }
 }
 
 // ========================================
-// APPLICATION INITIALIZATION
+// INITIALIZATION
 // ========================================
 
-let app;
+let keithUniverse;
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        app = new KeithGPT();
+        keithUniverse = new KeithUniverse();
+        window.keithUniverse = keithUniverse; // Make globally accessible
+        console.log('🎭 Keith Universe system loaded');
     } catch (error) {
-        console.error('KeithGPT initialization failed:', error);
+        console.error('Keith Universe initialization failed:', error);
         document.body.innerHTML = `
-            <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #0a0a0a; color: #fff; font-family: Arial, sans-serif;">
+            <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #1A1A1A; color: #fff; font-family: Arial, sans-serif;">
                 <div style="text-align: center;">
-                    <h1 style="color: #ffd700;">KeithGPT Failed to Load</h1>
+                    <h1 style="color: #C0C0C0;">Keith Studio Failed to Load</h1>
                     <p>Please refresh the page</p>
                 </div>
             </div>
@@ -616,32 +603,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ========================================
-// MOBILE VIEWPORT HANDLING
-// ========================================
-
-function handleViewportChange() {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-window.addEventListener('resize', handleViewportChange);
-window.addEventListener('orientationchange', handleViewportChange);
-handleViewportChange();
-
-// ========================================
 // ERROR HANDLING
 // ========================================
 
 window.addEventListener('error', (event) => {
     console.error('Global error:', event.error);
-    if (app && app.showError) {
-        app.showError('Something went wrong - please refresh if issues persist');
-    }
 });
 
 window.addEventListener('unhandledrejection', (event) => {
     console.error('Unhandled promise rejection:', event.reason);
-    if (app && app.showError) {
-        app.showError('Network error - please check your connection');
-    }
 });
