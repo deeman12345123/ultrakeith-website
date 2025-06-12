@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>KeithGPT v9 - AI Chat Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Entry Overlay Screen -->
+    <div class="entry-overlay" id="entryOverlay">
+        <div class="entry-content">
+            <h1 class="entry-title">KEITHGPT</h1>
+            <img src="aikeith.png" alt="AI Keith" class="entry-logo" onerror="this.style.display='none'">
+            <p class="entry-subtitle">Galaxy Persona Transformer</p>
+            <p class="entry-disclaimer">Entertainment purposes only. All responses are AI-generated and may not reflect actual views.</p>
+            <button class="entry-btn" onclick="enterKeithGPT()">Enter KeithGPT</button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">KEITHGPT</div>
+                <div class="version">v9 - Bulletproof Edition</div>
+                <button class="new-chat-btn" id="newChatBtn">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+                    New Chat
+                </button>
+            </div>
+
+            <!-- Chat Mode Toggle -->
+            <div class="mode-section">
+                <div class="section-title">Chat Mode</div>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="chatModeBtn">Chat</button>
+                    <button class="mode-btn" id="battleModeBtn">Battle</button>
+                </div>
+            </div>
+
+            <!-- Persona Selection (Chat Mode) -->
+            <div class="persona-section" id="chatPersonaSection">
+                <div class="section-title">AI Persona</div>
+                <div class="persona-dropdown" id="personaDropdown">
+                    <div class="persona-selected" id="personaSelected">
+                        <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true" alt="Kool Keith" class="persona-avatar" id="selectedAvatar">
+                        <div class="persona-info">
+                            <div class="persona-name" id="selectedName">Kool Keith</div>
+                            <div class="persona-status">Abstract innovator</div>
+                        </div>
+                        <svg class="dropdown-arrow" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </div>
+                    <div class="persona-options" id="personaOptions">
+                        <div class="persona-option active" data-character="kool-keith">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true" alt="Kool Keith" class="persona-avatar">
+                            <div class="persona-info">
+                                <div class="persona-name">Kool Keith</div>
+                                <div class="persona-status">Abstract innovator</div>
+                            </div>
+                        </div>
+                        <div class="persona-option" data-character="dr-octagon">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true" alt="Dr. Octagon" class="persona-avatar">
+                            <div class="persona-info">
+                                <div class="persona-name">Dr. Octagon</div>
+                                <div class="persona-status">Cosmic surgeon</div>
+                            </div>
+                        </div>
+                        <div class="persona-option" data-character="dr-dooom">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true" alt="Dr. Dooom" class="persona-avatar">
+                            <div class="persona-info">
+                                <div class="persona-name">Dr. Dooom</div>
+                                <div class="persona-status">Industry executioner</div>
+                            </div>
+                        </div>
+                        <div class="persona-option" data-character="black-elvis">
+                            <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true" alt="Black Elvis" class="persona-avatar">
+                            <div class="persona-info">
+                                <div class="persona-name">Black Elvis</div>
+                                <div class="persona-status">Funk master</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Battle Setup (Battle Mode) -->
+            <div class="battle-section" id="battleSection">
+                <div class="section-title">Battle Setup</div>
+                <div class="battle-controls">
+                    <div class="battle-dropdowns">
+                        <div class="battle-dropdown" id="battleDropdown1">
+                            <div class="battle-selected" id="battleSelected1">Kool Keith</div>
+                            <div class="battle-options">
+                                <div class="battle-option" data-character="kool-keith">Kool Keith</div>
+                                <div class="battle-option" data-character="dr-octagon">Dr. Octagon</div>
+                                <div class="battle-option" data-character="dr-dooom">Dr. Dooom</div>
+                                <div class="battle-option" data-character="black-elvis">Black Elvis</div>
+                                <div class="battle-option" data-character="user">You</div>
+                            </div>
+                        </div>
+                        <div class="battle-vs">VS</div>
+                        <div class="battle-dropdown" id="battleDropdown2">
+                            <div class="battle-selected" id="battleSelected2">Dr. Octagon</div>
+                            <div class="battle-options">
+                                <div class="battle-option" data-character="kool-keith">Kool Keith</div>
+                                <div class="battle-option" data-character="dr-octagon">Dr. Octagon</div>
+                                <div class="battle-option" data-character="dr-dooom">Dr. Dooom</div>
+                                <div class="battle-option" data-character="black-elvis">Black Elvis</div>
+                                <div class="battle-option" data-character="user">You</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="start-battle-btn" id="startBattleBtn">Start Battle</button>
+                </div>
+            </div>
+
+            <!-- Chat History -->
+            <div class="chat-history" id="chatHistory">
+                <div class="history-header">
+                    <div class="section-title">Recent Chats</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile Overlay -->
+        <div class="mobile-overlay" id="mobileOverlay"></div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Chat Header -->
+            <header class="chat-header">
+                <button class="mobile-toggle" id="mobileToggle">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+                <div class="current-persona">
+                    <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true" alt="Kool Keith" class="header-avatar" id="headerAvatar">
+                    <div class="header-info">
+                        <h3 id="headerName">Kool Keith</h3>
+                        <p id="headerStatus">Abstract innovator</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Status Messages -->
+            <div class="battle-status" id="battleStatus">🥊 Battle in progress... Round <span id="currentRound">1</span> of 3</div>
+            <div class="error-message" id="errorMessage">⚠️ Technical difficulties - trying to reconnect...</div>
+
+            <!-- Chat Messages Area -->
+            <div class="chat-messages" id="chatMessages"></div>
+
+            <!-- Typing Indicator -->
+            <div class="typing-indicator" id="typingIndicator">
+                <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true" alt="Kool Keith" class="message-avatar" id="typingAvatar" style="width:32px;height:32px;">
+                <span id="typingName">Kool Keith</span> is thinking...
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="chat-input-area">
+                <div class="input-container">
+                    <textarea class="chat-input" id="chatInput" placeholder="Message KeithGPT..." rows="1" maxlength="1000"></textarea>
+                    <button class="send-btn" id="sendBtn" disabled>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M15.854.146a.5.5 0 0 1 .11.54L13.026 15.147a.5.5 0 0 1-.925-.234l-1.3-5.98-5.98-1.3a.5.5 0 0 1-.234-.925L15.146.037a.5.5 0 0 1 .708.109z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Load Scripts -->
+    <script src="config.js"></script>
+    <script src="keithgpt.js"></script>
+</body>
+</html>
