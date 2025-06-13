@@ -71,8 +71,8 @@
         .entry-image {
             width: auto;
             height: auto;
-            max-width: 90vw;
-            max-height: 50vh;
+            max-width: 95vw; /* Bigger on all devices */
+            max-height: 70vh; /* Much bigger - 70% of screen height */
             object-fit: contain;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
             animation: entryGlow 3s ease-in-out infinite alternate;
@@ -107,6 +107,23 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            margin: 20px 0;
+        }
+        
+        /* DESKTOP: Sound button in bottom right */
+        .sound-controls-desktop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10001;
+            display: none; /* Hidden by default, shown on desktop */
+        }
+        
+        /* MOBILE: Sound button stays in center flow */
+        .sound-controls-mobile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 20px 0;
         }
         
@@ -565,13 +582,22 @@
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .entry-image {
-                max-width: 85vw;
-                max-height: 35vh;
+                max-width: 90vw;
+                max-height: 60vh; /* Bigger on mobile too */
             }
             
             .entry-text {
-                font-size: 0.9rem;
-                line-height: 1.2;
+                font-size: 1rem; /* Slightly bigger text on mobile */
+                line-height: 1.3;
+            }
+            
+            /* Mobile: Show center sound controls, hide desktop version */
+            .sound-controls-mobile {
+                display: flex;
+            }
+            
+            .sound-controls-desktop {
+                display: none;
             }
             
             .hero {
@@ -635,6 +661,25 @@
         
         /* DESKTOP RESPONSIVE */
         @media (min-width: 768px) {
+            .entry-image {
+                max-width: 95vw;
+                max-height: 75vh; /* HUGE on desktop - 75% of screen height */
+            }
+            
+            .entry-text {
+                font-size: 1.4rem; /* Bigger desktop text */
+                letter-spacing: 2px;
+            }
+            
+            /* Desktop: Show bottom-right sound controls, hide mobile version */
+            .sound-controls-desktop {
+                display: flex;
+            }
+            
+            .sound-controls-mobile {
+                display: none;
+            }
+            
             .nav {
                 height: 80px;
             }
@@ -875,14 +920,22 @@
                 aka Number One Producer
             </div>
             
-            <div class="sound-controls">
-                <button class="sound-toggle" id="soundToggle">
-                    <span id="soundIcon">🔊</span> Sound: ON
+            <!-- MOBILE: Sound controls in center flow -->
+            <div class="sound-controls-mobile">
+                <button class="sound-toggle" id="soundToggleMobile">
+                    <span id="soundIconMobile">🔊</span> Sound: ON
                 </button>
             </div>
             
             <button class="enter-button loading" id="enterButton">
                 Loading...
+            </button>
+        </div>
+        
+        <!-- DESKTOP: Sound controls in bottom right -->
+        <div class="sound-controls-desktop">
+            <button class="sound-toggle" id="soundToggleDesktop">
+                <span id="soundIconDesktop">🔊</span> Sound: ON
             </button>
         </div>
     </div>
@@ -1092,8 +1145,10 @@
         // DOM Elements
         const entryOverlay = document.getElementById('entryOverlay');
         const enterButton = document.getElementById('enterButton');
-        const soundToggle = document.getElementById('soundToggle');
-        const soundIcon = document.getElementById('soundIcon');
+        const soundToggleMobile = document.getElementById('soundToggleMobile');
+        const soundToggleDesktop = document.getElementById('soundToggleDesktop');
+        const soundIconMobile = document.getElementById('soundIconMobile');
+        const soundIconDesktop = document.getElementById('soundIconDesktop');
         const backToTop = document.getElementById('backToTop');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
@@ -1111,19 +1166,36 @@
             }, 3000);
         }
         
-        // Sound toggle
-        soundToggle.addEventListener('click', function() {
+        // Sound toggle function
+        function toggleSound() {
             soundEnabled = !soundEnabled;
-            if (soundEnabled) {
-                soundIcon.textContent = '🔊';
-                soundToggle.innerHTML = '<span id="soundIcon">🔊</span> Sound: ON';
-                soundToggle.classList.remove('muted');
-            } else {
-                soundIcon.textContent = '🔇';
-                soundToggle.innerHTML = '<span id="soundIcon">🔇</span> Sound: OFF';
-                soundToggle.classList.add('muted');
+            const iconText = soundEnabled ? '🔊' : '🔇';
+            const statusText = soundEnabled ? 'ON' : 'OFF';
+            const buttonClass = soundEnabled ? '' : 'muted';
+            
+            // Update mobile button
+            if (soundIconMobile && soundToggleMobile) {
+                soundIconMobile.textContent = iconText;
+                soundToggleMobile.innerHTML = `<span id="soundIconMobile">${iconText}</span> Sound: ${statusText}`;
+                soundToggleMobile.className = soundEnabled ? 'sound-toggle' : 'sound-toggle muted';
             }
-        });
+            
+            // Update desktop button
+            if (soundIconDesktop && soundToggleDesktop) {
+                soundIconDesktop.textContent = iconText;
+                soundToggleDesktop.innerHTML = `<span id="soundIconDesktop">${iconText}</span> Sound: ${statusText}`;
+                soundToggleDesktop.className = soundEnabled ? 'sound-toggle' : 'sound-toggle muted';
+            }
+        }
+        
+        // Sound toggle event listeners
+        if (soundToggleMobile) {
+            soundToggleMobile.addEventListener('click', toggleSound);
+        }
+        
+        if (soundToggleDesktop) {
+            soundToggleDesktop.addEventListener('click', toggleSound);
+        }
         
         // Enter site
         enterButton.addEventListener('click', function() {
