@@ -7,10 +7,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
-        /* ===================
-           CLEAN PROFESSIONAL BUILD
-           =================== */
-        
         :root {
             --gold: #ffd700;
             --gold-light: #ffed4e;
@@ -35,8 +31,236 @@
         }
         
         /* ===================
-           NAVIGATION
+           ENTRY OVERLAY - PROFESSIONAL MUSIC INDUSTRY STANDARD
            =================== */
+        .entry-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-red) 40%, var(--black) 100%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 1;
+            visibility: visible;
+            transition: all 1s ease;
+        }
+        
+        .entry-overlay.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .entry-content {
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .entry-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+            animation: entryGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes entryGlow {
+            0% { 
+                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+                transform: scale(1);
+            }
+            100% { 
+                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 1));
+                transform: scale(1.02);
+            }
+        }
+        
+        .entry-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.4;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .loading-section {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px 0;
+        }
+        
+        .loading-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .loading-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+            background-size: 200% 100%;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s ease;
+            animation: loadingShimmer 2s linear infinite;
+        }
+        
+        @keyframes loadingShimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .loading-percentage {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .sound-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .sound-toggle {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            color: var(--gold);
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .sound-toggle:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold);
+        }
+        
+        .sound-toggle.muted {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .enter-button {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.3;
+            pointer-events: none;
+            min-width: 200px;
+        }
+        
+        .enter-button.ready {
+            opacity: 1;
+            pointer-events: auto;
+            animation: readyPulse 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes readyPulse {
+            0% { 
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            }
+            100% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            }
+        }
+        
+        .enter-button:hover.ready {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* MOBILE RESPONSIVE FOR ENTRY */
+        @media (max-width: 768px) {
+            .entry-content {
+                gap: 25px;
+                padding: 0 20px;
+            }
+            
+            .entry-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .entry-text {
+                font-size: 1rem;
+                line-height: 1.3;
+            }
+            
+            .loading-section {
+                max-width: 300px;
+            }
+            
+            .sound-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .enter-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+                min-width: 180px;
+            }
+        }
+        
+        /* HIDE MAIN CONTENT UNTIL LOADED */
+        body.loading .nav,
+        body.loading .main,
+        body.loading .back-to-top {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* NAVIGATION */
         .nav {
             position: fixed;
             top: 0;
@@ -62,7 +286,7 @@
         }
         
         .nav-logo img {
-            height: 35px; /* Smaller mobile logo */
+            height: 35px;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
         }
         
@@ -92,9 +316,7 @@
             cursor: pointer;
         }
         
-        /* ===================
-           MAIN CONTENT
-           =================== */
+        /* MAIN CONTENT */
         .main {
             padding-top: 70px;
             max-width: 1200px;
@@ -103,16 +325,14 @@
             padding-right: 20px;
         }
         
-        /* ===================
-           HERO SECTION
-           =================== */
+        /* HERO SECTION */
         .hero {
             text-align: center;
             padding: 40px 0 30px;
         }
         
         .hero-logo {
-            max-height: 120px; /* Smaller mobile hero logo */
+            max-height: 120px;
             margin-bottom: 25px;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
         }
@@ -137,9 +357,7 @@
             margin: 0 auto 30px;
         }
         
-        /* ===================
-           RELEASES SECTION - MOBILE FIRST
-           =================== */
+        /* RELEASES SECTION */
         .releases {
             margin: 40px 0;
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(26, 0, 0, 0.4));
@@ -159,30 +377,36 @@
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
-        /* MOBILE CAROUSEL - Industry Standard */
+        /* MOBILE CAROUSEL - STOP AND GO LOGIC */
         .carousel-mobile {
             display: block;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            overflow: hidden;
+            position: relative;
+            height: 280px;
         }
         
-        .carousel-mobile::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .carousel-track {
+        .mobile-track {
             display: flex;
-            gap: 15px;
-            padding: 0 5px 15px;
+            width: 1000%; /* 10 slides total */
+            animation: stopAndGoMobile 30s steps(5, end) infinite; /* STOPS on each album */
         }
         
-        .album-card {
+        @keyframes stopAndGoMobile {
+            0%, 16.66% { transform: translateX(0); }         /* Album 1 - STOP for 5s */
+            20%, 36.66% { transform: translateX(-10%); }     /* Album 2 - STOP for 5s */
+            40%, 56.66% { transform: translateX(-20%); }     /* Album 3 - STOP for 5s */
+            60%, 76.66% { transform: translateX(-30%); }     /* Album 4 - STOP for 5s */
+            80%, 96.66% { transform: translateX(-40%); }     /* Album 5 - STOP for 5s */
+            100% { transform: translateX(0); }               /* Loop back to start */
+        }
+        
+        .mobile-track:hover {
+            animation-play-state: paused; /* Pause on hover */
+        }
+        
+        .mobile-slide {
             flex: 0 0 200px;
-            scroll-snap-align: start;
+            margin-right: 15px;
             background: rgba(0, 0, 0, 0.4);
             border-radius: 12px;
             padding: 15px;
@@ -243,21 +467,12 @@
             transform: translateY(-2px);
         }
         
-        .scroll-hint {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 0.8rem;
-            color: rgba(255, 215, 0, 0.7);
-        }
-        
         /* DESKTOP CAROUSEL - Hidden on Mobile */
         .carousel-desktop {
             display: none;
         }
         
-        /* ===================
-           FEATURE CARDS
-           =================== */
+        /* FEATURE CARDS */
         .features {
             display: grid;
             grid-template-columns: 1fr;
@@ -329,14 +544,12 @@
             border-color: var(--gold);
         }
         
-        /* ===================
-           BACK TO TOP
-           =================== */
+        /* BACK TO TOP */
         .back-to-top {
             position: fixed;
-            bottom: 15px; /* Lower positioning for mobile */
+            bottom: 15px;
             right: 15px;
-            width: 45px; /* Smaller mobile button */
+            width: 45px;
             height: 45px;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
             color: black;
@@ -359,9 +572,7 @@
             transform: translateY(-3px);
         }
         
-        /* ===================
-           FOOTER
-           =================== */
+        /* FOOTER */
         .footer {
             border-top: 1px solid rgba(255, 215, 0, 0.3);
             padding: 30px 0;
@@ -387,21 +598,19 @@
             font-size: 0.8rem;
         }
         
-        /* ===================
-           DESKTOP RESPONSIVE - FILL SCREEN
-           =================== */
+        /* DESKTOP RESPONSIVE */
         @media (min-width: 768px) {
             .nav {
-                height: 80px; /* Taller desktop nav */
+                height: 80px;
             }
             
             .nav-logo img {
-                height: 55px; /* Bigger desktop logo */
+                height: 55px;
             }
             
             .nav-menu {
                 display: flex;
-                font-size: 1.1rem; /* Bigger nav text */
+                font-size: 1.1rem;
             }
             
             .mobile-menu-btn {
@@ -410,38 +619,38 @@
             
             .main {
                 padding-top: 80px;
-                padding-left: 60px; /* More padding for screen fill */
+                padding-left: 60px;
                 padding-right: 60px;
-                max-width: 1400px; /* Wider max width */
+                max-width: 1400px;
             }
             
             .hero {
-                padding: 80px 0 60px; /* More padding */
+                padding: 80px 0 60px;
             }
             
             .hero-logo {
-                max-height: 350px; /* Much bigger desktop logo */
+                max-height: 350px;
                 margin-bottom: 50px;
             }
             
             .hero-title {
-                font-size: 5rem; /* Much bigger title */
+                font-size: 5rem;
                 margin-bottom: 30px;
             }
             
             .hero-subtitle {
-                font-size: 1.5rem; /* Bigger subtitle */
+                font-size: 1.5rem;
                 margin-bottom: 50px;
-                max-width: 1000px; /* Wider text area */
+                max-width: 1000px;
             }
             
             .releases {
-                margin: 80px 0; /* More spacing */
-                padding: 50px; /* More padding */
+                margin: 80px 0;
+                padding: 50px;
             }
             
             .releases-title {
-                font-size: 2.8rem; /* Much bigger title */
+                font-size: 2.8rem;
                 margin-bottom: 50px;
             }
             
@@ -450,34 +659,43 @@
                 display: none;
             }
             
-            .scroll-hint {
-                display: none;
-            }
-            
-            /* SHOW DESKTOP CAROUSEL */
+            /* SHOW DESKTOP CAROUSEL - STOP AND GO */
             .carousel-desktop {
                 display: block;
                 position: relative;
-                height: 500px; /* Taller desktop carousel */
+                height: 500px;
                 overflow: hidden;
             }
             
-            .carousel-container {
+            .desktop-track {
                 display: flex;
-                transition: transform 0.8s ease;
-                height: 100%;
+                width: 500%; /* 5 slides total */
+                animation: stopAndGoDesktop 35s steps(5, end) infinite; /* STOPS on each slide */
+            }
+            
+            @keyframes stopAndGoDesktop {
+                0%, 17% { transform: translateX(0); }         /* Slide 1 - STOP for 6s */
+                20%, 37% { transform: translateX(-20%); }     /* Slide 2 - STOP for 6s */
+                40%, 57% { transform: translateX(-40%); }     /* Slide 3 - STOP for 6s */
+                60%, 77% { transform: translateX(-60%); }     /* Slide 4 - STOP for 6s */
+                80%, 97% { transform: translateX(-80%); }     /* Slide 5 - STOP for 6s */
+                100% { transform: translateX(0); }            /* Loop back to start */
+            }
+            
+            .desktop-track:hover {
+                animation-play-state: paused; /* Pause on hover */
             }
             
             .desktop-slide {
-                min-width: 100%;
+                flex: 0 0 100%;
                 display: flex;
                 align-items: center;
-                gap: 60px; /* Bigger gap */
-                padding: 50px; /* More padding */
+                gap: 60px;
+                padding: 50px;
             }
             
             .desktop-slide .album-image {
-                width: 350px; /* Much bigger artwork */
+                width: 350px;
                 height: 350px;
                 flex-shrink: 0;
             }
@@ -487,88 +705,43 @@
             }
             
             .desktop-slide .album-title {
-                font-size: 3.5rem; /* Much bigger title */
+                font-size: 3.5rem;
                 margin-bottom: 20px;
             }
             
             .desktop-slide .album-artist {
-                font-size: 1.8rem; /* Bigger artist text */
+                font-size: 1.8rem;
                 margin-bottom: 25px;
             }
             
             .desktop-slide .album-badge {
-                font-size: 1.2rem; /* Bigger badge */
+                font-size: 1.2rem;
                 padding: 10px 20px;
                 margin-bottom: 30px;
             }
             
             .desktop-slide .buy-btn {
-                font-size: 1.3rem; /* Bigger button */
+                font-size: 1.3rem;
                 padding: 15px 40px;
-            }
-            
-            /* CAROUSEL CONTROLS - Bigger */
-            .carousel-nav {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(0, 0, 0, 0.7);
-                border: 1px solid rgba(255, 215, 0, 0.4);
-                color: var(--gold);
-                font-size: 24px; /* Bigger arrows */
-                padding: 20px 25px; /* Bigger buttons */
-                cursor: pointer;
-                border-radius: 50%;
-                z-index: 10;
-                transition: all 0.3s ease;
-            }
-            
-            .carousel-nav:hover {
-                background: rgba(255, 215, 0, 0.2);
-                border-color: var(--gold);
-            }
-            
-            .carousel-prev { left: 30px; }
-            .carousel-next { right: 30px; }
-            
-            .carousel-dots {
-                display: flex;
-                justify-content: center;
-                gap: 15px;
-                margin-top: 30px;
-            }
-            
-            .dot {
-                width: 15px; /* Bigger dots */
-                height: 15px;
-                border-radius: 50%;
-                background: rgba(255, 215, 0, 0.3);
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-            
-            .dot.active {
-                background: var(--gold);
-                transform: scale(1.3);
             }
             
             .features {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 40px; /* Bigger gaps */
-                margin: 100px 0; /* More spacing */
+                gap: 40px;
+                margin: 100px 0;
             }
             
             .feature-card {
-                padding: 40px; /* More padding */
+                padding: 40px;
                 text-align: left;
                 display: flex;
                 flex-direction: column;
-                height: 350px; /* Taller cards */
+                height: 350px;
             }
             
             .feature-card .feature-icon {
                 margin: 0 0 25px 0;
-                width: 100px; /* Bigger icons */
+                width: 100px;
                 height: 100px;
                 font-size: 3rem;
             }
@@ -579,12 +752,12 @@
             }
             
             .feature-title {
-                font-size: 1.5rem; /* Bigger titles */
+                font-size: 1.5rem;
                 margin-bottom: 20px;
             }
             
             .feature-description {
-                font-size: 1.1rem; /* Bigger text */
+                font-size: 1.1rem;
                 margin-bottom: 25px;
                 flex: 1;
             }
@@ -597,27 +770,27 @@
             }
             
             .back-to-top {
-                bottom: 30px; /* Better desktop positioning */
+                bottom: 30px;
                 right: 30px;
-                width: 60px; /* Bigger desktop button */
+                width: 60px;
                 height: 60px;
                 font-size: 1.4rem;
             }
             
             .footer {
-                padding: 50px 0; /* More footer padding */
+                padding: 50px 0;
                 margin-top: 80px;
             }
             
             .footer-links {
                 flex-direction: row;
                 justify-content: center;
-                gap: 40px; /* Bigger gaps */
+                gap: 40px;
                 margin-bottom: 25px;
             }
             
             .footer-links a {
-                font-size: 1.1rem; /* Bigger footer text */
+                font-size: 1.1rem;
             }
             
             .footer-copyright {
@@ -652,7 +825,36 @@
         }
     </style>
 </head>
-<body>
+<body class="loading">
+    <!-- PROFESSIONAL ENTRY OVERLAY -->
+    <div class="entry-overlay" id="entryOverlay">
+        <div class="entry-content">
+            <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
+            
+            <div class="entry-text">
+                The Best MC in the World<br>
+                aka Number One Producer
+            </div>
+            
+            <div class="loading-section">
+                <div class="loading-percentage" id="loadingPercentage">0%</div>
+                <div class="loading-text" id="loadingText">Loading the session...</div>
+                <div class="loading-bar-container">
+                    <div class="loading-bar" id="loadingBar"></div>
+                </div>
+            </div>
+            
+            <div class="sound-controls">
+                <button class="sound-toggle" id="soundToggle">
+                    <span id="soundIcon">🔊</span> Sound: ON
+                </button>
+            </div>
+            
+            <button class="enter-button" id="enterButton">
+                Enter Site
+            </button>
+        </div>
+    </div>
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-content">
@@ -688,10 +890,11 @@
         <section class="releases">
             <h2 class="releases-title">LATEST RELEASES</h2>
             
-            <!-- Mobile Carousel -->
+            <!-- Mobile Carousel - CSS Animation Only -->
             <div class="carousel-mobile">
-                <div class="carousel-track">
-                    <div class="album-card">
+                <div class="mobile-track">
+                    <!-- Original 5 slides -->
+                    <div class="mobile-slide">
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
                         <p class="album-artist">Kool Keith</p>
@@ -699,7 +902,7 @@
                         <a href="shop.html" class="buy-btn">BUY NOW</a>
                     </div>
                     
-                    <div class="album-card">
+                    <div class="mobile-slide">
                         <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
                         <h3 class="album-title">Dr. Octagon Returns</h3>
                         <p class="album-artist">Dr. Octagon</p>
@@ -707,7 +910,7 @@
                         <a href="shop.html" class="buy-btn">PRE-ORDER</a>
                     </div>
                     
-                    <div class="album-card">
+                    <div class="mobile-slide">
                         <img src="album3.png" alt="Keith's Vault Series" class="album-image">
                         <h3 class="album-title">Keith's Vault Series</h3>
                         <p class="album-artist">Ultra Keith</p>
@@ -715,7 +918,7 @@
                         <a href="shop.html" class="buy-btn">BUY NOW</a>
                     </div>
                     
-                    <div class="album-card">
+                    <div class="mobile-slide">
                         <img src="album4.png" alt="Critical Beatdown" class="album-image">
                         <h3 class="album-title">Critical Beatdown</h3>
                         <p class="album-artist">Ultramagnetic MCs</p>
@@ -723,20 +926,21 @@
                         <a href="shop.html" class="buy-btn">BUY NOW</a>
                     </div>
                     
-                    <div class="album-card">
+                    <div class="mobile-slide">
                         <img src="album5.png" alt="Black Elvis 2" class="album-image">
                         <h3 class="album-title">Black Elvis 2</h3>
                         <p class="album-artist">Black Elvis</p>
                         <span class="album-badge badge-new">AVAILABLE</span>
                         <a href="shop.html" class="buy-btn">BUY NOW</a>
                     </div>
+                    
+                    <!-- REMOVE DUPLICATE SLIDES - Only need 5 now -->
                 </div>
-                <div class="scroll-hint">← Swipe to browse releases →</div>
             </div>
             
-            <!-- Desktop Carousel -->
+            <!-- Desktop Carousel - Only 5 slides needed -->
             <div class="carousel-desktop">
-                <div class="carousel-container" id="desktopCarousel">
+                <div class="desktop-track">
                     <div class="desktop-slide">
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <div class="desktop-album-info">
@@ -786,433 +990,3 @@
                             <a href="shop.html" class="buy-btn">BUY NOW</a>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Desktop Controls -->
-                <button class="carousel-nav carousel-prev" onclick="prevSlide()">‹</button>
-                <button class="carousel-nav carousel-next" onclick="nextSlide()">›</button>
-                
-                <div class="carousel-dots">
-                    <span class="dot active" onclick="goToSlide(0)"></span>
-                    <span class="dot" onclick="goToSlide(1)"></span>
-                    <span class="dot" onclick="goToSlide(2)"></span>
-                    <span class="dot" onclick="goToSlide(3)"></span>
-                    <span class="dot" onclick="goToSlide(4)"></span>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Feature Cards -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="bio.png" alt="Bio" onerror="this.parentElement.innerHTML='👤';">
-                </div>
-                <h3 class="feature-title">Bio</h3>
-                <p class="feature-description">
-                    The legendary journey from Ultramagnetic MCs to Dr. Octagon. 
-                    30+ years of innovation, personas, and pure hip-hop evolution.
-                </p>
-                <a href="bio.html" class="feature-btn">Read Story</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="personas.png" alt="Personas" onerror="this.parentElement.innerHTML='🎭';">
-                </div>
-                <h3 class="feature-title">Personas</h3>
-                <p class="feature-description">
-                    Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
-                    of Keith's creative universe with unique stories and sounds.
-                </p>
-                <a href="personas.html" class="feature-btn">Meet the Characters</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="discog.png" alt="Music" onerror="this.parentElement.innerHTML='💿';">
-                </div>
-                <h3 class="feature-title">Music</h3>
-                <p class="feature-description">
-                    Keith's winning hand - 50+ albums spanning decades of innovation 
-                    from Critical Beatdown to modern classics.
-                </p>
-                <a href="music.html" class="feature-btn">Browse Albums</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon" id="newsIcon">📝</div>
-                <h3 class="feature-title">Latest News</h3>
-                <div id="newsContainer">
-                    <p class="feature-description">Loading latest news...</p>
-                </div>
-                <a href="https://ultrakeithdotcom.blogspot.com" class="feature-btn">Read All News</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="vault.png" alt="Vault" onerror="this.parentElement.innerHTML='🎭';">
-                </div>
-                <h3 class="feature-title">Vault Series</h3>
-                <p class="feature-description">
-                    Exclusive unreleased tracks, rare cuts, and vault material 
-                    available nowhere else. For true collectors only.
-                </p>
-                <a href="vault.html" class="feature-btn">Explore Vault</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="williebiggs.png" alt="Casino" onerror="this.parentElement.innerHTML='🎰';">
-                </div>
-                <h3 class="feature-title">Willie Biggs Casino</h3>
-                <p class="feature-description">
-                    Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high 
-                    and the game never stops. Where real players separate from pretenders.
-                </p>
-                <a href="casino.html" class="feature-btn">Enter the Casino</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3 class="feature-title">AI Chat</h3>
-                <p class="feature-description">
-                    Have real conversations with AI versions of Keith's legendary characters. 
-                    Talk to Dr. Octagon, Dr. Dooom, and Kool Keith about their worlds.
-                </p>
-                <a href="chatbot.html" class="feature-btn">Start Chatting</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="videos.png" alt="Videos" onerror="this.parentElement.innerHTML='📹';">
-                </div>
-                <h3 class="feature-title">Videos</h3>
-                <p class="feature-description">
-                    Music videos, live performances, interviews, and behind-the-scenes 
-                    footage from Keith's legendary career spanning multiple decades.
-                </p>
-                <a href="videos.html" class="feature-btn">Watch Now</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎤</div>
-                <h3 class="feature-title">Tour</h3>
-                <p class="feature-description">
-                    Upcoming tour dates, live performances, and show announcements. 
-                    Catch Keith live performing his classic hits and new material.
-                </p>
-                <a href="tour.html" class="feature-btn">See Dates</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3 class="feature-title">Forum</h3>
-                <p class="feature-description">
-                    Join the official Kool Keith community forum. Connect with fans worldwide, 
-                    discuss music, share stories, and stay connected with the Keith universe.
-                </p>
-                <a href="https://koolkeith.proboards.com/" class="feature-btn">Join Discussion</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🛒</div>
-                <h3 class="feature-title">Shop</h3>
-                <p class="feature-description">
-                    Official merchandise, vinyl records, CDs, and rare collectibles. 
-                    Get authentic Keith gear and music directly from the source.
-                </p>
-                <a href="shop.html" class="feature-btn">Shop Now</a>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <a href="#press">Press</a>
-            <a href="#privacy">Privacy</a>
-            <a href="https://ultrakeithdotcom.blogspot.com">Blog</a>
-        </div>
-        <p class="footer-copyright">
-            © 2024 Ultra Keith. All rights reserved. | Legendary since 1984.
-        </p>
-    </footer>
-    
-    <script>
-        // ===================
-        // MOBILE CAROUSEL AUTO-SCROLL - INFINITE FORWARD
-        // ===================
-        let mobileAutoScrollInterval;
-        
-        function startMobileAutoScroll() {
-            if (isDesktop) return;
-            
-            const mobileCarousel = document.querySelector('.carousel-mobile');
-            if (!mobileCarousel) return;
-            
-            mobileAutoScrollInterval = setInterval(() => {
-                const maxScroll = mobileCarousel.scrollWidth - mobileCarousel.clientWidth;
-                const currentScroll = mobileCarousel.scrollLeft;
-                
-                if (currentScroll >= maxScroll) {
-                    // Jump back to beginning instantly
-                    mobileCarousel.scrollTo({ left: 0, behavior: 'auto' });
-                } else {
-                    // Scroll forward by one card width
-                    const nextScroll = currentScroll + 215;
-                    mobileCarousel.scrollTo({
-                        left: nextScroll > maxScroll ? 0 : nextScroll,
-                        behavior: 'smooth'
-                    });
-                }
-            }, 3000);
-        }
-        
-        function stopMobileAutoScroll() {
-            clearInterval(mobileAutoScrollInterval);
-        }
-        
-        // ===================
-        // DESKTOP CAROUSEL - INFINITE FORWARD SCROLLING
-        // ===================
-        let currentSlide = 0;
-        const totalSlides = 5;
-        let autoSlideInterval;
-        let isDesktop = window.innerWidth >= 768;
-        
-        function updateCarousel() {
-            if (!isDesktop) return;
-            
-            const container = document.getElementById('desktopCarousel');
-            const dots = document.querySelectorAll('.dot');
-            
-            if (container) {
-                container.style.transform = `translateX(-${currentSlide * 100}%)`;
-            }
-            
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-        }
-        
-        function nextSlide() {
-            if (!isDesktop) return;
-            
-            currentSlide++;
-            if (currentSlide >= totalSlides) {
-                currentSlide = 0; // Jump back to first slide
-            }
-            updateCarousel();
-        }
-        
-        function prevSlide() {
-            if (!isDesktop) return;
-            
-            currentSlide--;
-            if (currentSlide < 0) {
-                currentSlide = totalSlides - 1; // Jump to last slide
-            }
-            updateCarousel();
-        }
-        
-        function goToSlide(index) {
-            if (!isDesktop) return;
-            currentSlide = index;
-            updateCarousel();
-            resetAutoSlide();
-        }
-        
-        function startAutoSlide() {
-            if (!isDesktop) return;
-            autoSlideInterval = setInterval(nextSlide, 4000); // Always forward
-        }
-        
-        function stopAutoSlide() {
-            clearInterval(autoSlideInterval);
-        }
-        
-        function resetAutoSlide() {
-            stopAutoSlide();
-            startAutoSlide();
-        }
-        
-        // ===================
-        // BACK TO TOP
-        // ===================
-        function initBackToTop() {
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-        
-        // ===================
-        // NEWS WIDGET
-        // ===================
-        function initNewsWidget() {
-            const container = document.getElementById('newsContainer');
-            const iconContainer = document.getElementById('newsIcon');
-            
-            if (!container) return;
-            
-            const feedUrl = 'https://ultrakeithdotcom.blogspot.com/feeds/posts/default';
-            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
-            
-            function extractFirstImage(htmlContent) {
-                if (!htmlContent) return null;
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = htmlContent;
-                const imgTag = tempDiv.querySelector('img');
-                return imgTag ? imgTag.src : null;
-            }
-            
-            function showNews(post) {
-                const imageUrl = extractFirstImage(post.description || post.content);
-                const snippet = (post.description || post.content || '')
-                    .replace(/<[^>]*>/g, '')
-                    .substring(0, 150) + '...';
-                
-                if (imageUrl && iconContainer) {
-                    const iconSize = isDesktop ? '80px' : '60px';
-                    iconContainer.innerHTML = `
-                        <img src="${imageUrl}" alt="${post.title}" 
-                             style="width: ${iconSize}; height: ${iconSize}; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));"
-                             onerror="this.parentElement.innerHTML='📝';">
-                    `;
-                }
-                
-                container.innerHTML = `
-                    <p class="feature-description">${snippet}</p>
-                `;
-            }
-            
-            function showFallback() {
-                container.innerHTML = `
-                    <p class="feature-description">
-                        Stay connected with the latest from Keith's world. New releases and exclusive content from the legendary hip-hop innovator.
-                    </p>
-                `;
-            }
-            
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'ok' && data.items && data.items.length > 0) {
-                        showNews(data.items[0]);
-                    } else {
-                        showFallback();
-                    }
-                })
-                .catch(() => showFallback());
-            
-            setTimeout(() => {
-                if (container.innerHTML.includes('Loading')) {
-                    showFallback();
-                }
-            }, 5000);
-        }
-        
-        // ===================
-        // MOBILE MENU
-        // ===================
-        function initMobileMenu() {
-            const menuBtn = document.getElementById('mobileMenuBtn');
-            const navMenu = document.getElementById('navMenu');
-            
-            if (menuBtn && navMenu) {
-                menuBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    navMenu.classList.toggle('show');
-                });
-                
-                // Close menu when clicking menu items
-                navMenu.addEventListener('click', (e) => {
-                    if (e.target.tagName === 'A') {
-                        navMenu.classList.remove('show');
-                    }
-                });
-                
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                        navMenu.classList.remove('show');
-                    }
-                });
-            }
-        }
-        
-        // ===================
-        // INITIALIZATION
-        // ===================
-        document.addEventListener('DOMContentLoaded', () => {
-            // Check if desktop
-            isDesktop = window.innerWidth >= 768;
-            
-            // Initialize components
-            initBackToTop();
-            initNewsWidget();
-            initMobileMenu();
-            
-            // Initialize carousel based on device
-            if (isDesktop) {
-                // Desktop carousel setup
-                updateCarousel();
-                startAutoSlide();
-                
-                // Pause on hover
-                const carouselDesktop = document.querySelector('.carousel-desktop');
-                if (carouselDesktop) {
-                    carouselDesktop.addEventListener('mouseenter', stopAutoSlide);
-                    carouselDesktop.addEventListener('mouseleave', startAutoSlide);
-                }
-            } else {
-                // Mobile carousel setup
-                startMobileAutoScroll();
-                
-                // Pause mobile auto-scroll when user touches
-                const mobileCarousel = document.querySelector('.carousel-mobile');
-                if (mobileCarousel) {
-                    mobileCarousel.addEventListener('touchstart', () => {
-                        stopMobileAutoScroll();
-                        // Restart after 5 seconds of no interaction
-                        setTimeout(() => {
-                            if (!isDesktop) startMobileAutoScroll();
-                        }, 5000);
-                    });
-                }
-            }
-            
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                const wasDesktop = isDesktop;
-                isDesktop = window.innerWidth >= 768;
-                
-                if (wasDesktop !== isDesktop) {
-                    if (isDesktop) {
-                        // Switched to desktop
-                        stopMobileAutoScroll();
-                        updateCarousel();
-                        startAutoSlide();
-                    } else {
-                        // Switched to mobile
-                        stopAutoSlide();
-                        startMobileAutoScroll();
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
