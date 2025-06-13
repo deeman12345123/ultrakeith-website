@@ -1,30 +1,388 @@
-const prompt = this.buildChatPrompt(persona, context);
-                    response = await this.callChatAPI(prompt);
-                    console.log(`✅ API response for ${persona}:`, response);
-                } catch (apiError) {
-                    console.warn(`⚠️ API failed for ${persona}:`, apiError);
-                    response = this.getFallbackResponse(persona);
+/* ========================================
+   KEITH STUDIO - CLEAN WORKING VERSION
+   FIXED: All syntax errors and async issues
+   ======================================== */
+
+class KeithUniverse {
+    constructor() {
+        this.sessionTimer = null;
+        this.autoEventTimer = null;
+        this.isProcessing = false;
+        this.conversationHistory = [];
+        this.guestAppearanceTimer = null;
+        this.lastResponder = null;
+        this.recentResponses = [];
+        this.activePersonaResponses = new Set();
+        this.isPaused = false;
+        this.pausedTimers = [];
+    }
+
+    // ========================================
+    // INITIALIZATION - CLEAN VERSION
+    // ========================================
+
+    initializeUniverse() {
+        console.log('🚀 Initializing Keith Universe...');
+        
+        // Essential element checks
+        const requiredElements = [
+            'chatInput',
+            'sendBtn', 
+            'chatMessages',
+            'sessionTimer',
+            'userCount',
+            'toggleUserList',
+            'userList',
+            'mobileOverlay'
+        ];
+        
+        const missing = requiredElements.filter(function(id) {
+            return !document.getElementById(id);
+        });
+        
+        if (missing.length > 0) {
+            console.error('❌ Missing required elements:', missing);
+            this.showError('Required elements missing: ' + missing.join(', '));
+            return;
+        }
+        
+        console.log('✅ All required elements found');
+        
+        // Initialize in correct order
+        this.setupEventListeners();
+        this.startSession();
+        this.displayWelcomeMessage();
+        this.startAutoEvents();
+        this.updateIntensityDisplay();
+        this.initializeUserList();
+        
+        const config = getCurrentIntensityConfig();
+        console.log('🎭 Keith\'s Inner Universe activated - ' + config.name + ' Mode');
+    }
+
+    showError(message) {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            chatMessages.innerHTML = '<div style="text-align: center; color: #ff6666; padding: 20px; border: 1px solid #ff6666; border-radius: 8px; margin: 20px;"><h3>⚠️ Initialization Error</h3><p>' + message + '</p><p><small>Please refresh the page and try again.</small></p></div>';
+        }
+    }
+
+    setupEventListeners() {
+        console.log('🔧 Setting up event listeners...');
+        
+        const self = this;
+        
+        // Chat input and send button
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        if (chatInput && sendBtn) {
+            // Clear existing listeners
+            chatInput.onkeydown = null;
+            chatInput.oninput = null;
+            sendBtn.onclick = null;
+            
+            // Add fresh listeners
+            chatInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    console.log('⌨️ Enter key pressed');
+                    self.sendUserMessage();
+                }
+            });
+            
+            chatInput.addEventListener('input', function() {
+                self.updateSendButton();
+            });
+            
+            sendBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('🖱️ Send button clicked');
+                self.sendUserMessage();
+            });
+            
+            console.log('✅ Chat input listeners attached');
+        } else {
+            console.error('❌ Chat input or send button not found');
+        }
+
+        // Control buttons
+        this.setupControlButtons();
+        
+        // Mobile controls
+        this.setupMobileControls();
+        
+        // Initialize send button state
+        this.updateSendButton();
+    }
+
+    setupControlButtons() {
+        const self = this;
+        const buttons = [
+            { id: 'newSession', handler: function() { self.startNewSession(); } },
+            { id: 'pauseChat', handler: function() { self.togglePauseChat(); } },
+            { id: 'clearChat', handler: function() { self.clearChat(); } },
+            { id: 'saveChat', handler: function() { self.saveChat(); } },
+            { id: 'copyChat', handler: function() { self.copyChat(); } }
+        ];
+
+        buttons.forEach(function(buttonConfig) {
+            const btn = document.getElementById(buttonConfig.id);
+            if (btn) {
+                btn.onclick = null; // Clear existing
+                btn.addEventListener('click', buttonConfig.handler);
+                console.log('✅ ' + buttonConfig.id + ' button connected');
+            } else {
+                console.warn('⚠️ ' + buttonConfig.id + ' button not found');
+            }
+        });
+    }
+
+    setupMobileControls() {
+        const self = this;
+        const toggleUserList = document.getElementById('toggleUserList');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        if (toggleUserList) {
+            toggleUserList.onclick = null;
+            toggleUserList.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('📱 Mobile toggle clicked');
+                self.toggleUserList();
+            });
+            console.log('✅ Mobile toggle connected');
+        }
+
+        if (mobileOverlay) {
+            mobileOverlay.onclick = null;
+            mobileOverlay.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('📱 Mobile overlay clicked');
+                self.closeUserList();
+            });
+            console.log('✅ Mobile overlay connected');
+        }
+    }
+
+    initializeUserList() {
+        this.updateUserCount();
+        console.log('👥 User list initialized');
+    }
+
+    // ========================================
+    // MOBILE FUNCTIONALITY
+    // ========================================
+
+    toggleUserList() {
+        const userList = document.getElementById('userList');
+        const overlay = document.getElementById('mobileOverlay');
+        const toggleBtn = document.getElementById('toggleUserList');
+        
+        if (!userList || !overlay) {
+            console.error('❌ User list or overlay not found');
+            return;
+        }
+        
+        const isShowing = userList.classList.contains('show');
+        console.log('📱 Toggle user list - currently showing:', isShowing);
+        
+        if (isShowing) {
+            // Hide user list
+            userList.classList.remove('show');
+            overlay.classList.remove('show');
+            if (toggleBtn) toggleBtn.classList.remove('active');
+            console.log('📱 User list hidden');
+        } else {
+            // Show user list
+            userList.classList.add('show');
+            overlay.classList.add('show');
+            if (toggleBtn) toggleBtn.classList.add('active');
+            console.log('📱 User list shown');
+        }
+    }
+
+    closeUserList() {
+        const userList = document.getElementById('userList');
+        const overlay = document.getElementById('mobileOverlay');
+        const toggleBtn = document.getElementById('toggleUserList');
+        
+        if (userList && overlay) {
+            userList.classList.remove('show');
+            overlay.classList.remove('show');
+            if (toggleBtn) toggleBtn.classList.remove('active');
+            console.log('📱 User list closed');
+        }
+    }
+
+    // ========================================
+    // CHAT INPUT FUNCTIONALITY
+    // ========================================
+
+    sendUserMessage() {
+        console.log('📤 sendUserMessage called');
+        
+        const chatInput = document.getElementById('chatInput');
+        if (!chatInput) {
+            console.error('❌ Chat input element not found');
+            return;
+        }
+        
+        const message = chatInput.value.trim();
+        console.log('💬 Message content:', message);
+        
+        if (!message) {
+            console.log('❌ Empty message, not sending');
+            return;
+        }
+        
+        if (this.isProcessing) {
+            console.log('⏳ Still processing previous message');
+            return;
+        }
+        
+        const sessionState = window.sessionState || { userName: 'Player' };
+        const userName = sessionState.userName || 'Player';
+        console.log('👤 User name:', userName);
+        
+        // Add message to chat
+        this.addUserMessage(userName, message);
+        this.addUserToUnifiedList(userName, 'User', 'user');
+        
+        // Clear input
+        chatInput.value = '';
+        this.updateSendButton();
+        
+        // Mark user as active
+        if (window.sessionState) {
+            window.sessionState.userLurking = false;
+        }
+        
+        console.log('✅ User message added, generating response...');
+        
+        // Generate persona response
+        const self = this;
+        setTimeout(function() {
+            try {
+                const responder = self.selectResponder(message);
+                console.log('🎭 Selected responder:', responder);
+                
+                const context = (mainPersonas[responder] ? mainPersonas[responder].name : responder) + ' responding to ' + userName + ': "' + message + '"';
+                self.generatePersonaResponse(responder, context);
+            } catch (error) {
+                console.error('❌ Error generating response:', error);
+                self.addSystemMessage('⚠️ Error generating response. Please try again.');
+            }
+        }, 1000 + Math.random() * 3000);
+    }
+
+    selectResponder(userMessage) {
+        // Check for trigger words
+        for (const persona in mainPersonas) {
+            const data = mainPersonas[persona];
+            if (data.triggerWords) {
+                for (let i = 0; i < data.triggerWords.length; i++) {
+                    const trigger = data.triggerWords[i];
+                    if (userMessage.toLowerCase().includes(trigger)) {
+                        console.log('🎯 Trigger word "' + trigger + '" found, selecting ' + persona);
+                        return persona;
+                    }
                 }
             }
+        }
+        
+        // Random selection
+        const sessionState = window.sessionState || { personasActive: Object.keys(mainPersonas) };
+        const available = sessionState.personasActive || Object.keys(mainPersonas);
+        const selected = available[Math.floor(Math.random() * available.length)];
+        console.log('🎲 Random selection:', selected);
+        return selected;
+    }
+
+    updateSendButton() {
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        if (!chatInput || !sendBtn) return;
+        
+        const hasText = chatInput.value.trim().length > 0;
+        const canSend = hasText && !this.isProcessing;
+        
+        sendBtn.disabled = !canSend;
+        
+        // Visual feedback
+        sendBtn.style.opacity = canSend ? '1' : '0.4';
+        sendBtn.style.cursor = canSend ? 'pointer' : 'not-allowed';
+        
+        console.log('🔄 Send button state:', { hasText: hasText, isProcessing: this.isProcessing, canSend: canSend });
+    }
+
+    // ========================================
+    // PERSONA RESPONSE GENERATION
+    // ========================================
+
+    generatePersonaResponse(persona, context, presetResponse) {
+        if (this.isProcessing || this.isPaused) {
+            console.log('⏸️ Skipping response - processing or paused');
+            return;
+        }
+        
+        if (this.activePersonaResponses.has(persona)) {
+            console.log('🔄 ' + persona + ' already responding, skipping');
+            return;
+        }
+        
+        this.activePersonaResponses.add(persona);
+        this.isProcessing = true;
+        
+        console.log('🎭 Generating response for ' + persona);
+        
+        const self = this;
+        
+        try {
+            let response;
             
-            // Add typing indicator
-            this.showTyping(persona);
-            
-            // Simulate typing delay
-            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
-            
-            this.hideTyping();
-            this.addPersonaMessage(persona, response);
+            if (presetResponse) {
+                response = presetResponse;
+                this.processPersonaResponse(persona, response);
+            } else {
+                // Try API call
+                const prompt = this.buildChatPrompt(persona, context);
+                this.callChatAPI(prompt)
+                    .then(function(apiResponse) {
+                        console.log('✅ API response for ' + persona + ':', apiResponse);
+                        self.processPersonaResponse(persona, apiResponse);
+                    })
+                    .catch(function(apiError) {
+                        console.warn('⚠️ API failed for ' + persona + ':', apiError);
+                        const fallback = self.getFallbackResponse(persona);
+                        self.processPersonaResponse(persona, fallback);
+                    });
+            }
             
         } catch (error) {
-            console.error(`❌ Error generating response for ${persona}:`, error);
+            console.error('❌ Error generating response for ' + persona + ':', error);
             this.hideTyping();
             this.addPersonaMessage(persona, this.getFallbackResponse(persona));
-        } finally {
             this.activePersonaResponses.delete(persona);
             this.isProcessing = false;
-            this.updateSendButton(); // Re-enable send button
+            this.updateSendButton();
         }
+    }
+
+    processPersonaResponse(persona, response) {
+        const self = this;
+        
+        // Add typing indicator
+        this.showTyping(persona);
+        
+        // Simulate typing delay
+        setTimeout(function() {
+            self.hideTyping();
+            self.addPersonaMessage(persona, response);
+            self.activePersonaResponses.delete(persona);
+            self.isProcessing = false;
+            self.updateSendButton();
+        }, 1000 + Math.random() * 2000);
     }
 
     buildChatPrompt(persona, context) {
@@ -32,17 +390,12 @@ const prompt = this.buildChatPrompt(persona, context);
         const intensityConfig = getCurrentIntensityConfig();
         
         if (!personaData) {
-            throw new Error(`Unknown persona: ${persona}`);
+            throw new Error('Unknown persona: ' + persona);
         }
         
-        return `You are ${personaData.name} - ${personaData.status} in Keith's chat room.
-
-Context: ${context}
-Intensity: ${intensityConfig.name}
-User: ${sessionState.userName}
-
-Keep responses short (1-2 sentences) and stay in character as ${personaData.name}.
-Be conversational and authentic to your persona.`;
+        const sessionState = window.sessionState || { userName: 'Player' };
+        
+        return 'You are ' + personaData.name + ' - ' + personaData.status + ' in Keith\'s chat room.\n\nContext: ' + context + '\nIntensity: ' + intensityConfig.name + '\nUser: ' + sessionState.userName + '\n\nKeep responses short (1-2 sentences) and stay in character as ' + personaData.name + '.\nBe conversational and authentic to your persona.';
     }
 
     getFallbackResponse(persona) {
@@ -60,17 +413,20 @@ Be conversational and authentic to your persona.`;
     // API INTEGRATION
     // ========================================
 
-    async callChatAPI(prompt) {
-        const apiKey = CONFIG.getApiKey();
-        if (!apiKey || apiKey.length < 20) {
-            throw new Error('Invalid API key configuration');
-        }
+    callChatAPI(prompt) {
+        return new Promise(function(resolve, reject) {
+            const apiKey = CONFIG.getApiKey();
+            if (!apiKey || apiKey.length < 20) {
+                reject(new Error('Invalid API key configuration'));
+                return;
+            }
 
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), CONFIG.apiTimeout || 15000);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(function() {
+                controller.abort();
+            }, CONFIG.apiTimeout || 15000);
 
-        try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+            fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -89,21 +445,26 @@ Be conversational and authentic to your persona.`;
                     ]
                 }),
                 signal: controller.signal
+            })
+            .then(function(response) {
+                clearTimeout(timeoutId);
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
+                    resolve(data.candidates[0].content.parts[0].text.trim());
+                } else {
+                    reject(new Error('No valid response content from API'));
+                }
+            })
+            .catch(function(error) {
+                clearTimeout(timeoutId);
+                reject(error);
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
-                return data.candidates[0].content.parts[0].text.trim();
-            } else {
-                throw new Error('No valid response content from API');
-            }
-        } finally {
-            clearTimeout(timeoutId);
-        }
+        });
     }
 
     // ========================================
@@ -118,19 +479,20 @@ Be conversational and authentic to your persona.`;
         
         this.conversationHistory = [];
         this.recentResponses = [];
-        if (sessionState.chatLog) {
-            sessionState.chatLog = [];
+        
+        if (window.sessionState && window.sessionState.chatLog) {
+            window.sessionState.chatLog = [];
         }
         
         this.addSystemMessage('🗑️ Chat cleared. Personas remain active and ready to continue.');
         console.log('🗑️ Chat cleared');
     }
 
-    async saveChat() {
+    saveChat() {
         try {
             const content = this.generateChatLog();
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-            const filename = `KeithGPT-Chat-${timestamp}.txt`;
+            const filename = 'KeithGPT-Chat-' + timestamp + '.txt';
             
             const blob = new Blob([content], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
@@ -144,7 +506,7 @@ Be conversational and authentic to your persona.`;
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
-            this.addSystemMessage(`💾 Chat saved as ${filename}`);
+            this.addSystemMessage('💾 Chat saved as ' + filename);
             console.log('💾 Chat saved successfully');
             
         } catch (error) {
@@ -153,55 +515,50 @@ Be conversational and authentic to your persona.`;
         }
     }
 
-    async copyChat() {
+    copyChat() {
+        const self = this;
         try {
             const content = this.generateChatLog();
-            await navigator.clipboard.writeText(content);
-            this.addSystemMessage('📋 Chat copied to clipboard!');
-            console.log('📋 Chat copied to clipboard');
-            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(content).then(function() {
+                    self.addSystemMessage('📋 Chat copied to clipboard!');
+                    console.log('📋 Chat copied to clipboard');
+                }).catch(function(error) {
+                    console.error('❌ Copy error:', error);
+                    self.fallbackCopy(content);
+                });
+            } else {
+                this.fallbackCopy(content);
+            }
         } catch (error) {
             console.error('❌ Copy error:', error);
-            // Fallback method
-            const textArea = document.createElement('textarea');
-            textArea.value = this.generateChatLog();
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            this.addSystemMessage('📋 Chat copied to clipboard!');
+            this.fallbackCopy(this.generateChatLog());
         }
+    }
+
+    fallbackCopy(content) {
+        const textArea = document.createElement('textarea');
+        textArea.value = content;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        this.addSystemMessage('📋 Chat copied to clipboard!');
     }
 
     generateChatLog() {
         const config = getCurrentIntensityConfig();
-        const duration = sessionState.startTime ? 
-            Math.floor((Date.now() - sessionState.startTime) / 1000) : 0;
+        const sessionState = window.sessionState || {};
+        const duration = sessionState.startTime ? Math.floor((Date.now() - sessionState.startTime) / 1000) : 0;
         
-        let content = `========================================
-KEITHGPT - THE PLAYERS CLUB CHAT LOG
-========================================
-
-Session Details:
-- Date: ${new Date().toLocaleString()}
-- Duration: ${Math.floor(duration / 60)}:${(duration % 60).toString().padStart(2, '0')}
-- User: ${sessionState.userName || 'Player'}
-- Intensity: ${config.display}
-
-========================================
-MESSAGES:
-========================================
-
-`;
+        let content = '========================================\nKEITHGPT - THE PLAYERS CLUB CHAT LOG\n========================================\n\nSession Details:\n- Date: ' + new Date().toLocaleString() + '\n- Duration: ' + Math.floor(duration / 60) + ':' + (duration % 60).toString().padStart(2, '0') + '\n- User: ' + (sessionState.userName || 'Player') + '\n- Intensity: ' + config.display + '\n\n========================================\nMESSAGES:\n========================================\n\n';
 
         // Add conversation history
-        this.conversationHistory.forEach(entry => {
-            content += `${entry.speaker}: ${entry.content}\n`;
+        this.conversationHistory.forEach(function(entry) {
+            content += entry.speaker + ': ' + entry.content + '\n';
         });
 
-        content += `\n========================================
-Generated by KeithGPT - The Players Club
-========================================`;
+        content += '\n========================================\nGenerated by KeithGPT - The Players Club\n========================================';
 
         return content;
     }
@@ -224,7 +581,7 @@ Generated by KeithGPT - The Players Club
             this.addSystemMessage('▶️ Chat resumed.');
         }
         
-        console.log(`${this.isPaused ? '⏸️ Paused' : '▶️ Resumed'} chat`);
+        console.log(this.isPaused ? '⏸️ Paused' : '▶️ Resumed' + ' chat');
     }
 
     updateIntensityDisplay() {
@@ -232,11 +589,14 @@ Generated by KeithGPT - The Players Club
         if (intensityDisplay) {
             const config = getCurrentIntensityConfig();
             intensityDisplay.textContent = config.display;
-            intensityDisplay.style.color = {
+            
+            const sessionState = window.sessionState || { intensityLevel: 2 };
+            const colors = {
                 1: '#66ff66',
                 2: '#ffaa00', 
                 3: '#ff6666'
-            }[sessionState.intensityLevel] || '#ffaa00';
+            };
+            intensityDisplay.style.color = colors[sessionState.intensityLevel] || '#ffaa00';
         }
     }
 
@@ -245,11 +605,15 @@ Generated by KeithGPT - The Players Club
     // ========================================
 
     startSession() {
-        sessionState.startTime = Date.now();
-        sessionState.sessionStartTime = Date.now();
-        sessionState.tokensUsed = 0;
-        sessionState.userLurking = true;
-        sessionState.chatLog = [];
+        if (!window.sessionState) {
+            window.sessionState = {};
+        }
+        
+        window.sessionState.startTime = Date.now();
+        window.sessionState.sessionStartTime = Date.now();
+        window.sessionState.tokensUsed = 0;
+        window.sessionState.userLurking = true;
+        window.sessionState.chatLog = [];
         
         this.startSessionTimer();
         this.updateSessionDisplay();
@@ -257,30 +621,33 @@ Generated by KeithGPT - The Players Club
     }
 
     startSessionTimer() {
-        this.sessionTimer = setInterval(() => {
-            const elapsed = Date.now() - sessionState.startTime;
+        const self = this;
+        this.sessionTimer = setInterval(function() {
+            const sessionState = window.sessionState || {};
+            const elapsed = Date.now() - (sessionState.startTime || Date.now());
             const remaining = (CONFIG.sessionDuration || 900000) - elapsed; // 15 min default
             
             if (remaining <= 0) {
-                this.endSession();
+                self.endSession();
                 return;
             }
             
-            this.updateSessionDisplay(remaining);
+            self.updateSessionDisplay(remaining);
         }, 1000);
     }
 
-    updateSessionDisplay(remaining = null) {
+    updateSessionDisplay(remaining) {
         const timerEl = document.getElementById('sessionTimer');
         if (!timerEl) return;
         
-        if (remaining === null) {
-            remaining = (CONFIG.sessionDuration || 900000) - (Date.now() - sessionState.startTime);
+        if (remaining === null || remaining === undefined) {
+            const sessionState = window.sessionState || {};
+            remaining = (CONFIG.sessionDuration || 900000) - (Date.now() - (sessionState.startTime || Date.now()));
         }
         
         const minutes = Math.floor(remaining / 60000);
         const seconds = Math.floor((remaining % 60000) / 1000);
-        timerEl.textContent = `Session: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        timerEl.textContent = 'Session: ' + minutes + ':' + seconds.toString().padStart(2, '0');
         
         if (remaining < 60000) {
             timerEl.style.color = '#ffaa00';
@@ -306,10 +673,11 @@ Generated by KeithGPT - The Players Club
         this.clearMessages();
         
         // Reset session state but keep user preferences
+        const sessionState = window.sessionState || {};
         const userName = sessionState.userName;
         const intensityLevel = sessionState.intensityLevel;
         
-        sessionState = {
+        window.sessionState = {
             startTime: null,
             tokensUsed: 0,
             personasActive: ['kool-keith', 'dr-octagon', 'dr-dooom', 'black-elvis'],
@@ -361,13 +729,17 @@ Generated by KeithGPT - The Players Club
     // ========================================
 
     startAutoEvents() {
+        const self = this;
+        
         // Start personas conversation
-        setTimeout(() => this.personasEnterChat(), 2000);
+        setTimeout(function() {
+            self.personasEnterChat();
+        }, 2000);
         
         // Random events
-        this.autoEventTimer = setInterval(() => {
-            if (!this.isPaused) {
-                this.triggerRandomEvent();
+        this.autoEventTimer = setInterval(function() {
+            if (!self.isPaused) {
+                self.triggerRandomEvent();
             }
         }, 20000 + Math.random() * 40000); // 20-60 seconds
         
@@ -375,19 +747,19 @@ Generated by KeithGPT - The Players Club
         this.scheduleGuestAppearance();
     }
 
-    async triggerRandomEvent() {
+    triggerRandomEvent() {
         if (this.isProcessing || this.isPaused) return;
         
         const events = [
-            () => this.triggerSpontaneousComment(),
-            () => this.triggerGuestAppearance()
+            this.triggerSpontaneousComment.bind(this),
+            this.triggerGuestAppearance.bind(this)
         ];
         
         const event = events[Math.floor(Math.random() * events.length)];
-        await event();
+        event();
     }
 
-    async triggerSpontaneousComment() {
+    triggerSpontaneousComment() {
         const comments = {
             'kool-keith': [
                 'Abstract creativity keeps flowing through the universe',
@@ -416,7 +788,7 @@ Generated by KeithGPT - The Players Club
         const personaComments = comments[persona];
         const comment = personaComments[Math.floor(Math.random() * personaComments.length)];
         
-        await this.generatePersonaResponse(persona, `${persona} spontaneous comment`, comment);
+        this.generatePersonaResponse(persona, persona + ' spontaneous comment', comment);
     }
 
     triggerGuestAppearance() {
@@ -431,34 +803,37 @@ Generated by KeithGPT - The Players Club
         
         if (willSpeak) {
             this.addGuestMessage(guest.name, guest.line);
-            console.log(`🗣️ ${guest.name} spoke: ${guest.line}`);
+            console.log('🗣️ ' + guest.name + ' spoke: ' + guest.line);
         } else {
             // Just appear in user list and leave quietly
-            console.log(`👁️ ${guest.name} lurked silently`);
+            console.log('👁️ ' + guest.name + ' lurked silently');
         }
         
         this.addUserToUnifiedList(guest.name, 'Visitor', 'visitor');
         
-        setTimeout(() => {
+        const self = this;
+        setTimeout(function() {
             if (willSpeak) {
-                this.addGuestExit(guest.name);
+                self.addGuestExit(guest.name);
             }
-            this.removeUserFromUnifiedList(guest.name);
-            console.log(`👋 ${guest.name} left`);
+            self.removeUserFromUnifiedList(guest.name);
+            console.log('👋 ' + guest.name + ' left');
         }, guest.duration);
     }
 
     scheduleGuestAppearance() {
         const delay = 45000 + Math.random() * 90000; // 45-135 seconds
-        this.guestAppearanceTimer = setTimeout(() => {
-            if (!this.isPaused) {
-                this.triggerGuestAppearance();
-                this.scheduleGuestAppearance();
+        const self = this;
+        this.guestAppearanceTimer = setTimeout(function() {
+            if (!self.isPaused) {
+                self.triggerGuestAppearance();
+                self.scheduleGuestAppearance();
             }
         }, delay);
     }
 
     personasEnterChat() {
+        const sessionState = window.sessionState || { intensityLevel: 2 };
         const intensityLevel = sessionState.intensityLevel || 2;
         
         const entryMessages = {
@@ -468,7 +843,7 @@ Generated by KeithGPT - The Players Club
                 'black-elvis': 'Musical harmony bringing positive energy',
                 'dr-dooom': 'Real hip-hop discussion starting now'
             },
-            2: { // Players Mode
+            2: { // Medium
                 'dr-octagon': 'Cosmic surgical procedures evolving through dimensions',
                 'dr-dooom': 'Cleaning out fake MCs, one conversation at a time',
                 'black-elvis': 'Funk therapy balancing the energy in here',
@@ -485,15 +860,16 @@ Generated by KeithGPT - The Players Club
         const messages = entryMessages[intensityLevel] || entryMessages[2];
         const personas = Object.keys(messages);
         
-        personas.forEach((persona, index) => {
-            setTimeout(() => {
-                this.addPersonaMessage(persona, messages[persona]);
-                this.addToHistory(mainPersonas[persona]?.name || persona, messages[persona]);
+        const self = this;
+        personas.forEach(function(persona, index) {
+            setTimeout(function() {
+                self.addPersonaMessage(persona, messages[persona]);
+                self.addToHistory(mainPersonas[persona] ? mainPersonas[persona].name : persona, messages[persona]);
             }, (index + 1) * 3000);
         });
         
         // Welcome user
-        setTimeout(() => {
+        setTimeout(function() {
             const welcomes = {
                 1: 'Welcome to our discussion',
                 2: 'Fresh face in the club - what\'s good?',
@@ -501,12 +877,12 @@ Generated by KeithGPT - The Players Club
             };
             
             const welcome = welcomes[intensityLevel] || welcomes[2];
-            this.addPersonaMessage('dr-dooom', welcome);
+            self.addPersonaMessage('dr-dooom', welcome);
         }, 15000);
     }
 
     // ========================================
-    // USER LIST MANAGEMENT - FIXED
+    // USER LIST MANAGEMENT
     // ========================================
 
     addUserToUnifiedList(userName, status, type) {
@@ -518,38 +894,31 @@ Generated by KeithGPT - The Players Club
         if (userNote) userNote.style.display = 'none';
         
         // Check if user already exists
-        const existingUser = allUsersList.querySelector(`[data-user="${userName}"]`);
+        const existingUser = allUsersList.querySelector('[data-user="' + userName + '"]');
         if (existingUser) return;
         
         const avatarColor = type === 'user' ? '#4488ff' : '#cccccc';
-        const avatarSVG = `data:image/svg+xml;base64,${btoa(`<svg width="28" height="28" fill="${avatarColor}" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>`)}`;
+        const avatarSVG = 'data:image/svg+xml;base64,' + btoa('<svg width="28" height="28" fill="' + avatarColor + '" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>');
         
         const userDiv = document.createElement('div');
         userDiv.className = 'user-item';
         userDiv.setAttribute('data-user', userName);
-        userDiv.innerHTML = `
-            <img src="${avatarSVG}" alt="${userName}">
-            <div class="user-item-info">
-                <span class="user-item-name">${this.escapeHtml(userName)}</span>
-                <span class="user-item-status">${status}</span>
-            </div>
-            <div class="status-dot online"></div>
-        `;
+        userDiv.innerHTML = '<img src="' + avatarSVG + '" alt="' + userName + '"><div class="user-item-info"><span class="user-item-name">' + this.escapeHtml(userName) + '</span><span class="user-item-status">' + status + '</span></div><div class="status-dot online"></div>';
         
         allUsersList.appendChild(userDiv);
         this.updateUserCount();
-        console.log(`👤 Added ${userName} (${type}) to unified list`);
+        console.log('👤 Added ' + userName + ' (' + type + ') to unified list');
     }
 
     removeUserFromUnifiedList(userName) {
         const allUsersList = document.getElementById('allUsersList');
         if (!allUsersList) return;
         
-        const userItem = allUsersList.querySelector(`[data-user="${userName}"]`);
+        const userItem = allUsersList.querySelector('[data-user="' + userName + '"]');
         if (userItem) {
             userItem.remove();
             this.updateUserCount();
-            console.log(`👋 Removed ${userName} from unified list`);
+            console.log('👋 Removed ' + userName + ' from unified list');
             
             // Show note if no users remain
             const remainingUsers = allUsersList.querySelectorAll('.user-item');
@@ -565,7 +934,9 @@ Generated by KeithGPT - The Players Club
         if (allUsersList) {
             // Remove all user items but keep the note
             const userItems = allUsersList.querySelectorAll('.user-item');
-            userItems.forEach(item => item.remove());
+            userItems.forEach(function(item) {
+                item.remove();
+            });
             
             // Show the note
             const userNote = allUsersList.querySelector('.user-note');
@@ -584,7 +955,7 @@ Generated by KeithGPT - The Players Club
         const dynamicUsers = document.querySelectorAll('#allUsersList .user-item').length;
         const total = mainPersonas + dynamicUsers;
         
-        userCountEl.textContent = `${total} online`;
+        userCountEl.textContent = total + ' online';
     }
 
     // ========================================
@@ -594,25 +965,20 @@ Generated by KeithGPT - The Players Club
     addSystemMessage(content) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'system-message';
-        messageDiv.innerHTML = `<div class="message-content">${this.escapeHtml(content)}</div>`;
+        messageDiv.innerHTML = '<div class="message-content">' + this.escapeHtml(content) + '</div>';
         this.appendMessage(messageDiv);
     }
 
     addPersonaMessage(persona, content) {
         const personaData = mainPersonas[persona];
         if (!personaData) {
-            console.warn(`Unknown persona: ${persona}`);
+            console.warn('Unknown persona: ' + persona);
             return;
         }
 
         const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${persona}`;
-        messageDiv.innerHTML = `
-            <img src="${personaData.avatar}" alt="${personaData.name}" class="message-avatar" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
-            <div class="message-content">
-                <strong>${personaData.name}:</strong> ${this.escapeHtml(content)}
-            </div>
-        `;
+        messageDiv.className = 'message ' + persona;
+        messageDiv.innerHTML = '<img src="' + personaData.avatar + '" alt="' + personaData.name + '" class="message-avatar" onerror="this.src=\'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=\'"><div class="message-content"><strong>' + personaData.name + ':</strong> ' + this.escapeHtml(content) + '</div>';
         
         this.appendMessage(messageDiv);
         this.addToHistory(personaData.name, content);
@@ -622,12 +988,7 @@ Generated by KeithGPT - The Players Club
     addUserMessage(userName, content) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message user';
-        messageDiv.innerHTML = `
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" alt="${userName}" class="message-avatar">
-            <div class="message-content">
-                <strong>${this.escapeHtml(userName)}:</strong> ${this.escapeHtml(content)}
-            </div>
-        `;
+        messageDiv.innerHTML = '<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" alt="' + userName + '" class="message-avatar"><div class="message-content"><strong>' + this.escapeHtml(userName) + ':</strong> ' + this.escapeHtml(content) + '</div>';
         
         this.appendMessage(messageDiv);
         this.addToHistory(userName, content);
@@ -637,28 +998,19 @@ Generated by KeithGPT - The Players Club
     addGuestMessage(guestName, content) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message guest';
-        messageDiv.innerHTML = `
-            <div class="message-content">
-                <em>*${this.escapeHtml(guestName)} enters chat*</em><br>
-                <strong>${this.escapeHtml(guestName)}:</strong> ${this.escapeHtml(content)}
-            </div>
-        `;
+        messageDiv.innerHTML = '<div class="message-content"><em>*' + this.escapeHtml(guestName) + ' enters chat*</em><br><strong>' + this.escapeHtml(guestName) + ':</strong> ' + this.escapeHtml(content) + '</div>';
         
         this.appendMessage(messageDiv);
-        this.addToChatLog(`*${guestName}*`, `enters chat - ${content}`);
+        this.addToChatLog('*' + guestName + '*', 'enters chat - ' + content);
     }
 
     addGuestExit(guestName) {
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message guest';
-        messageDiv.innerHTML = `
-            <div class="message-content">
-                <em>*${this.escapeHtml(guestName)} leaves chat*</em>
-            </div>
-        `;
+        messageDiv.innerHTML = '<div class="message-content"><em>*' + this.escapeHtml(guestName) + ' leaves chat*</em></div>';
         
         this.appendMessage(messageDiv);
-        this.addToChatLog(`*${guestName}*`, 'leaves chat');
+        this.addToChatLog('*' + guestName + '*', 'leaves chat');
     }
 
     appendMessage(messageDiv) {
@@ -670,19 +1022,23 @@ Generated by KeithGPT - The Players Club
     }
 
     addToHistory(speaker, content) {
-        this.conversationHistory.push({ speaker, content });
+        this.conversationHistory.push({ speaker: speaker, content: content });
         if (this.conversationHistory.length > 50) {
             this.conversationHistory = this.conversationHistory.slice(-50);
         }
     }
 
     addToChatLog(speaker, content) {
-        if (!sessionState.chatLog) {
-            sessionState.chatLog = [];
+        if (!window.sessionState) {
+            window.sessionState = {};
         }
         
-        sessionState.chatLog.push({
-            speaker,
+        if (!window.sessionState.chatLog) {
+            window.sessionState.chatLog = [];
+        }
+        
+        window.sessionState.chatLog.push({
+            speaker: speaker,
             message: content,
             timestamp: Date.now()
         });
@@ -693,17 +1049,7 @@ Generated by KeithGPT - The Players Club
         if (!typingArea) return;
         
         const personaData = mainPersonas[persona];
-        typingArea.innerHTML = `
-            <div class="typing-indicator">
-                <img src="${personaData.avatar}" alt="${personaData.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
-                <span>${personaData.name} is typing...</span>
-                <div class="typing-dots">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                </div>
-            </div>
-        `;
+        typingArea.innerHTML = '<div class="typing-indicator"><img src="' + personaData.avatar + '" alt="' + personaData.name + '" onerror="this.src=\'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCExIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=\'"><span>' + personaData.name + ' is typing...</span><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
     }
 
     hideTyping() {
@@ -714,7 +1060,7 @@ Generated by KeithGPT - The Players Club
     scrollToBottom() {
         const chatMessages = document.getElementById('chatMessages');
         if (chatMessages) {
-            setTimeout(() => {
+            setTimeout(function() {
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }, 100);
         }
@@ -733,16 +1079,11 @@ Generated by KeithGPT - The Players Club
     }
 
     displayWelcomeMessage() {
-        setTimeout(() => {
+        const self = this;
+        setTimeout(function() {
             const config = getCurrentIntensityConfig();
-            this.addSystemMessage(`👥 Welcome to The Players Club Chat Room
-
-User: ${sessionState.userName || 'Player'}
-Intensity Level: ${config.display}
-Four personas are currently active. Spontaneous events will occur...
-You can lurk and watch, or jump in anytime!
-
-Session Duration: 15 minutes`);
+            const sessionState = window.sessionState || { userName: 'Player' };
+            self.addSystemMessage('👥 Welcome to The Players Club Chat Room\n\nUser: ' + (sessionState.userName || 'Player') + '\nIntensity Level: ' + config.display + '\nFour personas are currently active. Spontaneous events will occur...\nYou can lurk and watch, or jump in anytime!\n\nSession Duration: 15 minutes');
         }, 500);
     }
 }
@@ -753,7 +1094,7 @@ Session Duration: 15 minutes`);
 
 let keithUniverse;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     try {
         console.log('🚀 DOM loaded, initializing Keith Universe...');
         
@@ -767,15 +1108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
     } catch (error) {
         console.error('❌ Keith Universe initialization failed:', error);
-        document.body.innerHTML = `
-            <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #1A1A1A; color: #fff; font-family: Arial, sans-serif;">
-                <div style="text-align: center;">
-                    <h1 style="color: #C0C0C0;">Keith Studio Failed to Load</h1>
-                    <p>Error: ${error.message}</p>
-                    <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #C0C0C0; color: #1A1A1A; border: none; border-radius: 5px; cursor: pointer;">Refresh Page</button>
-                </div>
-            </div>
-        `;
+        document.body.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #1A1A1A; color: #fff; font-family: Arial, sans-serif;"><div style="text-align: center;"><h1 style="color: #C0C0C0;">Keith Studio Failed to Load</h1><p>Error: ' + error.message + '</p><button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #C0C0C0; color: #1A1A1A; border: none; border-radius: 5px; cursor: pointer;">Refresh Page</button></div></div>';
     }
 });
 
@@ -783,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ERROR HANDLING
 // ========================================
 
-window.addEventListener('error', (event) => {
+window.addEventListener('error', function(event) {
     console.error('🔥 Global JavaScript error:', event.error);
     console.error('Error details:', {
         message: event.message,
@@ -793,346 +1126,6 @@ window.addEventListener('error', (event) => {
     });
 });
 
-window.addEventListener('unhandledrejection', (event) => {
+window.addEventListener('unhandledrejection', function(event) {
     console.error('🔥 Unhandled promise rejection:', event.reason);
-});/* ========================================
-   KEITH STUDIO - CLEAN WORKING VERSION
-   MOBILE FIXED: Toggle functionality and user list management
-   ======================================== */
-
-class KeithUniverse {
-    constructor() {
-        this.sessionTimer = null;
-        this.autoEventTimer = null;
-        this.isProcessing = false;
-        this.conversationHistory = [];
-        this.guestAppearanceTimer = null;
-        this.lastResponder = null;
-        this.recentResponses = [];
-        this.activePersonaResponses = new Set();
-        this.isPaused = false;
-        this.pausedTimers = [];
-    }
-
-    // ========================================
-    // INITIALIZATION - CLEAN VERSION
-    // ========================================
-
-    initializeUniverse() {
-        console.log('🚀 Initializing Keith Universe...');
-        
-        // Essential element checks
-        const requiredElements = [
-            'chatInput',
-            'sendBtn', 
-            'chatMessages',
-            'sessionTimer',
-            'userCount',
-            'toggleUserList',
-            'userList',
-            'mobileOverlay'
-        ];
-        
-        const missing = requiredElements.filter(id => !document.getElementById(id));
-        if (missing.length > 0) {
-            console.error('❌ Missing required elements:', missing);
-            this.showError('Required elements missing: ' + missing.join(', '));
-            return;
-        }
-        
-        console.log('✅ All required elements found');
-        
-        // Initialize in correct order
-        this.setupEventListeners();
-        this.startSession();
-        this.displayWelcomeMessage();
-        this.startAutoEvents();
-        this.updateIntensityDisplay();
-        this.initializeUserList();
-        
-        console.log(`🎭 Keith's Inner Universe activated - ${getCurrentIntensityConfig().name} Mode`);
-    }
-
-    showError(message) {
-        const chatMessages = document.getElementById('chatMessages');
-        if (chatMessages) {
-            chatMessages.innerHTML = `
-                <div style="text-align: center; color: #ff6666; padding: 20px; border: 1px solid #ff6666; border-radius: 8px; margin: 20px;">
-                    <h3>⚠️ Initialization Error</h3>
-                    <p>${message}</p>
-                    <p><small>Please refresh the page and try again.</small></p>
-                </div>
-            `;
-        }
-    }
-
-    setupEventListeners() {
-        console.log('🔧 Setting up event listeners...');
-        
-        // Chat input and send button
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        
-        if (chatInput && sendBtn) {
-            // Clear existing listeners
-            chatInput.onkeydown = null;
-            chatInput.oninput = null;
-            sendBtn.onclick = null;
-            
-            // Add fresh listeners
-            chatInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    console.log('⌨️ Enter key pressed');
-                    this.sendUserMessage();
-                }
-            });
-            
-            chatInput.addEventListener('input', () => {
-                this.updateSendButton();
-            });
-            
-            sendBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('🖱️ Send button clicked');
-                this.sendUserMessage();
-            });
-            
-            console.log('✅ Chat input listeners attached');
-        } else {
-            console.error('❌ Chat input or send button not found');
-        }
-
-        // Control buttons
-        this.setupControlButtons();
-        
-        // Mobile controls - FIXED
-        this.setupMobileControls();
-        
-        // Initialize send button state
-        this.updateSendButton();
-    }
-
-    setupControlButtons() {
-        const buttons = [
-            { id: 'newSession', handler: () => this.startNewSession() },
-            { id: 'pauseChat', handler: () => this.togglePauseChat() },
-            { id: 'clearChat', handler: () => this.clearChat() },
-            { id: 'saveChat', handler: () => this.saveChat() },
-            { id: 'copyChat', handler: () => this.copyChat() }
-        ];
-
-        buttons.forEach(({ id, handler }) => {
-            const btn = document.getElementById(id);
-            if (btn) {
-                btn.onclick = null; // Clear existing
-                btn.addEventListener('click', handler);
-                console.log(`✅ ${id} button connected`);
-            } else {
-                console.warn(`⚠️ ${id} button not found`);
-            }
-        });
-    }
-
-    // FIXED: Mobile controls setup
-    setupMobileControls() {
-        const toggleUserList = document.getElementById('toggleUserList');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-
-        if (toggleUserList) {
-            toggleUserList.onclick = null;
-            toggleUserList.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('📱 Mobile toggle clicked');
-                this.toggleUserList();
-            });
-            console.log('✅ Mobile toggle connected');
-        }
-
-        if (mobileOverlay) {
-            mobileOverlay.onclick = null;
-            mobileOverlay.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('📱 Mobile overlay clicked');
-                this.closeUserList();
-            });
-            console.log('✅ Mobile overlay connected');
-        }
-    }
-
-    // FIXED: User list initialization
-    initializeUserList() {
-        this.updateUserCount();
-        console.log('👥 User list initialized');
-    }
-
-    // ========================================
-    // MOBILE FUNCTIONALITY - FIXED
-    // ========================================
-
-    toggleUserList() {
-        const userList = document.getElementById('userList');
-        const overlay = document.getElementById('mobileOverlay');
-        const toggleBtn = document.getElementById('toggleUserList');
-        
-        if (!userList || !overlay) {
-            console.error('❌ User list or overlay not found');
-            return;
-        }
-        
-        const isShowing = userList.classList.contains('show');
-        console.log('📱 Toggle user list - currently showing:', isShowing);
-        
-        if (isShowing) {
-            // Hide user list
-            userList.classList.remove('show');
-            overlay.classList.remove('show');
-            if (toggleBtn) toggleBtn.classList.remove('active');
-            console.log('📱 User list hidden');
-        } else {
-            // Show user list
-            userList.classList.add('show');
-            overlay.classList.add('show');
-            if (toggleBtn) toggleBtn.classList.add('active');
-            console.log('📱 User list shown');
-        }
-    }
-
-    closeUserList() {
-        const userList = document.getElementById('userList');
-        const overlay = document.getElementById('mobileOverlay');
-        const toggleBtn = document.getElementById('toggleUserList');
-        
-        if (userList && overlay) {
-            userList.classList.remove('show');
-            overlay.classList.remove('show');
-            if (toggleBtn) toggleBtn.classList.remove('active');
-            console.log('📱 User list closed');
-        }
-    }
-
-    // ========================================
-    // CHAT INPUT FUNCTIONALITY - FIXED
-    // ========================================
-
-    async sendUserMessage() {
-        console.log('📤 sendUserMessage called');
-        
-        const chatInput = document.getElementById('chatInput');
-        if (!chatInput) {
-            console.error('❌ Chat input element not found');
-            return;
-        }
-        
-        const message = chatInput.value.trim();
-        console.log('💬 Message content:', `"${message}"`);
-        
-        if (!message) {
-            console.log('❌ Empty message, not sending');
-            return;
-        }
-        
-        if (this.isProcessing) {
-            console.log('⏳ Still processing previous message');
-            return;
-        }
-        
-        const userName = sessionState.userName || 'Player';
-        console.log('👤 User name:', userName);
-        
-        // Add message to chat
-        this.addUserMessage(userName, message);
-        this.addUserToUnifiedList(userName, 'User', 'user');
-        
-        // Clear input
-        chatInput.value = '';
-        this.updateSendButton();
-        
-        // Mark user as active
-        sessionState.userLurking = false;
-        
-        console.log('✅ User message added, generating response...');
-        
-        // Generate persona response
-        setTimeout(async () => {
-            try {
-                const responder = this.selectResponder(message);
-                console.log('🎭 Selected responder:', responder);
-                
-                const context = `${mainPersonas[responder]?.name || responder} responding to ${userName}: "${message}"`;
-                await this.generatePersonaResponse(responder, context);
-            } catch (error) {
-                console.error('❌ Error generating response:', error);
-                this.addSystemMessage('⚠️ Error generating response. Please try again.');
-            }
-        }, 1000 + Math.random() * 3000);
-    }
-
-    selectResponder(userMessage) {
-        // Check for trigger words
-        for (const [persona, data] of Object.entries(mainPersonas)) {
-            if (data.triggerWords) {
-                for (const trigger of data.triggerWords) {
-                    if (userMessage.toLowerCase().includes(trigger)) {
-                        console.log(`🎯 Trigger word "${trigger}" found, selecting ${persona}`);
-                        return persona;
-                    }
-                }
-            }
-        }
-        
-        // Random selection
-        const available = sessionState.personasActive || Object.keys(mainPersonas);
-        const selected = available[Math.floor(Math.random() * available.length)];
-        console.log('🎲 Random selection:', selected);
-        return selected;
-    }
-
-    updateSendButton() {
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        
-        if (!chatInput || !sendBtn) return;
-        
-        const hasText = chatInput.value.trim().length > 0;
-        const canSend = hasText && !this.isProcessing;
-        
-        sendBtn.disabled = !canSend;
-        
-        // Visual feedback
-        sendBtn.style.opacity = canSend ? '1' : '0.4';
-        sendBtn.style.cursor = canSend ? 'pointer' : 'not-allowed';
-        
-        // Debug log
-        console.log('🔄 Send button state:', { hasText, isProcessing: this.isProcessing, canSend });
-    }
-
-    // ========================================
-    // PERSONA RESPONSE GENERATION - SIMPLIFIED
-    // ========================================
-
-    async generatePersonaResponse(persona, context, presetResponse = null) {
-        if (this.isProcessing || this.isPaused) {
-            console.log('⏸️ Skipping response - processing or paused');
-            return;
-        }
-        
-        if (this.activePersonaResponses.has(persona)) {
-            console.log(`🔄 ${persona} already responding, skipping`);
-            return;
-        }
-        
-        this.activePersonaResponses.add(persona);
-        this.isProcessing = true;
-        
-        console.log(`🎭 Generating response for ${persona}`);
-        
-        try {
-            let response;
-            
-            if (presetResponse) {
-                response = presetResponse;
-            } else {
-                // Try API call
-                try {
-                    const prompt = this.buildChatPrompt
+});
