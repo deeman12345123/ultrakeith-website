@@ -1,6 +1,6 @@
 /* ========================================
    KEITH STUDIO - CLEAN WORKING VERSION
-   FIXED: All syntax errors and async issues
+   COMPLETELY FIXED: No async errors at all
    ======================================== */
 
 class KeithUniverse {
@@ -17,15 +17,10 @@ class KeithUniverse {
         this.pausedTimers = [];
     }
 
-    // ========================================
-    // INITIALIZATION - CLEAN VERSION
-    // ========================================
-
     initializeUniverse() {
         console.log('🚀 Initializing Keith Universe...');
         
-        // Essential element checks
-        const requiredElements = [
+        var requiredElements = [
             'chatInput',
             'sendBtn', 
             'chatMessages',
@@ -36,9 +31,12 @@ class KeithUniverse {
             'mobileOverlay'
         ];
         
-        const missing = requiredElements.filter(function(id) {
-            return !document.getElementById(id);
-        });
+        var missing = [];
+        for (var i = 0; i < requiredElements.length; i++) {
+            if (!document.getElementById(requiredElements[i])) {
+                missing.push(requiredElements[i]);
+            }
+        }
         
         if (missing.length > 0) {
             console.error('❌ Missing required elements:', missing);
@@ -48,7 +46,6 @@ class KeithUniverse {
         
         console.log('✅ All required elements found');
         
-        // Initialize in correct order
         this.setupEventListeners();
         this.startSession();
         this.displayWelcomeMessage();
@@ -56,12 +53,12 @@ class KeithUniverse {
         this.updateIntensityDisplay();
         this.initializeUserList();
         
-        const config = getCurrentIntensityConfig();
+        var config = getCurrentIntensityConfig();
         console.log('🎭 Keith\'s Inner Universe activated - ' + config.name + ' Mode');
     }
 
     showError(message) {
-        const chatMessages = document.getElementById('chatMessages');
+        var chatMessages = document.getElementById('chatMessages');
         if (chatMessages) {
             chatMessages.innerHTML = '<div style="text-align: center; color: #ff6666; padding: 20px; border: 1px solid #ff6666; border-radius: 8px; margin: 20px;"><h3>⚠️ Initialization Error</h3><p>' + message + '</p><p><small>Please refresh the page and try again.</small></p></div>';
         }
@@ -70,19 +67,15 @@ class KeithUniverse {
     setupEventListeners() {
         console.log('🔧 Setting up event listeners...');
         
-        const self = this;
-        
-        // Chat input and send button
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
+        var self = this;
+        var chatInput = document.getElementById('chatInput');
+        var sendBtn = document.getElementById('sendBtn');
         
         if (chatInput && sendBtn) {
-            // Clear existing listeners
             chatInput.onkeydown = null;
             chatInput.oninput = null;
             sendBtn.onclick = null;
             
-            // Add fresh listeners
             chatInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -102,23 +95,16 @@ class KeithUniverse {
             });
             
             console.log('✅ Chat input listeners attached');
-        } else {
-            console.error('❌ Chat input or send button not found');
         }
 
-        // Control buttons
         this.setupControlButtons();
-        
-        // Mobile controls
         this.setupMobileControls();
-        
-        // Initialize send button state
         this.updateSendButton();
     }
 
     setupControlButtons() {
-        const self = this;
-        const buttons = [
+        var self = this;
+        var buttons = [
             { id: 'newSession', handler: function() { self.startNewSession(); } },
             { id: 'pauseChat', handler: function() { self.togglePauseChat(); } },
             { id: 'clearChat', handler: function() { self.clearChat(); } },
@@ -126,22 +112,20 @@ class KeithUniverse {
             { id: 'copyChat', handler: function() { self.copyChat(); } }
         ];
 
-        buttons.forEach(function(buttonConfig) {
-            const btn = document.getElementById(buttonConfig.id);
+        for (var i = 0; i < buttons.length; i++) {
+            var btn = document.getElementById(buttons[i].id);
             if (btn) {
-                btn.onclick = null; // Clear existing
-                btn.addEventListener('click', buttonConfig.handler);
-                console.log('✅ ' + buttonConfig.id + ' button connected');
-            } else {
-                console.warn('⚠️ ' + buttonConfig.id + ' button not found');
+                btn.onclick = null;
+                btn.addEventListener('click', buttons[i].handler);
+                console.log('✅ ' + buttons[i].id + ' button connected');
             }
-        });
+        }
     }
 
     setupMobileControls() {
-        const self = this;
-        const toggleUserList = document.getElementById('toggleUserList');
-        const mobileOverlay = document.getElementById('mobileOverlay');
+        var self = this;
+        var toggleUserList = document.getElementById('toggleUserList');
+        var mobileOverlay = document.getElementById('mobileOverlay');
 
         if (toggleUserList) {
             toggleUserList.onclick = null;
@@ -169,31 +153,25 @@ class KeithUniverse {
         console.log('👥 User list initialized');
     }
 
-    // ========================================
-    // MOBILE FUNCTIONALITY
-    // ========================================
-
     toggleUserList() {
-        const userList = document.getElementById('userList');
-        const overlay = document.getElementById('mobileOverlay');
-        const toggleBtn = document.getElementById('toggleUserList');
+        var userList = document.getElementById('userList');
+        var overlay = document.getElementById('mobileOverlay');
+        var toggleBtn = document.getElementById('toggleUserList');
         
         if (!userList || !overlay) {
             console.error('❌ User list or overlay not found');
             return;
         }
         
-        const isShowing = userList.classList.contains('show');
+        var isShowing = userList.classList.contains('show');
         console.log('📱 Toggle user list - currently showing:', isShowing);
         
         if (isShowing) {
-            // Hide user list
             userList.classList.remove('show');
             overlay.classList.remove('show');
             if (toggleBtn) toggleBtn.classList.remove('active');
             console.log('📱 User list hidden');
         } else {
-            // Show user list
             userList.classList.add('show');
             overlay.classList.add('show');
             if (toggleBtn) toggleBtn.classList.add('active');
@@ -202,9 +180,9 @@ class KeithUniverse {
     }
 
     closeUserList() {
-        const userList = document.getElementById('userList');
-        const overlay = document.getElementById('mobileOverlay');
-        const toggleBtn = document.getElementById('toggleUserList');
+        var userList = document.getElementById('userList');
+        var overlay = document.getElementById('mobileOverlay');
+        var toggleBtn = document.getElementById('toggleUserList');
         
         if (userList && overlay) {
             userList.classList.remove('show');
@@ -214,20 +192,16 @@ class KeithUniverse {
         }
     }
 
-    // ========================================
-    // CHAT INPUT FUNCTIONALITY
-    // ========================================
-
     sendUserMessage() {
         console.log('📤 sendUserMessage called');
         
-        const chatInput = document.getElementById('chatInput');
+        var chatInput = document.getElementById('chatInput');
         if (!chatInput) {
             console.error('❌ Chat input element not found');
             return;
         }
         
-        const message = chatInput.value.trim();
+        var message = chatInput.value.trim();
         console.log('💬 Message content:', message);
         
         if (!message) {
@@ -240,33 +214,29 @@ class KeithUniverse {
             return;
         }
         
-        const sessionState = window.sessionState || { userName: 'Player' };
-        const userName = sessionState.userName || 'Player';
+        var sessionState = window.sessionState || { userName: 'Player' };
+        var userName = sessionState.userName || 'Player';
         console.log('👤 User name:', userName);
         
-        // Add message to chat
         this.addUserMessage(userName, message);
         this.addUserToUnifiedList(userName, 'User', 'user');
         
-        // Clear input
         chatInput.value = '';
         this.updateSendButton();
         
-        // Mark user as active
         if (window.sessionState) {
             window.sessionState.userLurking = false;
         }
         
         console.log('✅ User message added, generating response...');
         
-        // Generate persona response
-        const self = this;
+        var self = this;
         setTimeout(function() {
             try {
-                const responder = self.selectResponder(message);
+                var responder = self.selectResponder(message);
                 console.log('🎭 Selected responder:', responder);
                 
-                const context = (mainPersonas[responder] ? mainPersonas[responder].name : responder) + ' responding to ' + userName + ': "' + message + '"';
+                var context = (mainPersonas[responder] ? mainPersonas[responder].name : responder) + ' responding to ' + userName + ': "' + message + '"';
                 self.generatePersonaResponse(responder, context);
             } catch (error) {
                 console.error('❌ Error generating response:', error);
@@ -276,12 +246,11 @@ class KeithUniverse {
     }
 
     selectResponder(userMessage) {
-        // Check for trigger words
-        for (const persona in mainPersonas) {
-            const data = mainPersonas[persona];
+        for (var persona in mainPersonas) {
+            var data = mainPersonas[persona];
             if (data.triggerWords) {
-                for (let i = 0; i < data.triggerWords.length; i++) {
-                    const trigger = data.triggerWords[i];
+                for (var i = 0; i < data.triggerWords.length; i++) {
+                    var trigger = data.triggerWords[i];
                     if (userMessage.toLowerCase().includes(trigger)) {
                         console.log('🎯 Trigger word "' + trigger + '" found, selecting ' + persona);
                         return persona;
@@ -290,35 +259,26 @@ class KeithUniverse {
             }
         }
         
-        // Random selection
-        const sessionState = window.sessionState || { personasActive: Object.keys(mainPersonas) };
-        const available = sessionState.personasActive || Object.keys(mainPersonas);
-        const selected = available[Math.floor(Math.random() * available.length)];
+        var sessionState = window.sessionState || { personasActive: Object.keys(mainPersonas) };
+        var available = sessionState.personasActive || Object.keys(mainPersonas);
+        var selected = available[Math.floor(Math.random() * available.length)];
         console.log('🎲 Random selection:', selected);
         return selected;
     }
 
     updateSendButton() {
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
+        var chatInput = document.getElementById('chatInput');
+        var sendBtn = document.getElementById('sendBtn');
         
         if (!chatInput || !sendBtn) return;
         
-        const hasText = chatInput.value.trim().length > 0;
-        const canSend = hasText && !this.isProcessing;
+        var hasText = chatInput.value.trim().length > 0;
+        var canSend = hasText && !this.isProcessing;
         
         sendBtn.disabled = !canSend;
-        
-        // Visual feedback
         sendBtn.style.opacity = canSend ? '1' : '0.4';
         sendBtn.style.cursor = canSend ? 'pointer' : 'not-allowed';
-        
-        console.log('🔄 Send button state:', { hasText: hasText, isProcessing: this.isProcessing, canSend: canSend });
     }
-
-    // ========================================
-    // PERSONA RESPONSE GENERATION
-    // ========================================
 
     generatePersonaResponse(persona, context, presetResponse) {
         if (this.isProcessing || this.isPaused) {
@@ -336,46 +296,28 @@ class KeithUniverse {
         
         console.log('🎭 Generating response for ' + persona);
         
-        const self = this;
+        var self = this;
         
-        try {
-            let response;
-            
-            if (presetResponse) {
-                response = presetResponse;
-                this.processPersonaResponse(persona, response);
-            } else {
-                // Try API call
-                const prompt = this.buildChatPrompt(persona, context);
-                this.callChatAPI(prompt)
-                    .then(function(apiResponse) {
-                        console.log('✅ API response for ' + persona + ':', apiResponse);
-                        self.processPersonaResponse(persona, apiResponse);
-                    })
-                    .catch(function(apiError) {
-                        console.warn('⚠️ API failed for ' + persona + ':', apiError);
-                        const fallback = self.getFallbackResponse(persona);
-                        self.processPersonaResponse(persona, fallback);
-                    });
-            }
-            
-        } catch (error) {
-            console.error('❌ Error generating response for ' + persona + ':', error);
-            this.hideTyping();
-            this.addPersonaMessage(persona, this.getFallbackResponse(persona));
-            this.activePersonaResponses.delete(persona);
-            this.isProcessing = false;
-            this.updateSendButton();
+        if (presetResponse) {
+            this.processPersonaResponse(persona, presetResponse);
+        } else {
+            var prompt = this.buildChatPrompt(persona, context);
+            this.callChatAPI(prompt, function(response) {
+                console.log('✅ API response for ' + persona + ':', response);
+                self.processPersonaResponse(persona, response);
+            }, function(error) {
+                console.warn('⚠️ API failed for ' + persona + ':', error);
+                var fallback = self.getFallbackResponse(persona);
+                self.processPersonaResponse(persona, fallback);
+            });
         }
     }
 
     processPersonaResponse(persona, response) {
-        const self = this;
+        var self = this;
         
-        // Add typing indicator
         this.showTyping(persona);
         
-        // Simulate typing delay
         setTimeout(function() {
             self.hideTyping();
             self.addPersonaMessage(persona, response);
@@ -386,20 +328,20 @@ class KeithUniverse {
     }
 
     buildChatPrompt(persona, context) {
-        const personaData = mainPersonas[persona];
-        const intensityConfig = getCurrentIntensityConfig();
+        var personaData = mainPersonas[persona];
+        var intensityConfig = getCurrentIntensityConfig();
         
         if (!personaData) {
             throw new Error('Unknown persona: ' + persona);
         }
         
-        const sessionState = window.sessionState || { userName: 'Player' };
+        var sessionState = window.sessionState || { userName: 'Player' };
         
         return 'You are ' + personaData.name + ' - ' + personaData.status + ' in Keith\'s chat room.\n\nContext: ' + context + '\nIntensity: ' + intensityConfig.name + '\nUser: ' + sessionState.userName + '\n\nKeep responses short (1-2 sentences) and stay in character as ' + personaData.name + '.\nBe conversational and authentic to your persona.';
     }
 
     getFallbackResponse(persona) {
-        const fallbacks = {
+        var fallbacks = {
             'kool-keith': 'Abstract thoughts flowing through the conversation...',
             'dr-octagon': 'Cosmic interference in the communication channels...',
             'dr-dooom': 'Technical difficulties... someone needs to handle this',
@@ -409,70 +351,60 @@ class KeithUniverse {
         return fallbacks[persona] || 'Connection unstable in the universe...';
     }
 
-    // ========================================
-    // API INTEGRATION
-    // ========================================
+    callChatAPI(prompt, onSuccess, onError) {
+        var apiKey = CONFIG.getApiKey();
+        if (!apiKey || apiKey.length < 20) {
+            onError(new Error('Invalid API key configuration'));
+            return;
+        }
 
-    callChatAPI(prompt) {
-        return new Promise(function(resolve, reject) {
-            const apiKey = CONFIG.getApiKey();
-            if (!apiKey || apiKey.length < 20) {
-                reject(new Error('Invalid API key configuration'));
-                return;
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function() {
+            controller.abort();
+        }, CONFIG.apiTimeout || 15000);
+
+        fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ role: 'user', parts: [{ text: prompt }] }],
+                generationConfig: {
+                    temperature: 0.9,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 100
+                },
+                safetySettings: [
+                    { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+                    { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+                    { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+                    { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+                ]
+            }),
+            signal: controller.signal
+        })
+        .then(function(response) {
+            clearTimeout(timeoutId);
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status + ': ' + response.statusText);
             }
-
-            const controller = new AbortController();
-            const timeoutId = setTimeout(function() {
-                controller.abort();
-            }, CONFIG.apiTimeout || 15000);
-
-            fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ role: 'user', parts: [{ text: prompt }] }],
-                    generationConfig: {
-                        temperature: 0.9,
-                        topK: 40,
-                        topP: 0.95,
-                        maxOutputTokens: 100
-                    },
-                    safetySettings: [
-                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-                    ]
-                }),
-                signal: controller.signal
-            })
-            .then(function(response) {
-                clearTimeout(timeoutId);
-                if (!response.ok) {
-                    throw new Error('HTTP ' + response.status + ': ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(function(data) {
-                if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
-                    resolve(data.candidates[0].content.parts[0].text.trim());
-                } else {
-                    reject(new Error('No valid response content from API'));
-                }
-            })
-            .catch(function(error) {
-                clearTimeout(timeoutId);
-                reject(error);
-            });
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
+                onSuccess(data.candidates[0].content.parts[0].text.trim());
+            } else {
+                onError(new Error('No valid response content from API'));
+            }
+        })
+        .catch(function(error) {
+            clearTimeout(timeoutId);
+            onError(error);
         });
     }
 
-    // ========================================
-    // CHAT MANAGEMENT FEATURES
-    // ========================================
-
     clearChat() {
-        const chatMessages = document.getElementById('chatMessages');
+        var chatMessages = document.getElementById('chatMessages');
         if (chatMessages) {
             chatMessages.innerHTML = '';
         }
@@ -490,14 +422,14 @@ class KeithUniverse {
 
     saveChat() {
         try {
-            const content = this.generateChatLog();
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-            const filename = 'KeithGPT-Chat-' + timestamp + '.txt';
+            var content = this.generateChatLog();
+            var timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            var filename = 'KeithGPT-Chat-' + timestamp + '.txt';
             
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
+            var blob = new Blob([content], { type: 'text/plain' });
+            var url = URL.createObjectURL(blob);
             
-            const a = document.createElement('a');
+            var a = document.createElement('a');
             a.href = url;
             a.download = filename;
             a.style.display = 'none';
@@ -516,9 +448,9 @@ class KeithUniverse {
     }
 
     copyChat() {
-        const self = this;
+        var self = this;
         try {
-            const content = this.generateChatLog();
+            var content = this.generateChatLog();
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(content).then(function() {
                     self.addSystemMessage('📋 Chat copied to clipboard!');
@@ -537,7 +469,7 @@ class KeithUniverse {
     }
 
     fallbackCopy(content) {
-        const textArea = document.createElement('textarea');
+        var textArea = document.createElement('textarea');
         textArea.value = content;
         document.body.appendChild(textArea);
         textArea.select();
@@ -547,16 +479,16 @@ class KeithUniverse {
     }
 
     generateChatLog() {
-        const config = getCurrentIntensityConfig();
-        const sessionState = window.sessionState || {};
-        const duration = sessionState.startTime ? Math.floor((Date.now() - sessionState.startTime) / 1000) : 0;
+        var config = getCurrentIntensityConfig();
+        var sessionState = window.sessionState || {};
+        var duration = sessionState.startTime ? Math.floor((Date.now() - sessionState.startTime) / 1000) : 0;
         
-        let content = '========================================\nKEITHGPT - THE PLAYERS CLUB CHAT LOG\n========================================\n\nSession Details:\n- Date: ' + new Date().toLocaleString() + '\n- Duration: ' + Math.floor(duration / 60) + ':' + (duration % 60).toString().padStart(2, '0') + '\n- User: ' + (sessionState.userName || 'Player') + '\n- Intensity: ' + config.display + '\n\n========================================\nMESSAGES:\n========================================\n\n';
+        var content = '========================================\nKEITHGPT - THE PLAYERS CLUB CHAT LOG\n========================================\n\nSession Details:\n- Date: ' + new Date().toLocaleString() + '\n- Duration: ' + Math.floor(duration / 60) + ':' + (duration % 60).toString().padStart(2, '0') + '\n- User: ' + (sessionState.userName || 'Player') + '\n- Intensity: ' + config.display + '\n\n========================================\nMESSAGES:\n========================================\n\n';
 
-        // Add conversation history
-        this.conversationHistory.forEach(function(entry) {
+        for (var i = 0; i < this.conversationHistory.length; i++) {
+            var entry = this.conversationHistory[i];
             content += entry.speaker + ': ' + entry.content + '\n';
-        });
+        }
 
         content += '\n========================================\nGenerated by KeithGPT - The Players Club\n========================================';
 
@@ -565,7 +497,7 @@ class KeithUniverse {
 
     togglePauseChat() {
         this.isPaused = !this.isPaused;
-        const pauseBtn = document.getElementById('pauseChat');
+        var pauseBtn = document.getElementById('pauseChat');
         
         if (this.isPaused) {
             if (pauseBtn) {
@@ -585,13 +517,13 @@ class KeithUniverse {
     }
 
     updateIntensityDisplay() {
-        const intensityDisplay = document.getElementById('intensityDisplay');
+        var intensityDisplay = document.getElementById('intensityDisplay');
         if (intensityDisplay) {
-            const config = getCurrentIntensityConfig();
+            var config = getCurrentIntensityConfig();
             intensityDisplay.textContent = config.display;
             
-            const sessionState = window.sessionState || { intensityLevel: 2 };
-            const colors = {
+            var sessionState = window.sessionState || { intensityLevel: 2 };
+            var colors = {
                 1: '#66ff66',
                 2: '#ffaa00', 
                 3: '#ff6666'
@@ -599,10 +531,6 @@ class KeithUniverse {
             intensityDisplay.style.color = colors[sessionState.intensityLevel] || '#ffaa00';
         }
     }
-
-    // ========================================
-    // SESSION MANAGEMENT
-    // ========================================
 
     startSession() {
         if (!window.sessionState) {
@@ -621,11 +549,11 @@ class KeithUniverse {
     }
 
     startSessionTimer() {
-        const self = this;
+        var self = this;
         this.sessionTimer = setInterval(function() {
-            const sessionState = window.sessionState || {};
-            const elapsed = Date.now() - (sessionState.startTime || Date.now());
-            const remaining = (CONFIG.sessionDuration || 900000) - elapsed; // 15 min default
+            var sessionState = window.sessionState || {};
+            var elapsed = Date.now() - (sessionState.startTime || Date.now());
+            var remaining = (CONFIG.sessionDuration || 900000) - elapsed;
             
             if (remaining <= 0) {
                 self.endSession();
@@ -637,16 +565,16 @@ class KeithUniverse {
     }
 
     updateSessionDisplay(remaining) {
-        const timerEl = document.getElementById('sessionTimer');
+        var timerEl = document.getElementById('sessionTimer');
         if (!timerEl) return;
         
         if (remaining === null || remaining === undefined) {
-            const sessionState = window.sessionState || {};
+            var sessionState = window.sessionState || {};
             remaining = (CONFIG.sessionDuration || 900000) - (Date.now() - (sessionState.startTime || Date.now()));
         }
         
-        const minutes = Math.floor(remaining / 60000);
-        const seconds = Math.floor((remaining % 60000) / 1000);
+        var minutes = Math.floor(remaining / 60000);
+        var seconds = Math.floor((remaining % 60000) / 1000);
         timerEl.textContent = 'Session: ' + minutes + ':' + seconds.toString().padStart(2, '0');
         
         if (remaining < 60000) {
@@ -661,8 +589,8 @@ class KeithUniverse {
         
         this.addSystemMessage('🎭 Session complete! Click "🔄" to start another session.');
         
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
+        var chatInput = document.getElementById('chatInput');
+        var sendBtn = document.getElementById('sendBtn');
         if (chatInput) chatInput.disabled = true;
         if (sendBtn) sendBtn.disabled = true;
         
@@ -672,10 +600,9 @@ class KeithUniverse {
     startNewSession() {
         this.clearMessages();
         
-        // Reset session state but keep user preferences
-        const sessionState = window.sessionState || {};
-        const userName = sessionState.userName;
-        const intensityLevel = sessionState.intensityLevel;
+        var sessionState = window.sessionState || {};
+        var userName = sessionState.userName;
+        var intensityLevel = sessionState.intensityLevel;
         
         window.sessionState = {
             startTime: null,
@@ -694,29 +621,25 @@ class KeithUniverse {
             sessionStartTime: null
         };
         
-        // Reset instance state
         this.recentResponses = [];
         this.activePersonaResponses.clear();
         this.isPaused = false;
         
-        // Reset UI
-        const pauseBtn = document.getElementById('pauseChat');
+        var pauseBtn = document.getElementById('pauseChat');
         if (pauseBtn) {
             pauseBtn.innerHTML = '⏸️ Pause';
             pauseBtn.style.background = '';
         }
         
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
+        var chatInput = document.getElementById('chatInput');
+        var sendBtn = document.getElementById('sendBtn');
         if (chatInput) {
             chatInput.disabled = false;
             chatInput.focus();
         }
         if (sendBtn) sendBtn.disabled = false;
         
-        // Clear user list except main personas
         this.resetUserList();
-        
         this.startSession();
         this.displayWelcomeMessage();
         this.startAutoEvents();
@@ -724,43 +647,36 @@ class KeithUniverse {
         console.log('🔄 New session started');
     }
 
-    // ========================================
-    // AUTO EVENTS
-    // ========================================
-
     startAutoEvents() {
-        const self = this;
+        var self = this;
         
-        // Start personas conversation
         setTimeout(function() {
             self.personasEnterChat();
         }, 2000);
         
-        // Random events
         this.autoEventTimer = setInterval(function() {
             if (!self.isPaused) {
                 self.triggerRandomEvent();
             }
-        }, 20000 + Math.random() * 40000); // 20-60 seconds
+        }, 20000 + Math.random() * 40000);
         
-        // Guest appearances
         this.scheduleGuestAppearance();
     }
 
     triggerRandomEvent() {
         if (this.isProcessing || this.isPaused) return;
         
-        const events = [
+        var events = [
             this.triggerSpontaneousComment.bind(this),
             this.triggerGuestAppearance.bind(this)
         ];
         
-        const event = events[Math.floor(Math.random() * events.length)];
+        var event = events[Math.floor(Math.random() * events.length)];
         event();
     }
 
     triggerSpontaneousComment() {
-        const comments = {
+        var comments = {
             'kool-keith': [
                 'Abstract creativity keeps flowing through the universe',
                 'Innovation never stops in the foundation',
@@ -783,10 +699,10 @@ class KeithUniverse {
             ]
         };
         
-        const personas = Object.keys(comments);
-        const persona = personas[Math.floor(Math.random() * personas.length)];
-        const personaComments = comments[persona];
-        const comment = personaComments[Math.floor(Math.random() * personaComments.length)];
+        var personas = Object.keys(comments);
+        var persona = personas[Math.floor(Math.random() * personas.length)];
+        var personaComments = comments[persona];
+        var comment = personaComments[Math.floor(Math.random() * personaComments.length)];
         
         this.generatePersonaResponse(persona, persona + ' spontaneous comment', comment);
     }
@@ -794,24 +710,22 @@ class KeithUniverse {
     triggerGuestAppearance() {
         if (!guestPersonas || Object.keys(guestPersonas).length === 0) return;
         
-        const guestKeys = Object.keys(guestPersonas);
-        const guestKey = guestKeys[Math.floor(Math.random() * guestKeys.length)];
-        const guest = guestPersonas[guestKey];
+        var guestKeys = Object.keys(guestPersonas);
+        var guestKey = guestKeys[Math.floor(Math.random() * guestKeys.length)];
+        var guest = guestPersonas[guestKey];
         
-        // 60% chance they just lurk and leave, 40% chance they say something
-        const willSpeak = Math.random() < 0.4;
+        var willSpeak = Math.random() < 0.4;
         
         if (willSpeak) {
             this.addGuestMessage(guest.name, guest.line);
             console.log('🗣️ ' + guest.name + ' spoke: ' + guest.line);
         } else {
-            // Just appear in user list and leave quietly
             console.log('👁️ ' + guest.name + ' lurked silently');
         }
         
         this.addUserToUnifiedList(guest.name, 'Visitor', 'visitor');
         
-        const self = this;
+        var self = this;
         setTimeout(function() {
             if (willSpeak) {
                 self.addGuestExit(guest.name);
@@ -822,8 +736,8 @@ class KeithUniverse {
     }
 
     scheduleGuestAppearance() {
-        const delay = 45000 + Math.random() * 90000; // 45-135 seconds
-        const self = this;
+        var delay = 45000 + Math.random() * 90000;
+        var self = this;
         this.guestAppearanceTimer = setTimeout(function() {
             if (!self.isPaused) {
                 self.triggerGuestAppearance();
@@ -833,23 +747,23 @@ class KeithUniverse {
     }
 
     personasEnterChat() {
-        const sessionState = window.sessionState || { intensityLevel: 2 };
-        const intensityLevel = sessionState.intensityLevel || 2;
+        var sessionState = window.sessionState || { intensityLevel: 2 };
+        var intensityLevel = sessionState.intensityLevel || 2;
         
-        const entryMessages = {
-            1: { // Tame
+        var entryMessages = {
+            1: {
                 'dr-octagon': 'Medical knowledge ready for discussion',
                 'kool-keith': 'Creative foundation established for conversation',
                 'black-elvis': 'Musical harmony bringing positive energy',
                 'dr-dooom': 'Real hip-hop discussion starting now'
             },
-            2: { // Medium
+            2: {
                 'dr-octagon': 'Cosmic surgical procedures evolving through dimensions',
                 'dr-dooom': 'Cleaning out fake MCs, one conversation at a time',
                 'black-elvis': 'Funk therapy balancing the energy in here',
                 'kool-keith': 'Abstract foundation connecting everything'
             },
-            3: { // Wild
+            3: {
                 'dr-dooom': 'Time for brutal execution of fake MCs',
                 'dr-octagon': 'Dimensional surgery dissecting primitive consciousness',
                 'kool-keith': 'Raw creative energy exploding through the foundation',
@@ -857,50 +771,45 @@ class KeithUniverse {
             }
         };
         
-        const messages = entryMessages[intensityLevel] || entryMessages[2];
-        const personas = Object.keys(messages);
+        var messages = entryMessages[intensityLevel] || entryMessages[2];
+        var personas = Object.keys(messages);
         
-        const self = this;
-        personas.forEach(function(persona, index) {
-            setTimeout(function() {
-                self.addPersonaMessage(persona, messages[persona]);
-                self.addToHistory(mainPersonas[persona] ? mainPersonas[persona].name : persona, messages[persona]);
-            }, (index + 1) * 3000);
-        });
+        var self = this;
+        for (var i = 0; i < personas.length; i++) {
+            (function(persona, delay) {
+                setTimeout(function() {
+                    self.addPersonaMessage(persona, messages[persona]);
+                    self.addToHistory(mainPersonas[persona] ? mainPersonas[persona].name : persona, messages[persona]);
+                }, delay);
+            })(personas[i], (i + 1) * 3000);
+        }
         
-        // Welcome user
         setTimeout(function() {
-            const welcomes = {
+            var welcomes = {
                 1: 'Welcome to our discussion',
                 2: 'Fresh face in the club - what\'s good?',
                 3: 'Another player joins the intense conversation'
             };
             
-            const welcome = welcomes[intensityLevel] || welcomes[2];
+            var welcome = welcomes[intensityLevel] || welcomes[2];
             self.addPersonaMessage('dr-dooom', welcome);
         }, 15000);
     }
 
-    // ========================================
-    // USER LIST MANAGEMENT
-    // ========================================
-
     addUserToUnifiedList(userName, status, type) {
-        const allUsersList = document.getElementById('allUsersList');
+        var allUsersList = document.getElementById('allUsersList');
         if (!allUsersList) return;
         
-        // Remove "Users appear here" note if it exists
-        const userNote = allUsersList.querySelector('.user-note');
+        var userNote = allUsersList.querySelector('.user-note');
         if (userNote) userNote.style.display = 'none';
         
-        // Check if user already exists
-        const existingUser = allUsersList.querySelector('[data-user="' + userName + '"]');
+        var existingUser = allUsersList.querySelector('[data-user="' + userName + '"]');
         if (existingUser) return;
         
-        const avatarColor = type === 'user' ? '#4488ff' : '#cccccc';
-        const avatarSVG = 'data:image/svg+xml;base64,' + btoa('<svg width="28" height="28" fill="' + avatarColor + '" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>');
+        var avatarColor = type === 'user' ? '#4488ff' : '#cccccc';
+        var avatarSVG = 'data:image/svg+xml;base64,' + btoa('<svg width="28" height="28" fill="' + avatarColor + '" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>');
         
-        const userDiv = document.createElement('div');
+        var userDiv = document.createElement('div');
         userDiv.className = 'user-item';
         userDiv.setAttribute('data-user', userName);
         userDiv.innerHTML = '<img src="' + avatarSVG + '" alt="' + userName + '"><div class="user-item-info"><span class="user-item-name">' + this.escapeHtml(userName) + '</span><span class="user-item-status">' + status + '</span></div><div class="status-dot online"></div>';
@@ -911,35 +820,32 @@ class KeithUniverse {
     }
 
     removeUserFromUnifiedList(userName) {
-        const allUsersList = document.getElementById('allUsersList');
+        var allUsersList = document.getElementById('allUsersList');
         if (!allUsersList) return;
         
-        const userItem = allUsersList.querySelector('[data-user="' + userName + '"]');
+        var userItem = allUsersList.querySelector('[data-user="' + userName + '"]');
         if (userItem) {
             userItem.remove();
             this.updateUserCount();
             console.log('👋 Removed ' + userName + ' from unified list');
             
-            // Show note if no users remain
-            const remainingUsers = allUsersList.querySelectorAll('.user-item');
+            var remainingUsers = allUsersList.querySelectorAll('.user-item');
             if (remainingUsers.length === 0) {
-                const userNote = allUsersList.querySelector('.user-note');
+                var userNote = allUsersList.querySelector('.user-note');
                 if (userNote) userNote.style.display = 'block';
             }
         }
     }
 
     resetUserList() {
-        const allUsersList = document.getElementById('allUsersList');
+        var allUsersList = document.getElementById('allUsersList');
         if (allUsersList) {
-            // Remove all user items but keep the note
-            const userItems = allUsersList.querySelectorAll('.user-item');
-            userItems.forEach(function(item) {
-                item.remove();
-            });
+            var userItems = allUsersList.querySelectorAll('.user-item');
+            for (var i = 0; i < userItems.length; i++) {
+                userItems[i].remove();
+            }
             
-            // Show the note
-            const userNote = allUsersList.querySelector('.user-note');
+            var userNote = allUsersList.querySelector('.user-note');
             if (userNote) userNote.style.display = 'block';
         }
         
@@ -948,35 +854,31 @@ class KeithUniverse {
     }
 
     updateUserCount() {
-        const userCountEl = document.getElementById('userCount');
+        var userCountEl = document.getElementById('userCount');
         if (!userCountEl) return;
         
-        const mainPersonas = 4; // Always 4 main personas
-        const dynamicUsers = document.querySelectorAll('#allUsersList .user-item').length;
-        const total = mainPersonas + dynamicUsers;
+        var mainPersonas = 4;
+        var dynamicUsers = document.querySelectorAll('#allUsersList .user-item').length;
+        var total = mainPersonas + dynamicUsers;
         
         userCountEl.textContent = total + ' online';
     }
 
-    // ========================================
-    // MESSAGE DISPLAY FUNCTIONS
-    // ========================================
-
     addSystemMessage(content) {
-        const messageDiv = document.createElement('div');
+        var messageDiv = document.createElement('div');
         messageDiv.className = 'system-message';
         messageDiv.innerHTML = '<div class="message-content">' + this.escapeHtml(content) + '</div>';
         this.appendMessage(messageDiv);
     }
 
     addPersonaMessage(persona, content) {
-        const personaData = mainPersonas[persona];
+        var personaData = mainPersonas[persona];
         if (!personaData) {
             console.warn('Unknown persona: ' + persona);
             return;
         }
 
-        const messageDiv = document.createElement('div');
+        var messageDiv = document.createElement('div');
         messageDiv.className = 'message ' + persona;
         messageDiv.innerHTML = '<img src="' + personaData.avatar + '" alt="' + personaData.name + '" class="message-avatar" onerror="this.src=\'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=\'"><div class="message-content"><strong>' + personaData.name + ':</strong> ' + this.escapeHtml(content) + '</div>';
         
@@ -986,9 +888,9 @@ class KeithUniverse {
     }
 
     addUserMessage(userName, content) {
-        const messageDiv = document.createElement('div');
+        var messageDiv = document.createElement('div');
         messageDiv.className = 'message user';
-        messageDiv.innerHTML = '<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" alt="' + userName + '" class="message-avatar"><div class="message-content"><strong>' + this.escapeHtml(userName) + ':</strong> ' + this.escapeHtml(content) + '</div>';
+        messageDiv.innerHTML = '<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" alt="' + userName + '" class="message-avatar"><div class="message-content"><strong>' + this.escapeHtml(userName) + ':</strong> ' + this.escapeHtml(content) + '</div>';
         
         this.appendMessage(messageDiv);
         this.addToHistory(userName, content);
@@ -996,7 +898,7 @@ class KeithUniverse {
     }
 
     addGuestMessage(guestName, content) {
-        const messageDiv = document.createElement('div');
+        var messageDiv = document.createElement('div');
         messageDiv.className = 'message guest';
         messageDiv.innerHTML = '<div class="message-content"><em>*' + this.escapeHtml(guestName) + ' enters chat*</em><br><strong>' + this.escapeHtml(guestName) + ':</strong> ' + this.escapeHtml(content) + '</div>';
         
@@ -1005,7 +907,7 @@ class KeithUniverse {
     }
 
     addGuestExit(guestName) {
-        const messageDiv = document.createElement('div');
+        var messageDiv = document.createElement('div');
         messageDiv.className = 'message guest';
         messageDiv.innerHTML = '<div class="message-content"><em>*' + this.escapeHtml(guestName) + ' leaves chat*</em></div>';
         
@@ -1014,7 +916,7 @@ class KeithUniverse {
     }
 
     appendMessage(messageDiv) {
-        const chatMessages = document.getElementById('chatMessages');
+        var chatMessages = document.getElementById('chatMessages');
         if (chatMessages) {
             chatMessages.appendChild(messageDiv);
             this.scrollToBottom();
@@ -1045,20 +947,20 @@ class KeithUniverse {
     }
 
     showTyping(persona) {
-        const typingArea = document.getElementById('typingArea');
+        var typingArea = document.getElementById('typingArea');
         if (!typingArea) return;
         
-        const personaData = mainPersonas[persona];
+        var personaData = mainPersonas[persona];
         typingArea.innerHTML = '<div class="typing-indicator"><img src="' + personaData.avatar + '" alt="' + personaData.name + '" onerror="this.src=\'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCExIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=\'"><span>' + personaData.name + ' is typing...</span><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
     }
 
     hideTyping() {
-        const typingArea = document.getElementById('typingArea');
+        var typingArea = document.getElementById('typingArea');
         if (typingArea) typingArea.innerHTML = '';
     }
 
     scrollToBottom() {
-        const chatMessages = document.getElementById('chatMessages');
+        var chatMessages = document.getElementById('chatMessages');
         if (chatMessages) {
             setTimeout(function() {
                 chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -1067,32 +969,28 @@ class KeithUniverse {
     }
 
     clearMessages() {
-        const chatMessages = document.getElementById('chatMessages');
+        var chatMessages = document.getElementById('chatMessages');
         if (chatMessages) chatMessages.innerHTML = '';
         this.conversationHistory = [];
     }
 
     escapeHtml(text) {
-        const div = document.createElement('div');
+        var div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
 
     displayWelcomeMessage() {
-        const self = this;
+        var self = this;
         setTimeout(function() {
-            const config = getCurrentIntensityConfig();
-            const sessionState = window.sessionState || { userName: 'Player' };
+            var config = getCurrentIntensityConfig();
+            var sessionState = window.sessionState || { userName: 'Player' };
             self.addSystemMessage('👥 Welcome to The Players Club Chat Room\n\nUser: ' + (sessionState.userName || 'Player') + '\nIntensity Level: ' + config.display + '\nFour personas are currently active. Spontaneous events will occur...\nYou can lurk and watch, or jump in anytime!\n\nSession Duration: 15 minutes');
         }, 500);
     }
 }
 
-// ========================================
-// INITIALIZATION
-// ========================================
-
-let keithUniverse;
+var keithUniverse;
 
 document.addEventListener('DOMContentLoaded', function() {
     try {
@@ -1102,8 +1000,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.keithUniverse = keithUniverse;
         
         console.log('✅ Keith Universe class created');
-        
-        // Don't auto-initialize - wait for entry screen
         console.log('⏳ Waiting for entry screen completion...');
         
     } catch (error) {
@@ -1111,10 +1007,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #1A1A1A; color: #fff; font-family: Arial, sans-serif;"><div style="text-align: center;"><h1 style="color: #C0C0C0;">Keith Studio Failed to Load</h1><p>Error: ' + error.message + '</p><button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #C0C0C0; color: #1A1A1A; border: none; border-radius: 5px; cursor: pointer;">Refresh Page</button></div></div>';
     }
 });
-
-// ========================================
-// ERROR HANDLING
-// ========================================
 
 window.addEventListener('error', function(event) {
     console.error('🔥 Global JavaScript error:', event.error);
