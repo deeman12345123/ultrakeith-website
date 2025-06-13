@@ -317,34 +317,21 @@
         
         .album-slide:hover .track-listing {
             opacity: 1;
-            max-height: 200px;
+            max-height: 80px; /* Much smaller - just 2-3 lines */
         }
         
         .track-listing h4 {
             color: var(--gold-primary);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 1.1rem; /* Smaller */
+            margin-bottom: 8px;
             font-family: 'Orbitron', monospace;
         }
         
-        .track-list {
-            list-style: none;
+        .track-preview {
             color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        
-        .track-list li {
-            padding: 3px 0;
-            border-left: 2px solid transparent;
-            padding-left: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .track-list li:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-            padding-left: 15px;
+            font-size: 1.0rem; /* Smaller text */
+            line-height: 1.4;
+            font-style: italic;
         }
         
         .audio-controls {
@@ -1026,14 +1013,8 @@
                             <p class="album-artist">Kool Keith</p>
                             <span class="release-badge badge-out-now">OUT NOW</span>
                             <div class="track-listing">
-                                <h4>Track Listing:</h4>
-                                <ul class="track-list">
-                                    <li>1. Space Intro</li>
-                                    <li>2. Galactic Flow</li>
-                                    <li>3. Cosmic Freestyle</li>
-                                    <li>4. Planet Keith</li>
-                                    <li>5. Universe Outro</li>
-                                </ul>
+                                <h4>Features:</h4>
+                                <p class="track-preview">"Space-age flows with galactic production"</p>
                             </div>
                             <div class="audio-controls">
                                 <button class="play-preview-btn" onclick="playPreview(1)">
@@ -1056,14 +1037,8 @@
                             <p class="album-artist">Dr. Octagon</p>
                             <span class="release-badge badge-coming-soon">JULY 2025</span>
                             <div class="track-listing">
-                                <h4>Preview Tracks:</h4>
-                                <ul class="track-list">
-                                    <li>1. Medical Emergency</li>
-                                    <li>2. Surgery Notes</li>
-                                    <li>3. Octagon Chamber</li>
-                                    <li>4. Patient Zero</li>
-                                    <li>5. Doctor's Orders</li>
-                                </ul>
+                                <h4>Coming Soon:</h4>
+                                <p class="track-preview">"Dr. Octagon returns with surgical precision"</p>
                             </div>
                             <div class="audio-controls">
                                 <button class="play-preview-btn" onclick="playPreview(2)">
@@ -1085,14 +1060,8 @@
                             <p class="album-artist">Ultra Keith</p>
                             <span class="release-badge badge-streaming">STREAMING</span>
                             <div class="track-listing">
-                                <h4>Vault Highlights:</h4>
-                                <ul class="track-list">
-                                    <li>1. Unreleased Gem #1</li>
-                                    <li>2. Studio Session</li>
-                                    <li>3. Rare Freestyle</li>
-                                    <li>4. Lost Collaboration</li>
-                                    <li>5. Hidden Track</li>
-                                </ul>
+                                <h4>Vault Collection:</h4>
+                                <p class="track-preview">"Rare gems and unreleased material"</p>
                             </div>
                             <div class="audio-controls">
                                 <button class="play-preview-btn" onclick="playPreview(3)">
@@ -1115,14 +1084,8 @@
                             <p class="album-artist">Ultramagnetic MCs</p>
                             <span class="release-badge badge-streaming">REMASTERED</span>
                             <div class="track-listing">
-                                <h4>Classic Tracks:</h4>
-                                <ul class="track-list">
-                                    <li>1. Watch Me Now</li>
-                                    <li>2. Ease Back</li>
-                                    <li>3. Critical Beatdown</li>
-                                    <li>4. Give the Drummer Some</li>
-                                    <li>5. Traveling at the Speed</li>
-                                </ul>
+                                <h4>Classic Album:</h4>
+                                <p class="track-preview">"The revolutionary debut that changed hip-hop"</p>
                             </div>
                             <div class="audio-controls">
                                 <button class="play-preview-btn" onclick="playPreview(4)">
@@ -1145,14 +1108,8 @@
                             <p class="album-artist">Black Elvis</p>
                             <span class="release-badge badge-out-now">AVAILABLE</span>
                             <div class="track-listing">
-                                <h4>Elvis Returns:</h4>
-                                <ul class="track-list">
-                                    <li>1. King's Return</li>
-                                    <li>2. Graceland Flow</li>
-                                    <li>3. Memphis Style</li>
-                                    <li>4. Thank You Very Much</li>
-                                    <li>5. Elvis Lives</li>
-                                </ul>
+                                <h4>Elvis Lives:</h4>
+                                <p class="track-preview">"The King meets the Keith - legendary fusion"</p>
                             </div>
                             <div class="audio-controls">
                                 <button class="play-preview-btn" onclick="playPreview(5)">
