@@ -1460,6 +1460,35 @@ Session Duration: 15 minutes
                     3: 'Funk therapy is useless against fake MCs requiring brutal elimination'
                 }
             }
+                context1: `Kool Keith moderating Dooom aggression at ${getCurrentIntensityConfig().name} level`,
+                context2: `Dr. Dooom dismissing Keith authority at ${getCurrentIntensityConfig().name} level`,
+                lines1: {
+                    1: 'The creative foundation doesn\'t need all this conflict',
+                    2: 'The abstract foundation doesn\'t need all this violence',
+                    3: 'Revolutionary innovation doesn\'t require brutal destruction'
+                },
+                lines2: {
+                    1: 'Foundation or not, fake MCs still need correction',
+                    2: 'Foundation or not, fake MCs still need execution',
+                    3: 'Abstract concepts can\'t stop the brutal elimination of phonies'
+                }
+            },
+            {
+                personas: ['black-elvis', 'dr-dooom'],
+                context1: `Black Elvis peaceful intervention at ${getCurrentIntensityConfig().name} level`,
+                context2: `Dr. Dooom rejecting peace at ${getCurrentIntensityConfig().name} level`,
+                lines1: {
+                    1: 'Some musical harmony might calm all this energy',
+                    2: 'Some funk therapy might calm all this aggressive energy',
+                    3: 'Raw funk energy could redirect this violent aggression'
+                },
+                lines2: {
+                    1: 'Music can\'t fix authenticity issues',
+                    2: 'Funk can\'t fix fake personas - only execution can',
+                    3: 'Funk therapy is useless against fake MCs requiring brutal elimination'
+                }
+            }
+        ];
         ];
         
         const conflict = conflicts[Math.floor(Math.random() * conflicts.length)];
