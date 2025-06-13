@@ -139,6 +139,8 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 12px;
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden; /* Prevent any overflow */
         }
         
         .carousel-title {
@@ -545,9 +547,9 @@
                 min-height: 44px;
             }
             
-            /* Desktop carousel controls */
+            /* Desktop carousel controls - PROPER DISPLAY */
             .carousel-nav {
-                display: block;
+                display: block !important; /* Force show on desktop */
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
@@ -559,13 +561,24 @@
                 cursor: pointer;
                 border-radius: 50%;
                 z-index: 10;
+                transition: all 0.3s ease;
             }
             
-            .carousel-prev { left: 20px; }
-            .carousel-next { right: 20px; }
+            .carousel-nav:hover {
+                background: rgba(255, 215, 0, 0.2);
+                border-color: var(--gold-primary);
+            }
+            
+            .carousel-prev { 
+                left: 20px; 
+            }
+            
+            .carousel-next { 
+                right: 20px; 
+            }
             
             .carousel-indicators {
-                display: flex;
+                display: flex !important; /* Force show on desktop */
                 justify-content: center;
                 gap: 15px;
                 margin-top: 20px;
