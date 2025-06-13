@@ -1,73 +1,6 @@
-addPersonaMessage(persona, content) {
-        const personaData = mainPersonas[persona];
-        if (!personaData) {
-            console.warn('Unknown persona:', persona);
-            return;
-        }
-
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${persona}`;
-        messageDiv.innerHTML = `
-            <img src="${personaData.avatar}" alt="${personaData.name}" class="message-avatar" 
-                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
-            <div class="message-content">
-                <strong>${personaData.name}:</strong> ${this.escapeHtml(content)}
-            </div>
-        `;
-        
-        this.appendMessage(messageDiv);
-        this.addToHistory(personaData.name, content);
-        this.addToChatLog(personaData.name, content);
-    }
-
-    addUserMessage(userName, content) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message user';
-        messageDiv.innerHTML = `
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
-                 alt="${userName}" class="message-avatar">
-            <div class="message-content">
-                <strong>${this.escapeHtml(userName)}:</strong> ${this.escapeHtml(content)}
-            </div>
-        `;
-        
-        this.appendMessage(messageDiv);
-        this.addToHistory(userName, content);
-        this.addToChatLog(userName, content);
-    }
-
-    addGuestMessage(guestName, content) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message guest';
-        messageDiv.innerHTML = `
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
-                 alt="${guestName}" class="message-avatar">
-            <div class="message-content">
-                <em>*${this.escapeHtml(guestName)} enters chat*</em><br>
-                <strong>${this.escapeHtml(guestName)}:</strong> ${this.escapeHtml(content)}
-            </div>
-        `;
-        
-        this.appendMessage(messageDiv);
-        this.addToChatLog(`*${guestName}*`, `enters chat - ${content}`);
-    }
-
-    addGuestExit(guestName) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message guest';
-        messageDiv.innerHTML = `
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
-                 alt="${guestName}" class="message-avatar">
-            <div class="message-content">
-                <em>*${this.escapeHtml(guestName)} leaves chat*</em>
-            </div>
-        `;
-        
-        this.appendMessage(messageDiv);
-        this.addToChatLog(`*${guestName}*`, 'leaves chat');
-    }/* ========================================
+/* ========================================
    KEITH STUDIO - MAIN CHAT ENGINE
-   COMPLETE WORKING VERSION - NO SYNTAX ERRORS
+   COMPLETE WORKING VERSION - 2000s STYLE
    ======================================== */
 
 class KeithUniverse {
@@ -87,7 +20,6 @@ class KeithUniverse {
     initializeUniverse() {
         console.log('🚀 Initializing Keith Universe...');
         
-        // Check for required elements
         const requiredElements = [
             'chatInput', 'sendBtn', 'chatMessages', 'sessionTimer',
             'userCount', 'toggleUserList', 'userList', 'mobileOverlay'
@@ -134,7 +66,6 @@ class KeithUniverse {
         const sendBtn = document.getElementById('sendBtn');
         
         if (chatInput && sendBtn) {
-            // Clear existing listeners
             chatInput.onkeydown = null;
             chatInput.oninput = null;
             sendBtn.onclick = null;
@@ -306,7 +237,6 @@ class KeithUniverse {
     }
 
     selectResponder(userMessage) {
-        // Check for trigger words first
         for (const persona in mainPersonas) {
             const data = mainPersonas[persona];
             if (data.triggerWords) {
@@ -319,7 +249,6 @@ class KeithUniverse {
             }
         }
         
-        // Random selection from active personas
         const sessionState = window.sessionState || { personasActive: Object.keys(mainPersonas) };
         const available = sessionState.personasActive || Object.keys(mainPersonas);
         const selected = available[Math.floor(Math.random() * available.length)];
@@ -731,19 +660,16 @@ Generated by KeithGPT - The Players Club
     }
 
     startAutoEvents() {
-        // Personas enter chat
         setTimeout(() => {
             this.personasEnterChat();
         }, 2000);
         
-        // Regular events
         this.autoEventTimer = setInterval(() => {
             if (!this.isPaused) {
                 this.triggerRandomEvent();
             }
         }, 20000 + Math.random() * 40000);
         
-        // Guest appearances
         this.scheduleGuestAppearance();
     }
 
@@ -886,7 +812,7 @@ Generated by KeithGPT - The Players Club
         if (existingUser) return;
         
         const avatarColor = type === 'user' ? '#4488ff' : '#cccccc';
-        const avatarSVG = `data:image/svg+xml;base64,${btoa(`<svg width="28" height="28" fill="${avatarColor}" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>`)}`;
+        const avatarSVG = `data:image/svg+xml;base64,${btoa(`<svg width="16" height="16" fill="${avatarColor}" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>`)}`;
         
         const userDiv = document.createElement('div');
         userDiv.className = 'user-item';
@@ -966,7 +892,7 @@ Generated by KeithGPT - The Players Club
         messageDiv.className = `message ${persona}`;
         messageDiv.innerHTML = `
             <img src="${personaData.avatar}" alt="${personaData.name}" class="message-avatar" 
-                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
             <div class="message-content">
                 <strong>${personaData.name}:</strong> ${this.escapeHtml(content)}
             </div>
@@ -981,7 +907,7 @@ Generated by KeithGPT - The Players Club
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message user';
         messageDiv.innerHTML = `
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
                  alt="${userName}" class="message-avatar">
             <div class="message-content">
                 <strong>${this.escapeHtml(userName)}:</strong> ${this.escapeHtml(content)}
@@ -997,6 +923,8 @@ Generated by KeithGPT - The Players Club
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message guest';
         messageDiv.innerHTML = `
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
+                 alt="${guestName}" class="message-avatar">
             <div class="message-content">
                 <em>*${this.escapeHtml(guestName)} enters chat*</em><br>
                 <strong>${this.escapeHtml(guestName)}:</strong> ${this.escapeHtml(content)}
@@ -1011,6 +939,8 @@ Generated by KeithGPT - The Players Club
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message guest';
         messageDiv.innerHTML = `
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2NjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
+                 alt="${guestName}" class="message-avatar">
             <div class="message-content">
                 <em>*${this.escapeHtml(guestName)} leaves chat*</em>
             </div>
@@ -1058,9 +988,9 @@ Generated by KeithGPT - The Players Club
         const personaData = mainPersonas[persona];
         typingArea.innerHTML = `
             <div class="typing-indicator">
-                <img src="${personaData.avatar}" alt="${personaData.name}" 
-                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
-                <span>${personaData.name} is typing...</span>
+                <img src="${personaData.avatar}" alt="${personaData.name}" class="message-avatar"
+                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCExIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
+                <span>${personaData.name} is typing</span>
                 <div class="typing-dots">
                     <div class="typing-dot"></div>
                     <div class="typing-dot"></div>
