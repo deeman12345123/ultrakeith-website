@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Keith Studio - Inner Universe Chat</title>
+    <title>KeithGPT</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,8 +16,8 @@
             
             <!-- NEW: Name Entry on Startup -->
             <div class="entry-name-section">
-                <label for="entryName" class="entry-label">Enter your name to join the club:</label>
-                <input type="text" id="entryName" class="entry-name-input" placeholder="Your name..." maxlength="15">
+                <label for="entryName" class="entry-label">Username:</label>
+                <input type="text" id="entryName" class="entry-name-input" placeholder="Your username..." maxlength="15">
             </div>
             
             <!-- NEW: Tame ←→ Wild Slider -->
@@ -88,12 +88,11 @@
             <!-- User List Sidebar (Desktop) / Overlay (Mobile) -->
             <aside class="user-list" id="userList">
                 <div class="user-list-header">
-                    <h3>Online in The Players Club</h3>
+                    <h3>User List</h3>
                     <span class="user-count" id="userCount">5 online</span>
                 </div>
                 
-                <div class="personas-section">
-                    <div class="section-label">Main Personas</div>
+                <div class="all-users-section">
                     <div class="persona-list" id="mainPersonaList">
                         <div class="persona-item active" data-persona="kool-keith">
                             <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kk.png?raw=true" alt="Kool Keith">
@@ -128,11 +127,7 @@
                             <div class="status-dot online"></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- NEW: Unified All Users Section -->
-                <div class="all-users-section">
-                    <div class="section-label">All Users</div>
                     <div class="all-users-list" id="allUsersList">
                         <div class="user-note">Users and visitors appear here...</div>
                     </div>
