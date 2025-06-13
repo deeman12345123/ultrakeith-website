@@ -223,10 +223,11 @@
             display: flex;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             height: 100%;
+            width: 1000%; /* Wide enough for duplicated slides */
         }
         
         .album-slide {
-            min-width: 100%;
+            min-width: 10%; /* 100% / 10 slides (5 + 5 duplicates) */
             height: 100%;
             display: flex;
             align-items: center;
@@ -940,7 +941,7 @@
             <h2 class="carousel-title">LATEST RELEASES</h2>
             <div class="album-carousel">
                 <div class="carousel-container" id="carouselContainer">
-                    <!-- Album 1: Latest Release -->
+                    <!-- Original 5 slides -->
                     <div class="album-slide">
                         <img src="album1.png" alt="Latest Keith Album" class="album-artwork">
                         <div class="album-info">
@@ -951,7 +952,6 @@
                         </div>
                     </div>
                     
-                    <!-- Album 2: Coming Soon -->
                     <div class="album-slide">
                         <img src="album2.png" alt="Upcoming Keith Album" class="album-artwork">
                         <div class="album-info">
@@ -962,7 +962,6 @@
                         </div>
                     </div>
                     
-                    <!-- Album 3: Streaming Hit -->
                     <div class="album-slide">
                         <img src="album3.png" alt="Keith Streaming Album" class="album-artwork">
                         <div class="album-info">
@@ -973,7 +972,6 @@
                         </div>
                     </div>
                     
-                    <!-- Album 4: Classic Remaster -->
                     <div class="album-slide">
                         <img src="album4.png" alt="Keith Classic Album" class="album-artwork">
                         <div class="album-info">
@@ -984,7 +982,57 @@
                         </div>
                     </div>
                     
-                    <!-- Album 5: Collaboration -->
+                    <div class="album-slide">
+                        <img src="album5.png" alt="Keith Collaboration" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Black Elvis 2</h3>
+                            <p class="album-artist">Black Elvis</p>
+                            <span class="release-badge badge-out-now">AVAILABLE</span>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicate slides for infinite effect -->
+                    <div class="album-slide">
+                        <img src="album1.png" alt="Latest Keith Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Space Goretex</h3>
+                            <p class="album-artist">Kool Keith</p>
+                            <span class="release-badge badge-out-now">OUT NOW</span>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <div class="album-slide">
+                        <img src="album2.png" alt="Upcoming Keith Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Dr. Octagon Returns</h3>
+                            <p class="album-artist">Dr. Octagon</p>
+                            <span class="release-badge badge-coming-soon">JULY 2025</span>
+                            <a href="shop.html" class="buy-button">PRE-ORDER</a>
+                        </div>
+                    </div>
+                    
+                    <div class="album-slide">
+                        <img src="album3.png" alt="Keith Streaming Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Keith's Vault Series</h3>
+                            <p class="album-artist">Ultra Keith</p>
+                            <span class="release-badge badge-streaming">STREAMING</span>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <div class="album-slide">
+                        <img src="album4.png" alt="Keith Classic Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Critical Beatdown</h3>
+                            <p class="album-artist">Ultramagnetic MCs</p>
+                            <span class="release-badge badge-streaming">REMASTERED</span>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
+                        </div>
+                    </div>
+                    
                     <div class="album-slide">
                         <img src="album5.png" alt="Keith Collaboration" class="album-artwork">
                         <div class="album-info">
@@ -1229,38 +1277,77 @@
             console.log('Modern clean background loaded');
         }
         
-        // Album Carousel Functionality - Infinite Scroll
+        // Album Carousel Functionality - TRUE INFINITE SCROLL
         let currentSlide = 0;
-        const totalSlides = 5;
+        const totalSlides = 5; // Original slides
+        const totalSlidesWithDuplicates = 10; // Including duplicates
         let autoSlideInterval;
+        let isTransitioning = false;
         
-        function updateCarousel() {
+        function updateCarousel(noTransition = false) {
             const container = document.getElementById('carouselContainer');
             const indicators = document.querySelectorAll('.indicator');
             
             if (container) {
-                container.style.transform = `translateX(-${currentSlide * 100}%)`;
+                if (noTransition) {
+                    container.style.transition = 'none';
+                } else {
+                    container.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                }
+                
+                container.style.transform = `translateX(-${currentSlide * 10}%)`; // 10% per slide
             }
             
-            // Update indicators
+            // Update indicators (only show 5, not 10)
+            const activeIndicator = currentSlide % totalSlides;
             indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === currentSlide);
+                indicator.classList.toggle('active', index === activeIndicator);
             });
         }
         
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides; // Infinite loop
+            if (isTransitioning) return;
+            
+            isTransitioning = true;
+            currentSlide++;
+            
             updateCarousel();
-            resetAutoSlide();
+            
+            // If we've reached the end of duplicates, reset to beginning
+            setTimeout(() => {
+                if (currentSlide >= totalSlides) {
+                    currentSlide = 0;
+                    updateCarousel(true); // No transition for the reset
+                }
+                isTransitioning = false;
+            }, 800); // Match transition duration
         }
         
         function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-            resetAutoSlide();
+            if (isTransitioning) return;
+            
+            isTransitioning = true;
+            currentSlide--;
+            
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+                updateCarousel(true); // No transition
+                setTimeout(() => {
+                    currentSlide = totalSlides - 1;
+                    updateCarousel();
+                    isTransitioning = false;
+                }, 50);
+            } else {
+                updateCarousel();
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 800);
+            }
         }
         
         function goToSlide(index) {
+            if (isTransitioning) return;
+            
             currentSlide = index;
             updateCarousel();
             resetAutoSlide();
@@ -1268,8 +1355,8 @@
         
         function startAutoSlide() {
             autoSlideInterval = setInterval(() => {
-                nextSlide(); // Always goes forward, loops infinitely
-            }, 4000); // Every 4 seconds
+                nextSlide(); // Always forward, infinite loop
+            }, 4000);
         }
         
         function resetAutoSlide() {
