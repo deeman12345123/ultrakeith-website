@@ -31,7 +31,7 @@
         }
         
         /* ===================
-           ENTRY OVERLAY SYSTEM - REBUILT & FIXED
+           ENTRY OVERLAY SYSTEM - FIXED WITH BIG IMAGES & SMART SOUND PLACEMENT
            =================== */
         .entry-overlay {
             position: fixed;
@@ -71,8 +71,8 @@
         .entry-image {
             width: auto;
             height: auto;
-            max-width: 95vw; /* Bigger on all devices */
-            max-height: 70vh; /* Much bigger - 70% of screen height */
+            max-width: 95vw; /* BIGGER - 95% screen width */
+            max-height: 70vh; /* BIGGER - 70% screen height */
             object-fit: contain;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
             animation: entryGlow 3s ease-in-out infinite alternate;
@@ -103,21 +103,21 @@
             letter-spacing: 1px;
         }
         
-        /* DESKTOP: Sound button in bottom right */
-        .sound-controls-desktop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 10001;
-            display: none; /* Hidden by default, shown on desktop */
-        }
-        
-        /* MOBILE: Sound button stays in center flow */
+        /* MOBILE: Sound controls in center flow */
         .sound-controls-mobile {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 20px 0;
+        }
+        
+        /* DESKTOP: Sound controls in bottom right */
+        .sound-controls-desktop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10001;
+            display: none;
         }
         
         .sound-toggle {
@@ -342,7 +342,7 @@
             font-weight: 700;
         }
         
-        /* MOBILE CAROUSEL - CONTINUOUS SCROLL NO REVERSE */
+        /* MOBILE CAROUSEL - CONTINUOUS SCROLL (NO REVERSE) */
         .carousel-mobile {
             display: block;
             overflow: hidden;
@@ -352,17 +352,17 @@
         
         .mobile-track {
             display: flex;
-            width: 1000%; /* 10 slides total (5 albums × 2 for continuous loop) */
-            animation: continuousScroll 60s linear infinite; /* CONTINUOUS SCROLL */
+            width: 1000%; /* 10 slides total (5 albums × 2 for seamless loop) */
+            animation: continuousScroll 60s linear infinite; /* CONTINUOUS SCROLL - NO REVERSE */
         }
         
         @keyframes continuousScroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Move exactly half way to loop seamlessly */
+            100% { transform: translateX(-50%); } /* Move exactly half way to create seamless loop */
         }
         
         .mobile-track:hover {
-            animation-play-state: paused; /* Pause on hover */
+            animation-play-state: paused;
         }
         
         .mobile-slide {
@@ -410,7 +410,6 @@
         .badge-coming { background: linear-gradient(45deg, var(--gold), var(--gold-light)); color: black; }
         .badge-streaming { background: linear-gradient(45deg, #1db954, #1ed760); color: white; }
         .badge-classic { background: linear-gradient(45deg, #8e44ad, #9b59b6); color: white; }
-        .badge-collab { background: linear-gradient(45deg, #e74c3c, #c0392b); color: white; }
         
         .buy-btn {
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
@@ -430,12 +429,12 @@
             transform: translateY(-2px);
         }
         
-        /* DESKTOP CAROUSEL - CONTINUOUS SCROLL NO REVERSE */
+        /* DESKTOP CAROUSEL - CONTINUOUS SCROLL (NO REVERSE) */
         .carousel-desktop {
             display: none;
         }
         
-        /* FEATURE CARDS - 11 TOTAL CARDS */
+        /* FEATURE CARDS - ALL 11 CARDS */
         .features {
             display: grid;
             grid-template-columns: 1fr;
@@ -574,15 +573,15 @@
         @media (max-width: 768px) {
             .entry-image {
                 max-width: 90vw;
-                max-height: 60vh; /* Bigger on mobile too */
+                max-height: 60vh; /* BIGGER on mobile */
             }
             
             .entry-text {
-                font-size: 1rem; /* Slightly bigger text on mobile */
+                font-size: 1rem;
                 line-height: 1.3;
             }
             
-            /* Mobile: Show center sound controls, hide desktop version */
+            /* MOBILE: Show center sound controls */
             .sound-controls-mobile {
                 display: flex;
             }
@@ -654,15 +653,15 @@
         @media (min-width: 768px) {
             .entry-image {
                 max-width: 95vw;
-                max-height: 75vh; /* HUGE on desktop - 75% of screen height */
+                max-height: 75vh; /* HUGE on desktop */
             }
             
             .entry-text {
-                font-size: 1.4rem; /* Bigger desktop text */
+                font-size: 1.4rem;
                 letter-spacing: 2px;
             }
             
-            /* Desktop: Show bottom-right sound controls, hide mobile version */
+            /* DESKTOP: Show bottom-right sound controls */
             .sound-controls-desktop {
                 display: flex;
             }
@@ -742,13 +741,13 @@
             
             .desktop-track {
                 display: flex;
-                width: 1000%; /* 10 slides total (5 × 2 for loop) */
-                animation: continuousScrollDesktop 80s linear infinite; /* CONTINUOUS SCROLL */
+                width: 1000%; /* 10 slides total (5 × 2 for seamless loop) */
+                animation: continuousScrollDesktop 80s linear infinite; /* CONTINUOUS SCROLL - NO REVERSE */
             }
             
             @keyframes continuousScrollDesktop {
                 0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); } /* Move exactly half way to loop seamlessly */
+                100% { transform: translateX(-50%); } /* Move exactly half way to create seamless loop */
             }
             
             .desktop-track:hover {
@@ -795,7 +794,7 @@
             }
             
             .features {
-                grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop for 11 cards */
+                grid-template-columns: repeat(3, 1fr); /* 3 COLUMNS for 11 cards */
                 gap: 60px;
                 margin: 150px 0;
             }
@@ -897,7 +896,7 @@
     </style>
 </head>
 <body>
-    <!-- ENTRY OVERLAY - FIXED SYSTEM -->
+    <!-- ENTRY OVERLAY - BIG IMAGE + SMART SOUND PLACEMENT -->
     <div class="entry-overlay" id="entryOverlay">
         <div class="entry-content">
             <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
@@ -907,7 +906,7 @@
                 aka Number One Producer
             </div>
             
-            <!-- MOBILE: Sound controls in center flow -->
+            <!-- MOBILE: Sound controls in center -->
             <div class="sound-controls-mobile">
                 <button class="sound-toggle" id="soundToggleMobile">
                     <span id="soundIconMobile">🔊</span> Sound: ON
@@ -961,7 +960,7 @@
         <section class="releases">
             <h2 class="releases-title">LATEST RELEASES</h2>
             
-            <!-- Mobile Carousel - CONTINUOUS SCROLL -->
+            <!-- Mobile Carousel - CONTINUOUS SCROLL NO REVERSE -->
             <div class="carousel-mobile">
                 <div class="mobile-track">
                     <!-- FIRST SET OF 5 ALBUMS -->
@@ -1048,7 +1047,7 @@
                 </div>
             </div>
             
-            <!-- Desktop Carousel - CONTINUOUS SCROLL -->
+            <!-- Desktop Carousel - CONTINUOUS SCROLL NO REVERSE -->
             <div class="carousel-desktop">
                 <div class="desktop-track">
                     <!-- FIRST SET OF 5 ALBUMS -->
@@ -1156,7 +1155,7 @@
             </div>
         </section>
         
-        <!-- Features Section - ALL 11 CARDS -->
+        <!-- Features Section - ALL 11 CARDS WITH IMAGES -->
         <section class="features">
             <div class="feature-card">
                 <div class="feature-icon">
@@ -1296,7 +1295,7 @@
     </footer>
 
     <script>
-        // FIXED LOADING SYSTEM
+        // FIXED LOADING SYSTEM WITH DUAL SOUND CONTROLS
         let soundEnabled = true;
         let loadingComplete = false;
         
@@ -1313,7 +1312,6 @@
         
         // Loading simulation
         function simulateLoading() {
-            // Simulate loading for 3 seconds
             setTimeout(() => {
                 loadingComplete = true;
                 enterButton.classList.remove('loading');
@@ -1357,13 +1355,10 @@
         // Enter site
         enterButton.addEventListener('click', function() {
             if (loadingComplete) {
-                // Hide overlay and show main content
                 entryOverlay.classList.add('hidden');
                 document.body.classList.add('site-loaded');
                 
-                // Optional: Play sound effect if enabled
                 if (soundEnabled) {
-                    // Add sound effect here if you have audio files
                     console.log('Sound effect would play here');
                 }
             }
