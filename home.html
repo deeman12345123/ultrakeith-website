@@ -189,7 +189,265 @@
         }
         
         /* ===================
-           04. HERO SECTION
+           04. FEATURED ALBUM CAROUSEL
+           =================== */
+        .featured-albums-section {
+            margin: 80px 0 120px;
+            padding: 45px 30px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(26, 0, 0, 0.4));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.4rem;
+            color: var(--gold-primary);
+            text-align: center;
+            margin-bottom: 45px;
+            text-shadow: var(--glow-gold);
+        }
+        
+        .album-carousel {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .carousel-container {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+        
+        .album-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 45px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .album-artwork {
+            width: 360px;
+            height: 360px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.6));
+            flex-shrink: 0;
+        }
+        
+        .album-artwork:hover {
+            border-color: var(--gold-primary);
+            transform: scale(1.02);
+            filter: drop-shadow(0 20px 45px rgba(255, 215, 0, 0.3));
+        }
+        
+        .album-info {
+            flex: 1;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .album-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.8rem;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            text-shadow: var(--glow-gold);
+        }
+        
+        .album-artist {
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .release-badge {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            animation: pulse 2s infinite;
+        }
+        
+        .badge-out-now {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        .badge-coming-soon {
+            background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
+            color: #000;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+        
+        .badge-streaming {
+            background: linear-gradient(45deg, #1db954, #1ed760);
+            color: white;
+            box-shadow: 0 8px 20px rgba(29, 185, 84, 0.4);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .track-listing {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-bottom: 20px;
+        }
+        
+        .album-slide:hover .track-listing {
+            opacity: 1;
+            max-height: 200px;
+        }
+        
+        .track-listing h4 {
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .track-list {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .track-list li {
+            padding: 3px 0;
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .track-list li:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            padding-left: 15px;
+        }
+        
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .play-preview-btn {
+            background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .play-preview-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        .stream-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .stream-btn {
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--gold-primary);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .stream-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold-primary);
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            color: var(--gold-primary);
+            font-size: 1.8rem;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .carousel-nav:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold-primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-prev {
+            left: 20px;
+        }
+        
+        .carousel-next {
+            right: 20px;
+        }
+        
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background: var(--gold-primary);
+            transform: scale(1.2);
+        }
+        
+        /* ===================
+           05. HERO SECTION
            =================== */
         .hero-section {
             text-align: center;
@@ -206,7 +464,7 @@
         .hero-logo {
             max-width: 100%;
             height: auto;
-            max-height: 300px; /* 150% scaled */
+            max-height: 450px; /* Full-size hero logo */
             filter: drop-shadow(0 0 45px rgba(255, 215, 0, 0.8)); /* 150% scaled */
         }
         
@@ -253,7 +511,7 @@
         }
         
         /* ===================
-           05. FEATURE CARDS WITH STAGGERED ANIMATION
+           06. FEATURE CARDS WITH STAGGERED ANIMATION
            =================== */
         .featured-content {
             display: grid;
@@ -387,7 +645,7 @@
         }
         
         /* ===================
-           06. ENHANCED BACK TO TOP BUTTON
+           07. ENHANCED BACK TO TOP BUTTON
            =================== */
         .back-to-top {
             position: fixed;
@@ -430,7 +688,7 @@
         }
         
         /* ===================
-           07. NEWS WIDGET
+           08. NEWS WIDGET
            =================== */
         .news-content-small {
             flex: 1;
@@ -479,7 +737,7 @@
         }
         
         /* ===================
-           08. FOOTER
+           09. FOOTER
            =================== */
         .footer {
             border-top: var(--border-gold);
@@ -513,9 +771,56 @@
         }
         
         /* ===================
-           09. MOBILE RESPONSIVE
+           10. MOBILE RESPONSIVE
            =================== */
         @media (max-width: 768px) {
+            /* Featured Albums Mobile */
+            .featured-albums-section {
+                margin: 60px 0 90px;
+                padding: 30px 20px;
+            }
+            
+            .carousel-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .album-carousel {
+                height: auto;
+            }
+            
+            .album-slide {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+                padding: 20px;
+            }
+            
+            .album-artwork {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .album-info {
+                padding-left: 0;
+            }
+            
+            .album-title {
+                font-size: 2.2rem;
+            }
+            
+            .album-artist {
+                font-size: 1.4rem;
+            }
+            
+            .track-listing {
+                opacity: 1;
+                max-height: none;
+            }
+            
+            .carousel-nav {
+                display: none;
+            }
             /* Navigation - Mobile Logo Fix */
             .nav-logo {
                 height: 60px; /* 150% scaled */
@@ -621,7 +926,7 @@
         }
         
         /* ===================
-           10. MOBILE MENU OVERRIDE
+           11. MOBILE MENU OVERRIDE
            =================== */
         /* MOBILE MENU - FINAL OVERRIDE - Must be last! */
         @media screen and (max-width: 768px) {
@@ -706,6 +1011,176 @@
                 Enter the multi-dimensional universe of hip-hop's most legendary innovator.<br>
                 Nearly 40 years creating personas, pushing boundaries, and defining underground excellence.
             </p>
+        </section>
+        
+        <!-- Featured Albums Carousel -->
+        <section class="featured-albums-section">
+            <h2 class="carousel-title">LATEST RELEASES</h2>
+            <div class="album-carousel">
+                <div class="carousel-container" id="carouselContainer">
+                    <!-- Album 1: Latest Release -->
+                    <div class="album-slide">
+                        <img src="album1.png" alt="Latest Keith Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Space Goretex</h3>
+                            <p class="album-artist">Kool Keith</p>
+                            <span class="release-badge badge-out-now">OUT NOW</span>
+                            <div class="track-listing">
+                                <h4>Track Listing:</h4>
+                                <ul class="track-list">
+                                    <li>1. Space Intro</li>
+                                    <li>2. Galactic Flow</li>
+                                    <li>3. Cosmic Freestyle</li>
+                                    <li>4. Planet Keith</li>
+                                    <li>5. Universe Outro</li>
+                                </ul>
+                            </div>
+                            <div class="audio-controls">
+                                <button class="play-preview-btn" onclick="playPreview(1)">
+                                    ▶ Preview Track
+                                </button>
+                            </div>
+                            <div class="stream-links">
+                                <a href="#" class="stream-btn">Spotify</a>
+                                <a href="#" class="stream-btn">Apple Music</a>
+                                <a href="#" class="stream-btn">Bandcamp</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Album 2: Coming Soon -->
+                    <div class="album-slide">
+                        <img src="album2.png" alt="Upcoming Keith Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Dr. Octagon Returns</h3>
+                            <p class="album-artist">Dr. Octagon</p>
+                            <span class="release-badge badge-coming-soon">JULY 2025</span>
+                            <div class="track-listing">
+                                <h4>Preview Tracks:</h4>
+                                <ul class="track-list">
+                                    <li>1. Medical Emergency</li>
+                                    <li>2. Surgery Notes</li>
+                                    <li>3. Octagon Chamber</li>
+                                    <li>4. Patient Zero</li>
+                                    <li>5. Doctor's Orders</li>
+                                </ul>
+                            </div>
+                            <div class="audio-controls">
+                                <button class="play-preview-btn" onclick="playPreview(2)">
+                                    ▶ Preview Snippet
+                                </button>
+                            </div>
+                            <div class="stream-links">
+                                <a href="#" class="stream-btn">Pre-Order</a>
+                                <a href="#" class="stream-btn">Newsletter</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Album 3: Streaming Hit -->
+                    <div class="album-slide">
+                        <img src="album3.png" alt="Keith Streaming Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Keith's Vault Series</h3>
+                            <p class="album-artist">Ultra Keith</p>
+                            <span class="release-badge badge-streaming">STREAMING</span>
+                            <div class="track-listing">
+                                <h4>Vault Highlights:</h4>
+                                <ul class="track-list">
+                                    <li>1. Unreleased Gem #1</li>
+                                    <li>2. Studio Session</li>
+                                    <li>3. Rare Freestyle</li>
+                                    <li>4. Lost Collaboration</li>
+                                    <li>5. Hidden Track</li>
+                                </ul>
+                            </div>
+                            <div class="audio-controls">
+                                <button class="play-preview-btn" onclick="playPreview(3)">
+                                    ▶ Stream Now
+                                </button>
+                            </div>
+                            <div class="stream-links">
+                                <a href="#" class="stream-btn">Spotify</a>
+                                <a href="#" class="stream-btn">SoundCloud</a>
+                                <a href="#" class="stream-btn">YouTube</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Album 4: Classic Remaster -->
+                    <div class="album-slide">
+                        <img src="album4.png" alt="Keith Classic Album" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Critical Beatdown</h3>
+                            <p class="album-artist">Ultramagnetic MCs</p>
+                            <span class="release-badge badge-streaming">REMASTERED</span>
+                            <div class="track-listing">
+                                <h4>Classic Tracks:</h4>
+                                <ul class="track-list">
+                                    <li>1. Watch Me Now</li>
+                                    <li>2. Ease Back</li>
+                                    <li>3. Critical Beatdown</li>
+                                    <li>4. Give the Drummer Some</li>
+                                    <li>5. Traveling at the Speed</li>
+                                </ul>
+                            </div>
+                            <div class="audio-controls">
+                                <button class="play-preview-btn" onclick="playPreview(4)">
+                                    ▶ Hear Classic
+                                </button>
+                            </div>
+                            <div class="stream-links">
+                                <a href="#" class="stream-btn">Vinyl</a>
+                                <a href="#" class="stream-btn">CD</a>
+                                <a href="#" class="stream-btn">Digital</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Album 5: Collaboration -->
+                    <div class="album-slide">
+                        <img src="album5.png" alt="Keith Collaboration" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Black Elvis 2</h3>
+                            <p class="album-artist">Black Elvis</p>
+                            <span class="release-badge badge-out-now">AVAILABLE</span>
+                            <div class="track-listing">
+                                <h4>Elvis Returns:</h4>
+                                <ul class="track-list">
+                                    <li>1. King's Return</li>
+                                    <li>2. Graceland Flow</li>
+                                    <li>3. Memphis Style</li>
+                                    <li>4. Thank You Very Much</li>
+                                    <li>5. Elvis Lives</li>
+                                </ul>
+                            </div>
+                            <div class="audio-controls">
+                                <button class="play-preview-btn" onclick="playPreview(5)">
+                                    ▶ Thank You Very Much
+                                </button>
+                            </div>
+                            <div class="stream-links">
+                                <a href="#" class="stream-btn">Listen</a>
+                                <a href="#" class="stream-btn">Download</a>
+                                <a href="#" class="stream-btn">Merch</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <button class="carousel-nav carousel-prev" onclick="prevSlide()">‹</button>
+                <button class="carousel-nav carousel-next" onclick="nextSlide()">›</button>
+            </div>
+            
+            <!-- Indicators -->
+            <div class="carousel-indicators">
+                <span class="indicator active" onclick="goToSlide(0)"></span>
+                <span class="indicator" onclick="goToSlide(1)"></span>
+                <span class="indicator" onclick="goToSlide(2)"></span>
+                <span class="indicator" onclick="goToSlide(3)"></span>
+                <span class="indicator" onclick="goToSlide(4)"></span>
+            </div>
         </section>
         
         <!-- Featured Content -->
@@ -926,6 +1401,90 @@
             console.log('Modern clean background loaded');
         }
         
+        // Album Carousel Functionality
+        let currentSlide = 0;
+        const totalSlides = 5;
+        let autoSlideInterval;
+        
+        function updateCarousel() {
+            const container = document.getElementById('carouselContainer');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            if (container) {
+                container.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+            resetAutoSlide();
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+            resetAutoSlide();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+            resetAutoSlide();
+        }
+        
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                nextSlide();
+            }, 5000); // Auto-slide every 5 seconds
+        }
+        
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+        
+        function playPreview(albumId) {
+            // Placeholder for audio preview functionality
+            console.log(`Playing preview for album ${albumId}`);
+            
+            // You can integrate actual audio players here
+            const messages = {
+                1: "🎵 Playing: Space Goretex preview...",
+                2: "🎵 Playing: Dr. Octagon sneak peek...",
+                3: "🎵 Streaming: Vault Series track...",
+                4: "🎵 Playing: Critical Beatdown classic...",
+                5: "🎵 Playing: Black Elvis returns..."
+            };
+            
+            // Show a temporary notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 120px;
+                right: 30px;
+                background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
+                color: #000;
+                padding: 15px 25px;
+                border-radius: 25px;
+                font-weight: bold;
+                z-index: 1000;
+                animation: slideInRight 0.5s ease;
+            `;
+            notification.textContent = messages[albumId] || "🎵 Playing preview...";
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
         // Lazy Loading for Images
         function initLazyLoading() {
             const images = document.querySelectorAll('.feature-icon img');
@@ -1045,6 +1604,22 @@
             initLazyLoading();
             initBackToTop();
             initNewsWidget();
+            
+            // Initialize carousel
+            updateCarousel();
+            startAutoSlide();
+            
+            // Pause auto-slide on hover
+            const carousel = document.querySelector('.album-carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+                
+                carousel.addEventListener('mouseleave', () => {
+                    startAutoSlide();
+                });
+            }
             
             // Mobile menu functionality
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
