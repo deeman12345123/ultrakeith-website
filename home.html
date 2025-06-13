@@ -943,10 +943,9 @@
     
     <script>
         // ===================
-        // MOBILE CAROUSEL AUTO-SCROLL
+        // MOBILE CAROUSEL AUTO-SCROLL - INFINITE FORWARD
         // ===================
         let mobileAutoScrollInterval;
-        let mobileScrollPosition = 0;
         
         function startMobileAutoScroll() {
             if (isDesktop) return;
@@ -956,23 +955,20 @@
             
             mobileAutoScrollInterval = setInterval(() => {
                 const maxScroll = mobileCarousel.scrollWidth - mobileCarousel.clientWidth;
+                const currentScroll = mobileCarousel.scrollLeft;
                 
-                if (mobileScrollPosition >= maxScroll) {
-                    // Reset to beginning
-                    mobileScrollPosition = 0;
+                if (currentScroll >= maxScroll) {
+                    // Jump back to beginning instantly
+                    mobileCarousel.scrollTo({ left: 0, behavior: 'auto' });
                 } else {
-                    // Scroll by one card width (approximately 215px including gap)
-                    mobileScrollPosition += 215;
-                    if (mobileScrollPosition > maxScroll) {
-                        mobileScrollPosition = maxScroll;
-                    }
+                    // Scroll forward by one card width
+                    const nextScroll = currentScroll + 215;
+                    mobileCarousel.scrollTo({
+                        left: nextScroll > maxScroll ? 0 : nextScroll,
+                        behavior: 'smooth'
+                    });
                 }
-                
-                mobileCarousel.scrollTo({
-                    left: mobileScrollPosition,
-                    behavior: 'smooth'
-                });
-            }, 3000); // 3 seconds between scrolls
+            }, 3000);
         }
         
         function stopMobileAutoScroll() {
@@ -980,7 +976,7 @@
         }
         
         // ===================
-        // DESKTOP CAROUSEL - Professional Implementation
+        // DESKTOP CAROUSEL - INFINITE FORWARD SCROLLING
         // ===================
         let currentSlide = 0;
         const totalSlides = 5;
@@ -1004,13 +1000,21 @@
         
         function nextSlide() {
             if (!isDesktop) return;
-            currentSlide = (currentSlide + 1) % totalSlides;
+            
+            currentSlide++;
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0; // Jump back to first slide
+            }
             updateCarousel();
         }
         
         function prevSlide() {
             if (!isDesktop) return;
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            
+            currentSlide--;
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1; // Jump to last slide
+            }
             updateCarousel();
         }
         
@@ -1023,7 +1027,7 @@
         
         function startAutoSlide() {
             if (!isDesktop) return;
-            autoSlideInterval = setInterval(nextSlide, 4000);
+            autoSlideInterval = setInterval(nextSlide, 4000); // Always forward
         }
         
         function stopAutoSlide() {
