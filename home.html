@@ -1,4 +1,35 @@
-<!DOCTYPE html>
+.sound-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .sound-toggle {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            color: var(--gold);
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .sound-toggle:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold);
+        }
+        
+        .sound-toggle.muted {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.6);
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -106,79 +137,6 @@
             margin: 20px 0;
         }
         
-        .loading-text {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 15px;
-            font-weight: 300;
-        }
-        
-        .loading-bar-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .loading-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
-            background-size: 200% 100%;
-            border-radius: 3px;
-            width: 0%;
-            transition: width 0.3s ease;
-            animation: loadingShimmer 2s linear infinite;
-        }
-        
-        @keyframes loadingShimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        
-        .loading-percentage {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: var(--gold);
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .sound-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .sound-toggle {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            color: var(--gold);
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .sound-toggle:hover {
-            background: rgba(255, 215, 0, 0.2);
-            border-color: var(--gold);
-        }
-        
-        .sound-toggle.muted {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
         .enter-button {
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
             color: var(--black);
@@ -192,15 +150,27 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
-            opacity: 0.3;
-            pointer-events: none;
             min-width: 200px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .enter-button.loading {
+            opacity: 0.7;
+            cursor: default;
+            animation: loadingPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.9; }
         }
         
         .enter-button.ready {
             opacity: 1;
             pointer-events: auto;
             animation: readyPulse 2s ease-in-out infinite alternate;
+            cursor: pointer;
         }
         
         @keyframes readyPulse {
@@ -837,11 +807,7 @@
             </div>
             
             <div class="loading-section">
-                <div class="loading-percentage" id="loadingPercentage">0%</div>
-                <div class="loading-text" id="loadingText">Loading the session...</div>
-                <div class="loading-bar-container">
-                    <div class="loading-bar" id="loadingBar"></div>
-                </div>
+                <!-- Minimal loading - just the button -->
             </div>
             
             <div class="sound-controls">
@@ -850,8 +816,8 @@
                 </button>
             </div>
             
-            <button class="enter-button" id="enterButton">
-                Enter Site
+            <button class="enter-button loading" id="enterButton">
+                Loading...
             </button>
         </div>
     </div>
