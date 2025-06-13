@@ -188,12 +188,17 @@
             padding: 150px var(--spacing-medium) 60px; /* 150% scaled */
         }
         
+        /* Remove any conflicting margins between sections */
+        .hero-section + .featured-albums-section {
+            margin-top: 0 !important;
+        }
+        
         /* ===================
            04. FEATURED ALBUM CAROUSEL
            =================== */
         .featured-albums-section {
-            margin: 0 0 120px; /* Remove top margin completely */
-            padding: 45px 30px;
+            margin: 0 0 120px !important; /* Force remove top margin */
+            padding: 30px 30px 45px; /* Reduced top padding */
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(26, 0, 0, 0.4));
             border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 24px;
@@ -207,7 +212,7 @@
             font-size: 2.4rem;
             color: var(--gold-primary);
             text-align: center;
-            margin-bottom: 45px;
+            margin-bottom: 30px; /* Reduced from 45px */
             text-shadow: var(--glow-gold);
         }
         
@@ -387,8 +392,8 @@
            =================== */
         .hero-section {
             text-align: center;
-            margin-bottom: 40px; /* Reduced from 120px - much tighter */
-            padding: 90px var(--spacing-medium); /* 150% scaled */
+            margin-bottom: 0; /* COMPLETELY REMOVED bottom margin */
+            padding: 90px var(--spacing-medium) 20px; /* Reduced bottom padding */
             opacity: 0;
             animation: fadeInUp 1s ease 0.2s forwards;
         }
@@ -438,7 +443,7 @@
         .hero-subtitle {
             font-size: 2.1rem; /* 150% scaled */
             color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 60px; /* 150% scaled */
+            margin-bottom: 20px; /* REDUCED from 60px - this was the culprit! */
             line-height: 1.7;
             font-weight: 300;
             max-width: 1350px; /* 150% scaled */
