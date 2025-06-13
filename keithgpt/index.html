@@ -12,7 +12,7 @@
         <div class="entry-content">
             <h1 class="entry-title">KeithGPT</h1>
             <img src="aikeith.png" alt="AI Keith" class="entry-logo" onerror="this.style.display='none'">
-            <p class="entry-subtitle">The Players Club Chat Room</p>
+            <p class="entry-subtitle">The Players Club Chat</p>
             
             <!-- NEW: Name Entry on Startup -->
             <div class="entry-name-section">
@@ -41,7 +41,7 @@
         <!-- Chat Room Header -->
         <header class="chat-header">
             <div class="studio-info">
-                <h2>👥 The Players Club</h2>
+                <h2>👥 The Players Club Chat</h2>
                 <div class="session-info">
                     <span id="sessionTimer">Session: 15:00</span>
                     <span class="live-indicator">● LIVE</span>
@@ -75,7 +75,7 @@
                 <!-- User Input Area - SIMPLIFIED -->
                 <div class="chat-input-area">
                     <div class="input-container">
-                        <textarea class="chat-input" id="chatInput" placeholder="Drop your line in the club..." rows="1" maxlength="500"></textarea>
+                        <textarea class="chat-input" id="chatInput" placeholder="Enter message..." rows="1" maxlength="500"></textarea>
                         <button class="send-btn" id="sendBtn" disabled>
                             <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M15.854.146a.5.5 0 0 1 .11.54L13.026 15.147a.5.5 0 0 1-.925-.234l-1.3-5.98-5.98-1.3a.5.5 0 0 1-.234-.925L15.146.037a.5.5 0 0 1 .708.109z"/>
@@ -130,17 +130,11 @@
                     </div>
                 </div>
 
-                <div class="guests-section">
-                    <div class="section-label">Visitors</div>
-                    <div class="guest-list" id="guestList">
-                        <div class="guest-note">Guest personas appear randomly...</div>
-                    </div>
-                </div>
-
-                <div class="user-section">
-                    <div class="section-label">Fans</div>
-                    <div class="fan-list" id="fanList">
-                        <!-- User appears here when they type -->
+                <!-- NEW: Unified All Users Section -->
+                <div class="all-users-section">
+                    <div class="section-label">All Users</div>
+                    <div class="all-users-list" id="allUsersList">
+                        <div class="user-note">Users and visitors appear here...</div>
                     </div>
                 </div>
             </aside>
@@ -148,23 +142,6 @@
 
         <!-- Mobile User List Overlay -->
         <div class="mobile-overlay" id="mobileOverlay"></div>
-
-        <!-- NEW: Private Chat Modal -->
-        <div class="private-chat-overlay" id="privateChatOverlay">
-            <div class="private-chat-container">
-                <div class="private-chat-header">
-                    <h3 id="privateChatTitle">Private Chat with Kool Keith</h3>
-                    <button class="close-private-chat" id="closePrivateChat">×</button>
-                </div>
-                <div class="private-chat-messages" id="privateChatMessages">
-                    <!-- Private messages appear here -->
-                </div>
-                <div class="private-chat-input">
-                    <input type="text" id="privateChatInput" placeholder="Private message..." maxlength="300">
-                    <button id="sendPrivateBtn">Send</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Load Scripts -->
