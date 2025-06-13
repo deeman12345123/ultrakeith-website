@@ -1,35 +1,4 @@
-.sound-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .sound-toggle {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            color: var(--gold);
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .sound-toggle:hover {
-            background: rgba(255, 215, 0, 0.2);
-            border-color: var(--gold);
-        }
-        
-        .sound-toggle.muted {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 0.6);
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -62,7 +31,7 @@
         }
         
         /* ===================
-           ENTRY OVERLAY - PROFESSIONAL MUSIC INDUSTRY STANDARD
+           ENTRY OVERLAY SYSTEM - REBUILT & FIXED
            =================== */
         .entry-overlay {
             position: fixed;
@@ -80,10 +49,10 @@
             padding: 20px;
             opacity: 1;
             visibility: visible;
-            transition: all 1s ease;
+            transition: opacity 1s ease, visibility 1s ease;
         }
         
-        .entry-overlay.loaded {
+        .entry-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
@@ -92,20 +61,18 @@
         .entry-content {
             max-width: 90%;
             width: 100%;
-            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 20px;
-            padding: 20px;
         }
         
         .entry-image {
             width: auto;
             height: auto;
-            max-width: 90vw; /* Max 90% of screen width */
-            max-height: 50vh; /* Max 50% of screen height to leave room for text/buttons */
+            max-width: 90vw;
+            max-height: 50vh;
             object-fit: contain;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
             animation: entryGlow 3s ease-in-out infinite alternate;
@@ -136,10 +103,37 @@
             letter-spacing: 1px;
         }
         
-        .loading-section {
-            width: 100%;
-            max-width: 400px;
+        .sound-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
             margin: 20px 0;
+        }
+        
+        .sound-toggle {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            color: var(--gold);
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .sound-toggle:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold);
+        }
+        
+        .sound-toggle.muted {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.6);
         }
         
         .enter-button {
@@ -156,8 +150,6 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             min-width: 200px;
-            opacity: 0.5;
-            pointer-events: none;
         }
         
         .enter-button.loading {
@@ -173,9 +165,8 @@
         
         .enter-button.ready {
             opacity: 1;
-            pointer-events: auto;
-            animation: readyPulse 2s ease-in-out infinite alternate;
             cursor: pointer;
+            animation: readyPulse 2s ease-in-out infinite alternate;
         }
         
         @keyframes readyPulse {
@@ -194,100 +185,11 @@
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
         }
         
-        /* MOBILE RESPONSIVE FOR ENTRY */
-        @media (max-width: 768px) {
-            .entry-content {
-                gap: 15px;
-                padding: 15px;
-                height: 100vh;
-                justify-content: center;
-            }
-            
-            .entry-image {
-                max-width: 85vw;
-                max-height: 35vh; /* Smaller to fit mobile better */
-            }
-            
-            .entry-text {
-                font-size: 0.9rem;
-                line-height: 1.2;
-                text-align: center;
-            }
-            
-            /* Mobile hero adjustments */
-            .hero {
-                padding: 40px 0 30px;
-                min-height: 80vh;
-            }
-            
-            .hero-logo {
-                max-height: 180px; /* Reasonable mobile size */
-                margin-bottom: 30px;
-            }
-            
-            .hero-title {
-                font-size: 2.2rem; /* Mobile-friendly size */
-                letter-spacing: 2px;
-                margin-bottom: 20px;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-                letter-spacing: 1px;
-                margin-bottom: 40px;
-                padding: 0 20px;
-            }
-            
-            .releases {
-                margin: 60px 0;
-                padding: 30px 20px;
-            }
-            
-            .releases-title {
-                font-size: 1.6rem;
-                letter-spacing: 2px;
-                margin-bottom: 30px;
-            }
-            
-            .features {
-                gap: 30px;
-                margin: 60px 0;
-            }
-            
-            .feature-card {
-                padding: 30px 20px;
-                height: auto;
-            }
-            
-            .feature-title {
-                font-size: 1.2rem;
-                letter-spacing: 1px;
-            }
-            
-            .feature-description {
-                font-size: 0.95rem;
-            }
-            
-            .feature-btn {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-            }
-        }
-        
-        /* LARGE DESKTOP - Even bigger image */
-        @media (min-width: 1200px) {
-            .entry-image {
-                max-height: 60vh; /* Bigger on large screens */
-                max-width: 80vw;
-            }
-        }
-        
         /* HIDE MAIN CONTENT UNTIL LOADED */
-        body.loading .nav,
-        body.loading .main,
-        body.loading .back-to-top {
-            opacity: 0;
-            pointer-events: none;
+        body:not(.site-loaded) .nav,
+        body:not(.site-loaded) .main,
+        body:not(.site-loaded) .back-to-top {
+            display: none;
         }
         
         /* NAVIGATION */
@@ -355,7 +257,7 @@
             padding-right: 20px;
         }
         
-        /* HERO SECTION - ELITE TIER REDESIGN */
+        /* HERO SECTION */
         .hero {
             text-align: center;
             padding: 40px 0 60px;
@@ -367,7 +269,7 @@
         }
         
         .hero-logo {
-            max-height: 400px; /* MASSIVE logo on desktop */
+            max-height: 300px;
             max-width: 90vw;
             margin-bottom: 40px;
             filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
@@ -387,7 +289,7 @@
         
         .hero-title {
             font-family: 'Orbitron', monospace;
-            font-size: 3.5rem; /* Bigger but not breaking mobile */
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
             -webkit-background-clip: text;
@@ -395,21 +297,21 @@
             background-clip: text;
             margin-bottom: 30px;
             line-height: 1.1;
-            letter-spacing: 4px; /* WIDE TRACKING for premium feel */
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
         
         .hero-subtitle {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.95);
             line-height: 1.5;
             max-width: 600px;
             margin: 0 auto 50px;
             font-weight: 300;
-            letter-spacing: 2px; /* Wide tracking for elegance */
+            letter-spacing: 1px;
         }
         
-        /* RELEASES SECTION - ELITE REFINEMENT */
+        /* RELEASES SECTION */
         .releases {
             margin: 80px 0;
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
@@ -417,7 +319,6 @@
             border-radius: 20px;
             padding: 60px 40px;
             backdrop-filter: blur(15px);
-            position: relative;
         }
         
         .releases-title {
@@ -431,7 +332,7 @@
             font-weight: 700;
         }
         
-        /* MOBILE CAROUSEL - STOP AND GO LOGIC */
+        /* MOBILE CAROUSEL */
         .carousel-mobile {
             display: block;
             overflow: hidden;
@@ -441,21 +342,21 @@
         
         .mobile-track {
             display: flex;
-            width: 1000%; /* 10 slides total */
-            animation: stopAndGoMobile 30s steps(5, end) infinite; /* STOPS on each album */
+            width: 500%;
+            animation: stopAndGoMobile 30s linear infinite;
         }
         
         @keyframes stopAndGoMobile {
-            0%, 16.66% { transform: translateX(0); }         /* Album 1 - STOP for 5s */
-            20%, 36.66% { transform: translateX(-10%); }     /* Album 2 - STOP for 5s */
-            40%, 56.66% { transform: translateX(-20%); }     /* Album 3 - STOP for 5s */
-            60%, 76.66% { transform: translateX(-30%); }     /* Album 4 - STOP for 5s */
-            80%, 96.66% { transform: translateX(-40%); }     /* Album 5 - STOP for 5s */
-            100% { transform: translateX(0); }               /* Loop back to start */
+            0%, 16.66% { transform: translateX(0); }
+            20%, 36.66% { transform: translateX(-20%); }
+            40%, 56.66% { transform: translateX(-40%); }
+            60%, 76.66% { transform: translateX(-60%); }
+            80%, 96.66% { transform: translateX(-80%); }
+            100% { transform: translateX(0); }
         }
         
         .mobile-track:hover {
-            animation-play-state: paused; /* Pause on hover */
+            animation-play-state: paused;
         }
         
         .mobile-slide {
@@ -521,17 +422,17 @@
             transform: translateY(-2px);
         }
         
-        /* DESKTOP CAROUSEL - Hidden on Mobile */
+        /* DESKTOP CAROUSEL */
         .carousel-desktop {
             display: none;
         }
         
-        /* FEATURE CARDS - ELITE SPACING & TYPOGRAPHY */
+        /* FEATURE CARDS */
         .features {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 40px; /* Much more space between cards */
-            margin: 100px 0; /* More section spacing */
+            gap: 40px;
+            margin: 100px 0;
         }
         
         .feature-card {
@@ -551,7 +452,7 @@
         }
         
         .feature-icon {
-            width: 80px; /* Bigger icons */
+            width: 80px;
             height: 80px;
             margin: 0 auto 25px;
             display: flex;
@@ -571,7 +472,7 @@
         
         .feature-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.4rem; /* Bigger titles */
+            font-size: 1.4rem;
             color: var(--gold);
             margin-bottom: 20px;
             letter-spacing: 2px;
@@ -579,7 +480,7 @@
         }
         
         .feature-description {
-            font-size: 1.1rem; /* Bigger descriptions */
+            font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.9);
             line-height: 1.6;
             margin-bottom: 30px;
@@ -590,7 +491,7 @@
             background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
             color: var(--gold);
             border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 15px 30px; /* Bigger buttons */
+            padding: 15px 30px;
             border-radius: 25px;
             font-size: 1rem;
             text-decoration: none;
@@ -661,6 +562,77 @@
             font-size: 0.8rem;
         }
         
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .entry-image {
+                max-width: 85vw;
+                max-height: 35vh;
+            }
+            
+            .entry-text {
+                font-size: 0.9rem;
+                line-height: 1.2;
+            }
+            
+            .hero {
+                padding: 40px 0 30px;
+                min-height: 80vh;
+            }
+            
+            .hero-logo {
+                max-height: 180px;
+                margin-bottom: 30px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+                margin-bottom: 20px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                letter-spacing: 1px;
+                margin-bottom: 40px;
+                padding: 0 20px;
+            }
+            
+            .releases {
+                margin: 60px 0;
+                padding: 30px 20px;
+            }
+            
+            .releases-title {
+                font-size: 1.6rem;
+                letter-spacing: 2px;
+                margin-bottom: 30px;
+            }
+            
+            .features {
+                gap: 30px;
+                margin: 60px 0;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+                height: auto;
+            }
+            
+            .feature-title {
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+            }
+            
+            .feature-description {
+                font-size: 0.95rem;
+            }
+            
+            .feature-btn {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
+        }
+        
         /* DESKTOP RESPONSIVE */
         @media (min-width: 768px) {
             .nav {
@@ -693,40 +665,38 @@
             }
             
             .hero-logo {
-                max-height: 350px; /* HUGE on desktop */
+                max-height: 400px;
                 margin-bottom: 50px;
             }
             
             .hero-title {
-                font-size: 6rem; /* MASSIVE desktop text */
+                font-size: 4rem;
                 margin-bottom: 40px;
-                letter-spacing: 6px; /* More spacing on desktop */
+                letter-spacing: 4px;
             }
             
             .hero-subtitle {
-                font-size: 1.6rem; /* Bigger desktop subtitle */
+                font-size: 1.6rem;
                 margin-bottom: 60px;
                 max-width: 800px;
-                letter-spacing: 3px;
+                letter-spacing: 2px;
             }
             
             .releases {
-                margin: 120px 0; /* More spacing on desktop */
+                margin: 120px 0;
                 padding: 80px 60px;
             }
             
             .releases-title {
-                font-size: 3rem; /* HUGE section titles */
+                font-size: 3rem;
                 margin-bottom: 60px;
                 letter-spacing: 4px;
             }
             
-            /* HIDE MOBILE CAROUSEL */
             .carousel-mobile {
                 display: none;
             }
             
-            /* SHOW DESKTOP CAROUSEL - STOP AND GO */
             .carousel-desktop {
                 display: block;
                 position: relative;
@@ -736,21 +706,21 @@
             
             .desktop-track {
                 display: flex;
-                width: 500%; /* 5 slides total */
-                animation: stopAndGoDesktop 35s steps(5, end) infinite; /* STOPS on each slide */
+                width: 500%;
+                animation: stopAndGoDesktop 35s linear infinite;
             }
             
             @keyframes stopAndGoDesktop {
-                0%, 17% { transform: translateX(0); }         /* Slide 1 - STOP for 6s */
-                20%, 37% { transform: translateX(-20%); }     /* Slide 2 - STOP for 6s */
-                40%, 57% { transform: translateX(-40%); }     /* Slide 3 - STOP for 6s */
-                60%, 77% { transform: translateX(-60%); }     /* Slide 4 - STOP for 6s */
-                80%, 97% { transform: translateX(-80%); }     /* Slide 5 - STOP for 6s */
-                100% { transform: translateX(0); }            /* Loop back to start */
+                0%, 17% { transform: translateX(0); }
+                20%, 37% { transform: translateX(-20%); }
+                40%, 57% { transform: translateX(-40%); }
+                60%, 77% { transform: translateX(-60%); }
+                80%, 97% { transform: translateX(-80%); }
+                100% { transform: translateX(0); }
             }
             
             .desktop-track:hover {
-                animation-play-state: paused; /* Pause on hover */
+                animation-play-state: paused;
             }
             
             .desktop-slide {
@@ -794,21 +764,21 @@
             
             .features {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 60px; /* HUGE gaps for elite spacing */
-                margin: 150px 0; /* More section spacing */
+                gap: 60px;
+                margin: 150px 0;
             }
             
             .feature-card {
-                padding: 50px; /* More padding */
+                padding: 50px;
                 text-align: left;
                 display: flex;
                 flex-direction: column;
-                height: 400px; /* Taller cards */
+                height: 400px;
             }
             
             .feature-card .feature-icon {
                 margin: 0 0 30px 0;
-                width: 100px; /* Even bigger desktop icons */
+                width: 100px;
                 height: 100px;
                 font-size: 3.5rem;
             }
@@ -819,13 +789,13 @@
             }
             
             .feature-title {
-                font-size: 1.8rem; /* Much bigger desktop titles */
+                font-size: 1.8rem;
                 margin-bottom: 25px;
                 letter-spacing: 3px;
             }
             
             .feature-description {
-                font-size: 1.2rem; /* Bigger desktop text */
+                font-size: 1.2rem;
                 margin-bottom: 30px;
                 flex: 1;
                 line-height: 1.7;
@@ -835,7 +805,7 @@
                 align-self: flex-start;
                 margin-top: auto;
                 font-size: 1.1rem;
-                padding: 18px 35px; /* Bigger desktop buttons */
+                padding: 18px 35px;
             }
             
             .back-to-top {
@@ -894,8 +864,8 @@
         }
     </style>
 </head>
-<body class="loading">
-    <!-- PROFESSIONAL ENTRY OVERLAY -->
+<body>
+    <!-- ENTRY OVERLAY - FIXED SYSTEM -->
     <div class="entry-overlay" id="entryOverlay">
         <div class="entry-content">
             <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
@@ -903,10 +873,6 @@
             <div class="entry-text">
                 The Best MC in the World<br>
                 aka Number One Producer
-            </div>
-            
-            <div class="loading-section">
-                <!-- Minimal loading - just the button -->
             </div>
             
             <div class="sound-controls">
@@ -920,6 +886,7 @@
             </button>
         </div>
     </div>
+
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-content">
@@ -954,10 +921,9 @@
         <section class="releases">
             <h2 class="releases-title">LATEST RELEASES</h2>
             
-            <!-- Mobile Carousel - CSS Animation Only -->
+            <!-- Mobile Carousel -->
             <div class="carousel-mobile">
                 <div class="mobile-track">
-                    <!-- Original 5 slides -->
                     <div class="mobile-slide">
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
@@ -997,12 +963,10 @@
                         <span class="album-badge badge-new">AVAILABLE</span>
                         <a href="shop.html" class="buy-btn">BUY NOW</a>
                     </div>
-                    
-                    <!-- REMOVE DUPLICATE SLIDES - Only need 5 now -->
                 </div>
             </div>
             
-            <!-- Desktop Carousel - Only 5 slides needed -->
+            <!-- Desktop Carousel -->
             <div class="carousel-desktop">
                 <div class="desktop-track">
                     <div class="desktop-slide">
@@ -1054,3 +1018,180 @@
                             <a href="shop.html" class="buy-btn">BUY NOW</a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="personas-icon.png" alt="Personas">
+                </div>
+                <h3 class="feature-title">LEGENDARY PERSONAS</h3>
+                <p class="feature-description">
+                    Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis, each persona tells a unique story in hip-hop history.
+                </p>
+                <a href="personas.html" class="feature-btn">EXPLORE PERSONAS</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="music-icon.png" alt="Music">
+                </div>
+                <h3 class="feature-title">COMPLETE DISCOGRAPHY</h3>
+                <p class="feature-description">
+                    Over 40 years of groundbreaking music. Stream classics like Critical Beatdown and discover rare gems from the vault.
+                </p>
+                <a href="music.html" class="feature-btn">LISTEN NOW</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="vault-icon.png" alt="Vault">
+                </div>
+                <h3 class="feature-title">THE KEITH VAULT</h3>
+                <p class="feature-description">
+                    Unreleased tracks, rare recordings, and exclusive content for true fans. Access the hidden treasures of hip-hop's most prolific artist.
+                </p>
+                <a href="vault.html" class="feature-btn">ENTER VAULT</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="tour-icon.png" alt="Tours">
+                </div>
+                <h3 class="feature-title">LIVE PERFORMANCES</h3>
+                <p class="feature-description">
+                    Experience the energy of Kool Keith live. Check upcoming tour dates and exclusive performance footage.
+                </p>
+                <a href="tour.html" class="feature-btn">TOUR DATES</a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="music.html">Music</a>
+            <a href="personas.html">Personas</a>
+            <a href="tour.html">Tour</a>
+            <a href="shop.html">Shop</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 Ultra Keith. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // FIXED LOADING SYSTEM
+        let soundEnabled = true;
+        let loadingComplete = false;
+        
+        // DOM Elements
+        const entryOverlay = document.getElementById('entryOverlay');
+        const enterButton = document.getElementById('enterButton');
+        const soundToggle = document.getElementById('soundToggle');
+        const soundIcon = document.getElementById('soundIcon');
+        const backToTop = document.getElementById('backToTop');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        // Loading simulation
+        function simulateLoading() {
+            // Simulate loading for 3 seconds
+            setTimeout(() => {
+                loadingComplete = true;
+                enterButton.classList.remove('loading');
+                enterButton.classList.add('ready');
+                enterButton.textContent = 'ENTER THE UNIVERSE';
+                enterButton.style.pointerEvents = 'auto';
+                enterButton.style.cursor = 'pointer';
+            }, 3000);
+        }
+        
+        // Sound toggle
+        soundToggle.addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                soundIcon.textContent = '🔊';
+                soundToggle.innerHTML = '<span id="soundIcon">🔊</span> Sound: ON';
+                soundToggle.classList.remove('muted');
+            } else {
+                soundIcon.textContent = '🔇';
+                soundToggle.innerHTML = '<span id="soundIcon">🔇</span> Sound: OFF';
+                soundToggle.classList.add('muted');
+            }
+        });
+        
+        // Enter site
+        enterButton.addEventListener('click', function() {
+            if (loadingComplete) {
+                // Hide overlay and show main content
+                entryOverlay.classList.add('hidden');
+                document.body.classList.add('site-loaded');
+                
+                // Optional: Play sound effect if enabled
+                if (soundEnabled) {
+                    // Add sound effect here if you have audio files
+                    console.log('Sound effect would play here');
+                }
+            }
+        });
+        
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Back to top functionality
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('show');
+            });
+        });
+        
+        // Initialize loading
+        document.addEventListener('DOMContentLoaded', function() {
+            simulateLoading();
+        });
+        
+        // Prevent scrolling when overlay is active
+        function toggleBodyScroll(disable) {
+            if (disable) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Initial state - disable scrolling
+        toggleBodyScroll(true);
+        
+        // Enable scrolling when entering site
+        enterButton.addEventListener('click', function() {
+            if (loadingComplete) {
+                toggleBodyScroll(false);
+            }
+        });
+    </script>
+</body>
+</html>
