@@ -25,34 +25,82 @@ class KeithUniverse {
     // ========================================
 
     initializeUniverse() {
+        console.log('🚀 Initializing Keith Universe...');
+        
+        // Check if essential elements exist
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        if (!chatInput) {
+            console.error('❌ Chat input not found!');
+            return;
+        }
+        
+        if (!sendBtn) {
+            console.error('❌ Send button not found!');
+            return;
+        }
+        
+        if (!chatMessages) {
+            console.error('❌ Chat messages container not found!');
+            return;
+        }
+        
+        console.log('✅ Essential elements found');
+        
         this.setupEventListeners();
         this.startSession();
         this.displayWelcomeMessage();
         this.startAutoEvents();
         this.updateIntensityDisplay();
+        
+        // Test the input field
+        chatInput.focus();
+        console.log('🎯 Input field focused');
+        
         console.log(`🎭 Keith's Inner Universe activated - ${getCurrentIntensityConfig().name} Mode`);
     }
 
     setupEventListeners() {
-        // User input (simplified - no separate name input)
+        // User input - FIXED
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         
         if (chatInput) {
-            chatInput.addEventListener('keydown', (e) => {
+            // Clear any existing listeners
+            chatInput.removeEventListener('keydown', this.handleKeyDown);
+            chatInput.removeEventListener('input', this.handleInput);
+            
+            // Add new listeners with proper binding
+            this.handleKeyDown = (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     this.sendUserMessage();
                 }
-            });
-            chatInput.addEventListener('input', () => this.updateSendButton());
+            };
+            
+            this.handleInput = () => {
+                this.updateSendButton();
+            };
+            
+            chatInput.addEventListener('keydown', this.handleKeyDown);
+            chatInput.addEventListener('input', this.handleInput);
         }
         
         if (sendBtn) {
-            sendBtn.addEventListener('click', () => this.sendUserMessage());
+            // Clear any existing listeners
+            sendBtn.removeEventListener('click', this.handleSendClick);
+            
+            // Add new listener with proper binding
+            this.handleSendClick = () => {
+                this.sendUserMessage();
+            };
+            
+            sendBtn.addEventListener('click', this.handleSendClick);
         }
 
-        // NEW: Enhanced control buttons
+        // Control buttons - FIXED
         const newSessionBtn = document.getElementById('newSession');
         const toggleUserList = document.getElementById('toggleUserList');
         const mobileOverlay = document.getElementById('mobileOverlay');
@@ -61,22 +109,69 @@ class KeithUniverse {
         const saveChatBtn = document.getElementById('saveChat');
         const copyChatBtn = document.getElementById('copyChat');
 
-        if (newSessionBtn) newSessionBtn.addEventListener('click', () => this.startNewSession());
-        if (toggleUserList) toggleUserList.addEventListener('click', () => this.toggleUserList());
-        if (mobileOverlay) mobileOverlay.addEventListener('click', () => this.closeUserList());
-        if (pauseChatBtn) pauseChatBtn.addEventListener('click', () => this.togglePauseChat());
-        if (clearChatBtn) clearChatBtn.addEventListener('click', () => this.clearChat());
-        if (saveChatBtn) saveChatBtn.addEventListener('click', () => this.saveChat());
-        if (copyChatBtn) copyChatBtn.addEventListener('click', () => this.copyChat());
+        if (newSessionBtn) {
+            newSessionBtn.removeEventListener('click', this.handleNewSession);
+            this.handleNewSession = () => this.startNewSession();
+            newSessionBtn.addEventListener('click', this.handleNewSession);
+        }
+        
+        if (toggleUserList) {
+            toggleUserList.removeEventListener('click', this.handleToggleUserList);
+            this.handleToggleUserList = () => this.toggleUserList();
+            toggleUserList.addEventListener('click', this.handleToggleUserList);
+        }
+        
+        if (mobileOverlay) {
+            mobileOverlay.removeEventListener('click', this.handleMobileOverlay);
+            this.handleMobileOverlay = () => this.closeUserList();
+            mobileOverlay.addEventListener('click', this.handleMobileOverlay);
+        }
+        
+        if (pauseChatBtn) {
+            pauseChatBtn.removeEventListener('click', this.handlePauseChat);
+            this.handlePauseChat = () => this.togglePauseChat();
+            pauseChatBtn.addEventListener('click', this.handlePauseChat);
+        }
+        
+        if (clearChatBtn) {
+            clearChatBtn.removeEventListener('click', this.handleClearChat);
+            this.handleClearChat = () => this.clearChat();
+            clearChatBtn.addEventListener('click', this.handleClearChat);
+        }
+        
+        if (saveChatBtn) {
+            saveChatBtn.removeEventListener('click', this.handleSaveChat);
+            this.handleSaveChat = () => this.saveChat();
+            saveChatBtn.addEventListener('click', this.handleSaveChat);
+        }
+        
+        if (copyChatBtn) {
+            copyChatBtn.removeEventListener('click', this.handleCopyChat);
+            this.handleCopyChat = () => this.copyChat();
+            copyChatBtn.addEventListener('click', this.handleCopyChat);
+        }
 
-        // NEW: Private chat event listeners
-        this.setupPrivateChatListeners();
-        this.setupPersonaRightClick();
+        // Initialize send button state
+        this.updateSendButton();
+        console.log('✅ Event listeners setup complete');
     }
 
     // ========================================
     // NEW: CHAT MANAGEMENT FEATURES
     // ========================================
+
+    updateIntensityDisplay() {
+        const intensityDisplay = document.getElementById('intensityDisplay');
+        if (intensityDisplay) {
+            const config = getCurrentIntensityConfig();
+            intensityDisplay.textContent = config.display;
+            intensityDisplay.style.color = {
+                1: '#66ff66', // Green for Tame
+                2: '#ffaa00', // Orange for Players
+                3: '#ff6666'  // Red for Wild
+            }[sessionState.intensityLevel] || '#ffaa00';
+        }
+    }
 
     clearChat() {
         // Clear visual messages but keep personas active
@@ -1060,24 +1155,46 @@ Respond as ${personaData.name} in a private setting, maintaining your personalit
     // ========================================
 
     async sendUserMessage() {
+        console.log('📤 Send user message called');
+        
         const chatInput = document.getElementById('chatInput');
         
-        if (!chatInput || this.isProcessing) return;
+        if (!chatInput) {
+            console.error('❌ Chat input not found');
+            return;
+        }
+        
+        if (this.isProcessing) {
+            console.log('⏳ Still processing, skipping');
+            return;
+        }
         
         const message = chatInput.value.trim();
-        if (!message) return;
+        console.log('💬 Message:', message);
         
-        const userDisplayName = sessionState.userName;
+        if (!message) {
+            console.log('❌ Empty message');
+            return;
+        }
+        
+        const userDisplayName = sessionState.userName || 'Player';
         sessionState.userLurking = false;
+        
+        console.log('✅ Adding user message:', userDisplayName, message);
         
         this.addUserMessage(userDisplayName, message);
         this.addUserToList(userDisplayName);
+        
+        // Clear input and update button
         chatInput.value = '';
         this.updateSendButton();
         
+        // Generate persona response
         setTimeout(async () => {
             const responder = this.selectResponder(message);
-            const uniqueContext = `${mainPersonas[responder].name} ${mainPersonas[responder].conflictStyle} response to user ${userDisplayName}: "${message}" at ${getCurrentIntensityConfig().name} level`;
+            console.log('🎭 Selected responder:', responder);
+            
+            const uniqueContext = `${mainPersonas[responder].name} ${mainPersonas[responder].conflictStyle || 'casual'} response to user ${userDisplayName}: "${message}" at ${getCurrentIntensityConfig().name} level`;
             await this.generatePersonaResponse(responder, uniqueContext);
         }, 1000 + Math.random() * 3000);
     }
@@ -1369,10 +1486,26 @@ CRITICAL INSTRUCTIONS:
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         
-        if (chatInput && sendBtn) {
-            const hasText = chatInput.value.trim().length > 0;
-            sendBtn.disabled = !hasText || this.isProcessing;
+        if (!chatInput || !sendBtn) {
+            console.warn('⚠️ Chat input or send button not found');
+            return;
         }
+        
+        const hasText = chatInput.value.trim().length > 0;
+        const shouldEnable = hasText && !this.isProcessing;
+        
+        sendBtn.disabled = !shouldEnable;
+        
+        // Visual feedback
+        if (shouldEnable) {
+            sendBtn.style.opacity = '1';
+            sendBtn.style.cursor = 'pointer';
+        } else {
+            sendBtn.style.opacity = '0.4';
+            sendBtn.style.cursor = 'not-allowed';
+        }
+        
+        console.log('🔄 Send button updated:', { hasText, isProcessing: this.isProcessing, enabled: shouldEnable });
     }
 
     scrollToBottom() {
