@@ -31,7 +31,7 @@
         }
         
         /* ===================
-           ENTRY OVERLAY - POLISHED WITH BIG IMAGES & SMART SOUND
+           ENTRY OVERLAY - FIXED LOADING SYSTEM
            =================== */
         .entry-overlay {
             position: fixed;
@@ -71,8 +71,8 @@
         .entry-image {
             width: auto;
             height: auto;
-            max-width: 95vw; /* BIG - 95% screen width */
-            max-height: 70vh; /* BIG - 70% screen height */
+            max-width: 95vw;
+            max-height: 70vh;
             object-fit: contain;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
             animation: entryGlow 3s ease-in-out infinite alternate;
@@ -103,7 +103,7 @@
             letter-spacing: 1px;
         }
         
-        /* MOBILE: Sound controls in center flow */
+        /* MOBILE: Sound controls in center */
         .sound-controls-mobile {
             display: flex;
             align-items: center;
@@ -164,7 +164,7 @@
         
         .enter-button.loading {
             opacity: 0.7;
-            cursor: default;
+            cursor: not-allowed;
             animation: loadingPulse 1.5s ease-in-out infinite;
         }
         
@@ -199,10 +199,10 @@
         body:not(.site-loaded) .nav,
         body:not(.site-loaded) .main,
         body:not(.site-loaded) .back-to-top {
-            display: none;
+            display: none !important;
         }
         
-        /* NAVIGATION - SUBTLE IMPROVEMENTS */
+        /* NAVIGATION */
         .nav {
             position: fixed;
             top: 0;
@@ -277,7 +277,7 @@
             padding-right: 20px;
         }
         
-        /* HERO SECTION - POLISHED */
+        /* HERO SECTION */
         .hero {
             text-align: center;
             padding: 40px 0 60px;
@@ -331,7 +331,7 @@
             letter-spacing: 1px;
         }
         
-        /* RELEASES SECTION - ENHANCED */
+        /* RELEASES SECTION */
         .releases {
             margin: 80px 0;
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
@@ -352,7 +352,7 @@
             font-weight: 700;
         }
         
-        /* CAROUSEL - CONTINUOUS SCROLL (NO REVERSE) + POLISH */
+        /* CAROUSEL - CONTINUOUS SCROLL (NO REVERSE) */
         .carousel-mobile {
             display: block;
             overflow: hidden;
@@ -362,13 +362,13 @@
         
         .mobile-track {
             display: flex;
-            width: 1000%; /* 10 slides total (5 albums × 2 for seamless loop) */
-            animation: continuousScroll 60s linear infinite; /* CONTINUOUS SCROLL - NO REVERSE */
+            width: 1000%;
+            animation: continuousScroll 60s linear infinite;
         }
         
         @keyframes continuousScroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Move exactly half way to create seamless loop */
+            100% { transform: translateX(-50%); }
         }
         
         .mobile-track:hover {
@@ -451,12 +451,12 @@
             transform: translateY(-2px);
         }
         
-        /* DESKTOP CAROUSEL - CONTINUOUS SCROLL */
+        /* DESKTOP CAROUSEL */
         .carousel-desktop {
             display: none;
         }
         
-        /* FEATURE CARDS - POLISHED GRID */
+        /* FEATURE CARDS */
         .features {
             display: grid;
             grid-template-columns: 1fr;
@@ -542,7 +542,7 @@
             box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
         }
         
-        /* BACK TO TOP - POLISHED */
+        /* BACK TO TOP */
         .back-to-top {
             position: fixed;
             bottom: 15px;
@@ -570,7 +570,7 @@
             transform: translateY(-3px) scale(1.1);
         }
         
-        /* FOOTER - POLISHED */
+        /* FOOTER */
         .footer {
             border-top: 1px solid rgba(255, 215, 0, 0.3);
             padding: 30px 0;
@@ -605,7 +605,7 @@
         @media (max-width: 768px) {
             .entry-image {
                 max-width: 90vw;
-                max-height: 60vh; /* BIGGER on mobile */
+                max-height: 60vh;
             }
             
             .entry-text {
@@ -613,7 +613,6 @@
                 line-height: 1.3;
             }
             
-            /* MOBILE: Show center sound controls */
             .sound-controls-mobile {
                 display: flex;
             }
@@ -685,7 +684,7 @@
         @media (min-width: 768px) {
             .entry-image {
                 max-width: 95vw;
-                max-height: 75vh; /* HUGE on desktop */
+                max-height: 75vh;
             }
             
             .entry-text {
@@ -693,7 +692,6 @@
                 letter-spacing: 2px;
             }
             
-            /* DESKTOP: Show bottom-right sound controls */
             .sound-controls-desktop {
                 display: flex;
             }
@@ -773,13 +771,13 @@
             
             .desktop-track {
                 display: flex;
-                width: 1000%; /* 10 slides total (5 × 2 for seamless loop) */
-                animation: continuousScrollDesktop 80s linear infinite; /* CONTINUOUS SCROLL - NO REVERSE */
+                width: 1000%;
+                animation: continuousScrollDesktop 80s linear infinite;
             }
             
             @keyframes continuousScrollDesktop {
                 0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); } /* Move exactly half way to create seamless loop */
+                100% { transform: translateX(-50%); }
             }
             
             .desktop-track:hover {
@@ -831,7 +829,7 @@
             }
             
             .features {
-                grid-template-columns: repeat(3, 1fr); /* 3 COLUMNS for 11 cards */
+                grid-template-columns: repeat(3, 1fr);
                 gap: 60px;
                 margin: 150px 0;
             }
@@ -933,7 +931,7 @@
     </style>
 </head>
 <body>
-    <!-- ENTRY OVERLAY - BIG IMAGE + SMART SOUND PLACEMENT -->
+    <!-- ENTRY OVERLAY -->
     <div class="entry-overlay" id="entryOverlay">
         <div class="entry-content">
             <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
@@ -1332,7 +1330,7 @@
     </footer>
 
     <script>
-        // POLISHED LOADING SYSTEM
+        // FIXED LOADING SYSTEM - ENHANCED FOR QUIRKS MODE COMPATIBILITY
         let soundEnabled = true;
         let loadingComplete = false;
         
@@ -1347,9 +1345,11 @@
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
         
-        // Loading simulation
+        // Enhanced loading simulation
         function simulateLoading() {
+            console.log('Loading started...');
             setTimeout(() => {
+                console.log('Loading complete!');
                 loadingComplete = true;
                 enterButton.classList.remove('loading');
                 enterButton.classList.add('ready');
@@ -1365,94 +1365,148 @@
             const iconText = soundEnabled ? '🔊' : '🔇';
             const statusText = soundEnabled ? 'ON' : 'OFF';
             
+            console.log('Sound toggled:', statusText);
+            
             // Update mobile button
             if (soundIconMobile && soundToggleMobile) {
                 soundIconMobile.textContent = iconText;
-                soundToggleMobile.innerHTML = `<span id="soundIconMobile">${iconText}</span> Sound: ${statusText}`;
+                soundToggleMobile.innerHTML = '<span id="soundIconMobile">' + iconText + '</span> Sound: ' + statusText;
                 soundToggleMobile.className = soundEnabled ? 'sound-toggle' : 'sound-toggle muted';
             }
             
             // Update desktop button
             if (soundIconDesktop && soundToggleDesktop) {
                 soundIconDesktop.textContent = iconText;
-                soundToggleDesktop.innerHTML = `<span id="soundIconDesktop">${iconText}</span> Sound: ${statusText}`;
+                soundToggleDesktop.innerHTML = '<span id="soundIconDesktop">' + iconText + '</span> Sound: ' + statusText;
                 soundToggleDesktop.className = soundEnabled ? 'sound-toggle' : 'sound-toggle muted';
             }
         }
         
-        // Event Listeners
-        if (soundToggleMobile) {
-            soundToggleMobile.addEventListener('click', toggleSound);
-        }
-        
-        if (soundToggleDesktop) {
-            soundToggleDesktop.addEventListener('click', toggleSound);
-        }
-        
-        // Enter site
-        enterButton.addEventListener('click', function() {
-            if (loadingComplete) {
-                entryOverlay.classList.add('hidden');
-                document.body.classList.add('site-loaded');
-                
-                if (soundEnabled) {
-                    console.log('Sound effect would play here');
+        // Event Listeners with enhanced error handling
+        function addEventListeners() {
+            if (soundToggleMobile) {
+                soundToggleMobile.addEventListener('click', toggleSound);
+                console.log('Mobile sound toggle listener added');
+            }
+            
+            if (soundToggleDesktop) {
+                soundToggleDesktop.addEventListener('click', toggleSound);
+                console.log('Desktop sound toggle listener added');
+            }
+            
+            // Enhanced enter site function
+            if (enterButton) {
+                enterButton.addEventListener('click', function() {
+                    console.log('Enter button clicked, loadingComplete:', loadingComplete);
+                    if (loadingComplete) {
+                        console.log('Entering site...');
+                        entryOverlay.classList.add('hidden');
+                        document.body.classList.add('site-loaded');
+                        
+                        // Force show main content
+                        const nav = document.querySelector('.nav');
+                        const main = document.querySelector('.main');
+                        const backTop = document.querySelector('.back-to-top');
+                        
+                        if (nav) nav.style.display = 'flex';
+                        if (main) main.style.display = 'block';
+                        if (backTop) backTop.style.display = 'block';
+                        
+                        console.log('Site loaded successfully');
+                        
+                        if (soundEnabled) {
+                            console.log('Sound effect would play here');
+                        }
+                    } else {
+                        console.log('Still loading...');
+                    }
+                });
+                console.log('Enter button listener added');
+            }
+            
+            // Mobile menu toggle
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('show');
+                });
+            }
+            
+            // Back to top functionality
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
                 }
-            }
-        });
-        
-        // Mobile menu toggle
-        mobileMenuBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('show');
-        });
-        
-        // Back to top functionality
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        });
-        
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
             });
-        });
-        
-        // Close mobile menu when clicking nav links
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('show');
-            });
-        });
-        
-        // Initialize loading
-        document.addEventListener('DOMContentLoaded', function() {
-            simulateLoading();
-        });
-        
-        // Prevent scrolling when overlay is active
-        function toggleBodyScroll(disable) {
-            if (disable) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
+            
+            if (backToTop) {
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
             }
+            
+            // Close mobile menu when clicking nav links
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (navMenu) {
+                        navMenu.classList.remove('show');
+                    }
+                });
+            });
         }
         
-        // Initial state - disable scrolling
-        toggleBodyScroll(true);
+        // Enhanced initialization
+        function initializePage() {
+            console.log('Initializing page...');
+            
+            // Prevent scrolling when overlay is active
+            document.body.style.overflow = 'hidden';
+            
+            // Add event listeners
+            addEventListeners();
+            
+            // Start loading simulation
+            simulateLoading();
+            
+            console.log('Page initialization complete');
+        }
         
-        // Enable scrolling when entering site
-        enterButton.addEventListener('click', function() {
-            if (loadingComplete) {
-                toggleBodyScroll(false);
+        // Multiple initialization methods to ensure compatibility
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePage);
+        } else {
+            initializePage();
+        }
+        
+        // Fallback initialization
+        window.addEventListener('load', function() {
+            console.log('Window loaded - fallback initialization');
+            if (!loadingComplete) {
+                setTimeout(initializePage, 100);
             }
         });
+        
+        // Enhanced enter function accessible globally
+        window.enterSite = function() {
+            console.log('Manual enter site triggered');
+            if (enterButton) {
+                enterButton.click();
+            }
+        };
+        
+        // Debug function
+        window.debugLoadingState = function() {
+            console.log('Loading state debug:');
+            console.log('loadingComplete:', loadingComplete);
+            console.log('enterButton:', enterButton);
+            console.log('entryOverlay:', entryOverlay);
+            console.log('body classes:', document.body.className);
+        };
     </script>
 </body>
 </html>
