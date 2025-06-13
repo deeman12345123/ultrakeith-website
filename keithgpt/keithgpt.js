@@ -1,6 +1,6 @@
 /* ========================================
    KEITH STUDIO - MAIN CHAT ENGINE
-   COMPLETE WORKING VERSION - CLEAN & RELIABLE
+   COMPLETE WORKING VERSION - NO SYNTAX ERRORS
    ======================================== */
 
 class KeithUniverse {
@@ -181,3 +181,909 @@ class KeithUniverse {
         if (userList && overlay) {
             userList.classList.remove('show');
             overlay.classList.remove('show');
+            if (toggleBtn) toggleBtn.classList.remove('active');
+            console.log('📱 User list closed');
+        }
+    }
+
+    sendUserMessage() {
+        console.log('📤 sendUserMessage called');
+        
+        const chatInput = document.getElementById('chatInput');
+        if (!chatInput) {
+            console.error('❌ Chat input element not found');
+            return;
+        }
+        
+        const message = chatInput.value.trim();
+        console.log('💬 Message content:', message);
+        
+        if (!message) {
+            console.log('❌ Empty message, not sending');
+            return;
+        }
+        
+        if (this.isProcessing) {
+            console.log('⏳ Still processing previous message');
+            return;
+        }
+        
+        const sessionState = window.sessionState || { userName: 'Player' };
+        const userName = sessionState.userName || 'Player';
+        console.log('👤 User name:', userName);
+        
+        this.addUserMessage(userName, message);
+        this.addUserToUnifiedList(userName, 'User', 'user');
+        
+        chatInput.value = '';
+        this.updateSendButton();
+        
+        if (window.sessionState) {
+            window.sessionState.userLurking = false;
+        }
+        
+        console.log('✅ User message added, generating response...');
+        
+        setTimeout(() => {
+            try {
+                const responder = this.selectResponder(message);
+                console.log('🎭 Selected responder:', responder);
+                
+                const context = `${mainPersonas[responder] ? mainPersonas[responder].name : responder} responding to ${userName}: "${message}"`;
+                this.generatePersonaResponse(responder, context);
+            } catch (error) {
+                console.error('❌ Error generating response:', error);
+                this.addSystemMessage('⚠️ Error generating response. Please try again.');
+            }
+        }, 1000 + Math.random() * 3000);
+    }
+
+    selectResponder(userMessage) {
+        // Check for trigger words first
+        for (const persona in mainPersonas) {
+            const data = mainPersonas[persona];
+            if (data.triggerWords) {
+                for (const trigger of data.triggerWords) {
+                    if (userMessage.toLowerCase().includes(trigger)) {
+                        console.log(`🎯 Trigger word "${trigger}" found, selecting ${persona}`);
+                        return persona;
+                    }
+                }
+            }
+        }
+        
+        // Random selection from active personas
+        const sessionState = window.sessionState || { personasActive: Object.keys(mainPersonas) };
+        const available = sessionState.personasActive || Object.keys(mainPersonas);
+        const selected = available[Math.floor(Math.random() * available.length)];
+        console.log('🎲 Random selection:', selected);
+        return selected;
+    }
+
+    updateSendButton() {
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        if (!chatInput || !sendBtn) return;
+        
+        const hasText = chatInput.value.trim().length > 0;
+        const canSend = hasText && !this.isProcessing;
+        
+        sendBtn.disabled = !canSend;
+        sendBtn.style.opacity = canSend ? '1' : '0.4';
+        sendBtn.style.cursor = canSend ? 'pointer' : 'not-allowed';
+    }
+
+    generatePersonaResponse(persona, context, presetResponse) {
+        if (this.isProcessing || this.isPaused) {
+            console.log('⏸️ Skipping response - processing or paused');
+            return;
+        }
+        
+        if (this.activePersonaResponses.has(persona)) {
+            console.log(`🔄 ${persona} already responding, skipping`);
+            return;
+        }
+        
+        this.activePersonaResponses.add(persona);
+        this.isProcessing = true;
+        
+        console.log(`🎭 Generating response for ${persona}`);
+        
+        if (presetResponse) {
+            this.processPersonaResponse(persona, presetResponse);
+        } else {
+            const prompt = this.buildChatPrompt(persona, context);
+            this.callChatAPI(prompt, 
+                (response) => {
+                    console.log(`✅ API response for ${persona}:`, response);
+                    this.processPersonaResponse(persona, response);
+                },
+                (error) => {
+                    console.warn(`⚠️ API failed for ${persona}:`, error);
+                    const fallback = this.getFallbackResponse(persona);
+                    this.processPersonaResponse(persona, fallback);
+                }
+            );
+        }
+    }
+
+    processPersonaResponse(persona, response) {
+        this.showTyping(persona);
+        
+        setTimeout(() => {
+            this.hideTyping();
+            this.addPersonaMessage(persona, response);
+            this.activePersonaResponses.delete(persona);
+            this.isProcessing = false;
+            this.updateSendButton();
+        }, 1000 + Math.random() * 2000);
+    }
+
+    buildChatPrompt(persona, context) {
+        const personaData = mainPersonas[persona];
+        const intensityConfig = getCurrentIntensityConfig();
+        
+        if (!personaData) {
+            throw new Error('Unknown persona: ' + persona);
+        }
+        
+        const sessionState = window.sessionState || { userName: 'Player' };
+        
+        return `You are ${personaData.name} - ${personaData.status} in Keith's chat room.
+
+Context: ${context}
+Intensity: ${intensityConfig.name}
+User: ${sessionState.userName}
+
+Keep responses short (1-2 sentences) and stay in character as ${personaData.name}.
+Be conversational and authentic to your persona.`;
+    }
+
+    getFallbackResponse(persona) {
+        const fallbacks = {
+            'kool-keith': 'Abstract thoughts flowing through the conversation...',
+            'dr-octagon': 'Cosmic interference in the communication channels...',
+            'dr-dooom': 'Technical difficulties... someone needs to handle this',
+            'black-elvis': 'Funk frequencies experiencing some static, y\'all'
+        };
+        
+        return fallbacks[persona] || 'Connection unstable in the universe...';
+    }
+
+    callChatAPI(prompt, onSuccess, onError) {
+        const apiKey = CONFIG.getApiKey();
+        if (!apiKey || apiKey.length < 20) {
+            onError(new Error('Invalid API key configuration'));
+            return;
+        }
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+        }, CONFIG.apiTimeout || 15000);
+
+        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ role: 'user', parts: [{ text: prompt }] }],
+                generationConfig: {
+                    temperature: 0.9,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 100
+                },
+                safetySettings: [
+                    { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+                    { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+                    { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+                    { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+                ]
+            }),
+            signal: controller.signal
+        })
+        .then(response => {
+            clearTimeout(timeoutId);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.candidates && data.candidates[0] && data.candidates[0].content && 
+                data.candidates[0].content.parts && data.candidates[0].content.parts[0] && 
+                data.candidates[0].content.parts[0].text) {
+                onSuccess(data.candidates[0].content.parts[0].text.trim());
+            } else {
+                onError(new Error('No valid response content from API'));
+            }
+        })
+        .catch(error => {
+            clearTimeout(timeoutId);
+            onError(error);
+        });
+    }
+
+    clearChat() {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            chatMessages.innerHTML = '';
+        }
+        
+        this.conversationHistory = [];
+        this.recentResponses = [];
+        
+        if (window.sessionState && window.sessionState.chatLog) {
+            window.sessionState.chatLog = [];
+        }
+        
+        this.addSystemMessage('🗑️ Chat cleared. Personas remain active and ready to continue.');
+        console.log('🗑️ Chat cleared');
+    }
+
+    saveChat() {
+        try {
+            const content = this.generateChatLog();
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            const filename = `KeithGPT-Chat-${timestamp}.txt`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            this.addSystemMessage(`💾 Chat saved as ${filename}`);
+            console.log('💾 Chat saved successfully');
+            
+        } catch (error) {
+            console.error('❌ Save error:', error);
+            this.addSystemMessage('❌ Error saving chat. Please try again.');
+        }
+    }
+
+    copyChat() {
+        try {
+            const content = this.generateChatLog();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(content).then(() => {
+                    this.addSystemMessage('📋 Chat copied to clipboard!');
+                    console.log('📋 Chat copied to clipboard');
+                }).catch(error => {
+                    console.error('❌ Copy error:', error);
+                    this.fallbackCopy(content);
+                });
+            } else {
+                this.fallbackCopy(content);
+            }
+        } catch (error) {
+            console.error('❌ Copy error:', error);
+            this.fallbackCopy(this.generateChatLog());
+        }
+    }
+
+    fallbackCopy(content) {
+        const textArea = document.createElement('textarea');
+        textArea.value = content;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        this.addSystemMessage('📋 Chat copied to clipboard!');
+    }
+
+    generateChatLog() {
+        const config = getCurrentIntensityConfig();
+        const sessionState = window.sessionState || {};
+        const duration = sessionState.startTime ? Math.floor((Date.now() - sessionState.startTime) / 1000) : 0;
+        
+        let content = `========================================
+KEITHGPT - THE PLAYERS CLUB CHAT LOG
+========================================
+
+Session Details:
+- Date: ${new Date().toLocaleString()}
+- Duration: ${Math.floor(duration / 60)}:${(duration % 60).toString().padStart(2, '0')}
+- User: ${sessionState.userName || 'Player'}
+- Intensity: ${config.display}
+
+========================================
+MESSAGES:
+========================================
+
+`;
+
+        for (const entry of this.conversationHistory) {
+            content += `${entry.speaker}: ${entry.content}\n`;
+        }
+
+        content += `
+========================================
+Generated by KeithGPT - The Players Club
+========================================`;
+
+        return content;
+    }
+
+    togglePauseChat() {
+        this.isPaused = !this.isPaused;
+        const pauseBtn = document.getElementById('pauseChat');
+        
+        if (this.isPaused) {
+            if (pauseBtn) {
+                pauseBtn.innerHTML = '▶️ Resume';
+                pauseBtn.style.background = '#ffaa00';
+            }
+            this.addSystemMessage('⏸️ Chat paused. Click Resume to continue.');
+        } else {
+            if (pauseBtn) {
+                pauseBtn.innerHTML = '⏸️ Pause';
+                pauseBtn.style.background = '';
+            }
+            this.addSystemMessage('▶️ Chat resumed.');
+        }
+        
+        console.log(this.isPaused ? '⏸️ Paused' : '▶️ Resumed', 'chat');
+    }
+
+    updateIntensityDisplay() {
+        const intensityDisplay = document.getElementById('intensityDisplay');
+        if (intensityDisplay) {
+            const config = getCurrentIntensityConfig();
+            intensityDisplay.textContent = config.display;
+            
+            const sessionState = window.sessionState || { intensityLevel: 2 };
+            const colors = {
+                1: '#66ff66',
+                2: '#ffaa00', 
+                3: '#ff6666'
+            };
+            intensityDisplay.style.color = colors[sessionState.intensityLevel] || '#ffaa00';
+        }
+    }
+
+    startSession() {
+        if (!window.sessionState) {
+            window.sessionState = {};
+        }
+        
+        window.sessionState.startTime = Date.now();
+        window.sessionState.sessionStartTime = Date.now();
+        window.sessionState.tokensUsed = 0;
+        window.sessionState.userLurking = true;
+        window.sessionState.chatLog = [];
+        
+        this.startSessionTimer();
+        this.updateSessionDisplay();
+        console.log('🕐 Session started');
+    }
+
+    startSessionTimer() {
+        this.sessionTimer = setInterval(() => {
+            const sessionState = window.sessionState || {};
+            const elapsed = Date.now() - (sessionState.startTime || Date.now());
+            const remaining = (CONFIG.sessionDuration || 900000) - elapsed;
+            
+            if (remaining <= 0) {
+                this.endSession();
+                return;
+            }
+            
+            this.updateSessionDisplay(remaining);
+        }, 1000);
+    }
+
+    updateSessionDisplay(remaining) {
+        const timerEl = document.getElementById('sessionTimer');
+        if (!timerEl) return;
+        
+        if (remaining === null || remaining === undefined) {
+            const sessionState = window.sessionState || {};
+            remaining = (CONFIG.sessionDuration || 900000) - (Date.now() - (sessionState.startTime || Date.now()));
+        }
+        
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        timerEl.textContent = `Session: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (remaining < 60000) {
+            timerEl.style.color = '#ffaa00';
+        }
+    }
+
+    endSession() {
+        clearInterval(this.sessionTimer);
+        clearInterval(this.autoEventTimer);
+        clearTimeout(this.guestAppearanceTimer);
+        
+        this.addSystemMessage('🎭 Session complete! Click "🔄" to start another session.');
+        
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        if (chatInput) chatInput.disabled = true;
+        if (sendBtn) sendBtn.disabled = true;
+        
+        console.log('⏰ Session ended');
+    }
+
+    startNewSession() {
+        this.clearMessages();
+        
+        const sessionState = window.sessionState || {};
+        const userName = sessionState.userName;
+        const intensityLevel = sessionState.intensityLevel;
+        
+        window.sessionState = {
+            startTime: null,
+            tokensUsed: 0,
+            personasActive: ['kool-keith', 'dr-octagon', 'dr-dooom', 'black-elvis'],
+            currentTopic: null,
+            battleInProgress: false,
+            userLurking: true,
+            lastActivity: null,
+            lastSpeaker: null,
+            conversationFlow: 'natural',
+            recentContexts: [],
+            userName: userName,
+            intensityLevel: intensityLevel,
+            chatLog: [],
+            sessionStartTime: null
+        };
+        
+        this.recentResponses = [];
+        this.activePersonaResponses.clear();
+        this.isPaused = false;
+        
+        const pauseBtn = document.getElementById('pauseChat');
+        if (pauseBtn) {
+            pauseBtn.innerHTML = '⏸️ Pause';
+            pauseBtn.style.background = '';
+        }
+        
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        if (chatInput) {
+            chatInput.disabled = false;
+            chatInput.focus();
+        }
+        if (sendBtn) sendBtn.disabled = false;
+        
+        this.resetUserList();
+        this.startSession();
+        this.displayWelcomeMessage();
+        this.startAutoEvents();
+        
+        console.log('🔄 New session started');
+    }
+
+    startAutoEvents() {
+        // Personas enter chat
+        setTimeout(() => {
+            this.personasEnterChat();
+        }, 2000);
+        
+        // Regular events
+        this.autoEventTimer = setInterval(() => {
+            if (!this.isPaused) {
+                this.triggerRandomEvent();
+            }
+        }, 20000 + Math.random() * 40000);
+        
+        // Guest appearances
+        this.scheduleGuestAppearance();
+    }
+
+    triggerRandomEvent() {
+        if (this.isProcessing || this.isPaused) return;
+        
+        const events = [
+            () => this.triggerSpontaneousComment(),
+            () => this.triggerGuestAppearance()
+        ];
+        
+        const event = events[Math.floor(Math.random() * events.length)];
+        event();
+    }
+
+    triggerSpontaneousComment() {
+        const comments = {
+            'kool-keith': [
+                'Abstract creativity keeps flowing through the universe',
+                'Innovation never stops in the foundation',
+                'Ultramagnetic energy connecting all dimensions'
+            ],
+            'dr-octagon': [
+                'Cosmic surgical procedures continue their evolution',
+                'Dimensional consciousness expanding through space-time',
+                'Medical frequencies operating on multiple levels'
+            ],
+            'dr-dooom': [
+                'Real recognize real in this conversation',
+                'Fake MCs still need correction in the industry',
+                'Street authenticity remains the standard'
+            ],
+            'black-elvis': [
+                'Funk therapy healing all the negative vibrations',
+                'Musical harmony bringing peace to the session',
+                'Genre-blending creates infinite possibilities'
+            ]
+        };
+        
+        const personas = Object.keys(comments);
+        const persona = personas[Math.floor(Math.random() * personas.length)];
+        const personaComments = comments[persona];
+        const comment = personaComments[Math.floor(Math.random() * personaComments.length)];
+        
+        this.generatePersonaResponse(persona, `${persona} spontaneous comment`, comment);
+    }
+
+    triggerGuestAppearance() {
+        if (!guestPersonas || Object.keys(guestPersonas).length === 0) return;
+        
+        const guestKeys = Object.keys(guestPersonas);
+        const guestKey = guestKeys[Math.floor(Math.random() * guestKeys.length)];
+        const guest = guestPersonas[guestKey];
+        
+        const willSpeak = Math.random() < 0.4;
+        
+        if (willSpeak) {
+            this.addGuestMessage(guest.name, guest.line);
+            console.log(`🗣️ ${guest.name} spoke: ${guest.line}`);
+        } else {
+            console.log(`👁️ ${guest.name} lurked silently`);
+        }
+        
+        this.addUserToUnifiedList(guest.name, 'Visitor', 'visitor');
+        
+        setTimeout(() => {
+            if (willSpeak) {
+                this.addGuestExit(guest.name);
+            }
+            this.removeUserFromUnifiedList(guest.name);
+            console.log(`👋 ${guest.name} left`);
+        }, guest.duration);
+    }
+
+    scheduleGuestAppearance() {
+        const delay = 45000 + Math.random() * 90000;
+        this.guestAppearanceTimer = setTimeout(() => {
+            if (!this.isPaused) {
+                this.triggerGuestAppearance();
+                this.scheduleGuestAppearance();
+            }
+        }, delay);
+    }
+
+    personasEnterChat() {
+        const sessionState = window.sessionState || { intensityLevel: 2 };
+        const intensityLevel = sessionState.intensityLevel || 2;
+        
+        const entryMessages = {
+            1: {
+                'dr-octagon': 'Medical knowledge ready for discussion',
+                'kool-keith': 'Creative foundation established for conversation',
+                'black-elvis': 'Musical harmony bringing positive energy',
+                'dr-dooom': 'Real hip-hop discussion starting now'
+            },
+            2: {
+                'dr-octagon': 'Cosmic surgical procedures evolving through dimensions',
+                'dr-dooom': 'Cleaning out fake MCs, one conversation at a time',
+                'black-elvis': 'Funk therapy balancing the energy in here',
+                'kool-keith': 'Abstract foundation connecting everything'
+            },
+            3: {
+                'dr-dooom': 'Time for brutal execution of fake MCs',
+                'dr-octagon': 'Dimensional surgery dissecting primitive consciousness',
+                'kool-keith': 'Raw creative energy exploding through the foundation',
+                'black-elvis': 'Aggressive funk therapy with maximum intensity'
+            }
+        };
+        
+        const messages = entryMessages[intensityLevel] || entryMessages[2];
+        const personas = Object.keys(messages);
+        
+        personas.forEach((persona, i) => {
+            setTimeout(() => {
+                this.addPersonaMessage(persona, messages[persona]);
+                this.addToHistory(mainPersonas[persona] ? mainPersonas[persona].name : persona, messages[persona]);
+            }, (i + 1) * 3000);
+        });
+        
+        setTimeout(() => {
+            const welcomes = {
+                1: 'Welcome to our discussion',
+                2: 'Fresh face in the club - what\'s good?',
+                3: 'Another player joins the intense conversation'
+            };
+            
+            const welcome = welcomes[intensityLevel] || welcomes[2];
+            this.addPersonaMessage('dr-dooom', welcome);
+        }, 15000);
+    }
+
+    addUserToUnifiedList(userName, status, type) {
+        const allUsersList = document.getElementById('allUsersList');
+        if (!allUsersList) return;
+        
+        const userNote = allUsersList.querySelector('.user-note');
+        if (userNote) userNote.style.display = 'none';
+        
+        const existingUser = allUsersList.querySelector(`[data-user="${userName}"]`);
+        if (existingUser) return;
+        
+        const avatarColor = type === 'user' ? '#4488ff' : '#cccccc';
+        const avatarSVG = `data:image/svg+xml;base64,${btoa(`<svg width="28" height="28" fill="${avatarColor}" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4z"/></svg>`)}`;
+        
+        const userDiv = document.createElement('div');
+        userDiv.className = 'user-item';
+        userDiv.setAttribute('data-user', userName);
+        userDiv.innerHTML = `
+            <img src="${avatarSVG}" alt="${userName}">
+            <div class="user-item-info">
+                <span class="user-item-name">${this.escapeHtml(userName)}</span>
+                <span class="user-item-status">${status}</span>
+            </div>
+            <div class="status-dot online"></div>
+        `;
+        
+        allUsersList.appendChild(userDiv);
+        this.updateUserCount();
+        console.log(`👤 Added ${userName} (${type}) to unified list`);
+    }
+
+    removeUserFromUnifiedList(userName) {
+        const allUsersList = document.getElementById('allUsersList');
+        if (!allUsersList) return;
+        
+        const userItem = allUsersList.querySelector(`[data-user="${userName}"]`);
+        if (userItem) {
+            userItem.remove();
+            this.updateUserCount();
+            console.log(`👋 Removed ${userName} from unified list`);
+            
+            const remainingUsers = allUsersList.querySelectorAll('.user-item');
+            if (remainingUsers.length === 0) {
+                const userNote = allUsersList.querySelector('.user-note');
+                if (userNote) userNote.style.display = 'block';
+            }
+        }
+    }
+
+    resetUserList() {
+        const allUsersList = document.getElementById('allUsersList');
+        if (allUsersList) {
+            const userItems = allUsersList.querySelectorAll('.user-item');
+            userItems.forEach(item => item.remove());
+            
+            const userNote = allUsersList.querySelector('.user-note');
+            if (userNote) userNote.style.display = 'block';
+        }
+        
+        this.updateUserCount();
+        console.log('👥 User list reset');
+    }
+
+    updateUserCount() {
+        const userCountEl = document.getElementById('userCount');
+        if (!userCountEl) return;
+        
+        const mainPersonas = 4;
+        const dynamicUsers = document.querySelectorAll('#allUsersList .user-item').length;
+        const total = mainPersonas + dynamicUsers;
+        
+        userCountEl.textContent = `${total} online`;
+    }
+
+    addSystemMessage(content) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message system';
+        messageDiv.innerHTML = `<div class="message-content">${this.escapeHtml(content)}</div>`;
+        this.appendMessage(messageDiv);
+    }
+
+    addPersonaMessage(persona, content) {
+        const personaData = mainPersonas[persona];
+        if (!personaData) {
+            console.warn('Unknown persona:', persona);
+            return;
+        }
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${persona}`;
+        messageDiv.innerHTML = `
+            <img src="${personaData.avatar}" alt="${personaData.name}" class="message-avatar" 
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
+            <div class="message-content">
+                <strong>${personaData.name}:</strong> ${this.escapeHtml(content)}
+            </div>
+        `;
+        
+        this.appendMessage(messageDiv);
+        this.addToHistory(personaData.name, content);
+        this.addToChatLog(personaData.name, content);
+    }
+
+    addUserMessage(userName, content) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message user';
+        messageDiv.innerHTML = `
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIGZpbGw9IiM0NDg4ZmYiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4=" 
+                 alt="${userName}" class="message-avatar">
+            <div class="message-content">
+                <strong>${this.escapeHtml(userName)}:</strong> ${this.escapeHtml(content)}
+            </div>
+        `;
+        
+        this.appendMessage(messageDiv);
+        this.addToHistory(userName, content);
+        this.addToChatLog(userName, content);
+    }
+
+    addGuestMessage(guestName, content) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message guest';
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <em>*${this.escapeHtml(guestName)} enters chat*</em><br>
+                <strong>${this.escapeHtml(guestName)}:</strong> ${this.escapeHtml(content)}
+            </div>
+        `;
+        
+        this.appendMessage(messageDiv);
+        this.addToChatLog(`*${guestName}*`, `enters chat - ${content}`);
+    }
+
+    addGuestExit(guestName) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message guest';
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                <em>*${this.escapeHtml(guestName)} leaves chat*</em>
+            </div>
+        `;
+        
+        this.appendMessage(messageDiv);
+        this.addToChatLog(`*${guestName}*`, 'leaves chat');
+    }
+
+    appendMessage(messageDiv) {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            chatMessages.appendChild(messageDiv);
+            this.scrollToBottom();
+        }
+    }
+
+    addToHistory(speaker, content) {
+        this.conversationHistory.push({ speaker: speaker, content: content });
+        if (this.conversationHistory.length > 50) {
+            this.conversationHistory = this.conversationHistory.slice(-50);
+        }
+    }
+
+    addToChatLog(speaker, content) {
+        if (!window.sessionState) {
+            window.sessionState = {};
+        }
+        
+        if (!window.sessionState.chatLog) {
+            window.sessionState.chatLog = [];
+        }
+        
+        window.sessionState.chatLog.push({
+            speaker: speaker,
+            message: content,
+            timestamp: Date.now()
+        });
+    }
+
+    showTyping(persona) {
+        const typingArea = document.getElementById('typingArea');
+        if (!typingArea) return;
+        
+        const personaData = mainPersonas[persona];
+        typingArea.innerHTML = `
+            <div class="typing-indicator">
+                <img src="${personaData.avatar}" alt="${personaData.name}" 
+                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
+                <span>${personaData.name} is typing...</span>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    hideTyping() {
+        const typingArea = document.getElementById('typingArea');
+        if (typingArea) typingArea.innerHTML = '';
+    }
+
+    scrollToBottom() {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 100);
+        }
+    }
+
+    clearMessages() {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) chatMessages.innerHTML = '';
+        this.conversationHistory = [];
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    displayWelcomeMessage() {
+        setTimeout(() => {
+            const config = getCurrentIntensityConfig();
+            const sessionState = window.sessionState || { userName: 'Player' };
+            this.addSystemMessage(`👥 Welcome to The Players Club Chat Room
+
+User: ${sessionState.userName || 'Player'}
+Intensity Level: ${config.display}
+Four personas are currently active. Spontaneous events will occur...
+You can lurk and watch, or jump in anytime!
+
+Session Duration: 15 minutes`);
+        }, 500);
+    }
+}
+
+// Global variables
+let keithUniverse;
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        console.log('🚀 DOM loaded, initializing Keith Universe...');
+        
+        keithUniverse = new KeithUniverse();
+        window.keithUniverse = keithUniverse;
+        
+        console.log('✅ Keith Universe class created');
+        console.log('⏳ Waiting for entry screen completion...');
+        
+    } catch (error) {
+        console.error('❌ Keith Universe initialization failed:', error);
+        document.body.innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #1A1A1A; color: #fff; font-family: Arial, sans-serif;">
+                <div style="text-align: center;">
+                    <h1 style="color: #C0C0C0;">Keith Studio Failed to Load</h1>
+                    <p>Error: ${error.message}</p>
+                    <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #C0C0C0; color: #1A1A1A; border: none; border-radius: 5px; cursor: pointer;">Refresh Page</button>
+                </div>
+            </div>
+        `;
+    }
+});
+
+// Global error handling
+window.addEventListener('error', function(event) {
+    console.error('🔥 Global JavaScript error:', event.error);
+    console.error('Error details:', {
+        message: event.message,
+        filename: event.filename,
+        lineno: event.lineno,
+        colno: event.colno
+    });
+});
+
+window.addEventListener('unhandledrejection', function(event) {
+    console.error('🔥 Unhandled promise rejection:', event.reason);
+});
