@@ -1,9 +1,9 @@
 /* ========================================
-   KEITH STUDIO - INNER UNIVERSE CONFIG
-   FIXED: Entry functions and configuration working
+   KEITH STUDIO - CONFIGURATION & ENTRY
+   COMPLETE WORKING VERSION
    ======================================== */
 
-// Entry Window Functions - FIXED AND WORKING
+// Entry Window Functions
 function enterKeithStudio() {
     console.log('🚪 Entering Keith Studio...');
     
@@ -23,25 +23,23 @@ function enterKeithStudio() {
     
     console.log('User:', finalUserName, 'Intensity:', intensityLevel);
     
-    // Create or update sessionState
-    if (typeof window.sessionState === 'undefined') {
-        window.sessionState = {};
-    }
-    
-    window.sessionState.userName = finalUserName;
-    window.sessionState.intensityLevel = intensityLevel;
-    window.sessionState.startTime = null;
-    window.sessionState.tokensUsed = 0;
-    window.sessionState.personasActive = ['kool-keith', 'dr-octagon', 'dr-dooom', 'black-elvis'];
-    window.sessionState.currentTopic = null;
-    window.sessionState.battleInProgress = false;
-    window.sessionState.userLurking = true;
-    window.sessionState.lastActivity = null;
-    window.sessionState.lastSpeaker = null;
-    window.sessionState.conversationFlow = 'natural';
-    window.sessionState.recentContexts = [];
-    window.sessionState.chatLog = [];
-    window.sessionState.sessionStartTime = null;
+    // Create session state
+    window.sessionState = {
+        userName: finalUserName,
+        intensityLevel: intensityLevel,
+        startTime: null,
+        tokensUsed: 0,
+        personasActive: ['kool-keith', 'dr-octagon', 'dr-dooom', 'black-elvis'],
+        currentTopic: null,
+        battleInProgress: false,
+        userLurking: true,
+        lastActivity: null,
+        lastSpeaker: null,
+        conversationFlow: 'natural',
+        recentContexts: [],
+        chatLog: [],
+        sessionStartTime: null
+    };
     
     // Hide entry overlay
     overlay.classList.add('fade-out');
@@ -50,16 +48,16 @@ function enterKeithStudio() {
         
         // Initialize Keith Universe
         if (window.keithUniverse) {
-            console.log('Initializing Keith Universe...');
+            console.log('✅ Initializing Keith Universe...');
             window.keithUniverse.initializeUniverse();
         } else {
-            console.error('Keith Universe not found! Retrying...');
+            console.error('❌ Keith Universe not found! Retrying...');
             setTimeout(function() {
                 if (window.keithUniverse) {
-                    console.log('Keith Universe found on retry...');
+                    console.log('✅ Keith Universe found on retry...');
                     window.keithUniverse.initializeUniverse();
                 } else {
-                    console.error('Keith Universe still not found');
+                    console.error('❌ Keith Universe still not found');
                     alert('Error: Chat system failed to load. Please refresh the page.');
                 }
             }, 1000);
@@ -89,31 +87,6 @@ function updateIntensityDescription() {
     description.textContent = descriptions[level];
     console.log('Intensity updated to:', level, descriptions[level]);
 }
-
-// Load Knowledge Files
-function loadKnowledgeFiles() {
-    const files = [
-        '../keith-knowledge/kool-keith-knowledge.js',
-        '../keith-knowledge/dr-octagon-knowledge.js', 
-        '../keith-knowledge/dr-dooom-knowledge.js',
-        '../keith-knowledge/black-elvis-knowledge.js'
-    ];
-    
-    files.forEach(function(file) {
-        const script = document.createElement('script');
-        script.src = file;
-        script.onerror = function() { 
-            console.warn('Knowledge file not found: ' + file); 
-        };
-        script.onload = function() { 
-            console.log('Loaded: ' + file); 
-        };
-        document.head.appendChild(script);
-    });
-}
-
-// Initialize knowledge loading
-loadKnowledgeFiles();
 
 // API Configuration
 const CONFIG = {
@@ -148,7 +121,7 @@ const intensityLevels = {
     },
     2: {
         name: 'Medium',
-        display: 'Medium Normal',
+        display: 'Players Mode',
         profanityFilter: false,
         aggressionLevel: 0.7,
         conflictProbability: 0.5,
@@ -157,7 +130,7 @@ const intensityLevels = {
     },
     3: {
         name: 'Wild',
-        display: 'Wild and Crazy',
+        display: 'Wild & Crazy',
         profanityFilter: false,
         aggressionLevel: 1.0,
         conflictProbability: 0.8,
@@ -250,6 +223,58 @@ const guestPersonas = {
     'tashan-dorrsett': { name: 'Tashan Dorrsett', line: 'Dorrsett dimension', duration: 3200 }
 };
 
+// Conversation Starters
+const conversationStarters = {
+    'studio-memories': {
+        starter: 'kool-keith',
+        message: 'Those late night sessions at the lab were something else...',
+        followUps: {
+            'dr-octagon': 'Cosmic frequencies aligned during those dimensional recordings',
+            'black-elvis': 'Studio magic happening with all that creative energy'
+        }
+    },
+    'industry-talk': {
+        starter: 'dr-dooom',
+        message: 'The game\'s flooded with wannabe personas now...',
+        followUps: {
+            'kool-keith': 'Innovation separates the real from the fake',
+            'black-elvis': 'Genre evolution brings new challenges and opportunities'
+        }
+    },
+    'creative-process': {
+        starter: 'black-elvis',
+        message: 'Each persona brings its own energy to the booth...',
+        followUps: {
+            'dr-octagon': 'Interdimensional consciousness channeling through vocals',
+            'kool-keith': 'Abstract foundation supporting multiple creative expressions'
+        }
+    },
+    'golden-era': {
+        starter: 'kool-keith',
+        message: 'Ultramagnetic changed everything back in the day...',
+        followUps: {
+            'dr-dooom': 'Real recognize real from that era',
+            'dr-octagon': 'Cosmic innovation predating mainstream consciousness'
+        }
+    },
+    'producer-stories': {
+        starter: 'dr-octagon',
+        message: 'Dan the Automator understood the interdimensional vision...',
+        followUps: {
+            'kool-keith': 'Producer chemistry creates abstract possibilities',
+            'black-elvis': 'Musical collaboration transcending genre boundaries'
+        }
+    },
+    'persona-evolution': {
+        starter: 'dr-dooom',
+        message: 'Had to kill Dr. Octagon to keep things real...',
+        followUps: {
+            'dr-octagon': 'Death was merely dimensional transformation',
+            'kool-keith': 'Creative evolution requires destroying old forms'
+        }
+    }
+};
+
 // Utility Functions
 function getCurrentIntensityConfig() {
     const sessionState = window.sessionState || { intensityLevel: 2 };
@@ -264,15 +289,11 @@ function getPersonaIntensityConfig(persona) {
     return personaData.intensityResponses[sessionState.intensityLevel] || personaData.intensityResponses[2];
 }
 
-// Export configuration
-window.keithUniverseConfig = {
-    mainPersonas: mainPersonas,
-    guestPersonas: guestPersonas,
-    intensityLevels: intensityLevels,
-    getCurrentIntensityConfig: getCurrentIntensityConfig,
-    getPersonaIntensityConfig: getPersonaIntensityConfig,
-    updateIntensityDescription: updateIntensityDescription
-};
+function getRandomConversationStarter() {
+    const starters = Object.keys(conversationStarters);
+    const randomKey = starters[Math.floor(Math.random() * starters.length)];
+    return conversationStarters[randomKey];
+}
 
 // Initialize intensity slider on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -280,11 +301,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slider) {
         slider.addEventListener('input', updateIntensityDescription);
         updateIntensityDescription(); // Set initial description
-        console.log('Intensity slider initialized');
+        console.log('✅ Intensity slider initialized');
     }
     
-    console.log('Keith Universe configuration loaded');
-    console.log('Main personas:', Object.keys(mainPersonas));
-    console.log('Guest personas:', Object.keys(guestPersonas));
-    console.log('Intensity levels:', Object.keys(intensityLevels));
+    console.log('✅ Keith Universe configuration loaded');
+    console.log('🎭 Main personas:', Object.keys(mainPersonas));
+    console.log('👥 Guest personas:', Object.keys(guestPersonas));
+    console.log('⚡ Intensity levels:', Object.keys(intensityLevels));
 });
