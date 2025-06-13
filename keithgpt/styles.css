@@ -699,7 +699,7 @@ body {
 }
 
 /* ========================================
-   MOBILE RESPONSIVENESS - FIXED
+   MOBILE RESPONSIVENESS - OPTIMIZED FOR 2000s STYLE
    ======================================== */
 @media (max-width: 768px) {
     .mobile-toggle {
@@ -709,11 +709,12 @@ body {
     .user-list {
         position: fixed;
         top: 0;
-        right: -280px;
+        right: -200px; /* Match smaller width */
         height: 100vh;
         z-index: 1500;
         transition: right 0.3s ease;
         border-left: 1px solid var(--border-color);
+        width: 200px;
     }
     
     .user-list.show {
@@ -739,56 +740,64 @@ body {
     }
     
     .chat-header {
-        padding: 0 15px;
-        height: 60px;
+        padding: 0 10px;
+        height: 45px; /* Even smaller on mobile */
     }
     
     .chat-layout {
-        height: calc(100vh - 60px); /* Account for smaller header */
+        height: calc(100vh - 45px);
     }
     
     .chat-messages {
-        max-height: calc(100vh - 180px); /* Account for header and input */
-        padding: 15px;
-    }
-    
-    .studio-info h2 {
-        font-size: 1.2rem;
-    }
-    
-    .session-info {
+        max-height: calc(100vh - 120px);
+        padding: 8px 10px;
         font-size: 11px;
-        gap: 10px;
-    }
-    
-    .mobile-controls {
-        gap: 6px;
-    }
-    
-    .control-btn {
-        padding: 5px 8px;
-        font-size: 10px;
-        min-width: 35px;
-    }
-    
-    .message {
-        margin-bottom: 12px;
     }
     
     .message-avatar {
-        width: 32px !important;
-        height: 32px !important;
-        max-width: 32px !important;
-        max-height: 32px !important;
+        width: 16px !important;
+        height: 16px !important;
+        max-width: 16px !important;
+        max-height: 16px !important;
     }
     
     .message-content {
-        padding: 10px 12px;
-        font-size: 13px;
+        font-size: 11px;
+    }
+    
+    .studio-info h2 {
+        font-size: 1rem;
+    }
+    
+    .session-info {
+        font-size: 9px;
+        gap: 8px;
+    }
+    
+    .mobile-controls {
+        gap: 4px;
+    }
+    
+    .control-btn {
+        padding: 3px 6px;
+        font-size: 8px;
+        min-width: 35px;
+    }
+    
+    .mobile-toggle.active {
+        background: var(--primary-silver);
+        color: var(--bg-primary);
+        border-color: var(--primary-silver);
+    }
+    
+    .mobile-toggle:hover {
+        background: var(--bg-primary);
+        border-color: var(--border-silver);
+        color: var(--primary-silver);
     }
     
     .chat-input-area {
-        padding: 12px 15px;
+        padding: 6px 8px;
         position: fixed !important;
         bottom: 0;
         left: 0;
@@ -797,23 +806,24 @@ body {
     }
     
     .chat-input {
-        font-size: 16px; /* Prevents zoom on iOS */
-        padding: 10px 12px;
+        font-size: 14px; /* Prevents zoom on iOS */
+        padding: 6px 8px;
+        min-height: 28px;
     }
     
     .send-btn {
-        width: 40px;
-        height: 40px;
+        width: 28px;
+        height: 28px;
     }
     
     /* Entry screen mobile adjustments */
     .entry-content {
-        margin: 0 15px;
-        padding: 25px;
+        margin: 0 10px;
+        padding: 20px;
     }
     
     .entry-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .entry-subtitle {
@@ -821,17 +831,8 @@ body {
     }
     
     .entry-logo {
-        max-width: 150px;
-        max-height: 120px;
-    }
-    
-    .intensity-slider-container {
-        gap: 10px;
-    }
-    
-    .intensity-label {
-        font-size: 11px;
-        min-width: 45px;
+        max-width: 120px;
+        max-height: 100px;
     }
 }
 
@@ -839,8 +840,8 @@ body {
     .chat-header {
         flex-direction: column;
         height: auto;
-        padding: 10px;
-        gap: 10px;
+        padding: 8px;
+        gap: 6px;
     }
     
     .studio-info {
@@ -853,18 +854,12 @@ body {
     }
     
     .entry-content {
-        margin: 0 10px;
-        padding: 20px;
+        margin: 0 8px;
+        padding: 15px;
     }
     
     .entry-title {
-        font-size: 1.8rem;
-    }
-    
-    .entry-name-section,
-    .entry-intensity-section {
-        margin: 15px 0;
-        padding: 15px;
+        font-size: 1.5rem;
     }
 }
 
