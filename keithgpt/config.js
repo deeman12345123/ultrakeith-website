@@ -1,10 +1,12 @@
 /* ========================================
    KEITH STUDIO - INNER UNIVERSE CONFIG
-   UPGRADED: Intensity levels and new features
+   MOBILE FIXED: Entry functions and configuration
    ======================================== */
 
-// Entry Window Functions (UPGRADED)
+// Entry Window Functions - FIXED
 function enterKeithStudio() {
+    console.log('🚪 Entering Keith Studio...');
+    
     const overlay = document.getElementById('entryOverlay');
     const nameInput = document.getElementById('entryName');
     const intensitySlider = document.getElementById('intensitySlider');
@@ -12,6 +14,8 @@ function enterKeithStudio() {
     // Get user name and intensity level
     const userName = nameInput?.value.trim() || 'Player';
     const intensityLevel = parseInt(intensitySlider?.value) || 2;
+    
+    console.log('👤 User:', userName, 'Intensity:', intensityLevel);
     
     // Store user preferences
     sessionState.userName = userName;
@@ -23,9 +27,14 @@ function enterKeithStudio() {
             overlay.style.display = 'none';
             // Start the universe chat room
             if (window.keithUniverse) {
+                console.log('🎭 Initializing Keith Universe...');
                 window.keithUniverse.initializeUniverse();
+            } else {
+                console.error('❌ Keith Universe not found!');
             }
         }, 500);
+    } else {
+        console.error('❌ Entry overlay not found');
     }
 }
 
@@ -49,6 +58,7 @@ function updateIntensityDescription() {
     };
     
     description.textContent = descriptions[level];
+    console.log('🎚️ Intensity updated to:', level, descriptions[level]);
 }
 
 // Load Knowledge Files
@@ -64,6 +74,7 @@ function loadKnowledgeFiles() {
         const script = document.createElement('script');
         script.src = file;
         script.onerror = () => console.warn(`Knowledge file not found: ${file}`);
+        script.onload = () => console.log(`✅ Loaded: ${file}`);
         document.head.appendChild(script);
     });
 }
@@ -89,7 +100,7 @@ const CONFIG = {
     maxTokensPerSession: 2000
 };
 
-// UPGRADED: Intensity Levels Configuration
+// Intensity Levels Configuration
 const intensityLevels = {
     1: { // Tame
         name: 'Tame',
@@ -120,7 +131,7 @@ const intensityLevels = {
     }
 };
 
-// ENHANCED: Main Personas with intensity-based configurations
+// Main Personas with intensity-based configurations
 const mainPersonas = {
     'kool-keith': {
         name: 'Kool Keith',
@@ -136,201 +147,7 @@ const mainPersonas = {
         intensityResponses: {
             1: { vocabulary: ['creative', 'artistic', 'innovative', 'foundational'], aggressionLevel: 0.2 },
             2: { vocabulary: ['abstract', 'ultramagnetic', 'foundation', 'creative energy'], aggressionLevel: 0.5 },
-            3: { vocabulary: ['raw creativity', 'underground foundation', 'revolutionary innovation'], aggressionLevel: 0.7 }
-        }
-    },
-    'dr-octagon': {
-        name: 'Dr. Octagon',
-        status: 'Cosmic surgeon',
-        avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true',
-        personality: 'cosmic_pretentious',
-        conflictStyle: 'philosophical',
-        triggerWords: ['cosmic', 'surgery', 'medical', 'space', 'dimensions', 'consciousness'],
-        responseStyle: 'cosmic_intellectual',
-        interruptChance: 0.2,
-        preferredTopics: ['cosmic consciousness', 'dimensional surgery', 'space-time', 'medical procedures'],
-        uniqueVocabulary: ['cosmic', 'dimensional', 'surgical precision', 'consciousness', 'extraterrestrial', 'interdimensional'],
-        intensityResponses: {
-            1: { vocabulary: ['medical', 'scientific', 'cosmic', 'dimensional'], aggressionLevel: 0.1 },
-            2: { vocabulary: ['cosmic surgery', 'interdimensional', 'consciousness', 'extraterrestrial'], aggressionLevel: 0.3 },
-            3: { vocabulary: ['brutal cosmic surgery', 'dimensional domination', 'surgical annihilation'], aggressionLevel: 0.6 }
-        }
-    },
-    'dr-dooom': {
-        name: 'Dr. Dooom',
-        status: 'Industry executioner',
-        avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true',
-        personality: 'aggressive',
-        conflictStyle: 'attacker',
-        triggerWords: ['fake', 'real', 'execution', 'industry', 'dead', 'wack', 'skills'],
-        responseStyle: 'aggressive_brutal',
-        interruptChance: 0.4,
-        likelyToInterrupt: ['dr-octagon'],
-        preferredTopics: ['real vs fake MCs', 'industry corruption', 'execution of phonies', 'authenticity'],
-        uniqueVocabulary: ['execution', 'fake MCs', 'body bags', 'real recognize real', 'industry cleanup', 'street authenticity'],
-        intensityResponses: {
-            1: { vocabulary: ['real hip-hop', 'authentic', 'street credibility'], aggressionLevel: 0.4 },
-            2: { vocabulary: ['fake MCs', 'execution', 'real recognize real', 'industry cleanup'], aggressionLevel: 0.8 },
-            3: { vocabulary: ['body bags', 'brutal execution', 'destroy fake MCs', 'violent industry cleanup'], aggressionLevel: 1.0 }
-        }
-    },
-    'black-elvis': {
-        name: 'Black Elvis',
-        status: 'Funk master',
-        avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true',
-        personality: 'funk_peacemaker',
-        conflictStyle: 'peacemaker',
-        triggerWords: ['funk', 'rock', 'genre', 'music', 'peace', 'harmony'],
-        responseStyle: 'diplomatic_funky',
-        interruptChance: 0.25,
-        preferredTopics: ['funk fusion', 'genre blending', 'musical harmony', 'peace in hip-hop'],
-        uniqueVocabulary: ['funk therapy', 'genre-bending', 'musical harmony', 'groove consciousness', 'rhythm diplomacy', 'sonic peace'],
-        intensityResponses: {
-            1: { vocabulary: ['musical harmony', 'peaceful vibes', 'genre blending'], aggressionLevel: 0.1 },
-            2: { vocabulary: ['funk therapy', 'groove consciousness', 'rhythm diplomacy'], aggressionLevel: 0.3 },
-            3: { vocabulary: ['raw funk energy', 'aggressive groove therapy', 'sonic domination'], aggressionLevel: 0.5 }
-        }
-    }
-};
-
-// Guest Personas (Random Appearances)
-const guestPersonas = {
-    'mr-gerbik': { name: 'Mr. Gerbik', line: 'Gerbik checking the scene...', duration: 3000 },
-    'activity': { name: 'Activity', line: '1984 foundation energy', duration: 4000 },
-    'poppa-large': { name: 'Poppa Large', line: 'Ultramagnetic forever', duration: 3500 },
-    'spankmaster': { name: 'Spankmaster', line: 'Discipline in the house', duration: 2500 },
-    'mr-controller': { name: 'Mr. Controller', line: 'Controller in full effect', duration: 3000 },
-    'matthew': { name: 'Matthew', line: 'Matthew persona activated', duration: 2800 },
-    'tashan-dorrsett': { name: 'Tashan Dorrsett', line: 'Dorrsett dimension', duration: 3200 }
-};
-
-// Battle Topics for Spontaneous Conflicts
-const battleTopics = [
-    "who's the realest in the Keith universe",
-    "lyrical supremacy and wordplay mastery",
-    "hip-hop innovation and creativity", 
-    "underground vs mainstream authenticity",
-    "New York hip-hop legacy and influence",
-    "artistic vision and character development",
-    "mic skills and flow techniques",
-    "Keith's creative evolution over decades"
-];
-
-// ENHANCED: Conflict Triggers with intensity-based probability
-const conflictTriggers = {
-    'dooom_vs_octagon': {
-        baseProbability: 0.7,
-        intensityMultiplier: { 1: 0.3, 2: 1.0, 3: 1.5 },
-        initiator: 'dr-dooom',
-        target: 'dr-octagon',
-        trigger_lines: {
-            1: ['That cosmic approach isn\'t realistic', 'Medical theory vs street knowledge'],
-            2: ['That fake cosmic surgeon is still dead', 'I killed you once, I\'ll do it again'],
-            3: ['Time to brutally execute this fake cosmic fraud', 'Body bags don\'t perform surgery']
-        },
-        context_type: 'octagon_execution'
-    },
-    'octagon_responds': {
-        baseProbability: 0.8,
-        intensityMultiplier: { 1: 0.5, 2: 1.0, 3: 1.3 },
-        initiator: 'dr-octagon', 
-        target: 'dr-dooom',
-        trigger_lines: {
-            1: ['Scientific knowledge transcends street understanding', 'Cosmic perspective is more evolved'],
-            2: ['Death is merely a transformation, limited earthbound consciousness', 'Reports of my death were greatly exaggerated'],
-            3: ['Your crude violence cannot comprehend dimensional supremacy', 'Cosmic surgery will dissect your primitive mind']
-        },
-        context_type: 'cosmic_rebuttal'
-    },
-    'random_diss': {
-        baseProbability: 0.3,
-        intensityMultiplier: { 1: 0.2, 2: 1.0, 3: 2.0 },
-        initiator: 'dr-dooom',
-        target: 'any',
-        trigger_lines: {
-            1: ['That\'s not authentic hip-hop', 'Real recognize real'],
-            2: ['Another fake persona in the building', 'Who asked for your opinion?'],
-            3: ['Time for violent execution of fake MCs', 'Body bags ready for immediate disposal']
-        },
-        context_type: 'general_diss'
-    }
-};
-
-// ENHANCED: Structured Conversation Topics with intensity variations
-const conversationTopics = [
-    {
-        topic: "90s hip-hop golden era memories",
-        starters: [
-            { 
-                persona: 'kool-keith', 
-                lines: {
-                    1: 'The 90s brought such creative innovation to hip-hop...',
-                    2: 'The 90s was when hip-hop really broke all creative boundaries...',
-                    3: 'The 90s underground revolution changed everything permanently...'
-                },
-                angle: 'innovation_focus' 
-            },
-            { 
-                persona: 'dr-octagon', 
-                lines: {
-                    1: 'Medical procedures in the 90s had cosmic significance',
-                    2: 'Those cosmic frequencies in 96 were unprecedented in their dimensional reach',
-                    3: 'Dimensional surgery reached brutal perfection in the 90s era'
-                },
-                angle: 'cosmic_medical' 
-            },
-            { 
-                persona: 'dr-dooom', 
-                lines: {
-                    1: 'Back when MCs had genuine skills and authenticity',
-                    2: 'Back when MCs had real skills, not like these industry fakes today',
-                    3: 'The 90s was when real MCs executed fake posers without mercy'
-                },
-                angle: 'authenticity_attack' 
-            },
-            { 
-                persona: 'black-elvis', 
-                lines: {
-                    1: 'Genre-blending in the 90s created beautiful musical harmony',
-                    2: 'Genre-blending in the 90s opened up infinite musical possibilities',
-                    3: 'The 90s funk revolution dominated and conquered all musical boundaries'
-                },
-                angle: 'funk_fusion' 
-            }
-        ]
-    },
-    {
-        topic: "studio experiences and producer stories",
-        starters: [
-            { 
-                persona: 'black-elvis', 
-                lines: {
-                    1: 'Those studio sessions had such positive creative energy...',
-                    2: 'Those late night studio sessions had that magical groove energy...',
-                    3: 'Studio sessions were raw, intense creative battles of sonic supremacy...'
-                },
-                angle: 'musical_harmony' 
-            },
-            { 
-                persona: 'kool-keith', 
-                lines: {
-                    1: 'Each producer brought unique creative elements to our work',
-                    2: 'Each producer brought unique abstract elements to the creative process',
-                    3: 'Producers either understood revolutionary innovation or got eliminated from the lab'
-                },
-                angle: 'artistic_collaboration' 
-            }
-        ]
-    },
-    {
-        topic: "industry changes and evolution",
-        starters: [
-            { 
-                persona: 'dr-dooom', 
-                lines: {
-                    1: 'The industry has some questionable artists nowadays',
-                    2: 'The industry\'s infected with fake MCs who need immediate cleanup',
-                    3: 'Time for brutal industrial warfare against fake MC infestation'
+            3: 'Time for brutal industrial warfare against fake MC infestation'
                 },
                 angle: 'industry_execution' 
             },
@@ -361,7 +178,7 @@ const timingPatterns = {
     'black-elvis': { min: 2500, max: 5500 } // Moderate, diplomatic timing
 };
 
-// ENHANCED: Persona Interaction Patterns with intensity awareness
+// Persona Interaction Patterns with intensity awareness
 const interactionPatterns = {
     'dr-dooom': {
         likelyToInterrupt: ['dr-octagon'],
@@ -393,7 +210,7 @@ const interactionPatterns = {
     }
 };
 
-// UPGRADED: Session Management with new features
+// Session Management with new features
 let sessionState = {
     startTime: null,
     tokensUsed: 0,
@@ -405,10 +222,10 @@ let sessionState = {
     lastSpeaker: null,
     conversationFlow: 'natural',
     recentContexts: [],
-    // NEW: User preferences
+    // User preferences
     userName: 'Player',
     intensityLevel: 2, // Default to Players Mode
-    // NEW: Chat logging
+    // Chat logging
     chatLog: [],
     sessionStartTime: null
 };
@@ -471,7 +288,7 @@ function getCharacterKnowledge(character) {
     }
 }
 
-// ENHANCED: Chat room prompt with intensity awareness
+// Chat room prompt with intensity awareness
 function buildChatRoomPrompt(knowledge, character) {
     const persona = mainPersonas[character];
     const intensityConfig = getCurrentIntensityConfig();
@@ -565,5 +382,206 @@ document.addEventListener('DOMContentLoaded', () => {
     if (slider) {
         slider.addEventListener('input', updateIntensityDescription);
         updateIntensityDescription(); // Set initial description
+        console.log('🎚️ Intensity slider initialized');
     }
-});
+    
+    // Log configuration loaded
+    console.log('⚙️ Keith Universe configuration loaded');
+    console.log('🎭 Main personas:', Object.keys(mainPersonas));
+    console.log('👥 Guest personas:', Object.keys(guestPersonas));
+    console.log('🎚️ Intensity levels:', Object.keys(intensityLevels));
+}); { vocabulary: ['raw creativity', 'underground foundation', 'revolutionary innovation'], aggressionLevel: 0.7 }
+        }
+    },
+    'dr-octagon': {
+        name: 'Dr. Octagon',
+        status: 'Cosmic surgeon',
+        avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/droctagon.png?raw=true',
+        personality: 'cosmic_pretentious',
+        conflictStyle: 'philosophical',
+        triggerWords: ['cosmic', 'surgery', 'medical', 'space', 'dimensions', 'consciousness'],
+        responseStyle: 'cosmic_intellectual',
+        interruptChance: 0.2,
+        preferredTopics: ['cosmic consciousness', 'dimensional surgery', 'space-time', 'medical procedures'],
+        uniqueVocabulary: ['cosmic', 'dimensional', 'surgical precision', 'consciousness', 'extraterrestrial', 'interdimensional'],
+        intensityResponses: {
+            1: { vocabulary: ['medical', 'scientific', 'cosmic', 'dimensional'], aggressionLevel: 0.1 },
+            2: { vocabulary: ['cosmic surgery', 'interdimensional', 'consciousness', 'extraterrestrial'], aggressionLevel: 0.3 },
+            3: { vocabulary: ['brutal cosmic surgery', 'dimensional domination', 'surgical annihilation'], aggressionLevel: 0.6 }
+        }
+    },
+    'dr-dooom': {
+        name: 'Dr. Dooom',
+        status: 'Industry executioner',
+        avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/drdooom.png?raw=true',
+        personality: 'aggressive',
+        conflictStyle: 'attacker',
+        triggerWords: ['fake', 'real', 'execution', 'industry', 'dead', 'wack', 'skills'],
+        responseStyle: 'aggressive_brutal',
+        interruptChance: 0.4,
+        likelyToInterrupt: ['dr-octagon'],
+        preferredTopics: ['real vs fake MCs', 'industry corruption', 'execution of phonies', 'authenticity'],
+        uniqueVocabulary: ['execution', 'fake MCs', 'body bags', 'real recognize real', 'industry cleanup', 'street authenticity'],
+        intensityResponses: {
+            1: { vocabulary: ['real hip-hop', 'authentic', 'street credibility'], aggressionLevel: 0.4 },
+            2: { vocabulary: ['fake MCs', 'execution', 'real recognize real', 'industry cleanup'], aggressionLevel: 0.8 },
+            3: { vocabulary: ['body bags', 'brutal execution', 'destroy fake MCs', 'violent industry cleanup'], aggressionLevel: 1.0 }
+        }
+    },
+    'black-elvis': {
+        name: 'Black Elvis',
+        status: 'Funk master',
+        avatar: 'https://github.com/deeman12345123/ultrakeith-website/blob/main/blackelvis.png?raw=true',
+        personality: 'funk_peacemaker',
+        conflictStyle: 'peacemaker',
+        triggerWords: ['funk', 'rock', 'genre', 'music', 'peace', 'harmony'],
+        responseStyle: 'diplomatic_funky',
+        interruptChance: 0.25,
+        preferredTopics: ['funk fusion', 'genre blending', 'musical harmony', 'peace in hip-hop'],
+        uniqueVocabulary: ['funk therapy', 'genre-bending', 'musical harmony', 'groove consciousness', 'rhythm diplomacy', 'sonic peace'],
+        intensityResponses: {
+            1: { vocabulary: ['musical harmony', 'peaceful vibes', 'genre blending'], aggressionLevel: 0.1 },
+            2: { vocabulary: ['funk therapy', 'groove consciousness', 'rhythm diplomacy'], aggressionLevel: 0.3 },
+            3: { vocabulary: ['raw funk energy', 'aggressive groove therapy', 'sonic domination'], aggressionLevel: 0.5 }
+        }
+    }
+};
+
+// Guest Personas (Random Appearances)
+const guestPersonas = {
+    'mr-gerbik': { name: 'Mr. Gerbik', line: 'Gerbik checking the scene...', duration: 3000 },
+    'activity': { name: 'Activity', line: '1984 foundation energy', duration: 4000 },
+    'poppa-large': { name: 'Poppa Large', line: 'Ultramagnetic forever', duration: 3500 },
+    'spankmaster': { name: 'Spankmaster', line: 'Discipline in the house', duration: 2500 },
+    'mr-controller': { name: 'Mr. Controller', line: 'Controller in full effect', duration: 3000 },
+    'matthew': { name: 'Matthew', line: 'Matthew persona activated', duration: 2800 },
+    'tashan-dorrsett': { name: 'Tashan Dorrsett', line: 'Dorrsett dimension', duration: 3200 }
+};
+
+// Battle Topics for Spontaneous Conflicts
+const battleTopics = [
+    "who's the realest in the Keith universe",
+    "lyrical supremacy and wordplay mastery",
+    "hip-hop innovation and creativity", 
+    "underground vs mainstream authenticity",
+    "New York hip-hop legacy and influence",
+    "artistic vision and character development",
+    "mic skills and flow techniques",
+    "Keith's creative evolution over decades"
+];
+
+// Conflict Triggers with intensity-based probability
+const conflictTriggers = {
+    'dooom_vs_octagon': {
+        baseProbability: 0.7,
+        intensityMultiplier: { 1: 0.3, 2: 1.0, 3: 1.5 },
+        initiator: 'dr-dooom',
+        target: 'dr-octagon',
+        trigger_lines: {
+            1: ['That cosmic approach isn\'t realistic', 'Medical theory vs street knowledge'],
+            2: ['That fake cosmic surgeon is still dead', 'I killed you once, I\'ll do it again'],
+            3: ['Time to brutally execute this fake cosmic fraud', 'Body bags don\'t perform surgery']
+        },
+        context_type: 'octagon_execution'
+    },
+    'octagon_responds': {
+        baseProbability: 0.8,
+        intensityMultiplier: { 1: 0.5, 2: 1.0, 3: 1.3 },
+        initiator: 'dr-octagon', 
+        target: 'dr-dooom',
+        trigger_lines: {
+            1: ['Scientific knowledge transcends street understanding', 'Cosmic perspective is more evolved'],
+            2: ['Death is merely a transformation, limited earthbound consciousness', 'Reports of my death were greatly exaggerated'],
+            3: ['Your crude violence cannot comprehend dimensional supremacy', 'Cosmic surgery will dissect your primitive mind']
+        },
+        context_type: 'cosmic_rebuttal'
+    },
+    'random_diss': {
+        baseProbability: 0.3,
+        intensityMultiplier: { 1: 0.2, 2: 1.0, 3: 2.0 },
+        initiator: 'dr-dooom',
+        target: 'any',
+        trigger_lines: {
+            1: ['That\'s not authentic hip-hop', 'Real recognize real'],
+            2: ['Another fake persona in the building', 'Who asked for your opinion?'],
+            3: ['Time for violent execution of fake MCs', 'Body bags ready for immediate disposal']
+        },
+        context_type: 'general_diss'
+    }
+};
+
+// Structured Conversation Topics with intensity variations
+const conversationTopics = [
+    {
+        topic: "90s hip-hop golden era memories",
+        starters: [
+            { 
+                persona: 'kool-keith', 
+                lines: {
+                    1: 'The 90s brought such creative innovation to hip-hop...',
+                    2: 'The 90s was when hip-hop really broke all creative boundaries...',
+                    3: 'The 90s underground revolution changed everything permanently...'
+                },
+                angle: 'innovation_focus' 
+            },
+            { 
+                persona: 'dr-octagon', 
+                lines: {
+                    1: 'Medical procedures in the 90s had cosmic significance',
+                    2: 'Those cosmic frequencies in 96 were unprecedented in their dimensional reach',
+                    3: 'Dimensional surgery reached brutal perfection in the 90s era'
+                },
+                angle: 'cosmic_medical' 
+            },
+            { 
+                persona: 'dr-dooom', 
+                lines: {
+                    1: 'Back when MCs had genuine skills and authenticity',
+                    2: 'Back when MCs had real skills, not like these industry fakes today',
+                    3: 'The 90s was when real MCs executed fake posers without mercy'
+                },
+                angle: 'authenticity_attack' 
+            },
+            { 
+                persona: 'black-elvis', 
+                lines: {
+                    1: 'Genre-blending in the 90s created beautiful musical harmony',
+                    2: 'Genre-blending in the 90s opened up infinite musical possibilities',
+                    3: 'The 90s funk revolution dominated and conquered all musical boundaries'
+                },
+                angle: 'funk_fusion' 
+            }
+        ]
+    },
+    {
+        topic: "studio experiences and producer stories",
+        starters: [
+            { 
+                persona: 'black-elvis', 
+                lines: {
+                    1: 'Those studio sessions had such positive creative energy...',
+                    2: 'Those late night studio sessions had that magical groove energy...',
+                    3: 'Studio sessions were raw, intense creative battles of sonic supremacy...'
+                },
+                angle: 'musical_harmony' 
+            },
+            { 
+                persona: 'kool-keith', 
+                lines: {
+                    1: 'Each producer brought unique creative elements to our work',
+                    2: 'Each producer brought unique abstract elements to the creative process',
+                    3: 'Producers either understood revolutionary innovation or got eliminated from the lab'
+                },
+                angle: 'artistic_collaboration' 
+            }
+        ]
+    },
+    {
+        topic: "industry changes and evolution",
+        starters: [
+            { 
+                persona: 'dr-dooom', 
+                lines: {
+                    1: 'The industry has some questionable artists nowadays',
+                    2: 'The industry\'s infected with fake MCs who need immediate cleanup',
+                    3:
