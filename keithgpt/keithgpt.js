@@ -1,344 +1,4 @@
-/* ========================================
-   KEITH STUDIO - CLEAN WORKING VERSION
-   MOBILE FIXED: Toggle functionality and user list management
-   ======================================== */
-
-class KeithUniverse {
-    constructor() {
-        this.sessionTimer = null;
-        this.autoEventTimer = null;
-        this.isProcessing = false;
-        this.conversationHistory = [];
-        this.guestAppearanceTimer = null;
-        this.lastResponder = null;
-        this.recentResponses = [];
-        this.activePersonaResponses = new Set();
-        this.isPaused = false;
-        this.pausedTimers = [];
-    }
-
-    // ========================================
-    // INITIALIZATION - CLEAN VERSION
-    // ========================================
-
-    initializeUniverse() {
-        console.log('🚀 Initializing Keith Universe...');
-        
-        // Essential element checks
-        const requiredElements = [
-            'chatInput',
-            'sendBtn', 
-            'chatMessages',
-            'sessionTimer',
-            'userCount',
-            'toggleUserList',
-            'userList',
-            'mobileOverlay'
-        ];
-        
-        const missing = requiredElements.filter(id => !document.getElementById(id));
-        if (missing.length > 0) {
-            console.error('❌ Missing required elements:', missing);
-            this.showError('Required elements missing: ' + missing.join(', '));
-            return;
-        }
-        
-        console.log('✅ All required elements found');
-        
-        // Initialize in correct order
-        this.setupEventListeners();
-        this.startSession();
-        this.displayWelcomeMessage();
-        this.startAutoEvents();
-        this.updateIntensityDisplay();
-        this.initializeUserList();
-        
-        console.log(`🎭 Keith's Inner Universe activated - ${getCurrentIntensityConfig().name} Mode`);
-    }
-
-    showError(message) {
-        const chatMessages = document.getElementById('chatMessages');
-        if (chatMessages) {
-            chatMessages.innerHTML = `
-                <div style="text-align: center; color: #ff6666; padding: 20px; border: 1px solid #ff6666; border-radius: 8px; margin: 20px;">
-                    <h3>⚠️ Initialization Error</h3>
-                    <p>${message}</p>
-                    <p><small>Please refresh the page and try again.</small></p>
-                </div>
-            `;
-        }
-    }
-
-    setupEventListeners() {
-        console.log('🔧 Setting up event listeners...');
-        
-        // Chat input and send button
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        
-        if (chatInput && sendBtn) {
-            // Clear existing listeners
-            chatInput.onkeydown = null;
-            chatInput.oninput = null;
-            sendBtn.onclick = null;
-            
-            // Add fresh listeners
-            chatInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    console.log('⌨️ Enter key pressed');
-                    this.sendUserMessage();
-                }
-            });
-            
-            chatInput.addEventListener('input', () => {
-                this.updateSendButton();
-            });
-            
-            sendBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('🖱️ Send button clicked');
-                this.sendUserMessage();
-            });
-            
-            console.log('✅ Chat input listeners attached');
-        } else {
-            console.error('❌ Chat input or send button not found');
-        }
-
-        // Control buttons
-        this.setupControlButtons();
-        
-        // Mobile controls - FIXED
-        this.setupMobileControls();
-        
-        // Initialize send button state
-        this.updateSendButton();
-    }
-
-    setupControlButtons() {
-        const buttons = [
-            { id: 'newSession', handler: () => this.startNewSession() },
-            { id: 'pauseChat', handler: () => this.togglePauseChat() },
-            { id: 'clearChat', handler: () => this.clearChat() },
-            { id: 'saveChat', handler: () => this.saveChat() },
-            { id: 'copyChat', handler: () => this.copyChat() }
-        ];
-
-        buttons.forEach(({ id, handler }) => {
-            const btn = document.getElementById(id);
-            if (btn) {
-                btn.onclick = null; // Clear existing
-                btn.addEventListener('click', handler);
-                console.log(`✅ ${id} button connected`);
-            } else {
-                console.warn(`⚠️ ${id} button not found`);
-            }
-        });
-    }
-
-    // FIXED: Mobile controls setup
-    setupMobileControls() {
-        const toggleUserList = document.getElementById('toggleUserList');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-
-        if (toggleUserList) {
-            toggleUserList.onclick = null;
-            toggleUserList.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('📱 Mobile toggle clicked');
-                this.toggleUserList();
-            });
-            console.log('✅ Mobile toggle connected');
-        }
-
-        if (mobileOverlay) {
-            mobileOverlay.onclick = null;
-            mobileOverlay.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log('📱 Mobile overlay clicked');
-                this.closeUserList();
-            });
-            console.log('✅ Mobile overlay connected');
-        }
-    }
-
-    // FIXED: User list initialization
-    initializeUserList() {
-        this.updateUserCount();
-        console.log('👥 User list initialized');
-    }
-
-    // ========================================
-    // MOBILE FUNCTIONALITY - FIXED
-    // ========================================
-
-    toggleUserList() {
-        const userList = document.getElementById('userList');
-        const overlay = document.getElementById('mobileOverlay');
-        const toggleBtn = document.getElementById('toggleUserList');
-        
-        if (!userList || !overlay) {
-            console.error('❌ User list or overlay not found');
-            return;
-        }
-        
-        const isShowing = userList.classList.contains('show');
-        console.log('📱 Toggle user list - currently showing:', isShowing);
-        
-        if (isShowing) {
-            // Hide user list
-            userList.classList.remove('show');
-            overlay.classList.remove('show');
-            if (toggleBtn) toggleBtn.classList.remove('active');
-            console.log('📱 User list hidden');
-        } else {
-            // Show user list
-            userList.classList.add('show');
-            overlay.classList.add('show');
-            if (toggleBtn) toggleBtn.classList.add('active');
-            console.log('📱 User list shown');
-        }
-    }
-
-    closeUserList() {
-        const userList = document.getElementById('userList');
-        const overlay = document.getElementById('mobileOverlay');
-        const toggleBtn = document.getElementById('toggleUserList');
-        
-        if (userList && overlay) {
-            userList.classList.remove('show');
-            overlay.classList.remove('show');
-            if (toggleBtn) toggleBtn.classList.remove('active');
-            console.log('📱 User list closed');
-        }
-    }
-
-    // ========================================
-    // CHAT INPUT FUNCTIONALITY - FIXED
-    // ========================================
-
-    async sendUserMessage() {
-        console.log('📤 sendUserMessage called');
-        
-        const chatInput = document.getElementById('chatInput');
-        if (!chatInput) {
-            console.error('❌ Chat input element not found');
-            return;
-        }
-        
-        const message = chatInput.value.trim();
-        console.log('💬 Message content:', `"${message}"`);
-        
-        if (!message) {
-            console.log('❌ Empty message, not sending');
-            return;
-        }
-        
-        if (this.isProcessing) {
-            console.log('⏳ Still processing previous message');
-            return;
-        }
-        
-        const userName = sessionState.userName || 'Player';
-        console.log('👤 User name:', userName);
-        
-        // Add message to chat
-        this.addUserMessage(userName, message);
-        this.addUserToUnifiedList(userName, 'User', 'user');
-        
-        // Clear input
-        chatInput.value = '';
-        this.updateSendButton();
-        
-        // Mark user as active
-        sessionState.userLurking = false;
-        
-        console.log('✅ User message added, generating response...');
-        
-        // Generate persona response
-        setTimeout(async () => {
-            try {
-                const responder = this.selectResponder(message);
-                console.log('🎭 Selected responder:', responder);
-                
-                const context = `${mainPersonas[responder]?.name || responder} responding to ${userName}: "${message}"`;
-                await this.generatePersonaResponse(responder, context);
-            } catch (error) {
-                console.error('❌ Error generating response:', error);
-                this.addSystemMessage('⚠️ Error generating response. Please try again.');
-            }
-        }, 1000 + Math.random() * 3000);
-    }
-
-    selectResponder(userMessage) {
-        // Check for trigger words
-        for (const [persona, data] of Object.entries(mainPersonas)) {
-            if (data.triggerWords) {
-                for (const trigger of data.triggerWords) {
-                    if (userMessage.toLowerCase().includes(trigger)) {
-                        console.log(`🎯 Trigger word "${trigger}" found, selecting ${persona}`);
-                        return persona;
-                    }
-                }
-            }
-        }
-        
-        // Random selection
-        const available = sessionState.personasActive || Object.keys(mainPersonas);
-        const selected = available[Math.floor(Math.random() * available.length)];
-        console.log('🎲 Random selection:', selected);
-        return selected;
-    }
-
-    updateSendButton() {
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        
-        if (!chatInput || !sendBtn) return;
-        
-        const hasText = chatInput.value.trim().length > 0;
-        const canSend = hasText && !this.isProcessing;
-        
-        sendBtn.disabled = !canSend;
-        
-        // Visual feedback
-        sendBtn.style.opacity = canSend ? '1' : '0.4';
-        sendBtn.style.cursor = canSend ? 'pointer' : 'not-allowed';
-        
-        // Debug log
-        console.log('🔄 Send button state:', { hasText, isProcessing: this.isProcessing, canSend });
-    }
-
-    // ========================================
-    // PERSONA RESPONSE GENERATION - SIMPLIFIED
-    // ========================================
-
-    async generatePersonaResponse(persona, context, presetResponse = null) {
-        if (this.isProcessing || this.isPaused) {
-            console.log('⏸️ Skipping response - processing or paused');
-            return;
-        }
-        
-        if (this.activePersonaResponses.has(persona)) {
-            console.log(`🔄 ${persona} already responding, skipping`);
-            return;
-        }
-        
-        this.activePersonaResponses.add(persona);
-        this.isProcessing = true;
-        
-        console.log(`🎭 Generating response for ${persona}`);
-        
-        try {
-            let response;
-            
-            if (presetResponse) {
-                response = presetResponse;
-            } else {
-                // Try API call
-                try {
-                    const prompt = this.buildChatPrompt(persona, context);
+const prompt = this.buildChatPrompt(persona, context);
                     response = await this.callChatAPI(prompt);
                     console.log(`✅ API response for ${persona}:`, response);
                 } catch (apiError) {
@@ -1035,7 +695,7 @@ Generated by KeithGPT - The Players Club
         const personaData = mainPersonas[persona];
         typingArea.innerHTML = `
             <div class="typing-indicator">
-                <img src="${personaData.avatar}" alt="${personaData.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCAxIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
+                <img src="${personaData.avatar}" alt="${personaData.name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZD0iTTggOGEzIDMgMCAxIDAgMC02IDMgMyAwIDAgMCAwIDZ6bTItM2EyIDIgMCExIDEtNCAwIDIgMiAwIDAgMSA0IDB6bTQgOGMwIDEtMSAxLTEgMUgzcy0xIDAtMS0xIDEtNCA2LTQgNiAzIDYgNHoiLz48L3N2Zz4='">
                 <span>${personaData.name} is typing...</span>
                 <div class="typing-dots">
                     <div class="typing-dot"></div>
@@ -1135,4 +795,344 @@ window.addEventListener('error', (event) => {
 
 window.addEventListener('unhandledrejection', (event) => {
     console.error('🔥 Unhandled promise rejection:', event.reason);
-});
+});/* ========================================
+   KEITH STUDIO - CLEAN WORKING VERSION
+   MOBILE FIXED: Toggle functionality and user list management
+   ======================================== */
+
+class KeithUniverse {
+    constructor() {
+        this.sessionTimer = null;
+        this.autoEventTimer = null;
+        this.isProcessing = false;
+        this.conversationHistory = [];
+        this.guestAppearanceTimer = null;
+        this.lastResponder = null;
+        this.recentResponses = [];
+        this.activePersonaResponses = new Set();
+        this.isPaused = false;
+        this.pausedTimers = [];
+    }
+
+    // ========================================
+    // INITIALIZATION - CLEAN VERSION
+    // ========================================
+
+    initializeUniverse() {
+        console.log('🚀 Initializing Keith Universe...');
+        
+        // Essential element checks
+        const requiredElements = [
+            'chatInput',
+            'sendBtn', 
+            'chatMessages',
+            'sessionTimer',
+            'userCount',
+            'toggleUserList',
+            'userList',
+            'mobileOverlay'
+        ];
+        
+        const missing = requiredElements.filter(id => !document.getElementById(id));
+        if (missing.length > 0) {
+            console.error('❌ Missing required elements:', missing);
+            this.showError('Required elements missing: ' + missing.join(', '));
+            return;
+        }
+        
+        console.log('✅ All required elements found');
+        
+        // Initialize in correct order
+        this.setupEventListeners();
+        this.startSession();
+        this.displayWelcomeMessage();
+        this.startAutoEvents();
+        this.updateIntensityDisplay();
+        this.initializeUserList();
+        
+        console.log(`🎭 Keith's Inner Universe activated - ${getCurrentIntensityConfig().name} Mode`);
+    }
+
+    showError(message) {
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            chatMessages.innerHTML = `
+                <div style="text-align: center; color: #ff6666; padding: 20px; border: 1px solid #ff6666; border-radius: 8px; margin: 20px;">
+                    <h3>⚠️ Initialization Error</h3>
+                    <p>${message}</p>
+                    <p><small>Please refresh the page and try again.</small></p>
+                </div>
+            `;
+        }
+    }
+
+    setupEventListeners() {
+        console.log('🔧 Setting up event listeners...');
+        
+        // Chat input and send button
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        if (chatInput && sendBtn) {
+            // Clear existing listeners
+            chatInput.onkeydown = null;
+            chatInput.oninput = null;
+            sendBtn.onclick = null;
+            
+            // Add fresh listeners
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    console.log('⌨️ Enter key pressed');
+                    this.sendUserMessage();
+                }
+            });
+            
+            chatInput.addEventListener('input', () => {
+                this.updateSendButton();
+            });
+            
+            sendBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('🖱️ Send button clicked');
+                this.sendUserMessage();
+            });
+            
+            console.log('✅ Chat input listeners attached');
+        } else {
+            console.error('❌ Chat input or send button not found');
+        }
+
+        // Control buttons
+        this.setupControlButtons();
+        
+        // Mobile controls - FIXED
+        this.setupMobileControls();
+        
+        // Initialize send button state
+        this.updateSendButton();
+    }
+
+    setupControlButtons() {
+        const buttons = [
+            { id: 'newSession', handler: () => this.startNewSession() },
+            { id: 'pauseChat', handler: () => this.togglePauseChat() },
+            { id: 'clearChat', handler: () => this.clearChat() },
+            { id: 'saveChat', handler: () => this.saveChat() },
+            { id: 'copyChat', handler: () => this.copyChat() }
+        ];
+
+        buttons.forEach(({ id, handler }) => {
+            const btn = document.getElementById(id);
+            if (btn) {
+                btn.onclick = null; // Clear existing
+                btn.addEventListener('click', handler);
+                console.log(`✅ ${id} button connected`);
+            } else {
+                console.warn(`⚠️ ${id} button not found`);
+            }
+        });
+    }
+
+    // FIXED: Mobile controls setup
+    setupMobileControls() {
+        const toggleUserList = document.getElementById('toggleUserList');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        if (toggleUserList) {
+            toggleUserList.onclick = null;
+            toggleUserList.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('📱 Mobile toggle clicked');
+                this.toggleUserList();
+            });
+            console.log('✅ Mobile toggle connected');
+        }
+
+        if (mobileOverlay) {
+            mobileOverlay.onclick = null;
+            mobileOverlay.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('📱 Mobile overlay clicked');
+                this.closeUserList();
+            });
+            console.log('✅ Mobile overlay connected');
+        }
+    }
+
+    // FIXED: User list initialization
+    initializeUserList() {
+        this.updateUserCount();
+        console.log('👥 User list initialized');
+    }
+
+    // ========================================
+    // MOBILE FUNCTIONALITY - FIXED
+    // ========================================
+
+    toggleUserList() {
+        const userList = document.getElementById('userList');
+        const overlay = document.getElementById('mobileOverlay');
+        const toggleBtn = document.getElementById('toggleUserList');
+        
+        if (!userList || !overlay) {
+            console.error('❌ User list or overlay not found');
+            return;
+        }
+        
+        const isShowing = userList.classList.contains('show');
+        console.log('📱 Toggle user list - currently showing:', isShowing);
+        
+        if (isShowing) {
+            // Hide user list
+            userList.classList.remove('show');
+            overlay.classList.remove('show');
+            if (toggleBtn) toggleBtn.classList.remove('active');
+            console.log('📱 User list hidden');
+        } else {
+            // Show user list
+            userList.classList.add('show');
+            overlay.classList.add('show');
+            if (toggleBtn) toggleBtn.classList.add('active');
+            console.log('📱 User list shown');
+        }
+    }
+
+    closeUserList() {
+        const userList = document.getElementById('userList');
+        const overlay = document.getElementById('mobileOverlay');
+        const toggleBtn = document.getElementById('toggleUserList');
+        
+        if (userList && overlay) {
+            userList.classList.remove('show');
+            overlay.classList.remove('show');
+            if (toggleBtn) toggleBtn.classList.remove('active');
+            console.log('📱 User list closed');
+        }
+    }
+
+    // ========================================
+    // CHAT INPUT FUNCTIONALITY - FIXED
+    // ========================================
+
+    async sendUserMessage() {
+        console.log('📤 sendUserMessage called');
+        
+        const chatInput = document.getElementById('chatInput');
+        if (!chatInput) {
+            console.error('❌ Chat input element not found');
+            return;
+        }
+        
+        const message = chatInput.value.trim();
+        console.log('💬 Message content:', `"${message}"`);
+        
+        if (!message) {
+            console.log('❌ Empty message, not sending');
+            return;
+        }
+        
+        if (this.isProcessing) {
+            console.log('⏳ Still processing previous message');
+            return;
+        }
+        
+        const userName = sessionState.userName || 'Player';
+        console.log('👤 User name:', userName);
+        
+        // Add message to chat
+        this.addUserMessage(userName, message);
+        this.addUserToUnifiedList(userName, 'User', 'user');
+        
+        // Clear input
+        chatInput.value = '';
+        this.updateSendButton();
+        
+        // Mark user as active
+        sessionState.userLurking = false;
+        
+        console.log('✅ User message added, generating response...');
+        
+        // Generate persona response
+        setTimeout(async () => {
+            try {
+                const responder = this.selectResponder(message);
+                console.log('🎭 Selected responder:', responder);
+                
+                const context = `${mainPersonas[responder]?.name || responder} responding to ${userName}: "${message}"`;
+                await this.generatePersonaResponse(responder, context);
+            } catch (error) {
+                console.error('❌ Error generating response:', error);
+                this.addSystemMessage('⚠️ Error generating response. Please try again.');
+            }
+        }, 1000 + Math.random() * 3000);
+    }
+
+    selectResponder(userMessage) {
+        // Check for trigger words
+        for (const [persona, data] of Object.entries(mainPersonas)) {
+            if (data.triggerWords) {
+                for (const trigger of data.triggerWords) {
+                    if (userMessage.toLowerCase().includes(trigger)) {
+                        console.log(`🎯 Trigger word "${trigger}" found, selecting ${persona}`);
+                        return persona;
+                    }
+                }
+            }
+        }
+        
+        // Random selection
+        const available = sessionState.personasActive || Object.keys(mainPersonas);
+        const selected = available[Math.floor(Math.random() * available.length)];
+        console.log('🎲 Random selection:', selected);
+        return selected;
+    }
+
+    updateSendButton() {
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        if (!chatInput || !sendBtn) return;
+        
+        const hasText = chatInput.value.trim().length > 0;
+        const canSend = hasText && !this.isProcessing;
+        
+        sendBtn.disabled = !canSend;
+        
+        // Visual feedback
+        sendBtn.style.opacity = canSend ? '1' : '0.4';
+        sendBtn.style.cursor = canSend ? 'pointer' : 'not-allowed';
+        
+        // Debug log
+        console.log('🔄 Send button state:', { hasText, isProcessing: this.isProcessing, canSend });
+    }
+
+    // ========================================
+    // PERSONA RESPONSE GENERATION - SIMPLIFIED
+    // ========================================
+
+    async generatePersonaResponse(persona, context, presetResponse = null) {
+        if (this.isProcessing || this.isPaused) {
+            console.log('⏸️ Skipping response - processing or paused');
+            return;
+        }
+        
+        if (this.activePersonaResponses.has(persona)) {
+            console.log(`🔄 ${persona} already responding, skipping`);
+            return;
+        }
+        
+        this.activePersonaResponses.add(persona);
+        this.isProcessing = true;
+        
+        console.log(`🎭 Generating response for ${persona}`);
+        
+        try {
+            let response;
+            
+            if (presetResponse) {
+                response = presetResponse;
+            } else {
+                // Try API call
+                try {
+                    const prompt = this.buildChatPrompt
