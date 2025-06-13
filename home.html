@@ -776,13 +776,14 @@
             .featured-content {
                 grid-template-columns: 1fr;
                 gap: var(--spacing-medium);
+                margin: 40px 0; /* Reduced mobile margin */
             }
             
             /* Cards */
             .feature-card {
                 height: auto;
                 text-align: center;
-                padding: 38px; /* 150% scaled */
+                padding: 25px; /* Smaller mobile padding */
             }
             
             .card-header {
@@ -792,18 +793,18 @@
             }
             
             .feature-icon {
-                width: var(--icon-size-mobile);
-                height: var(--icon-size-mobile);
-                line-height: var(--icon-size-mobile);
-                font-size: 5.3rem; /* 150% scaled */
+                width: 100px; /* Much smaller mobile icons */
+                height: 100px;
+                line-height: 100px;
+                font-size: 3rem; /* Smaller mobile icon font */
                 margin-bottom: var(--spacing-small);
             }
             
             .feature-icon img {
-                width: var(--icon-size-mobile) !important;
-                height: var(--icon-size-mobile) !important;
+                width: 100px !important; /* Smaller mobile images */
+                height: 100px !important;
                 object-fit: cover;
-                border-radius: 12px; /* 150% scaled */
+                border-radius: 8px;
             }
             
             .feature-title {
@@ -811,7 +812,7 @@
                 text-align: center !important;
                 width: 100%;
                 margin-bottom: var(--spacing-small) !important;
-                font-size: 1.8rem; /* 150% scaled */
+                font-size: 1.3rem; /* Smaller mobile titles */
             }
             
             .card-content {
@@ -822,35 +823,36 @@
             }
             
             .feature-description {
-                text-align: left;
+                text-align: center; /* Center mobile descriptions */
                 margin-bottom: var(--spacing-medium);
-                font-size: 1.3rem; /* 150% scaled */
+                font-size: 1.0rem; /* Smaller mobile text */
             }
             
             .feature-button {
                 align-self: center;
-                font-size: 1.3rem; /* 150% scaled */
-                padding: 15px 30px; /* 150% scaled */
+                font-size: 1.0rem; /* Smaller mobile buttons */
+                padding: 10px 20px; /* Smaller mobile button padding */
             }
             
             .news-content-small {
                 align-items: center;
-                text-align: left;
+                text-align: center; /* Center news content */
             }
             
             /* Back to top button mobile adjustments */
             .back-to-top {
-                bottom: 30px; /* 150% scaled */
-                right: 30px; /* 150% scaled */
-                width: 68px; /* 150% scaled */
-                height: 68px; /* 150% scaled */
-                font-size: 2.0rem; /* 150% scaled */
+                bottom: 20px; /* Smaller mobile positioning */
+                right: 20px;
+                width: 50px; /* Smaller mobile button */
+                height: 50px;
+                font-size: 1.5rem; /* Smaller mobile font */
             }
             
             .footer-links {
                 flex-direction: column;
                 gap: var(--spacing-small);
             }
+        }
         }
         
         /* ===================
@@ -1489,21 +1491,35 @@
             initBackToTop();
             initNewsWidget();
             
-            // Initialize carousel
-            updateCarousel();
-            startAutoSlide();
-            
-            // Pause auto-slide on hover
-            const carousel = document.querySelector('.album-carousel');
-            if (carousel) {
-                carousel.addEventListener('mouseenter', () => {
-                    clearInterval(autoSlideInterval);
-                });
+            // Only initialize carousel on desktop
+            if (window.innerWidth > 768) {
+                updateCarousel();
+                startAutoSlide();
                 
-                carousel.addEventListener('mouseleave', () => {
-                    startAutoSlide();
-                });
+                // Pause auto-slide on hover (desktop only)
+                const carousel = document.querySelector('.album-carousel');
+                if (carousel) {
+                    carousel.addEventListener('mouseenter', () => {
+                        clearInterval(autoSlideInterval);
+                    });
+                    
+                    carousel.addEventListener('mouseleave', () => {
+                        startAutoSlide();
+                    });
+                }
             }
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth <= 768) {
+                    // Stop carousel on mobile
+                    clearInterval(autoSlideInterval);
+                } else if (window.innerWidth > 768) {
+                    // Restart carousel on desktop
+                    updateCarousel();
+                    startAutoSlide();
+                }
+            });
             
             // Mobile menu functionality
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
