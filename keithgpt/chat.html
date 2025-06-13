@@ -400,6 +400,14 @@
             margin-bottom: 12px;
             border: 1px solid rgba(255, 215, 0, 0.3);
             transition: transform 0.3s ease;
+            background: linear-gradient(45deg, var(--dark-red), var(--black));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.8rem;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
         }
         
         .mobile-slide:hover .album-image {
@@ -489,6 +497,9 @@
             justify-content: center;
             font-size: 2.5rem;
             color: var(--gold);
+            background: linear-gradient(45deg, var(--dark-red), var(--black));
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
         
         .feature-icon img {
@@ -934,7 +945,10 @@
     <!-- ENTRY OVERLAY -->
     <div class="entry-overlay" id="entryOverlay">
         <div class="entry-content">
-            <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
+            <!-- Using placeholder for entry image since entry.png might be missing -->
+            <div class="entry-image" style="width: 300px; height: 200px; background: linear-gradient(45deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; color: var(--black); font-family: 'Orbitron', monospace; font-weight: bold; font-size: 1.5rem;">
+                ULTRA KEITH
+            </div>
             
             <div class="entry-text">
                 The Best MC in the World<br>
@@ -965,7 +979,10 @@
     <nav class="nav">
         <div class="nav-content">
             <a href="#" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith">
+                <!-- Using placeholder for logo since koolkeithmainlogo.png might be missing -->
+                <div style="height: 35px; background: linear-gradient(45deg, var(--gold), var(--gold-light)); color: var(--black); padding: 5px 15px; border-radius: 5px; font-family: 'Orbitron', monospace; font-weight: bold; display: flex; align-items: center;">
+                    ULTRA KEITH
+                </div>
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="music.html">Music</a></li>
@@ -984,7 +1001,10 @@
     <main class="main">
         <!-- Hero Section -->
         <section class="hero">
-            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
+            <!-- Using placeholder for hero logo -->
+            <div class="hero-logo" style="width: 300px; height: 200px; background: linear-gradient(45deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; color: var(--black); font-family: 'Orbitron', monospace; font-weight: bold; font-size: 2rem; border-radius: 15px;">
+                ULTRA KEITH
+            </div>
             <h1 class="hero-title">OFFICIAL MUSIC UNIVERSE</h1>
             <p class="hero-subtitle">
                 Hip-Hop's Most Prolific Innovator
@@ -998,9 +1018,9 @@
             <!-- Mobile Carousel - CONTINUOUS SCROLL NO REVERSE -->
             <div class="carousel-mobile">
                 <div class="mobile-track">
-                    <!-- FIRST SET OF 5 ALBUMS -->
+                    <!-- FIRST SET OF 5 ALBUMS - Using placeholders -->
                     <div class="mobile-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <div class="album-image">SPACE<br>GORETEX</div>
                         <h3 class="album-title">Space Goretex</h3>
                         <p class="album-artist">Kool Keith</p>
                         <span class="album-badge badge-new">OUT NOW</span>
@@ -1008,7 +1028,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <div class="album-image">DR. OCTAGON<br>RETURNS</div>
                         <h3 class="album-title">Dr. Octagon Returns</h3>
                         <p class="album-artist">Dr. Octagon</p>
                         <span class="album-badge badge-coming">JULY 2025</span>
@@ -1016,7 +1036,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <div class="album-image">KEITH'S<br>VAULT</div>
                         <h3 class="album-title">Keith's Vault Series</h3>
                         <p class="album-artist">Ultra Keith</p>
                         <span class="album-badge badge-streaming">STREAMING</span>
@@ -1024,7 +1044,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <div class="album-image">CRITICAL<br>BEATDOWN</div>
                         <h3 class="album-title">Critical Beatdown</h3>
                         <p class="album-artist">Ultramagnetic MCs</p>
                         <span class="album-badge badge-classic">REMASTERED</span>
@@ -1032,7 +1052,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <div class="album-image">BLACK<br>ELVIS 2</div>
                         <h3 class="album-title">Black Elvis 2</h3>
                         <p class="album-artist">Black Elvis</p>
                         <span class="album-badge badge-new">AVAILABLE</span>
@@ -1041,7 +1061,7 @@
                     
                     <!-- DUPLICATE SET FOR SEAMLESS LOOP -->
                     <div class="mobile-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <div class="album-image">SPACE<br>GORETEX</div>
                         <h3 class="album-title">Space Goretex</h3>
                         <p class="album-artist">Kool Keith</p>
                         <span class="album-badge badge-new">OUT NOW</span>
@@ -1049,7 +1069,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <div class="album-image">DR. OCTAGON<br>RETURNS</div>
                         <h3 class="album-title">Dr. Octagon Returns</h3>
                         <p class="album-artist">Dr. Octagon</p>
                         <span class="album-badge badge-coming">JULY 2025</span>
@@ -1057,7 +1077,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <div class="album-image">KEITH'S<br>VAULT</div>
                         <h3 class="album-title">Keith's Vault Series</h3>
                         <p class="album-artist">Ultra Keith</p>
                         <span class="album-badge badge-streaming">STREAMING</span>
@@ -1065,7 +1085,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <div class="album-image">CRITICAL<br>BEATDOWN</div>
                         <h3 class="album-title">Critical Beatdown</h3>
                         <p class="album-artist">Ultramagnetic MCs</p>
                         <span class="album-badge badge-classic">REMASTERED</span>
@@ -1073,7 +1093,7 @@
                     </div>
                     
                     <div class="mobile-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <div class="album-image">BLACK<br>ELVIS 2</div>
                         <h3 class="album-title">Black Elvis 2</h3>
                         <p class="album-artist">Black Elvis</p>
                         <span class="album-badge badge-new">AVAILABLE</span>
@@ -1087,7 +1107,7 @@
                 <div class="desktop-track">
                     <!-- FIRST SET OF 5 ALBUMS -->
                     <div class="desktop-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">SPACE<br>GORETEX</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Space Goretex</h3>
                             <p class="album-artist">Kool Keith</p>
@@ -1097,7 +1117,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">DR. OCTAGON<br>RETURNS</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Dr. Octagon Returns</h3>
                             <p class="album-artist">Dr. Octagon</p>
@@ -1107,7 +1127,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">KEITH'S<br>VAULT</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Keith's Vault Series</h3>
                             <p class="album-artist">Ultra Keith</p>
@@ -1117,7 +1137,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">CRITICAL<br>BEATDOWN</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Critical Beatdown</h3>
                             <p class="album-artist">Ultramagnetic MCs</p>
@@ -1127,7 +1147,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">BLACK<br>ELVIS 2</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Black Elvis 2</h3>
                             <p class="album-artist">Black Elvis</p>
@@ -1138,7 +1158,7 @@
                     
                     <!-- DUPLICATE SET FOR SEAMLESS LOOP -->
                     <div class="desktop-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">SPACE<br>GORETEX</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Space Goretex</h3>
                             <p class="album-artist">Kool Keith</p>
@@ -1148,7 +1168,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">DR. OCTAGON<br>RETURNS</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Dr. Octagon Returns</h3>
                             <p class="album-artist">Dr. Octagon</p>
@@ -1158,7 +1178,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">KEITH'S<br>VAULT</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Keith's Vault Series</h3>
                             <p class="album-artist">Ultra Keith</p>
@@ -1168,7 +1188,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">CRITICAL<br>BEATDOWN</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Critical Beatdown</h3>
                             <p class="album-artist">Ultramagnetic MCs</p>
@@ -1178,7 +1198,7 @@
                     </div>
                     
                     <div class="desktop-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">BLACK<br>ELVIS 2</div>
                         <div class="desktop-album-info">
                             <h3 class="album-title">Black Elvis 2</h3>
                             <p class="album-artist">Black Elvis</p>
@@ -1190,12 +1210,10 @@
             </div>
         </section>
         
-        <!-- Features Section - ALL 11 CARDS -->
+        <!-- Features Section - ALL 11 CARDS WITH PLACEHOLDERS -->
         <section class="features">
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="personas-icon.png" alt="Personas">
-                </div>
+                <div class="feature-icon">🎭</div>
                 <h3 class="feature-title">LEGENDARY PERSONAS</h3>
                 <p class="feature-description">
                     Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis, each persona tells a unique story in hip-hop history.
@@ -1204,9 +1222,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="bio-icon.png" alt="Bio">
-                </div>
+                <div class="feature-icon">📖</div>
                 <h3 class="feature-title">KEITH BIO</h3>
                 <p class="feature-description">
                     The complete story of hip-hop's most innovative artist. From Ultramagnetic MCs to solo stardom spanning 40+ years of musical evolution.
@@ -1215,9 +1231,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="music-icon.png" alt="Music">
-                </div>
+                <div class="feature-icon">🎵</div>
                 <h3 class="feature-title">COMPLETE DISCOGRAPHY</h3>
                 <p class="feature-description">
                     Over 40 years of groundbreaking music. Stream classics like Critical Beatdown and discover rare gems from the vault.
@@ -1226,9 +1240,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="news-icon.png" alt="News">
-                </div>
+                <div class="feature-icon">📰</div>
                 <h3 class="feature-title">LATEST NEWS</h3>
                 <p class="feature-description">
                     Stay updated with the latest Keith news, interviews, and announcements. Fresh content from the hip-hop universe.
@@ -1237,9 +1249,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="vault-icon.png" alt="Vault">
-                </div>
+                <div class="feature-icon">🔐</div>
                 <h3 class="feature-title">THE KEITH VAULT</h3>
                 <p class="feature-description">
                     Unreleased tracks, rare recordings, and exclusive content for true fans. Access the hidden treasures of hip-hop's most prolific artist.
@@ -1248,9 +1258,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="casino-icon.png" alt="Casino">
-                </div>
+                <div class="feature-icon">🎰</div>
                 <h3 class="feature-title">KEITH'S CASINO</h3>
                 <p class="feature-description">
                     Enter the cosmic gambling dimension. Play Keith-themed games and win exclusive digital collectibles from the multiverse.
@@ -1259,9 +1267,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="ai-icon.png" alt="AI Chat">
-                </div>
+                <div class="feature-icon">🤖</div>
                 <h3 class="feature-title">AI KEITH CHAT</h3>
                 <p class="feature-description">
                     Chat with AI versions of Keith's personas. Talk to Dr. Octagon, Black Elvis, or Ultra Keith in real-time conversations.
@@ -1270,9 +1276,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="video-icon.png" alt="Videos">
-                </div>
+                <div class="feature-icon">📺</div>
                 <h3 class="feature-title">MUSIC VIDEOS</h3>
                 <p class="feature-description">
                     Watch classic and rare music videos from Keith's extensive catalog. Behind-the-scenes footage and exclusive performances.
@@ -1281,9 +1285,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="tour-icon.png" alt="Tours">
-                </div>
+                <div class="feature-icon">🎤</div>
                 <h3 class="feature-title">LIVE PERFORMANCES</h3>
                 <p class="feature-description">
                     Experience the energy of Kool Keith live. Check upcoming tour dates and exclusive performance footage.
@@ -1292,9 +1294,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="forum-icon.png" alt="Forum">
-                </div>
+                <div class="feature-icon">💬</div>
                 <h3 class="feature-title">FAN FORUM</h3>
                 <p class="feature-description">
                     Connect with Keith fans worldwide. Discuss albums, share theories about personas, and build the hip-hop community.
@@ -1303,9 +1303,7 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="shop-icon.png" alt="Shop">
-                </div>
+                <div class="feature-icon">🛒</div>
                 <h3 class="feature-title">OFFICIAL SHOP</h3>
                 <p class="feature-description">
                     Get exclusive Keith merchandise, limited vinyl releases, and persona-themed collectibles. Official gear for true fans.
@@ -1330,32 +1328,39 @@
     </footer>
 
     <script>
-        // FIXED LOADING SYSTEM - ENHANCED FOR QUIRKS MODE COMPATIBILITY
+        // COMPLETELY FIXED LOADING SYSTEM - NO DEPENDENCIES
         let soundEnabled = true;
         let loadingComplete = false;
         
-        // DOM Elements
-        const entryOverlay = document.getElementById('entryOverlay');
-        const enterButton = document.getElementById('enterButton');
-        const soundToggleMobile = document.getElementById('soundToggleMobile');
-        const soundToggleDesktop = document.getElementById('soundToggleDesktop');
-        const soundIconMobile = document.getElementById('soundIconMobile');
-        const soundIconDesktop = document.getElementById('soundIconDesktop');
-        const backToTop = document.getElementById('backToTop');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
+        console.log('Script starting...');
         
-        // Enhanced loading simulation
+        // Simple DOM ready function
+        function whenReady(fn) {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', fn);
+            } else {
+                fn();
+            }
+        }
+        
+        // Loading simulation
         function simulateLoading() {
-            console.log('Loading started...');
-            setTimeout(() => {
-                console.log('Loading complete!');
+            console.log('Starting 3-second loading...');
+            setTimeout(function() {
+                console.log('Loading complete! Button should be ready now.');
                 loadingComplete = true;
-                enterButton.classList.remove('loading');
-                enterButton.classList.add('ready');
-                enterButton.textContent = 'ENTER THE UNIVERSE';
-                enterButton.style.pointerEvents = 'auto';
-                enterButton.style.cursor = 'pointer';
+                
+                const enterButton = document.getElementById('enterButton');
+                if (enterButton) {
+                    enterButton.classList.remove('loading');
+                    enterButton.classList.add('ready');
+                    enterButton.textContent = 'ENTER THE UNIVERSE';
+                    enterButton.style.pointerEvents = 'auto';
+                    enterButton.style.cursor = 'pointer';
+                    console.log('Button updated successfully');
+                } else {
+                    console.error('Enter button not found!');
+                }
             }, 3000);
         }
         
@@ -1368,6 +1373,8 @@
             console.log('Sound toggled:', statusText);
             
             // Update mobile button
+            const soundToggleMobile = document.getElementById('soundToggleMobile');
+            const soundIconMobile = document.getElementById('soundIconMobile');
             if (soundIconMobile && soundToggleMobile) {
                 soundIconMobile.textContent = iconText;
                 soundToggleMobile.innerHTML = '<span id="soundIconMobile">' + iconText + '</span> Sound: ' + statusText;
@@ -1375,6 +1382,8 @@
             }
             
             // Update desktop button
+            const soundToggleDesktop = document.getElementById('soundToggleDesktop');
+            const soundIconDesktop = document.getElementById('soundIconDesktop');
             if (soundIconDesktop && soundToggleDesktop) {
                 soundIconDesktop.textContent = iconText;
                 soundToggleDesktop.innerHTML = '<span id="soundIconDesktop">' + iconText + '</span> Sound: ' + statusText;
@@ -1382,8 +1391,76 @@
             }
         }
         
-        // Event Listeners with enhanced error handling
-        function addEventListeners() {
+        // Enter site function
+        function enterSite() {
+            console.log('Enter site clicked. Loading complete:', loadingComplete);
+            
+            if (loadingComplete) {
+                console.log('Entering site...');
+                
+                const entryOverlay = document.getElementById('entryOverlay');
+                const body = document.body;
+                
+                if (entryOverlay) {
+                    entryOverlay.classList.add('hidden');
+                    console.log('Overlay hidden');
+                }
+                
+                if (body) {
+                    body.classList.add('site-loaded');
+                    body.style.overflow = 'auto';
+                    console.log('Body classes updated, scrolling enabled');
+                }
+                
+                // Force show main content
+                const nav = document.querySelector('.nav');
+                const main = document.querySelector('.main');
+                const backTop = document.querySelector('.back-to-top');
+                
+                if (nav) {
+                    nav.style.display = 'flex';
+                    console.log('Navigation shown');
+                }
+                if (main) {
+                    main.style.display = 'block';
+                    console.log('Main content shown');
+                }
+                if (backTop) {
+                    backTop.style.display = 'block';
+                    console.log('Back to top shown');
+                }
+                
+                if (soundEnabled) {
+                    console.log('Sound would play here');
+                }
+                
+                console.log('Site entry complete!');
+            } else {
+                console.log('Still loading, please wait...');
+            }
+        }
+        
+        // Initialize everything
+        function initializePage() {
+            console.log('Initializing page...');
+            
+            // Prevent scrolling initially
+            document.body.style.overflow = 'hidden';
+            console.log('Initial scroll disabled');
+            
+            // Set up enter button
+            const enterButton = document.getElementById('enterButton');
+            if (enterButton) {
+                enterButton.addEventListener('click', enterSite);
+                console.log('Enter button listener added');
+            } else {
+                console.error('Enter button not found during initialization!');
+            }
+            
+            // Set up sound toggles
+            const soundToggleMobile = document.getElementById('soundToggleMobile');
+            const soundToggleDesktop = document.getElementById('soundToggleDesktop');
+            
             if (soundToggleMobile) {
                 soundToggleMobile.addEventListener('click', toggleSound);
                 console.log('Mobile sound toggle listener added');
@@ -1394,59 +1471,34 @@
                 console.log('Desktop sound toggle listener added');
             }
             
-            // Enhanced enter site function
-            if (enterButton) {
-                enterButton.addEventListener('click', function() {
-                    console.log('Enter button clicked, loadingComplete:', loadingComplete);
-                    if (loadingComplete) {
-                        console.log('Entering site...');
-                        entryOverlay.classList.add('hidden');
-                        document.body.classList.add('site-loaded');
-                        
-                        // Force show main content
-                        const nav = document.querySelector('.nav');
-                        const main = document.querySelector('.main');
-                        const backTop = document.querySelector('.back-to-top');
-                        
-                        if (nav) nav.style.display = 'flex';
-                        if (main) main.style.display = 'block';
-                        if (backTop) backTop.style.display = 'block';
-                        
-                        console.log('Site loaded successfully');
-                        
-                        if (soundEnabled) {
-                            console.log('Sound effect would play here');
-                        }
-                    } else {
-                        console.log('Still loading...');
-                    }
-                });
-                console.log('Enter button listener added');
-            }
-            
-            // Mobile menu toggle
+            // Set up mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
             if (mobileMenuBtn && navMenu) {
                 mobileMenuBtn.addEventListener('click', function() {
                     navMenu.classList.toggle('show');
                 });
+                console.log('Mobile menu listener added');
             }
             
-            // Back to top functionality
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTop.classList.add('show');
-                } else {
-                    backToTop.classList.remove('show');
-                }
-            });
-            
+            // Set up back to top
+            const backToTop = document.getElementById('backToTop');
             if (backToTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 300) {
+                        backToTop.classList.add('show');
+                    } else {
+                        backToTop.classList.remove('show');
+                    }
+                });
+                
                 backToTop.addEventListener('click', function() {
                     window.scrollTo({
                         top: 0,
                         behavior: 'smooth'
                     });
                 });
+                console.log('Back to top listener added');
             }
             
             // Close mobile menu when clicking nav links
@@ -1458,17 +1510,7 @@
                     }
                 });
             });
-        }
-        
-        // Enhanced initialization
-        function initializePage() {
-            console.log('Initializing page...');
-            
-            // Prevent scrolling when overlay is active
-            document.body.style.overflow = 'hidden';
-            
-            // Add event listeners
-            addEventListeners();
+            console.log('Nav link listeners added');
             
             // Start loading simulation
             simulateLoading();
@@ -1476,37 +1518,22 @@
             console.log('Page initialization complete');
         }
         
-        // Multiple initialization methods to ensure compatibility
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializePage);
-        } else {
-            initializePage();
-        }
+        // Start when DOM is ready
+        whenReady(initializePage);
         
-        // Fallback initialization
-        window.addEventListener('load', function() {
-            console.log('Window loaded - fallback initialization');
-            if (!loadingComplete) {
-                setTimeout(initializePage, 100);
-            }
-        });
-        
-        // Enhanced enter function accessible globally
-        window.enterSite = function() {
-            console.log('Manual enter site triggered');
-            if (enterButton) {
-                enterButton.click();
-            }
-        };
-        
-        // Debug function
-        window.debugLoadingState = function() {
-            console.log('Loading state debug:');
+        // Global functions for debugging
+        window.enterSite = enterSite;
+        window.debugState = function() {
+            console.log('=== DEBUG STATE ===');
             console.log('loadingComplete:', loadingComplete);
-            console.log('enterButton:', enterButton);
-            console.log('entryOverlay:', entryOverlay);
+            console.log('soundEnabled:', soundEnabled);
+            console.log('enterButton:', document.getElementById('enterButton'));
+            console.log('entryOverlay:', document.getElementById('entryOverlay'));
             console.log('body classes:', document.body.className);
+            console.log('===================');
         };
+        
+        console.log('Script loaded successfully');
     </script>
 </body>
 </html>
