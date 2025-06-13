@@ -429,10 +429,69 @@ body {
 }
 
 .personas-section,
-.guests-section,
-.user-section {
+.all-users-section {
     padding: var(--space-sm);
     border-bottom: 1px solid var(--border-color);
+}
+
+.all-users-list {
+    /* Same styling as guest and fan lists */
+}
+
+.user-note {
+    font-size: var(--font-xs);
+    color: var(--text-tertiary);
+    font-style: italic;
+    text-align: center;
+    padding: var(--space-sm);
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 6px;
+    margin-bottom: var(--space-xs);
+    transition: background 0.2s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.user-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.user-item img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-silver-dim);
+    flex-shrink: 0;
+}
+
+.user-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-item-name {
+    font-size: var(--font-xs);
+    font-weight: 500;
+    color: var(--text-primary);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-item-status {
+    font-size: var(--font-xs);
+    color: var(--text-tertiary);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .section-label {
