@@ -192,7 +192,7 @@
            04. FEATURED ALBUM CAROUSEL
            =================== */
         .featured-albums-section {
-            margin: 80px 0 120px;
+            margin: 40px 0 120px; /* Reduced top margin - less space */
             padding: 45px 30px;
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(26, 0, 0, 0.4));
             border: 1px solid rgba(255, 215, 0, 0.3);
@@ -247,9 +247,8 @@
         }
         
         .album-artwork:hover {
-            border-color: var(--gold-primary);
-            transform: scale(1.02);
-            filter: drop-shadow(0 20px 45px rgba(255, 215, 0, 0.3));
+            /* Removed hover effects - just basic border */
+            border-color: rgba(255, 215, 0, 0.6);
         }
         
         .album-info {
@@ -257,6 +256,8 @@
             padding-left: 30px;
             position: relative;
         }
+        
+        /* Removed all track listing hover effects */
         
         .album-title {
             font-family: 'Orbitron', monospace;
@@ -307,80 +308,27 @@
             50% { transform: scale(1.05); }
         }
         
-        .track-listing {
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            margin-bottom: 20px;
-        }
-        
-        .album-slide:hover .track-listing {
-            opacity: 1;
-            max-height: 80px; /* Much smaller - just 2-3 lines */
-        }
-        
-        .track-listing h4 {
-            color: var(--gold-primary);
-            font-size: 1.1rem; /* Smaller */
-            margin-bottom: 8px;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .track-preview {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.0rem; /* Smaller text */
-            line-height: 1.4;
-            font-style: italic;
-        }
-        
-        .audio-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            margin-top: 20px;
-        }
-        
-        .play-preview-btn {
+        /* Single Buy Button */
+        .buy-button {
             background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
             color: #000;
             border: none;
-            padding: 15px 30px;
+            padding: 18px 45px;
             border-radius: 25px;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
-        .play-preview-btn:hover {
+        .buy-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
-        }
-        
-        .stream-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-        }
-        
-        .stream-btn {
-            padding: 10px 20px;
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--gold-primary);
-            text-decoration: none;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .stream-btn:hover {
-            background: rgba(255, 215, 0, 0.2);
-            border-color: var(--gold-primary);
         }
         
         .carousel-nav {
@@ -792,19 +740,6 @@
                 padding-left: 0;
             }
             
-            .album-title {
-                font-size: 2.2rem;
-            }
-            
-            .album-artist {
-                font-size: 1.4rem;
-            }
-            
-            .track-listing {
-                opacity: 1;
-                max-height: none;
-            }
-            
             .carousel-nav {
                 display: none;
             }
@@ -1012,20 +947,7 @@
                             <h3 class="album-title">Space Goretex</h3>
                             <p class="album-artist">Kool Keith</p>
                             <span class="release-badge badge-out-now">OUT NOW</span>
-                            <div class="track-listing">
-                                <h4>Features:</h4>
-                                <p class="track-preview">"Space-age flows with galactic production"</p>
-                            </div>
-                            <div class="audio-controls">
-                                <button class="play-preview-btn" onclick="playPreview(1)">
-                                    ▶ Preview Track
-                                </button>
-                            </div>
-                            <div class="stream-links">
-                                <a href="#" class="stream-btn">Spotify</a>
-                                <a href="#" class="stream-btn">Apple Music</a>
-                                <a href="#" class="stream-btn">Bandcamp</a>
-                            </div>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
                         </div>
                     </div>
                     
@@ -1036,19 +958,7 @@
                             <h3 class="album-title">Dr. Octagon Returns</h3>
                             <p class="album-artist">Dr. Octagon</p>
                             <span class="release-badge badge-coming-soon">JULY 2025</span>
-                            <div class="track-listing">
-                                <h4>Coming Soon:</h4>
-                                <p class="track-preview">"Dr. Octagon returns with surgical precision"</p>
-                            </div>
-                            <div class="audio-controls">
-                                <button class="play-preview-btn" onclick="playPreview(2)">
-                                    ▶ Preview Snippet
-                                </button>
-                            </div>
-                            <div class="stream-links">
-                                <a href="#" class="stream-btn">Pre-Order</a>
-                                <a href="#" class="stream-btn">Newsletter</a>
-                            </div>
+                            <a href="shop.html" class="buy-button">PRE-ORDER</a>
                         </div>
                     </div>
                     
@@ -1059,20 +969,7 @@
                             <h3 class="album-title">Keith's Vault Series</h3>
                             <p class="album-artist">Ultra Keith</p>
                             <span class="release-badge badge-streaming">STREAMING</span>
-                            <div class="track-listing">
-                                <h4>Vault Collection:</h4>
-                                <p class="track-preview">"Rare gems and unreleased material"</p>
-                            </div>
-                            <div class="audio-controls">
-                                <button class="play-preview-btn" onclick="playPreview(3)">
-                                    ▶ Stream Now
-                                </button>
-                            </div>
-                            <div class="stream-links">
-                                <a href="#" class="stream-btn">Spotify</a>
-                                <a href="#" class="stream-btn">SoundCloud</a>
-                                <a href="#" class="stream-btn">YouTube</a>
-                            </div>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
                         </div>
                     </div>
                     
@@ -1083,20 +980,7 @@
                             <h3 class="album-title">Critical Beatdown</h3>
                             <p class="album-artist">Ultramagnetic MCs</p>
                             <span class="release-badge badge-streaming">REMASTERED</span>
-                            <div class="track-listing">
-                                <h4>Classic Album:</h4>
-                                <p class="track-preview">"The revolutionary debut that changed hip-hop"</p>
-                            </div>
-                            <div class="audio-controls">
-                                <button class="play-preview-btn" onclick="playPreview(4)">
-                                    ▶ Hear Classic
-                                </button>
-                            </div>
-                            <div class="stream-links">
-                                <a href="#" class="stream-btn">Vinyl</a>
-                                <a href="#" class="stream-btn">CD</a>
-                                <a href="#" class="stream-btn">Digital</a>
-                            </div>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
                         </div>
                     </div>
                     
@@ -1107,20 +991,7 @@
                             <h3 class="album-title">Black Elvis 2</h3>
                             <p class="album-artist">Black Elvis</p>
                             <span class="release-badge badge-out-now">AVAILABLE</span>
-                            <div class="track-listing">
-                                <h4>Elvis Lives:</h4>
-                                <p class="track-preview">"The King meets the Keith - legendary fusion"</p>
-                            </div>
-                            <div class="audio-controls">
-                                <button class="play-preview-btn" onclick="playPreview(5)">
-                                    ▶ Thank You Very Much
-                                </button>
-                            </div>
-                            <div class="stream-links">
-                                <a href="#" class="stream-btn">Listen</a>
-                                <a href="#" class="stream-btn">Download</a>
-                                <a href="#" class="stream-btn">Merch</a>
-                            </div>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
                         </div>
                     </div>
                 </div>
@@ -1358,7 +1229,7 @@
             console.log('Modern clean background loaded');
         }
         
-        // Album Carousel Functionality
+        // Album Carousel Functionality - Infinite Scroll
         let currentSlide = 0;
         const totalSlides = 5;
         let autoSlideInterval;
@@ -1378,7 +1249,7 @@
         }
         
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
+            currentSlide = (currentSlide + 1) % totalSlides; // Infinite loop
             updateCarousel();
             resetAutoSlide();
         }
@@ -1397,49 +1268,13 @@
         
         function startAutoSlide() {
             autoSlideInterval = setInterval(() => {
-                nextSlide();
-            }, 5000); // Auto-slide every 5 seconds
+                nextSlide(); // Always goes forward, loops infinitely
+            }, 4000); // Every 4 seconds
         }
         
         function resetAutoSlide() {
             clearInterval(autoSlideInterval);
             startAutoSlide();
-        }
-        
-        function playPreview(albumId) {
-            // Placeholder for audio preview functionality
-            console.log(`Playing preview for album ${albumId}`);
-            
-            // You can integrate actual audio players here
-            const messages = {
-                1: "🎵 Playing: Space Goretex preview...",
-                2: "🎵 Playing: Dr. Octagon sneak peek...",
-                3: "🎵 Streaming: Vault Series track...",
-                4: "🎵 Playing: Critical Beatdown classic...",
-                5: "🎵 Playing: Black Elvis returns..."
-            };
-            
-            // Show a temporary notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 120px;
-                right: 30px;
-                background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
-                color: #000;
-                padding: 15px 25px;
-                border-radius: 25px;
-                font-weight: bold;
-                z-index: 1000;
-                animation: slideInRight 0.5s ease;
-            `;
-            notification.textContent = messages[albumId] || "🎵 Playing preview...";
-            document.body.appendChild(notification);
-            
-            // Remove notification after 3 seconds
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
         }
         
         // Lazy Loading for Images
