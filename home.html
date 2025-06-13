@@ -10,7 +10,7 @@
         /* ===================
            01. ROOT VARIABLES & RESET
            =================== */
-        /* CSS Custom Properties - Enhanced */
+        /* CSS Custom Properties - Enhanced with 150% scaling */
         :root {
             /* Keith Brand Colors */
             --gold-primary: #ffd700;
@@ -19,29 +19,29 @@
             --keith-dark: #1a0000;
             --keith-space: #0a0a0a;
             
-            /* Layout Variables */
-            --nav-height: 70px;
-            --card-height: 250px;
+            /* Layout Variables - 150% scaled */
+            --nav-height: 105px;
+            --card-height: 375px;
             --mobile-breakpoint: 768px;
             
-            /* Spacing System */
-            --spacing-small: 15px;
-            --spacing-medium: 20px;
-            --spacing-large: 30px;
-            --spacing-xlarge: 35px;
+            /* Spacing System - 150% scaled */
+            --spacing-small: 23px;
+            --spacing-medium: 30px;
+            --spacing-large: 45px;
+            --spacing-xlarge: 53px;
             
-            /* Icon Sizes */
-            --icon-size-desktop: 150px;
-            --icon-size-mobile: 120px;
+            /* Icon Sizes - 150% scaled */
+            --icon-size-desktop: 225px;
+            --icon-size-mobile: 180px;
             
             /* Effects */
             --animation-speed: 0.3s;
             --blur-strength: 15px;
-            --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.8);
+            --shadow-strong: 0 30px 60px rgba(0, 0, 0, 0.8);
             --border-gold: 1px solid rgba(255, 215, 0, 0.3);
             --border-gold-strong: 1px solid rgba(255, 215, 0, 0.8);
-            --glow-gold: 0 0 10px rgba(255, 215, 0, 0.5);
-            --glow-gold-strong: 0 0 20px rgba(255, 215, 0, 0.5);
+            --glow-gold: 0 0 15px rgba(255, 215, 0, 0.5);
+            --glow-gold-strong: 0 0 30px rgba(255, 215, 0, 0.5);
         }
         
         * {
@@ -58,14 +58,11 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
+            font-size: 1.2rem; /* 150% base font size */
         }
         
         /* ===================
-           02. CLEAN BACKGROUND ELEMENTS 
-           =================== */
-        
-        /* ===================
-           03. NAVIGATION
+           02. NAVIGATION
            =================== */
         .navigation {
             position: fixed;
@@ -81,7 +78,7 @@
         }
         
         .nav-container {
-            max-width: 1200px;
+            max-width: 1800px; /* 150% scaled */
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -92,23 +89,23 @@
         
         .nav-logo {
             font-family: 'Orbitron', monospace, Arial;
-            font-size: 1.5rem;
+            font-size: 2.3rem; /* 150% scaled */
             font-weight: 900;
             color: var(--gold-primary);
             text-decoration: none;
             display: flex;
             align-items: center;
-            height: 55px;
+            height: 83px; /* 150% scaled */
             justify-content: center;
-            border-radius: 8px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            border-radius: 12px; /* 150% scaled */
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
         }
         
         .nav-logo img {
             height: 100%;
             width: auto;
             object-fit: contain;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
         }
         
         .nav-menu {
@@ -139,7 +136,8 @@
             text-decoration: none;
             font-family: 'Orbitron', monospace;
             font-weight: 400;
-            letter-spacing: 1px;
+            font-size: 1.2rem; /* 150% scaled */
+            letter-spacing: 1.5px; /* 150% scaled */
             transition: all 0.3s ease;
             position: relative;
         }
@@ -152,10 +150,10 @@
         .nav-menu a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -8px; /* 150% scaled */
             left: 0;
             width: 0;
-            height: 2px;
+            height: 3px; /* 150% scaled */
             background: var(--gold-primary);
             transition: width var(--animation-speed) ease;
         }
@@ -169,9 +167,9 @@
             background: none;
             border: none;
             color: var(--gold-primary);
-            font-size: 1.8rem;
+            font-size: 2.7rem; /* 150% scaled */
             cursor: pointer;
-            padding: 5px;
+            padding: 8px; /* 150% scaled */
             transition: all var(--animation-speed) ease;
         }
         
@@ -180,41 +178,41 @@
         }
         
         /* ===================
-           04. LAYOUT CONTAINERS
+           03. LAYOUT CONTAINERS
            =================== */
         .container {
             position: relative;
             z-index: 10;
-            max-width: 1200px;
+            max-width: 1800px; /* 150% scaled */
             margin: 0 auto;
-            padding: 100px var(--spacing-medium) 40px;
+            padding: 150px var(--spacing-medium) 60px; /* 150% scaled */
         }
         
         /* ===================
-           05. HERO SECTION
+           04. HERO SECTION
            =================== */
         .hero-section {
             text-align: center;
-            margin-bottom: 80px;
-            padding: 60px var(--spacing-medium);
+            margin-bottom: 120px; /* 150% scaled */
+            padding: 90px var(--spacing-medium); /* 150% scaled */
             opacity: 0;
             animation: fadeInUp 1s ease 0.2s forwards;
         }
         
         .hero-logo-container {
-            margin-bottom: 40px;
+            margin-bottom: 60px; /* 150% scaled */
         }
         
         .hero-logo {
             max-width: 100%;
             height: auto;
-            max-height: 200px;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+            max-height: 300px; /* 150% scaled */
+            filter: drop-shadow(0 0 45px rgba(255, 215, 0, 0.8)); /* 150% scaled */
         }
         
         .hero-title {
             font-family: 'Orbitron', monospace, Arial;
-            font-size: 3.5rem;
+            font-size: 5.3rem; /* 150% scaled */
             font-weight: 900;
             background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary), var(--gold-primary));
             background-size: 200% 200%;
@@ -222,9 +220,9 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: gradientShift 4s ease-in-out infinite;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); /* 150% scaled */
             margin-bottom: var(--spacing-medium);
-            letter-spacing: -1px;
+            letter-spacing: -1.5px; /* 150% scaled */
         }
         
         @keyframes gradientShift {
@@ -235,7 +233,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(45px); /* 150% scaled */
             }
             to {
                 opacity: 1;
@@ -244,42 +242,42 @@
         }
         
         .hero-subtitle {
-            font-size: 1.4rem;
+            font-size: 2.1rem; /* 150% scaled */
             color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 40px;
+            margin-bottom: 60px; /* 150% scaled */
             line-height: 1.7;
             font-weight: 300;
-            max-width: 900px;
+            max-width: 1350px; /* 150% scaled */
             margin-left: auto;
             margin-right: auto;
         }
         
         /* ===================
-           06. FEATURE CARDS WITH STAGGERED ANIMATION
+           05. FEATURE CARDS WITH STAGGERED ANIMATION
            =================== */
         .featured-content {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin: 80px 0;
+            gap: 38px; /* 150% scaled */
+            margin: 120px 0; /* 150% scaled */
         }
         
         /* Staggered Card Animation */
         .feature-card {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
             border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 16px;
+            border-radius: 24px; /* 150% scaled */
             padding: var(--spacing-large);
             text-align: left;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px); /* 150% scaled */
             height: var(--card-height);
             display: flex;
             flex-direction: column;
             
             /* Initial state for animation */
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(45px); /* 150% scaled */
             animation: slideInUp 0.6s ease forwards;
         }
         
@@ -305,8 +303,8 @@
         
         .feature-card:hover {
             border-color: rgba(255, 215, 0, 0.5);
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.1);
+            transform: translateY(-12px); /* 150% scaled */
+            box-shadow: 0 38px 75px rgba(0, 0, 0, 0.4), 0 0 45px rgba(255, 215, 0, 0.1); /* 150% scaled */
         }
         
         /* Card Header: Icon + Title */
@@ -317,7 +315,7 @@
         }
         
         .feature-icon {
-            font-size: 4.5rem;
+            font-size: 6.8rem; /* 150% scaled */
             color: var(--gold-primary);
             width: var(--icon-size-desktop);
             height: var(--icon-size-desktop);
@@ -338,7 +336,7 @@
         
         .feature-title {
             font-family: 'Orbitron', monospace, Arial;
-            font-size: 1.0rem;
+            font-size: 1.5rem; /* 150% scaled */
             color: var(--gold-primary);
             margin-left: var(--spacing-small);
             margin-top: 0;
@@ -349,8 +347,8 @@
         
         /* Card Content: Text + Button */
         .card-content {
-            margin-left: 165px;
-            margin-top: -130px;
+            margin-left: 248px; /* 150% scaled */
+            margin-top: -195px; /* 150% scaled */
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -361,14 +359,15 @@
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
             margin-bottom: var(--spacing-small);
+            font-size: 1.1rem; /* 150% scaled */
         }
         
         .feature-button {
             background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
             color: var(--gold-primary);
             border: 1px solid rgba(255, 215, 0, 0.4);
-            padding: 12px 24px;
-            border-radius: 25px;
+            padding: 18px 36px; /* 150% scaled */
+            border-radius: 38px; /* 150% scaled */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -376,38 +375,41 @@
             display: inline-block;
             align-self: flex-start;
             margin-top: auto;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
+            font-size: 1.4rem; /* 150% scaled */
+            letter-spacing: 0.8px; /* 150% scaled */
         }
         
         .feature-button:hover {
             background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
             border-color: var(--gold-primary);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
+            transform: translateY(-3px); /* 150% scaled */
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.2); /* 150% scaled */
         }
         
         /* ===================
-           07. BACK TO TOP BUTTON
+           06. ENHANCED BACK TO TOP BUTTON
            =================== */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
+            bottom: 45px; /* 150% scaled */
+            right: 45px; /* 150% scaled */
+            width: 75px; /* 150% scaled */
+            height: 75px; /* 150% scaled */
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
             color: #000;
             border: none;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 2.4rem; /* 150% scaled */
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(20px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            transform: translateY(30px); /* 150% scaled */
+            box-shadow: 0 12px 38px rgba(255, 215, 0, 0.4); /* Enhanced shadow */
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
         }
         
         .back-to-top.show {
@@ -417,12 +419,18 @@
         }
         
         .back-to-top:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
+            transform: scale(1.15) translateY(-8px); /* Enhanced hover effect */
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.6);
+            background: linear-gradient(135deg, var(--gold-secondary), var(--gold-primary));
+            border-color: var(--gold-primary);
+        }
+        
+        .back-to-top:active {
+            transform: scale(1.05) translateY(-5px);
         }
         
         /* ===================
-           08. NEWS WIDGET
+           07. NEWS WIDGET
            =================== */
         .news-content-small {
             flex: 1;
@@ -433,10 +441,10 @@
         }
         
         .news-title-small {
-            font-size: 0.9rem;
+            font-size: 1.4rem; /* 150% scaled */
             font-weight: 600;
             line-height: 1.3;
-            margin-bottom: 5px;
+            margin-bottom: 8px; /* 150% scaled */
         }
         
         .news-title-small a {
@@ -450,7 +458,7 @@
         }
         
         .news-snippet-small {
-            font-size: 0.9rem;
+            font-size: 1.4rem; /* 150% scaled */
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.4;
             display: -webkit-box;
@@ -458,7 +466,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 8px;
+            margin-bottom: 12px; /* 150% scaled */
             flex: 1;
         }
         
@@ -467,16 +475,17 @@
             color: rgba(255, 215, 0, 0.7);
             font-style: italic;
             padding: var(--spacing-medium);
+            font-size: 1.3rem; /* 150% scaled */
         }
         
         /* ===================
-           09. FOOTER
+           08. FOOTER
            =================== */
         .footer {
             border-top: var(--border-gold);
-            padding: 40px 0;
+            padding: 60px 0; /* 150% scaled */
             text-align: center;
-            margin-top: 60px;
+            margin-top: 90px; /* 150% scaled */
         }
         
         .footer-links {
@@ -491,6 +500,7 @@
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: color 0.3s ease;
+            font-size: 1.3rem; /* 150% scaled */
         }
         
         .footer-links a:hover {
@@ -499,16 +509,16 @@
         
         .footer-copyright {
             color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
+            font-size: 1.4rem; /* 150% scaled */
         }
         
         /* ===================
-           10. MOBILE RESPONSIVE
+           09. MOBILE RESPONSIVE
            =================== */
         @media (max-width: 768px) {
             /* Navigation - Mobile Logo Fix */
             .nav-logo {
-                height: 40px;
+                height: 60px; /* 150% scaled */
             }
             
             /* Navigation */
@@ -522,7 +532,11 @@
             
             /* Hero */
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 3.8rem; /* 150% scaled */
+            }
+            
+            .hero-subtitle {
+                font-size: 1.8rem; /* 150% scaled */
             }
             
             /* Grid */
@@ -535,7 +549,7 @@
             .feature-card {
                 height: auto;
                 text-align: center;
-                padding: 25px;
+                padding: 38px; /* 150% scaled */
             }
             
             .card-header {
@@ -548,7 +562,7 @@
                 width: var(--icon-size-mobile);
                 height: var(--icon-size-mobile);
                 line-height: var(--icon-size-mobile);
-                font-size: 3.5rem;
+                font-size: 5.3rem; /* 150% scaled */
                 margin-bottom: var(--spacing-small);
             }
             
@@ -556,7 +570,7 @@
                 width: var(--icon-size-mobile) !important;
                 height: var(--icon-size-mobile) !important;
                 object-fit: cover;
-                border-radius: 8px;
+                border-radius: 12px; /* 150% scaled */
             }
             
             .feature-title {
@@ -564,6 +578,7 @@
                 text-align: center !important;
                 width: 100%;
                 margin-bottom: var(--spacing-small) !important;
+                font-size: 1.8rem; /* 150% scaled */
             }
             
             .card-content {
@@ -576,10 +591,13 @@
             .feature-description {
                 text-align: left;
                 margin-bottom: var(--spacing-medium);
+                font-size: 1.3rem; /* 150% scaled */
             }
             
             .feature-button {
                 align-self: center;
+                font-size: 1.3rem; /* 150% scaled */
+                padding: 15px 30px; /* 150% scaled */
             }
             
             .news-content-small {
@@ -589,11 +607,11 @@
             
             /* Back to top button mobile adjustments */
             .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-                font-size: 1rem;
+                bottom: 30px; /* 150% scaled */
+                right: 30px; /* 150% scaled */
+                width: 68px; /* 150% scaled */
+                height: 68px; /* 150% scaled */
+                font-size: 2.0rem; /* 150% scaled */
             }
             
             .footer-links {
@@ -603,7 +621,7 @@
         }
         
         /* ===================
-           11. MOBILE MENU OVERRIDE
+           10. MOBILE MENU OVERRIDE
            =================== */
         /* MOBILE MENU - FINAL OVERRIDE - Must be last! */
         @media screen and (max-width: 768px) {
@@ -624,7 +642,7 @@
                 display: flex !important;
                 opacity: 0 !important;
                 visibility: hidden !important;
-                transform: translateY(-20px) !important;
+                transform: translateY(-30px) !important; /* 150% scaled */
                 transition: all var(--animation-speed) ease !important;
                 max-height: 0 !important;
                 overflow: hidden !important;
@@ -634,7 +652,7 @@
                 opacity: 1 !important;
                 visibility: visible !important;
                 transform: translateY(0) !important;
-                max-height: 400px !important;
+                max-height: 600px !important; /* 150% scaled */
                 overflow: visible !important;
             }
             
@@ -646,8 +664,8 @@
             body .navigation .nav-container .nav-menu a {
                 display: block !important;
                 padding: var(--spacing-small) var(--spacing-medium) !important;
-                font-size: 1.1rem !important;
-                border-radius: 10px !important;
+                font-size: 1.7rem !important; /* 150% scaled */
+                border-radius: 15px !important; /* 150% scaled */
                 transition: all var(--animation-speed) ease !important;
                 width: 100% !important;
             }
@@ -655,18 +673,15 @@
     </style>
 </head>
 <body>
-    <!-- Clean Modern Background -->
-    <!-- No particles - clean professional look -->
-    
     <!-- Navigation -->
     <nav class="navigation">
         <div class="nav-container">
             <a href="#" class="nav-logo">
-                <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kkb2.png?raw=true" alt="Kool Keith">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith">
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="music.html">Music</a></li>
-                <li><a href="personas/personas.html">Personas</a></li>
+                <li><a href="personas.html">Personas</a></li>
                 <li><a href="tour.html">Tour</a></li>
                 <li><a href="shop.html">Shop</a></li>
             </ul>
@@ -674,14 +689,14 @@
         </div>
     </nav>
     
-    <!-- Back to Top Button -->
+    <!-- Enhanced Back to Top Button -->
     <button class="back-to-top" id="backToTop">↑</button>
     
     <div class="container">
         <!-- Hero Section -->
         <section class="hero-section" id="home">
             <div class="hero-logo-container">
-                <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/kkb2.png?raw=true" 
+                <img src="koolkeithmainlogo.png" 
                      alt="Kool Keith Diamond Logo Banner" 
                      class="hero-logo">
             </div>
@@ -698,9 +713,9 @@
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/bio.png" 
+                        <img src="bio.png" 
                              alt="Ultra Keith Bio" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             style="width: 225px; height: 225px; object-fit: cover; border-radius: 12px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); display: block;"
                              onload="this.classList.add('loaded'); console.log('Bio image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='👤';">
                     </div>
@@ -718,9 +733,9 @@
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/personas.png" 
+                        <img src="personas.png" 
                              alt="Kool Keith Personas" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             style="width: 225px; height: 225px; object-fit: cover; border-radius: 12px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); display: block;"
                              onload="this.classList.add('loaded'); console.log('Personas image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='🎭';">
                     </div>
@@ -731,16 +746,16 @@
                         Dr. Octagon, Dr. Dooom, Black Elvis, and more. Multiple dimensions 
                         of Keith's creative universe with unique stories and sounds.
                     </p>
-                    <a href="personas/personas.html" class="feature-button">Meet the Characters</a>
+                    <a href="personas.html" class="feature-button">Meet the Characters</a>
                 </div>
             </div>
             
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/discog.png" 
+                        <img src="discog.png" 
                              alt="Kool Keith Discography" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             style="width: 225px; height: 225px; object-fit: cover; border-radius: 12px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); display: block;"
                              onload="this.classList.add('loaded'); console.log('Discography image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='💿';">
                     </div>
@@ -775,9 +790,9 @@
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/vault.png" 
+                        <img src="vault.png" 
                              alt="Kool Keith Vault Series" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             style="width: 225px; height: 225px; object-fit: cover; border-radius: 12px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); display: block;"
                              onload="this.classList.add('loaded'); console.log('Vault image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='🎭';">
                     </div>
@@ -795,9 +810,9 @@
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
-                        <img src="https://github.com/deeman12345123/ultrakeith-website/blob/main/williebiggss.png?raw=true" 
+                        <img src="williebiggs.png" 
                              alt="Willie Biggs Casino" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             style="width: 225px; height: 225px; object-fit: cover; border-radius: 12px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); display: block;"
                              onload="this.classList.add('loaded'); console.log('Willie Biggs image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='🎰';">
                     </div>
@@ -808,7 +823,7 @@
                         Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high 
                         and the game never stops. Where real players separate from pretenders.
                     </p>
-                    <a href="players-club.html" class="feature-button">Enter the Casino</a>
+                    <a href="casino.html" class="feature-button">Enter the Casino</a>
                 </div>
             </div>
             
@@ -829,9 +844,9 @@
             <div class="feature-card">
                 <div class="card-header">
                     <div class="feature-icon">
-                        <img src="https://raw.githubusercontent.com/deeman12345123/ultrakeith-website/main/videos.png" 
+                        <img src="videos.png" 
                              alt="Kool Keith Videos" 
-                             style="width: 150px; height: 150px; object-fit: contain; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block; background: rgba(0,0,0,0.1);"
+                             style="width: 225px; height: 225px; object-fit: contain; border-radius: 12px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); display: block; background: rgba(0,0,0,0.1);"
                              onload="this.classList.add('loaded'); console.log('Videos image loaded successfully!');"
                              onerror="this.parentElement.innerHTML='📹';">
                     </div>
@@ -931,12 +946,12 @@
             images.forEach(img => imageObserver.observe(img));
         }
         
-        // Back to Top Button
+        // Enhanced Back to Top Button
         function initBackToTop() {
             const backToTopBtn = document.getElementById('backToTop');
             
             window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
+                if (window.pageYOffset > 450) { // 150% scaled threshold
                     backToTopBtn.classList.add('show');
                 } else {
                     backToTopBtn.classList.remove('show');
@@ -975,7 +990,7 @@
                 if (newsIconContainer && imageUrl) {
                     newsIconContainer.innerHTML = `
                         <img src="${imageUrl}" alt="${post.title}" 
-                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); display: block;"
+                             style="width: 225px; height: 225px; object-fit: cover; border-radius: 12px; filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); display: block;"
                              class="loaded"
                              onerror="this.parentElement.innerHTML='📝';">
                     `;
@@ -1075,7 +1090,7 @@
         // Add scroll effect to navigation
         window.addEventListener('scroll', function() {
             const nav = document.querySelector('.navigation');
-            if (window.scrollY > 100) {
+            if (window.scrollY > 150) { // 150% scaled
                 nav.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
             } else {
                 nav.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
