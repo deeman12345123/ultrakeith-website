@@ -24,10 +24,10 @@
             --keith-space: #0a0a0a;
         }
         
-        /* MOBILE BASE (default) */
+        /* MOBILE BASE (default) - BIGGER TEXT */
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            font-size: 0.875rem; /* 14px mobile base */
+            font-size: 1rem; /* Bigger mobile base - 16px */
             background: linear-gradient(135deg, #000000 0%, var(--keith-dark) 40%, var(--keith-space) 70%, #000000 100%);
             color: #ffffff;
             overflow-x: hidden;
@@ -111,7 +111,7 @@
         
         .hero-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.5rem; /* Small mobile title - 24px */
+            font-size: 2rem; /* Bigger mobile title - 32px */
             font-weight: 900;
             background: linear-gradient(45deg, var(--gold-primary), var(--gold-secondary));
             background-size: 200% 200%;
@@ -123,7 +123,7 @@
         }
         
         .hero-subtitle {
-            font-size: 0.75rem; /* Small mobile subtitle - 12px */
+            font-size: 0.875rem; /* Bigger mobile subtitle - 14px */
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 16px;
             line-height: 1.4;
@@ -143,20 +143,36 @@
         
         .carousel-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1rem; /* Small mobile carousel title - 16px */
+            font-size: 1.25rem; /* Bigger mobile carousel title - 20px */
             color: var(--gold-primary);
             text-align: center;
             margin-bottom: 16px;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
-        /* Mobile carousel - horizontal scroll */
+        /* Mobile carousel - horizontal scroll with instruction */
         .album-carousel {
-            height: 240px;
+            height: 280px; /* Taller for bigger images */
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
             scroll-snap-type: x mandatory;
+            position: relative;
+        }
+        
+        .scroll-instruction {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--gold-primary);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            pointer-events: none;
+            z-index: 5;
         }
         
         .carousel-container {
@@ -294,7 +310,7 @@
         
         .feature-title {
             font-family: 'Orbitron', monospace;
-            font-size: 0.875rem; /* 14px */
+            font-size: 1rem; /* Bigger mobile - 16px */
             color: var(--gold-primary);
             margin-bottom: 8px;
         }
@@ -304,7 +320,7 @@
         }
         
         .feature-description {
-            font-size: 0.75rem; /* 12px */
+            font-size: 0.875rem; /* Bigger mobile - 14px */
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.4;
             margin-bottom: 12px;
@@ -316,7 +332,7 @@
             border: 1px solid rgba(255, 215, 0, 0.4);
             padding: 8px 16px;
             border-radius: 16px;
-            font-size: 0.75rem; /* 12px */
+            font-size: 0.875rem; /* Bigger mobile - 14px */
             text-decoration: none;
             display: inline-block;
         }
@@ -818,6 +834,29 @@
                         <div class="album-info">
                             <h3 class="album-title">Critical Beatdown</h3>
                             <p class="album-artist">Ultramagnetic MCs</p>
+                            <span class="release-badge badge-streaming">REMASTERED</span>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <div class="album-slide">
+                        <img src="album5.png" alt="Keith Collaboration" class="album-artwork">
+                        <div class="album-info">
+                            <h3 class="album-title">Black Elvis 2</h3>
+                            <p class="album-artist">Black Elvis</p>
+                            <span class="release-badge badge-out-now">AVAILABLE</span>
+                            <a href="shop.html" class="buy-button">BUY NOW</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile scroll instruction -->
+                <div class="scroll-instruction">← Swipe to browse releases →</div>
+                
+                <!-- Navigation (desktop only) -->
+                <button class="carousel-nav carousel-prev" onclick="prevSlide()">‹</button>
+                <button class="carousel-nav carousel-next" onclick="nextSlide()">›</button>
+            </div>-artist">Ultramagnetic MCs</p>
                             <span class="release-badge badge-streaming">REMASTERED</span>
                             <a href="shop.html" class="buy-button">BUY NOW</a>
                         </div>
