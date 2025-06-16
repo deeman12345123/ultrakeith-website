@@ -105,43 +105,87 @@
         
         .sound-controls {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            min-width: 200px;
         }
         
-        .sound-checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--gold);
-            border-radius: 4px;
-            background: transparent;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
+        .sound-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
         
-        .sound-checkbox:checked {
-            background: var(--gold);
-        }
-        
-        .sound-checkbox:checked::after {
-            content: '✓';
-            position: absolute;
-            top: -2px;
-            left: 2px;
-            color: var(--black);
-            font-size: 14px;
-            font-weight: bold;
+        .sound-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
         .sound-icon {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--gold);
             transition: all 0.3s ease;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
         }
         
         .sound-icon.muted {
-            opacity: 0.5;
+            color: rgba(255, 255, 255, 0.4);
+            filter: none;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .toggle-switch.active {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+            background: var(--black);
+        }
+        
+        .sound-status {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .sound-status.muted {
+            color: rgba(255, 255, 255, 0.5);
         }
         
         .enter-button {
@@ -872,9 +916,14 @@
             </div>
             
             <div class="sound-controls">
-                <button class="sound-toggle" id="soundToggle">
-                    <span id="soundIcon">🔊</span> Sound: ON
-                </button>
+                <div class="sound-label">AUDIO EXPERIENCE</div>
+                <div class="sound-toggle-container">
+                    <span class="sound-icon" id="soundIcon">🔊</span>
+                    <div class="toggle-switch active" id="toggleSwitch">
+                        <div class="toggle-slider"></div>
+                    </div>
+                    <span class="sound-status" id="soundStatus">ENABLED</span>
+                </div>
             </div>
             
             <button class="enter-button loading" id="enterButton">
@@ -1213,8 +1262,9 @@
         // DOM Elements
         const entryOverlay = document.getElementById('entryOverlay');
         const enterButton = document.getElementById('enterButton');
-        const soundToggle = document.getElementById('soundToggle');
+        const toggleSwitch = document.getElementById('toggleSwitch');
         const soundIcon = document.getElementById('soundIcon');
+        const soundStatus = document.getElementById('soundStatus');
         const backToTop = document.getElementById('backToTop');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
@@ -1230,16 +1280,21 @@
         }
         
         // Sound toggle
-        soundToggle.addEventListener('click', function() {
+        toggleSwitch.addEventListener('click', function() {
             soundEnabled = !soundEnabled;
+            
             if (soundEnabled) {
                 soundIcon.textContent = '🔊';
-                soundToggle.innerHTML = '<span id="soundIcon">🔊</span> Sound: ON';
-                soundToggle.classList.remove('muted');
+                soundIcon.classList.remove('muted');
+                soundStatus.textContent = 'ENABLED';
+                soundStatus.classList.remove('muted');
+                toggleSwitch.classList.add('active');
             } else {
                 soundIcon.textContent = '🔇';
-                soundToggle.innerHTML = '<span id="soundIcon">🔇</span> Sound: OFF';
-                soundToggle.classList.add('muted');
+                soundIcon.classList.add('muted');
+                soundStatus.textContent = 'DISABLED';
+                soundStatus.classList.add('muted');
+                toggleSwitch.classList.remove('active');
             }
         });
         
