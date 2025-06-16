@@ -66,7 +66,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
+            gap: 30px;
             max-width: 90%;
         }
         
@@ -93,63 +93,71 @@
         
         .entry-text {
             font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.4;
-            letter-spacing: 1px;
             text-align: center;
+            letter-spacing: 2px;
         }
         
         .sound-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         
-        .sound-toggle {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            color: var(--gold);
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-size: 0.9rem;
+        .sound-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 4px;
+            background: transparent;
             cursor: pointer;
+            position: relative;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Orbitron', monospace;
         }
         
-        .sound-toggle:hover {
-            background: rgba(255, 215, 0, 0.2);
-            border-color: var(--gold);
+        .sound-checkbox:checked {
+            background: var(--gold);
         }
         
-        .sound-toggle.muted {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            color: rgba(255, 255, 255, 0.6);
+        .sound-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: var(--black);
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .sound-icon {
+            font-size: 1.2rem;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+        
+        .sound-icon.muted {
+            opacity: 0.5;
         }
         
         .enter-button {
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
             color: var(--black);
             border: none;
-            padding: 15px 40px;
+            padding: 18px 45px;
             border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-size: 1.2rem;
+            font-weight: 700;
             font-family: 'Orbitron', monospace;
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            min-width: 200px;
+            letter-spacing: 3px;
+            min-width: 160px;
         }
         
         .enter-button.loading {
@@ -181,7 +189,7 @@
         }
         
         .enter-button:hover.ready {
-            transform: scale(1.1);
+            transform: scale(1.08);
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
         }
         
