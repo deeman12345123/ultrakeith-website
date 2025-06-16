@@ -7,6 +7,7 @@
     <meta name="description" content="Official website of Kool Keith - Hip-Hop's most prolific innovator.">
     
     <style>
+        /* =================== IMPORTS & VARIABLES =================== */
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
         
         :root {
@@ -15,8 +16,29 @@
             --dark-red: #1a0000;
             --black: #000000;
             --white: #ffffff;
+            
+            /* Spacing */
+            --gap-sm: 15px;
+            --gap-md: 30px;
+            --gap-lg: 50px;
+            
+            /* Border radius */
+            --radius-sm: 8px;
+            --radius-md: 15px;
+            --radius-lg: 20px;
+            --radius-xl: 30px;
+            
+            /* Shadows */
+            --glow-gold: 0 0 15px rgba(255, 215, 0, 0.5);
+            --glow-gold-strong: 0 0 30px rgba(255, 215, 0, 0.8);
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-base: 0.3s ease;
+            --transition-slow: 0.4s ease;
         }
         
+        /* =================== BASE STYLES =================== */
         * {
             margin: 0;
             padding: 0;
@@ -36,7 +58,56 @@
             min-height: 100vh;
         }
         
-        /* =================== ENTRY OVERLAY - FIXED =================== */
+        /* =================== ANIMATIONS =================== */
+        @keyframes entryGlow {
+            0% { 
+                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+                transform: scale(1);
+            }
+            100% { 
+                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 1));
+                transform: scale(1.02);
+            }
+        }
+        
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.9; }
+        }
+        
+        @keyframes readyPulse {
+            0% { 
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            }
+            100% { 
+                transform: scale(1.05);
+                box-shadow: var(--glow-gold-strong);
+            }
+        }
+        
+        @keyframes logoGlow {
+            0% { 
+                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
+                transform: scale(1);
+            }
+            100% { 
+                filter: drop-shadow(0 0 80px rgba(255, 215, 0, 1));
+                transform: scale(1.02);
+            }
+        }
+        
+        @keyframes continuousMobile {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        @keyframes continuousDesktop {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* =================== ENTRY OVERLAY =================== */
         .entry-overlay {
             position: fixed;
             top: 0;
@@ -66,7 +137,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: var(--gap-md);
             max-width: 90%;
         }
         
@@ -78,17 +149,6 @@
             object-fit: contain;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
             animation: entryGlow 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes entryGlow {
-            0% { 
-                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
-                transform: scale(1);
-            }
-            100% { 
-                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 1));
-                transform: scale(1.02);
-            }
         }
         
         .entry-text {
@@ -103,15 +163,16 @@
             letter-spacing: 2px;
         }
         
+        /* =================== AUDIO CONTROLS =================== */
         .sound-controls {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: var(--gap-sm);
             padding: 20px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 15px;
+            border-radius: var(--radius-md);
             backdrop-filter: blur(10px);
             min-width: 200px;
         }
@@ -133,7 +194,7 @@
         .sound-icon {
             font-size: 1.4rem;
             color: var(--gold);
-            transition: all 0.3s ease;
+            transition: var(--transition-base);
             filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
         }
         
@@ -147,15 +208,15 @@
             width: 60px;
             height: 30px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition-base);
             border: 1px solid rgba(255, 215, 0, 0.3);
         }
         
         .toggle-switch.active {
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            box-shadow: var(--glow-gold);
         }
         
         .toggle-slider {
@@ -166,7 +227,7 @@
             height: 24px;
             background: white;
             border-radius: 50%;
-            transition: all 0.3s ease;
+            transition: var(--transition-base);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
         
@@ -188,17 +249,18 @@
             color: rgba(255, 255, 255, 0.5);
         }
         
+        /* =================== BUTTONS =================== */
         .enter-button {
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
             color: var(--black);
             border: none;
             padding: 18px 45px;
-            border-radius: 30px;
+            border-radius: var(--radius-xl);
             font-size: 1.2rem;
             font-weight: 700;
             font-family: 'Orbitron', monospace;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition-base);
             text-transform: uppercase;
             letter-spacing: 3px;
             min-width: 160px;
@@ -210,26 +272,10 @@
             animation: loadingPulse 1.5s ease-in-out infinite;
         }
         
-        @keyframes loadingPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.9; }
-        }
-        
         .enter-button.ready {
             opacity: 1;
             cursor: pointer;
             animation: readyPulse 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes readyPulse {
-            0% { 
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-            }
-            100% { 
-                transform: scale(1.05);
-                box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-            }
         }
         
         .enter-button:hover.ready {
@@ -237,14 +283,72 @@
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
         }
         
-        /* Hide main content until site loads */
-        body:not(.site-loaded) .nav,
-        body:not(.site-loaded) .main,
-        body:not(.site-loaded) .back-to-top {
-            display: none;
+        .feature-btn {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            color: var(--gold);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition-base);
+            font-weight: 600;
+            letter-spacing: 1px;
         }
         
-        /* =================== NAVIGATION - FIXED =================== */
+        .feature-btn:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        .buy-btn {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: black;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-lg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--transition-fast);
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: black;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-base);
+            z-index: 1000;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* =================== NAVIGATION =================== */
         .nav {
             position: fixed;
             top: 0;
@@ -277,14 +381,14 @@
         .nav-menu {
             display: none;
             list-style: none;
-            gap: 30px;
+            gap: var(--gap-md);
         }
         
         .nav-menu a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-family: 'Orbitron', monospace;
-            transition: color 0.3s ease;
+            transition: var(--transition-base);
         }
         
         .nav-menu a:hover {
@@ -300,7 +404,7 @@
             cursor: pointer;
         }
         
-        /* =================== MAIN CONTENT - FIXED =================== */
+        /* =================== MAIN CONTENT =================== */
         .main {
             padding-top: 70px;
             max-width: 1200px;
@@ -309,7 +413,14 @@
             padding-right: 20px;
         }
         
-        /* =================== HERO SECTION - FIXED =================== */
+        /* Hide main content until site loads */
+        body:not(.site-loaded) .nav,
+        body:not(.site-loaded) .main,
+        body:not(.site-loaded) .back-to-top {
+            display: none;
+        }
+        
+        /* =================== HERO SECTION =================== */
         .hero {
             text-align: center;
             padding: 40px 0 60px;
@@ -330,17 +441,6 @@
             animation: logoGlow 4s ease-in-out infinite alternate;
         }
         
-        @keyframes logoGlow {
-            0% { 
-                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
-                transform: scale(1);
-            }
-            100% { 
-                filter: drop-shadow(0 0 80px rgba(255, 215, 0, 1));
-                transform: scale(1.02);
-            }
-        }
-        
         .hero-title {
             font-family: 'Orbitron', monospace;
             font-size: 2.5rem;
@@ -349,7 +449,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 30px;
+            margin-bottom: var(--gap-md);
             line-height: 1.1;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -365,12 +465,12 @@
             letter-spacing: 1px;
         }
         
-        /* =================== RELEASES SECTION - FIXED =================== */
+        /* =================== RELEASES SECTION =================== */
         .releases {
             margin: 80px 0;
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
             border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             padding: 40px 20px;
             backdrop-filter: blur(15px);
         }
@@ -386,12 +486,16 @@
             font-weight: 700;
         }
         
-        /* =================== MOBILE CAROUSEL - FIXED =================== */
+        /* =================== CAROUSEL COMPONENTS =================== */
         .carousel-mobile {
             display: block;
             overflow: hidden;
             position: relative;
             height: 280px;
+        }
+        
+        .carousel-desktop {
+            display: none;
         }
         
         .mobile-track {
@@ -400,21 +504,16 @@
             animation: continuousMobile 25s linear infinite;
         }
         
-        @keyframes continuousMobile {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        
         .mobile-track:hover {
             animation-play-state: paused;
         }
         
         .mobile-slide {
             flex: 0 0 200px;
-            margin-right: 15px;
+            margin-right: var(--gap-sm);
             background: rgba(0, 0, 0, 0.4);
             border-radius: 12px;
-            padding: 15px;
+            padding: var(--gap-sm);
             text-align: center;
             border: 1px solid rgba(255, 215, 0, 0.2);
         }
@@ -422,11 +521,11 @@
         .album-image {
             width: 160px;
             height: 160px;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             object-fit: cover;
             margin-bottom: 12px;
             border: 1px solid rgba(255, 215, 0, 0.3);
-            background: #333; /* Fallback color */
+            background: #333;
         }
         
         .album-title {
@@ -451,48 +550,36 @@
             font-weight: bold;
         }
         
-        .badge-new { background: linear-gradient(45deg, #ff6b35, #f7931e); color: white; }
-        .badge-coming { background: linear-gradient(45deg, var(--gold), var(--gold-light)); color: black; }
-        .badge-streaming { background: linear-gradient(45deg, #1db954, #1ed760); color: white; }
-        
-        .buy-btn {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: black;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.2s ease;
+        .badge-new { 
+            background: linear-gradient(45deg, #ff6b35, #f7931e); 
+            color: white; 
         }
         
-        .buy-btn:hover {
-            transform: translateY(-2px);
+        .badge-coming { 
+            background: linear-gradient(45deg, var(--gold), var(--gold-light)); 
+            color: black; 
         }
         
-        /* =================== DESKTOP CAROUSEL - FIXED =================== */
-        .carousel-desktop {
-            display: none;
+        .badge-streaming { 
+            background: linear-gradient(45deg, #1db954, #1ed760); 
+            color: white; 
         }
         
-        /* =================== FEATURES SECTION - FIXED =================== */
+        /* =================== FEATURES SECTION =================== */
         .features {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 30px;
+            gap: var(--gap-md);
             margin: 80px 0;
         }
         
         .feature-card {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
             border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: var(--radius-lg);
+            padding: var(--gap-md);
             text-align: center;
-            transition: all 0.4s ease;
+            transition: var(--transition-slow);
             backdrop-filter: blur(15px);
         }
         
@@ -519,14 +606,14 @@
             object-fit: cover;
             border-radius: 12px;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-            background: #333; /* Fallback color */
+            background: #333;
         }
         
         .feature-title {
             font-family: 'Orbitron', monospace;
             font-size: 1.3rem;
             color: var(--gold);
-            margin-bottom: 15px;
+            margin-bottom: var(--gap-sm);
             letter-spacing: 2px;
             font-weight: 700;
         }
@@ -539,60 +626,12 @@
             font-weight: 300;
         }
         
-        .feature-btn {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            color: var(--gold);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        
-        .feature-btn:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
-            border-color: var(--gold);
-            transform: translateY(-2px);
-        }
-        
-        /* =================== BACK TO TOP - FIXED =================== */
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: black;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            transform: translateY(-3px);
-        }
-        
-        /* =================== FOOTER - FIXED =================== */
+        /* =================== FOOTER =================== */
         .footer {
             border-top: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 30px 0;
+            padding: var(--gap-md) 0;
             text-align: center;
-            margin-top: 50px;
+            margin-top: var(--gap-lg);
         }
         
         .footer-links {
@@ -606,6 +645,7 @@
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             font-size: 0.9rem;
+            transition: var(--transition-base);
         }
         
         .footer-links a:hover {
@@ -617,7 +657,7 @@
             font-size: 0.8rem;
         }
         
-        /* =================== MOBILE RESPONSIVE - FIXED =================== */
+        /* =================== RESPONSIVE: MOBILE =================== */
         @media (max-width: 768px) {
             .entry-image {
                 max-width: 85vw;
@@ -629,19 +669,19 @@
             }
             
             .enter-button {
-                padding: 12px 30px;
+                padding: 12px var(--gap-md);
                 font-size: 1rem;
                 min-width: 180px;
             }
             
             .hero {
-                padding: 30px 0;
+                padding: var(--gap-md) 0;
                 min-height: 80vh;
             }
             
             .hero-logo {
                 max-height: 180px;
-                margin-bottom: 30px;
+                margin-bottom: var(--gap-md);
             }
             
             .hero-title {
@@ -657,12 +697,12 @@
             
             .releases {
                 margin: 60px 0;
-                padding: 30px 15px;
+                padding: var(--gap-md) var(--gap-sm);
             }
             
             .releases-title {
                 font-size: 1.5rem;
-                margin-bottom: 30px;
+                margin-bottom: var(--gap-md);
             }
             
             .features {
@@ -682,7 +722,7 @@
                 font-size: 0.9rem;
             }
             
-            /* Mobile menu */
+            /* Mobile Navigation */
             .nav-menu {
                 position: absolute;
                 top: 100%;
@@ -701,13 +741,13 @@
             }
             
             .nav-menu a {
-                padding: 15px;
+                padding: var(--gap-sm);
                 text-align: center;
                 border-bottom: 1px solid rgba(255, 215, 0, 0.1);
             }
         }
         
-        /* =================== DESKTOP RESPONSIVE - FIXED =================== */
+        /* =================== RESPONSIVE: DESKTOP =================== */
         @media (min-width: 769px) {
             .nav {
                 height: 80px;
@@ -741,7 +781,7 @@
             
             .hero-logo {
                 max-height: 350px;
-                margin-bottom: 50px;
+                margin-bottom: var(--gap-lg);
             }
             
             .hero-title {
@@ -764,11 +804,11 @@
             
             .releases-title {
                 font-size: 2.5rem;
-                margin-bottom: 50px;
+                margin-bottom: var(--gap-lg);
                 letter-spacing: 4px;
             }
             
-            /* Desktop carousel */
+            /* Desktop Carousel */
             .carousel-mobile {
                 display: none;
             }
@@ -786,11 +826,6 @@
                 animation: continuousDesktop 30s linear infinite;
             }
             
-            @keyframes continuousDesktop {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
-            }
-            
             .desktop-track:hover {
                 animation-play-state: paused;
             }
@@ -799,10 +834,10 @@
                 flex: 0 0 20%;
                 display: flex;
                 align-items: center;
-                gap: 50px;
+                gap: var(--gap-lg);
                 padding: 40px;
                 background: rgba(0, 0, 0, 0.4);
-                border-radius: 15px;
+                border-radius: var(--radius-md);
                 margin: 0 10px;
                 border: 1px solid rgba(255, 215, 0, 0.2);
             }
@@ -819,7 +854,7 @@
             
             .desktop-slide .album-title {
                 font-size: 2rem;
-                margin-bottom: 15px;
+                margin-bottom: var(--gap-sm);
             }
             
             .desktop-slide .album-artist {
@@ -840,7 +875,7 @@
             
             .features {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 50px;
+                gap: var(--gap-lg);
                 margin: 120px 0;
             }
             
@@ -870,25 +905,25 @@
             
             .feature-description {
                 font-size: 1.1rem;
-                margin-bottom: 30px;
+                margin-bottom: var(--gap-md);
                 line-height: 1.7;
             }
             
             .feature-btn {
                 font-size: 1rem;
-                padding: 15px 30px;
+                padding: var(--gap-sm) var(--gap-md);
             }
             
             .back-to-top {
-                bottom: 30px;
-                right: 30px;
+                bottom: var(--gap-md);
+                right: var(--gap-md);
                 width: 60px;
                 height: 60px;
                 font-size: 1.4rem;
             }
             
             .footer {
-                padding: 50px 0;
+                padding: var(--gap-lg) 0;
                 margin-top: 80px;
             }
             
@@ -932,7 +967,7 @@
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- NAVIGATION -->
     <nav class="nav">
         <div class="nav-content">
             <a href="#" class="nav-logo">
@@ -951,10 +986,10 @@
         </div>
     </nav>
     
-    <!-- Back to Top -->
+    <!-- BACK TO TOP -->
     <button class="back-to-top" id="backToTop">↑</button>
     
-    <!-- Main Content -->
+    <!-- MAIN CONTENT -->
     <main class="main">
         <!-- Hero Section -->
         <section class="hero">
@@ -972,7 +1007,6 @@
             <!-- Mobile Carousel -->
             <div class="carousel-mobile">
                 <div class="mobile-track">
-                    <!-- First set -->
                     <div class="mobile-slide">
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
@@ -1059,7 +1093,6 @@
             <!-- Desktop Carousel -->
             <div class="carousel-desktop">
                 <div class="desktop-track">
-                    <!-- First set -->
                     <div class="desktop-slide">
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <div class="desktop-album-info">
@@ -1252,7 +1285,7 @@
         </section>
     </main>
     
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-links">
             <a href="music.html">Music</a>
@@ -1266,99 +1299,130 @@
         </div>
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script>
-        // CLEAN LOADING SYSTEM
-        let soundEnabled = true;
-        let loadingComplete = false;
+        'use strict';
         
-        // DOM Elements
-        const entryOverlay = document.getElementById('entryOverlay');
-        const enterButton = document.getElementById('enterButton');
-        const toggleSwitch = document.getElementById('toggleSwitch');
-        const soundIcon = document.getElementById('soundIcon');
-        const soundStatus = document.getElementById('soundStatus');
-        const backToTop = document.getElementById('backToTop');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
+        // =================== STATE MANAGEMENT ===================
+        const AppState = {
+            soundEnabled: true,
+            loadingComplete: false
+        };
         
-        // Loading simulation
-        function simulateLoading() {
-            setTimeout(() => {
-                loadingComplete = true;
-                enterButton.classList.remove('loading');
-                enterButton.classList.add('ready');
-                enterButton.textContent = 'ENTER';
-            }, 3000);
-        }
+        // =================== DOM ELEMENTS ===================
+        const Elements = {
+            entryOverlay: document.getElementById('entryOverlay'),
+            enterButton: document.getElementById('enterButton'),
+            toggleSwitch: document.getElementById('toggleSwitch'),
+            soundIcon: document.getElementById('soundIcon'),
+            soundStatus: document.getElementById('soundStatus'),
+            backToTop: document.getElementById('backToTop'),
+            mobileMenuBtn: document.getElementById('mobileMenuBtn'),
+            navMenu: document.getElementById('navMenu')
+        };
         
-        // Sound toggle
-        toggleSwitch.addEventListener('click', function() {
-            soundEnabled = !soundEnabled;
+        // =================== UTILITY FUNCTIONS ===================
+        const Utils = {
+            setBodyOverflow: (value) => {
+                document.body.style.overflow = value;
+                document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
+            },
             
-            if (soundEnabled) {
-                soundIcon.textContent = '🔊';
-                soundIcon.classList.remove('muted');
-                soundStatus.textContent = 'ENABLED';
-                soundStatus.classList.remove('muted');
-                toggleSwitch.classList.add('active');
-            } else {
-                soundIcon.textContent = '🔇';
-                soundIcon.classList.add('muted');
-                soundStatus.textContent = 'DISABLED';
-                soundStatus.classList.add('muted');
-                toggleSwitch.classList.remove('active');
-            }
-        });
-        
-        // Enter site
-        enterButton.addEventListener('click', function() {
-            if (loadingComplete) {
-                entryOverlay.classList.add('hidden');
-                document.body.classList.add('site-loaded');
-                document.body.style.overflow = 'auto';
-                document.body.style.overscrollBehavior = 'auto';
+            updateSoundUI: (enabled) => {
+                const { soundIcon, soundStatus, toggleSwitch } = Elements;
                 
-                if (soundEnabled) {
-                    console.log('Sound effect would play here');
+                if (enabled) {
+                    soundIcon.textContent = '🔊';
+                    soundIcon.classList.remove('muted');
+                    soundStatus.textContent = 'ENABLED';
+                    soundStatus.classList.remove('muted');
+                    toggleSwitch.classList.add('active');
+                } else {
+                    soundIcon.textContent = '🔇';
+                    soundIcon.classList.add('muted');
+                    soundStatus.textContent = 'DISABLED';
+                    soundStatus.classList.add('muted');
+                    toggleSwitch.classList.remove('active');
                 }
             }
-        });
+        };
         
-        // Mobile menu toggle
-        mobileMenuBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('show');
-        });
-        
-        // Back to top functionality
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
+        // =================== CORE FUNCTIONS ===================
+        const App = {
+            init() {
+                Utils.setBodyOverflow('hidden');
+                this.simulateLoading();
+                this.bindEvents();
+            },
+            
+            simulateLoading() {
+                setTimeout(() => {
+                    AppState.loadingComplete = true;
+                    Elements.enterButton.classList.remove('loading');
+                    Elements.enterButton.classList.add('ready');
+                    Elements.enterButton.textContent = 'ENTER';
+                }, 3000);
+            },
+            
+            toggleSound() {
+                AppState.soundEnabled = !AppState.soundEnabled;
+                Utils.updateSoundUI(AppState.soundEnabled);
+            },
+            
+            enterSite() {
+                if (AppState.loadingComplete) {
+                    Elements.entryOverlay.classList.add('hidden');
+                    document.body.classList.add('site-loaded');
+                    Utils.setBodyOverflow('auto');
+                    
+                    if (AppState.soundEnabled) {
+                        console.log('Sound effect would play here');
+                    }
+                }
+            },
+            
+            toggleMobileMenu() {
+                Elements.navMenu.classList.toggle('show');
+            },
+            
+            handleBackToTop() {
+                const shouldShow = window.scrollY > 300;
+                Elements.backToTop.classList.toggle('show', shouldShow);
+            },
+            
+            scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            },
+            
+            bindEvents() {
+                // Audio toggle
+                Elements.toggleSwitch?.addEventListener('click', this.toggleSound);
+                
+                // Site entry
+                Elements.enterButton?.addEventListener('click', this.enterSite);
+                
+                // Mobile menu
+                Elements.mobileMenuBtn?.addEventListener('click', this.toggleMobileMenu);
+                
+                // Back to top
+                window.addEventListener('scroll', this.handleBackToTop);
+                Elements.backToTop?.addEventListener('click', this.scrollToTop);
+                
+                // Close mobile menu when clicking nav links
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        Elements.navMenu.classList.remove('show');
+                    });
+                });
             }
-        });
+        };
         
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Close mobile menu when clicking nav links
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('show');
-            });
-        });
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hide body scrollbars during entry, but allow mobile pull-to-refresh
-            document.body.style.overflow = 'hidden';
-            document.body.style.overscrollBehavior = 'contain';
-            simulateLoading();
+        // =================== INITIALIZATION ===================
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
         });
     </script>
 </body>
