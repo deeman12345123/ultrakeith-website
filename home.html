@@ -3,16 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Keith - Legendary Hip-Hop Universe</title>
+    <title>Ultra Keith - Official Music Universe</title>
+    <meta name="description" content="Official website of Kool Keith - Hip-Hop's most prolific innovator. Explore legendary personas, complete discography, and the multiverse of creativity.">
+    <link rel="canonical" href="https://ultrakeith.com">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;700&display=swap" as="style">
+    <link rel="preload" href="koolkeithmainlogo.png" as="image">
+    <link rel="preload" href="entry.png" as="image">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;700&display=swap');
         
         :root {
-            --gold: #ffd700;
-            --gold-light: #ffed4e;
-            --dark-red: #1a0000;
+            --gold: #FFD700;
+            --gold-light: #FFED4E;
+            --gold-dark: #B8860B;
+            --dark-red: #1A0000;
             --black: #000000;
-            --white: #ffffff;
+            --white: #FFFFFF;
+            --gray-light: rgba(255, 255, 255, 0.1);
+            --shadow-gold: rgba(255, 215, 0, 0.3);
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
@@ -21,18 +33,21 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-size: 16px;
             background: linear-gradient(135deg, var(--black) 0%, var(--dark-red) 40%, var(--black) 100%);
             color: var(--white);
             overflow-x: hidden;
             min-height: 100vh;
+            line-height: 1.6;
         }
         
-        /* ===================
-           ENTRY OVERLAY - FIXED LOADING SYSTEM
-           =================== */
+        /* Enhanced Entry Overlay */
         .entry-overlay {
             position: fixed;
             top: 0;
@@ -49,7 +64,7 @@
             padding: 20px;
             opacity: 1;
             visibility: visible;
-            transition: opacity 1s ease, visibility 1s ease;
+            transition: opacity 1.2s var(--transition-smooth), visibility 1.2s var(--transition-smooth);
         }
         
         .entry-overlay.hidden {
@@ -65,79 +80,71 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
         }
         
         .entry-image {
             width: auto;
             height: auto;
-            max-width: 95vw;
-            max-height: 70vh;
+            max-width: 85vw;
+            max-height: 45vh;
             object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
-            animation: entryGlow 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 40px var(--shadow-gold));
+            animation: entryGlow 4s ease-in-out infinite alternate;
         }
         
         @keyframes entryGlow {
             0% { 
-                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+                filter: drop-shadow(0 0 40px var(--shadow-gold));
                 transform: scale(1);
             }
             100% { 
-                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 1));
+                filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.6));
                 transform: scale(1.02);
             }
         }
         
         .entry-text {
             font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.4rem);
             font-weight: 700;
             background: linear-gradient(45deg, var(--gold), var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.4;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
             margin-bottom: 20px;
             letter-spacing: 1px;
+            text-align: center;
         }
         
-        /* MOBILE: Sound controls in center */
-        .sound-controls-mobile {
+        .sound-controls {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 15px;
             margin: 20px 0;
-        }
-        
-        /* DESKTOP: Sound controls in bottom right */
-        .sound-controls-desktop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 10001;
-            display: none;
         }
         
         .sound-toggle {
             background: rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.4);
             color: var(--gold);
-            padding: 10px 15px;
+            padding: 12px 18px;
             border-radius: 25px;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s var(--transition-smooth);
             display: flex;
             align-items: center;
             gap: 8px;
             font-family: 'Orbitron', monospace;
+            font-weight: 500;
         }
         
         .sound-toggle:hover {
             background: rgba(255, 215, 0, 0.2);
             border-color: var(--gold);
+            transform: translateY(-2px);
         }
         
         .sound-toggle.muted {
@@ -147,79 +154,96 @@
         }
         
         .enter-button {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
             color: var(--black);
             border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
+            padding: 18px 45px;
+            border-radius: 35px;
             font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 700;
             font-family: 'Orbitron', monospace;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s var(--transition-smooth);
             text-transform: uppercase;
             letter-spacing: 2px;
-            min-width: 200px;
+            min-width: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .enter-button:hover::before {
+            left: 100%;
         }
         
         .enter-button.loading {
-            opacity: 0.7;
-            cursor: not-allowed;
-            animation: loadingPulse 1.5s ease-in-out infinite;
+            opacity: 0.8;
+            cursor: wait;
+            animation: loadingPulse 2s ease-in-out infinite;
         }
         
         @keyframes loadingPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.9; }
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
         
         .enter-button.ready {
             opacity: 1;
             cursor: pointer;
-            animation: readyPulse 2s ease-in-out infinite alternate;
+            animation: readyGlow 3s ease-in-out infinite alternate;
         }
         
-        @keyframes readyPulse {
+        @keyframes readyGlow {
             0% { 
                 transform: scale(1);
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+                box-shadow: 0 0 25px var(--shadow-gold);
             }
             100% { 
                 transform: scale(1.05);
-                box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
             }
         }
         
         .enter-button:hover.ready {
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.4);
         }
         
-        /* HIDE MAIN CONTENT UNTIL LOADED */
-        body:not(.site-loaded) .nav,
-        body:not(.site-loaded) .main,
-        body:not(.site-loaded) .back-to-top {
-            display: none !important;
-        }
-        
-        /* NAVIGATION */
+        /* Professional Navigation */
         .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
             z-index: 100;
-            height: 70px;
+            height: 80px;
             display: flex;
             align-items: center;
             padding: 0 20px;
+            transition: all 0.3s var(--transition-smooth);
+        }
+        
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.98);
+            border-bottom-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
         
         .nav-content {
-            max-width: 1200px;
+            max-width: 1400px;
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -228,30 +252,52 @@
         }
         
         .nav-logo img {
-            height: 35px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-            transition: all 0.3s ease;
+            height: 45px;
+            filter: drop-shadow(0 0 12px var(--shadow-gold));
+            transition: all 0.3s var(--transition-smooth);
         }
         
         .nav-logo:hover img {
+            filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));
             transform: scale(1.05);
         }
         
         .nav-menu {
             display: none;
             list-style: none;
-            gap: 30px;
+            gap: 40px;
+            align-items: center;
         }
         
         .nav-menu a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             font-family: 'Orbitron', monospace;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s var(--transition-smooth);
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transition: width 0.3s var(--transition-smooth);
         }
         
         .nav-menu a:hover {
             color: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
         }
         
         .mobile-menu-btn {
@@ -261,57 +307,78 @@
             color: var(--gold);
             font-size: 24px;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s var(--transition-smooth);
         }
         
         .mobile-menu-btn:hover {
-            transform: rotate(90deg);
+            transform: scale(1.1);
         }
         
-        /* MAIN CONTENT */
+        /* Hide main content until loaded */
+        body:not(.site-loaded) .nav,
+        body:not(.site-loaded) .main,
+        body:not(.site-loaded) .back-to-top {
+            display: none;
+        }
+        
+        /* Enhanced Main Content */
         .main {
-            padding-top: 70px;
-            max-width: 1200px;
+            padding-top: 80px;
+            max-width: 1400px;
             margin: 0 auto;
             padding-left: 20px;
             padding-right: 20px;
         }
         
-        /* HERO SECTION */
+        /* Professional Hero Section */
         .hero {
             text-align: center;
-            padding: 40px 0 60px;
+            padding: 60px 0 80px;
             min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         .hero-logo {
-            max-height: 300px;
+            max-height: 350px;
             max-width: 90vw;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
-            animation: logoGlow 4s ease-in-out infinite alternate;
+            margin-bottom: 50px;
+            filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.8));
+            animation: logoFloat 6s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
         }
         
-        @keyframes logoGlow {
+        @keyframes logoFloat {
             0% { 
-                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
-                transform: scale(1);
+                filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.8));
+                transform: translateY(0) scale(1);
             }
             100% { 
-                filter: drop-shadow(0 0 80px rgba(255, 215, 0, 1)) drop-shadow(0 0 120px rgba(255, 215, 0, 0.5));
-                transform: scale(1.02);
+                filter: drop-shadow(0 0 80px rgba(255, 215, 0, 1));
+                transform: translateY(-10px) scale(1.02);
             }
         }
         
         .hero-title {
             font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 6vw, 4.5rem);
             font-weight: 900;
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -319,56 +386,80 @@
             line-height: 1.1;
             letter-spacing: 3px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 2;
         }
         
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: clamp(1.1rem, 3vw, 1.8rem);
             color: rgba(255, 255, 255, 0.95);
             line-height: 1.5;
-            max-width: 600px;
-            margin: 0 auto 50px;
-            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-weight: 400;
             letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
         }
         
-        /* RELEASES SECTION */
+        /* Enhanced Releases Section */
         .releases {
-            margin: 80px 0;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 20px;
-            padding: 60px 40px;
-            backdrop-filter: blur(15px);
+            margin: 100px 0;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 25px;
+            padding: 80px 50px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .releases::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .releases-title {
             font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 4vw, 3rem);
             color: var(--gold);
             text-align: center;
-            margin-bottom: 50px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            margin-bottom: 60px;
+            text-shadow: 0 0 30px var(--shadow-gold);
             letter-spacing: 3px;
             font-weight: 700;
+            position: relative;
+            z-index: 2;
         }
         
-        /* CAROUSEL - CONTINUOUS SCROLL (NO REVERSE) + FULL INFO */
+        /* Professional Album Cards */
         .carousel-mobile {
             display: block;
             overflow: hidden;
             position: relative;
-            height: 320px; /* Taller for more info */
+            height: 320px;
+            z-index: 2;
         }
         
         .mobile-track {
             display: flex;
-            width: 1000%;
-            animation: continuousScroll 60s linear infinite;
+            width: 500%;
+            animation: albumCarousel 35s linear infinite;
         }
         
-        @keyframes continuousScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        @keyframes albumCarousel {
+            0%, 18% { transform: translateX(0); }
+            20%, 38% { transform: translateX(-20%); }
+            40%, 58% { transform: translateX(-40%); }
+            60%, 78% { transform: translateX(-60%); }
+            80%, 98% { transform: translateX(-80%); }
+            100% { transform: translateX(0); }
         }
         
         .mobile-track:hover {
@@ -376,48 +467,35 @@
         }
         
         .mobile-slide {
-            flex: 0 0 220px; /* Wider for more content */
+            flex: 0 0 220px;
             margin-right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(26, 0, 0, 0.4));
             border-radius: 15px;
             padding: 20px;
             text-align: center;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.4s var(--transition-smooth);
+            backdrop-filter: blur(10px);
         }
         
         .mobile-slide:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 215, 0, 0.8);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.3);
+            transform: translateY(-8px);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
         
         .album-image {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 12px;
             object-fit: cover;
             margin-bottom: 15px;
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            transition: transform 0.3s ease;
-            background: linear-gradient(45deg, var(--dark-red), var(--black));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 0.9rem;
-            text-align: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-            padding: 10px;
-            line-height: 1.2;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s var(--transition-smooth);
         }
         
         .mobile-slide:hover .album-image {
-            transform: scale(1.05) rotate(2deg);
-            border-color: var(--gold);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            filter: brightness(1.1) drop-shadow(0 0 15px var(--shadow-gold));
         }
         
         .album-title {
@@ -426,12 +504,11 @@
             margin-bottom: 8px;
             line-height: 1.3;
             font-weight: 600;
-            font-family: 'Orbitron', monospace;
         }
         
         .album-artist {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 12px;
             font-weight: 400;
         }
@@ -442,165 +519,196 @@
             border-radius: 12px;
             margin-bottom: 15px;
             display: inline-block;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .badge-new { 
-            background: linear-gradient(45deg, #ff6b35, #f7931e); 
+            background: linear-gradient(135deg, #ff6b35, #f7931e); 
             color: white; 
             box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
         }
         .badge-coming { 
-            background: linear-gradient(45deg, var(--gold), var(--gold-light)); 
+            background: linear-gradient(135deg, var(--gold), var(--gold-light)); 
             color: black; 
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 15px var(--shadow-gold);
         }
         .badge-streaming { 
-            background: linear-gradient(45deg, #1db954, #1ed760); 
+            background: linear-gradient(135deg, #1db954, #1ed760); 
             color: white; 
             box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
         }
-        .badge-classic { 
-            background: linear-gradient(45deg, #8e44ad, #9b59b6); 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3);
-        }
         
         .buy-btn {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: black;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--black);
             border: none;
             padding: 10px 20px;
             border-radius: 25px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s ease;
+            transition: all 0.3s var(--transition-smooth);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Orbitron', monospace;
+            letter-spacing: 0.5px;
         }
         
         .buy-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 8px 20px var(--shadow-gold);
         }
         
-        /* DESKTOP CAROUSEL */
-        .carousel-desktop {
-            display: none;
-        }
-        
-        /* FEATURE CARDS */
+        /* Enhanced Feature Cards */
         .features {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 40px;
-            margin: 100px 0;
+            gap: 50px;
+            margin: 120px 0;
         }
         
         .feature-card {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 25px;
+            padding: 50px;
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(15px);
+            transition: all 0.5s var(--transition-smooth);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s var(--transition-smooth);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
         }
         
         .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(255, 215, 0, 0.7);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 50px rgba(255, 215, 0, 0.15);
         }
         
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 25px;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--gold);
-            background: linear-gradient(45deg, var(--dark-red), var(--black));
-            border-radius: 12px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 2;
         }
         
         .feature-icon img {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
-            border-radius: 12px;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-            transition: transform 0.3s ease;
+            border-radius: 15px;
+            filter: drop-shadow(0 0 20px var(--shadow-gold));
+            transition: all 0.3s var(--transition-smooth);
         }
         
         .feature-card:hover .feature-icon img {
-            transform: scale(1.1);
+            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+            transform: scale(1.05);
         }
         
         .feature-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--gold);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             letter-spacing: 2px;
             font-weight: 700;
+            position: relative;
+            z-index: 2;
         }
         
         .feature-description {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-            margin-bottom: 30px;
-            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 35px;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
         }
         
         .feature-btn {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
             color: var(--gold);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 15px 30px;
-            border-radius: 25px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            padding: 18px 35px;
+            border-radius: 30px;
             font-size: 1rem;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s ease;
+            transition: all 0.4s var(--transition-smooth);
             font-weight: 600;
             letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .feature-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .feature-btn:hover::before {
+            left: 100%;
         }
         
         .feature-btn:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
             border-color: var(--gold);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px var(--shadow-gold);
         }
         
-        /* BACK TO TOP */
+        /* Enhanced Back to Top */
         .back-to-top {
             position: fixed;
-            bottom: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
             background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: black;
+            color: var(--black);
             border: none;
             border-radius: 50%;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s var(--transition-smooth);
             z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         
         .back-to-top.show {
@@ -609,45 +717,50 @@
         }
         
         .back-to-top:hover {
-            transform: translateY(-3px) scale(1.1);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
         }
         
-        /* FOOTER */
+        /* Professional Footer */
         .footer {
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 30px 0;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 50px 0;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 80px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
         }
         
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
         
         .footer-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
+            font-size: 1rem;
+            transition: all 0.3s var(--transition-smooth);
+            font-weight: 500;
         }
         
         .footer-links a:hover {
             color: var(--gold);
+            transform: translateY(-2px);
         }
         
         .footer-copyright {
             color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 400;
         }
         
-        /* MOBILE RESPONSIVE */
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
             .entry-image {
-                max-width: 90vw;
-                max-height: 60vh;
+                max-width: 80vw;
+                max-height: 40vh;
             }
             
             .entry-text {
@@ -655,95 +768,75 @@
                 line-height: 1.3;
             }
             
-            .sound-controls-mobile {
-                display: flex;
-            }
-            
-            .sound-controls-desktop {
-                display: none;
+            .enter-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+                min-width: 200px;
             }
             
             .hero {
-                padding: 40px 0 30px;
-                min-height: 80vh;
+                padding: 50px 0 40px;
+                min-height: 85vh;
             }
             
             .hero-logo {
-                max-height: 180px;
-                margin-bottom: 30px;
-            }
-            
-            .hero-title {
-                font-size: 2.2rem;
-                letter-spacing: 2px;
-                margin-bottom: 20px;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-                letter-spacing: 1px;
+                max-height: 200px;
                 margin-bottom: 40px;
-                padding: 0 20px;
             }
             
             .releases {
-                margin: 60px 0;
-                padding: 30px 20px;
-            }
-            
-            .releases-title {
-                font-size: 1.6rem;
-                letter-spacing: 2px;
-                margin-bottom: 30px;
+                margin: 80px 0;
+                padding: 40px 25px;
             }
             
             .features {
-                gap: 30px;
-                margin: 60px 0;
+                gap: 40px;
+                margin: 80px 0;
             }
             
             .feature-card {
-                padding: 30px 20px;
-                height: auto;
+                padding: 40px 25px;
+            }
+            
+            .feature-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 25px;
+            }
+            
+            .feature-icon img {
+                width: 80px;
+                height: 80px;
             }
             
             .feature-title {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 letter-spacing: 1px;
             }
             
             .feature-description {
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
             
             .feature-btn {
-                padding: 12px 24px;
+                padding: 15px 28px;
                 font-size: 0.9rem;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
             }
         }
         
-        /* DESKTOP RESPONSIVE */
-        @media (min-width: 768px) {
-            .entry-image {
-                max-width: 95vw;
-                max-height: 75vh;
-            }
-            
-            .entry-text {
-                font-size: 1.4rem;
-                letter-spacing: 2px;
-            }
-            
-            .sound-controls-desktop {
-                display: flex;
-            }
-            
-            .sound-controls-mobile {
-                display: none;
-            }
-            
+        /* Desktop Enhancements */
+        @media (min-width: 769px) {
             .nav {
-                height: 80px;
+                height: 90px;
+                padding: 0 40px;
             }
             
             .nav-logo img {
@@ -752,7 +845,6 @@
             
             .nav-menu {
                 display: flex;
-                font-size: 1.1rem;
             }
             
             .mobile-menu-btn {
@@ -760,70 +852,51 @@
             }
             
             .main {
-                padding-top: 80px;
-                padding-left: 60px;
-                padding-right: 60px;
-                max-width: 1400px;
+                padding-top: 90px;
+                padding-left: 40px;
+                padding-right: 40px;
             }
             
             .hero {
-                padding: 60px 0 40px;
-                min-height: 85vh;
+                padding: 80px 0 60px;
+                min-height: 90vh;
             }
             
             .hero-logo {
                 max-height: 400px;
-                margin-bottom: 50px;
-            }
-            
-            .hero-title {
-                font-size: 4rem;
-                margin-bottom: 40px;
-                letter-spacing: 4px;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.6rem;
                 margin-bottom: 60px;
-                max-width: 800px;
-                letter-spacing: 2px;
             }
             
             .releases {
-                margin: 120px 0;
-                padding: 80px 60px;
-            }
-            
-            .releases-title {
-                font-size: 3rem;
-                margin-bottom: 60px;
-                letter-spacing: 4px;
+                margin: 140px 0;
+                padding: 100px 80px;
             }
             
             .carousel-mobile {
                 display: none;
             }
             
-            /* DESKTOP CAROUSEL - ENHANCED */
             .carousel-desktop {
                 display: block;
                 position: relative;
-                height: 600px; /* Taller for more content */
+                height: 550px;
                 overflow: hidden;
-                background: rgba(0, 0, 0, 0.3);
-                border-radius: 20px;
-                border: 1px solid rgba(255, 215, 0, 0.2);
+                z-index: 2;
             }
             
             .desktop-track {
                 display: flex;
-                width: 1000%;
-                animation: continuousScrollDesktop 80s linear infinite;
+                width: 500%;
+                animation: desktopAlbumCarousel 40s linear infinite;
             }
             
-            @keyframes continuousScrollDesktop {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
+            @keyframes desktopAlbumCarousel {
+                0%, 18% { transform: translateX(0); }
+                20%, 38% { transform: translateX(-20%); }
+                40%, 58% { transform: translateX(-40%); }
+                60%, 78% { transform: translateX(-60%); }
+                80%, 98% { transform: translateX(-80%); }
+                100% { transform: translateX(0); }
             }
             
             .desktop-track:hover {
@@ -836,131 +909,106 @@
                 align-items: center;
                 gap: 80px;
                 padding: 60px;
-                transition: transform 0.3s ease;
-                background: rgba(0, 0, 0, 0.5);
-                margin-right: 20px;
-                border-radius: 15px;
-            }
-            
-            .desktop-slide:hover {
-                transform: scale(1.02);
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+                background: linear-gradient(145deg, rgba(0, 0, 0, 0.6), rgba(26, 0, 0, 0.4));
+                border-radius: 20px;
+                margin: 0 20px;
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(255, 215, 0, 0.3);
             }
             
             .desktop-slide .album-image {
-                width: 400px;
-                height: 400px;
+                width: 380px;
+                height: 380px;
                 flex-shrink: 0;
-                font-size: 1.8rem;
-                border: 3px solid rgba(255, 215, 0, 0.5);
-            }
-            
-            .desktop-slide:hover .album-image {
-                transform: scale(1.05) rotate(3deg);
-                border-color: var(--gold);
-                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+                border-radius: 15px;
+                filter: drop-shadow(0 0 25px var(--shadow-gold));
             }
             
             .desktop-album-info {
                 flex: 1;
-                padding-left: 40px;
             }
             
             .desktop-slide .album-title {
-                font-size: 4rem;
+                font-size: 3.8rem;
                 margin-bottom: 25px;
-                background: linear-gradient(45deg, var(--gold), var(--gold-light));
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                font-family: 'Orbitron', monospace;
+                font-weight: 700;
                 line-height: 1.1;
             }
             
             .desktop-slide .album-artist {
-                font-size: 2.2rem;
+                font-size: 2rem;
                 margin-bottom: 30px;
-                color: rgba(255, 255, 255, 0.9);
-                font-weight: 300;
+                font-weight: 400;
             }
             
             .desktop-slide .album-badge {
                 font-size: 1.3rem;
                 padding: 12px 25px;
                 margin-bottom: 35px;
-                border-radius: 20px;
             }
             
             .desktop-slide .buy-btn {
                 font-size: 1.4rem;
                 padding: 18px 45px;
-                border-radius: 30px;
+                font-weight: 700;
             }
             
             .features {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 60px;
-                margin: 150px 0;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 80px;
+                margin: 160px 0;
             }
             
             .feature-card {
-                padding: 50px;
+                padding: 60px;
                 text-align: left;
                 display: flex;
                 flex-direction: column;
-                height: 400px;
+                min-height: 450px;
             }
             
             .feature-card .feature-icon {
-                margin: 0 0 30px 0;
-                width: 100px;
-                height: 100px;
-                font-size: 3.5rem;
+                margin: 0 0 35px 0;
+                width: 120px;
+                height: 120px;
+                font-size: 4rem;
             }
             
             .feature-card .feature-icon img {
-                width: 100px;
-                height: 100px;
+                width: 120px;
+                height: 120px;
             }
             
             .feature-title {
-                font-size: 1.8rem;
-                margin-bottom: 25px;
+                font-size: 2rem;
+                margin-bottom: 30px;
                 letter-spacing: 3px;
             }
             
             .feature-description {
-                font-size: 1.2rem;
-                margin-bottom: 30px;
+                font-size: 1.3rem;
+                margin-bottom: 35px;
                 flex: 1;
-                line-height: 1.7;
+                line-height: 1.8;
             }
             
             .feature-btn {
                 align-self: flex-start;
                 margin-top: auto;
                 font-size: 1.1rem;
-                padding: 18px 35px;
-            }
-            
-            .back-to-top {
-                bottom: 30px;
-                right: 30px;
-                width: 60px;
-                height: 60px;
-                font-size: 1.4rem;
+                padding: 20px 40px;
             }
             
             .footer {
-                padding: 50px 0;
-                margin-top: 80px;
+                padding: 60px 0;
+                margin-top: 100px;
             }
             
             .footer-links {
                 flex-direction: row;
                 justify-content: center;
-                gap: 40px;
-                margin-bottom: 25px;
+                gap: 50px;
+                margin-bottom: 35px;
             }
             
             .footer-links a {
@@ -972,19 +1020,20 @@
             }
         }
         
-        /* Mobile menu styles */
-        @media (max-width: 767px) {
+        /* Mobile Menu Enhancements */
+        @media (max-width: 768px) {
             .nav-menu {
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
                 background: rgba(0, 0, 0, 0.98);
-                backdrop-filter: blur(15px);
+                backdrop-filter: blur(20px);
                 border-top: 1px solid rgba(255, 215, 0, 0.3);
                 flex-direction: column;
-                padding: 20px;
+                padding: 25px;
                 display: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             }
             
             .nav-menu.show {
@@ -992,386 +1041,269 @@
             }
             
             .nav-menu a {
-                padding: 15px;
+                padding: 18px;
                 text-align: center;
                 border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+                font-size: 1.1rem;
+            }
+            
+            .nav-menu a:last-child {
+                border-bottom: none;
+            }
+        }
+        
+        /* Performance Optimizations */
+        .hero-logo,
+        .entry-image,
+        .album-image {
+            will-change: transform, filter;
+        }
+        
+        .feature-card,
+        .mobile-slide {
+            will-change: transform;
+        }
+        
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Focus States */
+        .enter-button:focus,
+        .sound-toggle:focus,
+        .nav-menu a:focus,
+        .feature-btn:focus,
+        .buy-btn:focus,
+        .back-to-top:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+        
+        /* High Contrast Mode Support */
+        @media (prefers-contrast: high) {
+            :root {
+                --gold: #FFFF00;
+                --gold-light: #FFFF99;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ENTRY OVERLAY -->
+    <!-- Enhanced Entry Overlay -->
     <div class="entry-overlay" id="entryOverlay">
         <div class="entry-content">
-            <!-- Using placeholder for entry image since entry.png might be missing -->
-            <div class="entry-image" style="width: 300px; height: 200px; background: linear-gradient(45deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; color: var(--black); font-family: 'Orbitron', monospace; font-weight: bold; font-size: 1.5rem;">
-                ULTRA KEITH
-            </div>
+            <img src="entry.png" alt="Kool Keith Entry - The Best MC in the World" class="entry-image">
             
             <div class="entry-text">
                 The Best MC in the World<br>
                 aka Number One Producer
             </div>
             
-            <!-- MOBILE: Sound controls in center -->
-            <div class="sound-controls-mobile">
-                <button class="sound-toggle" id="soundToggleMobile">
-                    <span id="soundIconMobile">🔊</span> Sound: ON
+            <div class="sound-controls">
+                <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound effects">
+                    <span id="soundIcon" aria-hidden="true">🔊</span> Sound: ON
                 </button>
             </div>
             
-            <button class="enter-button loading" id="enterButton">
-                Loading...
-            </button>
-        </div>
-        
-        <!-- DESKTOP: Sound controls in bottom right -->
-        <div class="sound-controls-desktop">
-            <button class="sound-toggle" id="soundToggleDesktop">
-                <span id="soundIconDesktop">🔊</span> Sound: ON
+            <button class="enter-button loading" id="enterButton" aria-label="Enter Ultra Keith website">
+                <span id="buttonText">Loading...</span>
             </button>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="nav">
+    <!-- Professional Navigation -->
+    <nav class="nav" id="navbar">
         <div class="nav-content">
-            <a href="#" class="nav-logo">
-                <!-- Using placeholder for logo since koolkeithmainlogo.png might be missing -->
-                <div style="height: 35px; background: linear-gradient(45deg, var(--gold), var(--gold-light)); color: var(--black); padding: 5px 15px; border-radius: 5px; font-family: 'Orbitron', monospace; font-weight: bold; display: flex; align-items: center;">
-                    ULTRA KEITH
-                </div>
+            <a href="#" class="nav-logo" aria-label="Ultra Keith Home">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith Official Logo">
             </a>
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu" id="navMenu" role="navigation">
                 <li><a href="music.html">Music</a></li>
                 <li><a href="personas.html">Personas</a></li>
                 <li><a href="tour.html">Tour</a></li>
                 <li><a href="shop.html">Shop</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu" aria-expanded="false">
+                ☰
+            </button>
         </div>
     </nav>
     
-    <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop">↑</button>
+    <!-- Enhanced Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
     
     <!-- Main Content -->
     <main class="main">
-        <!-- Hero Section -->
+        <!-- Professional Hero Section -->
         <section class="hero">
-            <!-- Using placeholder for hero logo -->
-            <div class="hero-logo" style="width: 300px; height: 200px; background: linear-gradient(45deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; color: var(--black); font-family: 'Orbitron', monospace; font-weight: bold; font-size: 2rem; border-radius: 15px;">
-                ULTRA KEITH
-            </div>
+            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo - Official Music Universe" class="hero-logo">
             <h1 class="hero-title">OFFICIAL MUSIC UNIVERSE</h1>
             <p class="hero-subtitle">
                 Hip-Hop's Most Prolific Innovator
             </p>
         </section>
         
-        <!-- Latest Releases -->
+        <!-- Enhanced Latest Releases -->
         <section class="releases">
             <h2 class="releases-title">LATEST RELEASES</h2>
             
-            <!-- Mobile Carousel - CONTINUOUS SCROLL NO REVERSE -->
-            <div class="carousel-mobile">
+            <!-- Mobile Carousel -->
+            <div class="carousel-mobile" aria-label="Latest releases carousel">
                 <div class="mobile-track">
-                    <!-- FIRST SET OF 5 ALBUMS - Using placeholders -->
                     <div class="mobile-slide">
-                        <div class="album-image">SPACE<br>GORETEX</div>
+                        <img src="album1.png" alt="Space Goretex album cover" class="album-image" loading="lazy">
                         <h3 class="album-title">Space Goretex</h3>
                         <p class="album-artist">Kool Keith</p>
                         <span class="album-badge badge-new">OUT NOW</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <a href="shop.html" class="buy-btn" aria-label="Buy Space Goretex album">BUY NOW</a>
                     </div>
                     
                     <div class="mobile-slide">
-                        <div class="album-image">DR. OCTAGON<br>RETURNS</div>
+                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image" loading="lazy">
                         <h3 class="album-title">Dr. Octagon Returns</h3>
                         <p class="album-artist">Dr. Octagon</p>
                         <span class="album-badge badge-coming">JULY 2025</span>
-                        <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                        <a href="shop.html" class="buy-btn" aria-label="Pre-order Dr. Octagon Returns">PRE-ORDER</a>
                     </div>
                     
                     <div class="mobile-slide">
-                        <div class="album-image">KEITH'S<br>VAULT</div>
+                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image" loading="lazy">
                         <h3 class="album-title">Keith's Vault Series</h3>
                         <p class="album-artist">Ultra Keith</p>
                         <span class="album-badge badge-streaming">STREAMING</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <a href="shop.html" class="buy-btn" aria-label="Buy Keith's Vault Series">BUY NOW</a>
                     </div>
                     
                     <div class="mobile-slide">
-                        <div class="album-image">CRITICAL<br>BEATDOWN</div>
+                        <img src="album4.png" alt="Critical Beatdown remastered album cover" class="album-image" loading="lazy">
                         <h3 class="album-title">Critical Beatdown</h3>
                         <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-classic">REMASTERED</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-streaming">REMASTERED</span>
+                        <a href="shop.html" class="buy-btn" aria-label="Buy Critical Beatdown remastered">BUY NOW</a>
                     </div>
                     
                     <div class="mobile-slide">
-                        <div class="album-image">BLACK<br>ELVIS 2</div>
+                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image" loading="lazy">
                         <h3 class="album-title">Black Elvis 2</h3>
                         <p class="album-artist">Black Elvis</p>
                         <span class="album-badge badge-new">AVAILABLE</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
-                    </div>
-                    
-                    <!-- DUPLICATE SET FOR SEAMLESS LOOP -->
-                    <div class="mobile-slide">
-                        <div class="album-image">SPACE<br>GORETEX</div>
-                        <h3 class="album-title">Space Goretex</h3>
-                        <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">OUT NOW</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <div class="album-image">DR. OCTAGON<br>RETURNS</div>
-                        <h3 class="album-title">Dr. Octagon Returns</h3>
-                        <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">JULY 2025</span>
-                        <a href="shop.html" class="buy-btn">PRE-ORDER</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <div class="album-image">KEITH'S<br>VAULT</div>
-                        <h3 class="album-title">Keith's Vault Series</h3>
-                        <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">STREAMING</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <div class="album-image">CRITICAL<br>BEATDOWN</div>
-                        <h3 class="album-title">Critical Beatdown</h3>
-                        <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-classic">REMASTERED</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <div class="album-image">BLACK<br>ELVIS 2</div>
-                        <h3 class="album-title">Black Elvis 2</h3>
-                        <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">AVAILABLE</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <a href="shop.html" class="buy-btn" aria-label="Buy Black Elvis 2 album">BUY NOW</a>
                     </div>
                 </div>
             </div>
             
-            <!-- Desktop Carousel - CONTINUOUS SCROLL NO REVERSE -->
-            <div class="carousel-desktop">
+            <!-- Desktop Carousel -->
+            <div class="carousel-desktop" aria-label="Latest releases showcase">
                 <div class="desktop-track">
-                    <!-- FIRST SET OF 5 ALBUMS -->
                     <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">SPACE<br>GORETEX</div>
+                        <img src="album1.png" alt="Space Goretex album cover" class="album-image" loading="lazy">
                         <div class="desktop-album-info">
                             <h3 class="album-title">Space Goretex</h3>
                             <p class="album-artist">Kool Keith</p>
                             <span class="album-badge badge-new">OUT NOW</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <a href="shop.html" class="buy-btn" aria-label="Buy Space Goretex album">BUY NOW</a>
                         </div>
                     </div>
                     
                     <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">DR. OCTAGON<br>RETURNS</div>
+                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image" loading="lazy">
                         <div class="desktop-album-info">
                             <h3 class="album-title">Dr. Octagon Returns</h3>
                             <p class="album-artist">Dr. Octagon</p>
                             <span class="album-badge badge-coming">JULY 2025</span>
-                            <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                            <a href="shop.html" class="buy-btn" aria-label="Pre-order Dr. Octagon Returns">PRE-ORDER</a>
                         </div>
                     </div>
                     
                     <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">KEITH'S<br>VAULT</div>
+                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image" loading="lazy">
                         <div class="desktop-album-info">
                             <h3 class="album-title">Keith's Vault Series</h3>
                             <p class="album-artist">Ultra Keith</p>
                             <span class="album-badge badge-streaming">STREAMING</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <a href="shop.html" class="buy-btn" aria-label="Buy Keith's Vault Series">BUY NOW</a>
                         </div>
                     </div>
                     
                     <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">CRITICAL<br>BEATDOWN</div>
+                        <img src="album4.png" alt="Critical Beatdown remastered album cover" class="album-image" loading="lazy">
                         <div class="desktop-album-info">
                             <h3 class="album-title">Critical Beatdown</h3>
                             <p class="album-artist">Ultramagnetic MCs</p>
-                            <span class="album-badge badge-classic">REMASTERED</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-streaming">REMASTERED</span>
+                            <a href="shop.html" class="buy-btn" aria-label="Buy Critical Beatdown remastered">BUY NOW</a>
                         </div>
                     </div>
                     
                     <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">BLACK<br>ELVIS 2</div>
+                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image" loading="lazy">
                         <div class="desktop-album-info">
                             <h3 class="album-title">Black Elvis 2</h3>
                             <p class="album-artist">Black Elvis</p>
                             <span class="album-badge badge-new">AVAILABLE</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
-                        </div>
-                    </div>
-                    
-                    <!-- DUPLICATE SET FOR SEAMLESS LOOP -->
-                    <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">SPACE<br>GORETEX</div>
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Space Goretex</h3>
-                            <p class="album-artist">Kool Keith</p>
-                            <span class="album-badge badge-new">OUT NOW</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">DR. OCTAGON<br>RETURNS</div>
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Dr. Octagon Returns</h3>
-                            <p class="album-artist">Dr. Octagon</p>
-                            <span class="album-badge badge-coming">JULY 2025</span>
-                            <a href="shop.html" class="buy-btn">PRE-ORDER</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">KEITH'S<br>VAULT</div>
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Keith's Vault Series</h3>
-                            <p class="album-artist">Ultra Keith</p>
-                            <span class="album-badge badge-streaming">STREAMING</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">CRITICAL<br>BEATDOWN</div>
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Critical Beatdown</h3>
-                            <p class="album-artist">Ultramagnetic MCs</p>
-                            <span class="album-badge badge-classic">REMASTERED</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <div class="album-image" style="width: 350px; height: 350px; font-size: 1.5rem;">BLACK<br>ELVIS 2</div>
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Black Elvis 2</h3>
-                            <p class="album-artist">Black Elvis</p>
-                            <span class="album-badge badge-new">AVAILABLE</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <a href="shop.html" class="buy-btn" aria-label="Buy Black Elvis 2 album">BUY NOW</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Features Section - ALL 11 CARDS WITH PLACEHOLDERS -->
+        <!-- Enhanced Features Section -->
         <section class="features">
             <div class="feature-card">
-                <div class="feature-icon">🎭</div>
+                <div class="feature-icon">
+                    <img src="personas-icon.png" alt="Personas collection icon" loading="lazy">
+                </div>
                 <h3 class="feature-title">LEGENDARY PERSONAS</h3>
                 <p class="feature-description">
                     Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis, each persona tells a unique story in hip-hop history.
                 </p>
-                <a href="personas.html" class="feature-btn">EXPLORE PERSONAS</a>
+                <a href="personas.html" class="feature-btn" aria-label="Explore Kool Keith personas">EXPLORE PERSONAS</a>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📖</div>
-                <h3 class="feature-title">KEITH BIO</h3>
-                <p class="feature-description">
-                    The complete story of hip-hop's most innovative artist. From Ultramagnetic MCs to solo stardom spanning 40+ years of musical evolution.
-                </p>
-                <a href="bio.html" class="feature-btn">READ BIO</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎵</div>
+                <div class="feature-icon">
+                    <img src="music-icon.png" alt="Music collection icon" loading="lazy">
+                </div>
                 <h3 class="feature-title">COMPLETE DISCOGRAPHY</h3>
                 <p class="feature-description">
                     Over 40 years of groundbreaking music. Stream classics like Critical Beatdown and discover rare gems from the vault.
                 </p>
-                <a href="music.html" class="feature-btn">LISTEN NOW</a>
+                <a href="music.html" class="feature-btn" aria-label="Listen to Kool Keith music">LISTEN NOW</a>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📰</div>
-                <h3 class="feature-title">LATEST NEWS</h3>
-                <p class="feature-description">
-                    Stay updated with the latest Keith news, interviews, and announcements. Fresh content from the hip-hop universe.
-                </p>
-                <a href="news.html" class="feature-btn">READ NEWS</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🔐</div>
+                <div class="feature-icon">
+                    <img src="vault-icon.png" alt="Keith Vault icon" loading="lazy">
+                </div>
                 <h3 class="feature-title">THE KEITH VAULT</h3>
                 <p class="feature-description">
                     Unreleased tracks, rare recordings, and exclusive content for true fans. Access the hidden treasures of hip-hop's most prolific artist.
                 </p>
-                <a href="vault.html" class="feature-btn">ENTER VAULT</a>
+                <a href="vault.html" class="feature-btn" aria-label="Enter Keith Vault">ENTER VAULT</a>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🎰</div>
-                <h3 class="feature-title">KEITH'S CASINO</h3>
-                <p class="feature-description">
-                    Enter the cosmic gambling dimension. Play Keith-themed games and win exclusive digital collectibles from the multiverse.
-                </p>
-                <a href="casino.html" class="feature-btn">PLAY NOW</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3 class="feature-title">AI KEITH CHAT</h3>
-                <p class="feature-description">
-                    Chat with AI versions of Keith's personas. Talk to Dr. Octagon, Black Elvis, or Ultra Keith in real-time conversations.
-                </p>
-                <a href="chat.html" class="feature-btn">START CHAT</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📺</div>
-                <h3 class="feature-title">MUSIC VIDEOS</h3>
-                <p class="feature-description">
-                    Watch classic and rare music videos from Keith's extensive catalog. Behind-the-scenes footage and exclusive performances.
-                </p>
-                <a href="videos.html" class="feature-btn">WATCH NOW</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎤</div>
+                <div class="feature-icon">
+                    <img src="tour-icon.png" alt="Live tours icon" loading="lazy">
+                </div>
                 <h3 class="feature-title">LIVE PERFORMANCES</h3>
                 <p class="feature-description">
                     Experience the energy of Kool Keith live. Check upcoming tour dates and exclusive performance footage.
                 </p>
-                <a href="tour.html" class="feature-btn">TOUR DATES</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3 class="feature-title">FAN FORUM</h3>
-                <p class="feature-description">
-                    Connect with Keith fans worldwide. Discuss albums, share theories about personas, and build the hip-hop community.
-                </p>
-                <a href="forum.html" class="feature-btn">JOIN FORUM</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🛒</div>
-                <h3 class="feature-title">OFFICIAL SHOP</h3>
-                <p class="feature-description">
-                    Get exclusive Keith merchandise, limited vinyl releases, and persona-themed collectibles. Official gear for true fans.
-                </p>
-                <a href="shop.html" class="feature-btn">SHOP NOW</a>
+                <a href="tour.html" class="feature-btn" aria-label="View tour dates">TOUR DATES</a>
             </div>
         </section>
     </main>
     
-    <!-- Footer -->
+    <!-- Professional Footer -->
     <footer class="footer">
         <div class="footer-links">
             <a href="music.html">Music</a>
@@ -1386,212 +1318,225 @@
     </footer>
 
     <script>
-        // COMPLETELY FIXED LOADING SYSTEM - NO DEPENDENCIES
+        // Enhanced Loading & Interaction System
         let soundEnabled = true;
         let loadingComplete = false;
         
-        console.log('Script starting...');
+        // DOM Elements with error checking
+        const elements = {
+            entryOverlay: document.getElementById('entryOverlay'),
+            enterButton: document.getElementById('enterButton'),
+            buttonText: document.getElementById('buttonText'),
+            soundToggle: document.getElementById('soundToggle'),
+            soundIcon: document.getElementById('soundIcon'),
+            backToTop: document.getElementById('backToTop'),
+            mobileMenuBtn: document.getElementById('mobileMenuBtn'),
+            navMenu: document.getElementById('navMenu'),
+            navbar: document.getElementById('navbar')
+        };
         
-        // Simple DOM ready function
-        function whenReady(fn) {
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', fn);
-            } else {
-                fn();
-            }
-        }
-        
-        // Loading simulation
+        // Enhanced loading simulation with progress
         function simulateLoading() {
-            console.log('Starting 3-second loading...');
-            setTimeout(function() {
-                console.log('Loading complete! Button should be ready now.');
+            const loadingTexts = ['Loading...', 'Initializing Universe...', 'Preparing Experience...'];
+            let textIndex = 0;
+            
+            const textInterval = setInterval(() => {
+                if (elements.buttonText && textIndex < loadingTexts.length - 1) {
+                    textIndex++;
+                    elements.buttonText.textContent = loadingTexts[textIndex];
+                }
+            }, 1000);
+            
+            // Complete loading after 3.5 seconds
+            setTimeout(() => {
+                clearInterval(textInterval);
                 loadingComplete = true;
                 
-                const enterButton = document.getElementById('enterButton');
-                if (enterButton) {
-                    enterButton.classList.remove('loading');
-                    enterButton.classList.add('ready');
-                    enterButton.textContent = 'ENTER THE UNIVERSE';
-                    enterButton.style.pointerEvents = 'auto';
-                    enterButton.style.cursor = 'pointer';
-                    console.log('Button updated successfully');
-                } else {
-                    console.error('Enter button not found!');
+                if (elements.enterButton && elements.buttonText) {
+                    elements.enterButton.classList.remove('loading');
+                    elements.enterButton.classList.add('ready');
+                    elements.buttonText.textContent = 'ENTER THE UNIVERSE';
+                    elements.enterButton.style.pointerEvents = 'auto';
+                    elements.enterButton.style.cursor = 'pointer';
                 }
-            }, 3000);
+            }, 3500);
         }
         
-        // Sound toggle function
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            const iconText = soundEnabled ? '🔊' : '🔇';
-            const statusText = soundEnabled ? 'ON' : 'OFF';
-            
-            console.log('Sound toggled:', statusText);
-            
-            // Update mobile button
-            const soundToggleMobile = document.getElementById('soundToggleMobile');
-            const soundIconMobile = document.getElementById('soundIconMobile');
-            if (soundIconMobile && soundToggleMobile) {
-                soundIconMobile.textContent = iconText;
-                soundToggleMobile.innerHTML = '<span id="soundIconMobile">' + iconText + '</span> Sound: ' + statusText;
-                soundToggleMobile.className = soundEnabled ? 'sound-toggle' : 'sound-toggle muted';
-            }
-            
-            // Update desktop button
-            const soundToggleDesktop = document.getElementById('soundToggleDesktop');
-            const soundIconDesktop = document.getElementById('soundIconDesktop');
-            if (soundIconDesktop && soundToggleDesktop) {
-                soundIconDesktop.textContent = iconText;
-                soundToggleDesktop.innerHTML = '<span id="soundIconDesktop">' + iconText + '</span> Sound: ' + statusText;
-                soundToggleDesktop.className = soundEnabled ? 'sound-toggle' : 'sound-toggle muted';
-            }
-        }
-        
-        // Enter site function
-        function enterSite() {
-            console.log('Enter site clicked. Loading complete:', loadingComplete);
-            
-            if (loadingComplete) {
-                console.log('Entering site...');
-                
-                const entryOverlay = document.getElementById('entryOverlay');
-                const body = document.body;
-                
-                if (entryOverlay) {
-                    entryOverlay.classList.add('hidden');
-                    console.log('Overlay hidden');
-                }
-                
-                if (body) {
-                    body.classList.add('site-loaded');
-                    body.style.overflow = 'auto';
-                    console.log('Body classes updated, scrolling enabled');
-                }
-                
-                // Force show main content
-                const nav = document.querySelector('.nav');
-                const main = document.querySelector('.main');
-                const backTop = document.querySelector('.back-to-top');
-                
-                if (nav) {
-                    nav.style.display = 'flex';
-                    console.log('Navigation shown');
-                }
-                if (main) {
-                    main.style.display = 'block';
-                    console.log('Main content shown');
-                }
-                if (backTop) {
-                    backTop.style.display = 'block';
-                    console.log('Back to top shown');
-                }
+        // Enhanced sound toggle with better UX
+        if (elements.soundToggle) {
+            elements.soundToggle.addEventListener('click', function() {
+                soundEnabled = !soundEnabled;
+                const icon = elements.soundIcon;
                 
                 if (soundEnabled) {
-                    console.log('Sound would play here');
+                    if (icon) icon.textContent = '🔊';
+                    this.innerHTML = '<span id="soundIcon">🔊</span> Sound: ON';
+                    this.classList.remove('muted');
+                    this.setAttribute('aria-label', 'Sound enabled - click to disable');
+                } else {
+                    if (icon) icon.textContent = '🔇';
+                    this.innerHTML = '<span id="soundIcon">🔇</span> Sound: OFF';
+                    this.classList.add('muted');
+                    this.setAttribute('aria-label', 'Sound disabled - click to enable');
                 }
-                
-                console.log('Site entry complete!');
-            } else {
-                console.log('Still loading, please wait...');
-            }
+            });
         }
         
-        // Initialize everything
-        function initializePage() {
-            console.log('Initializing page...');
-            
-            // Prevent scrolling initially
-            document.body.style.overflow = 'hidden';
-            console.log('Initial scroll disabled');
-            
-            // Set up enter button
-            const enterButton = document.getElementById('enterButton');
-            if (enterButton) {
-                enterButton.addEventListener('click', enterSite);
-                console.log('Enter button listener added');
-            } else {
-                console.error('Enter button not found during initialization!');
-            }
-            
-            // Set up sound toggles
-            const soundToggleMobile = document.getElementById('soundToggleMobile');
-            const soundToggleDesktop = document.getElementById('soundToggleDesktop');
-            
-            if (soundToggleMobile) {
-                soundToggleMobile.addEventListener('click', toggleSound);
-                console.log('Mobile sound toggle listener added');
-            }
-            
-            if (soundToggleDesktop) {
-                soundToggleDesktop.addEventListener('click', toggleSound);
-                console.log('Desktop sound toggle listener added');
-            }
-            
-            // Set up mobile menu
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navMenu = document.getElementById('navMenu');
-            if (mobileMenuBtn && navMenu) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    navMenu.classList.toggle('show');
-                });
-                console.log('Mobile menu listener added');
-            }
-            
-            // Set up back to top
-            const backToTop = document.getElementById('backToTop');
-            if (backToTop) {
-                window.addEventListener('scroll', function() {
-                    if (window.scrollY > 300) {
-                        backToTop.classList.add('show');
-                    } else {
-                        backToTop.classList.remove('show');
+        // Enhanced site entry with smooth transitions
+        if (elements.enterButton) {
+            elements.enterButton.addEventListener('click', function() {
+                if (loadingComplete) {
+                    // Add entrance animation
+                    if (elements.entryOverlay) {
+                        elements.entryOverlay.style.transform = 'scale(0.95)';
+                        elements.entryOverlay.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            elements.entryOverlay.classList.add('hidden');
+                            document.body.classList.add('site-loaded');
+                            document.body.style.overflow = 'auto';
+                        }, 600);
                     }
-                });
+                    
+                    // Optional sound effect trigger
+                    if (soundEnabled) {
+                        console.log('🎵 Sound effect would play here');
+                    }
+                }
+            });
+        }
+        
+        // Enhanced mobile menu with better accessibility
+        if (elements.mobileMenuBtn && elements.navMenu) {
+            elements.mobileMenuBtn.addEventListener('click', function() {
+                const isOpen = elements.navMenu.classList.contains('show');
+                elements.navMenu.classList.toggle('show');
                 
-                backToTop.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-                console.log('Back to top listener added');
+                // Update aria attributes
+                this.setAttribute('aria-expanded', !isOpen);
+                this.textContent = isOpen ? '☰' : '✕';
+            });
+        }
+        
+        // Enhanced scroll effects
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            // Throttle scroll events
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
             }
             
-            // Close mobile menu when clicking nav links
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            navLinks.forEach(function(link) {
-                link.addEventListener('click', function() {
-                    if (navMenu) {
-                        navMenu.classList.remove('show');
+            scrollTimeout = setTimeout(() => {
+                const scrollY = window.scrollY;
+                
+                // Back to top button
+                if (elements.backToTop) {
+                    if (scrollY > 400) {
+                        elements.backToTop.classList.add('show');
+                    } else {
+                        elements.backToTop.classList.remove('show');
                     }
+                }
+                
+                // Navbar scroll effect
+                if (elements.navbar) {
+                    if (scrollY > 100) {
+                        elements.navbar.classList.add('scrolled');
+                    } else {
+                        elements.navbar.classList.remove('scrolled');
+                    }
+                }
+            }, 10);
+        });
+        
+        // Enhanced back to top with smooth scroll
+        if (elements.backToTop) {
+            elements.backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
             });
-            console.log('Nav link listeners added');
+        }
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (elements.navMenu) {
+                    elements.navMenu.classList.remove('show');
+                }
+                if (elements.mobileMenuBtn) {
+                    elements.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    elements.mobileMenuBtn.textContent = '☰';
+                }
+            });
+        });
+        
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Enter key on focused elements
+            if (e.key === 'Enter') {
+                const focused = document.activeElement;
+                if (focused && focused.classList.contains('enter-button') && loadingComplete) {
+                    focused.click();
+                }
+            }
+            
+            // Escape key to close mobile menu
+            if (e.key === 'Escape' && elements.navMenu && elements.navMenu.classList.contains('show')) {
+                elements.navMenu.classList.remove('show');
+                if (elements.mobileMenuBtn) {
+                    elements.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    elements.mobileMenuBtn.textContent = '☰';
+                    elements.mobileMenuBtn.focus();
+                }
+            }
+        });
+        
+        // Performance optimization: Intersection Observer for animations
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe animated elements
+            document.querySelectorAll('.feature-card, .mobile-slide').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Initialize on DOM ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initial state - disable scrolling until site loads
+            document.body.style.overflow = 'hidden';
             
             // Start loading simulation
             simulateLoading();
             
-            console.log('Page initialization complete');
-        }
+            // Preload critical images
+            const criticalImages = ['koolkeithmainlogo.png', 'entry.png'];
+            criticalImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+            
+            // Set initial accessibility attributes
+            if (elements.mobileMenuBtn) {
+                elements.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
         
-        // Start when DOM is ready
-        whenReady(initializePage);
-        
-        // Global functions for debugging
-        window.enterSite = enterSite;
-        window.debugState = function() {
-            console.log('=== DEBUG STATE ===');
-            console.log('loadingComplete:', loadingComplete);
-            console.log('soundEnabled:', soundEnabled);
-            console.log('enterButton:', document.getElementById('enterButton'));
-            console.log('entryOverlay:', document.getElementById('entryOverlay'));
-            console.log('body classes:', document.body.className);
-            console.log('===================');
-        };
-        
-        console.log('Script loaded successfully');
+        // Error handling for missing elements
+        Object.keys(elements).forEach(key => {
+            if (!elements[key]) {
+                console.warn(`Element ${key} not found`);
+            }
+        });
     </script>
 </body>
 </html>
