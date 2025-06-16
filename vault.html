@@ -1,1 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Keith Vault - Exclusive Content | Ultra Keith</title>
+    <meta name="description" content="Unreleased tracks, rare recordings, and exclusive content for true fans. Access the hidden treasures of hip-hop's most prolific artist.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        
+        :root {
+            --gold: #ffd700;
+            --gold-light: #ffed4e;
+            --gold-dark: #b8860b;
+            --dark-red: #1a0000;
+            --black: #000000;
+            --white: #ffffff;
+            --vault-dark: #0a0a0a;
+            --vault-glow: rgba(255, 215, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 16px;
+            background: linear-gradient(135deg, var(--vault-dark) 0%, var(--dark-red) 20%, var(--vault-dark) 100%);
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Vault Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.4);
+            z-index: 100;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+        }
+        
+        .nav-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo img {
+            height: 50px;
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--gold);
+            text-shadow: 0 0 10px var(--vault-glow);
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main {
+            padding-top: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0 100px;
+            position: relative;
+        }
+        
+        .vault-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 40px;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--gold);
+            filter: drop-shadow(0 0 30px var(--vault-glow));
+            animation: vaultPulse 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes vaultPulse {
+            0% { 
+                filter: drop-shadow(0 0 30px var(--vault-glow));
+                transform: scale(1);
+            }
+            100% { 
+                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.6));
+                transform: scale(1.05);
+            }
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px var(--vault-glow);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .vault-access-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: badgeGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes badgeGlow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
+        }
+        
+        /* Vault Categories */
+        .vault-categories {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin: 100px 0;
+        }
+        
+        .vault-category {
+            background: linear-gradient(145deg, rgba(10, 10, 10, 0.9), rgba(26, 0, 0, 0.7));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 50px 40px;
+            backdrop-filter: blur(20px);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vault-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.8s;
+        }
+        
+        .vault-category:hover::before {
+            left: 100%;
+        }
+        
+        .vault-category:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.7);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.2);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--black);
+            margin-right: 20px;
+            filter: drop-shadow(0 0 15px var(--vault-glow));
+        }
+        
+        .category-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .category-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .vault-items {
+            display: grid;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .vault-item {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .vault-item:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            background: rgba(0, 0, 0, 0.6);
+            transform: translateX(10px);
+        }
+        
+        .item-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-size: 1.1rem;
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .item-details {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+        }
+        
+        .item-description {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+        }
+        
+        .item-access {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .item-access:hover {
+            color: var(--gold-light);
+            text-shadow: 0 0 10px var(--vault-glow);
+        }
+        
+        /* Exclusive Access Section */
+        .exclusive-access {
+            margin: 100px 0;
+            text-align: center;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.8));
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 25px;
+            padding: 60px 40px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exclusive-access::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .access-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .access-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .vault-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--gold);
+            font-weight: 900;
+            display: block;
+            text-shadow: 0 0 20px var(--vault-glow);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .vault-entrance-btn {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+            padding: 20px 40px;
+            border-radius: 35px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', monospace;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .vault-entrance-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .vault-entrance-btn:hover::before {
+            left: 100%;
+        }
+        
+        .vault-entrance-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+            background: rgba(10, 10, 10, 0.8);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+            text-shadow: 0 0 10px var(--vault-glow);
+        }
+        
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .vault-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .vault-categories {
+                gap: 30px;
+                margin: 60px 0;
+            }
+            
+            .vault-category {
+                padding: 30px 20px;
+            }
+            
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .category-icon {
+                margin-right: 0;
+            }
+            
+            .category-title {
+                font-size: 1.4rem;
+            }
+            
+            .vault-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .vault-stats {
+                gap: 30px;
+            }
+            
+            .access-title {
+                font-size: 1.8rem;
+            }
+            
+            .exclusive-access {
+                padding: 40px 20px;
+            }
+        }
+        
+        /* Desktop Responsive */
+        @media (min-width: 769px) {
+            .nav-menu {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            
+            .hero {
+                padding: 100px 0 120px;
+            }
+            
+            .hero-title {
+                font-size: 5rem;
+                letter-spacing: 5px;
+            }
+            
+            .vault-categories {
+                grid-template-columns: 1fr;
+                max-width: 1000px;
+                margin: 120px auto;
+            }
+            
+            .vault-category {
+                padding: 60px 50px;
+            }
+            
+            .category-header {
+                margin-bottom: 40px;
+            }
+            
+            .vault-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .vault-item:hover {
+                transform: translateX(20px);
+            }
+        }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(255, 215, 0, 0.3);
+                flex-direction: column;
+                padding: 20px;
+                display: none;
+            }
+            
+            .nav-menu.show {
+                display: flex;
+            }
+            
+            .nav-menu a {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Ultra Keith">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="personas.html">Personas</a></li>
+                <li><a href="bio.html">Bio</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="shop.html">Shop</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="vault-icon">🔐</div>
+            <h1 class="hero-title">THE KEITH VAULT</h1>
+            <p class="hero-subtitle">
+                Unreleased tracks, rare recordings, and exclusive content for true fans. 
+                Access the hidden treasures of hip-hop's most prolific artist.
+            </p>
+            <div class="vault-access-badge">EXCLUSIVE ACCESS</div>
+        </section>
+
+        <!-- Vault Categories -->
+        <section class="vault-categories">
+            <!-- Unreleased Tracks -->
+            <div class="vault-category">
+                <div class="category-header">
+                    <div class="category-icon">🎵</div>
+                    <h2 class="category-title">UNRELEASED TRACKS</h2>
+                </div>
+                <p class="category-description">
+                    Deep cuts from the archives - songs that never made it to official releases, 
+                    experimental recordings, and tracks deemed "too advanced" for their time.
+                </p>
+                <div class="vault-items">
+                    <div class="vault-item">
+                        <div class="item-icon">🎤</div>
+                        <div class="item-info">
+                            <div class="item-title">Space Traveling (Demo Version)</div>
+                            <div class="item-details">Recorded 1997 • 4:32</div>
+                            <div class="item-description">Original Dr. Octagon demo with alternate lyrics</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">🔊</div>
+                        <div class="item-info">
+                            <div class="item-title">Alien Autopsy Flow</div>
+                            <div class="item-details">Recorded 2003 • 3:18</div>
+                            <div class="item-description">Unreleased collaboration with MF DOOM</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">🎧</div>
+                        <div class="item-info">
+                            <div class="item-title">Black Elvis Freestyle Sessions</div>
+                            <div class="item-details">Recorded 1999 • 12:45</div>
+                            <div class="item-description">Raw studio session footage and alternate takes</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rare Recordings -->
+            <div class="vault-category">
+                <div class="category-header">
+                    <div class="category-icon">💿</div>
+                    <h2 class="category-title">RARE RECORDINGS</h2>
+                </div>
+                <p class="category-description">
+                    Historical gems from the vault - early Ultramagnetic sessions, radio freestyles, 
+                    and collaborations lost to time until now.
+                </p>
+                <div class="vault-items">
+                    <div class="vault-item">
+                        <div class="item-icon">📻</div>
+                        <div class="item-info">
+                            <div class="item-title">WBLS Freestyle Collection</div>
+                            <div class="item-details">Recorded 1986-1988 • Various</div>
+                            <div class="item-description">Early radio appearances with Ultramagnetic MCs</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">🎹</div>
+                        <div class="item-info">
+                            <div class="item-title">Ced Gee Production Demos</div>
+                            <div class="item-details">Recorded 1987 • 8:22</div>
+                            <div class="item-description">Pre-Critical Beatdown instrumental sessions</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">🔥</div>
+                        <div class="item-info">
+                            <div class="item-title">Tim Dog Collaboration Rarities</div>
+                            <div class="item-details">Recorded 1996 • 15:33</div>
+                            <div class="item-description">Ultra project outtakes and B-sides</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exclusive Content -->
+            <div class="vault-category">
+                <div class="category-header">
+                    <div class="category-icon">🎬</div>
+                    <h2 class="category-title">EXCLUSIVE CONTENT</h2>
+                </div>
+                <p class="category-description">
+                    Behind-the-scenes footage, persona creation stories, and intimate glimpses into 
+                    the creative process of hip-hop's most innovative mind.
+                </p>
+                <div class="vault-items">
+                    <div class="vault-item">
+                        <div class="item-icon">🎥</div>
+                        <div class="item-info">
+                            <div class="item-title">Dr. Octagon Character Creation</div>
+                            <div class="item-details">Video • 22:15</div>
+                            <div class="item-description">Keith explains the birth of his most famous persona</div>
+                        </div>
+                        <div class="item-access">WATCH</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">📝</div>
+                        <div class="item-info">
+                            <div class="item-title">Original Lyric Notebooks</div>
+                            <div class="item-details">Scanned Archives • Digital</div>
+                            <div class="item-description">Handwritten lyrics from classic albums</div>
+                        </div>
+                        <div class="item-access">VIEW</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">🎙️</div>
+                        <div class="item-info">
+                            <div class="item-title">Producer Interview Archive</div>
+                            <div class="item-details">Audio • 45:30</div>
+                            <div class="item-description">Dan the Automator, KutMasta Kurt discuss working with Keith</div>
+                        </div>
+                        <div class="item-access">LISTEN</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Gems -->
+            <div class="vault-category">
+                <div class="category-header">
+                    <div class="category-icon">💎</div>
+                    <h2 class="category-title">HIDDEN GEMS</h2>
+                </div>
+                <p class="category-description">
+                    B-sides, remixes, and collaborations that slipped through the cracks. 
+                    Rediscover the depth of Keith's creative universe.
+                </p>
+                <div class="vault-items">
+                    <div class="vault-item">
+                        <div class="item-icon">🔄</div>
+                        <div class="item-info">
+                            <div class="item-title">Critical Beatdown Remix Vault</div>
+                            <div class="item-details">Various Artists • Compilation</div>
+                            <div class="item-description">Unreleased remixes by underground producers</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">🌙</div>
+                        <div class="item-info">
+                            <div class="item-title">Late Night Studio Sessions</div>
+                            <div class="item-details">Recorded 2001-2005 • Various</div>
+                            <div class="item-description">Experimental tracks recorded between 2-6 AM</div>
+                        </div>
+                        <div class="item-access">STREAM</div>
+                    </div>
+                    
+                    <div class="vault-item">
+                        <div class="item-icon">🎭</div>
+                        <div class="item-info">
+                            <div class="item-title">Lost Persona Archives</div>
+                            <div class="item-details">Various Years • Digital Collection</div>
+                            <div class="item-description">Rare recordings from forgotten alter-egos and one-off characters</div>
+                        </div>
+                        <div class="item-access">EXPLORE</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exclusive Access Section -->
+        <section class="exclusive-access">
+            <h2 class="access-title">VAULT ACCESS GRANTED</h2>
+            <p class="access-description">
+                Welcome to the inner sanctum of Kool Keith's creative universe. 
+                This exclusive collection represents decades of unreleased material, 
+                rare gems, and behind-the-scenes content available nowhere else.
+            </p>
+            <div class="vault-stats">
+                <div class="stat">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Unreleased Tracks</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Rare Sessions</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label">Hours of Video</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Innovation</span>
+                </div>
+            </div>
+            <a href="contact.html" class="vault-entrance-btn">REQUEST FULL ACCESS</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="music.html">Music</a>
+            <a href="personas.html">Personas</a>
+            <a href="bio.html">Bio</a>
+            <a href="tour.html">Tour</a>
+            <a href="shop.html">Shop</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 Ultra Keith. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('show');
+            });
+        });
+        
+        // Vault item interactions
+        const vaultItems = document.querySelectorAll('.vault-item');
+        vaultItems.forEach(item => {
+            const accessBtn = item.querySelector('.item-access');
+            
+            accessBtn.addEventListener('click', function() {
+                // Add subtle animation
+                item.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    item.style.transform = 'scale(1)';
+                }, 150);
+                
+                // Here you would typically handle the streaming/viewing logic
+                console.log('Accessing vault item:', item.querySelector('.item-title').textContent);
+            });
+        });
+        
+        // Vault category hover effects
+        const vaultCategories = document.querySelectorAll('.vault-category');
+        vaultCategories.forEach(category => {
+            category.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px)';
+            });
+            
+            category.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+        });
+        
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
