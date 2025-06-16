@@ -8,34 +8,56 @@
     
     <style>
         /* =================== IMPORTS & VARIABLES =================== */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
         
         :root {
-            --gold: #ffd700;
-            --gold-light: #ffed4e;
-            --dark-red: #1a0000;
-            --black: #000000;
-            --white: #ffffff;
+            /* Professional Color Palette */
+            --gold-primary: #D4AF37;
+            --gold-light: #E8C547;
+            --gold-dark: #B8941F;
+            --gold-muted: rgba(212, 175, 55, 0.1);
+            --gold-accent: rgba(212, 175, 55, 0.15);
             
-            /* Spacing */
-            --gap-sm: 15px;
-            --gap-md: 30px;
-            --gap-lg: 50px;
+            --black-pure: #000000;
+            --black-soft: #0A0A0A;
+            --black-medium: #1A1A1A;
+            --black-light: #2A2A2A;
             
-            /* Border radius */
-            --radius-sm: 8px;
-            --radius-md: 15px;
-            --radius-lg: 20px;
-            --radius-xl: 30px;
+            --white-pure: #FFFFFF;
+            --white-soft: #F8F8F8;
+            --white-muted: rgba(255, 255, 255, 0.9);
+            --white-secondary: rgba(255, 255, 255, 0.7);
+            --white-tertiary: rgba(255, 255, 255, 0.5);
             
-            /* Shadows */
-            --glow-gold: 0 0 15px rgba(255, 215, 0, 0.5);
-            --glow-gold-strong: 0 0 30px rgba(255, 215, 0, 0.8);
+            --red-dark: #0F0000;
+            --red-accent: #1F0A0A;
             
-            /* Transitions */
-            --transition-fast: 0.2s ease;
-            --transition-base: 0.3s ease;
-            --transition-slow: 0.4s ease;
+            /* Professional Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            --space-3xl: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            /* Professional Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.2);
+            
+            /* Professional Transitions */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         /* =================== BASE STYLES =================== */
@@ -47,64 +69,20 @@
         
         html {
             scroll-behavior: smooth;
+            font-size: 16px;
         }
         
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            font-size: 16px;
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-red) 40%, var(--black) 100%);
-            color: var(--white);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--black-pure) 0%, var(--red-dark) 30%, var(--black-pure) 100%);
+            color: var(--white-pure);
             overflow-x: hidden;
             min-height: 100vh;
-        }
-        
-        /* =================== ANIMATIONS =================== */
-        @keyframes entryGlow {
-            0% { 
-                filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
-                transform: scale(1);
-            }
-            100% { 
-                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 1));
-                transform: scale(1.02);
-            }
-        }
-        
-        @keyframes loadingPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.9; }
-        }
-        
-        @keyframes readyPulse {
-            0% { 
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-            }
-            100% { 
-                transform: scale(1.05);
-                box-shadow: var(--glow-gold-strong);
-            }
-        }
-        
-        @keyframes logoGlow {
-            0% { 
-                filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
-                transform: scale(1);
-            }
-            100% { 
-                filter: drop-shadow(0 0 80px rgba(255, 215, 0, 1));
-                transform: scale(1.02);
-            }
-        }
-        
-        @keyframes continuousMobile {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        
-        @keyframes continuousDesktop {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         /* =================== ENTRY OVERLAY =================== */
@@ -114,17 +92,17 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-red) 40%, var(--black) 100%);
+            background: linear-gradient(135deg, var(--black-pure) 0%, var(--red-dark) 30%, var(--black-pure) 100%);
             z-index: 10000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px;
+            padding: var(--space-lg);
             opacity: 1;
             visibility: visible;
-            transition: opacity 1s ease, visibility 1s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
         
         .entry-overlay.hidden {
@@ -137,30 +115,28 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: var(--gap-md);
+            gap: var(--space-2xl);
             max-width: 90%;
         }
         
         .entry-image {
-            max-width: 90vw;
-            max-height: 60vh;
+            max-width: 85vw;
+            max-height: 55vh;
             width: auto;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
-            animation: entryGlow 3s ease-in-out infinite alternate;
+            opacity: 0.95;
+            transition: opacity var(--transition-slow);
         }
         
         .entry-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold-primary);
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
         }
         
         /* =================== AUDIO CONTROLS =================== */
@@ -168,175 +144,175 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: var(--gap-sm);
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: var(--radius-md);
-            backdrop-filter: blur(10px);
-            min-width: 200px;
+            gap: var(--space-md);
+            padding: var(--space-xl);
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(20px);
+            min-width: 280px;
+            box-shadow: var(--shadow-md);
         }
         
         .sound-label {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--white-secondary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
         
         .sound-toggle-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: var(--space-md);
         }
         
         .sound-icon {
-            font-size: 1.4rem;
-            color: var(--gold);
-            transition: var(--transition-base);
-            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+            font-size: 1.25rem;
+            color: var(--gold-primary);
+            transition: color var(--transition-base);
         }
         
         .sound-icon.muted {
-            color: rgba(255, 255, 255, 0.4);
-            filter: none;
+            color: var(--white-tertiary);
         }
         
         .toggle-switch {
             position: relative;
-            width: 60px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: var(--radius-md);
+            width: 56px;
+            height: 28px;
+            background: var(--black-light);
+            border-radius: 14px;
             cursor: pointer;
-            transition: var(--transition-base);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: background-color var(--transition-base);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
         
         .toggle-switch.active {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            box-shadow: var(--glow-gold);
+            background: var(--gold-primary);
+            border-color: var(--gold-primary);
         }
         
         .toggle-slider {
             position: absolute;
             top: 2px;
             left: 2px;
-            width: 24px;
-            height: 24px;
-            background: white;
+            width: 22px;
+            height: 22px;
+            background: var(--white-pure);
             border-radius: 50%;
-            transition: var(--transition-base);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: transform var(--transition-base);
+            box-shadow: var(--shadow-sm);
         }
         
         .toggle-switch.active .toggle-slider {
-            transform: translateX(30px);
-            background: var(--black);
+            transform: translateX(28px);
+            background: var(--black-pure);
         }
         
         .sound-status {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: var(--gold);
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gold-primary);
+            letter-spacing: 0.1em;
             text-transform: uppercase;
         }
         
         .sound-status.muted {
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--white-tertiary);
         }
         
         /* =================== BUTTONS =================== */
         .enter-button {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: var(--black);
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            color: var(--black-pure);
             border: none;
-            padding: 18px 45px;
+            padding: var(--space-md) var(--space-2xl);
             border-radius: var(--radius-xl);
-            font-size: 1.2rem;
-            font-weight: 700;
-            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', monospace;
             cursor: pointer;
-            transition: var(--transition-base);
+            transition: all var(--transition-base);
             text-transform: uppercase;
-            letter-spacing: 3px;
-            min-width: 160px;
+            letter-spacing: 0.1em;
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
         }
         
         .enter-button.loading {
-            opacity: 0.7;
+            opacity: 0.8;
             cursor: default;
-            animation: loadingPulse 1.5s ease-in-out infinite;
         }
         
-        .enter-button.ready {
-            opacity: 1;
-            cursor: pointer;
-            animation: readyPulse 2s ease-in-out infinite alternate;
-        }
-        
-        .enter-button:hover.ready {
-            transform: scale(1.08);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+        .enter-button.ready:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
         }
         
         .feature-btn {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            color: var(--gold);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 0.9rem;
+            background: var(--gold-muted);
+            color: var(--gold-primary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
             text-decoration: none;
             display: inline-block;
-            transition: var(--transition-base);
-            font-weight: 600;
-            letter-spacing: 1px;
+            transition: all var(--transition-base);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
         }
         
         .feature-btn:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
-            border-color: var(--gold);
-            transform: translateY(-2px);
+            background: var(--gold-accent);
+            border-color: var(--gold-primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
         }
         
         .buy-btn {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: black;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            color: var(--black-pure);
             border: none;
-            padding: 8px 16px;
-            border-radius: var(--radius-lg);
-            font-size: 0.8rem;
-            font-weight: bold;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 600;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: var(--transition-fast);
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .buy-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
         }
         
         .back-to-top {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: black;
-            border: none;
+            bottom: var(--space-lg);
+            right: var(--space-lg);
+            width: 48px;
+            height: 48px;
+            background: var(--black-medium);
+            color: var(--gold-primary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition-base);
+            transition: all var(--transition-base);
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
         
         .back-to-top.show {
@@ -345,7 +321,9 @@
         }
         
         .back-to-top:hover {
-            transform: translateY(-3px);
+            background: var(--gold-primary);
+            color: var(--black-pure);
+            transform: translateY(-2px);
         }
         
         /* =================== NAVIGATION =================== */
@@ -354,18 +332,18 @@
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             z-index: 100;
-            height: 70px;
+            height: 72px;
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 var(--space-lg);
         }
         
         .nav-content {
-            max-width: 1200px;
+            max-width: 1400px;
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -374,43 +352,48 @@
         }
         
         .nav-logo img {
-            height: 35px;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            height: 40px;
+            transition: opacity var(--transition-base);
         }
         
         .nav-menu {
             display: none;
             list-style: none;
-            gap: var(--gap-md);
+            gap: var(--space-2xl);
         }
         
         .nav-menu a {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--white-secondary);
             text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            transition: var(--transition-base);
+            font-family: 'Space Grotesk', monospace;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color var(--transition-base);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
         }
         
         .nav-menu a:hover {
-            color: var(--gold);
+            color: var(--gold-primary);
         }
         
         .mobile-menu-btn {
             display: block;
             background: none;
             border: none;
-            color: var(--gold);
-            font-size: 24px;
+            color: var(--gold-primary);
+            font-size: 1.5rem;
             cursor: pointer;
+            padding: var(--space-xs);
         }
         
         /* =================== MAIN CONTENT =================== */
         .main {
-            padding-top: 70px;
-            max-width: 1200px;
+            padding-top: 72px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: var(--space-lg);
+            padding-right: var(--space-lg);
         }
         
         /* Hide main content until site loads */
@@ -423,8 +406,8 @@
         /* =================== HERO SECTION =================== */
         .hero {
             text-align: center;
-            padding: 40px 0 60px;
-            min-height: 90vh;
+            padding: var(--space-3xl) 0;
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -432,66 +415,64 @@
         }
         
         .hero-logo {
-            max-height: 250px;
+            max-height: 280px;
             max-width: 90%;
             width: auto;
             height: auto;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
-            animation: logoGlow 4s ease-in-out infinite alternate;
+            margin-bottom: var(--space-2xl);
+            opacity: 0.95;
         }
         
         .hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: var(--gap-md);
+            font-family: 'Space Grotesk', monospace;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-bottom: var(--space-xl);
             line-height: 1.1;
-            letter-spacing: 3px;
+            letter-spacing: 0.02em;
             text-transform: uppercase;
         }
         
         .hero-subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.95);
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--white-muted);
             line-height: 1.5;
             max-width: 600px;
             margin: 0 auto;
-            font-weight: 300;
-            letter-spacing: 1px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
         }
         
         /* =================== RELEASES SECTION =================== */
         .releases {
-            margin: 80px 0;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: var(--radius-lg);
-            padding: 40px 20px;
-            backdrop-filter: blur(15px);
+            margin: var(--space-3xl) 0;
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-3xl) var(--space-lg);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-lg);
         }
         
         .releases-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            color: var(--gold);
+            font-family: 'Space Grotesk', monospace;
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            font-weight: 600;
+            color: var(--gold-primary);
             text-align: center;
-            margin-bottom: 40px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-            letter-spacing: 3px;
-            font-weight: 700;
+            margin-bottom: var(--space-2xl);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
         }
         
-        /* =================== CAROUSEL COMPONENTS =================== */
+        /* =================== CAROUSEL =================== */
         .carousel-mobile {
             display: block;
             overflow: hidden;
             position: relative;
-            height: 280px;
+            height: 320px;
+            border-radius: var(--radius-lg);
         }
         
         .carousel-desktop {
@@ -501,7 +482,12 @@
         .mobile-track {
             display: flex;
             width: 1000%;
-            animation: continuousMobile 25s linear infinite;
+            animation: slideCarousel 30s linear infinite;
+        }
+        
+        @keyframes slideCarousel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         
         .mobile-track:hover {
@@ -509,231 +495,217 @@
         }
         
         .mobile-slide {
-            flex: 0 0 200px;
-            margin-right: var(--gap-sm);
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            padding: var(--gap-sm);
+            flex: 0 0 220px;
+            margin-right: var(--space-md);
+            background: rgba(42, 42, 42, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
             text-align: center;
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all var(--transition-base);
+        }
+        
+        .mobile-slide:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
         }
         
         .album-image {
-            width: 160px;
-            height: 160px;
-            border-radius: var(--radius-sm);
+            width: 180px;
+            height: 180px;
+            border-radius: var(--radius-md);
             object-fit: cover;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            background: #333;
+            margin-bottom: var(--space-md);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: var(--black-light);
         }
         
         .album-title {
             font-size: 1rem;
-            color: var(--gold);
-            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--gold-primary);
+            margin-bottom: var(--space-xs);
             line-height: 1.3;
         }
         
         .album-artist {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 10px;
+            font-size: 0.875rem;
+            color: var(--white-secondary);
+            margin-bottom: var(--space-sm);
+            font-weight: 400;
         }
         
         .album-badge {
-            font-size: 0.7rem;
-            padding: 4px 8px;
-            border-radius: 10px;
-            margin-bottom: 12px;
+            font-size: 0.75rem;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-md);
             display: inline-block;
-            font-weight: bold;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .badge-new { 
-            background: linear-gradient(45deg, #ff6b35, #f7931e); 
-            color: white; 
+            background: linear-gradient(135deg, #E74C3C, #C0392B); 
+            color: var(--white-pure); 
         }
         
         .badge-coming { 
-            background: linear-gradient(45deg, var(--gold), var(--gold-light)); 
-            color: black; 
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-light)); 
+            color: var(--black-pure); 
         }
         
         .badge-streaming { 
-            background: linear-gradient(45deg, #1db954, #1ed760); 
-            color: white; 
+            background: linear-gradient(135deg, #27AE60, #229954); 
+            color: var(--white-pure); 
         }
         
         /* =================== FEATURES SECTION =================== */
         .features {
             display: grid;
             grid-template-columns: 1fr;
-            gap: var(--gap-md);
-            margin: 80px 0;
+            gap: var(--space-xl);
+            margin: var(--space-3xl) 0;
         }
         
         .feature-card {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: var(--radius-lg);
-            padding: var(--gap-md);
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
             text-align: center;
-            transition: var(--transition-slow);
-            backdrop-filter: blur(15px);
+            transition: all var(--transition-slow);
+            backdrop-filter: blur(10px);
         }
         
         .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 215, 0, 0.7);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: translateY(-4px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-lg);
         }
         
         .feature-icon {
             width: 80px;
             height: 80px;
-            margin: 0 auto 20px;
+            margin: 0 auto var(--space-lg);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            color: var(--gold);
+            color: var(--gold-primary);
+            background: var(--gold-muted);
+            border-radius: var(--radius-lg);
         }
         
         .feature-icon img {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             object-fit: cover;
-            border-radius: 12px;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-            background: #333;
+            border-radius: var(--radius-md);
+            background: var(--black-light);
         }
         
         .feature-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            color: var(--gold);
-            margin-bottom: var(--gap-sm);
-            letter-spacing: 2px;
-            font-weight: 700;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gold-primary);
+            margin-bottom: var(--space-md);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
         }
         
         .feature-description {
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--white-muted);
             line-height: 1.6;
-            margin-bottom: 25px;
-            font-weight: 300;
+            margin-bottom: var(--space-xl);
+            font-weight: 400;
         }
         
         /* =================== FOOTER =================== */
         .footer {
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            padding: var(--gap-md) 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding: var(--space-2xl) 0;
             text-align: center;
-            margin-top: var(--gap-lg);
+            margin-top: var(--space-3xl);
+            background: rgba(10, 10, 10, 0.5);
         }
         
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
         }
         
         .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--white-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition-base);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color var(--transition-base);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .footer-links a:hover {
-            color: var(--gold);
+            color: var(--gold-primary);
         }
         
         .footer-copyright {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
+            color: var(--white-tertiary);
+            font-size: 0.75rem;
+            font-weight: 400;
         }
         
         /* =================== RESPONSIVE: MOBILE =================== */
         @media (max-width: 768px) {
-            .entry-image {
-                max-width: 85vw;
-                max-height: 50vh;
-            }
-            
             .entry-text {
-                font-size: 1rem;
+                font-size: 1.5rem;
             }
             
-            .enter-button {
-                padding: 12px var(--gap-md);
-                font-size: 1rem;
-                min-width: 180px;
+            .sound-controls {
+                min-width: 240px;
+                padding: var(--space-lg);
             }
             
             .hero {
-                padding: var(--gap-md) 0;
-                min-height: 80vh;
+                padding: var(--space-2xl) 0;
+                min-height: 75vh;
             }
             
             .hero-logo {
-                max-height: 180px;
-                margin-bottom: var(--gap-md);
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-                letter-spacing: 2px;
-                margin-bottom: 20px;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-                padding: 0 10px;
+                max-height: 200px;
             }
             
             .releases {
-                margin: 60px 0;
-                padding: var(--gap-md) var(--gap-sm);
-            }
-            
-            .releases-title {
-                font-size: 1.5rem;
-                margin-bottom: var(--gap-md);
+                margin: var(--space-2xl) 0;
+                padding: var(--space-xl) var(--space-md);
             }
             
             .features {
-                gap: 25px;
-                margin: 60px 0;
+                gap: var(--space-lg);
+                margin: var(--space-2xl) 0;
             }
             
             .feature-card {
-                padding: 25px 20px;
+                padding: var(--space-xl) var(--space-lg);
             }
             
-            .feature-title {
-                font-size: 1.1rem;
-            }
-            
-            .feature-description {
-                font-size: 0.9rem;
-            }
-            
-            /* Mobile Navigation */
             .nav-menu {
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(0, 0, 0, 0.98);
-                backdrop-filter: blur(15px);
-                border-top: 1px solid rgba(255, 215, 0, 0.3);
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(212, 175, 55, 0.2);
                 flex-direction: column;
-                padding: 20px;
+                padding: var(--space-lg);
                 display: none;
+                box-shadow: var(--shadow-lg);
             }
             
             .nav-menu.show {
@@ -741,9 +713,9 @@
             }
             
             .nav-menu a {
-                padding: var(--gap-sm);
+                padding: var(--space-md) 0;
                 text-align: center;
-                border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             }
         }
         
@@ -751,16 +723,16 @@
         @media (min-width: 769px) {
             .nav {
                 height: 80px;
-                padding: 0 40px;
+                padding: 0 var(--space-2xl);
             }
             
             .nav-logo img {
-                height: 50px;
+                height: 48px;
             }
             
             .nav-menu {
                 display: flex;
-                font-size: 1rem;
+                font-size: 0.875rem;
             }
             
             .mobile-menu-btn {
@@ -769,46 +741,14 @@
             
             .main {
                 padding-top: 80px;
-                padding-left: 40px;
-                padding-right: 40px;
-                max-width: 1400px;
-            }
-            
-            .hero {
-                padding: 60px 0;
-                min-height: 85vh;
+                padding-left: var(--space-2xl);
+                padding-right: var(--space-2xl);
             }
             
             .hero-logo {
                 max-height: 350px;
-                margin-bottom: var(--gap-lg);
             }
             
-            .hero-title {
-                font-size: 3.5rem;
-                margin-bottom: 40px;
-                letter-spacing: 4px;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.4rem;
-                margin-bottom: 60px;
-                max-width: 700px;
-                letter-spacing: 2px;
-            }
-            
-            .releases {
-                margin: 120px 0;
-                padding: 60px 40px;
-            }
-            
-            .releases-title {
-                font-size: 2.5rem;
-                margin-bottom: var(--gap-lg);
-                letter-spacing: 4px;
-            }
-            
-            /* Desktop Carousel */
             .carousel-mobile {
                 display: none;
             }
@@ -816,35 +756,32 @@
             .carousel-desktop {
                 display: block;
                 position: relative;
-                height: 450px;
+                height: 400px;
                 overflow: hidden;
+                border-radius: var(--radius-xl);
             }
             
             .desktop-track {
                 display: flex;
                 width: 1000%;
-                animation: continuousDesktop 30s linear infinite;
-            }
-            
-            .desktop-track:hover {
-                animation-play-state: paused;
+                animation: slideCarousel 35s linear infinite;
             }
             
             .desktop-slide {
                 flex: 0 0 20%;
                 display: flex;
                 align-items: center;
-                gap: var(--gap-lg);
-                padding: 40px;
-                background: rgba(0, 0, 0, 0.4);
-                border-radius: var(--radius-md);
-                margin: 0 10px;
-                border: 1px solid rgba(255, 215, 0, 0.2);
+                gap: var(--space-2xl);
+                padding: var(--space-2xl);
+                background: rgba(42, 42, 42, 0.8);
+                border-radius: var(--radius-xl);
+                margin: 0 var(--space-md);
+                border: 1px solid rgba(212, 175, 55, 0.1);
             }
             
             .desktop-slide .album-image {
-                width: 250px;
-                height: 250px;
+                width: 200px;
+                height: 200px;
                 flex-shrink: 0;
             }
             
@@ -852,90 +789,30 @@
                 flex: 1;
             }
             
-            .desktop-slide .album-title {
-                font-size: 2rem;
-                margin-bottom: var(--gap-sm);
-            }
-            
-            .desktop-slide .album-artist {
-                font-size: 1.2rem;
-                margin-bottom: 20px;
-            }
-            
-            .desktop-slide .album-badge {
-                font-size: 0.9rem;
-                padding: 6px 12px;
-                margin-bottom: 25px;
-            }
-            
-            .desktop-slide .buy-btn {
-                font-size: 1rem;
-                padding: 10px 25px;
-            }
-            
             .features {
                 grid-template-columns: repeat(2, 1fr);
-                gap: var(--gap-lg);
-                margin: 120px 0;
+                gap: var(--space-2xl);
             }
             
             .feature-card {
-                padding: 40px;
                 text-align: left;
-                min-height: 350px;
+                min-height: 400px;
             }
             
             .feature-card .feature-icon {
-                margin: 0 0 25px 0;
-                width: 100px;
-                height: 100px;
-                font-size: 3rem;
-            }
-            
-            .feature-card .feature-icon img {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .feature-title {
-                font-size: 1.6rem;
-                margin-bottom: 20px;
-                letter-spacing: 3px;
-            }
-            
-            .feature-description {
-                font-size: 1.1rem;
-                margin-bottom: var(--gap-md);
-                line-height: 1.7;
-            }
-            
-            .feature-btn {
-                font-size: 1rem;
-                padding: var(--gap-sm) var(--gap-md);
-            }
-            
-            .back-to-top {
-                bottom: var(--gap-md);
-                right: var(--gap-md);
-                width: 60px;
-                height: 60px;
-                font-size: 1.4rem;
-            }
-            
-            .footer {
-                padding: var(--gap-lg) 0;
-                margin-top: 80px;
+                margin: 0 0 var(--space-lg) 0;
             }
             
             .footer-links {
                 flex-direction: row;
                 justify-content: center;
-                gap: 40px;
-                margin-bottom: 25px;
+                gap: var(--space-2xl);
             }
-            
-            .footer-links a {
-                font-size: 1rem;
+        }
+        
+        @media (min-width: 1400px) {
+            .features {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
@@ -951,18 +828,18 @@
             </div>
             
             <div class="sound-controls">
-                <div class="sound-label">AUDIO EXPERIENCE</div>
+                <div class="sound-label">Audio Experience</div>
                 <div class="sound-toggle-container">
                     <span class="sound-icon" id="soundIcon">🔊</span>
                     <div class="toggle-switch active" id="toggleSwitch">
                         <div class="toggle-slider"></div>
                     </div>
-                    <span class="sound-status" id="soundStatus">ENABLED</span>
+                    <span class="sound-status" id="soundStatus">Enabled</span>
                 </div>
             </div>
             
             <button class="enter-button loading" id="enterButton">
-                LOADING
+                Loading
             </button>
         </div>
     </div>
@@ -994,7 +871,7 @@
         <!-- Hero Section -->
         <section class="hero">
             <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
-            <h1 class="hero-title">OFFICIAL MUSIC UNIVERSE</h1>
+            <h1 class="hero-title">Official Music Universe</h1>
             <p class="hero-subtitle">
                 Hip-Hop's Most Prolific Innovator
             </p>
@@ -1002,7 +879,7 @@
         
         <!-- Latest Releases -->
         <section class="releases">
-            <h2 class="releases-title">LATEST RELEASES</h2>
+            <h2 class="releases-title">Latest Releases</h2>
             
             <!-- Mobile Carousel -->
             <div class="carousel-mobile">
@@ -1011,40 +888,40 @@
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
                         <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">OUT NOW</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
                         <h3 class="album-title">Dr. Octagon Returns</h3>
                         <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">JULY 2025</span>
-                        <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="buy-btn">Pre-Order</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album3.png" alt="Keith's Vault Series" class="album-image">
                         <h3 class="album-title">Keith's Vault Series</h3>
                         <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">STREAMING</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="buy-btn">Listen</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album4.png" alt="Critical Beatdown" class="album-image">
                         <h3 class="album-title">Critical Beatdown</h3>
                         <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-streaming">REMASTERED</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album5.png" alt="Black Elvis 2" class="album-image">
                         <h3 class="album-title">Black Elvis 2</h3>
                         <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">AVAILABLE</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
                     </div>
                     
                     <!-- Duplicate set for continuous loop -->
@@ -1052,40 +929,40 @@
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
                         <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">OUT NOW</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
                         <h3 class="album-title">Dr. Octagon Returns</h3>
                         <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">JULY 2025</span>
-                        <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="buy-btn">Pre-Order</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album3.png" alt="Keith's Vault Series" class="album-image">
                         <h3 class="album-title">Keith's Vault Series</h3>
                         <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">STREAMING</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="buy-btn">Listen</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album4.png" alt="Critical Beatdown" class="album-image">
                         <h3 class="album-title">Critical Beatdown</h3>
                         <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-streaming">REMASTERED</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
                     </div>
                     
                     <div class="mobile-slide">
                         <img src="album5.png" alt="Black Elvis 2" class="album-image">
                         <h3 class="album-title">Black Elvis 2</h3>
                         <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">AVAILABLE</span>
-                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
                     </div>
                 </div>
             </div>
@@ -1098,8 +975,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Space Goretex</h3>
                             <p class="album-artist">Kool Keith</p>
-                            <span class="album-badge badge-new">OUT NOW</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-new">Out Now</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
                         </div>
                     </div>
                     
@@ -1108,8 +985,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Dr. Octagon Returns</h3>
                             <p class="album-artist">Dr. Octagon</p>
-                            <span class="album-badge badge-coming">JULY 2025</span>
-                            <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                            <span class="album-badge badge-coming">July 2025</span>
+                            <a href="shop.html" class="buy-btn">Pre-Order</a>
                         </div>
                     </div>
                     
@@ -1118,8 +995,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Keith's Vault Series</h3>
                             <p class="album-artist">Ultra Keith</p>
-                            <span class="album-badge badge-streaming">STREAMING</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-streaming">Streaming</span>
+                            <a href="shop.html" class="buy-btn">Listen</a>
                         </div>
                     </div>
                     
@@ -1128,8 +1005,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Critical Beatdown</h3>
                             <p class="album-artist">Ultramagnetic MCs</p>
-                            <span class="album-badge badge-streaming">REMASTERED</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-streaming">Remastered</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
                         </div>
                     </div>
                     
@@ -1138,8 +1015,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Black Elvis 2</h3>
                             <p class="album-artist">Black Elvis</p>
-                            <span class="album-badge badge-new">AVAILABLE</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-new">Available</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
                         </div>
                     </div>
                     
@@ -1149,8 +1026,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Space Goretex</h3>
                             <p class="album-artist">Kool Keith</p>
-                            <span class="album-badge badge-new">OUT NOW</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-new">Out Now</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
                         </div>
                     </div>
                     
@@ -1159,8 +1036,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Dr. Octagon Returns</h3>
                             <p class="album-artist">Dr. Octagon</p>
-                            <span class="album-badge badge-coming">JULY 2025</span>
-                            <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                            <span class="album-badge badge-coming">July 2025</span>
+                            <a href="shop.html" class="buy-btn">Pre-Order</a>
                         </div>
                     </div>
                     
@@ -1169,8 +1046,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Keith's Vault Series</h3>
                             <p class="album-artist">Ultra Keith</p>
-                            <span class="album-badge badge-streaming">STREAMING</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-streaming">Streaming</span>
+                            <a href="shop.html" class="buy-btn">Listen</a>
                         </div>
                     </div>
                     
@@ -1179,8 +1056,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Critical Beatdown</h3>
                             <p class="album-artist">Ultramagnetic MCs</p>
-                            <span class="album-badge badge-streaming">REMASTERED</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-streaming">Remastered</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
                         </div>
                     </div>
                     
@@ -1189,8 +1066,8 @@
                         <div class="desktop-album-info">
                             <h3 class="album-title">Black Elvis 2</h3>
                             <p class="album-artist">Black Elvis</p>
-                            <span class="album-badge badge-new">AVAILABLE</span>
-                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                            <span class="album-badge badge-new">Available</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -1203,84 +1080,84 @@
                 <div class="feature-icon">
                     <img src="personas-icon.png" alt="Personas">
                 </div>
-                <h3 class="feature-title">LEGENDARY PERSONAS</h3>
+                <h3 class="feature-title">Legendary Personas</h3>
                 <p class="feature-description">
                     Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. 
                     Experience 60+ personas through our exclusive trading card collection showcasing 40+ years of character creation.
                 </p>
-                <a href="personas.html" class="feature-btn">EXPLORE PERSONAS</a>
+                <a href="personas.html" class="feature-btn">Explore Personas</a>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">
-                    <img src="kkbio.jpg" alt="Biography" style="border-radius: 8px;">
+                    <img src="kkbio.jpg" alt="Biography">
                 </div>
-                <h3 class="feature-title">ARTIST BIOGRAPHY</h3>
+                <h3 class="feature-title">Artist Biography</h3>
                 <p class="feature-description">
                     From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. 
                     Discover the complete story of hip-hop's most innovative artist through six defining eras.
                 </p>
-                <a href="bio.html" class="feature-btn">READ BIOGRAPHY</a>
+                <a href="bio.html" class="feature-btn">Read Biography</a>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">
                     <img src="music-icon.png" alt="Music">
                 </div>
-                <h3 class="feature-title">COMPLETE DISCOGRAPHY</h3>
+                <h3 class="feature-title">Complete Discography</h3>
                 <p class="feature-description">
                     Over 40 years of groundbreaking music spanning 39+ albums. Stream classics like Critical Beatdown 
                     and discover rare gems from the complete catalog of hip-hop's most prolific artist.
                 </p>
-                <a href="music.html" class="feature-btn">LISTEN NOW</a>
+                <a href="music.html" class="feature-btn">Listen Now</a>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">
                     <img src="vault-icon.png" alt="Vault">
                 </div>
-                <h3 class="feature-title">THE KEITH VAULT</h3>
+                <h3 class="feature-title">The Keith Vault</h3>
                 <p class="feature-description">
                     Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks 
                     and hidden treasures from hip-hop's most secretive archive.
                 </p>
-                <a href="vault.html" class="feature-btn">ENTER VAULT</a>
+                <a href="vault.html" class="feature-btn">Enter Vault</a>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">
                     <img src="tour-icon.png" alt="Tours">
                 </div>
-                <h3 class="feature-title">LIVE PERFORMANCES</h3>
+                <h3 class="feature-title">Live Performances</h3>
                 <p class="feature-description">
                     Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates 
                     with MC Homeless and view professional booking information.
                 </p>
-                <a href="tour.html" class="feature-btn">TOUR DATES</a>
+                <a href="tour.html" class="feature-btn">Tour Dates</a>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">
                     <img src="chat-icon.png" alt="Keith GPT">
                 </div>
-                <h3 class="feature-title">KEITH GPT CHAT</h3>
+                <h3 class="feature-title">Keith GPT Chat</h3>
                 <p class="feature-description">
                     Chat with AI versions of Keith's legendary personas. Experience conversations with Dr. Octagon, 
                     Black Elvis, and other characters through advanced artificial intelligence.
                 </p>
-                <a href="chat.html" class="feature-btn">START CHAT</a>
+                <a href="chat.html" class="feature-btn">Start Chat</a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">
                     💬
                 </div>
-                <h3 class="feature-title">OFFICIAL FORUM</h3>
+                <h3 class="feature-title">Official Forum</h3>
                 <p class="feature-description">
                     Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, 
                     share stories, and stay connected with the Keith universe through our dedicated fan community.
                 </p>
-                <a href="https://koolkeith.proboards.com/" target="_blank" class="feature-btn">JOIN FORUM</a>
+                <a href="https://koolkeith.proboards.com/" target="_blank" class="feature-btn">Join Forum</a>
             </div>
         </section>
     </main>
@@ -1334,13 +1211,13 @@
                 if (enabled) {
                     soundIcon.textContent = '🔊';
                     soundIcon.classList.remove('muted');
-                    soundStatus.textContent = 'ENABLED';
+                    soundStatus.textContent = 'Enabled';
                     soundStatus.classList.remove('muted');
                     toggleSwitch.classList.add('active');
                 } else {
                     soundIcon.textContent = '🔇';
                     soundIcon.classList.add('muted');
-                    soundStatus.textContent = 'DISABLED';
+                    soundStatus.textContent = 'Disabled';
                     soundStatus.classList.add('muted');
                     toggleSwitch.classList.remove('active');
                 }
@@ -1360,8 +1237,8 @@
                     AppState.loadingComplete = true;
                     Elements.enterButton.classList.remove('loading');
                     Elements.enterButton.classList.add('ready');
-                    Elements.enterButton.textContent = 'ENTER';
-                }, 3000);
+                    Elements.enterButton.textContent = 'Enter';
+                }, 2500);
             },
             
             toggleSound() {
