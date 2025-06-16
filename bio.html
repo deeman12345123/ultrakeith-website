@@ -1,1 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kool Keith - Biography | Ultra Keith</title>
+    <meta name="description" content="The official biography of Kool Keith - Hip-Hop's most innovative artist with 40+ years of groundbreaking music and 60+ personas.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --gold: #FFD700;
+            --gold-light: #FFED4E;
+            --silver: #C0C0C0;
+            --charcoal: #2F2F2F;
+            --charcoal-dark: #1A1A1A;
+            --black: #000000;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, #1a0000 40%, var(--black) 100%);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            z-index: 100;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo img {
+            height: 50px;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.6));
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main {
+            padding-top: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 80px;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+        }
+        
+        .hero-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            background: linear-gradient(145deg, var(--charcoal), var(--charcoal-dark));
+            border: 3px solid var(--silver);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--silver);
+            filter: drop-shadow(0 0 30px rgba(192, 192, 192, 0.3));
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--silver);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .hero-subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--silver);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .hero-intro {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        
+        /* Era Sections */
+        .era-section {
+            margin: 100px 0;
+            background: linear-gradient(145deg, rgba(47, 47, 47, 0.3), rgba(26, 26, 26, 0.6));
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            border-radius: 20px;
+            padding: 60px 40px;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .era-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(192, 192, 192, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .era-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .era-image-container {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .era-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid var(--silver);
+            filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.3));
+            background: linear-gradient(145deg, var(--charcoal), var(--charcoal-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--silver);
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .era-year {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .era-text {
+            text-align: center;
+        }
+        
+        .era-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--silver);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .era-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        .era-highlight {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .era-achievements {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .achievement {
+            background: rgba(192, 192, 192, 0.1);
+            padding: 15px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            text-align: center;
+            min-width: 140px;
+        }
+        
+        .achievement-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            color: var(--gold);
+            font-weight: 700;
+            display: block;
+        }
+        
+        .achievement-label {
+            font-size: 0.8rem;
+            color: var(--silver);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Alternating Layout */
+        .era-section:nth-child(even) .era-content {
+            direction: rtl;
+        }
+        
+        .era-section:nth-child(even) .era-text {
+            direction: ltr;
+        }
+        
+        /* Current Status */
+        .current-status {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .status-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .status-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--silver);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Desktop Responsive */
+        @media (min-width: 768px) {
+            .nav-menu {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            
+            .hero {
+                padding: 80px 0 100px;
+            }
+            
+            .hero-image {
+                width: 250px;
+                height: 250px;
+                font-size: 5rem;
+            }
+            
+            .hero-title {
+                font-size: 4.5rem;
+            }
+            
+            .hero-stats {
+                gap: 60px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .era-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+            }
+            
+            .era-image-container {
+                max-width: none;
+            }
+            
+            .era-image {
+                height: 350px;
+            }
+            
+            .era-text {
+                text-align: left;
+            }
+            
+            .era-section:nth-child(even) .era-text {
+                text-align: right;
+            }
+            
+            .era-title {
+                font-size: 2.5rem;
+            }
+            
+            .era-achievements {
+                justify-content: flex-start;
+            }
+            
+            .era-section:nth-child(even) .era-achievements {
+                justify-content: flex-end;
+            }
+        }
+        
+        /* Mobile Menu */
+        @media (max-width: 767px) {
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(255, 215, 0, 0.3);
+                flex-direction: column;
+                padding: 20px;
+                display: none;
+            }
+            
+            .nav-menu.show {
+                display: flex;
+            }
+            
+            .nav-menu a {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 1.6rem;
+            }
+            
+            .era-section {
+                margin: 60px 0;
+                padding: 40px 20px;
+            }
+            
+            .era-title {
+                font-size: 1.6rem;
+            }
+            
+            .era-achievements {
+                gap: 15px;
+            }
+            
+            .achievement {
+                min-width: 120px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Ultra Keith">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="personas.html">Personas</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="shop.html">Shop</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-image">🎤</div>
+            <h1 class="hero-title">KEITH MATTHEW THORNTON</h1>
+            <h2 class="hero-subtitle">KOOL KEITH</h2>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Years</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">60+</span>
+                    <span class="stat-label">Personas</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">39+</span>
+                    <span class="stat-label">Albums</span>
+                </div>
+            </div>
+            
+            <p class="hero-intro">
+                Hip-Hop's most innovative and prolific artist, whose four-decade career has fundamentally reshaped the boundaries of rap music through groundbreaking personas, experimental production, and visionary artistry that influenced generations of musicians across all genres.
+            </p>
+        </section>
+
+        <!-- Era Sections -->
+        <section class="era-section">
+            <div class="era-content">
+                <div class="era-image-container">
+                    <div class="era-image">Critical Beatdown<br>Album Cover</div>
+                    <div class="era-year">1984-1993</div>
+                </div>
+                <div class="era-text">
+                    <h3 class="era-title">THE BRONX GENESIS</h3>
+                    <p class="era-description">
+                        Co-founded <span class="era-highlight">Ultramagnetic MCs</span> in the Bronx, revolutionizing hip-hop with the groundbreaking album <span class="era-highlight">Critical Beatdown (1988)</span>. The group's innovative "chopped" sampling techniques and abstract lyricism influenced legendary acts including Public Enemy, De La Soul, and countless underground artists. Their track "Give The Drummer Some" was later sampled by The Prodigy for the international hit "Smack My Bitch Up."
+                    </p>
+                    <div class="era-achievements">
+                        <div class="achievement">
+                            <span class="achievement-number">#1</span>
+                            <span class="achievement-label">Underground Classic</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement-number">∞</span>
+                            <span class="achievement-label">Influence</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="era-section">
+            <div class="era-content">
+                <div class="era-image-container">
+                    <div class="era-image">Dr. Octagonecologyst<br>Album Cover</div>
+                    <div class="era-year">1996</div>
+                </div>
+                <div class="era-text">
+                    <h3 class="era-title">THE SOLO BREAKTHROUGH</h3>
+                    <p class="era-description">
+                        Created <span class="era-highlight">Dr. Octagon</span>, a time-traveling gynecologist from Jupiter, for the revolutionary album <span class="era-highlight">Dr. Octagonecologyst</span>. Collaborating with Dan the Automator and DJ Qbert, this underground masterpiece sold 200,000+ copies independently and appears on Rolling Stone's Greatest Hip-Hop Albums of All Time. The album redefined experimental hip-hop and established Keith as rap's premier conceptual artist.
+                    </p>
+                    <div class="era-achievements">
+                        <div class="achievement">
+                            <span class="achievement-number">200K+</span>
+                            <span class="achievement-label">Albums Sold</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement-number">★★★★★</span>
+                            <span class="achievement-label">Critical Acclaim</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="era-section">
+            <div class="era-content">
+                <div class="era-image-container">
+                    <div class="era-image">Black Elvis/Lost in Space<br>Album Cover</div>
+                    <div class="era-year">1999</div>
+                </div>
+                <div class="era-text">
+                    <h3 class="era-title">COMMERCIAL PEAK</h3>
+                    <p class="era-description">
+                        Achieved mainstream breakthrough with <span class="era-highlight">Black Elvis/Lost in Space</span> on Columbia Records, introducing the megalomaniacal Black Elvis persona. The album peaked at <span class="era-highlight">#180 on Billboard 200</span> and #10 on Heatseekers chart—his highest commercial success. This era demonstrated Keith's ability to create fully realized character concepts that resonated with both underground and mainstream audiences.
+                    </p>
+                    <div class="era-achievements">
+                        <div class="achievement">
+                            <span class="achievement-number">#180</span>
+                            <span class="achievement-label">Billboard 200</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement-number">#10</span>
+                            <span class="achievement-label">Heatseekers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="era-section">
+            <div class="era-content">
+                <div class="era-image-container">
+                    <div class="era-image">Collaboration<br>Albums Collage</div>
+                    <div class="era-year">2000s-2010s</div>
+                </div>
+                <div class="era-text">
+                    <h3 class="era-title">LEGENDARY COLLABORATIONS</h3>
+                    <p class="era-description">
+                        Formed transformative partnerships with visionary producers including <span class="era-highlight">Dan the Automator, KutMasta Kurt, and L'Orange</span>. Collaborated with major artists like Ice-T (Analog Brothers), MF DOOM, and The Prodigy. These collaborations showcased Keith's cross-genre appeal and established his influence across multiple generations of artists, from underground hip-hop to electronic music pioneers.
+                    </p>
+                    <div class="era-achievements">
+                        <div class="achievement">
+                            <span class="achievement-number">∞</span>
+                            <span class="achievement-label">Collaborations</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement-number">★</span>
+                            <span class="achievement-label">Cross-Genre</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="era-section">
+            <div class="era-content">
+                <div class="era-image-container">
+                    <div class="era-image">Black Elvis 2<br>Album Cover</div>
+                    <div class="era-year">2020-2025</div>
+                </div>
+                <div class="era-text">
+                    <h3 class="era-title">CURRENT EVOLUTION</h3>
+                    <p class="era-description">
+                        Continues creating groundbreaking music with recent releases including <span class="era-highlight">Black Elvis 2 (2023)</span> and collaborations with CZARFACE as "Stress Eater." Currently on the <span class="era-highlight">Punk Rap Tour 2025</span> with MC Homeless. His latest work maintains the innovative spirit that has defined his career while inspiring new generations of experimental artists.
+                    </p>
+                    <div class="era-achievements">
+                        <div class="achievement">
+                            <span class="achievement-number">4/5★</span>
+                            <span class="achievement-label">Recent Reviews</span>
+                        </div>
+                        <div class="achievement">
+                            <span class="achievement-number">ACTIVE</span>
+                            <span class="achievement-label">Touring</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Status -->
+        <section class="current-status">
+            <h3 class="status-title">INDUSTRY IMPACT & LEGACY</h3>
+            <p class="status-text">
+                Cited as a major influence by Grammy-winning artists including Eminem, Tyler the Creator, and OutKast. Keith's innovative approach to personas, experimental production, and independent artistry has shaped four decades of hip-hop culture. His work appears in academic studies, influences major label artists across genres, and continues to inspire underground culture worldwide.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="music.html">Music</a>
+            <a href="personas.html">Personas</a>
+            <a href="tour.html">Tour</a>
+            <a href="shop.html">Shop</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 Ultra Keith. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('show');
+            });
+        });
+        
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
