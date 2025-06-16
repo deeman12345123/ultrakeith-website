@@ -113,7 +113,6 @@
         .hero-image {
             width: 200px;
             height: 200px;
-            border-radius: 50%;
             margin: 0 auto 40px;
             background: linear-gradient(145deg, var(--charcoal), var(--charcoal-dark));
             border: 3px solid var(--silver);
@@ -123,6 +122,13 @@
             font-size: 4rem;
             color: var(--silver);
             filter: drop-shadow(0 0 30px rgba(192, 192, 192, 0.3));
+            object-fit: cover;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .hero-title {
@@ -526,7 +532,9 @@
     <main class="main">
         <!-- Hero Section -->
         <section class="hero">
-            <div class="hero-image">🎤</div>
+            <div class="hero-image">
+                <img src="kkbio.jpg" alt="Kool Keith">
+            </div>
             <h1 class="hero-title">KEITH MATTHEW THORNTON</h1>
             <h2 class="hero-subtitle">KOOL KEITH</h2>
             
