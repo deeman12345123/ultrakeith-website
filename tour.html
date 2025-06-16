@@ -1,1 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Dates - Live Performances | Ultra Keith</title>
+    <meta name="description" content="Kool Keith tour dates and live performances. Experience hip-hop's most innovative artist live on stage.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        
+        :root {
+            --gold: #ffd700;
+            --gold-light: #ffed4e;
+            --dark-red: #1a0000;
+            --black: #000000;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 16px;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-red) 40%, var(--black) 100%);
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            z-index: 100;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo img {
+            height: 50px;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main {
+            padding-top: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 80px;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .current-tour-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+        
+        /* Featured Tour Section */
+        .featured-tour {
+            margin: 80px 0;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            padding: 60px 40px;
+            backdrop-filter: blur(15px);
+            text-align: center;
+        }
+        
+        .featured-tour-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+        
+        .featured-tour-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .tour-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .tour-highlights {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .highlight {
+            text-align: center;
+        }
+        
+        .highlight-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--gold);
+            font-weight: 700;
+            display: block;
+        }
+        
+        .highlight-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Tour Dates Section */
+        .tour-dates {
+            margin: 100px 0;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+        
+        .dates-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: 1fr;
+        }
+        
+        .date-card {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .date-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.7);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .date-info {
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .date-month {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .date-day {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--white);
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .venue-info {
+            flex: 1;
+        }
+        
+        .venue-name {
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .venue-location {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+        }
+        
+        .venue-details {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .ticket-action {
+            text-align: center;
+        }
+        
+        .ticket-btn {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .ticket-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        .ticket-btn.sold-out {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            cursor: not-allowed;
+        }
+        
+        .ticket-btn.sold-out:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Past Tours Section */
+        .past-tours {
+            margin: 100px 0;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            padding: 60px 40px;
+            backdrop-filter: blur(15px);
+        }
+        
+        .past-tours-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .past-tour-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .past-tour-card:hover {
+            border-color: rgba(255, 215, 0, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .past-tour-year {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .past-tour-name {
+            font-size: 1.2rem;
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .past-tour-details {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Booking Section */
+        .booking-info {
+            margin: 100px 0;
+            text-align: center;
+        }
+        
+        .booking-card {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 50px 40px;
+            backdrop-filter: blur(15px);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .booking-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .booking-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .contact-btn {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+            color: var(--gold);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .contact-btn:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .featured-tour-title {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+            
+            .tour-highlights {
+                gap: 25px;
+            }
+            
+            .date-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .date-info {
+                order: 1;
+            }
+            
+            .venue-info {
+                order: 2;
+            }
+            
+            .ticket-action {
+                order: 3;
+            }
+            
+            .past-tours {
+                padding: 40px 20px;
+            }
+            
+            .booking-card {
+                padding: 40px 25px;
+            }
+        }
+        
+        /* Desktop Responsive */
+        @media (min-width: 769px) {
+            .nav-menu {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            
+            .hero {
+                padding: 80px 0 100px;
+            }
+            
+            .hero-title {
+                font-size: 4.5rem;
+                letter-spacing: 4px;
+            }
+            
+            .featured-tour {
+                padding: 80px 60px;
+            }
+            
+            .featured-tour-title {
+                font-size: 3.5rem;
+                letter-spacing: 4px;
+            }
+            
+            .dates-grid {
+                grid-template-columns: 1fr;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .past-tours-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(15px);
+                border-top: 1px solid rgba(255, 215, 0, 0.3);
+                flex-direction: column;
+                padding: 20px;
+                display: none;
+            }
+            
+            .nav-menu.show {
+                display: flex;
+            }
+            
+            .nav-menu a {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Ultra Keith">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="personas.html">Personas</a></li>
+                <li><a href="bio.html">Bio</a></li>
+                <li><a href="shop.html">Shop</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">LIVE PERFORMANCES</h1>
+            <p class="hero-subtitle">
+                Experience hip-hop's most innovative artist live on stage
+            </p>
+            <div class="current-tour-badge">PUNK RAP TOUR 2025</div>
+        </section>
+
+        <!-- Featured Tour -->
+        <section class="featured-tour">
+            <h2 class="featured-tour-title">PUNK RAP TOUR 2025</h2>
+            <h3 class="featured-tour-subtitle">with MC Homeless & Special Guests</h3>
+            <p class="tour-description">
+                Kool Keith brings four decades of hip-hop innovation to stages across America. Experience the legendary personas, 
+                underground classics, and raw energy that has influenced generations of artists. Joined by longtime collaborator 
+                MC Homeless and rotating special guests for an unforgettable night of experimental hip-hop.
+            </p>
+            <div class="tour-highlights">
+                <div class="highlight">
+                    <span class="highlight-number">25+</span>
+                    <span class="highlight-label">Cities</span>
+                </div>
+                <div class="highlight">
+                    <span class="highlight-number">60+</span>
+                    <span class="highlight-label">Personas</span>
+                </div>
+                <div class="highlight">
+                    <span class="highlight-number">40+</span>
+                    <span class="highlight-label">Years Experience</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tour Dates -->
+        <section class="tour-dates">
+            <h2 class="section-title">UPCOMING TOUR DATES</h2>
+            <div class="dates-grid">
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-month">FEB</div>
+                        <div class="date-day">17</div>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">The Observatory</div>
+                        <div class="venue-location">Santa Ana, CA</div>
+                        <div class="venue-details">Doors 7:00 PM • Show 8:30 PM</div>
+                    </div>
+                    <div class="ticket-action">
+                        <a href="#" class="ticket-btn">TICKETS</a>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-month">FEB</div>
+                        <div class="date-day">28</div>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">Rubber Gloves Rehearsal Studios</div>
+                        <div class="venue-location">Denton, TX</div>
+                        <div class="venue-details">Doors 7:30 PM • Show 9:00 PM</div>
+                    </div>
+                    <div class="ticket-action">
+                        <a href="#" class="ticket-btn">TICKETS</a>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-month">MAR</div>
+                        <div class="date-day">15</div>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">Mobtown Ballroom</div>
+                        <div class="venue-location">Baltimore, MD</div>
+                        <div class="venue-details">Doors 7:00 PM • Show 8:00 PM</div>
+                    </div>
+                    <div class="ticket-action">
+                        <a href="#" class="ticket-btn">TICKETS</a>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-month">APR</div>
+                        <div class="date-day">04</div>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">Will's Pub</div>
+                        <div class="venue-location">Orlando, FL</div>
+                        <div class="venue-details">Doors 7:30 PM • Show 8:30 PM</div>
+                    </div>
+                    <div class="ticket-action">
+                        <a href="#" class="ticket-btn">TICKETS</a>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-month">APR</div>
+                        <div class="date-day">08</div>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">191 Toole</div>
+                        <div class="venue-location">Tucson, AZ</div>
+                        <div class="venue-details">Doors 8:00 PM • Show 9:00 PM</div>
+                    </div>
+                    <div class="ticket-action">
+                        <a href="#" class="ticket-btn">TICKETS</a>
+                    </div>
+                </div>
+
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-month">MAY</div>
+                        <div class="date-day">12</div>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">Mercury Lounge</div>
+                        <div class="venue-location">New York, NY</div>
+                        <div class="venue-details">Doors 7:00 PM • Show 8:00 PM</div>
+                    </div>
+                    <div class="ticket-action">
+                        <a href="#" class="ticket-btn sold-out">SOLD OUT</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Past Tours -->
+        <section class="past-tours">
+            <h2 class="section-title">TOUR HISTORY</h2>
+            <div class="past-tours-grid">
+                <div class="past-tour-card">
+                    <div class="past-tour-year">2023-2024</div>
+                    <div class="past-tour-name">Black Elvis 2 Tour</div>
+                    <div class="past-tour-details">30 cities • North America</div>
+                </div>
+                
+                <div class="past-tour-card">
+                    <div class="past-tour-year">2022</div>
+                    <div class="past-tour-name">Space Goretex Tour</div>
+                    <div class="past-tour-details">18 cities • US & Canada</div>
+                </div>
+                
+                <div class="past-tour-card">
+                    <div class="past-tour-year">2019-2020</div>
+                    <div class="past-tour-name">Keith's Salon Live</div>
+                    <div class="past-tour-details">25 cities • International</div>
+                </div>
+                
+                <div class="past-tour-card">
+                    <div class="past-tour-year">2018</div>
+                    <div class="past-tour-name">Moosebumps Tour</div>
+                    <div class="past-tour-details">15 cities • Dr. Octagon Return</div>
+                </div>
+                
+                <div class="past-tour-card">
+                    <div class="past-tour-year">2016-2017</div>
+                    <div class="past-tour-name">Feature Magnetic Tour</div>
+                    <div class="past-tour-details">22 cities • Guest collaborations</div>
+                </div>
+                
+                <div class="past-tour-card">
+                    <div class="past-tour-year">1999-2000</div>
+                    <div class="past-tour-name">Black Elvis World Tour</div>
+                    <div class="past-tour-details">40+ cities • Major label debut</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Info -->
+        <section class="booking-info">
+            <div class="booking-card">
+                <h2 class="booking-title">BOOKING INFORMATION</h2>
+                <p class="booking-text">
+                    For booking inquiries, festival appearances, and private events, 
+                    contact our professional management team. Kool Keith is available 
+                    for venues worldwide with full production support.
+                </p>
+                <a href="contact.html" class="contact-btn">CONTACT MANAGEMENT</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="music.html">Music</a>
+            <a href="personas.html">Personas</a>
+            <a href="bio.html">Bio</a>
+            <a href="shop.html">Shop</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 Ultra Keith. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('show');
+            });
+        });
+        
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add hover effects to date cards
+        const dateCards = document.querySelectorAll('.date-card');
+        dateCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+        });
+    </script>
+</body>
+</html>
