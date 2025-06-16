@@ -71,8 +71,8 @@
         }
         
         .entry-image {
-            max-width: 300px;
-            max-height: 200px;
+            max-width: 400px;
+            max-height: 300px;
             width: auto;
             height: auto;
             object-fit: contain;
@@ -344,17 +344,13 @@
         
         .mobile-track {
             display: flex;
-            width: 500%;
-            animation: stopAndGoMobile 30s linear infinite;
+            width: 1000%;
+            animation: continuousMobile 25s linear infinite;
         }
         
-        @keyframes stopAndGoMobile {
-            0%, 16.66% { transform: translateX(0); }
-            20%, 36.66% { transform: translateX(-20%); }
-            40%, 56.66% { transform: translateX(-40%); }
-            60%, 76.66% { transform: translateX(-60%); }
-            80%, 96.66% { transform: translateX(-80%); }
-            100% { transform: translateX(0); }
+        @keyframes continuousMobile {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         
         .mobile-track:hover {
@@ -572,8 +568,8 @@
         /* =================== MOBILE RESPONSIVE - FIXED =================== */
         @media (max-width: 768px) {
             .entry-image {
-                max-width: 250px;
-                max-height: 150px;
+                max-width: 280px;
+                max-height: 180px;
             }
             
             .entry-text {
@@ -734,17 +730,13 @@
             
             .desktop-track {
                 display: flex;
-                width: 500%;
-                animation: stopAndGoDesktop 35s linear infinite;
+                width: 1000%;
+                animation: continuousDesktop 30s linear infinite;
             }
             
-            @keyframes stopAndGoDesktop {
-                0%, 17% { transform: translateX(0); }
-                20%, 37% { transform: translateX(-20%); }
-                40%, 57% { transform: translateX(-40%); }
-                60%, 77% { transform: translateX(-60%); }
-                80%, 97% { transform: translateX(-80%); }
-                100% { transform: translateX(0); }
+            @keyframes continuousDesktop {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
             }
             
             .desktop-track:hover {
@@ -752,7 +744,7 @@
             }
             
             .desktop-slide {
-                flex: 0 0 100%;
+                flex: 0 0 20%;
                 display: flex;
                 align-items: center;
                 gap: 50px;
@@ -764,8 +756,8 @@
             }
             
             .desktop-slide .album-image {
-                width: 300px;
-                height: 300px;
+                width: 250px;
+                height: 250px;
                 flex-shrink: 0;
             }
             
@@ -774,24 +766,24 @@
             }
             
             .desktop-slide .album-title {
-                font-size: 3rem;
-                margin-bottom: 20px;
+                font-size: 2rem;
+                margin-bottom: 15px;
             }
             
             .desktop-slide .album-artist {
-                font-size: 1.5rem;
-                margin-bottom: 25px;
+                font-size: 1.2rem;
+                margin-bottom: 20px;
             }
             
             .desktop-slide .album-badge {
-                font-size: 1rem;
-                padding: 8px 16px;
-                margin-bottom: 30px;
+                font-size: 0.9rem;
+                padding: 6px 12px;
+                margin-bottom: 25px;
             }
             
             .desktop-slide .buy-btn {
-                font-size: 1.1rem;
-                padding: 12px 30px;
+                font-size: 1rem;
+                padding: 10px 25px;
             }
             
             .features {
@@ -921,6 +913,48 @@
             <!-- Mobile Carousel -->
             <div class="carousel-mobile">
                 <div class="mobile-track">
+                    <!-- First set -->
+                    <div class="mobile-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <h3 class="album-title">Space Goretex</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-new">OUT NOW</span>
+                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <h3 class="album-title">Dr. Octagon Returns</h3>
+                        <p class="album-artist">Dr. Octagon</p>
+                        <span class="album-badge badge-coming">JULY 2025</span>
+                        <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <h3 class="album-title">Keith's Vault Series</h3>
+                        <p class="album-artist">Ultra Keith</p>
+                        <span class="album-badge badge-streaming">STREAMING</span>
+                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <h3 class="album-title">Critical Beatdown</h3>
+                        <p class="album-artist">Ultramagnetic MCs</p>
+                        <span class="album-badge badge-streaming">REMASTERED</span>
+                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <h3 class="album-title">Black Elvis 2</h3>
+                        <p class="album-artist">Black Elvis</p>
+                        <span class="album-badge badge-new">AVAILABLE</span>
+                        <a href="shop.html" class="buy-btn">BUY NOW</a>
+                    </div>
+                    
+                    <!-- Duplicate set for continuous loop -->
                     <div class="mobile-slide">
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
@@ -966,6 +1000,58 @@
             <!-- Desktop Carousel -->
             <div class="carousel-desktop">
                 <div class="desktop-track">
+                    <!-- First set -->
+                    <div class="desktop-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Space Goretex</h3>
+                            <p class="album-artist">Kool Keith</p>
+                            <span class="album-badge badge-new">OUT NOW</span>
+                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Dr. Octagon Returns</h3>
+                            <p class="album-artist">Dr. Octagon</p>
+                            <span class="album-badge badge-coming">JULY 2025</span>
+                            <a href="shop.html" class="buy-btn">PRE-ORDER</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Keith's Vault Series</h3>
+                            <p class="album-artist">Ultra Keith</p>
+                            <span class="album-badge badge-streaming">STREAMING</span>
+                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Critical Beatdown</h3>
+                            <p class="album-artist">Ultramagnetic MCs</p>
+                            <span class="album-badge badge-streaming">REMASTERED</span>
+                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Black Elvis 2</h3>
+                            <p class="album-artist">Black Elvis</p>
+                            <span class="album-badge badge-new">AVAILABLE</span>
+                            <a href="shop.html" class="buy-btn">BUY NOW</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicate set for continuous loop -->
                     <div class="desktop-slide">
                         <img src="album1.png" alt="Space Goretex" class="album-image">
                         <div class="desktop-album-info">
