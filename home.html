@@ -54,6 +54,8 @@
             opacity: 1;
             visibility: visible;
             transition: opacity 1s ease, visibility 1s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .entry-overlay.hidden {
@@ -1354,7 +1356,7 @@
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.overflow = 'hidden';
+            // Don't restrict body overflow on entry - allow pull-to-refresh
             simulateLoading();
         });
     </script>
