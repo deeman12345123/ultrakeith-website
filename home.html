@@ -1316,6 +1316,7 @@
                 entryOverlay.classList.add('hidden');
                 document.body.classList.add('site-loaded');
                 document.body.style.overflow = 'auto';
+                document.body.style.overscrollBehavior = 'auto';
                 
                 if (soundEnabled) {
                     console.log('Sound effect would play here');
@@ -1354,7 +1355,9 @@
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Don't restrict body overflow on entry - allow pull-to-refresh
+            // Hide body scrollbars during entry, but allow mobile pull-to-refresh
+            document.body.style.overflow = 'hidden';
+            document.body.style.overscrollBehavior = 'contain';
             simulateLoading();
         });
     </script>
