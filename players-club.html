@@ -51,12 +51,24 @@
             color: var(--white-pure);
             min-height: 100vh;
             overflow-x: hidden;
+            padding: 2rem 1rem;
+            perspective: 1000px;
+        }
+        
+        .main-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 3rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .slot-area {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-            perspective: 1000px;
         }
         
         /* Header */
@@ -642,9 +654,31 @@
         }
         
         /* Responsive design */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+            
+            .side-paytable {
+                width: 100%;
+                max-width: 450px;
+                order: 2;
+            }
+            
+            .slot-area {
+                order: 1;
+            }
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding: 1rem 0.5rem;
+            }
+            
+            .main-container {
+                gap: 1.5rem;
             }
             
             .slot-machine {
@@ -678,6 +712,12 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            
+            .side-paytable {
+                padding: 1.5rem;
+                width: 100%;
+                max-width: 380px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -698,6 +738,14 @@
             .reel-symbol {
                 font-size: 2rem;
             }
+            
+            .side-paytable {
+                padding: 1rem;
+            }
+            
+            .paytable-title {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -709,94 +757,129 @@
         <p class="casino-subtitle">Ultra Elite Slot Machine - Spin for exclusive vault tracks</p>
     </header>
     
-    <div class="slot-machine">
-        <!-- Machine top chrome bezel -->
-        <div class="machine-top">
-            <div class="coin-slot"></div>
-        </div>
-        
-        <!-- Display area with realistic bezel -->
-        <div class="display-area">
-            <div class="screen">
-                <!-- Pay table -->
-                <div class="pay-table">
-                    <div class="pay-table-title">ULTRA KEITH PAYTABLE</div>
-                    <div class="pay-line">
-                        <span class="pay-symbols">🎭 🎭 🎭</span>
-                        <span class="pay-amount">PERSONA TRACK</span>
-                    </div>
-                    <div class="pay-line">
-                        <span class="pay-symbols">🩺 🩺 🩺</span>
-                        <span class="pay-amount">DR. OCTAGON</span>
-                    </div>
-                    <div class="pay-line">
-                        <span class="pay-symbols">👑 👑 👑</span>
-                        <span class="pay-amount">BLACK ELVIS</span>
-                    </div>
-                    <div class="pay-line">
-                        <span class="pay-symbols">💀 💀 💀</span>
-                        <span class="pay-amount">DR. DOOOM</span>
-                    </div>
-                    <div class="pay-line">
-                        <span class="pay-symbols">🎭 🩺 👑</span>
-                        <span class="pay-amount">ULTRA JACKPOT</span>
+    <div class="main-container">
+        <!-- Slot Machine -->
+        <div class="slot-area">
+            <div class="slot-machine">
+                <!-- Machine top chrome bezel -->
+                <div class="machine-top">
+                    <div class="coin-slot"></div>
+                </div>
+                
+                <!-- Display area with realistic bezel -->
+                <div class="display-area">
+                    <div class="screen">
+                        <!-- Mechanical reels (pay table removed) -->
+                        <div class="reels-container">
+                            <div class="win-line" id="winLine"></div>
+                            <div class="reel" id="reel1">
+                                <div class="reel-window">
+                                    <div class="reel-symbol">🎭</div>
+                                </div>
+                            </div>
+                            <div class="reel" id="reel2">
+                                <div class="reel-window">
+                                    <div class="reel-symbol">🎵</div>
+                                </div>
+                            </div>
+                            <div class="reel" id="reel3">
+                                <div class="reel-window">
+                                    <div class="reel-symbol">🌌</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Mechanical reels -->
-                <div class="reels-container">
-                    <div class="win-line" id="winLine"></div>
-                    <div class="reel" id="reel1">
-                        <div class="reel-window">
-                            <div class="reel-symbol">🎭</div>
+                <!-- Control panel -->
+                <div class="control-panel">
+                    <!-- Digital displays -->
+                    <div class="display-row">
+                        <div class="digital-display">
+                            <div class="display-label">Credits</div>
+                            <div class="display-value" id="creditsValue">5</div>
+                        </div>
+                        <div class="digital-display">
+                            <div class="display-label">Bet</div>
+                            <div class="display-value">1</div>
+                        </div>
+                        <div class="digital-display">
+                            <div class="display-label">Win</div>
+                            <div class="display-value" id="winValue">0</div>
                         </div>
                     </div>
-                    <div class="reel" id="reel2">
-                        <div class="reel-window">
-                            <div class="reel-symbol">🎵</div>
-                        </div>
+                    
+                    <!-- Result display -->
+                    <div class="result-display">
+                        <div class="result-text" id="resultText">Ready to spin for vault treasures?</div>
+                        <div class="prize-text" id="prizeText">Insert coin and pull handle to begin</div>
                     </div>
-                    <div class="reel" id="reel3">
-                        <div class="reel-window">
-                            <div class="reel-symbol">🌌</div>
-                        </div>
-                    </div>
+                    
+                    <!-- Spin button (like a slot handle) -->
+                    <button class="spin-button" id="spinButton">
+                        <span class="button-text">PULL HANDLE</span>
+                    </button>
                 </div>
+                
+                <!-- Machine bottom chrome -->
+                <div class="machine-bottom"></div>
             </div>
         </div>
         
-        <!-- Control panel -->
-        <div class="control-panel">
-            <!-- Digital displays -->
-            <div class="display-row">
-                <div class="digital-display">
-                    <div class="display-label">Credits</div>
-                    <div class="display-value" id="creditsValue">5</div>
+        <!-- Side Pay Table -->
+        <div class="side-paytable">
+            <div class="paytable-header">
+                <div class="paytable-title">Ultra Keith Paytable</div>
+                <div class="paytable-subtitle">Win exclusive vault content</div>
+            </div>
+            
+            <div class="pay-section">
+                <div class="pay-section-title">Triple Wins</div>
+                <div class="pay-line">
+                    <span class="pay-symbols">🎭 🎭 🎭</span>
+                    <span class="pay-reward">Persona Track<br>500 pts</span>
                 </div>
-                <div class="digital-display">
-                    <div class="display-label">Bet</div>
-                    <div class="display-value">1</div>
+                <div class="pay-line">
+                    <span class="pay-symbols">🩺 🩺 🩺</span>
+                    <span class="pay-reward">Dr. Octagon<br>750 pts</span>
                 </div>
-                <div class="digital-display">
-                    <div class="display-label">Win</div>
-                    <div class="display-value" id="winValue">0</div>
+                <div class="pay-line">
+                    <span class="pay-symbols">👑 👑 👑</span>
+                    <span class="pay-reward">Black Elvis<br>600 pts</span>
+                </div>
+                <div class="pay-line">
+                    <span class="pay-symbols">💀 💀 💀</span>
+                    <span class="pay-reward">Dr. Dooom<br>800 pts</span>
+                </div>
+                <div class="pay-line">
+                    <span class="pay-symbols">🔥 🔥 🔥</span>
+                    <span class="pay-reward">Fire Track<br>400 pts</span>
+                </div>
+                <div class="pay-line">
+                    <span class="pay-symbols">💎 💎 💎</span>
+                    <span class="pay-reward">Diamond Cut<br>300 pts</span>
                 </div>
             </div>
             
-            <!-- Result display -->
-            <div class="result-display">
-                <div class="result-text" id="resultText">Ready to spin for vault treasures?</div>
-                <div class="prize-text" id="prizeText">Insert coin and pull handle to begin</div>
+            <div class="pay-section">
+                <div class="pay-section-title">Special Combos</div>
+                <div class="pay-line">
+                    <span class="pay-symbols">🎭 🎵 🌌</span>
+                    <span class="pay-reward">Persona Mix<br>75 pts</span>
+                </div>
+                <div class="pay-line">
+                    <span class="pay-symbols">Any Double</span>
+                    <span class="pay-reward">Track Preview<br>50 pts</span>
+                </div>
             </div>
             
-            <!-- Spin button (like a slot handle) -->
-            <button class="spin-button" id="spinButton">
-                <span class="button-text">PULL HANDLE</span>
-            </button>
+            <div class="pay-section">
+                <div class="pay-line jackpot-line">
+                    <span class="pay-symbols">🎭 🩺 👑</span>
+                    <span class="pay-reward">ULTRA JACKPOT<br>Complete Album!</span>
+                </div>
+            </div>
         </div>
-        
-        <!-- Machine bottom chrome -->
-        <div class="machine-bottom"></div>
     </div>
 
     <script>
