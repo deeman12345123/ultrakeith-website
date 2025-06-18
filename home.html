@@ -123,42 +123,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            gap: var(--space-lg);
+            justify-content: flex-end;
             width: 100%;
             height: 100vh;
             max-height: 100vh;
             overflow: hidden;
-            padding: var(--space-lg);
+            padding: 0 var(--space-lg) var(--space-xl) var(--space-lg);
+            position: relative;
         }
         
         .entry-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            max-width: none;
-            max-height: none;
-            object-fit: contain;
-            opacity: 0.95;
+            object-fit: cover;
+            opacity: 0.9;
             transition: opacity var(--transition-slow);
-            flex: 1;
-            min-height: 0;
-        }
-        
-        .entry-text {
-            font-family: 'Orbitron', 'Courier New', monospace;
-            font-size: clamp(1.5rem, 4vw, 2.25rem);
-            font-weight: 700;
-            color: var(--gold-primary);
-            text-align: center;
-            letter-spacing: 0.02em;
-            line-height: 1.2;
-            flex-shrink: 0;
-            margin: 0;
-            position: absolute;
-            top: var(--space-xl);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
+            z-index: 0;
         }
         
         /* =================== AUDIO CONTROLS =================== */
@@ -168,18 +151,16 @@
             align-items: center;
             gap: var(--space-lg);
             padding: var(--space-xl);
-            background: rgba(26, 26, 26, 0.95);
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(212, 175, 55, 0.4);
             border-radius: var(--radius-2xl);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(30px);
             min-width: 320px;
-            box-shadow: var(--shadow-lg);
-            flex-shrink: 0;
-            position: absolute;
-            bottom: var(--space-xl);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
+            box-shadow: 
+                var(--shadow-lg),
+                0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
         }
         
         .sound-label {
@@ -728,24 +709,17 @@
         /* =================== RESPONSIVE: MOBILE =================== */
         @media (max-width: 768px) {
             .entry-content {
-                padding: var(--space-md);
+                padding: 0 var(--space-md) var(--space-lg) var(--space-md);
             }
             
             .entry-image {
-                width: 100%;
-                height: 100%;
-            }
-            
-            .entry-text {
-                font-size: clamp(1.25rem, 3vw, 1.75rem);
-                top: var(--space-lg);
+                object-fit: cover;
             }
             
             .sound-controls {
                 min-width: 280px;
                 padding: var(--space-lg);
                 gap: var(--space-md);
-                bottom: var(--space-lg);
             }
             
             .sound-label {
@@ -917,10 +891,6 @@
     <div class="entry-overlay" id="entryOverlay">
         <div class="entry-content">
             <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
-            
-            <div class="entry-text">
-                The Best MC in the World
-            </div>
             
             <div class="sound-controls">
                 <div class="sound-label">Audio Experience</div>
