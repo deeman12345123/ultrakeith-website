@@ -420,8 +420,8 @@
         /* =================== HERO SECTION =================== */
         .hero {
             text-align: center;
-            padding: var(--space-3xl) 0;
-            min-height: 85vh;
+            padding: var(--space-2xl) 0;
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -429,42 +429,42 @@
         }
         
         .hero-logo {
-            max-height: 280px;
+            max-height: 260px;
             max-width: 90%;
             width: auto;
             height: auto;
-            margin-bottom: var(--space-2xl);
+            margin-bottom: var(--space-xl);
             opacity: 0.95;
         }
         
         .hero-title {
             font-family: 'Orbitron', 'Courier New', monospace;
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 5vw, 3.2rem);
             font-weight: 900;
             color: var(--gold-primary);
-            margin-bottom: var(--space-xl);
+            margin-bottom: var(--space-lg);
             line-height: 1.1;
             letter-spacing: 0.02em;
             text-transform: uppercase;
         }
         
         .hero-subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
             color: var(--white-muted);
             line-height: 1.5;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto var(--space-lg) auto;
             font-weight: 400;
             letter-spacing: 0.01em;
         }
         
         /* =================== RELEASES SECTION =================== */
         .releases {
-            margin: var(--space-3xl) 0;
-            background: rgba(26, 26, 26, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin: var(--space-xl) 0 var(--space-3xl) 0;
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(212, 175, 55, 0.2);
             border-radius: var(--radius-2xl);
-            padding: var(--space-3xl) var(--space-lg);
+            padding: var(--space-2xl) var(--space-lg);
             backdrop-filter: blur(20px);
             box-shadow: var(--shadow-lg);
         }
@@ -735,16 +735,17 @@
             }
             
             .hero {
-                padding: var(--space-2xl) 0;
-                min-height: 75vh;
+                padding: var(--space-xl) 0;
+                min-height: 60vh;
             }
             
             .hero-logo {
-                max-height: 200px;
+                max-height: 180px;
+                margin-bottom: var(--space-lg);
             }
             
             .releases {
-                margin: var(--space-2xl) 0;
+                margin: var(--space-lg) 0 var(--space-2xl) 0;
                 padding: var(--space-xl) var(--space-md);
             }
             
@@ -809,7 +810,8 @@
             }
             
             .hero-logo {
-                max-height: 350px;
+                max-height: 300px;
+                margin-bottom: var(--space-xl);
             }
             
             .carousel-mobile {
@@ -920,14 +922,12 @@
                 <img src="koolkeithmainlogo.png" alt="Kool Keith">
             </a>
             <ul class="nav-menu" id="navMenu">
+                <li><a href="bio.html">Biography</a></li>
                 <li><a href="music.html">Music</a></li>
-                <li><a href="personas.html">Personas</a></li>
-                <li><a href="bio.html">Bio</a></li>
+                <li><a href="videos.html">Videos</a></li>
                 <li><a href="tour.html">Tour</a></li>
-                <li><a href="vault.html">Vault</a></li>
-                <li><a href="chat.html">Chat</a></li>
-                <li><a href="shop.html">Shop</a></li>
-                <li><a href="casino.html">Casino</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="shop.html">Store</a></li>
             </ul>
             <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
@@ -1283,12 +1283,14 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-links">
-            <a href="music.html">Music</a>
-            <a href="personas.html">Personas</a>
-            <a href="tour.html">Tour</a>
-            <a href="casino.html">Casino</a>
-            <a href="shop.html">Shop</a>
             <a href="contact.html">Contact</a>
+            <a href="press.html">Press Kit</a>
+            <a href="booking.html">Booking</a>
+            <a href="personas.html">Personas</a>
+            <a href="vault.html">Vault</a>
+            <a href="casino.html">Casino</a>
+            <a href="chat.html">AI Chat</a>
+            <a href="https://koolkeith.proboards.com/" target="_blank">Forum</a>
         </div>
         <div class="footer-copyright">
             © 2025 Ultra Keith. All rights reserved.
