@@ -1,909 +1,4 @@
-.feature-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.3), transparent);
-            transition: left var(--transition-slow);
-            pointer-events: none;
-        }
-        
-        .feature-card:hover .feature-icon::before {
-            left: 100%;
-        }
-        
-        .feature-card:hover .feature-icon {
-            border-color: var(--gold-warm);
-            background: var(--gold-accent);
-            transform: scale(1.05);
-            box-shadow: 
-                0 6px 16px rgba(0, 0, 0, 0.3),
-                0 3px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .feature-card:hover .feature-icon img {
-            transform: scale(1.1);
-        }
-        
-        .feature-icon img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: var(--radius-md);
-            transition: transform var(--transition-base);
-        }
-        
-        .feature-title {
-            font-family: 'Orbitron', 'Courier New', monospace;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--gold-warm);
-            margin-bottom: var(--space-md);
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            transition: color var(--transition-base);
-        }
-        
-        .feature-card:hover .feature-title {
-            color: var(--gold-light);
-        }
-        
-        .feature-description {
-            font-size: 1rem;
-            color: var(--white-muted);
-            line-height: 1.6;
-            margin-bottom: var(--space-xl);
-            font-weight: 400;
-            transition: color var(--transition-base);
-        }
-        
-        .feature-card:hover .feature-description {
-            color: var(--white-pure);
-        }
-        
-        /* =================== FOOTER STYLES =================== */
-        .footer {
-            border-top: 1px solid rgba(218, 181, 71, 0.2);
-            padding: var(--space-2xl) 0;
-            text-align: center;
-            margin-top: var(--space-3xl);
-            background: rgba(10, 10, 10, 0.5);
-            position: relative;
-        }
-        
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold-warm), transparent);
-            opacity: 0.5;
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-            margin-bottom: var(--space-xl);
-        }
-        
-        .footer-links a {
-            color: var(--white-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all var(--transition-base);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            position: relative;
-        }
-        
-        .footer-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            width: 0;
-            height: 1px;
-            background: var(--gold-warm);
-            transition: all var(--transition-base);
-            transform: translateX(-50%);
-        }
-        
-        .footer-links a:hover {
-            color: var(--gold-warm);
-        }
-        
-        .footer-links a:hover::after {
-            width: 100%;
-        }
-        
-        .footer-copyright {
-            color: var(--white-tertiary);
-            font-size: 0.75rem;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-        
-        /* =================== RESPONSIVE DESIGN =================== */
-        @media (max-width: 768px) {
-            .entry-content {
-                padding: var(--space-sm) var(--space-sm) var(--space-lg) var(--space-sm);
-            }
-            
-            .entry-image {
-                width: 95vw;
-                max-width: none;
-                max-height: 80vh;
-                object-fit: contain;
-            }
-            
-            .sound-controls {
-                min-width: 180px;
-                padding: var(--space-md);
-            }
-            
-            .hero {
-                padding: var(--space-md) 0;
-            }
-            
-            .hero-logo {
-                max-height: 40vh;
-                margin-bottom: var(--space-sm);
-            }
-            
-            .hero-title {
-                font-size: clamp(1.25rem, 5vw, 1.75rem);
-                margin-bottom: var(--space-xs);
-            }
-            
-            .hero-subtitle {
-                font-size: 0.875rem;
-                margin-bottom: var(--space-sm);
-            }
-            
-            .releases {
-                margin: var(--space-md) 0 var(--space-xl) 0;
-                padding: var(--space-xl) var(--space-md);
-            }
-            
-            .nav {
-                padding: 0 var(--space-md);
-            }
-            
-            .main {
-                padding-left: var(--space-md);
-                padding-right: var(--space-md);
-            }
-            
-            .hero::before {
-                display: none;
-            }
-            
-            .feature-card {
-                padding: var(--space-xl) var(--space-lg);
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                background: none;
-                border: none;
-                color: var(--gold-warm);
-                font-size: 1.5rem;
-                cursor: pointer;
-                padding: var(--space-xs);
-                transition: all var(--transition-base);
-            }
-            
-            .mobile-menu-btn:hover {
-                color: var(--gold-light);
-                transform: scale(1.1);
-            }
-            
-            .footer-links {
-                flex-direction: column;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .entry-image {
-                max-width: 900px;
-                max-height: 75vh;
-            }
-            
-            .carousel-mobile {
-                display: none;
-            }
-            
-            .carousel-desktop {
-                display: block;
-                position: relative;
-                height: 400px;
-                overflow: hidden;
-                border-radius: var(--radius-xl);
-            }
-            
-            .desktop-track {
-                display: flex;
-                width: 1000%;
-                animation: slideCarousel 35s linear infinite;
-            }
-            
-            .desktop-slide {
-                flex: 0 0 20%;
-                display: flex;
-                align-items: center;
-                gap: var(--space-2xl);
-                padding: var(--space-2xl);
-                background: rgba(42, 42, 42, 0.8);
-                border-radius: var(--radius-xl);
-                margin: 0 var(--space-md);
-                border: 1px solid rgba(218, 181, 71, 0.1);
-                transition: all var(--transition-base);
-            }
-            
-            .desktop-slide:hover {
-                border-color: rgba(218, 181, 71, 0.3);
-                transform: translateY(-2px);
-                box-shadow: 
-                    0 8px 24px rgba(0, 0, 0, 0.3),
-                    0 4px 12px rgba(0, 0, 0, 0.2);
-            }
-            
-            .desktop-slide .album-image {
-                width: 200px;
-                height: 200px;
-                flex-shrink: 0;
-            }
-            
-            .desktop-album-info {
-                flex: 1;
-            }
-            
-            .nav {
-                height: 80px;
-                padding: 0 var(--space-2xl);
-            }
-            
-            .nav-logo img {
-                height: 48px;
-            }
-            
-            .nav-menu {
-                display: flex;
-                font-size: 0.875rem;
-            }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            .main {
-                padding-top: 80px;
-                padding-left: var(--space-2xl);
-                padding-right: var(--space-2xl);
-            }
-            
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-2xl);
-            }
-            
-            .feature-card {
-                text-align: center;
-                min-height: 500px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            
-            .footer-links {
-                flex-direction: row;
-                justify-content: center;
-                gap: var(--space-2xl);
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- ENTRY OVERLAY -->
-    <div class="entry-overlay" id="entryOverlay">
-        <div class="entry-content">
-            <div class="entry-image-container">
-                <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
-            </div>
-            
-            <div class="sound-controls">
-                <div class="audio-toggle-container">
-                    <span class="audio-label">Audio</span>
-                    <div class="toggle-switch active" id="toggleSwitch">
-                        <div class="toggle-slider"></div>
-                    </div>
-                    <span class="audio-status" id="audioStatus">Enabled</span>
-                </div>
-                
-                <button class="enter-button loading" id="enterButton">
-                    Loading
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- NAVIGATION -->
-    <nav class="nav">
-        <div class="nav-content">
-            <a href="#" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith">
-            </a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="bio.html">Biography</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="tour.html">Tour</a></li>
-                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                <li><a href="shop.html">Store</a></li>
-            </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-        </div>
-    </nav>
-    
-    <!-- BACK TO TOP -->
-    <button class="back-to-top" id="backToTop">↑</button>
-    
-    <!-- MAIN CONTENT -->
-    <main class="main">
-        <!-- Hero Section -->
-        <section class="hero">
-            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
-            <h1 class="hero-title">Official Music Portal</h1>
-            <p class="hero-subtitle">
-                Hip-Hop's Most Prolific Innovator
-            </p>
-        </section>
-        
-        <!-- Latest Releases -->
-        <section class="releases">
-            <h2 class="releases-title">Latest Releases</h2>
-            
-            <!-- Mobile Carousel -->
-            <div class="carousel-mobile">
-                <div class="mobile-track">
-                    <div class="mobile-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
-                        <h3 class="album-title">Space Goretex</h3>
-                        <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">Out Now</span>
-                        <a href="shop.html" class="buy-btn">Buy Now</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
-                        <h3 class="album-title">Dr. Octagon Returns</h3>
-                        <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">July 2025</span>
-                        <a href="shop.html" class="buy-btn">Pre-Order</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
-                        <h3 class="album-title">Keith's Vault Series</h3>
-                        <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">Streaming</span>
-                        <a href="shop.html" class="buy-btn">Listen</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
-                        <h3 class="album-title">Critical Beatdown</h3>
-                        <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-streaming">Remastered</span>
-                        <a href="shop.html" class="buy-btn">Buy Now</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
-                        <h3 class="album-title">Black Elvis 2</h3>
-                        <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">Available</span>
-                        <a href="shop.html" class="buy-btn">Buy Now</a>
-                    </div>
-                    
-                    <!-- Duplicate set for continuous loop -->
-                    <div class="mobile-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
-                        <h3 class="album-title">Space Goretex</h3>
-                        <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">Out Now</span>
-                        <a href="shop.html" class="buy-btn">Buy Now</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
-                        <h3 class="album-title">Dr. Octagon Returns</h3>
-                        <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">July 2025</span>
-                        <a href="shop.html" class="buy-btn">Pre-Order</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
-                        <h3 class="album-title">Keith's Vault Series</h3>
-                        <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">Streaming</span>
-                        <a href="shop.html" class="buy-btn">Listen</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
-                        <h3 class="album-title">Critical Beatdown</h3>
-                        <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-streaming">Remastered</span>
-                        <a href="shop.html" class="buy-btn">Buy Now</a>
-                    </div>
-                    
-                    <div class="mobile-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
-                        <h3 class="album-title">Black Elvis 2</h3>
-                        <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">Available</span>
-                        <a href="shop.html" class="buy-btn">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Desktop Carousel -->
-            <div class="carousel-desktop">
-                <div class="desktop-track">
-                    <div class="desktop-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Space Goretex</h3>
-                            <p class="album-artist">Kool Keith</p>
-                            <span class="album-badge badge-new">Out Now</span>
-                            <a href="shop.html" class="buy-btn">Buy Now</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Dr. Octagon Returns</h3>
-                            <p class="album-artist">Dr. Octagon</p>
-                            <span class="album-badge badge-coming">July 2025</span>
-                            <a href="shop.html" class="buy-btn">Pre-Order</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Keith's Vault Series</h3>
-                            <p class="album-artist">Ultra Keith</p>
-                            <span class="album-badge badge-streaming">Streaming</span>
-                            <a href="shop.html" class="buy-btn">Listen</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Critical Beatdown</h3>
-                            <p class="album-artist">Ultramagnetic MCs</p>
-                            <span class="album-badge badge-streaming">Remastered</span>
-                            <a href="shop.html" class="buy-btn">Buy Now</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Black Elvis 2</h3>
-                            <p class="album-artist">Black Elvis</p>
-                            <span class="album-badge badge-new">Available</span>
-                            <a href="shop.html" class="buy-btn">Buy Now</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Duplicate set for continuous loop -->
-                    <div class="desktop-slide">
-                        <img src="album1.png" alt="Space Goretex" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Space Goretex</h3>
-                            <p class="album-artist">Kool Keith</p>
-                            <span class="album-badge badge-new">Out Now</span>
-                            <a href="shop.html" class="buy-btn">Buy Now</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Dr. Octagon Returns</h3>
-                            <p class="album-artist">Dr. Octagon</p>
-                            <span class="album-badge badge-coming">July 2025</span>
-                            <a href="shop.html" class="buy-btn">Pre-Order</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Keith's Vault Series</h3>
-                            <p class="album-artist">Ultra Keith</p>
-                            <span class="album-badge badge-streaming">Streaming</span>
-                            <a href="shop.html" class="buy-btn">Listen</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Critical Beatdown</h3>
-                            <p class="album-artist">Ultramagnetic MCs</p>
-                            <span class="album-badge badge-streaming">Remastered</span>
-                            <a href="shop.html" class="buy-btn">Buy Now</a>
-                        </div>
-                    </div>
-                    
-                    <div class="desktop-slide">
-                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
-                        <div class="desktop-album-info">
-                            <h3 class="album-title">Black Elvis 2</h3>
-                            <p class="album-artist">Black Elvis</p>
-                            <span class="album-badge badge-new">Available</span>
-                            <a href="shop.html" class="buy-btn">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Features Section -->
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="bioicon.png" alt="Biography">
-                </div>
-                <h3 class="feature-title">Biography</h3>
-                <p class="feature-description">
-                    From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. 
-                    Discover the complete story of hip-hop's most innovative artist through six defining eras.
-                </p>
-                <a href="bio.html" class="feature-btn" onclick="handleLinkClick(event, 'bio.html')">Read Biography</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="musicicon.png" alt="Discography">
-                </div>
-                <h3 class="feature-title">Discography</h3>
-                <p class="feature-description">
-                    Over 40 years of groundbreaking music spanning 39+ albums. Stream classics like Critical Beatdown 
-                    and discover rare gems from the complete catalog of hip-hop's most prolific artist.
-                </p>
-                <a href="music.html" class="feature-btn" onclick="handleLinkClick(event, 'music.html')">Listen Now</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="newsicon.png" alt="Latest News">
-                </div>
-                <h3 class="feature-title">Latest News</h3>
-                <p class="feature-description">
-                    Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content. 
-                    Get the inside scoop on upcoming projects and behind-the-scenes news.
-                </p>
-                <a href="https://ultrakeithdotcom.blogspot.com/" class="feature-btn" onclick="handleLinkClick(event, 'https://ultrakeithdotcom.blogspot.com/')">Read News</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="personaicon.png" alt="Personas">
-                </div>
-                <h3 class="feature-title">Personas</h3>
-                <p class="feature-description">
-                    Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. 
-                    Experience 87+ personas through our exclusive trading card collection showcasing 40+ years of character creation.
-                </p>
-                <a href="personas/personas.html" class="feature-btn" onclick="handleLinkClick(event, 'personas/personas.html')">Explore Personas</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="videosicon.png" alt="Videos">
-                </div>
-                <h3 class="feature-title">Videos</h3>
-                <p class="feature-description">
-                    Watch music videos, live performances, and behind-the-scenes content. Explore rare footage 
-                    and exclusive visual content from Keith's extensive multimedia archive.
-                </p>
-                <a href="videos.html" class="feature-btn" onclick="handleLinkClick(event, 'videos.html')">Watch Now</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="touricon.png" alt="Tour Dates">
-                </div>
-                <h3 class="feature-title">Tour Dates</h3>
-                <p class="feature-description">
-                    Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates 
-                    with MC Homeless and view professional booking information.
-                </p>
-                <a href="tour.html" class="feature-btn" onclick="handleLinkClick(event, 'tour.html')">View Dates</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="shoppingicon.png" alt="Store">
-                </div>
-                <h3 class="feature-title">Store</h3>
-                <p class="feature-description">
-                    Shop exclusive merchandise, vinyl records, and limited edition collectibles. Get official Keith gear 
-                    and rare items available nowhere else.
-                </p>
-                <a href="shop.html" class="feature-btn" onclick="handleLinkClick(event, 'shop.html')">Shop Now</a>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="vaulticon.png" alt="Vault">
-                </div>
-                <h3 class="feature-title">Vault</h3>
-                <p class="feature-description">
-                    Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks 
-                    and hidden treasures from hip-hop's most secretive archive.
-                </p>
-                <a href="vault.html" class="feature-btn" onclick="handleLinkClick(event, 'vault.html')">Enter Vault</a>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="aiicon.png" alt="AI Chat">
-                </div>
-                <h3 class="feature-title">AI Chat</h3>
-                <p class="feature-description">
-                    Chat with AI versions of Keith's legendary personas. Experience conversations with Dr. Octagon, 
-                    Black Elvis, and other characters through advanced artificial intelligence.
-                </p>
-                <a href="keithgpt/chat.html" class="feature-btn" onclick="handleLinkClick(event, 'keithgpt/chat.html')">Start Chat</a>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="casinoicon.png" alt="Casino">
-                </div>
-                <h3 class="feature-title">Casino</h3>
-                <p class="feature-description">
-                    Spin the slot machine for exclusive vault tracks and rare content. Play daily to earn points 
-                    and unlock premium rewards from Keith's secret archive.
-                </p>
-                <a href="casino.html" class="feature-btn" onclick="handleLinkClick(event, 'casino.html')">Enter Casino</a>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="forumicon.png" alt="Forum">
-                </div>
-                <h3 class="feature-title">Forum</h3>
-                <p class="feature-description">
-                    Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, 
-                    share stories, and stay connected with the Keith musical legacy.
-                </p>
-                <a href="https://koolkeith.proboards.com/" class="feature-btn" onclick="handleLinkClick(event, 'https://koolkeith.proboards.com/')">Join Forum</a>
-            </div>
-        </section>
-    </main>
-    
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="contact.html">Contact</a>
-            <a href="press.html">Press Kit</a>
-            <a href="booking.html">Booking</a>
-            <a href="personas/personas.html">Personas</a>
-            <a href="vault.html">Vault</a>
-            <a href="casino.html">Casino</a>
-            <a href="keithgpt/chat.html">AI Chat</a>
-            <a href="https://koolkeith.proboards.com/">Forum</a>
-        </div>
-        <div class="footer-copyright">
-            © 2025 Ultra Keith. All rights reserved.
-        </div>
-    </footer>
-
-    <!-- JAVASCRIPT -->
-    <script>
-        'use strict';
-        
-        // =================== STATE MANAGEMENT ===================
-        const AppState = {
-            soundEnabled: true,
-            loadingComplete: false
-        };
-        
-        // =================== DOM ELEMENTS ===================
-        const Elements = {
-            entryOverlay: document.getElementById('entryOverlay'),
-            enterButton: document.getElementById('enterButton'),
-            toggleSwitch: document.getElementById('toggleSwitch'),
-            audioStatus: document.getElementById('audioStatus'),
-            backToTop: document.getElementById('backToTop'),
-            mobileMenuBtn: document.getElementById('mobileMenuBtn'),
-            navMenu: document.getElementById('navMenu')
-        };
-        
-        // =================== UTILITY FUNCTIONS ===================
-        const Utils = {
-            setBodyOverflow: (value) => {
-                document.body.style.overflow = value;
-                document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
-            },
-            
-            updateSoundUI: (enabled) => {
-                const { audioStatus, toggleSwitch } = Elements;
-                
-                if (enabled) {
-                    audioStatus.textContent = 'Enabled';
-                    audioStatus.classList.remove('disabled');
-                    toggleSwitch.classList.add('active');
-                } else {
-                    audioStatus.textContent = 'Disabled';
-                    audioStatus.classList.add('disabled');
-                    toggleSwitch.classList.remove('active');
-                }
-            }
-        };
-        
-        // =================== LINK HANDLING FUNCTIONS ===================
-        function handleLinkClick(event, url) {
-            // Prevent default link behavior
-            event.preventDefault();
-            event.stopPropagation();
-            
-            // Add visual feedback
-            const button = event.target;
-            button.style.transform = 'translateY(2px)';
-            
-            // Navigate after brief delay for visual feedback
-            setTimeout(() => {
-                window.location.href = url;
-            }, 150);
-        }
-        
-        // =================== CORE FUNCTIONS ===================
-        const App = {
-            init() {
-                Utils.setBodyOverflow('hidden');
-                this.simulateLoading();
-                this.bindEvents();
-                this.initAnimations();
-            },
-            
-            simulateLoading() {
-                setTimeout(() => {
-                    AppState.loadingComplete = true;
-                    Elements.enterButton.classList.remove('loading');
-                    Elements.enterButton.classList.add('ready');
-                    Elements.enterButton.textContent = 'Enter';
-                }, 1000);
-            },
-            
-            toggleSound() {
-                AppState.soundEnabled = !AppState.soundEnabled;
-                Utils.updateSoundUI(AppState.soundEnabled);
-            },
-            
-            enterSite() {
-                if (AppState.loadingComplete) {
-                    Elements.entryOverlay.classList.add('hidden');
-                    document.body.classList.add('site-loaded');
-                    Utils.setBodyOverflow('auto');
-                    
-                    if (AppState.soundEnabled) {
-                        console.log('Sound effect would play here');
-                    }
-                } else {
-                    // Allow entry even if not fully loaded (for preview)
-                    Elements.entryOverlay.classList.add('hidden');
-                    document.body.classList.add('site-loaded');
-                    Utils.setBodyOverflow('auto');
-                }
-            },
-            
-            toggleMobileMenu() {
-                Elements.navMenu.classList.toggle('show');
-            },
-            
-            handleBackToTop() {
-                const shouldShow = window.scrollY > 300;
-                Elements.backToTop.classList.toggle('show', shouldShow);
-            },
-            
-            scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            },
-            
-            initAnimations() {
-                // Intersection observer for feature cards
-                const observerOptions = {
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -50px 0px'
-                };
-                
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach((entry, index) => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                entry.target.style.opacity = '1';
-                                entry.target.style.transform = 'translateY(0)';
-                            }, index * 100);
-                        }
-                    });
-                }, observerOptions);
-                
-                // Observe feature cards when site loads
-                setTimeout(() => {
-                    document.querySelectorAll('.feature-card').forEach((card, index) => {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(30px)';
-                        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                        observer.observe(card);
-                    });
-                }, 500);
-            },
-            
-            bindEvents() {
-                // Audio toggle
-                Elements.toggleSwitch?.addEventListener('click', this.toggleSound);
-                
-                // Site entry
-                Elements.enterButton?.addEventListener('click', this.enterSite);
-                
-                // Mobile menu
-                Elements.mobileMenuBtn?.addEventListener('click', this.toggleMobileMenu);
-                
-                // Back to top
-                window.addEventListener('scroll', this.handleBackToTop);
-                Elements.backToTop?.addEventListener('click', this.scrollToTop);
-                
-                // Close mobile menu when clicking nav links
-                document.querySelectorAll('.nav-menu a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        Elements.navMenu.classList.remove('show');
-                    });
-                });
-                
-                // Enhanced button feedback for all feature buttons
-                document.querySelectorAll('.feature-btn').forEach(button => {
-                    button.addEventListener('mousedown', () => {
-                        button.style.transform = 'translateY(2px)';
-                    });
-                    
-                    button.addEventListener('mouseup', () => {
-                        button.style.transform = '';
-                    });
-                    
-                    button.addEventListener('mouseleave', () => {
-                        button.style.transform = '';
-                    });
-                });
-            }
-        };
-        
-        // =================== INITIALIZATION ===================
-        document.addEventListener('DOMContentLoaded', () => {
-            App.init();
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -919,11 +14,9 @@
     <link rel="manifest" href="/site.webmanifest">
     
     <style>
-        /* =================== IMPORTS & VARIABLES =================== */
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
         
         :root {
-            /* Refined Color Palette - Warmer & Sophisticated */
             --gold-primary: #D4AF37;
             --gold-light: #E8C547;
             --gold-warm: #DAB547;
@@ -946,7 +39,6 @@
             --white-secondary: rgba(255, 255, 255, 0.75);
             --white-tertiary: rgba(255, 255, 255, 0.55);
             
-            /* Professional Spacing */
             --space-xs: 0.5rem;
             --space-sm: 1rem;
             --space-md: 1.5rem;
@@ -955,28 +47,24 @@
             --space-2xl: 4rem;
             --space-3xl: 6rem;
             
-            /* Border Radius */
             --radius-sm: 0.375rem;
             --radius-md: 0.5rem;
             --radius-lg: 0.75rem;
             --radius-xl: 1rem;
             --radius-2xl: 1.5rem;
             
-            /* Enhanced Shadows */
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
             --shadow-gold: 0 0 24px rgba(218, 181, 71, 0.15);
             --shadow-warm: 0 4px 20px rgba(15, 5, 5, 0.4);
             
-            /* Refined Transitions */
             --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-elegant: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
-        /* =================== BASE STYLES =================== */
         * {
             margin: 0;
             padding: 0;
@@ -1001,7 +89,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* =================== ENTRY OVERLAY =================== */
         .entry-overlay {
             position: fixed;
             top: 0;
@@ -1019,7 +106,6 @@
             opacity: 1;
             visibility: visible;
             transition: opacity var(--transition-elegant), visibility var(--transition-elegant);
-            overflow-y: auto;
         }
         
         .entry-overlay.hidden {
@@ -1037,7 +123,6 @@
             height: 100vh;
             padding: var(--space-lg) var(--space-lg) var(--space-2xl) var(--space-lg);
             position: relative;
-            animation: entryFadeIn var(--transition-elegant) ease-out;
         }
         
         .entry-image-container {
@@ -1048,11 +133,6 @@
             width: 100%;
         }
         
-        @keyframes entryFadeIn {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
         .entry-image {
             width: 100%;
             max-width: 800px;
@@ -1060,13 +140,10 @@
             max-height: 70vh;
             object-fit: contain;
             opacity: 0.95;
-            transition: opacity var(--transition-slow);
-            z-index: 1;
             border-radius: var(--radius-lg);
             filter: drop-shadow(var(--shadow-warm));
         }
         
-        /* =================== SITE-MATCHED AUDIO CONTROLS =================== */
         .sound-controls {
             display: flex;
             flex-direction: column;
@@ -1082,7 +159,6 @@
             position: relative;
             z-index: 2;
             transition: all var(--transition-slow);
-            overflow: hidden;
         }
         
         .sound-controls::before {
@@ -1180,7 +256,6 @@
             color: var(--white-tertiary);
         }
         
-        /* =================== ENHANCED BUTTONS =================== */
         .enter-button {
             background: linear-gradient(135deg, var(--gold-warm), var(--gold-light));
             color: var(--black-pure);
@@ -1196,24 +271,6 @@
             letter-spacing: 0.1em;
             width: 100%;
             box-shadow: var(--shadow-sm);
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .enter-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left var(--transition-slow);
-        }
-        
-        .enter-button:hover::before {
-            left: 100%;
         }
         
         .enter-button.loading {
@@ -1226,85 +283,6 @@
             box-shadow: var(--shadow-lg), var(--shadow-gold);
         }
         
-        .feature-btn {
-            background: var(--gold-muted);
-            color: var(--gold-warm);
-            border: 1px solid rgba(218, 181, 71, 0.3);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: var(--radius-md);
-            font-size: 0.875rem;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-block;
-            transition: all var(--transition-base);
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            cursor: pointer;
-            position: relative;
-            z-index: 10;
-            overflow: hidden;
-        }
-        
-        .feature-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(218, 181, 71, 0.1);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform var(--transition-base);
-            z-index: -1;
-        }
-        
-        .feature-btn:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .feature-btn:hover {
-            border-color: var(--gold-warm);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-sm), var(--shadow-gold);
-            color: var(--gold-light);
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: var(--space-lg);
-            right: var(--space-lg);
-            width: 52px;
-            height: 52px;
-            background: rgba(26, 26, 26, 0.95);
-            color: var(--gold-warm);
-            border: 1px solid rgba(218, 181, 71, 0.3);
-            border-radius: 50%;
-            font-size: 1.25rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition-base);
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            background: var(--gold-warm);
-            color: var(--black-pure);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-gold);
-        }
-        
-        /* =================== ENHANCED NAVIGATION =================== */
         .nav {
             position: fixed;
             top: 0;
@@ -1318,23 +296,6 @@
             display: flex;
             align-items: center;
             padding: 0 var(--space-lg);
-            transition: all var(--transition-base);
-        }
-        
-        .nav::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold-warm), transparent);
-            opacity: 0;
-            transition: opacity var(--transition-base);
-        }
-        
-        .nav:hover::before {
-            opacity: 0.5;
         }
         
         .nav-content {
@@ -1352,11 +313,6 @@
             filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
         }
         
-        .nav-logo:hover img {
-            transform: scale(1.05);
-            filter: drop-shadow(0 4px 12px rgba(218, 181, 71, 0.3));
-        }
-        
         .nav-menu {
             display: none;
             list-style: none;
@@ -1372,29 +328,22 @@
             transition: all var(--transition-base);
             letter-spacing: 0.02em;
             text-transform: uppercase;
-            position: relative;
-        }
-        
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gold-warm);
-            transition: width var(--transition-base);
         }
         
         .nav-menu a:hover {
             color: var(--gold-warm);
         }
         
-        .nav-menu a:hover::after {
-            width: 100%;
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--gold-warm);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: var(--space-xs);
         }
         
-        /* =================== MAIN CONTENT =================== */
         .main {
             padding-top: 72px;
             max-width: 1400px;
@@ -1405,23 +354,12 @@
             transition: opacity var(--transition-base);
         }
         
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Hide main content until site loads */
         body:not(.site-loaded) .nav {
             opacity: 0;
             pointer-events: none;
         }
         
         body:not(.site-loaded) .main {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        body:not(.site-loaded) .back-to-top {
             opacity: 0;
             pointer-events: none;
         }
@@ -1438,31 +376,13 @@
             transition: opacity var(--transition-base);
         }
         
-        body.site-loaded .back-to-top {
-            pointer-events: auto;
-        }
-        
-        /* =================== ENHANCED HERO SECTION =================== */
         .hero {
             text-align: center;
             padding: var(--space-lg) 0;
-            min-height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(218, 181, 71, 0.3), transparent);
-            transform: translateX(-50%);
         }
         
         .hero-logo {
@@ -1472,19 +392,6 @@
             height: auto;
             margin-bottom: var(--space-md);
             opacity: 0.95;
-            transition: all var(--transition-slow);
-            filter: drop-shadow(var(--shadow-warm));
-            animation: logoFloat 6s ease-in-out infinite;
-        }
-        
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        
-        .hero-logo:hover {
-            transform: scale(1.02);
-            filter: drop-shadow(var(--shadow-gold));
         }
         
         .hero-title {
@@ -1496,13 +403,6 @@
             line-height: 1.1;
             letter-spacing: 0.02em;
             text-transform: uppercase;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-            animation: titleGlow 4s ease-in-out infinite alternate;
-        }
-        
-        @keyframes titleGlow {
-            0% { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
-            100% { text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(218, 181, 71, 0.3); }
         }
         
         .hero-subtitle {
@@ -1513,16 +413,8 @@
             margin: 0 auto var(--space-md) auto;
             font-weight: 400;
             letter-spacing: 0.01em;
-            opacity: 0;
-            animation: subtitleFadeIn var(--transition-elegant) ease-out 1s forwards;
         }
         
-        @keyframes subtitleFadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* =================== RELEASES SECTION =================== */
         .releases {
             margin: var(--space-lg) 0 var(--space-2xl) 0;
             background: rgba(26, 26, 26, 0.9);
@@ -1544,17 +436,12 @@
             text-transform: uppercase;
         }
         
-        /* =================== CAROUSEL =================== */
         .carousel-mobile {
             display: block;
             overflow: hidden;
             position: relative;
             height: 320px;
             border-radius: var(--radius-lg);
-        }
-        
-        .carousel-desktop {
-            display: none;
         }
         
         .mobile-track {
@@ -1663,7 +550,6 @@
             box-shadow: var(--shadow-sm);
         }
         
-        /* =================== ENHANCED FEATURE CARDS =================== */
         .features {
             display: grid;
             grid-template-columns: 1fr;
@@ -1681,31 +567,6 @@
             backdrop-filter: blur(20px);
             position: relative;
             overflow: hidden;
-            transform: translateY(0);
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity var(--transition-slow);
-        }
-        
-        .feature-card::after {
-            display: none;
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-card:hover::after {
-            display: none;
         }
         
         .feature-card:hover {
@@ -1723,7 +584,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
             color: var(--gold-warm);
             background: var(--gold-muted);
             border-radius: var(--radius-lg);
@@ -1740,4 +600,601 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg
+            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.3), transparent);
+            transition: left var(--transition-slow);
+            pointer-events: none;
+        }
+        
+        .feature-card:hover .feature-icon::before {
+            left: 100%;
+        }
+        
+        .feature-card:hover .feature-icon {
+            border-color: var(--gold-warm);
+            background: var(--gold-accent);
+            transform: scale(1.05);
+            box-shadow: 
+                0 6px 16px rgba(0, 0, 0, 0.3),
+                0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card:hover .feature-icon img {
+            transform: scale(1.1);
+        }
+        
+        .feature-icon img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            transition: transform var(--transition-base);
+        }
+        
+        .feature-title {
+            font-family: 'Orbitron', 'Courier New', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold-warm);
+            margin-bottom: var(--space-md);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            transition: color var(--transition-base);
+        }
+        
+        .feature-card:hover .feature-title {
+            color: var(--gold-light);
+        }
+        
+        .feature-description {
+            font-size: 1rem;
+            color: var(--white-muted);
+            line-height: 1.6;
+            margin-bottom: var(--space-xl);
+            font-weight: 400;
+            transition: color var(--transition-base);
+        }
+        
+        .feature-card:hover .feature-description {
+            color: var(--white-pure);
+        }
+        
+        .feature-btn {
+            background: var(--gold-muted);
+            color: var(--gold-warm);
+            border: 1px solid rgba(218, 181, 71, 0.3);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all var(--transition-base);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .feature-btn:hover {
+            border-color: var(--gold-warm);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+            color: var(--gold-light);
+        }
+        
+        .footer {
+            border-top: 1px solid rgba(218, 181, 71, 0.2);
+            padding: var(--space-2xl) 0;
+            text-align: center;
+            margin-top: var(--space-3xl);
+            background: rgba(10, 10, 10, 0.5);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .footer-links a {
+            color: var(--white-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all var(--transition-base);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold-warm);
+        }
+        
+        .footer-copyright {
+            color: var(--white-tertiary);
+            font-size: 0.75rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .entry-image {
+                width: 95vw;
+                max-width: none;
+                max-height: 80vh;
+            }
+            
+            .sound-controls {
+                min-width: 180px;
+                padding: var(--space-md);
+            }
+            
+            .hero {
+                padding: var(--space-md) 0;
+            }
+            
+            .hero-logo {
+                max-height: 40vh;
+                margin-bottom: var(--space-sm);
+            }
+            
+            .hero-title {
+                font-size: clamp(1.25rem, 5vw, 1.75rem);
+                margin-bottom: var(--space-xs);
+            }
+            
+            .hero-subtitle {
+                font-size: 0.875rem;
+                margin-bottom: var(--space-sm);
+            }
+            
+            .releases {
+                margin: var(--space-md) 0 var(--space-xl) 0;
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .feature-card {
+                padding: var(--space-xl) var(--space-lg);
+            }
+            
+            .footer-links {
+                flex-direction: column;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .entry-image {
+                max-width: 900px;
+                max-height: 75vh;
+            }
+            
+            .nav {
+                height: 80px;
+                padding: 0 var(--space-2xl);
+            }
+            
+            .nav-logo img {
+                height: 48px;
+            }
+            
+            .nav-menu {
+                display: flex;
+                font-size: 0.875rem;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-top: 80px;
+                padding-left: var(--space-2xl);
+                padding-right: var(--space-2xl);
+            }
+            
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-2xl);
+            }
+            
+            .feature-card {
+                min-height: 500px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .footer-links {
+                flex-direction: row;
+                justify-content: center;
+                gap: var(--space-2xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="entry-overlay" id="entryOverlay">
+        <div class="entry-content">
+            <div class="entry-image-container">
+                <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
+            </div>
+            
+            <div class="sound-controls">
+                <div class="audio-toggle-container">
+                    <span class="audio-label">Audio</span>
+                    <div class="toggle-switch active" id="toggleSwitch">
+                        <div class="toggle-slider"></div>
+                    </div>
+                    <span class="audio-status" id="audioStatus">Enabled</span>
+                </div>
+                
+                <button class="enter-button loading" id="enterButton">
+                    Loading
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="bio.html">Biography</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                <li><a href="shop.html">Store</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
+    
+    <main class="main">
+        <section class="hero">
+            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
+            <h1 class="hero-title">Official Music Portal</h1>
+            <p class="hero-subtitle">
+                Hip-Hop's Most Prolific Innovator
+            </p>
+        </section>
+        
+        <section class="releases">
+            <h2 class="releases-title">Latest Releases</h2>
+            
+            <div class="carousel-mobile">
+                <div class="mobile-track">
+                    <div class="mobile-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <h3 class="album-title">Space Goretex</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <h3 class="album-title">Dr. Octagon Returns</h3>
+                        <p class="album-artist">Dr. Octagon</p>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="buy-btn">Pre-Order</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <h3 class="album-title">Keith's Vault Series</h3>
+                        <p class="album-artist">Ultra Keith</p>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="buy-btn">Listen</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <h3 class="album-title">Critical Beatdown</h3>
+                        <p class="album-artist">Ultramagnetic MCs</p>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <h3 class="album-title">Black Elvis 2</h3>
+                        <p class="album-artist">Black Elvis</p>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <h3 class="album-title">Space Goretex</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <h3 class="album-title">Dr. Octagon Returns</h3>
+                        <p class="album-artist">Dr. Octagon</p>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="buy-btn">Pre-Order</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <h3 class="album-title">Keith's Vault Series</h3>
+                        <p class="album-artist">Ultra Keith</p>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="buy-btn">Listen</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <h3 class="album-title">Critical Beatdown</h3>
+                        <p class="album-artist">Ultramagnetic MCs</p>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <h3 class="album-title">Black Elvis 2</h3>
+                        <p class="album-artist">Black Elvis</p>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="bioicon.png" alt="Biography">
+                </div>
+                <h3 class="feature-title">Biography</h3>
+                <p class="feature-description">
+                    From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. 
+                    Discover the complete story of hip-hop's most innovative artist through six defining eras.
+                </p>
+                <a href="bio.html" class="feature-btn">Read Biography</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="musicicon.png" alt="Discography">
+                </div>
+                <h3 class="feature-title">Discography</h3>
+                <p class="feature-description">
+                    Over 40 years of groundbreaking music spanning 39+ albums. Stream classics like Critical Beatdown 
+                    and discover rare gems from the complete catalog of hip-hop's most prolific artist.
+                </p>
+                <a href="music.html" class="feature-btn">Listen Now</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="newsicon.png" alt="Latest News">
+                </div>
+                <h3 class="feature-title">Latest News</h3>
+                <p class="feature-description">
+                    Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content. 
+                    Get the inside scoop on upcoming projects and behind-the-scenes news.
+                </p>
+                <a href="https://ultrakeithdotcom.blogspot.com/" class="feature-btn">Read News</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="personaicon.png" alt="Personas">
+                </div>
+                <h3 class="feature-title">Personas</h3>
+                <p class="feature-description">
+                    Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. 
+                    Experience 87+ personas through our exclusive trading card collection showcasing 40+ years of character creation.
+                </p>
+                <a href="personas/personas.html" class="feature-btn">Explore Personas</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="videosicon.png" alt="Videos">
+                </div>
+                <h3 class="feature-title">Videos</h3>
+                <p class="feature-description">
+                    Watch music videos, live performances, and behind-the-scenes content. Explore rare footage 
+                    and exclusive visual content from Keith's extensive multimedia archive.
+                </p>
+                <a href="videos.html" class="feature-btn">Watch Now</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="touricon.png" alt="Tour Dates">
+                </div>
+                <h3 class="feature-title">Tour Dates</h3>
+                <p class="feature-description">
+                    Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates 
+                    with MC Homeless and view professional booking information.
+                </p>
+                <a href="tour.html" class="feature-btn">View Dates</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="shoppingicon.png" alt="Store">
+                </div>
+                <h3 class="feature-title">Store</h3>
+                <p class="feature-description">
+                    Shop exclusive merchandise, vinyl records, and limited edition collectibles. Get official Keith gear 
+                    and rare items available nowhere else.
+                </p>
+                <a href="shop.html" class="feature-btn">Shop Now</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="vaulticon.png" alt="Vault">
+                </div>
+                <h3 class="feature-title">Vault</h3>
+                <p class="feature-description">
+                    Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks 
+                    and hidden treasures from hip-hop's most secretive archive.
+                </p>
+                <a href="vault.html" class="feature-btn">Enter Vault</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="aiicon.png" alt="AI Chat">
+                </div>
+                <h3 class="feature-title">AI Chat</h3>
+                <p class="feature-description">
+                    Chat with AI versions of Keith's legendary personas. Experience conversations with Dr. Octagon, 
+                    Black Elvis, and other characters through advanced artificial intelligence.
+                </p>
+                <a href="keithgpt/chat.html" class="feature-btn">Start Chat</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="casinoicon.png" alt="Casino">
+                </div>
+                <h3 class="feature-title">Casino</h3>
+                <p class="feature-description">
+                    Spin the slot machine for exclusive vault tracks and rare content. Play daily to earn points 
+                    and unlock premium rewards from Keith's secret archive.
+                </p>
+                <a href="casino.html" class="feature-btn">Enter Casino</a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <img src="forumicon.png" alt="Forum">
+                </div>
+                <h3 class="feature-title">Forum</h3>
+                <p class="feature-description">
+                    Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, 
+                    share stories, and stay connected with the Keith musical legacy.
+                </p>
+                <a href="https://koolkeith.proboards.com/" class="feature-btn">Join Forum</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="contact.html">Contact</a>
+            <a href="press.html">Press Kit</a>
+            <a href="booking.html">Booking</a>
+            <a href="personas/personas.html">Personas</a>
+            <a href="vault.html">Vault</a>
+            <a href="casino.html">Casino</a>
+            <a href="keithgpt/chat.html">AI Chat</a>
+            <a href="https://koolkeith.proboards.com/">Forum</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 Ultra Keith. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const AppState = {
+            soundEnabled: true,
+            loadingComplete: false
+        };
+        
+        const Elements = {
+            entryOverlay: document.getElementById('entryOverlay'),
+            enterButton: document.getElementById('enterButton'),
+            toggleSwitch: document.getElementById('toggleSwitch'),
+            audioStatus: document.getElementById('audioStatus'),
+            mobileMenuBtn: document.getElementById('mobileMenuBtn'),
+            navMenu: document.getElementById('navMenu')
+        };
+        
+        const Utils = {
+            setBodyOverflow: (value) => {
+                document.body.style.overflow = value;
+                document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
+            },
+            
+            updateSoundUI: (enabled) => {
+                const { audioStatus, toggleSwitch } = Elements;
+                
+                if (enabled) {
+                    audioStatus.textContent = 'Enabled';
+                    audioStatus.classList.remove('disabled');
+                    toggleSwitch.classList.add('active');
+                } else {
+                    audioStatus.textContent = 'Disabled';
+                    audioStatus.classList.add('disabled');
+                    toggleSwitch.classList.remove('active');
+                }
+            }
+        };
+        
+        const App = {
+            init() {
+                Utils.setBodyOverflow('hidden');
+                this.simulateLoading();
+                this.bindEvents();
+            },
+            
+            simulateLoading() {
+                setTimeout(() => {
+                    AppState.loadingComplete = true;
+                    Elements.enterButton.classList.remove('loading');
+                    Elements.enterButton.classList.add('ready');
+                    Elements.enterButton.textContent = 'Enter';
+                }, 1000);
+            },
+            
+            toggleSound() {
+                AppState.soundEnabled = !AppState.soundEnabled;
+                Utils.updateSoundUI(AppState.soundEnabled);
+            },
+            
+            enterSite() {
+                if (AppState.loadingComplete) {
+                    Elements.entryOverlay.classList.add('hidden');
+                    document.body.classList.add('site-loaded');
+                    Utils.setBodyOverflow('auto');
+                    
+                    if (AppState.soundEnabled) {
+                        console.log('Sound effect would play here');
+                    }
+                } else {
+                    Elements.entryOverlay.classList.add('hidden');
+                    document.body.classList.add('site-loaded');
+                    Utils.setBodyOverflow('auto');
+                }
+            },
+            
+            toggleMobileMenu() {
+                Elements.navMenu.classList.toggle('show');
+            },
+            
+            bindEvents() {
+                Elements.toggleSwitch?.addEventListener('click', this.toggleSound);
+                Elements.enterButton?.addEventListener('click', this.enterSite);
+                Elements.mobileMenuBtn?.addEventListener('click', this.toggleMobileMenu);
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        Elements.navMenu.classList.remove('show');
+                    });
+                });
+            }
+        };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+        });
+    </script>
+</body>
+</html>
