@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+/**
+             * Set body overflow with cross-browser support
+             */        /* =================== FEATURES SECTION =================== */<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -622,7 +624,75 @@
             color: var(--color-white-pure); 
         }
         
-        /* =================== FEATURES SECTION =================== */
+        /* =================== NEWS FEED STYLES =================== */
+        .latest-post {
+            margin-bottom: var(--space-md);
+            padding: var(--space-md);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--color-gold-warm);
+        }
+        
+        .post-loading {
+            color: var(--color-white-tertiary);
+            font-style: italic;
+            font-size: 0.875rem;
+            text-align: center;
+            padding: var(--space-sm);
+        }
+        
+        .post-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-gold-warm);
+            margin-bottom: var(--space-xs);
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .post-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color var(--transition-base);
+        }
+        
+        .post-title a:hover {
+            color: var(--color-gold-light);
+        }
+        
+        .post-excerpt {
+            font-size: 0.8rem;
+            color: var(--color-white-secondary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .post-date {
+            font-size: 0.75rem;
+            color: var(--color-white-tertiary);
+            font-style: italic;
+        }
+        
+        .news-description {
+            font-size: 0.9rem;
+            color: var(--color-white-muted);
+            line-height: 1.5;
+        }
+        
+        .post-error {
+            color: var(--color-white-tertiary);
+            font-size: 0.875rem;
+            text-align: center;
+            padding: var(--space-sm);
+            font-style: italic;
+        }
         .features {
             display: grid;
             grid-template-columns: 1fr;
@@ -1064,11 +1134,15 @@
                     <img src="newsicon.png" alt="News icon">
                 </div>
                 <h3 class="feature-title">Latest News</h3>
-                <p class="feature-description">
-                    Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content. 
-                    Get the inside scoop on upcoming projects and behind-the-scenes news.
-                </p>
-                <a href="https://ultrakeithdotcom.blogspot.com/" class="btn btn-secondary">Read News</a>
+                <div class="feature-description">
+                    <div class="latest-post" id="latestPost">
+                        <div class="post-loading">Loading latest news...</div>
+                    </div>
+                    <p class="news-description">
+                        Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content.
+                    </p>
+                </div>
+                <a href="https://ultrakeithdotcom.blogspot.com/" class="btn btn-secondary">Read All News</a>
             </article>
             
             <article class="feature-card">
@@ -1239,6 +1313,7 @@
                 this.setBodyOverflow('hidden');
                 this.simulateLoading();
                 this.bindEvents();
+                this.loadLatestNews();
                 
                 console.log('Ultra Keith App initialized');
             }
@@ -1331,8 +1406,74 @@
             }
             
             /**
-             * Set body overflow with cross-browser support
+             * Load latest news from RSS feed
              */
+            async loadLatestNews() {
+                const latestPostElement = document.getElementById('latestPost');
+                if (!latestPostElement) return;
+                
+                try {
+                    // Use RSS2JSON service to fetch and parse the RSS feed
+                    const rssUrl = 'https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss';
+                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=1`;
+                    
+                    console.log('Fetching latest news...');
+                    
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        const post = data.items[0];
+                        this.renderLatestPost(post, latestPostElement);
+                        console.log('Latest news loaded successfully');
+                    } else {
+                        throw new Error('No posts found');
+                    }
+                } catch (error) {
+                    console.warn('Failed to load latest news:', error);
+                    this.renderNewsError(latestPostElement);
+                }
+            }
+            
+            /**
+             * Render the latest blog post
+             */
+            renderLatestPost(post, container) {
+                // Clean up HTML content and create excerpt
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = post.description || post.content || '';
+                const textContent = tempDiv.textContent || tempDiv.innerText || '';
+                const excerpt = textContent.length > 120 ? textContent.substring(0, 120) + '...' : textContent;
+                
+                // Format date
+                const postDate = new Date(post.pubDate);
+                const formattedDate = postDate.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+                
+                container.innerHTML = `
+                    <div class="post-title">
+                        <a href="${post.link}" target="_blank" rel="noopener noreferrer">
+                            ${post.title}
+                        </a>
+                    </div>
+                    <div class="post-excerpt">${excerpt}</div>
+                    <div class="post-date">${formattedDate}</div>
+                `;
+            }
+            
+            /**
+             * Render error state for news feed
+             */
+            renderNewsError(container) {
+                container.innerHTML = `
+                    <div class="post-error">
+                        Unable to load latest news. Check the blog for updates.
+                    </div>
+                `;
+            }
             setBodyOverflow(value) {
                 document.body.style.overflow = value;
                 document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
