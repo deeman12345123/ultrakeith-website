@@ -150,9 +150,9 @@
         
         .entry-image {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             height: auto;
-            max-height: 500px;
+            max-height: 70vh;
             object-fit: contain;
             opacity: 0.95;
             transition: opacity var(--transition-slow);
@@ -197,10 +197,11 @@
         }
         
         .sound-controls:hover {
+            transform: translateY(-2px);
             border-color: rgba(218, 181, 71, 0.4);
             box-shadow: 
-                var(--shadow-lg),
-                0 0 20px rgba(218, 181, 71, 0.15);
+                0 8px 24px rgba(0, 0, 0, 0.35),
+                0 4px 12px rgba(0, 0, 0, 0.25);
         }
         
         .audio-toggle-container {
@@ -233,7 +234,9 @@
         
         .toggle-switch:hover {
             border-color: rgba(218, 181, 71, 0.5);
-            box-shadow: 0 0 8px rgba(218, 181, 71, 0.2);
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.2),
+                0 1px 4px rgba(0, 0, 0, 0.15);
         }
         
         .toggle-switch.active {
@@ -671,10 +674,10 @@
         
         .feature-card:hover {
             transform: translateY(-12px);
-            border-color: rgba(218, 181, 71, 0.6);
+            border-color: rgba(218, 181, 71, 0.4);
             box-shadow: 
-                var(--shadow-lg),
-                0 0 40px rgba(218, 181, 71, 0.2);
+                0 12px 40px rgba(0, 0, 0, 0.4),
+                0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
         .feature-icon {
@@ -713,7 +716,9 @@
             border-color: var(--gold-warm);
             background: var(--gold-accent);
             transform: scale(1.05);
-            box-shadow: var(--shadow-gold);
+            box-shadow: 
+                0 6px 16px rgba(0, 0, 0, 0.3),
+                0 3px 8px rgba(0, 0, 0, 0.2);
         }
         
         .feature-icon img {
@@ -758,6 +763,22 @@
         
         /* =================== RESPONSIVE DESIGN =================== */
         @media (max-width: 768px) {
+            .entry-content {
+                padding: var(--space-sm) var(--space-sm) var(--space-lg) var(--space-sm);
+            }
+            
+            .entry-image {
+                width: 95vw;
+                max-width: none;
+                max-height: 80vh;
+                object-fit: contain;
+            }
+            
+            .sound-controls {
+                min-width: 180px;
+                padding: var(--space-md);
+            }
+            
             .nav {
                 padding: 0 var(--space-md);
             }
@@ -793,6 +814,11 @@
         }
         
         @media (min-width: 769px) {
+            .entry-image {
+                max-width: 900px;
+                max-height: 75vh;
+            }
+            
             .nav {
                 height: 80px;
                 padding: 0 var(--space-2xl);
