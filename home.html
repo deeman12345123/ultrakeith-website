@@ -561,7 +561,7 @@
         }
         
         .hero-logo {
-            max-height: 260px;
+            max-height: 80vh;
             max-width: 90%;
             width: auto;
             height: auto;
@@ -645,23 +645,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(218, 181, 71, 0.05) 0%, transparent 50%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
             opacity: 0;
             transition: opacity var(--transition-slow);
         }
         
         .feature-card::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, transparent, var(--gold-warm), transparent);
-            border-radius: var(--radius-2xl);
-            opacity: 0;
-            transition: opacity var(--transition-slow);
-            z-index: -1;
+            display: none;
         }
         
         .feature-card:hover::before {
@@ -669,7 +659,7 @@
         }
         
         .feature-card:hover::after {
-            opacity: 0.3;
+            display: none;
         }
         
         .feature-card:hover {
@@ -777,6 +767,10 @@
             .sound-controls {
                 min-width: 180px;
                 padding: var(--space-md);
+            }
+            
+            .hero-logo {
+                max-height: 50vh;
             }
             
             .nav {
