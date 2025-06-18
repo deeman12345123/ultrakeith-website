@@ -1413,26 +1413,99 @@
                 if (!latestPostElement) return;
                 
                 try {
-                    // Use RSS2JSON service to fetch and parse the RSS feed
-                    const rssUrl = 'https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss';
-                    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=1`;
+                    console.log('Fetching latest news from Blogger...');
                     
-                    console.log('Fetching latest news...');
+                    // Multiple approaches for RSS fetching
+                    const feedUrls = [
+                        // Primary RSS2JSON approach
+                        'https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default%3Falt%3Drss&count=1',
+                        // Alternative approach with different encoding
+                        'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss&count=1'
+                    ];
                     
-                    const response = await fetch(apiUrl);
-                    const data = await response.json();
+                    let success = false;
                     
-                    if (data.status === 'ok' && data.items && data.items.length > 0) {
-                        const post = data.items[0];
-                        this.renderLatestPost(post, latestPostElement);
-                        console.log('Latest news loaded successfully');
-                    } else {
-                        throw new Error('No posts found');
+                    for (const feedUrl of feedUrls) {
+                        try {
+                            const response = await fetch(feedUrl);
+                            const data = await response.json();
+                            
+                            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                                const post = data.items[0];
+                                this.renderLatestPost(post, latestPostElement);
+                                console.log('Latest news loaded successfully');
+                                success = true;
+                                break;
+                            }
+                        } catch (error) {
+                            console.log(`Failed with URL: ${feedUrl}`, error);
+                            continue;
+                        }
                     }
+                    
+                    if (!success) {
+                        throw new Error('All RSS feed attempts failed');
+                    }
+                    
                 } catch (error) {
-                    console.warn('Failed to load latest news:', error);
-                    this.renderNewsError(latestPostElement);
+                    console.warn('RSS feed failed, trying JSONP approach...');
+                    this.tryJSONPFeed(latestPostElement);
                 }
+            }
+            
+            /**
+             * Fallback: Try JSONP approach for Blogger feeds
+             */
+            tryJSONPFeed(container) {
+                try {
+                    // Create a JSONP callback
+                    const callbackName = 'bloggerCallback' + Date.now();
+                    
+                    window[callbackName] = (data) => {
+                        try {
+                            if (data.feed && data.feed.entry && data.feed.entry.length > 0) {
+                                const post = this.convertAtomToRSS(data.feed.entry[0]);
+                                this.renderLatestPost(post, container);
+                                console.log('Latest news loaded via JSONP');
+                            } else {
+                                throw new Error('No posts in JSONP response');
+                            }
+                        } catch (error) {
+                            this.renderNewsError(container);
+                        } finally {
+                            // Cleanup
+                            delete window[callbackName];
+                            document.head.removeChild(script);
+                        }
+                    };
+                    
+                    // Create script tag for JSONP
+                    const script = document.createElement('script');
+                    script.src = `https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=json&callback=${callbackName}&max-results=1`;
+                    script.onerror = () => {
+                        this.renderNewsError(container);
+                        delete window[callbackName];
+                        document.head.removeChild(script);
+                    };
+                    
+                    document.head.appendChild(script);
+                    
+                } catch (error) {
+                    console.error('JSONP approach failed:', error);
+                    this.renderNewsError(container);
+                }
+            }
+            
+            /**
+             * Convert Atom feed entry to RSS format
+             */
+            convertAtomToRSS(entry) {
+                return {
+                    title: entry.title.$t || 'Untitled',
+                    link: entry.link ? entry.link.find(l => l.rel === 'alternate')?.href || '#' : '#',
+                    description: entry.content?.$t || entry.summary?.$t || '',
+                    pubDate: entry.published.$t || new Date().toISOString()
+                };
             }
             
             /**
