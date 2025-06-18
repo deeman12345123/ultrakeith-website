@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+.feature-icon img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            transition: transform var(--transition-base);
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,6 +75,147 @@
             --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-elegant: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        /* =================== RELEASES SECTION =================== */
+        .releases {
+            margin: var(--space-lg) 0 var(--space-2xl) 0;
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-2xl) var(--space-lg);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .releases-title {
+            font-family: 'Orbitron', 'Courier New', monospace;
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            font-weight: 700;
+            color: var(--gold-warm);
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+        
+        /* =================== CAROUSEL =================== */
+        .carousel-mobile {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            height: 320px;
+            border-radius: var(--radius-lg);
+        }
+        
+        .carousel-desktop {
+            display: none;
+        }
+        
+        .mobile-track {
+            display: flex;
+            width: 1000%;
+            animation: slideCarousel 30s linear infinite;
+        }
+        
+        @keyframes slideCarousel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .mobile-track:hover {
+            animation-play-state: paused;
+        }
+        
+        .mobile-slide {
+            flex: 0 0 220px;
+            margin-right: var(--space-md);
+            background: rgba(42, 42, 42, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            text-align: center;
+            border: 1px solid rgba(218, 181, 71, 0.1);
+            transition: all var(--transition-base);
+        }
+        
+        .mobile-slide:hover {
+            border-color: rgba(218, 181, 71, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 16px rgba(0, 0, 0, 0.3),
+                0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .album-image {
+            width: 180px;
+            height: 180px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            margin-bottom: var(--space-md);
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            background: var(--black-light);
+        }
+        
+        .album-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold-warm);
+            margin-bottom: var(--space-xs);
+            line-height: 1.3;
+        }
+        
+        .album-artist {
+            font-size: 0.875rem;
+            color: var(--white-secondary);
+            margin-bottom: var(--space-sm);
+            font-weight: 400;
+        }
+        
+        .album-badge {
+            font-size: 0.75rem;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-md);
+            display: inline-block;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .badge-new { 
+            background: linear-gradient(135deg, #E74C3C, #C0392B); 
+            color: var(--white-pure); 
+        }
+        
+        .badge-coming { 
+            background: linear-gradient(135deg, var(--gold-warm), var(--gold-light)); 
+            color: var(--black-pure); 
+        }
+        
+        .badge-streaming { 
+            background: linear-gradient(135deg, #27AE60, #229954); 
+            color: var(--white-pure); 
+        }
+        
+        .buy-btn {
+            background: linear-gradient(135deg, var(--gold-warm), var(--gold-light));
+            color: var(--black-pure);
+            border: none;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
         }
         
         /* =================== BASE STYLES =================== */
@@ -540,8 +687,8 @@
         /* =================== ENHANCED HERO SECTION =================== */
         .hero {
             text-align: center;
-            padding: var(--space-2xl) 0;
-            min-height: 70vh;
+            padding: var(--space-lg) 0;
+            min-height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -561,11 +708,11 @@
         }
         
         .hero-logo {
-            max-height: 80vh;
+            max-height: 60vh;
             max-width: 90%;
             width: auto;
             height: auto;
-            margin-bottom: var(--space-xl);
+            margin-bottom: var(--space-md);
             opacity: 0.95;
             transition: all var(--transition-slow);
             filter: drop-shadow(var(--shadow-warm));
@@ -584,10 +731,10 @@
         
         .hero-title {
             font-family: 'Orbitron', 'Courier New', monospace;
-            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 900;
             color: var(--gold-warm);
-            margin-bottom: var(--space-lg);
+            margin-bottom: var(--space-sm);
             line-height: 1.1;
             letter-spacing: 0.02em;
             text-transform: uppercase;
@@ -601,11 +748,11 @@
         }
         
         .hero-subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-size: clamp(0.875rem, 2vw, 1rem);
             color: var(--white-muted);
-            line-height: 1.5;
+            line-height: 1.4;
             max-width: 600px;
-            margin: 0 auto var(--space-lg) auto;
+            margin: 0 auto var(--space-md) auto;
             font-weight: 400;
             letter-spacing: 0.01em;
             opacity: 0;
@@ -702,7 +849,7 @@
             left: 100%;
         }
         
-        .feature-icon:hover {
+        .feature-card:hover .feature-icon {
             border-color: var(--gold-warm);
             background: var(--gold-accent);
             transform: scale(1.05);
@@ -711,15 +858,7 @@
                 0 3px 8px rgba(0, 0, 0, 0.2);
         }
         
-        .feature-icon img {
-            width: 110px;
-            height: 110px;
-            object-fit: contain;
-            border-radius: var(--radius-md);
-            transition: transform var(--transition-base);
-        }
-        
-        .feature-icon:hover img {
+        .feature-card:hover .feature-icon img {
             transform: scale(1.1);
         }
         
@@ -769,8 +908,28 @@
                 padding: var(--space-md);
             }
             
+            .hero {
+                padding: var(--space-md) 0;
+            }
+            
             .hero-logo {
-                max-height: 50vh;
+                max-height: 40vh;
+                margin-bottom: var(--space-sm);
+            }
+            
+            .hero-title {
+                font-size: clamp(1.25rem, 5vw, 1.75rem);
+                margin-bottom: var(--space-xs);
+            }
+            
+            .hero-subtitle {
+                font-size: 0.875rem;
+                margin-bottom: var(--space-sm);
+            }
+            
+            .releases {
+                margin: var(--space-md) 0 var(--space-xl) 0;
+                padding: var(--space-xl) var(--space-md);
             }
             
             .nav {
@@ -811,6 +970,55 @@
             .entry-image {
                 max-width: 900px;
                 max-height: 75vh;
+            }
+            
+            .carousel-mobile {
+                display: none;
+            }
+            
+            .carousel-desktop {
+                display: block;
+                position: relative;
+                height: 400px;
+                overflow: hidden;
+                border-radius: var(--radius-xl);
+            }
+            
+            .desktop-track {
+                display: flex;
+                width: 1000%;
+                animation: slideCarousel 35s linear infinite;
+            }
+            
+            .desktop-slide {
+                flex: 0 0 20%;
+                display: flex;
+                align-items: center;
+                gap: var(--space-2xl);
+                padding: var(--space-2xl);
+                background: rgba(42, 42, 42, 0.8);
+                border-radius: var(--radius-xl);
+                margin: 0 var(--space-md);
+                border: 1px solid rgba(218, 181, 71, 0.1);
+                transition: all var(--transition-base);
+            }
+            
+            .desktop-slide:hover {
+                border-color: rgba(218, 181, 71, 0.3);
+                transform: translateY(-2px);
+                box-shadow: 
+                    0 8px 24px rgba(0, 0, 0, 0.3),
+                    0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            
+            .desktop-slide .album-image {
+                width: 200px;
+                height: 200px;
+                flex-shrink: 0;
+            }
+            
+            .desktop-album-info {
+                flex: 1;
             }
             
             .nav {
@@ -906,6 +1114,203 @@
             <p class="hero-subtitle">
                 Hip-Hop's Most Prolific Innovator
             </p>
+        </section>
+        
+        <!-- Latest Releases -->
+        <section class="releases">
+            <h2 class="releases-title">Latest Releases</h2>
+            
+            <!-- Mobile Carousel -->
+            <div class="carousel-mobile">
+                <div class="mobile-track">
+                    <div class="mobile-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <h3 class="album-title">Space Goretex</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <h3 class="album-title">Dr. Octagon Returns</h3>
+                        <p class="album-artist">Dr. Octagon</p>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="buy-btn">Pre-Order</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <h3 class="album-title">Keith's Vault Series</h3>
+                        <p class="album-artist">Ultra Keith</p>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="buy-btn">Listen</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <h3 class="album-title">Critical Beatdown</h3>
+                        <p class="album-artist">Ultramagnetic MCs</p>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <h3 class="album-title">Black Elvis 2</h3>
+                        <p class="album-artist">Black Elvis</p>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <!-- Duplicate set for continuous loop -->
+                    <div class="mobile-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <h3 class="album-title">Space Goretex</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <h3 class="album-title">Dr. Octagon Returns</h3>
+                        <p class="album-artist">Dr. Octagon</p>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="buy-btn">Pre-Order</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <h3 class="album-title">Keith's Vault Series</h3>
+                        <p class="album-artist">Ultra Keith</p>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="buy-btn">Listen</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <h3 class="album-title">Critical Beatdown</h3>
+                        <p class="album-artist">Ultramagnetic MCs</p>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                    
+                    <div class="mobile-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <h3 class="album-title">Black Elvis 2</h3>
+                        <p class="album-artist">Black Elvis</p>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="buy-btn">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desktop Carousel -->
+            <div class="carousel-desktop">
+                <div class="desktop-track">
+                    <div class="desktop-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Space Goretex</h3>
+                            <p class="album-artist">Kool Keith</p>
+                            <span class="album-badge badge-new">Out Now</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Dr. Octagon Returns</h3>
+                            <p class="album-artist">Dr. Octagon</p>
+                            <span class="album-badge badge-coming">July 2025</span>
+                            <a href="shop.html" class="buy-btn">Pre-Order</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Keith's Vault Series</h3>
+                            <p class="album-artist">Ultra Keith</p>
+                            <span class="album-badge badge-streaming">Streaming</span>
+                            <a href="shop.html" class="buy-btn">Listen</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Critical Beatdown</h3>
+                            <p class="album-artist">Ultramagnetic MCs</p>
+                            <span class="album-badge badge-streaming">Remastered</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Black Elvis 2</h3>
+                            <p class="album-artist">Black Elvis</p>
+                            <span class="album-badge badge-new">Available</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicate set for continuous loop -->
+                    <div class="desktop-slide">
+                        <img src="album1.png" alt="Space Goretex" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Space Goretex</h3>
+                            <p class="album-artist">Kool Keith</p>
+                            <span class="album-badge badge-new">Out Now</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Dr. Octagon Returns</h3>
+                            <p class="album-artist">Dr. Octagon</p>
+                            <span class="album-badge badge-coming">July 2025</span>
+                            <a href="shop.html" class="buy-btn">Pre-Order</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album3.png" alt="Keith's Vault Series" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Keith's Vault Series</h3>
+                            <p class="album-artist">Ultra Keith</p>
+                            <span class="album-badge badge-streaming">Streaming</span>
+                            <a href="shop.html" class="buy-btn">Listen</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album4.png" alt="Critical Beatdown" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Critical Beatdown</h3>
+                            <p class="album-artist">Ultramagnetic MCs</p>
+                            <span class="album-badge badge-streaming">Remastered</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="desktop-slide">
+                        <img src="album5.png" alt="Black Elvis 2" class="album-image">
+                        <div class="desktop-album-info">
+                            <h3 class="album-title">Black Elvis 2</h3>
+                            <p class="album-artist">Black Elvis</p>
+                            <span class="album-badge badge-new">Available</span>
+                            <a href="shop.html" class="buy-btn">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         
         <!-- Features Section -->
