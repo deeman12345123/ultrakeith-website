@@ -96,6 +96,9 @@
         html {
             scroll-behavior: smooth;
             font-size: 16px;
+            /* Prevent horizontal scroll on mobile */
+            overflow-x: hidden;
+            width: 100%;
         }
         
         body {
@@ -113,6 +116,13 @@
             font-weight: 400;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            /* Prevent text scaling issues on mobile */
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            /* Prevent code display issues */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         /* =================== UTILITIES =================== */
@@ -836,7 +846,28 @@
         }
         
         /* =================== RESPONSIVE DESIGN =================== */
+        /* =================== MOBILE-SPECIFIC FIXES =================== */
         @media (max-width: 768px) {
+            /* Prevent code/text overflow */
+            body {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                hyphens: auto;
+            }
+            
+            /* Hide any potential debug text */
+            .debug-text,
+            .code-display {
+                display: none !important;
+            }
+            
+            /* Ensure proper text rendering */
+            * {
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+                text-size-adjust: 100%;
+            }
+            
             .entry-image {
                 width: 95vw;
                 max-width: none;
@@ -860,11 +891,13 @@
             .hero-title {
                 font-size: clamp(1.25rem, 5vw, 1.75rem);
                 margin-bottom: var(--space-xs);
+                word-wrap: break-word;
             }
             
             .hero-subtitle {
                 font-size: 0.875rem;
                 margin-bottom: var(--space-sm);
+                word-wrap: break-word;
             }
             
             .releases {
@@ -874,10 +907,55 @@
             
             .feature-card {
                 padding: var(--space-xl) var(--space-lg);
+                word-wrap: break-word;
+            }
+            
+            .feature-description {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            /* Mobile navigation improvements */
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(218, 181, 71, 0.2);
+                flex-direction: column;
+                padding: var(--space-lg);
+                display: none;
+                box-shadow: var(--shadow-lg);
+            }
+            
+            .nav-menu.show {
+                display: flex;
+            }
+            
+            .nav-menu a {
+                padding: var(--space-md) 0;
+                text-align: center;
+                border-bottom: 1px solid rgba(218, 181, 71, 0.1);
             }
             
             .footer-links {
                 flex-direction: column;
+            }
+            
+            /* Prevent horizontal scroll */
+            .main {
+                overflow-x: hidden;
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+            
+            /* Fix any potential layout issues */
+            .carousel,
+            .carousel-track,
+            .features {
+                overflow-x: hidden;
             }
         }
         
@@ -1314,8 +1392,45 @@
                 this.simulateLoading();
                 this.bindEvents();
                 this.loadLatestNews();
+                this.preventMobileCodeDisplay();
                 
                 console.log('Ultra Keith App initialized');
+            }
+            
+            /**
+             * Prevent any code/debug text from showing on mobile
+             */
+            preventMobileCodeDisplay() {
+                // Remove any potential debug elements
+                const debugElements = document.querySelectorAll('.debug-text, .code-display, [data-debug]');
+                debugElements.forEach(el => el.remove());
+                
+                // Ensure no CSS is being displayed as text
+                const textNodes = document.evaluate(
+                    "//text()[contains(., 'font-family') or contains(., 'color:') or contains(., 'margin:')]",
+                    document.body,
+                    null,
+                    XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+                    null
+                );
+                
+                for (let i = 0; i < textNodes.snapshotLength; i++) {
+                    const node = textNodes.snapshotItem(i);
+                    if (node.parentNode.tagName !== 'STYLE' && node.parentNode.tagName !== 'SCRIPT') {
+                        // This might be CSS showing as text - remove it
+                        node.textContent = '';
+                    }
+                }
+                
+                // Force proper layout on mobile
+                if (window.innerWidth <= 768) {
+                    document.body.style.overflow = 'hidden';
+                    setTimeout(() => {
+                        if (this.state.siteLoaded) {
+                            document.body.style.overflow = 'auto';
+                        }
+                    }, 100);
+                }
             }
             
             /**
