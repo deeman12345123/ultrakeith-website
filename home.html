@@ -127,12 +127,20 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             width: 100%;
-            max-width: 500px;
-            padding: var(--space-lg);
+            height: 100vh;
+            padding: var(--space-lg) var(--space-lg) var(--space-2xl) var(--space-lg);
             position: relative;
             animation: entryFadeIn var(--transition-elegant) ease-out;
+        }
+        
+        .entry-image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
         
         @keyframes entryFadeIn {
@@ -142,36 +150,34 @@
         
         .entry-image {
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
             height: auto;
-            max-height: 300px;
+            max-height: 500px;
             object-fit: contain;
             opacity: 0.95;
             transition: opacity var(--transition-slow);
             z-index: 1;
-            margin-bottom: var(--space-lg);
             border-radius: var(--radius-lg);
             filter: drop-shadow(var(--shadow-warm));
         }
         
-        /* =================== ENHANCED AUDIO CONTROLS =================== */
+        /* =================== SITE-MATCHED AUDIO CONTROLS =================== */
         .sound-controls {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: var(--space-lg);
-            padding: var(--space-xl);
-            background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(218, 181, 71, 0.3);
-            border-radius: var(--radius-2xl);
-            backdrop-filter: blur(30px);
-            min-width: 320px;
-            box-shadow: 
-                var(--shadow-lg),
-                var(--shadow-gold);
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(20px);
+            min-width: 200px;
+            box-shadow: var(--shadow-lg);
             position: relative;
             z-index: 2;
-            transition: all var(--transition-base);
+            transition: all var(--transition-slow);
+            overflow: hidden;
         }
         
         .sound-controls::before {
@@ -181,58 +187,53 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(218, 181, 71, 0.08) 0%, transparent 50%);
-            border-radius: var(--radius-2xl);
+            background: linear-gradient(135deg, rgba(218, 181, 71, 0.05) 0%, transparent 50%);
             opacity: 0;
-            transition: opacity var(--transition-base);
+            transition: opacity var(--transition-slow);
         }
         
         .sound-controls:hover::before {
             opacity: 1;
         }
         
-        .sound-label {
-            font-family: 'Orbitron', 'Courier New', monospace;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--white-muted);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-align: center;
+        .sound-controls:hover {
+            border-color: rgba(218, 181, 71, 0.4);
+            box-shadow: 
+                var(--shadow-lg),
+                0 0 20px rgba(218, 181, 71, 0.15);
         }
         
-        .sound-toggle-container {
+        .audio-toggle-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: var(--space-lg);
+            gap: var(--space-sm);
             width: 100%;
         }
         
-        .sound-icon {
-            font-size: 1.5rem;
+        .audio-label {
+            font-family: 'Orbitron', 'Courier New', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
             color: var(--gold-warm);
-            transition: all var(--transition-base);
-        }
-        
-        .sound-icon.muted {
-            color: var(--white-tertiary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
         
         .toggle-switch {
             position: relative;
-            width: 64px;
-            height: 32px;
+            width: 40px;
+            height: 20px;
             background: var(--black-light);
-            border-radius: 16px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all var(--transition-base);
-            border: 2px solid rgba(218, 181, 71, 0.3);
+            border: 1px solid rgba(218, 181, 71, 0.3);
         }
         
         .toggle-switch:hover {
             border-color: rgba(218, 181, 71, 0.5);
-            box-shadow: var(--shadow-gold);
+            box-shadow: 0 0 8px rgba(218, 181, 71, 0.2);
         }
         
         .toggle-switch.active {
@@ -242,10 +243,10 @@
         
         .toggle-slider {
             position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 24px;
-            height: 24px;
+            top: 1px;
+            left: 1px;
+            width: 16px;
+            height: 16px;
             background: var(--white-pure);
             border-radius: 50%;
             transition: all var(--transition-base);
@@ -253,13 +254,13 @@
         }
         
         .toggle-switch.active .toggle-slider {
-            transform: translateX(32px);
+            transform: translateX(20px);
             background: var(--black-pure);
         }
         
-        .sound-status {
+        .audio-status {
             font-family: 'Orbitron', 'Courier New', monospace;
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 500;
             color: var(--gold-warm);
             letter-spacing: 0.1em;
@@ -267,7 +268,7 @@
             transition: color var(--transition-base);
         }
         
-        .sound-status.muted {
+        .audio-status.disabled {
             color: var(--white-tertiary);
         }
         
@@ -276,17 +277,17 @@
             background: linear-gradient(135deg, var(--gold-warm), var(--gold-light));
             color: var(--black-pure);
             border: none;
-            padding: var(--space-md) var(--space-2xl);
-            border-radius: var(--radius-xl);
-            font-size: 1rem;
-            font-weight: 700;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 600;
             font-family: 'Orbitron', 'Courier New', monospace;
             cursor: pointer;
             transition: all var(--transition-base);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             width: 100%;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-sm);
             flex-shrink: 0;
             position: relative;
             overflow: hidden;
@@ -835,16 +836,17 @@
     <!-- ENTRY OVERLAY -->
     <div class="entry-overlay" id="entryOverlay">
         <div class="entry-content">
-            <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
+            <div class="entry-image-container">
+                <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
+            </div>
             
             <div class="sound-controls">
-                <div class="sound-label">Audio Experience</div>
-                <div class="sound-toggle-container">
-                    <span class="sound-icon" id="soundIcon">🔊</span>
+                <div class="audio-toggle-container">
+                    <span class="audio-label">Audio</span>
                     <div class="toggle-switch active" id="toggleSwitch">
                         <div class="toggle-slider"></div>
                     </div>
-                    <span class="sound-status" id="soundStatus">Enabled</span>
+                    <span class="audio-status" id="audioStatus">Enabled</span>
                 </div>
                 
                 <button class="enter-button loading" id="enterButton">
@@ -1054,8 +1056,7 @@
             entryOverlay: document.getElementById('entryOverlay'),
             enterButton: document.getElementById('enterButton'),
             toggleSwitch: document.getElementById('toggleSwitch'),
-            soundIcon: document.getElementById('soundIcon'),
-            soundStatus: document.getElementById('soundStatus'),
+            audioStatus: document.getElementById('audioStatus'),
             backToTop: document.getElementById('backToTop'),
             mobileMenuBtn: document.getElementById('mobileMenuBtn'),
             navMenu: document.getElementById('navMenu')
@@ -1069,19 +1070,15 @@
             },
             
             updateSoundUI: (enabled) => {
-                const { soundIcon, soundStatus, toggleSwitch } = Elements;
+                const { audioStatus, toggleSwitch } = Elements;
                 
                 if (enabled) {
-                    soundIcon.textContent = '🔊';
-                    soundIcon.classList.remove('muted');
-                    soundStatus.textContent = 'Enabled';
-                    soundStatus.classList.remove('muted');
+                    audioStatus.textContent = 'Enabled';
+                    audioStatus.classList.remove('disabled');
                     toggleSwitch.classList.add('active');
                 } else {
-                    soundIcon.textContent = '🔇';
-                    soundIcon.classList.add('muted');
-                    soundStatus.textContent = 'Disabled';
-                    soundStatus.classList.add('muted');
+                    audioStatus.textContent = 'Disabled';
+                    audioStatus.classList.add('disabled');
                     toggleSwitch.classList.remove('active');
                 }
             }
