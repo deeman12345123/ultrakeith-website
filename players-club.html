@@ -32,11 +32,13 @@
             --red-accent: #1F0A0A;
             
             /* Casino machine colors */
-            --chrome-light: #E8E8E8;
-            --chrome-dark: #CCCCCC;
-            --chrome-shadow: #999999;
+            --chrome-light: #D4AF37;
+            --chrome-dark: #B8941F;
+            --chrome-shadow: #8B7914;
             --metal-dark: #2D2D2D;
             --metal-light: #3D3D3D;
+            --bezel-gold: linear-gradient(135deg, #D4AF37, #B8941F, #8B7914);
+            --bezel-accent: linear-gradient(135deg, #E8C547, #D4AF37, #B8941F);
         }
         
         * {
@@ -126,10 +128,10 @@
             transform: rotateX(2deg) scale(1.02);
         }
         
-        /* Machine top chrome bezel */
+        /* Machine top gold bezel */
         .machine-top {
             height: 30px;
-            background: linear-gradient(135deg, var(--chrome-light), var(--chrome-dark));
+            background: var(--bezel-gold);
             border-bottom: 2px solid var(--chrome-shadow);
             position: relative;
         }
@@ -142,7 +144,7 @@
             transform: translateX(-50%);
             width: 80%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            background: linear-gradient(90deg, transparent, rgba(232, 197, 71, 0.8), transparent);
         }
         
         /* Display area with realistic bezel */
@@ -165,7 +167,7 @@
             left: -6px;
             right: -6px;
             bottom: -6px;
-            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-dark));
+            background: var(--bezel-gold);
             border-radius: 18px;
             z-index: -1;
         }
@@ -290,7 +292,7 @@
             left: -3px;
             right: -3px;
             bottom: -3px;
-            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-shadow));
+            background: var(--bezel-accent);
             border-radius: 15px;
             z-index: -1;
         }
@@ -397,7 +399,7 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-shadow));
+            background: var(--bezel-gold);
             border-radius: 17px;
             z-index: -1;
         }
@@ -584,10 +586,10 @@
             background: linear-gradient(145deg, #666, #444);
         }
         
-        /* Machine bottom chrome */
+        /* Machine bottom gold bezel */
         .machine-bottom {
             height: 25px;
-            background: linear-gradient(135deg, var(--chrome-light), var(--chrome-dark));
+            background: var(--bezel-gold);
             border-top: 1px solid var(--chrome-shadow);
             position: relative;
         }
@@ -600,7 +602,7 @@
             transform: translateX(-50%);
             width: 90%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(139, 121, 20, 0.6), transparent);
         }
         
         /* Jackpot effect */
@@ -648,7 +650,7 @@
             left: -5px;
             right: -5px;
             bottom: -8px;
-            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-dark));
+            background: var(--bezel-accent);
             border-radius: 6px;
             z-index: -1;
         }
@@ -709,8 +711,20 @@
             }
             
             .display-row {
-                flex-direction: column;
-                gap: 10px;
+                gap: 8px;
+            }
+            
+            .digital-display {
+                padding: 8px 10px;
+            }
+            
+            .display-label {
+                font-size: 0.6rem;
+                margin-bottom: 3px;
+            }
+            
+            .display-value {
+                font-size: 1rem;
             }
             
             .side-paytable {
