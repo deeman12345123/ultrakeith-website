@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keith's Cosmic Casino - Ultra Slot Machine</title>
+    <title>Willie Biggs Casino - Ultra Slot Machine</title>
     
     <style>
         /* Import fonts from your site */
@@ -80,24 +80,21 @@
             z-index: 10;
         }
         
-        .casino-title {
-            font-family: 'Orbitron', 'Courier New', monospace;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.5rem;
-            text-shadow: 
-                0 0 10px rgba(212, 175, 55, 0.8),
-                0 0 20px rgba(212, 175, 55, 0.5),
-                0 0 30px rgba(212, 175, 55, 0.3);
-            animation: neonPulse 2s ease-in-out infinite alternate;
+        .casino-logo {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6));
+            transition: filter 0.3s ease;
         }
         
-        @keyframes neonPulse {
-            0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.5); }
-            100% { text-shadow: 0 0 20px rgba(212, 175, 55, 1), 0 0 30px rgba(212, 175, 55, 0.7), 0 0 40px rgba(212, 175, 55, 0.5); }
+        .casino-logo:hover {
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.8));
+        }
+        
+        .casino-title {
+            display: none;
         }
         
         .casino-subtitle {
@@ -692,8 +689,8 @@
                 transform: scale(1.01);
             }
             
-            .casino-title {
-                font-size: 1.8rem;
+            .casino-logo {
+                max-width: 200px;
             }
             
             .reel {
@@ -767,7 +764,7 @@
     <div class="jackpot-effect" id="jackpotEffect"></div>
     
     <header class="casino-header">
-        <h1 class="casino-title">Keith's Cosmic Casino</h1>
+        <img src="williebiggs.png" alt="Willie Biggs Casino" class="casino-logo">
         <p class="casino-subtitle">Ultra Elite Slot Machine - Spin for exclusive vault tracks</p>
     </header>
     
