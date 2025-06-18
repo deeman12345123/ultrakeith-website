@@ -3,9 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Players Club - Ultra Keith Speakeasy</title>
+    <title>Keith's Cosmic Casino - Ultra Slot Machine</title>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&family=Playfair+Display:wght@400;700;900&display=swap');
+        /* Import fonts from your site */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            /* Your site's exact color palette */
+            --gold-primary: #D4AF37;
+            --gold-light: #E8C547;
+            --gold-dark: #B8941F;
+            --gold-muted: rgba(212, 175, 55, 0.1);
+            --gold-accent: rgba(212, 175, 55, 0.15);
+            
+            --black-pure: #000000;
+            --black-soft: #0A0A0A;
+            --black-medium: #1A1A1A;
+            --black-light: #2A2A2A;
+            
+            --white-pure: #FFFFFF;
+            --white-soft: #F8F8F8;
+            --white-muted: rgba(255, 255, 255, 0.9);
+            --white-secondary: rgba(255, 255, 255, 0.7);
+            --white-tertiary: rgba(255, 255, 255, 0.5);
+            
+            --red-dark: #0F0000;
+            --red-accent: #1F0A0A;
+            
+            /* Casino machine colors */
+            --chrome-light: #E8E8E8;
+            --chrome-dark: #CCCCCC;
+            --chrome-shadow: #999999;
+            --metal-dark: #2D2D2D;
+            --metal-light: #3D3D3D;
+        }
         
         * {
             margin: 0;
@@ -14,1257 +46,1123 @@
         }
         
         body {
-            font-family: 'Roboto', sans-serif;
-            background: 
-                radial-gradient(circle at 20% 80%, #1a0a00 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, #0a0a0a 0%, transparent 50%),
-                linear-gradient(135deg, #000000 0%, #1a0a00 25%, #0a0a0a 50%, #2a1000 75%, #000000 100%);
-            color: #ffffff;
-            overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, var(--black-pure) 0%, var(--red-dark) 30%, var(--black-pure) 100%);
+            color: var(--white-pure);
             min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            perspective: 1000px;
+        }
+        
+        /* Header */
+        .casino-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            z-index: 10;
+        }
+        
+        .casino-title {
+            font-family: 'Orbitron', 'Courier New', monospace;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            text-shadow: 
+                0 0 10px rgba(212, 175, 55, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.5),
+                0 0 30px rgba(212, 175, 55, 0.3);
+            animation: neonPulse 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.8), 0 0 20px rgba(212, 175, 55, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(212, 175, 55, 1), 0 0 30px rgba(212, 175, 55, 0.7), 0 0 40px rgba(212, 175, 55, 0.5); }
+        }
+        
+        .casino-subtitle {
+            font-size: 1.1rem;
+            color: var(--white-secondary);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Main slot machine container */
+        .slot-machine {
+            position: relative;
+            max-width: 450px;
+            width: 100%;
+            background: linear-gradient(145deg, #1F1F1F, #0F0F0F);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                inset 0 0 0 3px var(--gold-primary),
+                inset 0 0 0 6px #333,
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transform: rotateX(5deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .slot-machine:hover {
+            transform: rotateX(2deg) scale(1.02);
+        }
+        
+        /* Machine top chrome bezel */
+        .machine-top {
+            height: 30px;
+            background: linear-gradient(135deg, var(--chrome-light), var(--chrome-dark));
+            border-bottom: 2px solid var(--chrome-shadow);
             position: relative;
         }
         
-        /* Speakeasy Background Effects */
-        .speakeasy-atmosphere {
-            position: fixed;
+        .machine-top::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+        
+        /* Display area with realistic bezel */
+        .display-area {
+            background: #000000;
+            margin: 20px;
+            border-radius: 15px;
+            position: relative;
+            border: 4px solid var(--metal-dark);
+            box-shadow: 
+                inset 0 0 0 2px var(--gold-primary),
+                inset 0 0 30px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .display-area::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-dark));
+            border-radius: 18px;
+            z-index: -1;
+        }
+        
+        /* Realistic CRT screen effect */
+        .screen {
+            background: radial-gradient(ellipse at center, #001100 0%, #000000 70%);
+            padding: 25px 20px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .screen::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.03) 2px,
+                rgba(0, 255, 0, 0.03) 4px
+            );
+            pointer-events: none;
+        }
+        
+        .screen::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        /* Pay table display */
+        .pay-table {
+            background: linear-gradient(135deg, #0A1A0A, #000000);
+            border: 2px solid var(--gold-dark);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', monospace;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .pay-table-title {
+            color: var(--gold-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+        }
+        
+        .pay-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 3px 0;
+            font-size: 0.7rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .pay-symbols {
+            color: var(--white-secondary);
+            font-size: 0.8rem;
+        }
+        
+        .pay-amount {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+        
+        /* Realistic mechanical reels */
+        .reels-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 20px 15px;
+            background: linear-gradient(135deg, #1A1A1A, #0A0A0A);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .reels-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 60%);
+            border-radius: 10px;
+        }
+        
+        .reel {
+            width: 85px;
+            height: 100px;
+            background: linear-gradient(135deg, #2A2A2A, #1A1A1A);
+            border: 3px solid var(--metal-dark);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .reel::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-shadow));
+            border-radius: 15px;
+            z-index: -1;
+        }
+        
+        .reel::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        
+        .reel-window {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #000000, #111111);
+            border-radius: 8px;
+            margin: 3px;
+        }
+        
+        .reel-symbol {
+            font-size: 2.5rem;
+            text-shadow: 
+                0 0 10px currentColor,
+                0 0 20px currentColor,
+                0 2px 4px rgba(0, 0, 0, 0.8);
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+        
+        .reel.spinning .reel-symbol {
+            animation: mechanicalSpin 0.05s linear infinite;
+            filter: blur(1px);
+        }
+        
+        @keyframes mechanicalSpin {
+            0% { transform: translateY(0); }
+            25% { transform: translateY(-15px); }
+            50% { transform: translateY(-30px); }
+            75% { transform: translateY(-45px); }
+            100% { transform: translateY(-60px); }
+        }
+        
+        /* Win line effects */
+        .win-line {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--gold-primary), 
+                var(--gold-light), 
+                var(--gold-primary), 
+                transparent);
+            transform: translateY(-50%);
+            opacity: 0;
+            border-radius: 2px;
+            box-shadow: 0 0 20px var(--gold-primary);
+        }
+        
+        .win-line.active {
+            opacity: 1;
+            animation: winLinePulse 1s ease-in-out infinite alternate;
+        }
+        
+        @keyframes winLinePulse {
+            0% { 
+                box-shadow: 0 0 20px var(--gold-primary);
+                transform: translateY(-50%) scaleX(1);
+            }
+            100% { 
+                box-shadow: 0 0 40px var(--gold-primary), 0 0 60px var(--gold-light);
+                transform: translateY(-50%) scaleX(1.1);
+            }
+        }
+        
+        /* Control panel */
+        .control-panel {
+            background: linear-gradient(135deg, #2A2A2A, #1A1A1A);
+            margin: 0 20px 20px 20px;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid var(--metal-dark);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .control-panel::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-shadow));
+            border-radius: 17px;
+            z-index: -1;
+        }
+        
+        /* Digital displays */
+        .display-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .digital-display {
+            background: #000000;
+            border: 2px solid var(--gold-dark);
+            border-radius: 8px;
+            padding: 10px 15px;
+            flex: 1;
+            text-align: center;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+        
+        .digital-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.05) 2px,
+                rgba(0, 255, 0, 0.05) 4px
+            );
+            border-radius: 6px;
+        }
+        
+        .display-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            color: var(--white-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+        }
+        
+        .display-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            text-shadow: 0 0 10px currentColor;
+            line-height: 1;
+        }
+        
+        /* Result display */
+        .result-display {
+            background: #000000;
+            border: 2px solid var(--gold-primary);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .result-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 3px,
+                rgba(212, 175, 55, 0.03) 3px,
+                rgba(212, 175, 55, 0.03) 6px
+            );
+            border-radius: 8px;
+        }
+        
+        .result-text {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .result-text.win {
+            color: var(--gold-primary);
+            text-shadow: 0 0 15px currentColor;
+            animation: winTextPulse 1s ease-in-out infinite alternate;
+        }
+        
+        .result-text.lose {
+            color: var(--white-secondary);
+        }
+        
+        @keyframes winTextPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        
+        .prize-text {
+            font-size: 0.9rem;
+            color: var(--white-muted);
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.3;
+        }
+        
+        /* Realistic slot machine handle/button */
+        .spin-button {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(145deg, var(--gold-primary), var(--gold-dark));
+            border: none;
+            border-radius: 15px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--black-pure);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 
+                0 8px 15px rgba(0, 0, 0, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spin-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            background: 
-                radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 70% 30%, rgba(139, 69, 19, 0.1) 0%, transparent 40%);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
         }
         
-        .smoke-particle {
+        .spin-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 25px rgba(0, 0, 0, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .spin-button:hover:not(:disabled)::before {
+            left: 100%;
+        }
+        
+        .spin-button:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 
+                0 4px 10px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .spin-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            background: linear-gradient(145deg, #666, #444);
+        }
+        
+        /* Machine bottom chrome */
+        .machine-bottom {
+            height: 25px;
+            background: linear-gradient(135deg, var(--chrome-light), var(--chrome-dark));
+            border-top: 1px solid var(--chrome-shadow);
+            position: relative;
+        }
+        
+        .machine-bottom::after {
+            content: '';
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: rgba(255, 215, 0, 0.3);
-            border-radius: 50%;
-            animation: smokeFloat 12s infinite linear;
-            opacity: 0.4;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.3), transparent);
         }
         
-        @keyframes smokeFloat {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
-            10% { opacity: 0.4; }
-            90% { opacity: 0.4; }
-            100% { transform: translateY(-100vh) rotate(360deg) scale(1.5); opacity: 0; }
-        }
-        
-        /* Navigation */
-        .navigation {
+        /* Jackpot effect */
+        .jackpot-effect {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-            z-index: 100;
-            padding: 15px 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1000;
         }
         
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+        .jackpot-effect.active {
+            animation: jackpotFlash 3s ease-out;
         }
         
-        .nav-logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #ffd700;
-            text-decoration: none;
+        @keyframes jackpotFlash {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            40% { opacity: 0.5; }
+            60% { opacity: 1; }
+            80% { opacity: 0.3; }
+            100% { opacity: 0; }
         }
         
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-        
-        .nav-menu a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-menu a:hover {
-            color: #ffd700;
-        }
-        
-        .back-button {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 8px 16px;
-            border-radius: 15px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .back-button:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.3));
-            transform: scale(1.05);
-        }
-        
-        /* Main Container */
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 100px 20px 40px;
-        }
-        
-        /* Club Header */
-        .club-header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding: 40px 20px;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 10, 0, 0.6));
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-        }
-        
-        .club-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #daa520);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: goldShimmer 4s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            margin-bottom: 20px;
-        }
-        
-        @keyframes goldShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .club-subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-style: italic;
-            margin-bottom: 30px;
-        }
-        
-        .club-description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        /* Gaming Section */
-        .gaming-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 40px;
-            margin: 60px 0;
-            justify-items: center;
-        }
-        
-        /* Slot Machine */
-        .slot-machine {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 10, 0, 0.7));
-            border: 3px solid rgba(255, 215, 0, 0.5);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.7),
-                inset 0 2px 4px rgba(255, 215, 0, 0.2);
-        }
-        
-        .slot-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-        }
-        
-        .slot-reels {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 30px 0;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(255, 215, 0, 0.7);
-            border-radius: 15px;
-            padding: 20px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .reel {
-            width: 80px;
-            height: 240px;
-            background: rgba(26, 10, 0, 0.9);
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            font-size: 2rem;
-            color: #ffd700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-            transition: all 0.3s ease;
-            overflow: hidden;
-            position: relative;
-            padding: 10px 0;
-        }
-        
-        .reel-symbol {
-            width: 100%;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-        }
-        
-        .reel-symbol:last-child {
-            border-bottom: none;
-        }
-        
-        .reel.spinning {
-            animation: reelSpin 2s ease-out;
-        }
-        
-        @keyframes reelSpin {
-            0% { transform: rotateX(0deg); }
-            100% { transform: rotateX(1440deg); }
-        }
-        
-        .spin-button {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-        
-        .spin-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
-        }
-        
-        .spin-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .slot-result {
-            min-height: 60px;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .win-message {
-            color: #ffd700;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-            animation: winGlow 1s ease-in-out infinite alternate;
-        }
-        
-        @keyframes winGlow {
-            0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
-            100% { text-shadow: 0 0 20px rgba(255, 215, 0, 1); }
-        }
-        
-        /* Card Hand Discography */
-        .card-hand {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 10, 0, 0.7));
-            border: 3px solid rgba(255, 215, 0, 0.5);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.7),
-                inset 0 2px 4px rgba(255, 215, 0, 0.2);
-        }
-        
-        .hand-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-align: center;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-        }
-        
-        .playing-cards {
-            display: flex;
-            justify-content: center;
-            gap: -20px;
-            flex-wrap: wrap;
-            perspective: 1000px;
-            margin: 30px 0;
-        }
-        
-        .playing-card {
-            width: 120px;
-            height: 180px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            transform-style: preserve-3d;
-            margin: 0 -10px;
-        }
-        
-        .playing-card:hover {
-            transform: translateY(-20px) rotateY(10deg) scale(1.1);
-            z-index: 10;
-        }
-        
-        .card-front, .card-back {
+        /* Coin insertion slot */
+        .coin-slot {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            backface-visibility: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(255, 215, 0, 0.4);
+            top: 15px;
+            right: 20px;
+            width: 30px;
+            height: 4px;
+            background: linear-gradient(135deg, #000, #333);
+            border-radius: 2px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
         }
         
-        .card-front {
-            background: linear-gradient(145deg, rgba(26, 10, 0, 0.95), rgba(0, 0, 0, 0.9));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
+        .coin-slot::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -5px;
+            right: -5px;
+            bottom: -8px;
+            background: linear-gradient(145deg, var(--chrome-light), var(--chrome-dark));
+            border-radius: 6px;
+            z-index: -1;
         }
         
-        .card-back {
-            background: linear-gradient(45deg, #ffd700, #daa520);
-            transform: rotateY(180deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            color: #000;
-            font-size: 0.8rem;
-        }
-        
-        .album-cover {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            object-fit: cover;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        
-        .album-title {
-            font-size: 0.7rem;
-            color: #ffd700;
-            font-weight: 600;
-            text-align: center;
-            line-height: 1.2;
-        }
-        
-        .shuffle-button {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
-            color: #ffd700;
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            padding: 12px 25px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            margin: 20px auto;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .color-bet-button {
-            padding: 15px 30px;
-            margin: 0 15px;
-            border: none;
-            border-radius: 20px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .color-bet-button.red {
-            background: linear-gradient(45deg, #ff0000, #ff4444);
-            color: white;
-            border: 2px solid #cc0000;
-        }
-        
-        .color-bet-button.red:hover {
-            background: linear-gradient(45deg, #ff4444, #ff6666);
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
-        }
-        
-        .color-bet-button.black {
-            background: linear-gradient(45deg, #000000, #333333);
-            color: white;
-            border: 2px solid #555555;
-        }
-        
-        .color-bet-button.black:hover {
-            background: linear-gradient(45deg, #333333, #555555);
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-        }
-        
-        .color-bet-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .mystery-card {
-            margin: 0 auto !important;
-        }
-        
-        .card-mystery {
-            font-size: 4rem;
-            color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-            animation: mysteryPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes mysteryPulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-        }
-        
-        .card-result {
-            min-height: 80px;
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            text-align: center;
-        }
-        
-        .card-revealed {
-            transform: rotateY(180deg);
-        }
-        
-        .revealed-card {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-        
-        .red-card {
-            color: #ff4444;
-        }
-        
-        .black-card {
-            color: #333333;
-        }
-        
-        /* VIP Section */
-        .vip-section {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 10, 0, 0.8));
-            border: 3px solid rgba(255, 215, 0, 0.6);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin: 60px 0;
-            backdrop-filter: blur(20px);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.8),
-                inset 0 2px 4px rgba(255, 215, 0, 0.3);
-        }
-        
-        .vip-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-        }
-        
-        .vip-description {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        
-        .vip-button {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .vip-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.5);
-        }
-        
-        /* Mobile Responsive */
+        /* Responsive design */
         @media (max-width: 768px) {
-            .club-title {
-                font-size: 2.5rem;
+            body {
+                padding: 1rem 0.5rem;
             }
             
-            .gaming-section {
-                grid-template-columns: 1fr;
-                gap: 30px;
+            .slot-machine {
+                max-width: 380px;
+                transform: none;
             }
             
-            .slot-reels {
-                gap: 5px;
+            .slot-machine:hover {
+                transform: scale(1.01);
+            }
+            
+            .casino-title {
+                font-size: 1.8rem;
             }
             
             .reel {
-                width: 60px;
-                height: 180px;
-                font-size: 1.5rem;
+                width: 75px;
+                height: 90px;
             }
             
             .reel-symbol {
-                height: 45px;
-                font-size: 1.5rem;
+                font-size: 2.2rem;
             }
             
-            .playing-cards {
-                gap: -10px;
+            .control-panel {
+                margin: 0 15px 15px 15px;
+                padding: 20px;
             }
             
-            .playing-card {
-                width: 80px;
-                height: 120px;
-                margin: 0 -5px;
+            .display-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slot-machine {
+                max-width: 340px;
             }
             
-            .album-cover {
-                width: 50px;
-                height: 50px;
+            .reels-container {
+                gap: 6px;
+                padding: 15px 10px;
+            }
+            
+            .reel {
+                width: 70px;
+                height: 85px;
+            }
+            
+            .reel-symbol {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Speakeasy Atmosphere -->
-    <div class="speakeasy-atmosphere" id="atmosphere"></div>
+    <div class="jackpot-effect" id="jackpotEffect"></div>
     
-    <!-- Navigation -->
-    <nav class="navigation">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">ULTRA KEITH</a>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#slot-machine">Slots</a></li>
-                <li><a href="#card-hand">Card Hand</a></li>
-                <li><a href="#vip">VIP Lounge</a></li>
-            </ul>
-            <a href="index.html" class="back-button">← Back to Main</a>
+    <header class="casino-header">
+        <h1 class="casino-title">Keith's Cosmic Casino</h1>
+        <p class="casino-subtitle">Ultra Elite Slot Machine - Spin for exclusive vault tracks</p>
+    </header>
+    
+    <div class="slot-machine">
+        <!-- Machine top chrome bezel -->
+        <div class="machine-top">
+            <div class="coin-slot"></div>
         </div>
-    </nav>
-    
-    <div class="container">
-        <!-- Club Header -->
-        <section class="club-header">
-            <h1 class="club-title">The Players Club</h1>
-            <p class="club-subtitle">An Exclusive Speakeasy Gaming Experience</p>
-            <p class="club-description">
-                Welcome to Keith's after-dark universe. Here in our sophisticated underground lounge, 
-                you can try your luck at the persona slots, explore Keith's card hand discography, 
-                and discover exclusive experiences that exist nowhere else.
-            </p>
-        </section>
         
-        <!-- Gaming Section -->
-        <div class="gaming-section">
-            <!-- Slot Machine -->
-            <div class="slot-machine" id="slot-machine">
-                <h2 class="slot-title">🎰 Willie Biggs Slots</h2>
-                <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
-                    Match 3 personas to win exclusive vault tracks!
-                </p>
+        <!-- Display area with realistic bezel -->
+        <div class="display-area">
+            <div class="screen">
+                <!-- Pay table -->
+                <div class="pay-table">
+                    <div class="pay-table-title">ULTRA KEITH PAYTABLE</div>
+                    <div class="pay-line">
+                        <span class="pay-symbols">🎭 🎭 🎭</span>
+                        <span class="pay-amount">PERSONA TRACK</span>
+                    </div>
+                    <div class="pay-line">
+                        <span class="pay-symbols">🩺 🩺 🩺</span>
+                        <span class="pay-amount">DR. OCTAGON</span>
+                    </div>
+                    <div class="pay-line">
+                        <span class="pay-symbols">👑 👑 👑</span>
+                        <span class="pay-amount">BLACK ELVIS</span>
+                    </div>
+                    <div class="pay-line">
+                        <span class="pay-symbols">💀 💀 💀</span>
+                        <span class="pay-amount">DR. DOOOM</span>
+                    </div>
+                    <div class="pay-line">
+                        <span class="pay-symbols">🎭 🩺 👑</span>
+                        <span class="pay-amount">ULTRA JACKPOT</span>
+                    </div>
+                </div>
                 
-                <div class="slot-reels">
+                <!-- Mechanical reels -->
+                <div class="reels-container">
+                    <div class="win-line" id="winLine"></div>
                     <div class="reel" id="reel1">
-                        <div class="reel-symbol">🎭</div>
-                        <div class="reel-symbol">👨‍⚕️</div>
-                        <div class="reel-symbol">👑</div>
+                        <div class="reel-window">
+                            <div class="reel-symbol">🎭</div>
+                        </div>
                     </div>
                     <div class="reel" id="reel2">
-                        <div class="reel-symbol">💀</div>
-                        <div class="reel-symbol">⚡</div>
-                        <div class="reel-symbol">🎤</div>
+                        <div class="reel-window">
+                            <div class="reel-symbol">🎵</div>
+                        </div>
                     </div>
                     <div class="reel" id="reel3">
-                        <div class="reel-symbol">🌟</div>
-                        <div class="reel-symbol">🔥</div>
-                        <div class="reel-symbol">🎭</div>
-                    </div>
-                </div>
-                
-                <button class="spin-button" onclick="spinSlots()">SPIN THE REELS</button>
-                
-                <div class="slot-result" id="slotResult">
-                    <p style="color: rgba(255,255,255,0.7);">
-                        Win with any line:<br>
-                        🏆 <strong>Horizontal:</strong> Top, Middle, or Bottom row<br>
-                        💎 <strong>Diagonal:</strong> Corner to corner<br>
-                        🎵 <strong>Match 3 symbols</strong> to win exclusive vault tracks!
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Card Hand Discography -->
-            <div class="card-hand" id="card-hand">
-                <h2 class="hand-title">🃏 Keith's Winning Hand</h2>
-                <p style="color: rgba(255,255,255,0.8); text-align: center; margin-bottom: 20px;">
-                    Pick RED or BLACK - Match the hidden card to win exclusive tracks!
-                </p>
-                
-                <!-- Color Selection Buttons -->
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <button class="color-bet-button red" onclick="placeBet('red')" id="redBtn">
-                        ♥️ BET RED ♦️
-                    </button>
-                    <button class="color-bet-button black" onclick="placeBet('black')" id="blackBtn">
-                        ♠️ BET BLACK ♣️
-                    </button>
-                </div>
-                
-                <!-- Single Mystery Card -->
-                <div class="playing-cards" id="cardHand">
-                    <div class="playing-card mystery-card" id="mysteryCard">
-                        <div class="card-front" id="cardFront">
-                            <div class="card-mystery">?</div>
-                        </div>
-                        <div class="card-back">
-                            ULTRA<br>KEITH
+                        <div class="reel-window">
+                            <div class="reel-symbol">🌌</div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Game Result -->
-                <div class="card-result" id="cardResult">
-                    <p style="color: rgba(255,255,255,0.7);">
-                        🎯 Choose your color and test your luck!<br>
-                        <small>Win exclusive Keith vault tracks with the right call</small>
-                    </p>
-                </div>
-                
-                <div style="text-align: center;">
-                    <button class="shuffle-button" onclick="newRound()" id="newRoundBtn" style="display: none;">
-                        🔄 New Round
-                    </button>
                 </div>
             </div>
         </div>
         
-        <!-- VIP Section -->
-        <section class="vip-section" id="vip">
-            <h2 class="vip-title">🥂 Penthouse After Dark</h2>
-            <p class="vip-description">
-                Exclusive champagne sessions, intimate artist encounters, and sophisticated member-only content. 
-                The ultimate VIP experience for true connoisseurs of Keith's universe.
-            </p>
-            <a href="#" class="vip-button" onclick="showVIPMessage()">Request VIP Access</a>
-        </section>
+        <!-- Control panel -->
+        <div class="control-panel">
+            <!-- Digital displays -->
+            <div class="display-row">
+                <div class="digital-display">
+                    <div class="display-label">Credits</div>
+                    <div class="display-value" id="creditsValue">5</div>
+                </div>
+                <div class="digital-display">
+                    <div class="display-label">Bet</div>
+                    <div class="display-value">1</div>
+                </div>
+                <div class="digital-display">
+                    <div class="display-label">Win</div>
+                    <div class="display-value" id="winValue">0</div>
+                </div>
+            </div>
+            
+            <!-- Result display -->
+            <div class="result-display">
+                <div class="result-text" id="resultText">Ready to spin for vault treasures?</div>
+                <div class="prize-text" id="prizeText">Insert coin and pull handle to begin</div>
+            </div>
+            
+            <!-- Spin button (like a slot handle) -->
+            <button class="spin-button" id="spinButton">
+                <span class="button-text">PULL HANDLE</span>
+            </button>
+        </div>
+        
+        <!-- Machine bottom chrome -->
+        <div class="machine-bottom"></div>
     </div>
-    
+
     <script>
-        // Create speakeasy atmosphere particles
-        function createAtmosphere() {
-            const atmosphereContainer = document.getElementById('atmosphere');
-            const particleCount = 25;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'smoke-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 12 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 8) + 's';
-                atmosphereContainer.appendChild(particle);
+        'use strict';
+        
+        // Game state
+        const gameState = {
+            credits: 5,
+            spinning: false,
+            symbols: ['🎭', '🎵', '🌌', '🩺', '👑', '💀', '🔥', '💎'],
+            personaSymbols: {
+                '🎭': 'Persona Track',
+                '🎵': 'Vault Beat', 
+                '🌌': 'Cosmic Mix',
+                '🩺': 'Dr. Octagon',
+                '👑': 'Black Elvis',
+                '💀': 'Dr. Dooom',
+                '🔥': 'Fire Track',
+                '💎': 'Diamond Cut'
+            },
+            winValue: 0
+        };
+        
+        // DOM elements
+        const elements = {
+            reel1: document.getElementById('reel1'),
+            reel2: document.getElementById('reel2'),
+            reel3: document.getElementById('reel3'),
+            spinButton: document.getElementById('spinButton'),
+            creditsValue: document.getElementById('creditsValue'),
+            winValue: document.getElementById('winValue'),
+            resultText: document.getElementById('resultText'),
+            prizeText: document.getElementById('prizeText'),
+            winLine: document.getElementById('winLine'),
+            jackpotEffect: document.getElementById('jackpotEffect')
+        };
+        
+        // Audio simulation (visual feedback)
+        function simulateSound(type) {
+            const button = elements.spinButton;
+            switch(type) {
+                case 'spin':
+                    button.style.background = 'linear-gradient(145deg, #FFD700, #FFA500)';
+                    setTimeout(() => {
+                        button.style.background = 'linear-gradient(145deg, var(--gold-primary), var(--gold-dark))';
+                    }, 200);
+                    break;
+                case 'win':
+                    document.body.style.animation = 'none';
+                    setTimeout(() => {
+                        document.body.style.animation = 'winShake 0.5s ease-in-out';
+                    }, 10);
+                    break;
+                case 'reel-stop':
+                    // Visual feedback for reel stopping
+                    break;
             }
         }
         
-        // Initialize atmosphere
-        createAtmosphere();
-        
-        // Slot Machine Logic
-        const personas = ['🎭', '👨‍⚕️', '💀', '👑', '⚡', '🎤', '🌟', '🔥'];
-        
-        function spinSlots() {
-            const button = document.querySelector('.spin-button');
-            const reels = ['reel1', 'reel2', 'reel3'];
-            const result = document.getElementById('slotResult');
-            
-            button.disabled = true;
-            button.textContent = 'SPINNING...';
-            
-            // Add spinning animation
-            reels.forEach(reelId => {
-                document.getElementById(reelId).classList.add('spinning');
-            });
-            
-            // Random spin results for each reel (3 symbols each)
-            const results = [];
-            reels.forEach((reelId, reelIndex) => {
-                setTimeout(() => {
-                    const reel = document.getElementById(reelId);
-                    const symbols = reel.querySelectorAll('.reel-symbol');
-                    const reelResults = [];
-                    
-                    // Generate 3 random symbols for this reel
-                    symbols.forEach((symbol, symbolIndex) => {
-                        const randomPersona = personas[Math.floor(Math.random() * personas.length)];
-                        symbol.textContent = randomPersona;
-                        reelResults.push(randomPersona);
-                    });
-                    
-                    reel.classList.remove('spinning');
-                    results.push(reelResults);
-                    
-                    // Check for wins after all reels stop
-                    if (results.length === 3) {
-                        checkWin(results);
-                        button.disabled = false;
-                        button.textContent = 'SPIN THE REELS';
-                    }
-                }, (reelIndex + 1) * 800);
-            });
+        // Get random symbol
+        function getRandomSymbol() {
+            return gameState.symbols[Math.floor(Math.random() * gameState.symbols.length)];
         }
         
-        function checkWin(results) {
-            const resultDiv = document.getElementById('slotResult');
+        // Update reel display
+        function updateReel(reel, symbol) {
+            const symbolElement = reel.querySelector('.reel-symbol');
+            symbolElement.textContent = symbol;
+        }
+        
+        // Animate reel spinning with realistic mechanical motion
+        function animateReel(reel, duration, finalSymbol) {
+            reel.classList.add('spinning');
             
-            // Check for wins across all possible lines (horizontal, diagonal)
-            const lines = [
-                // Horizontal lines
-                [results[0][0], results[1][0], results[2][0]], // Top row
-                [results[0][1], results[1][1], results[2][1]], // Middle row  
-                [results[0][2], results[1][2], results[2][2]], // Bottom row
-                // Diagonal lines
-                [results[0][0], results[1][1], results[2][2]], // Top-left to bottom-right
-                [results[0][2], results[1][1], results[2][0]]  // Bottom-left to top-right
-            ];
+            let spinCount = 0;
+            const maxSpins = Math.floor(duration / 50);
             
-            let hasWin = false;
-            let winMessage = '';
-            let trackTitle = '';
-            
-            lines.forEach((line, index) => {
-                if (line[0] === line[1] && line[1] === line[2]) {
-                    hasWin = true;
-                    const lineNames = ['Top Row', 'Middle Row', 'Bottom Row', 'Diagonal', 'Diagonal'];
+            const interval = setInterval(() => {
+                updateReel(reel, getRandomSymbol());
+                spinCount++;
+                
+                // Slow down near the end for realistic effect
+                if (spinCount > maxSpins * 0.8) {
+                    clearInterval(interval);
                     
-                    switch(line[0]) {
-                        case '🎭':
-                            winMessage = `🏆 ${lineNames[index]} MATCH! 🏆`;
-                            trackTitle = 'Kool Keith - "Underground Freestyle Sessions"';
-                            break;
-                        case '👨‍⚕️':
-                            winMessage = `💊 ${lineNames[index]} MEDICAL MIRACLE! 💊`;
-                            trackTitle = 'Dr. Octagon - "Surgical Procedures Unreleased"';
-                            break;
-                        case '💀':
-                            winMessage = `☠️ ${lineNames[index]} DOOOM UNLEASHED! ☠️`;
-                            trackTitle = 'Dr. Dooom - "Apocalyptic Vault Sessions"';
-                            break;
-                        case '👑':
-                            winMessage = `👑 ${lineNames[index]} ROYAL FLUSH! 👑`;
-                            trackTitle = 'Black Elvis - "Lost Tapes Collection"';
-                            break;
-                        case '⚡':
-                            winMessage = `⚡ ${lineNames[index]} ULTRA JACKPOT! ⚡`;
-                            trackTitle = 'Ultra - "Future Frequencies Unreleased"';
-                            break;
-                        default:
-                            winMessage = `🌟 ${lineNames[index]} RARE WIN! 🌟`;
-                            trackTitle = 'Keith Universe - "Exclusive Track Bundle"';
-                    }
+                    // Final slow spins
+                    let finalSpins = 0;
+                    const slowInterval = setInterval(() => {
+                        if (finalSpins < 3) {
+                            updateReel(reel, getRandomSymbol());
+                            finalSpins++;
+                        } else {
+                            updateReel(reel, finalSymbol);
+                            clearInterval(slowInterval);
+                            reel.classList.remove('spinning');
+                            simulateSound('reel-stop');
+                        }
+                    }, 150);
                 }
-            });
+            }, 50);
+        }
+        
+        // Check for winning combinations
+        function checkWin(symbols) {
+            const [s1, s2, s3] = symbols;
             
-            if (hasWin) {
-                resultDiv.innerHTML = `
-                    <div class="win-message">
-                        ${winMessage}<br>
-                        You won: "${trackTitle}"<br>
-                        <small style="color: rgba(255,255,255,0.8);">
-                            [Download link would be sent to your email]
-                        </small>
-                    </div>
-                `;
-            } else {
-                // Check for any pairs
-                let hasPair = false;
-                lines.forEach(line => {
-                    if (line[0] === line[1] || line[1] === line[2] || line[0] === line[2]) {
-                        hasPair = true;
-                    }
+            // Ultra jackpot (specific combination)
+            if (s1 === '🎭' && s2 === '🩺' && s3 === '👑') {
+                return { 
+                    type: 'ultra-jackpot', 
+                    prize: 'ULTRA JACKPOT - Complete Unreleased Album!', 
+                    credits: 100,
+                    winValue: 1000
+                };
+            }
+            
+            // Triple match
+            if (s1 === s2 && s2 === s3) {
+                let winValue = 0;
+                let prize = '';
+                
+                switch(s1) {
+                    case '🎭':
+                        winValue = 500;
+                        prize = 'TRIPLE PERSONA - Rare Character Track!';
+                        break;
+                    case '🩺':
+                        winValue = 750;
+                        prize = 'TRIPLE OCTAGON - Medical Mystery Mix!';
+                        break;
+                    case '👑':
+                        winValue = 600;
+                        prize = 'TRIPLE ELVIS - Royal Vault Track!';
+                        break;
+                    case '💀':
+                        winValue = 800;
+                        prize = 'TRIPLE DOOOM - Apocalyptic Mix!';
+                        break;
+                    case '🔥':
+                        winValue = 400;
+                        prize = 'TRIPLE FIRE - Hot Unreleased Track!';
+                        break;
+                    case '💎':
+                        winValue = 300;
+                        prize = 'TRIPLE DIAMOND - Precious Gem Cut!';
+                        break;
+                    case '🎵':
+                        winValue = 250;
+                        prize = 'TRIPLE MUSIC - Pure Instrumental!';
+                        break;
+                    case '🌌':
+                        winValue = 350;
+                        prize = 'TRIPLE COSMIC - Space Odyssey Mix!';
+                        break;
+                }
+                
+                return { 
+                    type: 'triple', 
+                    prize: prize, 
+                    credits: Math.floor(winValue / 100),
+                    winValue: winValue,
+                    symbol: s1
+                };
+            }
+            
+            // Double match
+            if (s1 === s2 || s2 === s3 || s1 === s3) {
+                const matchSymbol = s1 === s2 ? s1 : (s2 === s3 ? s2 : s1);
+                const winValue = 50;
+                return { 
+                    type: 'double', 
+                    prize: `Double ${gameState.personaSymbols[matchSymbol]} - Track Preview!`, 
+                    credits: 0,
+                    winValue: winValue
+                };
+            }
+            
+            // Special combinations
+            if ((s1 === '🎭' && s2 === '🎵') || (s2 === '🎵' && s3 === '🌌') || (s1 === '🎭' && s3 === '🌌')) {
+                return { 
+                    type: 'special', 
+                    prize: 'Special Persona Combo - Rare Mix!', 
+                    credits: 1,
+                    winValue: 75
+                };
+            }
+            
+            // Keith combination (any persona + any musical element)
+            if ((s1 === '🎭' || s1 === '🩺' || s1 === '👑' || s1 === '💀') && 
+                (s2 === '🎵' || s2 === '🌌' || s3 === '🎵' || s3 === '🌌')) {
+                return { 
+                    type: 'keith-combo', 
+                    prize: 'Keith Combination - Bonus Track!', 
+                    credits: 0,
+                    winValue: 25
+                };
+            }
+            
+            return null;
+        }
+        
+        // Display win effects
+        function showWinEffects(winType, symbol) {
+            elements.winLine.classList.add('active');
+            simulateSound('win');
+            
+            // Special effects for different win types
+            if (winType === 'ultra-jackpot') {
+                elements.jackpotEffect.classList.add('active');
+                // Flash the entire machine
+                elements.spinButton.style.boxShadow = '0 0 50px var(--gold-primary)';
+                setTimeout(() => {
+                    elements.jackpotEffect.classList.remove('active');
+                    elements.spinButton.style.boxShadow = '';
+                }, 3000);
+            } else if (winType === 'triple') {
+                // Pulse the winning symbol
+                const reels = [elements.reel1, elements.reel2, elements.reel3];
+                reels.forEach(reel => {
+                    const symbolEl = reel.querySelector('.reel-symbol');
+                    symbolEl.style.animation = 'winSymbolPulse 1s ease-in-out infinite alternate';
                 });
                 
-                if (hasPair) {
-                    resultDiv.innerHTML = `
-                        <div style="color: #ffd700;">
-                            🎯 Close! You had matching symbols...<br>
-                            <small style="color: rgba(255,255,255,0.7);">
-                                Keep spinning for exclusive tracks!
-                            </small>
-                        </div>
-                    `;
-                } else {
-                    resultDiv.innerHTML = `
-                        <div style="color: rgba(255,255,255,0.7);">
-                            No matches this time. Try again!<br>
-                            <small style="color: rgba(255,255,255,0.6);">
-                                Match 3 personas in any line to win exclusive vault tracks
-                            </small>
-                        </div>
-                    `;
-                }
-            }
-        }
-        const cardDeck = [
-            // Red cards (Hearts ♥️ and Diamonds ♦️)
-            { suit: '♥️', value: 'A', color: 'red', track: 'Dr. Octagon - "Red Chamber Sessions"' },
-            { suit: '♦️', value: 'K', color: 'red', track: 'Kool Keith - "Diamond Cuts Unreleased"' },
-            { suit: '♥️', value: 'Q', color: 'red', track: 'Black Elvis - "Hearts on Fire"' },
-            { suit: '♦️', value: 'J', color: 'red', track: 'Ultra - "Diamond Frequency"' },
-            { suit: '♥️', value: '10', color: 'red', track: 'Dr. Dooom - "Heartbreak Hospital"' },
-            
-            // Black cards (Spades ♠️ and Clubs ♣️)
-            { suit: '♠️', value: 'A', color: 'black', track: 'Dr. Octagon - "Spade Surgery"' },
-            { suit: '♣️', value: 'K', color: 'black', track: 'Kool Keith - "Club Underground"' },
-            { suit: '♠️', value: 'Q', color: 'black', track: 'Black Elvis - "Spade Queen"' },
-            { suit: '♣️', value: 'J', color: 'black', track: 'Ultra - "Club Dimension"' },
-            { suit: '♠️', value: '10', color: 'black', track: 'Dr. Dooom - "Spade Apocalypse"' }
-        ];
-        
-        let currentCard = null;
-        let playerBet = null;
-        
-        function placeBet(color) {
-            if (playerBet) return; // Bet already placed
-            
-            playerBet = color;
-            
-            // Disable betting buttons
-            document.getElementById('redBtn').disabled = true;
-            document.getElementById('blackBtn').disabled = true;
-            
-            // Update result area
-            document.getElementById('cardResult').innerHTML = `
-                <div style="color: #ffd700;">
-                    🎯 You bet on ${color.toUpperCase()}!<br>
-                    <small style="color: rgba(255,255,255,0.8);">Revealing the mystery card...</small>
-                </div>
-            `;
-            
-            // Draw random card and reveal after delay
-            setTimeout(() => {
-                revealCard();
-            }, 1500);
-        }
-        
-        function revealCard() {
-            // Pick random card
-            currentCard = cardDeck[Math.floor(Math.random() * cardDeck.length)];
-            
-            // Update card display
-            const cardFront = document.getElementById('cardFront');
-            cardFront.innerHTML = `
-                <div class="revealed-card ${currentCard.color}-card">
-                    ${currentCard.suit}${currentCard.value}
-                </div>
-            `;
-            
-            // Add flip animation
-            document.getElementById('mysteryCard').classList.add('card-revealed');
-            
-            // Check win/loss after animation
-            setTimeout(() => {
-                checkCardResult();
-            }, 800);
-        }
-        
-        function checkCardResult() {
-            const resultDiv = document.getElementById('cardResult');
-            const isWin = playerBet === currentCard.color;
-            
-            if (isWin) {
-                resultDiv.innerHTML = `
-                    <div class="win-message">
-                        🏆 WINNER! 🏆<br>
-                        You called ${playerBet.toUpperCase()} and got ${currentCard.suit}${currentCard.value}!<br>
-                        <strong>You won: "${currentCard.track}"</strong><br>
-                        <small style="color: rgba(255,255,255,0.8);">
-                            [Download link would be sent to your email]
-                        </small>
-                    </div>
-                `;
-            } else {
-                resultDiv.innerHTML = `
-                    <div style="color: #ff6666;">
-                        ❌ Not this time!<br>
-                        You bet ${playerBet.toUpperCase()} but got ${currentCard.color.toUpperCase()} (${currentCard.suit}${currentCard.value})<br>
-                        <small style="color: rgba(255,255,255,0.7);">
-                            Try again for exclusive vault tracks!
-                        </small>
-                    </div>
-                `;
-            }
-            
-            // Show new round button
-            document.getElementById('newRoundBtn').style.display = 'inline-block';
-        }
-        
-        function newRound() {
-            // Reset everything
-            playerBet = null;
-            currentCard = null;
-            
-            // Re-enable betting buttons
-            document.getElementById('redBtn').disabled = false;
-            document.getElementById('blackBtn').disabled = false;
-            
-            // Reset card display
-            const cardFront = document.getElementById('cardFront');
-            cardFront.innerHTML = '<div class="card-mystery">?</div>';
-            
-            // Remove flip animation
-            document.getElementById('mysteryCard').classList.remove('card-revealed');
-            
-            // Reset result area
-            document.getElementById('cardResult').innerHTML = `
-                <p style="color: rgba(255,255,255,0.7);">
-                    🎯 Choose your color and test your luck!<br>
-                    <small>Win exclusive Keith vault tracks with the right call</small>
-                </p>
-            `;
-            
-            // Hide new round button
-            document.getElementById('newRoundBtn').style.display = 'none';
-        }
-        
-        function spinSlots() {
-            const button = document.querySelector('.spin-button');
-            const reels = ['reel1', 'reel2', 'reel3'];
-            const result = document.getElementById('slotResult');
-            
-            button.disabled = true;
-            button.textContent = 'SPINNING...';
-            
-            // Add spinning animation
-            reels.forEach(reelId => {
-                document.getElementById(reelId).classList.add('spinning');
-            });
-            
-            // Random spin results for each reel (3 symbols each)
-            const results = [];
-            reels.forEach((reelId, reelIndex) => {
                 setTimeout(() => {
-                    const reel = document.getElementById(reelId);
-                    const symbols = reel.querySelectorAll('.reel-symbol');
-                    const reelResults = [];
-                    
-                    // Generate 3 random symbols for this reel
-                    symbols.forEach((symbol, symbolIndex) => {
-                        const randomPersona = personas[Math.floor(Math.random() * personas.length)];
-                        symbol.textContent = randomPersona;
-                        reelResults.push(randomPersona);
+                    reels.forEach(reel => {
+                        const symbolEl = reel.querySelector('.reel-symbol');
+                        symbolEl.style.animation = '';
                     });
-                    
-                    reel.classList.remove('spinning');
-                    results.push(reelResults);
-                    
-                    // Check for wins after all reels stop
-                    if (results.length === 3) {
-                        checkWin(results);
-                        button.disabled = false;
-                        button.textContent = 'SPIN THE REELS';
-                    }
-                }, (reelIndex + 1) * 800);
-            });
+                }, 3000);
+            }
+            
+            setTimeout(() => {
+                elements.winLine.classList.remove('active');
+            }, 4000);
         }
         
-        function checkWin(results) {
-            const resultDiv = document.getElementById('slotResult');
+        // Main spin function
+        async function spin() {
+            if (gameState.spinning || gameState.credits <= 0) return;
             
-            // Check for wins across all possible lines (horizontal, diagonal)
-            const lines = [
-                // Horizontal lines
-                [results[0][0], results[1][0], results[2][0]], // Top row
-                [results[0][1], results[1][1], results[2][1]], // Middle row  
-                [results[0][2], results[1][2], results[2][2]], // Bottom row
-                // Diagonal lines
-                [results[0][0], results[1][1], results[2][2]], // Top-left to bottom-right
-                [results[0][2], results[1][1], results[2][0]]  // Bottom-left to top-right
-            ];
+            gameState.spinning = true;
+            gameState.credits--;
+            gameState.winValue = 0;
             
-            let hasWin = false;
-            let winMessage = '';
-            let trackTitle = '';
+            // Update UI
+            elements.spinButton.disabled = true;
+            elements.spinButton.querySelector('.button-text').textContent = 'SPINNING...';
+            elements.creditsValue.textContent = gameState.credits;
+            elements.winValue.textContent = '0';
+            elements.resultText.textContent = 'Reels spinning...';
+            elements.resultText.className = 'result-text';
+            elements.prizeText.textContent = 'Mechanical reels in motion...';
             
-            lines.forEach((line, index) => {
-                if (line[0] === line[1] && line[1] === line[2]) {
-                    hasWin = true;
-                    const lineNames = ['Top Row', 'Middle Row', 'Bottom Row', 'Diagonal', 'Diagonal'];
-                    
-                    switch(line[0]) {
-                        case '🎭':
-                            winMessage = `🏆 ${lineNames[index]} MATCH! 🏆`;
-                            trackTitle = 'Kool Keith - "Underground Freestyle Sessions"';
-                            break;
-                        case '👨‍⚕️':
-                            winMessage = `💊 ${lineNames[index]} MEDICAL MIRACLE! 💊`;
-                            trackTitle = 'Dr. Octagon - "Surgical Procedures Unreleased"';
-                            break;
-                        case '💀':
-                            winMessage = `☠️ ${lineNames[index]} DOOOM UNLEASHED! ☠️`;
-                            trackTitle = 'Dr. Dooom - "Apocalyptic Vault Sessions"';
-                            break;
-                        case '👑':
-                            winMessage = `👑 ${lineNames[index]} ROYAL FLUSH! 👑`;
-                            trackTitle = 'Black Elvis - "Lost Tapes Collection"';
-                            break;
-                        case '⚡':
-                            winMessage = `⚡ ${lineNames[index]} ULTRA JACKPOT! ⚡`;
-                            trackTitle = 'Ultra - "Future Frequencies Unreleased"';
-                            break;
-                        default:
-                            winMessage = `🌟 ${lineNames[index]} RARE WIN! 🌟`;
-                            trackTitle = 'Keith Universe - "Exclusive Track Bundle"';
-                    }
-                }
-            });
+            simulateSound('spin');
             
-            if (hasWin) {
-                resultDiv.innerHTML = `
-                    <div class="win-message">
-                        ${winMessage}<br>
-                        You won: "${trackTitle}"<br>
-                        <small style="color: rgba(255,255,255,0.8);">
-                            [Download link would be sent to your email]
-                        </small>
-                    </div>
-                `;
-            } else {
-                // Check for any pairs
-                let hasPair = false;
-                lines.forEach(line => {
-                    if (line[0] === line[1] || line[1] === line[2] || line[0] === line[2]) {
-                        hasPair = true;
-                    }
-                });
-                
-                if (hasPair) {
-                    resultDiv.innerHTML = `
-                        <div style="color: #ffd700;">
-                            🎯 Close! You had matching symbols...<br>
-                            <small style="color: rgba(255,255,255,0.7);">
-                                Keep spinning for exclusive tracks!
-                            </small>
-                        </div>
-                    `;
+            // Generate final symbols with weighted probability
+            let finalSymbols = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
+            
+            // Weighted chance for wins (about 35% win rate)
+            const winChance = Math.random();
+            if (winChance < 0.35) {
+                if (winChance < 0.02) {
+                    // 2% chance for ultra jackpot
+                    finalSymbols = ['🎭', '🩺', '👑'];
+                } else if (winChance < 0.08) {
+                    // 6% chance for triple
+                    const winSymbol = gameState.symbols[Math.floor(Math.random() * 6)]; // Exclude last 2 for better prizes
+                    finalSymbols = [winSymbol, winSymbol, winSymbol];
+                } else if (winChance < 0.20) {
+                    // 12% chance for double
+                    const winSymbol = getRandomSymbol();
+                    const positions = [0, 1, 2];
+                    const winPositions = positions.sort(() => 0.5 - Math.random()).slice(0, 2);
+                    finalSymbols[winPositions[0]] = winSymbol;
+                    finalSymbols[winPositions[1]] = winSymbol;
                 } else {
-                    resultDiv.innerHTML = `
-                        <div style="color: rgba(255,255,255,0.7);">
-                            No matches this time. Try again!<br>
-                            <small style="color: rgba(255,255,255,0.6);">
-                                Match 3 personas in any line to win exclusive vault tracks
-                            </small>
-                        </div>
-                    `;
+                    // 15% chance for special combo
+                    const combos = [
+                        ['🎭', '🎵', '🌌'],
+                        ['🩺', '🎵', '💎'],
+                        ['👑', '🌌', '🔥']
+                    ];
+                    finalSymbols = combos[Math.floor(Math.random() * combos.length)];
                 }
             }
-        }
-        
-        // Card Hand Red/Black Gambling Game
-        const cardDeck = [
-            // Red cards (Hearts ♥️ and Diamonds ♦️)
-            { suit: '♥️', value: 'A', color: 'red', track: 'Dr. Octagon - "Red Chamber Sessions"' },
-            { suit: '♦️', value: 'K', color: 'red', track: 'Kool Keith - "Diamond Cuts Unreleased"' },
-            { suit: '♥️', value: 'Q', color: 'red', track: 'Black Elvis - "Hearts on Fire"' },
-            { suit: '♦️', value: 'J', color: 'red', track: 'Ultra - "Diamond Frequency"' },
-            { suit: '♥️', value: '10', color: 'red', track: 'Dr. Dooom - "Heartbreak Hospital"' },
             
-            // Black cards (Spades ♠️ and Clubs ♣️)
-            { suit: '♠️', value: 'A', color: 'black', track: 'Dr. Octagon - "Spade Surgery"' },
-            { suit: '♣️', value: 'K', color: 'black', track: 'Kool Keith - "Club Underground"' },
-            { suit: '♠️', value: 'Q', color: 'black', track: 'Black Elvis - "Spade Queen"' },
-            { suit: '♣️', value: 'J', color: 'black', track: 'Ultra - "Club Dimension"' },
-            { suit: '♠️', value: '10', color: 'black', track: 'Dr. Dooom - "Spade Apocalypse"' }
-        ];
-        
-        let currentCard = null;
-        let playerBet = null;
-        
-        function placeBet(color) {
-            if (playerBet) return; // Bet already placed
+            // Animate reels with staggered timing and realistic mechanical delays
+            animateReel(elements.reel1, 1500, finalSymbols[0]);
+            setTimeout(() => animateReel(elements.reel2, 1800, finalSymbols[1]), 300);
+            setTimeout(() => animateReel(elements.reel3, 2100, finalSymbols[2]), 600);
             
-            playerBet = color;
+            // Wait for all animations to complete
+            await new Promise(resolve => setTimeout(resolve, 3500));
             
-            // Disable betting buttons
-            document.getElementById('redBtn').disabled = true;
-            document.getElementById('blackBtn').disabled = true;
+            // Check for wins
+            const win = checkWin(finalSymbols);
             
-            // Update result area
-            document.getElementById('cardResult').innerHTML = `
-                <div style="color: #ffd700;">
-                    🎯 You bet on ${color.toUpperCase()}!<br>
-                    <small style="color: rgba(255,255,255,0.8);">Revealing the mystery card...</small>
-                </div>
-            `;
-            
-            // Draw random card and reveal after delay
-            setTimeout(() => {
-                revealCard();
-            }, 1500);
-        }
-        
-        function revealCard() {
-            // Pick random card
-            currentCard = cardDeck[Math.floor(Math.random() * cardDeck.length)];
-            
-            // Update card display
-            const cardFront = document.getElementById('cardFront');
-            cardFront.innerHTML = `
-                <div class="revealed-card ${currentCard.color}-card">
-                    ${currentCard.suit}${currentCard.value}
-                </div>
-            `;
-            
-            // Add flip animation
-            document.getElementById('mysteryCard').classList.add('card-revealed');
-            
-            // Check win/loss after animation
-            setTimeout(() => {
-                checkCardResult();
-            }, 800);
-        }
-        
-        function checkCardResult() {
-            const resultDiv = document.getElementById('cardResult');
-            const isWin = playerBet === currentCard.color;
-            
-            if (isWin) {
-                resultDiv.innerHTML = `
-                    <div class="win-message">
-                        🏆 WINNER! 🏆<br>
-                        You called ${playerBet.toUpperCase()} and got ${currentCard.suit}${currentCard.value}!<br>
-                        <strong>You won: "${currentCard.track}"</strong><br>
-                        <small style="color: rgba(255,255,255,0.8);">
-                            [Download link would be sent to your email]
-                        </small>
-                    </div>
-                `;
+            if (win) {
+                gameState.credits += win.credits;
+                gameState.winValue = win.winValue;
+                
+                elements.creditsValue.textContent = gameState.credits;
+                elements.winValue.textContent = win.winValue;
+                elements.resultText.textContent = 'WINNER!';
+                elements.resultText.className = 'result-text win';
+                elements.prizeText.textContent = win.prize;
+                
+                showWinEffects(win.type, win.symbol);
             } else {
-                resultDiv.innerHTML = `
-                    <div style="color: #ff6666;">
-                        ❌ Not this time!<br>
-                        You bet ${playerBet.toUpperCase()} but got ${currentCard.color.toUpperCase()} (${currentCard.suit}${currentCard.value})<br>
-                        <small style="color: rgba(255,255,255,0.7);">
-                            Try again for exclusive vault tracks!
-                        </small>
-                    </div>
-                `;
+                elements.resultText.textContent = 'No Win';
+                elements.resultText.className = 'result-text lose';
+                elements.prizeText.textContent = 'Try again for vault treasures...';
             }
             
-            // Show new round button
-            document.getElementById('newRoundBtn').style.display = 'inline-block';
+            // Reset button state
+            gameState.spinning = false;
+            elements.spinButton.disabled = gameState.credits <= 0;
+            
+            if (gameState.credits <= 0) {
+                elements.spinButton.querySelector('.button-text').textContent = 'NO CREDITS';
+                setTimeout(() => {
+                    elements.resultText.textContent = 'Game Over';
+                    elements.prizeText.textContent = 'Visit again tomorrow for more spins...';
+                }, 2000);
+            } else {
+                elements.spinButton.querySelector('.button-text').textContent = 'PULL HANDLE';
+            }
         }
         
-        function newRound() {
-            // Reset everything
-            playerBet = null;
-            currentCard = null;
-            
-            // Re-enable betting buttons
-            document.getElementById('redBtn').disabled = false;
-            document.getElementById('blackBtn').disabled = false;
-            
-            // Reset card display
-            const cardFront = document.getElementById('cardFront');
-            cardFront.innerHTML = '<div class="card-mystery">?</div>';
-            
-            // Remove flip animation
-            document.getElementById('mysteryCard').classList.remove('card-revealed');
-            
-            // Reset result area
-            document.getElementById('cardResult').innerHTML = `
-                <p style="color: rgba(255,255,255,0.7);">
-                    🎯 Choose your color and test your luck!<br>
-                    <small>Win exclusive Keith vault tracks with the right call</small>
-                </p>
-            `;
-            
-            // Hide new round button
-            document.getElementById('newRoundBtn').style.display = 'none';
-        }
+        // Event listeners
+        elements.spinButton.addEventListener('click', spin);
         
-        // VIP Access Function
-        function showVIPMessage() {
-            alert('🥂 VIP Access Request Submitted!\n\nThank you for your interest in our exclusive Penthouse After Dark experience. We\'ll review your application and contact you with exclusive access details.\n\nStay tuned for:\n• Private listening sessions\n• Unreleased vault material\n• Direct artist interactions\n• Member-only content drops');
-        }
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Card game starts ready to play
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                spin();
+            }
         });
+        
+        // Add CSS for win animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes winShake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-2px); }
+                75% { transform: translateX(2px); }
+            }
+            
+            @keyframes winSymbolPulse {
+                0% { 
+                    transform: scale(1);
+                    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+                }
+                100% { 
+                    transform: scale(1.1);
+                    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor, 0 0 40px currentColor;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize reels with starting symbols
+        updateReel(elements.reel1, '🎭');
+        updateReel(elements.reel2, '🩺');
+        updateReel(elements.reel3, '👑');
     </script>
 </body>
 </html>
