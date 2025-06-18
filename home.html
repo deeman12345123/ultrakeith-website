@@ -1103,6 +1103,8 @@
     </footer>
 
     <script>
+        'use strict';
+        
         const AppState = {
             soundEnabled: true,
             loadingComplete: false
@@ -1160,7 +1162,10 @@
             },
             
             enterSite() {
+                console.log('Enter button clicked!'); // Debug log
+                
                 if (AppState.loadingComplete) {
+                    console.log('Loading complete, entering site...'); // Debug log
                     Elements.entryOverlay.classList.add('hidden');
                     document.body.classList.add('site-loaded');
                     Utils.setBodyOverflow('auto');
@@ -1169,6 +1174,7 @@
                         console.log('Sound effect would play here');
                     }
                 } else {
+                    console.log('Loading not complete, entering anyway...'); // Debug log
                     Elements.entryOverlay.classList.add('hidden');
                     document.body.classList.add('site-loaded');
                     Utils.setBodyOverflow('auto');
@@ -1176,23 +1182,46 @@
             },
             
             toggleMobileMenu() {
-                Elements.navMenu.classList.toggle('show');
+                if (Elements.navMenu) {
+                    Elements.navMenu.classList.toggle('show');
+                }
             },
             
             bindEvents() {
-                Elements.toggleSwitch?.addEventListener('click', this.toggleSound);
-                Elements.enterButton?.addEventListener('click', this.enterSite);
-                Elements.mobileMenuBtn?.addEventListener('click', this.toggleMobileMenu);
+                // Audio toggle
+                if (Elements.toggleSwitch) {
+                    Elements.toggleSwitch.addEventListener('click', () => {
+                        this.toggleSound();
+                    });
+                }
                 
+                // Site entry - FIXED
+                if (Elements.enterButton) {
+                    Elements.enterButton.addEventListener('click', () => {
+                        this.enterSite();
+                    });
+                }
+                
+                // Mobile menu
+                if (Elements.mobileMenuBtn) {
+                    Elements.mobileMenuBtn.addEventListener('click', () => {
+                        this.toggleMobileMenu();
+                    });
+                }
+                
+                // Close mobile menu when clicking nav links
                 document.querySelectorAll('.nav-menu a').forEach(link => {
                     link.addEventListener('click', () => {
-                        Elements.navMenu.classList.remove('show');
+                        if (Elements.navMenu) {
+                            Elements.navMenu.classList.remove('show');
+                        }
                     });
                 });
             }
         };
         
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing app...'); // Debug log
             App.init();
         });
     </script>
