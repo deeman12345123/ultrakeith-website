@@ -62,9 +62,10 @@
             align-items: center;
             justify-content: center;
             gap: 3rem;
-            max-width: 1200px;
+            max-width: 1400px;
             width: 100%;
             margin: 0 auto;
+            position: relative;
         }
         
         .slot-area {
@@ -72,6 +73,16 @@
             flex-direction: column;
             align-items: center;
             flex: 0 0 auto;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .side-paytable {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
         }
         
         /* Header */
@@ -659,16 +670,21 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 2rem;
-            }
-            
-            .side-paytable {
-                width: 100%;
-                max-width: 450px;
-                order: 2;
+                position: static;
             }
             
             .slot-area {
+                position: static;
+                transform: none;
                 order: 1;
+            }
+            
+            .side-paytable {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-width: 450px;
+                order: 2;
             }
         }
         
