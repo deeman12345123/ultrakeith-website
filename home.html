@@ -531,23 +531,45 @@
             text-transform: uppercase;
         }
         
-        /* =================== CAROUSEL =================== */
+        /* =================== IMPROVED CAROUSEL SYSTEM =================== */
         .carousel {
             overflow: hidden;
             position: relative;
             height: 320px;
             border-radius: var(--radius-lg);
+            mask: linear-gradient(
+                to right,
+                transparent 0%,
+                black 5%,
+                black 95%,
+                transparent 100%
+            );
+            -webkit-mask: linear-gradient(
+                to right,
+                transparent 0%,
+                black 5%,
+                black 95%,
+                transparent 100%
+            );
         }
         
         .carousel-track {
             display: flex;
-            width: 1000%;
-            animation: slideCarousel 30s linear infinite;
+            gap: var(--space-md);
+            width: calc((220px + var(--space-md)) * 10);
+            animation: slideCarousel 45s linear infinite;
+            will-change: transform;
+            backface-visibility: hidden;
+            perspective: 1000px;
         }
         
         @keyframes slideCarousel {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% { 
+                transform: translateX(0); 
+            }
+            100% { 
+                transform: translateX(calc(-50% + var(--space-md) / 2)); 
+            }
         }
         
         .carousel-track:hover {
@@ -556,19 +578,22 @@
         
         .carousel-slide {
             flex: 0 0 220px;
-            margin-right: var(--space-md);
             background: rgba(42, 42, 42, 0.8);
             border-radius: var(--radius-lg);
             padding: var(--space-md);
             text-align: center;
             border: 1px solid rgba(218, 181, 71, 0.1);
             transition: all var(--transition-base);
+            backdrop-filter: blur(10px);
+            will-change: transform;
+            transform: translateZ(0);
         }
         
         .carousel-slide:hover {
             border-color: rgba(218, 181, 71, 0.3);
-            transform: translateY(-2px);
+            transform: translateY(-2px) translateZ(0);
             box-shadow: var(--shadow-md);
+            background: rgba(42, 42, 42, 0.95);
         }
         
         .album-image {
@@ -579,6 +604,11 @@
             margin-bottom: var(--space-md);
             border: 1px solid rgba(218, 181, 71, 0.2);
             background: var(--color-black-light);
+            transition: transform var(--transition-base);
+        }
+        
+        .carousel-slide:hover .album-image {
+            transform: scale(1.02);
         }
         
         .album-title {
@@ -587,6 +617,11 @@
             color: var(--color-gold-warm);
             margin-bottom: var(--space-xs);
             line-height: 1.3;
+            transition: color var(--transition-base);
+        }
+        
+        .carousel-slide:hover .album-title {
+            color: var(--color-gold-light);
         }
         
         .album-artist {
@@ -691,6 +726,7 @@
             padding: var(--space-sm);
             font-style: italic;
         }
+        
         .features {
             display: grid;
             grid-template-columns: 1fr;
@@ -870,6 +906,47 @@
                 padding: var(--space-xl) var(--space-md);
             }
             
+            .carousel {
+                height: 300px;
+                mask: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    black 3%,
+                    black 97%,
+                    transparent 100%
+                );
+                -webkit-mask: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    black 3%,
+                    black 97%,
+                    transparent 100%
+                );
+            }
+            
+            .carousel-track {
+                animation-duration: 40s;
+                width: calc((200px + var(--space-md)) * 10);
+            }
+            
+            .carousel-slide {
+                flex: 0 0 200px;
+                padding: var(--space-sm);
+            }
+            
+            .album-image {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .album-title {
+                font-size: 0.9rem;
+            }
+            
+            .album-artist {
+                font-size: 0.8rem;
+            }
+            
             .feature-card {
                 padding: var(--space-xl) var(--space-lg);
             }
@@ -933,6 +1010,10 @@
                 max-width: 1200px;
                 margin-left: auto;
                 margin-right: auto;
+            }
+            
+            .carousel-track {
+                animation-duration: 50s;
             }
         }
         
