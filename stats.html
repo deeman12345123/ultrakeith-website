@@ -739,19 +739,6 @@
             <p class="last-updated">Last Updated: June 19, 2025</p>
         </section>
 
-        <!-- Table of Contents -->
-        <nav class="table-of-contents">
-            <h2 class="toc-title">Quick Navigation</h2>
-            <div class="toc-grid">
-                <a href="#header-stats" class="toc-link">Key Statistics</a>
-                <a href="#hip-hop-leaders" class="toc-link">Hip-Hop Rankings</a>
-                <a href="#all-genre" class="toc-link">All-Genre Rankings</a>
-                <a href="#category-rankings" class="toc-link">Category Leaders</a>
-                <a href="#records" class="toc-link">Records Held</a>
-                <a href="#data-sources" class="toc-link">Data Sources</a>
-            </div>
-        </nav>
-
         <!-- Header Stats -->
         <div class="header-stats" id="header-stats">
             <div class="header-stat">
@@ -1492,8 +1479,8 @@
                 });
             });
             
-            // Smooth scrolling for table of contents links
-            document.querySelectorAll('.toc-link').forEach(link => {
+            // Smooth scrolling for anchor links (if any remain)
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
