@@ -1,9 +1,9 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎵 Starting simple music app...');
+    console.log('🎵 Starting music app...');
     
-    // Album data - simple and clean
+    // Album data - All 92 albums
     const albums = [
         {title: "Karpenters", artist: "Kool Keith", year: 2025, category: "solo"},
         {title: "DAW", artist: "Kool Keith", year: 2025, category: "solo"},
@@ -37,12 +37,15 @@ document.addEventListener('DOMContentLoaded', function() {
         {title: "Feature Magnetic", artist: "Kool Keith", year: 2020, category: "solo"},
         {title: "Czarface Meets Ghostface", artist: "CZARFACE & Ghostface Killah", year: 2019, category: "collab"},
         {title: "Saks 5th Ave", artist: "Kool Keith", year: 2019, category: "solo"},
+        {title: "Computer Technology", artist: "Kool Keith", year: 2019, category: "solo"},
         {title: "Complicated Trip", artist: "Kool Keith & KutMasta Kurt", year: 2018, category: "collab"},
         {title: "The Preacher", artist: "Kool Keith", year: 2018, category: "solo"},
         {title: "Moosebumps", artist: "Dr. Octagon", year: 2018, category: "solo"},
         {title: "Controller of Trap", artist: "Kool Keith", year: 2018, category: "solo"},
         {title: "Colossal", artist: "DJ Derezon, Kool Keith & Motion Man", year: 2017, category: "collab"},
         {title: "Project Radiation", artist: "Kool Keith Presents Dane Uno", year: 2016, category: "collab"},
+        {title: "Feature Magnetic", artist: "Kool Keith", year: 2016, category: "solo"},
+        {title: "The Preacher", artist: "Kool Keith", year: 2016, category: "solo"},
         {title: "Time Astonishing Instrumentals", artist: "L'Orange & Kool Keith", year: 2015, category: "collab"},
         {title: "Time Astonishing", artist: "L'Orange & Kool Keith", year: 2015, category: "collab"},
         {title: "A Couple of Slices", artist: "Kool Keith & Ray West", year: 2015, category: "collab"},
@@ -62,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {title: "Thee Undertakerz", artist: "Kool Keith", year: 2008, category: "solo"},
         {title: "Tashan Dorrsett", artist: "Tashan Dorrsett", year: 2008, category: "solo"},
         {title: "Dr. Dooom 2", artist: "Dr. Dooom", year: 2008, category: "solo"},
+        {title: "Booty Clap", artist: "Kool Keith", year: 2008, category: "solo"},
         {title: "Sex Style Unreleased Archives", artist: "Kool Keith", year: 2007, category: "solo"},
         {title: "The Commissioner 2", artist: "Kool Keith", year: 2007, category: "solo"},
         {title: "The Return of Dr. Octagon", artist: "Dr. Octagon", year: 2006, category: "solo"},
