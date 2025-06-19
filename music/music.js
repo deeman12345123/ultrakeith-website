@@ -55,7 +55,7 @@ class MusicDiscographyApp {
             });
         });
         
-        // Add more albums from your paste data
+        // Add more albums from your paste data (UPDATED CATEGORIES)
         const additionalAlbums = [
             {
                 title: "Personal Album",
@@ -79,7 +79,7 @@ class MusicDiscographyApp {
                 title: "Spankmaster",
                 artist: "Spankmaster",
                 year: 2001,
-                category: "persona",
+                category: "solo",
                 search: "spankmaster spankmaster 2001",
                 coverSrc: "album-covers/spankmaster.jpg",
                 slug: "spankmaster"
@@ -97,7 +97,7 @@ class MusicDiscographyApp {
                 title: "Pimp to Eat",
                 artist: "Analog Brothers",
                 year: 2000,
-                category: "group",
+                category: "collab",
                 search: "pimp to eat analog brothers 2000",
                 coverSrc: "album-covers/pimp-to-eat.jpg",
                 slug: "pimp-to-eat"
@@ -106,7 +106,7 @@ class MusicDiscographyApp {
                 title: "First Come, First Served",
                 artist: "Dr. Dooom",
                 year: 1999,
-                category: "persona",
+                category: "solo",
                 search: "first come first served dr dooom 1999",
                 coverSrc: "album-covers/first-come-first-served.jpg",
                 slug: "first-come-first-served"
@@ -115,7 +115,7 @@ class MusicDiscographyApp {
                 title: "Black Elvis/Lost in Space",
                 artist: "Black Elvis",
                 year: 1999,
-                category: "persona",
+                category: "solo",
                 search: "black elvis lost in space black elvis 1999",
                 coverSrc: "album-covers/black-elvis.jpg",
                 slug: "black-elvis-lost-in-space"
@@ -142,7 +142,7 @@ class MusicDiscographyApp {
                 title: "Dr. Octagonecologyst",
                 artist: "Dr. Octagon",
                 year: 1996,
-                category: "persona",
+                category: "solo",
                 search: "dr octagonecologyst dr octagon 1996",
                 coverSrc: "album-covers/dr-octagonecologyst.jpg",
                 slug: "dr-octagonecologyst"
@@ -160,7 +160,7 @@ class MusicDiscographyApp {
                 title: "The Four Horsemen",
                 artist: "Ultramagnetic MCs",
                 year: 1993,
-                category: "group",
+                category: "collab",
                 search: "four horsemen ultramagnetic mcs 1993",
                 coverSrc: "album-covers/four-horsemen.jpg",
                 slug: "the-four-horsemen"
@@ -169,7 +169,7 @@ class MusicDiscographyApp {
                 title: "Funk Your Head Up",
                 artist: "Ultramagnetic MCs",
                 year: 1992,
-                category: "group",
+                category: "collab",
                 search: "funk your head up ultramagnetic mcs 1992",
                 coverSrc: "album-covers/funk-your-head-up.jpg",
                 slug: "funk-your-head-up"
@@ -178,7 +178,7 @@ class MusicDiscographyApp {
                 title: "Critical Beatdown",
                 artist: "Ultramagnetic MCs",
                 year: 1988,
-                category: "group",
+                category: "collab",
                 search: "critical beatdown ultramagnetic mcs 1988",
                 coverSrc: "album-covers/critical-beatdown.jpg",
                 slug: "critical-beatdown"
@@ -507,9 +507,7 @@ class MusicDiscographyApp {
     getCategoryStats() {
         const stats = {
             solo: 0,
-            collab: 0,
-            persona: 0,
-            group: 0
+            collab: 0
         };
         
         this.allAlbums.forEach(album => {
