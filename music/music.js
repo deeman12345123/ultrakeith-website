@@ -1,234 +1,160 @@
 'use strict';
 
-class MusicDiscographyApp {
-    constructor() {
-        this.albumsGrid = document.getElementById('albumsGrid');
-        this.filterButtons = document.querySelectorAll('.filter-btn');
-        this.sortSelect = document.getElementById('sortSelect');
-        this.searchInput = document.getElementById('searchInput');
-        this.resultsCount = document.getElementById('resultsCount');
-        this.noResults = document.getElementById('noResults');
-        this.totalAlbumsSpan = document.getElementById('totalAlbums');
-        this.paginationSection = document.getElementById('paginationSection');
-        this.prevBtn = document.getElementById('prevBtn');
-        this.nextBtn = document.getElementById('nextBtn');
-        this.pageNumbers = document.getElementById('pageNumbers');
-        
-        this.currentFilter = 'all';
-        this.currentSort = 'year-desc';
-        this.currentSearch = '';
-        this.currentPage = 1;
-        this.albumsPerPage = 12;
-        
-        this.allAlbums = this.loadAlbumsData();
-        this.filteredAlbums = [...this.allAlbums];
-        
-        this.init();
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎵 Starting simple music app...');
+    
+    // Album data - simple and clean
+    const albums = [
+        {title: "Karpenters", artist: "Kool Keith", year: 2025, category: "solo"},
+        {title: "DAW", artist: "Kool Keith", year: 2025, category: "solo"},
+        {title: "Dear Derrick", artist: "Kool Keith", year: 2025, category: "solo"},
+        {title: "Private Selection", artist: "Kool Keith & MC Homeless", year: 2024, category: "collab"},
+        {title: "STRIKE!", artist: "Kool Keith, Audio Assault & Ceschi", year: 2024, category: "collab"},
+        {title: "Best of All Possible Worlds", artist: "AJJ, Kool Keith & Kimya Dawson", year: 2024, category: "collab"},
+        {title: "We Can Do It", artist: "Kool Keith & Kiew Nikon", year: 2024, category: "collab"},
+        {title: "Everybody Eats!", artist: "Stress Eater (CZARFACE & Kool Keith)", year: 2024, category: "collab"},
+        {title: "Bandoleros", artist: "Lynx 196.9, Arturo Banbini, Kool Keith", year: 2024, category: "collab"},
+        {title: "Aponia", artist: "Awol One & Kool Keith", year: 2024, category: "collab"},
+        {title: "Vengeance Unmasked", artist: "Wheeler del Torro, Craig G & Kool Keith", year: 2024, category: "collab"},
+        {title: "Divinity 2 Infinity", artist: "DJ Muggs & Kool Keith", year: 2023, category: "collab"},
+        {title: "World Area", artist: "Kool Keith", year: 2023, category: "solo"},
+        {title: "Black Elvis 2", artist: "Kool Keith", year: 2023, category: "solo"},
+        {title: "Mr. Controller", artist: "Kool Keith", year: 2023, category: "solo"},
+        {title: "Serpent", artist: "Kool Keith & Real Bad Man", year: 2023, category: "collab"},
+        {title: "Monsters", artist: "MC Homeless, Kool Keith & Rove", year: 2023, category: "collab"},
+        {title: "Keith's Salon", artist: "Kool Keith", year: 2022, category: "solo"},
+        {title: "Fusion Beats", artist: "Kool Keith", year: 2022, category: "solo"},
+        {title: "Computer Technology", artist: "Kool Keith", year: 2022, category: "solo"},
+        {title: "Subatomic", artist: "Del the Funky Homosapien & Kool Keith", year: 2022, category: "collab"},
+        {title: "Alvin Kelly", artist: "Kool Keith", year: 2022, category: "solo"},
+        {title: "Aliens", artist: "MC Homeless & Kool Keith", year: 2022, category: "collab"},
+        {title: "Space Goretex", artist: "Kool Keith & L'Orange", year: 2021, category: "collab"},
+        {title: "Super Hero", artist: "Kool Keith", year: 2021, category: "solo"},
+        {title: "Ride Out", artist: "Kool Keith", year: 2021, category: "solo"},
+        {title: "Donovan the Don", artist: "Grant Shapiro & Kool Keith", year: 2021, category: "collab"},
+        {title: "Keith", artist: "Kool Keith", year: 2020, category: "solo"},
+        {title: "Booty Clap", artist: "Kool Keith", year: 2020, category: "solo"},
+        {title: "Feature Magnetic", artist: "Kool Keith", year: 2020, category: "solo"},
+        {title: "Czarface Meets Ghostface", artist: "CZARFACE & Ghostface Killah", year: 2019, category: "collab"},
+        {title: "Saks 5th Ave", artist: "Kool Keith", year: 2019, category: "solo"},
+        {title: "Complicated Trip", artist: "Kool Keith & KutMasta Kurt", year: 2018, category: "collab"},
+        {title: "The Preacher", artist: "Kool Keith", year: 2018, category: "solo"},
+        {title: "Moosebumps", artist: "Dr. Octagon", year: 2018, category: "solo"},
+        {title: "Controller of Trap", artist: "Kool Keith", year: 2018, category: "solo"},
+        {title: "Colossal", artist: "DJ Derezon, Kool Keith & Motion Man", year: 2017, category: "collab"},
+        {title: "Project Radiation", artist: "Kool Keith Presents Dane Uno", year: 2016, category: "collab"},
+        {title: "Time Astonishing Instrumentals", artist: "L'Orange & Kool Keith", year: 2015, category: "collab"},
+        {title: "Time Astonishing", artist: "L'Orange & Kool Keith", year: 2015, category: "collab"},
+        {title: "A Couple of Slices", artist: "Kool Keith & Ray West", year: 2015, category: "collab"},
+        {title: "El Dorado Driven", artist: "Teddy Bass Presents Kool Keith", year: 2014, category: "collab"},
+        {title: "Demolition Crash", artist: "Kool Keith", year: 2014, category: "solo"},
+        {title: "Magnetic Pimp Force Field", artist: "Kool Keith & Big Sche Eastwood", year: 2013, category: "collab"},
+        {title: "Love and Danger", artist: "Kool Keith", year: 2012, category: "solo"},
+        {title: "The Legend of Tashan Dorrsett", artist: "Kool Keith", year: 2011, category: "solo"},
+        {title: "The Doctor is In", artist: "Kool Keith", year: 2011, category: "solo"},
+        {title: "Dr. Octagon Pt. 2", artist: "Kool Keith & Dr. Octagon", year: 2011, category: "solo"},
+        {title: "Tashan Dorrsett Instrumental", artist: "Kool Keith", year: 2009, category: "solo"},
+        {title: "Lost Masters Volume 3", artist: "Kool Keith", year: 2009, category: "solo"},
+        {title: "Lost Masters Collection", artist: "Kool Keith", year: 2009, category: "solo"},
+        {title: "Idea of a Master Piece", artist: "Kool Keith & 54-71", year: 2009, category: "collab"},
+        {title: "Iconic", artist: "Tim Dog & Kool Keith", year: 2009, category: "collab"},
+        {title: "Bikinis N Thongs", artist: "Kool Keith & Denis Deft", year: 2009, category: "collab"},
+        {title: "Thee Undertakerz", artist: "Kool Keith", year: 2008, category: "solo"},
+        {title: "Tashan Dorrsett", artist: "Tashan Dorrsett", year: 2008, category: "solo"},
+        {title: "Dr. Dooom 2", artist: "Dr. Dooom", year: 2008, category: "solo"},
+        {title: "Sex Style Unreleased Archives", artist: "Kool Keith", year: 2007, category: "solo"},
+        {title: "The Commissioner 2", artist: "Kool Keith", year: 2007, category: "solo"},
+        {title: "The Return of Dr. Octagon", artist: "Dr. Octagon", year: 2006, category: "solo"},
+        {title: "Project Polaroid", artist: "Kool Keith & TomC3", year: 2006, category: "collab"},
+        {title: "Nogatco Rd", artist: "Mr. Nogatco", year: 2006, category: "solo"},
+        {title: "Down On Land", artist: "Randolf Liftoff featuring Kool Keith", year: 2006, category: "collab"},
+        {title: "The Commissioner", artist: "Kool Keith", year: 2006, category: "solo"},
+        {title: "Collabs Tape", artist: "Kool Keith", year: 2006, category: "solo"},
+        {title: "Varoom", artist: "Kool Keith", year: 2005, category: "solo"},
+        {title: "The Lost Masters Volume 2", artist: "Kool Keith", year: 2005, category: "solo"},
+        {title: "White Label Mix Series Volume 1", artist: "Kool Keith & Nancy Des Rose", year: 2004, category: "collab"},
+        {title: "Thee Undatakerz", artist: "Thee Undertakerz", year: 2004, category: "solo"},
+        {title: "The Personal Album", artist: "Kool Keith", year: 2004, category: "solo"},
+        {title: "Official Space Tape", artist: "Kool Keith", year: 2004, category: "solo"},
+        {title: "Lovely Lady", artist: "Kool Keith", year: 2004, category: "solo"},
+        {title: "Dr. Octagon Part 2", artist: "Dr. Octagon", year: 2004, category: "solo"},
+        {title: "Diesel Truckers", artist: "Kool Keith & KutMasta Kurt", year: 2004, category: "collab"},
+        {title: "Clayborne Family", artist: "KHM", year: 2004, category: "collab"},
+        {title: "The Lost Masters", artist: "Kool Keith", year: 2003, category: "solo"},
+        {title: "Game", artist: "KHM", year: 2002, category: "collab"},
+        {title: "Spankmaster", artist: "Kool Keith", year: 2001, category: "solo"},
+        {title: "Pimp to Eat", artist: "Analog Brothers", year: 2000, category: "collab"},
+        {title: "Matthew", artist: "Kool Keith", year: 2000, category: "solo"},
+        {title: "Masters of Illusion", artist: "Masters of Illusion", year: 2000, category: "collab"},
+        {title: "First Come First Served", artist: "Dr. Dooom", year: 1999, category: "solo"},
+        {title: "Black Elvis Lost in Space", artist: "Kool Keith", year: 1999, category: "solo"},
+        {title: "The Cenobites LP", artist: "Cenobites", year: 1997, category: "collab"},
+        {title: "Sex Style", artist: "Kool Keith", year: 1996, category: "solo"},
+        {title: "Dr. Octagonecologyst", artist: "Dr. Octagon", year: 1996, category: "solo"},
+        {title: "Big Time", artist: "Ultra", year: 1996, category: "collab"},
+        {title: "Big Willie Smith EP", artist: "Da Beat Terrorists", year: 1995, category: "collab"},
+        {title: "I'm Fucking Flippin", artist: "Ultramagnetic MCs", year: 1994, category: "collab"},
+        {title: "The Four Horsemen", artist: "Ultramagnetic MCs", year: 1993, category: "collab"},
+        {title: "Funk Your Head Up", artist: "Ultramagnetic MCs", year: 1992, category: "collab"},
+        {title: "Critical Beatdown", artist: "Ultramagnetic MCs", year: 1988, category: "collab"}
+    ];
+    
+    let currentFilter = 'all';
+    let currentSort = 'year-desc';
+    let currentSearch = '';
+    let currentPage = 1;
+    const albumsPerPage = 12;
+    let filteredAlbums = albums;
+    
+    // Update stats
+    const totalAlbumsSpan = document.getElementById('totalAlbums');
+    if (totalAlbumsSpan) {
+        totalAlbumsSpan.textContent = albums.length;
     }
     
-    loadAlbumsData() {
-        // Compact album data with essential info only
-        const albumData = [
-            ["Karpenters", "Kool Keith", 2025, "solo"],
-            ["DAW", "Kool Keith", 2025, "solo"],
-            ["Dear Derrick", "Kool Keith", 2025, "solo"],
-            ["Private Selection", "Kool Keith & MC Homeless", 2024, "collab"],
-            ["STRIKE!", "Kool Keith, Audio Assault & Ceschi", 2024, "collab"],
-            ["Best of All Possible Worlds", "AJJ, Kool Keith & Kimya Dawson", 2024, "collab"],
-            ["We Can Do It", "Kool Keith & Kiew Nikon", 2024, "collab"],
-            ["Everybody Eats!", "Stress Eater (CZARFACE & Kool Keith)", 2024, "collab"],
-            ["Bandoleros", "Lynx 196.9, Arturo Banbini, Kool Keith", 2024, "collab"],
-            ["Aponia", "Awol One & Kool Keith", 2024, "collab"],
-            ["Vengeance Unmasked: The Rise of the Last", "Wheeler del Torro, Craig G & Kool Keith", 2024, "collab"],
-            ["Divinity 2 Infinity: The Odyssey", "DJ Muggs & Kool Keith", 2023, "collab"],
-            ["World Area", "Kool Keith", 2023, "solo"],
-            ["Black Elvis 2", "Kool Keith", 2023, "solo"],
-            ["Mr. Controller", "Kool Keith", 2023, "solo"],
-            ["Serpent", "Kool Keith & Real Bad Man", 2023, "collab"],
-            ["Monsters", "MC Homeless, Kool Keith & Rove", 2023, "collab"],
-            ["Keith's Salon", "Kool Keith", 2022, "solo"],
-            ["Fusion Beats", "Kool Keith", 2022, "solo"],
-            ["Computer Technology", "Kool Keith", 2022, "solo"],
-            ["Subatomic", "Del the Funky Homosapien & Kool Keith", 2022, "collab"],
-            ["Alvin Kelly", "Kool Keith", 2022, "solo"],
-            ["Aliens", "MC Homeless & Kool Keith", 2022, "collab"],
-            ["Space Goretex", "Kool Keith & L'Orange", 2021, "collab"],
-            ["Super Hero", "Kool Keith", 2021, "solo"],
-            ["Ride Out", "Kool Keith", 2021, "solo"],
-            ["Donovan the Don", "Grant Shapiro & Kool Keith", 2021, "collab"],
-            ["Keith", "Kool Keith", 2020, "solo"],
-            ["Booty Clap", "Kool Keith", 2020, "solo"],
-            ["Feature Magnetic", "Kool Keith", 2020, "solo"],
-            ["Czarface Meets Ghostface", "CZARFACE & Ghostface Killah (feat. Kool Keith)", 2019, "collab"],
-            ["Saks 5th Ave", "Kool Keith", 2019, "solo"],
-            ["Complicated Trip", "Kool Keith & KutMasta Kurt", 2018, "collab"],
-            ["The Preacher", "Kool Keith", 2018, "solo"],
-            ["Moosebumps: An Exploration Into...", "Dr. Octagon (Kool Keith)", 2018, "solo"],
-            ["Controller of Trap", "Kool Keith", 2018, "solo"],
-            ["Colossal", "DJ Derezon, Kool Keith & Motion Man", 2017, "collab"],
-            ["Project Radiation", "Kool Keith Presents Dane Uno", 2016, "collab"],
-            ["Time? Astonishing... Instrumentals!", "L'Orange & Kool Keith", 2015, "collab"],
-            ["Time? Astonishing!", "L'Orange & Kool Keith", 2015, "collab"],
-            ["A Couple of Slices", "Kool Keith & Ray West", 2015, "collab"],
-            ["El Dorado Driven", "Teddy Bass Presents Kool Keith", 2014, "collab"],
-            ["Demolition Crash", "Kool Keith", 2014, "solo"],
-            ["Magnetic Pimp Force Field", "Kool Keith & Big Sche Eastwood", 2013, "collab"],
-            ["Love and Danger", "Kool Keith", 2012, "solo"],
-            ["The Legend of Tashan Dorrsett", "Kool Keith", 2011, "solo"],
-            ["The Doctor is In", "Kool Keith", 2011, "solo"],
-            ["Dr. Octagon Pt. 2 / Bosses in the Booth", "Kool Keith & Dr. Octagon", 2011, "solo"],
-            ["Tashan Dorrsett (Instrumental Edition)", "Kool Keith", 2009, "solo"],
-            ["Lost Masters Volume 3", "Kool Keith", 2009, "solo"],
-            ["Lost Masters Collection", "Kool Keith", 2009, "solo"],
-            ["Idea of a Master Piece", "Kool Keith & 54-71", 2009, "collab"],
-            ["Iconic", "Tim Dog & Kool Keith present Project X", 2009, "collab"],
-            ["Bikinis N Thongs", "Kool Keith & Denis Deft", 2009, "collab"],
-            ["Thee Undertakerz", "Kool Keith", 2008, "solo"],
-            ["Tashan Dorrsett", "Tashan Dorrsett (Kool Keith)", 2008, "solo"],
-            ["Dr. Dooom 2", "Dr. Dooom (Kool Keith)", 2008, "solo"],
-            ["Sex Style: The Un-Released Archives", "Kool Keith", 2007, "solo"],
-            ["The Commi$$ioner 2", "Kool Keith", 2007, "solo"],
-            ["The Return of Dr. Octagon", "Dr. Octagon (Kool Keith)", 2006, "solo"],
-            ["Project Polaroid", "Kool Keith & TomC3", 2006, "collab"],
-            ["Nogatco Rd.", "Mr. Nogatco (Kool Keith)", 2006, "solo"],
-            ["Down On Land", "Randolf Liftoff featuring Kool Keith", 2006, "collab"],
-            ["The Commi$$ioner", "Kool Keith", 2006, "solo"],
-            ["Collabs Tape", "Kool Keith", 2006, "solo"],
-            ["Varoom", "Kool Keith", 2005, "solo"],
-            ["The Lost Masters, Volume 2", "Kool Keith", 2005, "solo"],
-            ["White Label Mix Series, Volume 1", "Kool Keith & Nancy Des Rose", 2004, "collab"],
-            ["Thee Undatakerz", "Thee Undertakerz (Kool Keith)", 2004, "solo"],
-            ["The Personal Album", "Kool Keith", 2004, "solo"],
-            ["Official Space Tape", "Kool Keith", 2004, "solo"],
-            ["Lovely Lady", "Kool Keith", 2004, "solo"],
-            ["Dr. Octagon Part 2", "Dr. Octagon (Kool Keith)", 2004, "solo"],
-            ["Diesel Truckers", "Kool Keith & KutMasta Kurt", 2004, "collab"],
-            ["Clayborne Family", "KHM (Kool Keith, Jacky Jasper, H-Bomb)", 2004, "collab"],
-            ["The Lost Masters", "Kool Keith", 2003, "solo"],
-            ["Game", "KHM (Kool Keith, H-Bomb, Marc Live)", 2002, "collab"],
-            ["Spankmaster", "Kool Keith", 2001, "solo"],
-            ["Pimp to Eat", "Analog Brothers", 2000, "collab"],
-            ["Matthew", "Kool Keith", 2000, "solo"],
-            ["Masters of Illusion", "Masters of Illusion", 2000, "collab"],
-            ["First Come, First Served", "Dr. Dooom (Kool Keith)", 1999, "solo"],
-            ["Black Elvis / Lost in Space", "Kool Keith (as Black Elvis)", 1999, "solo"],
-            ["The Cenobites LP", "Cenobites (Kool Keith & Godfather Don)", 1997, "collab"],
-            ["Sex Style", "Kool Keith", 1996, "solo"],
-            ["Dr. Octagonecologyst", "Dr. Octagon (Kool Keith)", 1996, "solo"],
-            ["Big Time", "Ultra (Kool Keith & Tim Dog)", 1996, "collab"],
-            ["Big Willie Smith EP", "Da Beat Terrorists & Big Willie Smith", 1995, "collab"],
-            ["I'm F**kin' Flippin'", "Ultramagnetic MC's featuring Kool Keith", 1994, "collab"],
-            ["The Four Horsemen", "Ultramagnetic MCs", 1993, "collab"],
-            ["Funk Your Head Up", "Ultramagnetic MCs", 1992, "collab"],
-            ["Critical Beatdown", "Ultramagnetic MCs", 1988, "collab"]
-        ];
-        
-        return albumData.map((data, index) => ({
-            title: data[0],
-            artist: data[1],
-            year: data[2],
-            category: data[3],
-            search: `${data[0]} ${data[1]} ${data[2]}`.toLowerCase(),
-            coverSrc: `album-covers/${data[0].toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')}.jpg`,
-            slug: data[0].toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-        }));
+    function getSlug(title) {
+        return title.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
     }
     
-    init() {
-        console.log('🎵 Initializing music app...');
-        this.bindEvents();
-        this.updateStats();
-        this.applyFiltersAndSort();
-        this.updatePagination();
-        console.log('✅ Music app ready with', this.allAlbums.length, 'albums');
+    function createAlbumCard(album) {
+        const slug = getSlug(album.title);
+        const badgeClass = album.category === 'solo' ? 'badge-solo' : 'badge-collab';
+        const badgeText = album.category === 'solo' ? 'Solo' : 'Collab';
+        
+        return `
+            <div class="album-card" data-category="${album.category}" data-year="${album.year}" data-title="${album.title.toLowerCase()}">
+                <div class="album-badge ${badgeClass}">${badgeText}</div>
+                <img src="album-covers/${slug}.jpg" alt="${album.title}" class="album-cover" loading="lazy" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="album-cover-placeholder" style="display: none;">
+                    <div class="cover-icon">🎵</div>
+                </div>
+                <h3 class="album-title">${album.title}</h3>
+                <p class="album-artist">${album.artist}</p>
+                <p class="album-year">${album.year}</p>
+            </div>
+        `;
     }
     
-    bindEvents() {
-        console.log('🔗 Binding events...');
+    function filterAndSort() {
+        let filtered = albums;
         
-        this.filterButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.handleFilter(btn.dataset.filter);
-            });
-        });
-        
-        if (this.sortSelect) {
-            this.sortSelect.addEventListener('change', (e) => {
-                this.handleSort(e.target.value);
-            });
+        // Apply filter
+        if (currentFilter !== 'all') {
+            filtered = filtered.filter(album => album.category === currentFilter);
         }
         
-        if (this.searchInput) {
-            this.searchInput.addEventListener('input', (e) => {
-                this.handleSearch(e.target.value);
-            });
-        }
-        
-        if (this.prevBtn) {
-            this.prevBtn.addEventListener('click', () => {
-                this.goToPage(this.currentPage - 1);
-            });
-        }
-        
-        if (this.nextBtn) {
-            this.nextBtn.addEventListener('click', () => {
-                this.goToPage(this.currentPage + 1);
-            });
-        }
-        
-        this.albumsGrid.addEventListener('click', (e) => {
-            const albumCard = e.target.closest('.album-card');
-            if (albumCard) {
-                console.log('🎵 Album clicked:', albumCard.querySelector('.album-title').textContent);
-            }
-        });
-        
-        console.log('✅ All events bound successfully');
-    }
-    
-    handleFilter(filter) {
-        this.currentFilter = filter;
-        this.currentPage = 1;
-        
-        this.filterButtons.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.filter === filter);
-        });
-        
-        this.applyFiltersAndSort();
-        this.updatePagination();
-    }
-    
-    handleSort(sortType) {
-        this.currentSort = sortType;
-        this.currentPage = 1;
-        this.applyFiltersAndSort();
-        this.updatePagination();
-    }
-    
-    handleSearch(query) {
-        this.currentSearch = query.toLowerCase().trim();
-        this.currentPage = 1;
-        this.applyFiltersAndSort();
-        this.updatePagination();
-    }
-    
-    applyFiltersAndSort() {
-        let filtered = [...this.allAlbums];
-        
-        if (this.currentFilter !== 'all') {
-            filtered = filtered.filter(album => album.category === this.currentFilter);
-        }
-        
-        if (this.currentSearch) {
+        // Apply search
+        if (currentSearch) {
             filtered = filtered.filter(album => {
-                const searchableText = `${album.title} ${album.artist} ${album.search}`.toLowerCase();
-                return searchableText.includes(this.currentSearch);
+                const searchText = (album.title + ' ' + album.artist + ' ' + album.year).toLowerCase();
+                return searchText.includes(currentSearch);
             });
         }
         
+        // Apply sort
         filtered.sort((a, b) => {
-            switch (this.currentSort) {
+            switch (currentSort) {
                 case 'year-desc':
                     return b.year - a.year;
                 case 'year-asc':
@@ -242,73 +168,48 @@ class MusicDiscographyApp {
             }
         });
         
-        this.filteredAlbums = filtered;
-        this.renderCurrentPage();
-        this.updateResultsCount();
-        this.toggleNoResults();
+        filteredAlbums = filtered;
+        renderPage();
+        updatePagination();
+        updateResultsCount();
     }
     
-    renderCurrentPage() {
-        const startIndex = (this.currentPage - 1) * this.albumsPerPage;
-        const endIndex = startIndex + this.albumsPerPage;
-        const pageAlbums = this.filteredAlbums.slice(startIndex, endIndex);
+    function renderPage() {
+        const albumsGrid = document.getElementById('albumsGrid');
+        if (!albumsGrid) return;
         
-        this.albumsGrid.innerHTML = '';
+        const startIndex = (currentPage - 1) * albumsPerPage;
+        const endIndex = startIndex + albumsPerPage;
+        const pageAlbums = filteredAlbums.slice(startIndex, endIndex);
         
-        pageAlbums.forEach(album => {
-            const card = this.createAlbumCard(album);
-            this.albumsGrid.appendChild(card);
-        });
+        albumsGrid.innerHTML = pageAlbums.map(album => createAlbumCard(album)).join('');
         
-        console.log(`📄 Rendered page ${this.currentPage} with ${pageAlbums.length} albums`);
+        console.log('📄 Rendered page', currentPage, 'with', pageAlbums.length, 'albums');
     }
     
-    createAlbumCard(album) {
-        const card = document.createElement('div');
-        card.className = 'album-card';
-        card.dataset.category = album.category;
-        card.dataset.year = album.year;
-        card.dataset.title = album.title;
-        card.dataset.search = album.search;
-        card.dataset.slug = album.slug;
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredAlbums.length / albumsPerPage);
+        const pageNumbers = document.getElementById('pageNumbers');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const paginationSection = document.getElementById('paginationSection');
         
-        const badgeClass = `badge-${album.category}`;
-        const badgeText = album.category.charAt(0).toUpperCase() + album.category.slice(1);
+        if (prevBtn) prevBtn.disabled = currentPage === 1;
+        if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
         
-        card.innerHTML = `
-            <div class="album-badge ${badgeClass}">${badgeText}</div>
-            <img src="${album.coverSrc}" alt="${album.title}" class="album-cover" loading="lazy" 
-                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="album-cover-placeholder" style="display: none;">
-                <div class="cover-icon">🎵</div>
-            </div>
-            <h3 class="album-title">${album.title}</h3>
-            <p class="album-artist">${album.artist}</p>
-            <p class="album-year">${album.year}</p>
-        `;
+        if (!pageNumbers) return;
         
-        return card;
-    }
-    
-    updatePagination() {
-        const totalPages = Math.ceil(this.filteredAlbums.length / this.albumsPerPage);
-        
-        if (this.prevBtn) this.prevBtn.disabled = this.currentPage === 1;
-        if (this.nextBtn) this.nextBtn.disabled = this.currentPage === totalPages || totalPages === 0;
-        
-        if (!this.pageNumbers) return;
-        
-        this.pageNumbers.innerHTML = '';
+        pageNumbers.innerHTML = '';
         
         if (totalPages <= 1) {
-            this.paginationSection.style.display = 'none';
+            if (paginationSection) paginationSection.style.display = 'none';
             return;
         }
         
-        this.paginationSection.style.display = 'flex';
+        if (paginationSection) paginationSection.style.display = 'flex';
         
         const maxVisible = 5;
-        let startPage = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
         let endPage = Math.min(totalPages, startPage + maxVisible - 1);
         
         if (endPage - startPage < maxVisible - 1) {
@@ -317,114 +218,97 @@ class MusicDiscographyApp {
         
         for (let i = startPage; i <= endPage; i++) {
             const pageBtn = document.createElement('button');
-            pageBtn.className = `pagination-btn page-btn ${i === this.currentPage ? 'active' : ''}`;
+            pageBtn.className = 'pagination-btn page-btn' + (i === currentPage ? ' active' : '');
             pageBtn.textContent = i;
             pageBtn.type = 'button';
-            pageBtn.dataset.page = i;
-            
-            pageBtn.addEventListener('click', () => {
-                this.goToPage(i);
-            });
-            
-            this.pageNumbers.appendChild(pageBtn);
+            pageBtn.onclick = () => goToPage(i);
+            pageNumbers.appendChild(pageBtn);
         }
     }
     
-    goToPage(pageNumber) {
-        const totalPages = Math.ceil(this.filteredAlbums.length / this.albumsPerPage);
+    function goToPage(pageNumber) {
+        const totalPages = Math.ceil(filteredAlbums.length / albumsPerPage);
         if (pageNumber < 1 || pageNumber > totalPages) return;
         
-        this.currentPage = pageNumber;
-        this.renderCurrentPage();
-        this.updatePagination();
+        currentPage = pageNumber;
+        renderPage();
+        updatePagination();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
-    updateResultsCount() {
-        if (!this.resultsCount) return;
+    function updateResultsCount() {
+        const resultsCount = document.getElementById('resultsCount');
+        if (!resultsCount) return;
         
-        const startIndex = (this.currentPage - 1) * this.albumsPerPage + 1;
-        const endIndex = Math.min(startIndex + this.albumsPerPage - 1, this.filteredAlbums.length);
-        const total = this.filteredAlbums.length;
+        const startIndex = (currentPage - 1) * albumsPerPage + 1;
+        const endIndex = Math.min(startIndex + albumsPerPage - 1, filteredAlbums.length);
+        const total = filteredAlbums.length;
         
         if (total === 0) {
-            this.resultsCount.textContent = 'No albums found';
-        } else if (total <= this.albumsPerPage) {
-            this.resultsCount.textContent = `Showing ${total} of ${this.allAlbums.length} albums`;
+            resultsCount.textContent = 'No albums found';
+        } else if (total <= albumsPerPage) {
+            resultsCount.textContent = `Showing ${total} of ${albums.length} albums`;
         } else {
-            this.resultsCount.textContent = `Showing ${startIndex}-${endIndex} of ${total} albums`;
+            resultsCount.textContent = `Showing ${startIndex}-${endIndex} of ${total} albums`;
         }
     }
     
-    updateStats() {
-        if (this.totalAlbumsSpan) {
-            this.totalAlbumsSpan.textContent = this.allAlbums.length;
-        }
-    }
-    
-    toggleNoResults() {
-        if (!this.noResults) return;
-        
-        const showNoResults = this.filteredAlbums.length === 0;
-        this.noResults.style.display = showNoResults ? 'block' : 'none';
-        this.albumsGrid.style.display = showNoResults ? 'none' : 'grid';
-    }
-}
-
-class MobileMenu {
-    constructor() {
-        this.menuBtn = document.getElementById('mobileMenuBtn');
-        this.navMenu = document.getElementById('navMenu');
-        
-        if (this.menuBtn && this.navMenu) {
-            this.bindEvents();
-            console.log('✅ Mobile menu initialized');
-        }
-    }
-    
-    bindEvents() {
-        this.menuBtn.addEventListener('click', (e) => {
+    // Event listeners
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
-            this.toggle();
+            currentFilter = btn.dataset.filter;
+            currentPage = 1;
+            
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            filterAndSort();
         });
-        
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                this.close();
-            });
-        });
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.close();
-            }
+    });
+    
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            currentPage = 1;
+            filterAndSort();
         });
     }
     
-    toggle() {
-        const isOpen = this.navMenu.classList.toggle('show');
-        this.menuBtn.setAttribute('aria-expanded', isOpen);
-        console.log('📱 Mobile menu toggled:', isOpen ? 'open' : 'closed');
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase().trim();
+            currentPage = 1;
+            filterAndSort();
+        });
     }
     
-    close() {
-        this.navMenu.classList.remove('show');
-        this.menuBtn.setAttribute('aria-expanded', 'false');
+    const prevBtn = document.getElementById('prevBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
     }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🎵 DOM loaded, starting initialization...');
     
-    try {
-        window.musicApp = new MusicDiscographyApp();
-        window.mobileMenu = new MobileMenu();
-        console.log('🎵 Ultra Keith Music App fully initialized!');
-    } catch (error) {
-        console.error('❌ Error initializing music app:', error);
+    const nextBtn = document.getElementById('nextBtn');
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
     }
-});
-
-window.addEventListener('error', (e) => {
-    console.error('🚨 Global error:', e.error);
+    
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            navMenu.classList.toggle('show');
+        });
+    }
+    
+    // Initialize
+    filterAndSort();
+    
+    console.log('✅ Music app initialized with', albums.length, 'albums');
 });
