@@ -195,9 +195,9 @@ body {
     transform: scale(1.1);
 }
 
-/* Mobile menu show state */
+/* Mobile menu show state - FIXED */
 .nav-menu.show {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     position: absolute;
     top: 100%;
@@ -208,6 +208,7 @@ body {
     padding: var(--space-lg);
     border-top: 1px solid rgba(218, 181, 71, 0.2);
     gap: var(--space-md);
+    z-index: 1000;
 }
 
 /* =================== MAIN LAYOUT =================== */
@@ -432,16 +433,55 @@ body {
     text-align: right;
 }
 
-/* =================== ALBUMS GRID =================== */
+/* =================== ALBUMS GRID - FIXED MOBILE =================== */
 .albums-section {
     margin-bottom: var(--space-2xl);
 }
 
+/* Base grid - responsive by default */
 .albums-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-xl);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
     margin-bottom: var(--space-2xl);
+    width: 100%;
+}
+
+/* Desktop override */
+@media (min-width: 1024px) {
+    .albums-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: var(--space-xl);
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .albums-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: var(--space-lg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .albums-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--space-md);
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .albums-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-lg);
+    }
+    
+    .album-card {
+        max-width: 300px;
+        margin: 0 auto;
+    }
 }
 
 .album-card {
@@ -616,8 +656,119 @@ body {
     color: var(--color-gold-warm);
 }
 
-/* =================== RESPONSIVE DESIGN =================== */
-@media (max-width: 768px) {
+/* =================== RESPONSIVE DESIGN - COMPLETELY FIXED =================== */
+
+/* Mobile First - Base Styles */
+@media (max-width: 480px) {
+    .main {
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
+        padding-top: 85px;
+    }
+    
+    .music-hero {
+        padding: var(--space-md) 0;
+        margin-bottom: var(--space-md);
+    }
+    
+    .music-title {
+        font-size: 1.75rem;
+        margin-bottom: var(--space-xs);
+    }
+    
+    .music-subtitle {
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+    
+    .stats-section {
+        padding: var(--space-sm);
+        margin-bottom: var(--space-md);
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem;
+    }
+    
+    .controls-section {
+        padding: var(--space-sm);
+        margin-bottom: var(--space-md);
+    }
+    
+    .controls-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-xs);
+    }
+    
+    .filter-btn {
+        width: 140px;
+        padding: var(--space-xs) var(--space-sm);
+        font-size: 0.7rem;
+    }
+    
+    .sort-select {
+        width: 100%;
+        max-width: 180px;
+        margin: 0 auto;
+        font-size: 0.7rem;
+    }
+    
+    .search-input {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+    
+    .results-count {
+        font-size: 0.7rem;
+    }
+    
+    .album-card {
+        padding: var(--space-sm);
+    }
+    
+    .album-title {
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+    
+    .album-artist {
+        font-size: 0.8rem;
+    }
+    
+    .album-year {
+        font-size: 0.7rem;
+    }
+    
+    .pagination-section {
+        gap: 0.25rem;
+        flex-wrap: wrap;
+    }
+    
+    .pagination-btn {
+        font-size: 0.65rem;
+        padding: 0.25rem 0.5rem;
+        min-width: 28px;
+    }
+}
+
+/* Regular Mobile */
+@media (min-width: 481px) and (max-width: 768px) {
     .main {
         padding-left: var(--space-md);
         padding-right: var(--space-md);
@@ -630,12 +781,12 @@ body {
     }
     
     .music-title {
-        font-size: clamp(1.5rem, 8vw, 2.5rem);
+        font-size: 2rem;
         margin-bottom: var(--space-sm);
     }
     
     .music-subtitle {
-        font-size: clamp(0.875rem, 4vw, 1rem);
+        font-size: 0.95rem;
         line-height: 1.5;
     }
     
@@ -671,12 +822,13 @@ body {
     .filter-buttons {
         justify-content: center;
         gap: var(--space-xs);
+        flex-wrap: wrap;
     }
     
     .filter-btn {
         padding: var(--space-xs) var(--space-sm);
-        font-size: 0.7rem;
-        min-width: auto;
+        font-size: 0.75rem;
+        min-width: 80px;
     }
     
     .sort-select {
@@ -695,25 +847,13 @@ body {
         font-size: 0.75rem;
     }
     
-    /* FORCE MOBILE GRID - 2 COLUMNS MAX */
-    .albums-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: var(--space-md);
-        margin-bottom: var(--space-lg);
-    }
-    
     .album-card {
         padding: var(--space-sm);
         border-radius: var(--radius-lg);
     }
     
-    .album-cover {
-        margin-bottom: var(--space-sm);
-        border-radius: var(--radius-md);
-    }
-    
     .album-title {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         line-height: 1.2;
         margin-bottom: 0.25rem;
     }
@@ -745,46 +885,41 @@ body {
         font-size: 0.7rem;
         min-width: 32px;
     }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .main {
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+        padding-top: 100px;
+    }
     
-    .page-numbers {
-        gap: 0.25rem;
+    .nav {
+        height: 80px;
+        padding: 0 var(--space-xl);
+    }
+    
+    .nav-logo img {
+        height: 48px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        font-size: 0.875rem;
+    }
+    
+    .mobile-menu-btn {
+        display: none;
+    }
+    
+    .controls-container {
+        grid-template-columns: auto auto 1fr auto;
     }
 }
 
-/* VERY SMALL SCREENS - 1 COLUMN */
-@media (max-width: 600px) {
-    .albums-grid {
-        grid-template-columns: 1fr !important;
-        gap: var(--space-lg);
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-sm);
-    }
-    
-    .stat-item {
-        padding: var(--space-sm);
-    }
-    
-    .album-card {
-        max-width: 280px;
-        margin: 0 auto;
-    }
-    
-    /* Stack filters vertically on very small screens */
-    .filter-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-xs);
-    }
-    
-    .filter-btn {
-        width: 120px;
-    }
-}
-
-@media (min-width: 769px) {
+/* Desktop */
+@media (min-width: 1024px) {
     .nav {
         height: 80px;
         padding: 0 var(--space-2xl);
@@ -811,17 +946,6 @@ body {
     
     .controls-container {
         grid-template-columns: auto auto 1fr auto;
-    }
-    
-    /* DESKTOP GRID - 4 COLUMNS */
-    .albums-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
-    }
-}
-
-@media (min-width: 1200px) {
-    .albums-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
     }
 }
 
