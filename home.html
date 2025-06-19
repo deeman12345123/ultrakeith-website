@@ -1,4 +1,681 @@
-<!DOCTYPE html>
+</style>
+</head>
+<body>
+    <!-- Entry Overlay -->
+    <div class="entry-overlay" id="entryOverlay">
+        <div class="entry-content">
+            <div class="entry-image-container">
+                <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
+            </div>
+            
+            <div class="sound-controls">
+                <div class="audio-toggle-container">
+                    <span class="audio-label">Audio</span>
+                    <button class="toggle-switch active" id="toggleSwitch" aria-label="Toggle audio">
+                        <div class="toggle-slider"></div>
+                    </button>
+                    <span class="audio-status" id="audioStatus">Enabled</span>
+                </div>
+                
+                <button class="btn btn-primary" id="enterButton" disabled>
+                    <span class="sr-only">Enter the site</span>
+                    Loading
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="bio.html">Biography</a></li>
+                <li><a href="music/music.html">Music</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="stats/stats.html">Statistics</a></li>
+                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                <li><a href="shop.html">Store</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                ☰
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main" id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
+            <h1 class="hero-title">Official Music Portal</h1>
+            <p class="hero-subtitle">
+                Hip-Hop's Most Prolific Innovator
+            </p>
+        </section>
+        
+        <!-- Latest Releases -->
+        <section class="releases">
+            <h2 class="releases-title">Latest Releases</h2>
+            
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="album1.png" alt="Space Goretex album cover" class="album-image">
+                        <h3 class="album-title">Space Goretex</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image">
+                        <h3 class="album-title">Dr. Octagon Returns</h3>
+                        <p class="album-artist">Dr. Octagon</p>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="btn btn-primary">Pre-Order</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image">
+                        <h3 class="album-title">Keith's Vault Series</h3>
+                        <p class="album-artist">Ultra Keith</p>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="btn btn-primary">Listen</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album4.png" alt="Critical Beatdown album cover" class="album-image">
+                        <h3 class="album-title">Critical Beatdown</h3>
+                        <p class="album-artist">Ultramagnetic MCs</p>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image">
+                        <h3 class="album-title">Black Elvis 2</h3>
+                        <p class="album-artist">Black Elvis</p>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                    
+                    <!-- Duplicate set for continuous loop -->
+                    <div class="carousel-slide">
+                        <img src="album1.png" alt="Space Goretex album cover" class="album-image">
+                        <h3 class="album-title">Space Goretex</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-new">Out Now</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image">
+                        <h3 class="album-title">Dr. Octagon Returns</h3>
+                        <p class="album-artist">Dr. Octagon</p>
+                        <span class="album-badge badge-coming">July 2025</span>
+                        <a href="shop.html" class="btn btn-primary">Pre-Order</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image">
+                        <h3 class="album-title">Keith's Vault Series</h3>
+                        <p class="album-artist">Ultra Keith</p>
+                        <span class="album-badge badge-streaming">Streaming</span>
+                        <a href="shop.html" class="btn btn-primary">Listen</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album4.png" alt="Critical Beatdown album cover" class="album-image">
+                        <h3 class="album-title">Critical Beatdown</h3>
+                        <p class="album-artist">Ultramagnetic MCs</p>
+                        <span class="album-badge badge-streaming">Remastered</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image">
+                        <h3 class="album-title">Black Elvis 2</h3>
+                        <p class="album-artist">Black Elvis</p>
+                        <span class="album-badge badge-new">Available</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="features">
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="bioicon.png" alt="Biography icon">
+                </div>
+                <h3 class="feature-title">Biography</h3>
+                <p class="feature-description">
+                    From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. 
+                    Discover the complete story of hip-hop's most innovative artist through six defining eras.
+                </p>
+                <a href="bio.html" class="btn btn-secondary">Read Biography</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="musicicon.png" alt="Music icon">
+                </div>
+                <h3 class="feature-title">Discography</h3>
+                <p class="feature-description">
+                    Over 40 years of groundbreaking music spanning 92+ albums. Stream classics like Critical Beatdown 
+                    and discover rare gems from the complete catalog of hip-hop's most prolific artist.
+                </p>
+                <a href="music/music.html" class="btn btn-secondary">Listen Now</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="personaicon.png" alt="Personas icon">
+                </div>
+                <h3 class="feature-title">Personas</h3>
+                <p class="feature-description">
+                    Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. 
+                    Experience 58+ personas through our exclusive trading card collection showcasing 40+ years of character creation.
+                </p>
+                <a href="personas/personas.html" class="btn btn-secondary">Explore Personas</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="touricon.png" alt="Tour icon">
+                </div>
+                <h3 class="feature-title">Tour Dates</h3>
+                <p class="feature-description">
+                    Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates 
+                    with MC Homeless and view professional booking information.
+                </p>
+                <a href="tour.html" class="btn btn-secondary">View Dates</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="vaulticon.png" alt="Vault icon">
+                </div>
+                <h3 class="feature-title">Vault</h3>
+                <p class="feature-description">
+                    Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks 
+                    and hidden treasures from hip-hop's most secretive archive.
+                </p>
+                <a href="vault.html" class="btn btn-secondary">Enter Vault</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="casinoicon.png" alt="Casino icon">
+                </div>
+                <h3 class="feature-title">Casino</h3>
+                <p class="feature-description">
+                    Spin the slot machine for exclusive vault tracks and rare content. Play daily to earn points 
+                    and unlock premium rewards from Keith's secret archive.
+                </p>
+                <a href="casino.html" class="btn btn-secondary">Enter Casino</a>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="aiicon.png" alt="AI Chat icon">
+                </div>
+                <h3 class="feature-title">AI Chat</h3>
+                <p class="feature-description">
+                    Chat with AI versions of Keith's legendary personas. Experience conversations with Dr. Octagon, 
+                    Black Elvis, and other characters through advanced artificial intelligence.
+                </p>
+                <a href="keithgpt/chat.html" class="btn btn-secondary">Start Chat</a>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="statsicon.png" alt="Statistics icon">
+                </div>
+                <h3 class="feature-title">Statistics</h3>
+                <p class="feature-description">
+                    Dive into Keith's legendary career stats. NBA-style rankings showing 92+ albums, 41 years active, 
+                    58+ personas, and records that cement his status as hip-hop's most prolific innovator.
+                </p>
+                <a href="stats/stats.html" class="btn btn-secondary">View Stats</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="newsicon.png" alt="News icon">
+                </div>
+                <h3 class="feature-title">Latest News</h3>
+                <div class="feature-description">
+                    <div class="latest-post" id="latestPost">
+                        <div class="post-loading">Loading latest news...</div>
+                    </div>
+                    <p class="news-description">
+                        Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content.
+                    </p>
+                </div>
+                <a href="https://ultrakeithdotcom.blogspot.com/" class="btn btn-secondary">Read All News</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="videosicon.png" alt="Videos icon">
+                </div>
+                <h3 class="feature-title">Videos</h3>
+                <p class="feature-description">
+                    Watch music videos, live performances, and behind-the-scenes content. Explore rare footage 
+                    and exclusive visual content from Keith's extensive multimedia archive.
+                </p>
+                <a href="videos.html" class="btn btn-secondary">Watch Now</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="shoppingicon.png" alt="Store icon">
+                </div>
+                <h3 class="feature-title">Store</h3>
+                <p class="feature-description">
+                    Shop exclusive merchandise, vinyl records, and limited edition collectibles. Get official Keith gear 
+                    and rare items available nowhere else.
+                </p>
+                <a href="shop.html" class="btn btn-secondary">Shop Now</a>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon">
+                    <img src="forumicon.png" alt="Forum icon">
+                </div>
+                <h3 class="feature-title">Forum</h3>
+                <p class="feature-description">
+                    Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, 
+                    share stories, and stay connected with the Keith musical legacy.
+                </p>
+                <a href="https://koolkeith.proboards.com/" class="btn btn-secondary">Join Forum</a>
+            </article>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <nav aria-label="Footer navigation">
+            <ul class="footer-links">
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="press.html">Press Kit</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="personas/personas.html">Personas</a></li>
+                <li><a href="vault.html">Vault</a></li>
+                <li><a href="casino.html">Casino</a></li>
+                <li><a href="keithgpt/chat.html">AI Chat</a></li>
+                <li><a href="stats/stats.html">Statistics</a></li>
+                <li><a href="https://koolkeith.proboards.com/">Forum</a></li>
+            </ul>
+        </nav>
+        <p class="footer-copyright">
+            © 2025 Ultra Keith. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        'use strict';
+        
+        /**
+         * Ultra Keith Website Application
+         * Production-ready, maintainable, and accessible
+         */
+        class UltraKeithApp {
+            constructor() {
+                this.state = {
+                    soundEnabled: true,
+                    loadingComplete: false,
+                    siteLoaded: false
+                };
+                
+                this.elements = this.getElements();
+                this.init();
+            }
+            
+            /**
+             * Get all required DOM elements with error handling
+             */
+            getElements() {
+                const elements = {
+                    entryOverlay: document.getElementById('entryOverlay'),
+                    enterButton: document.getElementById('enterButton'),
+                    toggleSwitch: document.getElementById('toggleSwitch'),
+                    audioStatus: document.getElementById('audioStatus'),
+                    mobileMenuBtn: document.getElementById('mobileMenuBtn'),
+                    navMenu: document.getElementById('navMenu'),
+                    mainContent: document.getElementById('mainContent')
+                };
+                
+                // Log missing elements for debugging
+                Object.entries(elements).forEach(([key, element]) => {
+                    if (!element) {
+                        console.warn(`Element not found: ${key}`);
+                    }
+                });
+                
+                return elements;
+            }
+            
+            /**
+             * Initialize the application
+             */
+            init() {
+                this.setBodyOverflow('hidden');
+                this.simulateLoading();
+                this.bindEvents();
+                this.loadLatestNews();
+                
+                console.log('Ultra Keith App initialized');
+            }
+            
+            /**
+             * Simulate loading with proper timing
+             */
+            simulateLoading() {
+                setTimeout(() => {
+                    this.state.loadingComplete = true;
+                    
+                    if (this.elements.enterButton) {
+                        this.elements.enterButton.classList.remove('loading');
+                        this.elements.enterButton.classList.add('ready');
+                        this.elements.enterButton.textContent = 'Enter';
+                        this.elements.enterButton.disabled = false;
+                        this.elements.enterButton.setAttribute('aria-label', 'Enter the Ultra Keith website');
+                    }
+                    
+                    console.log('Loading complete');
+                }, 1000);
+            }
+            
+            /**
+             * Toggle audio state with UI updates
+             */
+            toggleSound() {
+                this.state.soundEnabled = !this.state.soundEnabled;
+                this.updateSoundUI();
+                
+                console.log(`Audio ${this.state.soundEnabled ? 'enabled' : 'disabled'}`);
+            }
+            
+            /**
+             * Update sound UI components
+             */
+            updateSoundUI() {
+                const { audioStatus, toggleSwitch } = this.elements;
+                
+                if (audioStatus) {
+                    audioStatus.textContent = this.state.soundEnabled ? 'Enabled' : 'Disabled';
+                    audioStatus.classList.toggle('disabled', !this.state.soundEnabled);
+                }
+                
+                if (toggleSwitch) {
+                    toggleSwitch.classList.toggle('active', this.state.soundEnabled);
+                    toggleSwitch.setAttribute('aria-pressed', this.state.soundEnabled);
+                }
+            }
+            
+            /**
+             * Enter the main site
+             */
+            enterSite() {
+                console.log('Entering site...');
+                
+                if (this.elements.entryOverlay) {
+                    this.elements.entryOverlay.classList.add('hidden');
+                }
+                
+                document.body.classList.add('site-loaded');
+                this.state.siteLoaded = true;
+                this.setBodyOverflow('auto');
+                
+                // Focus management for accessibility
+                if (this.elements.mainContent) {
+                    this.elements.mainContent.focus();
+                }
+                
+                if (this.state.soundEnabled) {
+                    console.log('Sound effect would play here');
+                }
+                
+                console.log('Site entered successfully');
+            }
+            
+            /**
+             * Toggle mobile menu
+             */
+            toggleMobileMenu() {
+                if (this.elements.navMenu) {
+                    const isOpen = this.elements.navMenu.classList.toggle('show');
+                    
+                    if (this.elements.mobileMenuBtn) {
+                        this.elements.mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+                    }
+                    
+                    console.log(`Mobile menu ${isOpen ? 'opened' : 'closed'}`);
+                }
+            }
+            
+            /**
+             * Load latest news from RSS feed
+             */
+            async loadLatestNews() {
+                const latestPostElement = document.getElementById('latestPost');
+                if (!latestPostElement) return;
+                
+                try {
+                    console.log('Fetching latest news from Blogger...');
+                    
+                    // Multiple approaches for RSS fetching
+                    const feedUrls = [
+                        // Primary RSS2JSON approach
+                        'https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default%3Falt%3Drss&count=1',
+                        // Alternative approach with different encoding
+                        'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss&count=1'
+                    ];
+                    
+                    let success = false;
+                    
+                    for (const feedUrl of feedUrls) {
+                        try {
+                            const response = await fetch(feedUrl);
+                            const data = await response.json();
+                            
+                            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                                const post = data.items[0];
+                                this.renderLatestPost(post, latestPostElement);
+                                console.log('Latest news loaded successfully');
+                                success = true;
+                                break;
+                            }
+                        } catch (error) {
+                            console.log(`Failed with URL: ${feedUrl}`, error);
+                            continue;
+                        }
+                    }
+                    
+                    if (!success) {
+                        throw new Error('All RSS feed attempts failed');
+                    }
+                    
+                } catch (error) {
+                    console.warn('RSS feed failed, trying JSONP approach...');
+                    this.tryJSONPFeed(latestPostElement);
+                }
+            }
+            
+            /**
+             * Fallback: Try JSONP approach for Blogger feeds
+             */
+            tryJSONPFeed(container) {
+                try {
+                    // Create a JSONP callback
+                    const callbackName = 'bloggerCallback' + Date.now();
+                    
+                    window[callbackName] = (data) => {
+                        try {
+                            if (data.feed && data.feed.entry && data.feed.entry.length > 0) {
+                                const post = this.convertAtomToRSS(data.feed.entry[0]);
+                                this.renderLatestPost(post, container);
+                                console.log('Latest news loaded via JSONP');
+                            } else {
+                                throw new Error('No posts in JSONP response');
+                            }
+                        } catch (error) {
+                            this.renderNewsError(container);
+                        } finally {
+                            // Cleanup
+                            delete window[callbackName];
+                            document.head.removeChild(script);
+                        }
+                    };
+                    
+                    // Create script tag for JSONP
+                    const script = document.createElement('script');
+                    script.src = `https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=json&callback=${callbackName}&max-results=1`;
+                    script.onerror = () => {
+                        this.renderNewsError(container);
+                        delete window[callbackName];
+                        document.head.removeChild(script);
+                    };
+                    
+                    document.head.appendChild(script);
+                    
+                } catch (error) {
+                    console.error('JSONP approach failed:', error);
+                    this.renderNewsError(container);
+                }
+            }
+            
+            /**
+             * Convert Atom feed entry to RSS format
+             */
+            convertAtomToRSS(entry) {
+                return {
+                    title: entry.title.$t || 'Untitled',
+                    link: entry.link ? entry.link.find(l => l.rel === 'alternate')?.href || '#' : '#',
+                    description: entry.content?.$t || entry.summary?.$t || '',
+                    pubDate: entry.published.$t || new Date().toISOString()
+                };
+            }
+            
+            /**
+             * Render the latest blog post
+             */
+            renderLatestPost(post, container) {
+                // Clean up HTML content and create excerpt
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = post.description || post.content || '';
+                const textContent = tempDiv.textContent || tempDiv.innerText || '';
+                const excerpt = textContent.length > 120 ? textContent.substring(0, 120) + '...' : textContent;
+                
+                // Format date
+                const postDate = new Date(post.pubDate);
+                const formattedDate = postDate.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+                
+                container.innerHTML = `
+                    <div class="post-title">
+                        <a href="${post.link}" target="_blank" rel="noopener noreferrer">
+                            ${post.title}
+                        </a>
+                    </div>
+                    <div class="post-excerpt">${excerpt}</div>
+                    <div class="post-date">${formattedDate}</div>
+                `;
+            }
+            
+            /**
+             * Render error state for news feed
+             */
+            renderNewsError(container) {
+                container.innerHTML = `
+                    <div class="post-error">
+                        Unable to load latest news. Check the blog for updates.
+                    </div>
+                `;
+            }
+            setBodyOverflow(value) {
+                document.body.style.overflow = value;
+                document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
+            }
+            
+            /**
+             * Bind all event listeners
+             */
+            bindEvents() {
+                // Audio toggle
+                if (this.elements.toggleSwitch) {
+                    this.elements.toggleSwitch.addEventListener('click', () => {
+                        this.toggleSound();
+                    });
+                }
+                
+                // Site entry
+                if (this.elements.enterButton) {
+                    this.elements.enterButton.addEventListener('click', () => {
+                        this.enterSite();
+                    });
+                }
+                
+                // Mobile menu
+                if (this.elements.mobileMenuBtn) {
+                    this.elements.mobileMenuBtn.addEventListener('click', () => {
+                        this.toggleMobileMenu();
+                    });
+                }
+                
+                // Close mobile menu when clicking nav links
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (this.elements.navMenu) {
+                            this.elements.navMenu.classList.remove('show');
+                            
+                            if (this.elements.mobileMenuBtn) {
+                                this.elements.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    });
+                });
+                
+                // Keyboard navigation support
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.elements.navMenu?.classList.contains('show')) {
+                        this.toggleMobileMenu();
+                    }
+                });
+                
+                console.log('Event listeners bound');
+            }
+        }
+        
+        /**
+         * Initialize the application when DOM is ready
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            window.ultraKeithApp = new UltraKeithApp();
+        });
+        
+        /**
+         * Error handling for uncaught errors
+         */
+        window.addEventListener('error', (e) => {
+            console.error('Application error:', e.error);
+        });
+        
+    </script>
+</body>
+</html>
+                        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -954,6 +1631,11 @@
             .footer-links {
                 flex-direction: column;
             }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
         }
         
         @media (min-width: 769px) {
@@ -1005,9 +1687,16 @@
             }
         }
         
-        @media (min-width: 1200px) {
+        @media (min-width: 1024px) {
             .features {
-                max-width: 1200px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .features {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1600px;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -1034,666 +1723,3 @@
                 color: black !important;
             }
         }
-    </style>
-</head>
-<body>
-    <!-- Entry Overlay -->
-    <div class="entry-overlay" id="entryOverlay">
-        <div class="entry-content">
-            <div class="entry-image-container">
-                <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
-            </div>
-            
-            <div class="sound-controls">
-                <div class="audio-toggle-container">
-                    <span class="audio-label">Audio</span>
-                    <button class="toggle-switch active" id="toggleSwitch" aria-label="Toggle audio">
-                        <div class="toggle-slider"></div>
-                    </button>
-                    <span class="audio-status" id="audioStatus">Enabled</span>
-                </div>
-                
-                <button class="btn btn-primary" id="enterButton" disabled>
-                    <span class="sr-only">Enter the site</span>
-                    Loading
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="nav" role="navigation" aria-label="Main navigation">
-        <div class="nav-content">
-            <a href="#" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
-            </a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="bio.html">Biography</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="tour.html">Tour</a></li>
-                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                <li><a href="shop.html">Store</a></li>
-            </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
-                ☰
-            </button>
-        </div>
-    </nav>
-    
-    <!-- Main Content -->
-    <main class="main" id="mainContent">
-        <!-- Hero Section -->
-        <section class="hero">
-            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
-            <h1 class="hero-title">Official Music Portal</h1>
-            <p class="hero-subtitle">
-                Hip-Hop's Most Prolific Innovator
-            </p>
-        </section>
-        
-        <!-- Latest Releases -->
-        <section class="releases">
-            <h2 class="releases-title">Latest Releases</h2>
-            
-            <div class="carousel">
-                <div class="carousel-track">
-                    <div class="carousel-slide">
-                        <img src="album1.png" alt="Space Goretex album cover" class="album-image">
-                        <h3 class="album-title">Space Goretex</h3>
-                        <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">Out Now</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image">
-                        <h3 class="album-title">Dr. Octagon Returns</h3>
-                        <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">July 2025</span>
-                        <a href="shop.html" class="btn btn-primary">Pre-Order</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image">
-                        <h3 class="album-title">Keith's Vault Series</h3>
-                        <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">Streaming</span>
-                        <a href="shop.html" class="btn btn-primary">Listen</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album4.png" alt="Critical Beatdown album cover" class="album-image">
-                        <h3 class="album-title">Critical Beatdown</h3>
-                        <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-streaming">Remastered</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image">
-                        <h3 class="album-title">Black Elvis 2</h3>
-                        <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">Available</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <!-- Duplicate set for continuous loop -->
-                    <div class="carousel-slide">
-                        <img src="album1.png" alt="Space Goretex album cover" class="album-image">
-                        <h3 class="album-title">Space Goretex</h3>
-                        <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">Out Now</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image">
-                        <h3 class="album-title">Dr. Octagon Returns</h3>
-                        <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">July 2025</span>
-                        <a href="shop.html" class="btn btn-primary">Pre-Order</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image">
-                        <h3 class="album-title">Keith's Vault Series</h3>
-                        <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">Streaming</span>
-                        <a href="shop.html" class="btn btn-primary">Listen</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album4.png" alt="Critical Beatdown album cover" class="album-image">
-                        <h3 class="album-title">Critical Beatdown</h3>
-                        <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-streaming">Remastered</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image">
-                        <h3 class="album-title">Black Elvis 2</h3>
-                        <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">Available</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Features Section -->
-        <section class="features">
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="bioicon.png" alt="Biography icon">
-                </div>
-                <h3 class="feature-title">Biography</h3>
-                <p class="feature-description">
-                    From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. 
-                    Discover the complete story of hip-hop's most innovative artist through six defining eras.
-                </p>
-                <a href="bio.html" class="btn btn-secondary">Read Biography</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="musicicon.png" alt="Music icon">
-                </div>
-                <h3 class="feature-title">Discography</h3>
-                <p class="feature-description">
-                    Over 40 years of groundbreaking music spanning 39+ albums. Stream classics like Critical Beatdown 
-                    and discover rare gems from the complete catalog of hip-hop's most prolific artist.
-                </p>
-                <a href="music.html" class="btn btn-secondary">Listen Now</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="newsicon.png" alt="News icon">
-                </div>
-                <h3 class="feature-title">Latest News</h3>
-                <div class="feature-description">
-                    <div class="latest-post" id="latestPost">
-                        <div class="post-loading">Loading latest news...</div>
-                    </div>
-                    <p class="news-description">
-                        Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content.
-                    </p>
-                </div>
-                <a href="https://ultrakeithdotcom.blogspot.com/" class="btn btn-secondary">Read All News</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="personaicon.png" alt="Personas icon">
-                </div>
-                <h3 class="feature-title">Personas</h3>
-                <p class="feature-description">
-                    Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. 
-                    Experience 87+ personas through our exclusive trading card collection showcasing 40+ years of character creation.
-                </p>
-                <a href="personas/personas.html" class="btn btn-secondary">Explore Personas</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="videosicon.png" alt="Videos icon">
-                </div>
-                <h3 class="feature-title">Videos</h3>
-                <p class="feature-description">
-                    Watch music videos, live performances, and behind-the-scenes content. Explore rare footage 
-                    and exclusive visual content from Keith's extensive multimedia archive.
-                </p>
-                <a href="videos.html" class="btn btn-secondary">Watch Now</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="touricon.png" alt="Tour icon">
-                </div>
-                <h3 class="feature-title">Tour Dates</h3>
-                <p class="feature-description">
-                    Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates 
-                    with MC Homeless and view professional booking information.
-                </p>
-                <a href="tour.html" class="btn btn-secondary">View Dates</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="shoppingicon.png" alt="Store icon">
-                </div>
-                <h3 class="feature-title">Store</h3>
-                <p class="feature-description">
-                    Shop exclusive merchandise, vinyl records, and limited edition collectibles. Get official Keith gear 
-                    and rare items available nowhere else.
-                </p>
-                <a href="shop.html" class="btn btn-secondary">Shop Now</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="vaulticon.png" alt="Vault icon">
-                </div>
-                <h3 class="feature-title">Vault</h3>
-                <p class="feature-description">
-                    Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks 
-                    and hidden treasures from hip-hop's most secretive archive.
-                </p>
-                <a href="vault.html" class="btn btn-secondary">Enter Vault</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="aiicon.png" alt="AI Chat icon">
-                </div>
-                <h3 class="feature-title">AI Chat</h3>
-                <p class="feature-description">
-                    Chat with AI versions of Keith's legendary personas. Experience conversations with Dr. Octagon, 
-                    Black Elvis, and other characters through advanced artificial intelligence.
-                </p>
-                <a href="keithgpt/chat.html" class="btn btn-secondary">Start Chat</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="casinoicon.png" alt="Casino icon">
-                </div>
-                <h3 class="feature-title">Casino</h3>
-                <p class="feature-description">
-                    Spin the slot machine for exclusive vault tracks and rare content. Play daily to earn points 
-                    and unlock premium rewards from Keith's secret archive.
-                </p>
-                <a href="casino.html" class="btn btn-secondary">Enter Casino</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon">
-                    <img src="forumicon.png" alt="Forum icon">
-                </div>
-                <h3 class="feature-title">Forum</h3>
-                <p class="feature-description">
-                    Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, 
-                    share stories, and stay connected with the Keith musical legacy.
-                </p>
-                <a href="https://koolkeith.proboards.com/" class="btn btn-secondary">Join Forum</a>
-            </article>
-        </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="footer">
-        <nav aria-label="Footer navigation">
-            <ul class="footer-links">
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="press.html">Press Kit</a></li>
-                <li><a href="booking.html">Booking</a></li>
-                <li><a href="personas/personas.html">Personas</a></li>
-                <li><a href="vault.html">Vault</a></li>
-                <li><a href="casino.html">Casino</a></li>
-                <li><a href="keithgpt/chat.html">AI Chat</a></li>
-                <li><a href="https://koolkeith.proboards.com/">Forum</a></li>
-            </ul>
-        </nav>
-        <p class="footer-copyright">
-            © 2025 Ultra Keith. All rights reserved.
-        </p>
-    </footer>
-
-    <!-- JavaScript -->
-    <script>
-        'use strict';
-        
-        /**
-         * Ultra Keith Website Application
-         * Production-ready, maintainable, and accessible
-         */
-        class UltraKeithApp {
-            constructor() {
-                this.state = {
-                    soundEnabled: true,
-                    loadingComplete: false,
-                    siteLoaded: false
-                };
-                
-                this.elements = this.getElements();
-                this.init();
-            }
-            
-            /**
-             * Get all required DOM elements with error handling
-             */
-            getElements() {
-                const elements = {
-                    entryOverlay: document.getElementById('entryOverlay'),
-                    enterButton: document.getElementById('enterButton'),
-                    toggleSwitch: document.getElementById('toggleSwitch'),
-                    audioStatus: document.getElementById('audioStatus'),
-                    mobileMenuBtn: document.getElementById('mobileMenuBtn'),
-                    navMenu: document.getElementById('navMenu'),
-                    mainContent: document.getElementById('mainContent')
-                };
-                
-                // Log missing elements for debugging
-                Object.entries(elements).forEach(([key, element]) => {
-                    if (!element) {
-                        console.warn(`Element not found: ${key}`);
-                    }
-                });
-                
-                return elements;
-            }
-            
-            /**
-             * Initialize the application
-             */
-            init() {
-                this.setBodyOverflow('hidden');
-                this.simulateLoading();
-                this.bindEvents();
-                this.loadLatestNews();
-                
-                console.log('Ultra Keith App initialized');
-            }
-            
-            /**
-             * Simulate loading with proper timing
-             */
-            simulateLoading() {
-                setTimeout(() => {
-                    this.state.loadingComplete = true;
-                    
-                    if (this.elements.enterButton) {
-                        this.elements.enterButton.classList.remove('loading');
-                        this.elements.enterButton.classList.add('ready');
-                        this.elements.enterButton.textContent = 'Enter';
-                        this.elements.enterButton.disabled = false;
-                        this.elements.enterButton.setAttribute('aria-label', 'Enter the Ultra Keith website');
-                    }
-                    
-                    console.log('Loading complete');
-                }, 1000);
-            }
-            
-            /**
-             * Toggle audio state with UI updates
-             */
-            toggleSound() {
-                this.state.soundEnabled = !this.state.soundEnabled;
-                this.updateSoundUI();
-                
-                console.log(`Audio ${this.state.soundEnabled ? 'enabled' : 'disabled'}`);
-            }
-            
-            /**
-             * Update sound UI components
-             */
-            updateSoundUI() {
-                const { audioStatus, toggleSwitch } = this.elements;
-                
-                if (audioStatus) {
-                    audioStatus.textContent = this.state.soundEnabled ? 'Enabled' : 'Disabled';
-                    audioStatus.classList.toggle('disabled', !this.state.soundEnabled);
-                }
-                
-                if (toggleSwitch) {
-                    toggleSwitch.classList.toggle('active', this.state.soundEnabled);
-                    toggleSwitch.setAttribute('aria-pressed', this.state.soundEnabled);
-                }
-            }
-            
-            /**
-             * Enter the main site
-             */
-            enterSite() {
-                console.log('Entering site...');
-                
-                if (this.elements.entryOverlay) {
-                    this.elements.entryOverlay.classList.add('hidden');
-                }
-                
-                document.body.classList.add('site-loaded');
-                this.state.siteLoaded = true;
-                this.setBodyOverflow('auto');
-                
-                // Focus management for accessibility
-                if (this.elements.mainContent) {
-                    this.elements.mainContent.focus();
-                }
-                
-                if (this.state.soundEnabled) {
-                    console.log('Sound effect would play here');
-                }
-                
-                console.log('Site entered successfully');
-            }
-            
-            /**
-             * Toggle mobile menu
-             */
-            toggleMobileMenu() {
-                if (this.elements.navMenu) {
-                    const isOpen = this.elements.navMenu.classList.toggle('show');
-                    
-                    if (this.elements.mobileMenuBtn) {
-                        this.elements.mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-                    }
-                    
-                    console.log(`Mobile menu ${isOpen ? 'opened' : 'closed'}`);
-                }
-            }
-            
-            /**
-             * Load latest news from RSS feed
-             */
-            async loadLatestNews() {
-                const latestPostElement = document.getElementById('latestPost');
-                if (!latestPostElement) return;
-                
-                try {
-                    console.log('Fetching latest news from Blogger...');
-                    
-                    // Multiple approaches for RSS fetching
-                    const feedUrls = [
-                        // Primary RSS2JSON approach
-                        'https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default%3Falt%3Drss&count=1',
-                        // Alternative approach with different encoding
-                        'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss&count=1'
-                    ];
-                    
-                    let success = false;
-                    
-                    for (const feedUrl of feedUrls) {
-                        try {
-                            const response = await fetch(feedUrl);
-                            const data = await response.json();
-                            
-                            if (data.status === 'ok' && data.items && data.items.length > 0) {
-                                const post = data.items[0];
-                                this.renderLatestPost(post, latestPostElement);
-                                console.log('Latest news loaded successfully');
-                                success = true;
-                                break;
-                            }
-                        } catch (error) {
-                            console.log(`Failed with URL: ${feedUrl}`, error);
-                            continue;
-                        }
-                    }
-                    
-                    if (!success) {
-                        throw new Error('All RSS feed attempts failed');
-                    }
-                    
-                } catch (error) {
-                    console.warn('RSS feed failed, trying JSONP approach...');
-                    this.tryJSONPFeed(latestPostElement);
-                }
-            }
-            
-            /**
-             * Fallback: Try JSONP approach for Blogger feeds
-             */
-            tryJSONPFeed(container) {
-                try {
-                    // Create a JSONP callback
-                    const callbackName = 'bloggerCallback' + Date.now();
-                    
-                    window[callbackName] = (data) => {
-                        try {
-                            if (data.feed && data.feed.entry && data.feed.entry.length > 0) {
-                                const post = this.convertAtomToRSS(data.feed.entry[0]);
-                                this.renderLatestPost(post, container);
-                                console.log('Latest news loaded via JSONP');
-                            } else {
-                                throw new Error('No posts in JSONP response');
-                            }
-                        } catch (error) {
-                            this.renderNewsError(container);
-                        } finally {
-                            // Cleanup
-                            delete window[callbackName];
-                            document.head.removeChild(script);
-                        }
-                    };
-                    
-                    // Create script tag for JSONP
-                    const script = document.createElement('script');
-                    script.src = `https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=json&callback=${callbackName}&max-results=1`;
-                    script.onerror = () => {
-                        this.renderNewsError(container);
-                        delete window[callbackName];
-                        document.head.removeChild(script);
-                    };
-                    
-                    document.head.appendChild(script);
-                    
-                } catch (error) {
-                    console.error('JSONP approach failed:', error);
-                    this.renderNewsError(container);
-                }
-            }
-            
-            /**
-             * Convert Atom feed entry to RSS format
-             */
-            convertAtomToRSS(entry) {
-                return {
-                    title: entry.title.$t || 'Untitled',
-                    link: entry.link ? entry.link.find(l => l.rel === 'alternate')?.href || '#' : '#',
-                    description: entry.content?.$t || entry.summary?.$t || '',
-                    pubDate: entry.published.$t || new Date().toISOString()
-                };
-            }
-            
-            /**
-             * Render the latest blog post
-             */
-            renderLatestPost(post, container) {
-                // Clean up HTML content and create excerpt
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = post.description || post.content || '';
-                const textContent = tempDiv.textContent || tempDiv.innerText || '';
-                const excerpt = textContent.length > 120 ? textContent.substring(0, 120) + '...' : textContent;
-                
-                // Format date
-                const postDate = new Date(post.pubDate);
-                const formattedDate = postDate.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                });
-                
-                container.innerHTML = `
-                    <div class="post-title">
-                        <a href="${post.link}" target="_blank" rel="noopener noreferrer">
-                            ${post.title}
-                        </a>
-                    </div>
-                    <div class="post-excerpt">${excerpt}</div>
-                    <div class="post-date">${formattedDate}</div>
-                `;
-            }
-            
-            /**
-             * Render error state for news feed
-             */
-            renderNewsError(container) {
-                container.innerHTML = `
-                    <div class="post-error">
-                        Unable to load latest news. Check the blog for updates.
-                    </div>
-                `;
-            }
-            setBodyOverflow(value) {
-                document.body.style.overflow = value;
-                document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
-            }
-            
-            /**
-             * Bind all event listeners
-             */
-            bindEvents() {
-                // Audio toggle
-                if (this.elements.toggleSwitch) {
-                    this.elements.toggleSwitch.addEventListener('click', () => {
-                        this.toggleSound();
-                    });
-                }
-                
-                // Site entry
-                if (this.elements.enterButton) {
-                    this.elements.enterButton.addEventListener('click', () => {
-                        this.enterSite();
-                    });
-                }
-                
-                // Mobile menu
-                if (this.elements.mobileMenuBtn) {
-                    this.elements.mobileMenuBtn.addEventListener('click', () => {
-                        this.toggleMobileMenu();
-                    });
-                }
-                
-                // Close mobile menu when clicking nav links
-                document.querySelectorAll('.nav-menu a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (this.elements.navMenu) {
-                            this.elements.navMenu.classList.remove('show');
-                            
-                            if (this.elements.mobileMenuBtn) {
-                                this.elements.mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                            }
-                        }
-                    });
-                });
-                
-                // Keyboard navigation support
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && this.elements.navMenu?.classList.contains('show')) {
-                        this.toggleMobileMenu();
-                    }
-                });
-                
-                console.log('Event listeners bound');
-            }
-        }
-        
-        /**
-         * Initialize the application when DOM is ready
-         */
-        document.addEventListener('DOMContentLoaded', () => {
-            window.ultraKeithApp = new UltraKeithApp();
-        });
-        
-        /**
-         * Error handling for uncaught errors
-         */
-        window.addEventListener('error', (e) => {
-            console.error('Application error:', e.error);
-        });
-        
-    </script>
-</body>
-</html>
