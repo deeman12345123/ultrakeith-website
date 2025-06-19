@@ -1,4 +1,661 @@
-'use strict';
+// Add Keith's COMPLETE 72-album discography (UPDATED CATEGORIES)
+        const additionalAlbums = [
+            // 1988-1990s Classic Era
+            {
+                title: "Critical Beatdown",
+                artist: "Ultramagnetic MCs",
+                year: 1988,
+                category: "collab",
+                search: "critical beatdown ultramagnetic mcs 1988",
+                coverSrc: "album-covers/critical-beatdown.jpg",
+                slug: "critical-beatdown"
+            },
+            {
+                title: "Funk Your Head Up",
+                artist: "Ultramagnetic MCs",
+                year: 1992,
+                category: "collab",
+                search: "funk your head up ultramagnetic mcs 1992",
+                coverSrc: "album-covers/funk-your-head-up.jpg",
+                slug: "funk-your-head-up"
+            },
+            {
+                title: "The Four Horsemen",
+                artist: "Ultramagnetic MCs",
+                year: 1993,
+                category: "collab",
+                search: "four horsemen ultramagnetic mcs 1993",
+                coverSrc: "album-covers/four-horsemen.jpg",
+                slug: "the-four-horsemen"
+            },
+            {
+                title: "Dr. Octagonecologyst",
+                artist: "Dr. Octagon",
+                year: 1996,
+                category: "solo",
+                search: "dr octagonecologyst dr octagon 1996",
+                coverSrc: "album-covers/dr-octagonecologyst.jpg",
+                slug: "dr-octagonecologyst"
+            },
+            {
+                title: "The Instrumentalyst",
+                artist: "Dr. Octagon",
+                year: 1996,
+                category: "solo",
+                search: "instrumentalyst dr octagon 1996",
+                coverSrc: "album-covers/instrumentalyst.jpg",
+                slug: "the-instrumentalyst"
+            },
+            {
+                title: "Big Time",
+                artist: "Ultra (Keith & Tim Dog)",
+                year: 1996,
+                category: "collab",
+                search: "big time ultra keith tim dog 1996",
+                coverSrc: "album-covers/big-time.jpg",
+                slug: "big-time"
+            },
+            {
+                title: "Sex Style",
+                artist: "Kool Keith",
+                year: 1997,
+                category: "solo",
+                search: "sex style kool keith 1997",
+                coverSrc: "album-covers/sex-style.jpg",
+                slug: "sex-style"
+            },
+            {
+                title: "The Cenobites LP",
+                artist: "Cenobites",
+                year: 1997,
+                category: "collab",
+                search: "cenobites lp kool keith godfather don 1997",
+                coverSrc: "album-covers/cenobites-lp.jpg",
+                slug: "the-cenobites-lp"
+            },
+            {
+                title: "First Come, First Served",
+                artist: "Dr. Dooom",
+                year: 1999,
+                category: "solo",
+                search: "first come first served dr dooom 1999",
+                coverSrc: "album-covers/first-come-first-served.jpg",
+                slug: "first-come-first-served"
+            },
+            {
+                title: "Black Elvis/Lost in Space",
+                artist: "Black Elvis",
+                year: 1999,
+                category: "solo",
+                search: "black elvis lost in space 1999",
+                coverSrc: "album-covers/black-elvis.jpg",
+                slug: "black-elvis-lost-in-space"
+            },
+            
+            // 2000s Era
+            {
+                title: "Matthew",
+                artist: "Kool Keith",
+                year: 2000,
+                category: "solo",
+                search: "matthew kool keith 2000",
+                coverSrc: "album-covers/matthew.jpg",
+                slug: "matthew"
+            },
+            {
+                title: "Pimp to Eat",
+                artist: "Analog Brothers",
+                year: 2000,
+                category: "collab",
+                search: "pimp to eat analog brothers 2000",
+                coverSrc: "album-covers/pimp-to-eat.jpg",
+                slug: "pimp-to-eat"
+            },
+            {
+                title: "A Much Better Tomorrow",
+                artist: "Kool Keith & Dan The Automator",
+                year: 2000,
+                category: "collab",
+                search: "much better tomorrow kool keith dan automator 2000",
+                coverSrc: "album-covers/much-better-tomorrow.jpg",
+                slug: "a-much-better-tomorrow"
+            },
+            {
+                title: "Masters of Illusion",
+                artist: "Masters of Illusion",
+                year: 2000,
+                category: "collab",
+                search: "masters illusion kutmasta kurt 2000",
+                coverSrc: "album-covers/masters-illusion.jpg",
+                slug: "masters-of-illusion"
+            },
+            {
+                title: "Spankmaster",
+                artist: "Kool Keith",
+                year: 2001,
+                category: "solo",
+                search: "spankmaster kool keith 2001",
+                coverSrc: "album-covers/spankmaster.jpg",
+                slug: "spankmaster"
+            },
+            {
+                title: "Game",
+                artist: "KHM",
+                year: 2002,
+                category: "collab",
+                search: "game khm keith h-bomb marc live 2002",
+                coverSrc: "album-covers/game.jpg",
+                slug: "game"
+            },
+            {
+                title: "Diesel Truckers",
+                artist: "Kool Keith & KutMasta Kurt",
+                year: 2004,
+                category: "collab",
+                search: "diesel truckers kool keith kutmasta kurt 2004",
+                coverSrc: "album-covers/diesel-truckers.jpg",
+                slug: "diesel-truckers"
+            },
+            {
+                title: "Clayborne Family",
+                artist: "Kool Keith & Jacky Jasper",
+                year: 2004,
+                category: "collab",
+                search: "clayborne family kool keith jacky jasper 2004",
+                coverSrc: "album-covers/clayborne-family.jpg",
+                slug: "clayborne-family"
+            },
+            {
+                title: "Thee Undatakerz",
+                artist: "Kool Keith & Thee Undatakerz",
+                year: 2004,
+                category: "collab",
+                search: "thee undatakerz kool keith 2004",
+                coverSrc: "album-covers/thee-undatakerz.jpg",
+                slug: "thee-undatakerz"
+            },
+            {
+                title: "The Personal Album",
+                artist: "Kool Keith",
+                year: 2004,
+                category: "solo",
+                search: "personal album kool keith 2004",
+                coverSrc: "album-covers/personal-album.jpg",
+                slug: "the-personal-album"
+            },
+            {
+                title: "Official Space Tape",
+                artist: "Kool Keith",
+                year: 2004,
+                category: "solo",
+                search: "official space tape kool keith 2004",
+                coverSrc: "album-covers/official-space-tape.jpg",
+                slug: "official-space-tape"
+            },
+            {
+                title: "The Lost Masters Vol. 2",
+                artist: "Kool Keith",
+                year: 2005,
+                category: "solo",
+                search: "lost masters vol 2 kool keith 2005",
+                coverSrc: "album-covers/lost-masters-vol2.jpg",
+                slug: "the-lost-masters-vol-2"
+            },
+            {
+                title: "Execution One",
+                artist: "Kool Keith",
+                year: 2005,
+                category: "solo",
+                search: "execution one kool keith 2005",
+                coverSrc: "album-covers/execution-one.jpg",
+                slug: "execution-one"
+            },
+            {
+                title: "Nogatco Rd.",
+                artist: "Mr. Nogatco",
+                year: 2006,
+                category: "solo",
+                search: "nogatco rd mr nogatco kool keith 2006",
+                coverSrc: "album-covers/nogatco-rd.jpg",
+                slug: "nogatco-rd"
+            },
+            {
+                title: "The Return of Dr. Octagon",
+                artist: "Dr. Octagon",
+                year: 2006,
+                category: "solo",
+                search: "return dr octagon 2006",
+                coverSrc: "album-covers/return-dr-octagon.jpg",
+                slug: "the-return-of-dr-octagon"
+            },
+            {
+                title: "Collabs Tape",
+                artist: "Kool Keith",
+                year: 2006,
+                category: "solo",
+                search: "collabs tape kool keith 2006",
+                coverSrc: "album-covers/collabs-tape.jpg",
+                slug: "collabs-tape"
+            },
+            {
+                title: "The Commi$ioner",
+                artist: "Kool Keith",
+                year: 2006,
+                category: "solo",
+                search: "commissioner kool keith 2006",
+                coverSrc: "album-covers/commissioner.jpg",
+                slug: "the-commissioner"
+            },
+            {
+                title: "The Original SoundTrack Album",
+                artist: "Project Polaroid",
+                year: 2006,
+                category: "collab",
+                search: "original soundtrack album project polaroid 2006",
+                coverSrc: "album-covers/project-polaroid.jpg",
+                slug: "the-original-soundtrack-album"
+            },
+            {
+                title: "Dr. Dooom 2",
+                artist: "Dr. Dooom",
+                year: 2007,
+                category: "solo",
+                search: "dr dooom 2 2007",
+                coverSrc: "album-covers/dr-dooom-2.jpg",
+                slug: "dr-dooom-2"
+            },
+            {
+                title: "Sex Style: The Un-Released Archives",
+                artist: "Kool Keith",
+                year: 2007,
+                category: "solo",
+                search: "sex style unreleased archives kool keith 2007",
+                coverSrc: "album-covers/sex-style-archives.jpg",
+                slug: "sex-style-the-un-released-archives"
+            },
+            {
+                title: "The Best Kept Secret",
+                artist: "Ultramagnetic MCs",
+                year: 2007,
+                category: "collab",
+                search: "best kept secret ultramagnetic mcs 2007",
+                coverSrc: "album-covers/best-kept-secret.jpg",
+                slug: "the-best-kept-secret"
+            },
+            {
+                title: "Tashan Dorrsett",
+                artist: "Tashan Dorrsett",
+                year: 2009,
+                category: "solo",
+                search: "tashan dorrsett 2009",
+                coverSrc: "album-covers/tashan-dorrsett.jpg",
+                slug: "tashan-dorrsett"
+            },
+            {
+                title: "Bikinis N Thongs",
+                artist: "Kool Keith & Denis Deft",
+                year: 2009,
+                category: "collab",
+                search: "bikinis thongs kool keith denis deft 2009",
+                coverSrc: "album-covers/bikinis-thongs.jpg",
+                slug: "bikinis-n-thongs"
+            },
+            {
+                title: "Idea of a Masterpiece",
+                artist: "Kool Keith & 54-71",
+                year: 2009,
+                category: "collab",
+                search: "idea masterpiece kool keith 54-71 2009",
+                coverSrc: "album-covers/idea-masterpiece.jpg",
+                slug: "idea-of-a-masterpiece"
+            },
+            {
+                title: "Stoned",
+                artist: "7th Veil",
+                year: 2009,
+                category: "collab",
+                search: "stoned 7th veil kool keith h-bomb 2009",
+                coverSrc: "album-covers/stoned.jpg",
+                slug: "stoned"
+            },
+            
+            // 2010s Era
+            {
+                title: "Legend of Tashan Dorrsett",
+                artist: "Kool Keith",
+                year: 2011,
+                category: "solo",
+                search: "legend tashan dorrsett kool keith 2011",
+                coverSrc: "album-covers/legend-tashan.jpg",
+                slug: "legend-of-tashan-dorrsett"
+            },
+            {
+                title: "Love and Danger",
+                artist: "Kool Keith",
+                year: 2012,
+                category: "solo",
+                search: "love danger kool keith 2012",
+                coverSrc: "album-covers/love-danger.jpg",
+                slug: "love-and-danger"
+            },
+            {
+                title: "Magnetic Pimp Force Field",
+                artist: "Kool Keith & Big Sche Eastwood",
+                year: 2013,
+                category: "collab",
+                search: "magnetic pimp force field kool keith big sche 2013",
+                coverSrc: "album-covers/magnetic-pimp.jpg",
+                slug: "magnetic-pimp-force-field"
+            },
+            {
+                title: "October",
+                artist: "Kool Keith & KutMasta Kurt",
+                year: 2013,
+                category: "collab",
+                search: "october kool keith kutmasta kurt 2013",
+                coverSrc: "album-covers/october.jpg",
+                slug: "october"
+            },
+            {
+                title: "El Dorado Driven",
+                artist: "Kool Keith",
+                year: 2014,
+                category: "solo",
+                search: "el dorado driven kool keith 2014",
+                coverSrc: "album-covers/el-dorado.jpg",
+                slug: "el-dorado-driven"
+            },
+            {
+                title: "Time? Astonishing!",
+                artist: "L'Orange & Kool Keith",
+                year: 2015,
+                category: "collab",
+                search: "time astonishing lorange kool keith 2015",
+                coverSrc: "album-covers/time-astonishing.jpg",
+                slug: "time-astonishing"
+            },
+            {
+                title: "A Couple of Slices",
+                artist: "Kool Keith & Ray West",
+                year: 2015,
+                category: "collab",
+                search: "couple slices kool keith ray west 2015",
+                coverSrc: "album-covers/couple-slices.jpg",
+                slug: "a-couple-of-slices"
+            },
+            {
+                title: "Demolition Crash",
+                artist: "Kool Keith",
+                year: 2015,
+                category: "solo",
+                search: "demolition crash kool keith 2015",
+                coverSrc: "album-covers/demolition-crash.jpg",
+                slug: "demolition-crash"
+            },
+            {
+                title: "Feature Magnetic",
+                artist: "Kool Keith",
+                year: 2016,
+                category: "solo",
+                search: "feature magnetic kool keith 2016",
+                coverSrc: "album-covers/feature-magnetic.jpg",
+                slug: "feature-magnetic"
+            },
+            {
+                title: "The Preacher",
+                artist: "Kool Keith",
+                year: 2016,
+                category: "solo",
+                search: "preacher kool keith 2016",
+                coverSrc: "album-covers/preacher.jpg",
+                slug: "the-preacher"
+            },
+            {
+                title: "Colossal",
+                artist: "Kool Keith",
+                year: 2017,
+                category: "solo",
+                search: "colossal kool keith 2017",
+                coverSrc: "album-covers/colossal.jpg",
+                slug: "colossal"
+            },
+            {
+                title: "Moosebumps: An Exploration Into...",
+                artist: "Dr. Octagon",
+                year: 2018,
+                category: "solo",
+                search: "moosebumps exploration dr octagon 2018",
+                coverSrc: "album-covers/moosebumps.jpg",
+                slug: "moosebumps-an-exploration-into"
+            },
+            {
+                title: "Controller of Trap",
+                artist: "Kool Keith",
+                year: 2018,
+                category: "solo",
+                search: "controller trap kool keith 2018",
+                coverSrc: "album-covers/controller-trap.jpg",
+                slug: "controller-of-trap"
+            },
+            {
+                title: "Keith",
+                artist: "Kool Keith",
+                year: 2019,
+                category: "solo",
+                search: "keith kool keith 2019",
+                coverSrc: "album-covers/keith.jpg",
+                slug: "keith"
+            },
+            {
+                title: "Computer Technology",
+                artist: "Kool Keith",
+                year: 2019,
+                category: "solo",
+                search: "computer technology kool keith 2019",
+                coverSrc: "album-covers/computer-technology.jpg",
+                slug: "computer-technology"
+            },
+            {
+                title: "Saks 5th Ave",
+                artist: "Kool Keith",
+                year: 2019,
+                category: "solo",
+                search: "saks 5th ave kool keith 2019",
+                coverSrc: "album-covers/saks-5th.jpg",
+                slug: "saks-5th-ave"
+            },
+            
+            // 2020s Era - The Prolific Years
+            {
+                title: "Space Goretex",
+                artist: "Kool Keith & Thetan",
+                year: 2020,
+                category: "collab",
+                search: "space goretex kool keith thetan 2020",
+                coverSrc: "album-covers/space-goretex.jpg",
+                slug: "space-goretex"
+            },
+            {
+                title: "Keith's Salon",
+                artist: "Kool Keith",
+                year: 2021,
+                category: "solo",
+                search: "keiths salon kool keith 2021",
+                coverSrc: "album-covers/keiths-salon.jpg",
+                slug: "keiths-salon"
+            },
+            {
+                title: "Donovan The Don",
+                artist: "Kool Keith",
+                year: 2021,
+                category: "solo",
+                search: "donovan don kool keith 2021",
+                coverSrc: "album-covers/donovan-don.jpg",
+                slug: "donovan-the-don"
+            },
+            {
+                title: "Subatomic",
+                artist: "FNKPMPN (Del & Kool Keith)",
+                year: 2022,
+                category: "collab",
+                search: "subatomic fnkpmpn del kool keith 2022",
+                coverSrc: "album-covers/subatomic.jpg",
+                slug: "subatomic"
+            },
+            {
+                title: "Ced Gee X Kool Keith",
+                artist: "Ultramagnetic MCs",
+                year: 2022,
+                category: "collab",
+                search: "ced gee kool keith ultramagnetic 2022",
+                coverSrc: "album-covers/ced-gee-keith.jpg",
+                slug: "ced-gee-x-kool-keith"
+            },
+            {
+                title: "Still Doing It",
+                artist: "Kool Keith & Grant Shapiro",
+                year: 2022,
+                category: "collab",
+                search: "still doing it kool keith grant shapiro 2022",
+                coverSrc: "album-covers/still-doing-it.jpg",
+                slug: "still-doing-it"
+            },
+            {
+                title: "Serpent",
+                artist: "Kool Keith & Real Bad Man",
+                year: 2023,
+                category: "collab",
+                search: "serpent kool keith real bad man 2023",
+                coverSrc: "album-covers/serpent.jpg",
+                slug: "serpent"
+            },
+            {
+                title: "Black Elvis 2",
+                artist: "Kool Keith",
+                year: 2023,
+                category: "solo",
+                search: "black elvis 2 kool keith 2023",
+                coverSrc: "album-covers/blackelvis2.jpg",
+                slug: "black-elvis-2"
+            },
+            {
+                title: "Mr. Controller",
+                artist: "Kool Keith",
+                year: 2023,
+                category: "solo",
+                search: "mr controller kool keith 2023",
+                coverSrc: "album-covers/mr-controller.jpg",
+                slug: "mr-controller"
+            },
+            {
+                title: "World Area",
+                artist: "Kool Keith",
+                year: 2023,
+                category: "solo",
+                search: "world area kool keith 2023",
+                coverSrc: "album-covers/world-area.jpg",
+                slug: "world-area"
+            },
+            {
+                title: "Divinity 2 Infinity: The Odyssey",
+                artist: "DJ Muggs & Kool Keith",
+                year: 2023,
+                category: "collab",
+                search: "divinity infinity odyssey dj muggs kool keith 2023",
+                coverSrc: "album-covers/divinity-infinity.jpg",
+                slug: "divinity-2-infinity-the-odyssey"
+            },
+            {
+                title: "Aponia",
+                artist: "Awol One & Kool Keith",
+                year: 2024,
+                category: "collab",
+                search: "aponia awol one kool keith 2024",
+                coverSrc: "album-covers/aponia.jpg",
+                slug: "aponia"
+            },
+            {
+                title: "Bandoleros",
+                artist: "Lynx 196.9, Arturo Banbini, Kool Keith",
+                year: 2024,
+                category: "collab",
+                search: "bandoleros lynx arturo banbini kool keith 2024",
+                coverSrc: "album-covers/bandoleros.jpg",
+                slug: "bandoleros"
+            },
+            {
+                title: "Everybody Eats!",
+                artist: "Stress Eater (CZARFACE & Kool Keith)",
+                year: 2024,
+                category: "collab",
+                search: "everybody eats stress eater czarface kool keith 2024",
+                coverSrc: "album-covers/everybody-eats.jpg",
+                slug: "everybody-eats"
+            },
+            {
+                title: "We Can Do It",
+                artist: "Kool Keith & Kiew Nikon",
+                year: 2024,
+                category: "collab",
+                search: "we can do it kool keith kiew nikon 2024",
+                coverSrc: "album-covers/we-can-do-it.jpg",
+                slug: "we-can-do-it"
+            },
+            {
+                title: "Best of All Possible Worlds",
+                artist: "AJJ, Kool Keith & Kimya Dawson",
+                year: 2024,
+                category: "collab",
+                search: "best all possible worlds ajj kool keith kimya dawson 2024",
+                coverSrc: "album-covers/best-possible-worlds.jpg",
+                slug: "best-of-all-possible-worlds"
+            },
+            {
+                title: "STRIKE!",
+                artist: "Kool Keith, Audio Assault & Ceschi",
+                year: 2024,
+                category: "collab",
+                search: "strike kool keith audio assault ceschi 2024",
+                coverSrc: "album-covers/strike.jpg",
+                slug: "strike"
+            },
+            {
+                title: "Private Selection",
+                artist: "Kool Keith & MC Homeless",
+                year: 2024,
+                category: "collab",
+                search: "private selection kool keith mc homeless 2024",
+                coverSrc: "album-covers/private-selection.jpg",
+                slug: "private-selection"
+            },
+            {
+                title: "Karpenters",
+                artist: "Kool Keith",
+                year: 2025,
+                category: "solo",
+                search: "karpenters kool keith 2025",
+                coverSrc: "album-covers/karpenters.jpg",
+                slug: "karpenters"
+            },
+            {
+                title: "DAW",
+                artist: "Kool Keith",
+                year: 2025,
+                category: "solo",
+                search: "daw kool keith 2025",
+                coverSrc: "album-covers/daw.jpg",
+                slug: "daw"
+            },
+            {
+                title: "Dear Derrick",
+                artist: "Kool Keith",
+                year: 2025,
+                category: "solo",
+                search: "dear derrick kool keith 2025",
+                coverSrc: "album-covers/dear-derrick.jpg",
+                slug: "dear-derrick"
+            }
+        ];'use strict';
 
 /**
  * Ultra Keith Music Discography Application
