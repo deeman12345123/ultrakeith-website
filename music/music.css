@@ -529,16 +529,6 @@ body {
     color: var(--color-white-pure); 
 }
 
-.badge-persona { 
-    background: linear-gradient(135deg, #8E44AD, #9B59B6); 
-    color: var(--color-white-pure); 
-}
-
-.badge-group { 
-    background: linear-gradient(135deg, #E74C3C, #C0392B); 
-    color: var(--color-white-pure); 
-}
-
 /* =================== PAGINATION =================== */
 .pagination-section {
     display: flex;
