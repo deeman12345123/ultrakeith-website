@@ -570,8 +570,66 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* DESKTOP TRANSPARENCY FIX - ADDITIONAL OVERRIDES */
+        @media (min-width: 769px) {
+            /* Force solid backgrounds on desktop */
+            .header-stats,
+            .standings-table,
+            .standings-table tbody,
+            .standings-table thead,
+            .category-table,
+            .category-header,
+            .record-item,
+            table,
+            tbody,
+            thead {
+                background: #1a1a1a !important;
+                background-color: #1a1a1a !important;
+                background-image: none !important;
+                opacity: 1 !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* Desktop header overrides */
+            .standings-table thead,
+            .standings-table thead tr,
+            .standings-table thead th,
+            .category-header,
+            thead,
+            th {
+                background: #2a2a2a !important;
+                background-color: #2a2a2a !important;
+                background-image: none !important;
+                opacity: 1 !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* Desktop Keith highlighting */
+            .keith-row,
+            .keith-row td,
+            .category-item.keith,
+            tr.keith-row {
+                background: #2d1f0a !important;
+                background-color: #2d1f0a !important;
+                background-image: none !important;
+                opacity: 1 !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            /* Remove any gradients on desktop */
+            .header-stats::before,
+            .header-stats::after,
+            .standings-table::before,
+            .standings-table::after,
+            .category-table::before,
+            .category-table::after,
+            .record-item::before {
+                display: none !important;
+            }
+        }
             .main {
                 padding-left: 1rem;
                 padding-right: 1rem;
