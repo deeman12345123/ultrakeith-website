@@ -311,11 +311,11 @@
             position: fixed;
             top: 90px;
             left: 20px;
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             background: url('personas/mc.png') no-repeat center;
             background-size: contain;
-            opacity: 0.15;
+            opacity: 0.08;
             z-index: 1;
             pointer-events: none;
             animation: subtlePulse 8s ease-in-out infinite;
@@ -327,8 +327,8 @@
         }
 
         @keyframes subtlePulse {
-            0%, 100% { opacity: 0.15; transform: scale(1); }
-            50% { opacity: 0.25; transform: scale(1.05); }
+            0%, 100% { opacity: 0.08; transform: scale(1); }
+            50% { opacity: 0.12; transform: scale(1.05); }
         }
 
         /* Records Section Basketball */
@@ -722,10 +722,11 @@
             }
 
             .main::after {
-                width: 80px;
-                height: 80px;
+                width: 140px;
+                height: 140px;
                 top: 75px;
                 left: 10px;
+                opacity: 0.06;
             }
         }
 
