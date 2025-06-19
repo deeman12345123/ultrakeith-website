@@ -25,7 +25,7 @@
             </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="../bio.html">Biography</a></li>
-                <li><a href="../music.html" class="active">Music</a></li>
+                <li><a href="music.html" class="active">Music</a></li>
                 <li><a href="../videos.html">Videos</a></li>
                 <li><a href="../tour.html">Tour</a></li>
                 <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
@@ -75,9 +75,9 @@
                 <div class="filter-section">
                     <span class="filter-label">Filters</span>
                     <div class="filter-buttons">
-                        <button class="filter-btn active" data-filter="all">All</button>
-                        <button class="filter-btn" data-filter="solo">Solo</button>
-                        <button class="filter-btn" data-filter="collab">Collaborations</button>
+                        <button class="filter-btn active" data-filter="all" type="button">All</button>
+                        <button class="filter-btn" data-filter="solo" type="button">Solo</button>
+                        <button class="filter-btn" data-filter="collab" type="button">Collaborations</button>
                     </div>
                 </div>
                 
@@ -104,8 +104,7 @@
         <!-- Albums Grid -->
         <section class="albums-section">
             <div class="albums-grid" id="albumsGrid">
-                
-                <!-- 2025 -->
+                <!-- Albums will be populated by JavaScript -->
                 <div class="album-card" data-category="solo" data-year="2025" data-title="dear derrick" data-search="dear derrick kool keith 2025">
                     <div class="album-badge badge-solo">Solo</div>
                     <img src="album-covers/dear-derrick.jpg" alt="Dear Derrick" class="album-cover" loading="lazy">
@@ -113,112 +112,21 @@
                     <p class="album-artist">Kool Keith</p>
                     <p class="album-year">2025</p>
                 </div>
-                
-                <div class="album-card" data-category="solo" data-year="2025" data-title="karpenters" data-search="karpenters kool keith 2025">
-                    <div class="album-badge badge-solo">Solo</div>
-                    <img src="album-covers/karpenters.jpg" alt="Karpenters" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Karpenters</h3>
-                    <p class="album-artist">Kool Keith</p>
-                    <p class="album-year">2025</p>
-                </div>
-                
-                <div class="album-card" data-category="solo" data-year="2025" data-title="daw" data-search="daw kool keith 2025">
-                    <div class="album-badge badge-solo">Solo</div>
-                    <img src="album-covers/daw.jpg" alt="DAW" class="album-cover" loading="lazy">
-                    <h3 class="album-title">DAW</h3>
-                    <p class="album-artist">Kool Keith</p>
-                    <p class="album-year">2025</p>
-                </div>
-                
-                <!-- 2024 -->
-                <div class="album-card" data-category="collab" data-year="2024" data-title="private selection" data-search="private selection kool keith mc homeless 2024">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/private-selection.jpg" alt="Private Selection" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Private Selection</h3>
-                    <p class="album-artist">Kool Keith & MC Homeless</p>
-                    <p class="album-year">2024</p>
-                </div>
-                
-                <div class="album-card" data-category="collab" data-year="2024" data-title="strike" data-search="strike kool keith audio assault ceschi 2024">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/strike.jpg" alt="STRIKE!" class="album-cover" loading="lazy">
-                    <h3 class="album-title">STRIKE!</h3>
-                    <p class="album-artist">Kool Keith, Audio Assault & Ceschi</p>
-                    <p class="album-year">2024</p>
-                </div>
-                
-                <div class="album-card" data-category="collab" data-year="2024" data-title="best of all possible worlds" data-search="best all possible worlds ajj kool keith kimya dawson 2024">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/best-possible-worlds.jpg" alt="Best of All Possible Worlds" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Best of All Possible Worlds</h3>
-                    <p class="album-artist">AJJ, Kool Keith & Kimya Dawson</p>
-                    <p class="album-year">2024</p>
-                </div>
-                
-                <div class="album-card" data-category="collab" data-year="2024" data-title="we can do it" data-search="we can do it kool keith kiew nikon 2024">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/we-can-do-it.jpg" alt="We Can Do It" class="album-cover" loading="lazy">
-                    <h3 class="album-title">We Can Do It</h3>
-                    <p class="album-artist">Kool Keith & Kiew Nikon</p>
-                    <p class="album-year">2024</p>
-                </div>
-                
-                <div class="album-card" data-category="collab" data-year="2024" data-title="everybody eats" data-search="everybody eats stress eater czarface kool keith 2024">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/everybody-eats.jpg" alt="Everybody Eats!" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Everybody Eats!</h3>
-                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                    <p class="album-year">2024</p>
-                </div>
-                
-                <div class="album-card" data-category="collab" data-year="2024" data-title="bandoleros" data-search="bandoleros lynx arturo banbini kool keith 2024">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/bandoleros.jpg" alt="Bandoleros" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Bandoleros</h3>
-                    <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
-                    <p class="album-year">2024</p>
-                </div>
-                
-                <div class="album-card" data-category="collab" data-year="2024" data-title="aponia" data-search="aponia awol one kool keith 2024">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/aponia.jpg" alt="Aponia" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Aponia</h3>
-                    <p class="album-artist">Awol One & Kool Keith</p>
-                    <p class="album-year">2024</p>
-                </div>
-                
-                <!-- 2023 -->
-                <div class="album-card" data-category="collab" data-year="2023" data-title="divinity 2 infinity the odyssey" data-search="divinity infinity odyssey dj muggs kool keith 2023">
-                    <div class="album-badge badge-collab">Collab</div>
-                    <img src="album-covers/divinity-infinity.jpg" alt="Divinity 2 Infinity: The Odyssey" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Divinity 2 Infinity: The Odyssey</h3>
-                    <p class="album-artist">DJ Muggs & Kool Keith</p>
-                    <p class="album-year">2023</p>
-                </div>
-                
-                <div class="album-card" data-category="solo" data-year="2023" data-title="world area" data-search="world area kool keith 2023">
-                    <div class="album-badge badge-solo">Solo</div>
-                    <img src="album-covers/world-area.jpg" alt="World Area" class="album-cover" loading="lazy">
-                    <h3 class="album-title">World Area</h3>
-                    <p class="album-artist">Kool Keith</p>
-                    <p class="album-year">2023</p>
-                </div>
-                
             </div>
             
-            <!-- Load More / Pagination -->
+            <!-- Pagination -->
             <div class="pagination-section" id="paginationSection">
-                <button class="pagination-btn" id="prevBtn" disabled>← Previous</button>
+                <button class="pagination-btn" id="prevBtn" type="button" disabled>← Previous</button>
                 <div class="page-numbers" id="pageNumbers">
-                    <button class="pagination-btn page-btn active" data-page="1">1</button>
-                    <button class="pagination-btn page-btn" data-page="2">2</button>
-                    <button class="pagination-btn page-btn" data-page="3">3</button>
-                    <button class="pagination-btn page-btn" data-page="4">4</button>
-                    <button class="pagination-btn page-btn" data-page="5">5</button>
-                    <button class="pagination-btn page-btn" data-page="6">6</button>
-                    <button class="pagination-btn page-btn" data-page="7">7</button>
+                    <button class="pagination-btn page-btn active" data-page="1" type="button">1</button>
+                    <button class="pagination-btn page-btn" data-page="2" type="button">2</button>
+                    <button class="pagination-btn page-btn" data-page="3" type="button">3</button>
+                    <button class="pagination-btn page-btn" data-page="4" type="button">4</button>
+                    <button class="pagination-btn page-btn" data-page="5" type="button">5</button>
+                    <button class="pagination-btn page-btn" data-page="6" type="button">6</button>
+                    <button class="pagination-btn page-btn" data-page="7" type="button">7</button>
                 </div>
-                <button class="pagination-btn" id="nextBtn">Next →</button>
+                <button class="pagination-btn" id="nextBtn" type="button">Next →</button>
             </div>
             
             <!-- No Results Message -->
@@ -231,5 +139,13 @@
 
     <!-- JavaScript -->
     <script src="music.js"></script>
+    
+    <!-- Debug Script -->
+    <script>
+        console.log('🔍 DEBUG: HTML loaded');
+        console.log('🔍 Filter buttons found:', document.querySelectorAll('.filter-btn').length);
+        console.log('🔍 Mobile menu button:', document.getElementById('mobileMenuBtn') ? 'Found' : 'Missing');
+        console.log('🔍 Sort select:', document.getElementById('sortSelect') ? 'Found' : 'Missing');
+    </script>
 </body>
 </html>
