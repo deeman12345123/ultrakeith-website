@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music - Ultra Keith Official</title>
-    <meta name="description" content="Complete discography of Kool Keith - 40+ years of groundbreaking hip-hop music spanning 75+ albums.">
+    <meta name="description" content="Complete discography of Kool Keith - 40+ years of groundbreaking hip-hop music spanning 92+ albums.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
@@ -43,7 +43,7 @@
         <section class="music-hero">
             <h1 class="music-title">Complete Discography</h1>
             <p class="music-subtitle">
-                40+ Years of Innovation • 75+ Albums • Multiple Personas • Legendary Collaborations
+                40+ Years of Innovation • 92+ Albums • Multiple Personas • Legendary Collaborations
             </p>
         </section>
         
@@ -51,7 +51,7 @@
         <section class="stats-section">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <span class="stat-number" id="totalAlbums">75</span>
+                    <span class="stat-number" id="totalAlbums">92</span>
                     <span class="stat-label">Albums Released</span>
                 </div>
                 <div class="stat-item">
@@ -96,7 +96,7 @@
                 </div>
                 
                 <div class="results-count" id="resultsCount">
-                    Showing 12 of 75 albums
+                    Showing 12 of 92 albums
                 </div>
             </div>
         </section>
@@ -105,26 +105,13 @@
         <section class="albums-section">
             <div class="albums-grid" id="albumsGrid">
                 <!-- Albums will be populated by JavaScript -->
-                <div class="album-card" data-category="solo" data-year="2025" data-title="dear derrick" data-search="dear derrick kool keith 2025">
-                    <div class="album-badge badge-solo">Solo</div>
-                    <img src="album-covers/dear-derrick.jpg" alt="Dear Derrick" class="album-cover" loading="lazy">
-                    <h3 class="album-title">Dear Derrick</h3>
-                    <p class="album-artist">Kool Keith</p>
-                    <p class="album-year">2025</p>
-                </div>
             </div>
             
             <!-- Pagination -->
             <div class="pagination-section" id="paginationSection">
-                <button class="pagination-btn" id="prevBtn" type="button" disabled>← Previous</button>
+                <button class="pagination-btn" id="prevBtn" type="button">← Previous</button>
                 <div class="page-numbers" id="pageNumbers">
-                    <button class="pagination-btn page-btn active" data-page="1" type="button">1</button>
-                    <button class="pagination-btn page-btn" data-page="2" type="button">2</button>
-                    <button class="pagination-btn page-btn" data-page="3" type="button">3</button>
-                    <button class="pagination-btn page-btn" data-page="4" type="button">4</button>
-                    <button class="pagination-btn page-btn" data-page="5" type="button">5</button>
-                    <button class="pagination-btn page-btn" data-page="6" type="button">6</button>
-                    <button class="pagination-btn page-btn" data-page="7" type="button">7</button>
+                    <!-- Page numbers populated by JavaScript -->
                 </div>
                 <button class="pagination-btn" id="nextBtn" type="button">Next →</button>
             </div>
@@ -139,13 +126,5 @@
 
     <!-- JavaScript -->
     <script src="music.js"></script>
-    
-    <!-- Debug Script -->
-    <script>
-        console.log('🔍 DEBUG: HTML loaded');
-        console.log('🔍 Filter buttons found:', document.querySelectorAll('.filter-btn').length);
-        console.log('🔍 Mobile menu button:', document.getElementById('mobileMenuBtn') ? 'Found' : 'Missing');
-        console.log('🔍 Sort select:', document.getElementById('sortSelect') ? 'Found' : 'Missing');
-    </script>
 </body>
 </html>
