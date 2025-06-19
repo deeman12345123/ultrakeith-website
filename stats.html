@@ -526,40 +526,131 @@
         }
 
         .record-item {
-            background: rgba(26, 26, 26, 0.95);
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: 0.5rem;
-            padding: 1.25rem;
+            background: linear-gradient(145deg, rgba(26, 26, 26, 0.95) 0%, rgba(42, 42, 42, 0.9) 100%);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
             backdrop-filter: blur(20px);
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .record-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #DAB547, #E8C547, #DAB547);
+            border-radius: 0.75rem;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .record-item:hover::before {
+            opacity: 0.3;
         }
 
         .record-item:hover {
-            border-color: rgba(218, 181, 71, 0.4);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            border-color: rgba(218, 181, 71, 0.6);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.2), 0 0 20px rgba(218, 181, 71, 0.1);
+        }
+
+        .record-item::after {
+            content: '';
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 30px;
+            height: 30px;
+            background: url('personas/mc.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .record-item:hover::after {
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         .record-value {
             font-family: 'Orbitron', monospace;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #DAB547;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #DAB547, #E8C547);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
             line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .record-value::before {
+            content: '🏆';
+            font-size: 1.25rem;
+            filter: sepia(1) saturate(2) hue-rotate(25deg) brightness(1.2);
         }
 
         .record-title {
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
         }
 
         .record-desc {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.3;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .record-desc::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #DAB547;
+            font-weight: bold;
+        }
+
+        /* Special styling for speed records */
+        .record-item:nth-child(1) .record-value::before,
+        .record-item:nth-child(2) .record-value::before {
+            content: '⚡';
+        }
+
+        /* Special styling for creative records */
+        .record-item:nth-child(5) .record-value::before,
+        .record-item:nth-child(6) .record-value::before {
+            content: '🎭';
+        }
+
+        /* Special styling for volume records */
+        .record-item:nth-child(10) .record-value::before {
+            content: '📈';
+        }
+
+        /* Special styling for innovation records */
+        .record-item:nth-child(11) .record-value::before,
+        .record-item:nth-child(12) .record-value::before {
+            content: '🚀';
+        }
+
+        /* Special styling for legacy records */
+        .record-item:nth-child(13) .record-value::before,
+        .record-item:nth-child(14) .record-value::before {
+            content: '👑';
         }
 
         /* Responsive */
