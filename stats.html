@@ -211,36 +211,38 @@
         }
 
         /* ================================
-           SOLID BOX STYLES
+           SOLID BOX STYLES - COMPLETELY OPAQUE
         ================================ */
         .solid-box {
-            background: var(--dark-bg) !important;
+            background: #1a1a1a !important;
             border: 1px solid rgba(218, 181, 71, 0.2);
             border-radius: var(--border-radius);
             overflow: hidden;
         }
 
         .solid-box-header {
-            background: var(--medium-bg) !important;
+            background: #2a2a2a !important;
             border-bottom: 2px solid rgba(218, 181, 71, 0.3);
         }
 
         .keith-highlight {
-            background: var(--keith-highlight) !important;
+            background: #2d1f0a !important;
             border: 1px solid rgba(218, 181, 71, 0.4);
         }
 
         /* ================================
-           HEADER STATS
+           HEADER STATS - COMPLETELY OPAQUE
         ================================ */
         .header-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
+            background: #1a1a1a !important;
             padding: 1.5rem;
             margin-bottom: 2rem;
             position: relative;
             border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: var(--border-radius);
         }
 
         .header-stat {
@@ -327,12 +329,21 @@
         }
 
         /* ================================
-           TABLES
+           TABLES - COMPLETELY OPAQUE
         ================================ */
         .standings-table {
             width: 100%;
+            background: #1a1a1a !important;
             margin-bottom: 1.5rem;
             position: relative;
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .standings-table thead {
+            background: #2a2a2a !important;
+            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
         }
 
         .standings-table th {
@@ -385,7 +396,7 @@
         }
 
         /* ================================
-           CATEGORY GRID
+           CATEGORY GRID - COMPLETELY OPAQUE
         ================================ */
         .category-grid {
             display: grid;
@@ -397,8 +408,17 @@
             margin-right: auto;
         }
 
+        .category-table {
+            background: #1a1a1a !important;
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
         .category-header {
+            background: #2a2a2a !important;
             padding: 1rem;
+            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
             position: relative;
         }
 
@@ -469,7 +489,7 @@
         }
 
         /* ================================
-           RECORDS GRID
+           RECORDS GRID - COMPLETELY OPAQUE
         ================================ */
         .records-grid {
             display: grid;
@@ -483,6 +503,7 @@
         }
 
         .record-item {
+            background: #1a1a1a !important;
             border: 2px solid rgba(218, 181, 71, 0.3);
             border-radius: var(--border-radius-lg);
             padding: 1.5rem;
