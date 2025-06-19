@@ -16,7 +16,32 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
-        /* Reset and Base */
+        /* ================================
+           VARIABLES & RESET
+        ================================ */
+        :root {
+            /* Colors */
+            --primary-gold: #DAB547;
+            --light-gold: #E8C547;
+            --dark-bg: #1a1a1a;
+            --medium-bg: #2a2a2a;
+            --keith-highlight: #2d1f0a;
+            --white: #FFFFFF;
+            --white-75: rgba(255, 255, 255, 0.75);
+            --white-60: rgba(255, 255, 255, 0.6);
+            --white-90: rgba(255, 255, 255, 0.9);
+            
+            /* Fonts */
+            --font-primary: 'Inter', Arial, sans-serif;
+            --font-heading: 'Orbitron', monospace;
+            
+            /* Spacing */
+            --nav-height: 72px;
+            --container-max: 1400px;
+            --border-radius: 0.5rem;
+            --border-radius-lg: 0.75rem;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -24,14 +49,16 @@
         }
 
         body {
-            font-family: 'Inter', Arial, sans-serif;
+            font-family: var(--font-primary);
             background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #000000 100%);
-            color: #FFFFFF;
+            color: var(--white);
             min-height: 100vh;
             line-height: 1.6;
         }
 
-        /* Navigation */
+        /* ================================
+           LAYOUT & NAVIGATION
+        ================================ */
         .nav {
             position: fixed;
             top: 0;
@@ -41,14 +68,14 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(218, 181, 71, 0.2);
             z-index: 100;
-            height: 72px;
+            height: var(--nav-height);
             display: flex;
             align-items: center;
             padding: 0 2rem;
         }
 
         .nav-content {
-            max-width: 1400px;
+            max-width: var(--container-max);
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -67,9 +94,9 @@
         }
 
         .nav-menu a {
-            color: rgba(255, 255, 255, 0.75);
+            color: var(--white-75);
             text-decoration: none;
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-weight: 500;
             font-size: 0.875rem;
             text-transform: uppercase;
@@ -78,61 +105,39 @@
 
         .nav-menu a:hover,
         .nav-menu a.active {
-            color: #DAB547;
+            color: var(--primary-gold);
         }
 
         .mobile-menu-btn {
             display: block;
             background: none;
             border: none;
-            color: #DAB547;
+            color: var(--primary-gold);
             font-size: 1.5rem;
             cursor: pointer;
             padding: 0.5rem;
         }
 
         @media (min-width: 769px) {
-            .nav-menu {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
+            .nav-menu { display: flex; }
+            .mobile-menu-btn { display: none; }
         }
 
-        /* Main Content */
+        /* ================================
+           MAIN LAYOUT
+        ================================ */
         .main {
-            padding-top: 90px;
-            max-width: 1400px;
+            padding-top: calc(var(--nav-height) + 18px);
+            max-width: var(--container-max);
             margin: 0 auto;
             padding-left: 2rem;
             padding-right: 2rem;
             padding-bottom: 4rem;
         }
 
-        /* Top Left MC Logo */
-        .main::after {
-            content: '';
-            position: fixed;
-            top: 130px;
-            left: 20px;
-            width: 250px;
-            height: 250px;
-            background: url('personas/mc.png') no-repeat center;
-            background-size: contain;
-            opacity: 0.08;
-            z-index: 1;
-            pointer-events: none;
-            animation: subtlePulse 8s ease-in-out infinite;
-        }
-
-        @keyframes subtlePulse {
-            0%, 100% { opacity: 0.08; transform: scale(1); }
-            50% { opacity: 0.12; transform: scale(1.05); }
-        }
-
-        /* Basketball Watermark */
+        /* ================================
+           WATERMARKS & LOGOS
+        ================================ */
         .main::before {
             content: '';
             position: fixed;
@@ -148,12 +153,34 @@
             animation: slowFloat 45s ease-in-out infinite;
         }
 
+        .main::after {
+            content: '';
+            position: fixed;
+            top: 130px;
+            left: 20px;
+            width: 250px;
+            height: 250px;
+            background: url('personas/mc.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.08;
+            z-index: 1;
+            pointer-events: none;
+            animation: subtlePulse 8s ease-in-out infinite;
+        }
+
         @keyframes slowFloat {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(5deg); }
         }
 
-        /* Hero Section */
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.08; transform: scale(1); }
+            50% { opacity: 0.12; transform: scale(1.05); }
+        }
+
+        /* ================================
+           HERO SECTION
+        ================================ */
         .stats-hero {
             text-align: center;
             padding: 2rem 0;
@@ -161,39 +188,59 @@
         }
 
         .stats-title {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 900;
-            color: #DAB547;
+            color: var(--primary-gold);
             margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
 
         .stats-subtitle {
             font-size: clamp(0.9rem, 2vw, 1rem);
-            color: rgba(255, 255, 255, 0.75);
+            color: var(--white-75);
             margin-bottom: 1rem;
         }
 
         .last-updated {
             text-align: center;
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--white-60);
             font-style: italic;
             margin-bottom: 1rem;
         }
 
-        /* Header Stats - SOLID BACKGROUNDS */
+        /* ================================
+           SOLID BOX STYLES
+        ================================ */
+        .solid-box {
+            background: var(--dark-bg) !important;
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .solid-box-header {
+            background: var(--medium-bg) !important;
+            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
+        }
+
+        .keith-highlight {
+            background: var(--keith-highlight) !important;
+            border: 1px solid rgba(218, 181, 71, 0.4);
+        }
+
+        /* ================================
+           HEADER STATS
+        ================================ */
         .header-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
-            background: #1a1a1a !important;
-            border: 2px solid rgba(218, 181, 71, 0.3);
-            border-radius: 0.5rem;
             padding: 1.5rem;
             margin-bottom: 2rem;
             position: relative;
+            border: 2px solid rgba(218, 181, 71, 0.3);
         }
 
         .header-stat {
@@ -208,17 +255,17 @@
         }
 
         .header-stat-number {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: 900;
-            color: #DAB547;
+            color: var(--primary-gold);
             display: block;
             line-height: 1;
         }
 
         .header-stat-label {
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--white-75);
             text-transform: uppercase;
             font-weight: 500;
             margin-top: 0.25rem;
@@ -227,7 +274,7 @@
         .stat-progress {
             width: 100%;
             height: 4px;
-            background: rgba(42, 42, 42, 0.8);
+            background: var(--medium-bg);
             border-radius: 2px;
             margin-top: 0.5rem;
             overflow: hidden;
@@ -235,13 +282,15 @@
 
         .stat-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #DAB547, #E8C547);
+            background: linear-gradient(90deg, var(--primary-gold), var(--light-gold));
             border-radius: 2px;
             width: 0%;
             transition: width 1.5s ease-out;
         }
 
-        /* Section Headers */
+        /* ================================
+           SECTION HEADERS
+        ================================ */
         .standings-section {
             margin-bottom: 2rem;
         }
@@ -255,101 +304,89 @@
         }
 
         .section-title {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-size: clamp(1.25rem, 3vw, 1.5rem);
             font-weight: 700;
-            color: #DAB547;
+            color: var(--primary-gold);
             text-transform: uppercase;
             margin-bottom: 0.5rem;
         }
 
         .section-subtitle {
             font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--white-60);
             margin-bottom: 1rem;
             text-align: center;
         }
 
         .section-filter {
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--white-60);
             text-transform: uppercase;
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
         }
 
-        /* Tables - SOLID BACKGROUNDS */
+        /* ================================
+           TABLES
+        ================================ */
         .standings-table {
             width: 100%;
-            background: #1a1a1a !important;
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: 0.5rem;
-            overflow: hidden;
             margin-bottom: 1.5rem;
             position: relative;
-        }
-
-        .standings-table thead {
-            background: #2a2a2a !important;
-            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
         }
 
         .standings-table th {
             padding: 0.75rem 1rem;
             text-align: left;
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--white-75);
             text-transform: uppercase;
             font-weight: 600;
             letter-spacing: 0.05em;
         }
 
-        .standings-table th.number {
-            text-align: center;
-            width: 60px;
-        }
-
+        .standings-table th.number,
         .standings-table th.stat {
             text-align: center;
-            width: 80px;
         }
+
+        .standings-table th.number { width: 60px; }
+        .standings-table th.stat { width: 80px; }
 
         .standings-table td {
             padding: 0.75rem 1rem;
             border-bottom: 1px solid rgba(218, 181, 71, 0.1);
             font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--white-90);
         }
 
         .standings-table td.rank {
             text-align: center;
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-weight: 700;
-            color: #DAB547;
+            color: var(--primary-gold);
         }
 
         .standings-table td.stat {
             text-align: center;
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-weight: 600;
         }
 
-        .keith-row {
-            background: #2d1f0a !important;
-            border: 1px solid rgba(218, 181, 71, 0.4);
-        }
-
         .keith-row td {
-            color: #DAB547;
+            color: var(--primary-gold);
             font-weight: 600;
         }
 
         .keith-row td.artist {
-            color: #E8C547;
+            color: var(--light-gold);
             font-weight: 700;
         }
 
-        /* Category Grid */
+        /* ================================
+           CATEGORY GRID
+        ================================ */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -360,32 +397,22 @@
             margin-right: auto;
         }
 
-        /* Category Cards - SOLID BACKGROUNDS */
-        .category-table {
-            background: #1a1a1a !important;
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: 0.5rem;
-            overflow: hidden;
-        }
-
         .category-header {
-            background: #2a2a2a !important;
             padding: 1rem;
-            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
             position: relative;
         }
 
         .category-title {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-size: 1rem;
-            color: #DAB547;
+            color: var(--primary-gold);
             text-transform: uppercase;
             font-weight: 700;
         }
 
         .category-subtitle {
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--white-60);
             margin-top: 0.25rem;
         }
 
@@ -406,16 +433,14 @@
         }
 
         .category-item.keith {
-            background: #2d1f0a !important;
-            border: 1px solid rgba(218, 181, 71, 0.3);
             margin: 0 0.5rem;
             border-radius: 0.25rem;
         }
 
         .category-rank {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-weight: 700;
-            color: #DAB547;
+            color: var(--primary-gold);
             font-size: 0.875rem;
             min-width: 30px;
         }
@@ -424,26 +449,28 @@
             flex: 1;
             margin: 0 1rem;
             font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--white-90);
         }
 
         .category-item.keith .category-artist {
-            color: #E8C547;
+            color: var(--light-gold);
             font-weight: 700;
         }
 
         .category-stat {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--white-75);
             font-size: 0.875rem;
         }
 
         .category-item.keith .category-stat {
-            color: #DAB547;
+            color: var(--primary-gold);
         }
 
-        /* Records Grid */
+        /* ================================
+           RECORDS GRID
+        ================================ */
         .records-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -455,11 +482,9 @@
             position: relative;
         }
 
-        /* Record Cards - SOLID BACKGROUNDS */
         .record-item {
-            background: #1a1a1a !important;
             border: 2px solid rgba(218, 181, 71, 0.3);
-            border-radius: 0.75rem;
+            border-radius: var(--border-radius-lg);
             padding: 1.5rem;
             transition: all 0.3s ease;
             position: relative;
@@ -473,10 +498,10 @@
         }
 
         .record-value {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-heading);
             font-size: 1.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #DAB547, #E8C547);
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -495,7 +520,7 @@
 
         .record-title {
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.95);
+            color: var(--white-90);
             font-weight: 700;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
@@ -504,7 +529,7 @@
 
         .record-desc {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--white-75);
             line-height: 1.4;
             position: relative;
             padding-left: 1rem;
@@ -514,16 +539,18 @@
             content: '▸';
             position: absolute;
             left: 0;
-            color: #DAB547;
+            color: var(--primary-gold);
             font-weight: bold;
         }
 
-        /* Back to Top Button */
+        /* ================================
+           BACK TO TOP BUTTON
+        ================================ */
         .back-to-top {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: linear-gradient(135deg, #DAB547, #E8C547);
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
             color: #000000;
             border: none;
             border-radius: 50%;
@@ -551,12 +578,14 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
         }
 
-        /* Responsive */
+        /* ================================
+           RESPONSIVE DESIGN
+        ================================ */
         @media (max-width: 768px) {
             .main {
                 padding-left: 1rem;
                 padding-right: 1rem;
-                padding-top: 85px;
+                padding-top: calc(var(--nav-height) + 13px);
             }
 
             .main::after {
@@ -647,7 +676,7 @@
         </section>
 
         <!-- Header Stats -->
-        <div class="header-stats" id="header-stats">
+        <div class="header-stats solid-box" id="header-stats">
             <div class="header-stat">
                 <span class="header-stat-number">92+</span>
                 <span class="header-stat-label">Albums</span>
@@ -699,8 +728,8 @@
                 <span class="section-filter">Physical Releases Only</span>
             </div>
             <p class="section-subtitle">Ranking of rappers by total album output including studio albums, collaborations, and official releases</p>
-            <table class="standings-table">
-                <thead>
+            <table class="standings-table solid-box">
+                <thead class="solid-box-header">
                     <tr>
                         <th class="number">Rank</th>
                         <th>Artist</th>
@@ -711,7 +740,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="keith-row">
+                    <tr class="keith-row keith-highlight">
                         <td class="rank">1</td>
                         <td class="artist">Kool Keith</td>
                         <td class="stat">92+</td>
@@ -762,8 +791,8 @@
                 <span class="section-filter">Most Prolific Musicians</span>
             </div>
             <p class="section-subtitle">Kool Keith's position among the most prolific recording artists across all musical genres in history</p>
-            <table class="standings-table">
-                <thead>
+            <table class="standings-table solid-box">
+                <thead class="solid-box-header">
                     <tr>
                         <th class="number">Rank</th>
                         <th>Artist</th>
@@ -808,7 +837,7 @@
                         <td class="stat">213</td>
                         <td class="stat">48</td>
                     </tr>
-                    <tr class="keith-row">
+                    <tr class="keith-row keith-highlight">
                         <td class="rank">10</td>
                         <td class="artist">Kool Keith</td>
                         <td>Hip-Hop</td>
@@ -821,13 +850,32 @@
 
         <!-- Category Rankings -->
         <div class="category-grid" id="category-rankings">
-            <div class="category-table">
-                <div class="category-header">
+            <div class="category-table solid-box">
+                <div class="category-header solid-box-header">
                     <div class="category-title">Career Longevity</div>
                     <div class="category-subtitle">Hip-Hop Active Years</div>
                 </div>
                 <div class="category-list">
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
+                        <span class="category-rank">1</span>
+                        <span class="category-artist">Kool Keith</span>
+                        <span class="category-stat">41</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">5</span>
+                        <span class="category-artist">KRS-One</span>
+                        <span class="category-stat">39</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-table solid-box">
+                <div class="category-header solid-box-header">
+                    <div class="category-title">Musical Personas</div>
+                    <div class="category-subtitle">All Genres</div>
+                </div>
+                <div class="category-list">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">1</span>
                         <span class="category-artist">Kool Keith</span>
                         <span class="category-stat">58+</span>
@@ -855,13 +903,13 @@
                 </div>
             </div>
 
-            <div class="category-table">
-                <div class="category-header">
+            <div class="category-table solid-box">
+                <div class="category-header solid-box-header">
                     <div class="category-title">Collaborations</div>
                     <div class="category-subtitle">Hip-Hop Artists</div>
                 </div>
                 <div class="category-list">
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">1</span>
                         <span class="category-artist">Kool Keith</span>
                         <span class="category-stat">150+</span>
@@ -889,13 +937,13 @@
                 </div>
             </div>
 
-            <div class="category-table">
-                <div class="category-header">
+            <div class="category-table solid-box">
+                <div class="category-header solid-box-header">
                     <div class="category-title">Concept Albums</div>
                     <div class="category-subtitle">Hip-Hop Artists</div>
                 </div>
                 <div class="category-list">
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">1</span>
                         <span class="category-artist">Kool Keith</span>
                         <span class="category-stat">25+</span>
@@ -923,18 +971,18 @@
                 </div>
             </div>
 
-            <div class="category-table">
-                <div class="category-header">
+            <div class="category-table solid-box">
+                <div class="category-header solid-box-header">
                     <div class="category-title">Release Speed</div>
                     <div class="category-subtitle">Fastest Album Gaps</div>
                 </div>
                 <div class="category-list">
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">1</span>
                         <span class="category-artist">Kool Keith (2006)</span>
                         <span class="category-stat">Same Day</span>
                     </div>
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">2</span>
                         <span class="category-artist">Kool Keith (1999)</span>
                         <span class="category-stat">Same Day*</span>
@@ -944,12 +992,12 @@
                         <span class="category-artist">E-40</span>
                         <span class="category-stat">Same Day</span>
                     </div>
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">4</span>
                         <span class="category-artist">Kool Keith (2023)</span>
                         <span class="category-stat">21 Days</span>
                     </div>
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">5</span>
                         <span class="category-artist">Kool Keith (2023)</span>
                         <span class="category-stat">2 Months</span>
@@ -957,13 +1005,13 @@
                 </div>
             </div>
 
-            <div class="category-table">
-                <div class="category-header">
+            <div class="category-table solid-box">
+                <div class="category-header solid-box-header">
                     <div class="category-title">Independent Success</div>
                     <div class="category-subtitle">Underground Sales</div>
                 </div>
                 <div class="category-list">
-                    <div class="category-item keith">
+                    <div class="category-item keith keith-highlight">
                         <span class="category-rank">1</span>
                         <span class="category-artist">Kool Keith</span>
                         <span class="category-stat">200K+</span>
@@ -1000,87 +1048,87 @@
             </div>
             <p class="section-subtitle">Industry-first achievements and record-breaking accomplishments across Kool Keith's 41-year career</p>
             <div class="records-grid">
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">2006</div>
                     <div class="record-title">Same Day Double Drop</div>
                     <div class="record-desc">Mr. Nogatco + Project Polaroid released simultaneously</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">1999</div>
                     <div class="record-title">Intended Same Day</div>
                     <div class="record-desc">Dr. Dooom + Black Elvis planned same day (label delayed)</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">21 Days</div>
                     <div class="record-title">Fastest Turnaround</div>
                     <div class="record-desc">Shortest gap between studio albums (2023)</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">200K+</div>
                     <div class="record-title">Independent Sales</div>
                     <div class="record-desc">Dr. Octagonecologyst underground success</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">1988</div>
                     <div class="record-title">Abstract Hip-Hop Pioneer</div>
                     <div class="record-desc">Critical Beatdown changed the genre</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">25+</div>
                     <div class="record-title">Concept Albums</div>
                     <div class="record-desc">Most concept albums by any rapper</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">58+</div>
                     <div class="record-title">Musical Personas</div>
                     <div class="record-desc">More alter egos than any artist in music</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">41 Years</div>
                     <div class="record-title">Continuous Output</div>
                     <div class="record-desc">Longest uninterrupted album career in hip-hop</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">3 Times</div>
                     <div class="record-title">Persona Deaths</div>
                     <div class="record-desc">Killed Dr. Octagon when industry tried to control</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">1996</div>
                     <div class="record-title">Indie Blueprint</div>
                     <div class="record-desc">Proved independent artists could outsell majors</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">150+</div>
                     <div class="record-title">Collaborations</div>
                     <div class="record-desc">Most unique collaborators in hip-hop history</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">First</div>
                     <div class="record-title">Sci-Fi Hip-Hop</div>
                     <div class="record-desc">Pioneered space and medical themes in rap</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">Multiple</div>
                     <div class="record-title">Cross-Genre Impact</div>
                     <div class="record-desc">Influenced rock, electronic, and jazz artists</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">2025</div>
                     <div class="record-title">Still Active</div>
                     <div class="record-desc">Only 40+ year rapper still releasing annually</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">1984-2025</div>
                     <div class="record-title">Decade Spanning</div>
                     <div class="record-desc">Released albums across five decades</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">Unmatched</div>
                     <div class="record-title">Industry Rebellion</div>
                     <div class="record-desc">Master of anti-branding and artistic freedom</div>
                 </div>
-                <div class="record-item">
+                <div class="record-item solid-box">
                     <div class="record-value">Academic</div>
                     <div class="record-title">Scholarly Study</div>
                     <div class="record-desc">Subject of university hip-hop research</div>
@@ -1108,15 +1156,6 @@
                     navMenu.classList.toggle('show');
                 });
             }
-            
-            // Close mobile menu when clicking nav links
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu) {
-                        navMenu.classList.remove('show');
-                    }
-                });
-            });
             
             // Back to top button
             const backToTopBtn = document.getElementById('backToTop');
@@ -1178,9 +1217,7 @@
             function animateHeaderStat(element) {
                 const finalText = element.textContent.trim();
                 
-                // Handle different types of stats
                 if (finalText.includes('#')) {
-                    // Handle rank numbers like #1, #10
                     const rankNumber = parseInt(finalText.replace('#', ''));
                     let current = rankNumber > 5 ? rankNumber - 3 : 1;
                     const timer = setInterval(() => {
@@ -1191,7 +1228,6 @@
                         }
                     }, 100);
                 } else if (finalText.includes('+')) {
-                    // Handle numbers with plus like 92+
                     const number = parseInt(finalText.replace('+', ''));
                     let current = 0;
                     const increment = Math.ceil(number / 30);
@@ -1204,7 +1240,6 @@
                         element.textContent = current + '+';
                     }, 50);
                 } else {
-                    // Handle regular numbers
                     const number = parseInt(finalText);
                     if (!isNaN(number)) {
                         let current = 0;
@@ -1232,30 +1267,10 @@
                     });
                 }
             });
-            
-            // Add subtle animation to category items
-            document.querySelectorAll('.category-item').forEach(item => {
-                if (!item.classList.contains('keith')) {
-                    item.addEventListener('mouseenter', function() {
-                        this.style.backgroundColor = 'rgba(42, 42, 42, 0.3)';
-                        this.style.transform = 'translateX(5px)';
-                    });
-                    item.addEventListener('mouseleave', function() {
-                        this.style.backgroundColor = '';
-                        this.style.transform = '';
-                    });
-                }
-            });
         });
     </script>
 </body>
-</html>">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">41</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">2</span>
+</html>rank">2</span>
                         <span class="category-artist">Too Short</span>
                         <span class="category-stat">42*</span>
                     </div>
@@ -1270,17 +1285,4 @@
                         <span class="category-stat">40</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">KRS-One</span>
-                        <span class="category-stat">39</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-table">
-                <div class="category-header">
-                    <div class="category-title">Musical Personas</div>
-                    <div class="category-subtitle">All Genres</div>
-                </div>
-                <div class="category-list">
-                    <div class="category-item keith
+                        <span class="category-
