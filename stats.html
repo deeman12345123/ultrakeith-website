@@ -56,16 +56,21 @@
             line-height: 1.6;
         }
 
+        /* FORCE REMOVE ALL BACKDROP FILTERS AND TRANSPARENCY */
+        * {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+
         /* ================================
-           LAYOUT & NAVIGATION
+           NAVIGATION - REMOVE BACKDROP FILTER
         ================================ */
         .nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
+            background: #0a0a0a !important;
             border-bottom: 1px solid rgba(218, 181, 71, 0.2);
             z-index: 100;
             height: var(--nav-height);
@@ -211,23 +216,32 @@
         }
 
         /* ================================
-           SOLID BOX STYLES - COMPLETELY OPAQUE
+           ULTRA SOLID BACKGROUNDS - NO CONFLICTS
         ================================ */
-        .solid-box {
+        .header-stats,
+        .standings-table,
+        .category-table,
+        .record-item {
             background: #1a1a1a !important;
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: var(--border-radius);
-            overflow: hidden;
+            background-color: #1a1a1a !important;
+            background-image: none !important;
+            opacity: 1 !important;
         }
 
-        .solid-box-header {
+        .standings-table thead,
+        .category-header {
             background: #2a2a2a !important;
-            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
+            background-color: #2a2a2a !important;
+            background-image: none !important;
+            opacity: 1 !important;
         }
 
-        .keith-highlight {
+        .keith-row,
+        .category-item.keith {
             background: #2d1f0a !important;
-            border: 1px solid rgba(218, 181, 71, 0.4);
+            background-color: #2d1f0a !important;
+            background-image: none !important;
+            opacity: 1 !important;
         }
 
         /* ================================
