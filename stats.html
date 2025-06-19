@@ -175,12 +175,85 @@
             margin-bottom: 2rem;
         }
 
+        /* MC Logo NBA-Style */
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
             padding: 0 0.5rem;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            width: 35px;
+            height: 35px;
+            background: url('personas/mc.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.7;
+            filter: sepia(1) saturate(2) hue-rotate(25deg) brightness(1.2);
+            transition: opacity 0.3s ease;
+        }
+
+        .section-header:hover::after {
+            opacity: 1;
+        }
+
+        /* Header Stats MC Logo */
+        .header-stats {
+            position: relative;
+        }
+
+        .header-stats::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: url('personas/mc.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.6;
+            filter: sepia(1) saturate(2) hue-rotate(25deg) brightness(1.2);
+            z-index: 10;
+        }
+
+        /* Category Tables MC Logo */
+        .category-table {
+            position: relative;
+        }
+
+        .category-header::after {
+            content: '';
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            width: 25px;
+            height: 25px;
+            background: url('personas/mc.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.5;
+            filter: sepia(1) saturate(2) hue-rotate(25deg) brightness(1.2);
+        }
+
+        /* Records Grid MC Logo */
+        .records-grid {
+            position: relative;
+        }
+
+        .records-grid::before {
+            content: '';
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background: url('personas/mc.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.6;
+            filter: sepia(1) saturate(2) hue-rotate(25deg) brightness(1.2);
+            z-index: 5;
         }
 
         .section-title {
