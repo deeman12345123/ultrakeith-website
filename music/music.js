@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Ultra Keith Music Discography Application - FLICKERING FIXED
+ * Ultra Keith Music Discography Application - REAL IMAGES WITH SMART FALLBACKS
  * Complete filtering, sorting, pagination, and search functionality
  */
 class MusicDiscographyApp {
@@ -28,6 +28,9 @@ class MusicDiscographyApp {
         this.currentPage = 1;
         this.albumsPerPage = 12;
         
+        // Track failed images to avoid retrying
+        this.failedImages = new Set();
+        
         // Albums data
         this.allAlbums = this.loadAlbumsData();
         this.filteredAlbums = [...this.allAlbums];
@@ -36,7 +39,7 @@ class MusicDiscographyApp {
     }
     
     /**
-     * Load Keith's complete discography - SYNTAX FIXED
+     * Load Keith's complete discography - WITH REAL IMAGE PATHS
      */
     loadAlbumsData() {
         const albums = [
@@ -47,7 +50,7 @@ class MusicDiscographyApp {
                 year: 2025,
                 category: "solo",
                 search: "dear derrick kool keith 2025",
-                coverSrc: "album-covers/placeholder.png", // Use PNG instead
+                coverSrc: "album-covers/dear-derrick.jpg",
                 slug: "dear-derrick"
             },
             {
@@ -56,7 +59,7 @@ class MusicDiscographyApp {
                 year: 2025,
                 category: "solo",
                 search: "karpenters kool keith 2025",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/karpenters.jpg",
                 slug: "karpenters"
             },
             {
@@ -65,7 +68,7 @@ class MusicDiscographyApp {
                 year: 2025,
                 category: "solo",
                 search: "daw kool keith 2025",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/daw.jpg",
                 slug: "daw"
             },
             // 2024
@@ -75,7 +78,7 @@ class MusicDiscographyApp {
                 year: 2024,
                 category: "collab",
                 search: "private selection kool keith mc homeless 2024",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/private-selection.jpg",
                 slug: "private-selection"
             },
             {
@@ -84,7 +87,7 @@ class MusicDiscographyApp {
                 year: 2024,
                 category: "collab",
                 search: "strike kool keith audio assault ceschi 2024",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/strike.jpg",
                 slug: "strike"
             },
             {
@@ -93,7 +96,7 @@ class MusicDiscographyApp {
                 year: 2024,
                 category: "collab",
                 search: "best all possible worlds ajj kool keith kimya dawson 2024",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/best-possible-worlds.jpg",
                 slug: "best-of-all-possible-worlds"
             },
             {
@@ -102,7 +105,7 @@ class MusicDiscographyApp {
                 year: 2024,
                 category: "collab",
                 search: "we can do it kool keith kiew nikon 2024",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/we-can-do-it.jpg",
                 slug: "we-can-do-it"
             },
             {
@@ -111,7 +114,7 @@ class MusicDiscographyApp {
                 year: 2024,
                 category: "collab",
                 search: "everybody eats stress eater czarface kool keith 2024",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/everybody-eats.jpg",
                 slug: "everybody-eats"
             },
             {
@@ -120,7 +123,7 @@ class MusicDiscographyApp {
                 year: 2024,
                 category: "collab",
                 search: "bandoleros lynx arturo banbini kool keith 2024",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/bandoleros.jpg",
                 slug: "bandoleros"
             },
             {
@@ -129,7 +132,7 @@ class MusicDiscographyApp {
                 year: 2024,
                 category: "collab",
                 search: "aponia awol one kool keith 2024",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/aponia.jpg",
                 slug: "aponia"
             },
             // 2023
@@ -139,7 +142,7 @@ class MusicDiscographyApp {
                 year: 2023,
                 category: "collab",
                 search: "divinity infinity odyssey dj muggs kool keith 2023",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/divinity-infinity.jpg",
                 slug: "divinity-2-infinity-the-odyssey"
             },
             {
@@ -148,7 +151,7 @@ class MusicDiscographyApp {
                 year: 2023,
                 category: "solo",
                 search: "world area kool keith 2023",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/world-area.jpg",
                 slug: "world-area"
             },
             {
@@ -157,7 +160,7 @@ class MusicDiscographyApp {
                 year: 2023,
                 category: "solo",
                 search: "black elvis 2 kool keith 2023",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/blackelvis2.jpg",
                 slug: "black-elvis-2"
             },
             {
@@ -166,7 +169,7 @@ class MusicDiscographyApp {
                 year: 2023,
                 category: "solo",
                 search: "mr controller kool keith 2023",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/mr-controller.jpg",
                 slug: "mr-controller"
             },
             {
@@ -175,7 +178,7 @@ class MusicDiscographyApp {
                 year: 2023,
                 category: "collab",
                 search: "serpent kool keith real bad man 2023",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/serpent.jpg",
                 slug: "serpent"
             },
             // 2022
@@ -185,7 +188,7 @@ class MusicDiscographyApp {
                 year: 2022,
                 category: "solo",
                 search: "keiths salon kool keith 2022",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/keiths-salon.jpg",
                 slug: "keiths-salon"
             },
             {
@@ -194,7 +197,7 @@ class MusicDiscographyApp {
                 year: 2022,
                 category: "solo",
                 search: "fusion beats kool keith 2022",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/fusion-beats.jpg",
                 slug: "fusion-beats"
             },
             {
@@ -203,7 +206,7 @@ class MusicDiscographyApp {
                 year: 2022,
                 category: "solo",
                 search: "computer technology kool keith 2022",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/computer-technology.jpg",
                 slug: "computer-technology"
             },
             // 2021
@@ -213,7 +216,7 @@ class MusicDiscographyApp {
                 year: 2021,
                 category: "collab",
                 search: "space goretex kool keith lorange 2021",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/space-goretex.jpg",
                 slug: "space-goretex"
             },
             {
@@ -222,7 +225,7 @@ class MusicDiscographyApp {
                 year: 2021,
                 category: "solo",
                 search: "super hero kool keith 2021",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/super-hero.jpg",
                 slug: "super-hero"
             },
             // 2020
@@ -232,7 +235,7 @@ class MusicDiscographyApp {
                 year: 2020,
                 category: "solo",
                 search: "keith kool keith 2020",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/keith-2020.jpg",
                 slug: "keith"
             },
             {
@@ -241,7 +244,7 @@ class MusicDiscographyApp {
                 year: 2020,
                 category: "solo",
                 search: "booty clap kool keith 2020",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/booty-clap.jpg",
                 slug: "booty-clap"
             },
             {
@@ -250,7 +253,7 @@ class MusicDiscographyApp {
                 year: 2020,
                 category: "solo",
                 search: "feature magnetic kool keith 2020",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/feature-magnetic.jpg",
                 slug: "feature-magnetic"
             },
             // 2019
@@ -260,7 +263,7 @@ class MusicDiscographyApp {
                 year: 2019,
                 category: "collab",
                 search: "czarface meets ghostface kool keith 2019",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/czarface-ghostface.jpg",
                 slug: "czarface-meets-ghostface"
             },
             // 2018
@@ -270,7 +273,7 @@ class MusicDiscographyApp {
                 year: 2018,
                 category: "collab",
                 search: "complicated trip kool keith kutmasta kurt 2018",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/complicated-trip.jpg",
                 slug: "complicated-trip"
             },
             {
@@ -279,7 +282,7 @@ class MusicDiscographyApp {
                 year: 2018,
                 category: "solo",
                 search: "the preacher kool keith 2018",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/the-preacher.jpg",
                 slug: "the-preacher"
             },
             // Earlier releases
@@ -289,7 +292,7 @@ class MusicDiscographyApp {
                 year: 1988,
                 category: "collab",
                 search: "critical beatdown ultramagnetic mcs 1988",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/critical-beatdown.jpg",
                 slug: "critical-beatdown"
             },
             {
@@ -298,7 +301,7 @@ class MusicDiscographyApp {
                 year: 1996,
                 category: "solo",
                 search: "dr octagonecologyst octagon kool keith 1996",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/dr-octagonecologyst.jpg",
                 slug: "dr-octagonecologyst"
             },
             {
@@ -307,7 +310,7 @@ class MusicDiscographyApp {
                 year: 1997,
                 category: "solo",
                 search: "sex style kool keith 1997",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/sex-style.jpg",
                 slug: "sex-style"
             },
             {
@@ -316,7 +319,7 @@ class MusicDiscographyApp {
                 year: 1999,
                 category: "solo",
                 search: "first come first served dr dooom kool keith 1999",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/first-come-first-served.jpg",
                 slug: "first-come-first-served"
             },
             {
@@ -325,7 +328,7 @@ class MusicDiscographyApp {
                 year: 1999,
                 category: "solo",
                 search: "black elvis lost in space kool keith 1999",
-                coverSrc: "album-covers/placeholder.png",
+                coverSrc: "album-covers/black-elvis.jpg",
                 slug: "black-elvis-lost-in-space"
             }
         ];
@@ -502,7 +505,7 @@ class MusicDiscographyApp {
     }
     
     /**
-     * Create album card element - NO MORE FLICKERING
+     * Create album card element - SMART IMAGE LOADING WITH FALLBACK
      */
     createAlbumCard(album) {
         const card = document.createElement('div');
@@ -516,16 +519,56 @@ class MusicDiscographyApp {
         const badgeClass = `badge-${album.category}`;
         const badgeText = album.category.charAt(0).toUpperCase() + album.category.slice(1);
         
-        // Create CSS placeholder instead of broken image
+        // Create container for image OR fallback
+        const coverContainer = document.createElement('div');
+        coverContainer.className = 'album-cover-container';
+        
+        // Check if this image has already failed
+        if (this.failedImages.has(album.coverSrc)) {
+            // Use CSS fallback immediately
+            coverContainer.innerHTML = `
+                <div class="album-cover-placeholder">
+                    <div class="cover-icon">🎵</div>
+                </div>
+            `;
+        } else {
+            // Try to load the real image first
+            const img = document.createElement('img');
+            img.className = 'album-cover';
+            img.alt = album.title;
+            img.loading = 'lazy';
+            
+            // Handle successful image load
+            img.onload = () => {
+                console.log(`✅ Image loaded: ${album.title}`);
+            };
+            
+            // Handle image error - replace with fallback WITHOUT retrying
+            img.onerror = () => {
+                console.log(`❌ Image failed: ${album.title} - using fallback`);
+                this.failedImages.add(album.coverSrc); // Remember this failed
+                
+                // Replace with CSS fallback
+                coverContainer.innerHTML = `
+                    <div class="album-cover-placeholder">
+                        <div class="cover-icon">🎵</div>
+                    </div>
+                `;
+            };
+            
+            img.src = album.coverSrc;
+            coverContainer.appendChild(img);
+        }
+        
         card.innerHTML = `
             <div class="album-badge ${badgeClass}">${badgeText}</div>
-            <div class="album-cover-placeholder">
-                <div class="cover-icon">🎵</div>
-            </div>
             <h3 class="album-title">${album.title}</h3>
             <p class="album-artist">${album.artist}</p>
             <p class="album-year">${album.year}</p>
         `;
+        
+        // Insert cover container at the beginning (after badge)
+        card.insertBefore(coverContainer, card.querySelector('.album-title'));
         
         return card;
     }
