@@ -520,7 +520,30 @@ body {
     background: rgba(26, 26, 26, 0.95);
 }
 
-/* FIXED: CSS PLACEHOLDER INSTEAD OF BROKEN IMAGES */
+/* SMART IMAGE CONTAINER - HANDLES BOTH REAL IMAGES AND FALLBACKS */
+.album-cover-container {
+    width: 100%;
+    margin-bottom: var(--space-md);
+}
+
+/* Real album cover images */
+.album-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-lg);
+    object-fit: cover;
+    border: 2px solid rgba(218, 181, 71, 0.2);
+    background: var(--color-black-light);
+    transition: all var(--transition-base);
+    display: block;
+}
+
+.album-card:hover .album-cover {
+    transform: scale(1.05);
+    border-color: rgba(218, 181, 71, 0.5);
+}
+
+/* CSS PLACEHOLDER FOR MISSING IMAGES */
 .album-cover-placeholder {
     width: 100%;
     aspect-ratio: 1;
@@ -530,7 +553,6 @@ body {
         rgba(42, 42, 42, 0.8) 50%, 
         var(--color-black-light) 100%);
     border: 2px solid rgba(218, 181, 71, 0.2);
-    margin-bottom: var(--space-md);
     transition: all var(--transition-base);
     display: flex;
     align-items: center;
