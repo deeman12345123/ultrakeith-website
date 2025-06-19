@@ -1,1067 +1,911 @@
-/* =================== FONT IMPORTS =================== */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+'use strict';
 
-/* =================== CSS CUSTOM PROPERTIES =================== */
-:root {
-    /* Color System */
-    --color-gold-primary: #D4AF37;
-    --color-gold-light: #E8C547;
-    --color-gold-warm: #DAB547;
-    --color-gold-rich: #B8941F;
-    --color-gold-muted: rgba(212, 175, 55, 0.12);
-    --color-gold-accent: rgba(218, 181, 71, 0.18);
-    
-    --color-burgundy-deep: #0F0505;
-    --color-burgundy-medium: #1A0A0A;
-    --color-burgundy-light: #2A1515;
-    
-    --color-black-pure: #000000;
-    --color-black-soft: #0A0A0A;
-    --color-black-medium: #1A1A1A;
-    --color-black-light: #2A2A2A;
-    
-    --color-white-pure: #FFFFFF;
-    --color-white-soft: #F8F8F8;
-    --color-white-muted: rgba(255, 255, 255, 0.92);
-    --color-white-secondary: rgba(255, 255, 255, 0.75);
-    --color-white-tertiary: rgba(255, 255, 255, 0.55);
-    
-    /* Spacing System */
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 1.5rem;
-    --space-lg: 2rem;
-    --space-xl: 3rem;
-    --space-2xl: 4rem;
-    --space-3xl: 6rem;
-    
-    /* Border Radius System */
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
-    --radius-2xl: 1.5rem;
-    
-    /* Shadow System */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
-    --shadow-gold: 0 0 24px rgba(218, 181, 71, 0.15);
-    --shadow-warm: 0 4px 20px rgba(15, 5, 5, 0.4);
-    
-    /* Animation System */
-    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-elegant: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    
-    /* Typography System */
-    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-    --font-display: 'Orbitron', 'Courier New', monospace;
-    
-    /* Z-Index System */
-    --z-modal: 10000;
-    --z-nav: 100;
-    --z-overlay: 10;
-    --z-base: 1;
-}
-
-/* =================== BASE STYLES =================== */
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-}
-
-body {
-    font-family: var(--font-primary);
-    font-size: 1rem;
-    line-height: 1.6;
-    background: linear-gradient(135deg, 
-        var(--color-black-pure) 0%, 
-        var(--color-burgundy-deep) 25%, 
-        var(--color-burgundy-medium) 50%, 
-        var(--color-black-pure) 100%);
-    color: var(--color-white-pure);
-    overflow-x: hidden;
-    min-height: 100vh;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-/* =================== NAVIGATION =================== */
-.nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(218, 181, 71, 0.2);
-    z-index: var(--z-nav);
-    height: 72px;
-    display: flex;
-    align-items: center;
-    padding: 0 var(--space-lg);
-}
-
-.nav-content {
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo img {
-    height: 42px;
-    transition: all var(--transition-base);
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-}
-
-.nav-logo:hover img {
-    transform: scale(1.05);
-    filter: drop-shadow(0 4px 12px rgba(218, 181, 71, 0.3));
-}
-
-.nav-menu {
-    display: none;
-    list-style: none;
-    gap: var(--space-2xl);
-    margin: 0;
-}
-
-.nav-menu a {
-    color: var(--color-white-secondary);
-    text-decoration: none;
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 0.875rem;
-    transition: all var(--transition-base);
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    position: relative;
-}
-
-.nav-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--color-gold-warm);
-    transition: width var(--transition-base);
-}
-
-.nav-menu a:hover {
-    color: var(--color-gold-warm);
-}
-
-.nav-menu a:hover::after {
-    width: 100%;
-}
-
-.nav-menu a.active {
-    color: var(--color-gold-warm);
-}
-
-.nav-menu a.active::after {
-    width: 100%;
-}
-
-.mobile-menu-btn {
-    display: block;
-    background: none;
-    border: none;
-    color: var(--color-gold-warm);
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: var(--space-xs);
-    transition: all var(--transition-base);
-}
-
-.mobile-menu-btn:hover {
-    color: var(--color-gold-light);
-    transform: scale(1.1);
-}
-
-/* Mobile menu show state - FIXED */
-.nav-menu.show {
-    display: flex !important;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: rgba(10, 10, 10, 0.98);
-    backdrop-filter: blur(25px);
-    padding: var(--space-lg);
-    border-top: 1px solid rgba(218, 181, 71, 0.2);
-    gap: var(--space-md);
-    z-index: 1000;
-}
-
-/* =================== MAIN LAYOUT =================== */
-.main {
-    padding-top: 90px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding-left: var(--space-lg);
-    padding-right: var(--space-lg);
-    padding-bottom: var(--space-3xl);
-}
-
-/* =================== HERO SECTION =================== */
-.music-hero {
-    text-align: center;
-    padding: var(--space-2xl) 0;
-    margin-bottom: var(--space-xl);
-}
-
-.music-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 900;
-    color: var(--color-gold-warm);
-    margin-bottom: var(--space-md);
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-}
-
-.music-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    color: var(--color-white-muted);
-    line-height: 1.4;
-    max-width: 800px;
-    margin: 0 auto;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-}
-
-/* =================== STATS SECTION =================== */
-.stats-section {
-    background: rgba(26, 26, 26, 0.9);
-    border: 2px solid rgba(218, 181, 71, 0.2);
-    border-radius: var(--radius-xl);
-    padding: var(--space-xl);
-    margin-bottom: var(--space-2xl);
-    backdrop-filter: blur(20px);
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-lg);
-    text-align: center;
-}
-
-.stat-item {
-    padding: var(--space-md);
-}
-
-.stat-number {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--color-gold-warm);
-    display: block;
-    margin-bottom: var(--space-xs);
-}
-
-.stat-label {
-    color: var(--color-white-secondary);
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 500;
-}
-
-/* =================== CONTROLS SECTION =================== */
-.controls-section {
-    background: rgba(26, 26, 26, 0.9);
-    border: 2px solid rgba(218, 181, 71, 0.2);
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
-    margin-bottom: var(--space-xl);
-    backdrop-filter: blur(20px);
-}
-
-.controls-container {
-    display: grid;
-    grid-template-columns: auto auto 1fr auto;
-    gap: var(--space-lg);
-    align-items: end;
-}
-
-/* Filter Section */
-.filter-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-}
-
-.filter-label {
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    color: var(--color-white-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 600;
-}
-
-.filter-buttons {
-    display: flex;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-}
-
-.filter-btn {
-    background: rgba(42, 42, 42, 0.8);
-    color: var(--color-white-secondary);
-    border: 1px solid rgba(218, 181, 71, 0.2);
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    transition: all var(--transition-base);
-    white-space: nowrap;
-}
-
-.filter-btn:hover {
-    color: var(--color-gold-warm);
-    border-color: rgba(218, 181, 71, 0.4);
-}
-
-.filter-btn.active {
-    background: var(--color-gold-warm);
-    color: var(--color-black-pure);
-    border-color: var(--color-gold-warm);
-}
-
-/* Sort Section */
-.sort-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-}
-
-.sort-label {
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    color: var(--color-white-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 600;
-}
-
-.sort-select {
-    background: rgba(42, 42, 42, 0.8);
-    color: var(--color-white-secondary);
-    border: 1px solid rgba(218, 181, 71, 0.2);
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    transition: all var(--transition-base);
-    min-width: 140px;
-}
-
-.sort-select:hover,
-.sort-select:focus {
-    color: var(--color-gold-warm);
-    border-color: rgba(218, 181, 71, 0.4);
-    outline: none;
-}
-
-/* Search Section */
-.search-section {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-}
-
-.search-input {
-    width: 100%;
-    max-width: 300px;
-    padding: var(--space-sm) var(--space-md);
-    background: rgba(42, 42, 42, 0.8);
-    border: 1px solid rgba(218, 181, 71, 0.2);
-    border-radius: var(--radius-md);
-    color: var(--color-white-pure);
-    font-family: var(--font-primary);
-    font-size: 0.875rem;
-    transition: all var(--transition-base);
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: var(--color-gold-warm);
-    box-shadow: var(--shadow-gold);
-}
-
-.search-input::placeholder {
-    color: var(--color-white-tertiary);
-}
-
-/* Results Count */
-.results-count {
-    font-family: var(--font-display);
-    font-size: 0.875rem;
-    color: var(--color-white-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 500;
-    text-align: right;
-}
-
-/* =================== ALBUMS GRID - FIXED MOBILE =================== */
-.albums-section {
-    margin-bottom: var(--space-2xl);
-}
-
-/* Base grid - responsive by default */
-.albums-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-lg);
-    margin-bottom: var(--space-2xl);
-    width: 100%;
-}
-
-/* Desktop override */
-@media (min-width: 1024px) {
-    .albums-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: var(--space-xl);
-    }
-}
-
-/* Tablet */
-@media (min-width: 769px) and (max-width: 1023px) {
-    .albums-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: var(--space-lg);
-    }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .albums-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: var(--space-md);
-    }
-}
-
-/* Small mobile */
-@media (max-width: 480px) {
-    .albums-grid {
-        grid-template-columns: 1fr !important;
-        gap: var(--space-lg);
+/**
+ * Ultra Keith Music Discography Application - KEEP ORIGINAL IMAGES WORKING
+ * Complete filtering, sorting, pagination, and search functionality
+ */
+class MusicDiscographyApp {
+    constructor() {
+        // Core elements
+        this.albumsGrid = document.getElementById('albumsGrid');
+        this.filterButtons = document.querySelectorAll('.filter-btn');
+        this.sortSelect = document.getElementById('sortSelect');
+        this.searchInput = document.getElementById('searchInput');
+        this.resultsCount = document.getElementById('resultsCount');
+        this.noResults = document.getElementById('noResults');
+        this.totalAlbumsSpan = document.getElementById('totalAlbums');
+        
+        // Pagination elements
+        this.paginationSection = document.getElementById('paginationSection');
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.pageNumbers = document.getElementById('pageNumbers');
+        
+        // State management
+        this.currentFilter = 'all';
+        this.currentSort = 'year-desc';
+        this.currentSearch = '';
+        this.currentPage = 1;
+        this.albumsPerPage = 12;
+        
+        // Albums data
+        this.allAlbums = this.loadAlbumsData();
+        this.filteredAlbums = [...this.allAlbums];
+        
+        this.init();
     }
     
-    .album-card {
-        max-width: 300px;
-        margin: 0 auto;
+    /**
+     * Load Keith's complete discography - ORIGINAL IMAGE PATHS RESTORED
+     */
+    loadAlbumsData() {
+        const albums = [
+            // 2025
+            {
+                title: "Dear Derrick",
+                artist: "Kool Keith",
+                year: 2025,
+                category: "solo",
+                search: "dear derrick kool keith 2025",
+                coverSrc: "album-covers/dear-derrick.jpg",
+                slug: "dear-derrick"
+            },
+            {
+                title: "Karpenters",
+                artist: "Kool Keith",
+                year: 2025,
+                category: "solo",
+                search: "karpenters kool keith 2025",
+                coverSrc: "album-covers/karpenters.jpg",
+                slug: "karpenters"
+            },
+            {
+                title: "DAW",
+                artist: "Kool Keith",
+                year: 2025,
+                category: "solo",
+                search: "daw kool keith 2025",
+                coverSrc: "album-covers/daw.jpg",
+                slug: "daw"
+            },
+            // 2024
+            {
+                title: "Private Selection",
+                artist: "Kool Keith & MC Homeless",
+                year: 2024,
+                category: "collab",
+                search: "private selection kool keith mc homeless 2024",
+                coverSrc: "album-covers/private-selection.jpg",
+                slug: "private-selection"
+            },
+            {
+                title: "STRIKE!",
+                artist: "Kool Keith, Audio Assault & Ceschi",
+                year: 2024,
+                category: "collab",
+                search: "strike kool keith audio assault ceschi 2024",
+                coverSrc: "album-covers/strike.jpg",
+                slug: "strike"
+            },
+            {
+                title: "Best of All Possible Worlds",
+                artist: "AJJ, Kool Keith & Kimya Dawson",
+                year: 2024,
+                category: "collab",
+                search: "best all possible worlds ajj kool keith kimya dawson 2024",
+                coverSrc: "album-covers/best-possible-worlds.jpg",
+                slug: "best-of-all-possible-worlds"
+            },
+            {
+                title: "We Can Do It",
+                artist: "Kool Keith & Kiew Nikon",
+                year: 2024,
+                category: "collab",
+                search: "we can do it kool keith kiew nikon 2024",
+                coverSrc: "album-covers/we-can-do-it.jpg",
+                slug: "we-can-do-it"
+            },
+            {
+                title: "Everybody Eats!",
+                artist: "Stress Eater (CZARFACE & Kool Keith)",
+                year: 2024,
+                category: "collab",
+                search: "everybody eats stress eater czarface kool keith 2024",
+                coverSrc: "album-covers/everybody-eats.jpg",
+                slug: "everybody-eats"
+            },
+            {
+                title: "Bandoleros",
+                artist: "Lynx 196.9, Arturo Banbini, Kool Keith",
+                year: 2024,
+                category: "collab",
+                search: "bandoleros lynx arturo banbini kool keith 2024",
+                coverSrc: "album-covers/bandoleros.jpg",
+                slug: "bandoleros"
+            },
+            {
+                title: "Aponia",
+                artist: "Awol One & Kool Keith",
+                year: 2024,
+                category: "collab",
+                search: "aponia awol one kool keith 2024",
+                coverSrc: "album-covers/aponia.jpg",
+                slug: "aponia"
+            },
+            // 2023
+            {
+                title: "Divinity 2 Infinity: The Odyssey",
+                artist: "DJ Muggs & Kool Keith",
+                year: 2023,
+                category: "collab",
+                search: "divinity infinity odyssey dj muggs kool keith 2023",
+                coverSrc: "album-covers/divinity-infinity.jpg",
+                slug: "divinity-2-infinity-the-odyssey"
+            },
+            {
+                title: "World Area",
+                artist: "Kool Keith",
+                year: 2023,
+                category: "solo",
+                search: "world area kool keith 2023",
+                coverSrc: "album-covers/world-area.jpg",
+                slug: "world-area"
+            },
+            {
+                title: "Black Elvis 2",
+                artist: "Kool Keith",
+                year: 2023,
+                category: "solo",
+                search: "black elvis 2 kool keith 2023",
+                coverSrc: "album-covers/blackelvis2.jpg",
+                slug: "black-elvis-2"
+            },
+            {
+                title: "Mr. Controller",
+                artist: "Kool Keith",
+                year: 2023,
+                category: "solo",
+                search: "mr controller kool keith 2023",
+                coverSrc: "album-covers/mr-controller.jpg",
+                slug: "mr-controller"
+            },
+            {
+                title: "Serpent",
+                artist: "Kool Keith & Real Bad Man",
+                year: 2023,
+                category: "collab",
+                search: "serpent kool keith real bad man 2023",
+                coverSrc: "album-covers/serpent.jpg",
+                slug: "serpent"
+            },
+            // 2022
+            {
+                title: "Keith's Salon",
+                artist: "Kool Keith",
+                year: 2022,
+                category: "solo",
+                search: "keiths salon kool keith 2022",
+                coverSrc: "album-covers/keiths-salon.jpg",
+                slug: "keiths-salon"
+            },
+            {
+                title: "Fusion Beats",
+                artist: "Kool Keith",
+                year: 2022,
+                category: "solo",
+                search: "fusion beats kool keith 2022",
+                coverSrc: "album-covers/fusion-beats.jpg",
+                slug: "fusion-beats"
+            },
+            {
+                title: "Computer Technology",
+                artist: "Kool Keith",
+                year: 2022,
+                category: "solo",
+                search: "computer technology kool keith 2022",
+                coverSrc: "album-covers/computer-technology.jpg",
+                slug: "computer-technology"
+            },
+            // 2021
+            {
+                title: "Space Goretex",
+                artist: "Kool Keith & L'Orange",
+                year: 2021,
+                category: "collab",
+                search: "space goretex kool keith lorange 2021",
+                coverSrc: "album-covers/space-goretex.jpg",
+                slug: "space-goretex"
+            },
+            {
+                title: "Super Hero",
+                artist: "Kool Keith",
+                year: 2021,
+                category: "solo",
+                search: "super hero kool keith 2021",
+                coverSrc: "album-covers/super-hero.jpg",
+                slug: "super-hero"
+            },
+            // 2020
+            {
+                title: "Keith",
+                artist: "Kool Keith",
+                year: 2020,
+                category: "solo",
+                search: "keith kool keith 2020",
+                coverSrc: "album-covers/keith-2020.jpg",
+                slug: "keith"
+            },
+            {
+                title: "Booty Clap",
+                artist: "Kool Keith",
+                year: 2020,
+                category: "solo",
+                search: "booty clap kool keith 2020",
+                coverSrc: "album-covers/booty-clap.jpg",
+                slug: "booty-clap"
+            },
+            {
+                title: "Feature Magnetic",
+                artist: "Kool Keith",
+                year: 2020,
+                category: "solo",
+                search: "feature magnetic kool keith 2020",
+                coverSrc: "album-covers/feature-magnetic.jpg",
+                slug: "feature-magnetic"
+            },
+            // 2019
+            {
+                title: "Czarface Meets Ghostface",
+                artist: "CZARFACE & Ghostface Killah (feat. Kool Keith)",
+                year: 2019,
+                category: "collab",
+                search: "czarface meets ghostface kool keith 2019",
+                coverSrc: "album-covers/czarface-ghostface.jpg",
+                slug: "czarface-meets-ghostface"
+            },
+            // 2018
+            {
+                title: "Complicated Trip",
+                artist: "Kool Keith & KutMasta Kurt",
+                year: 2018,
+                category: "collab",
+                search: "complicated trip kool keith kutmasta kurt 2018",
+                coverSrc: "album-covers/complicated-trip.jpg",
+                slug: "complicated-trip"
+            },
+            {
+                title: "The Preacher",
+                artist: "Kool Keith",
+                year: 2018,
+                category: "solo",
+                search: "the preacher kool keith 2018",
+                coverSrc: "album-covers/the-preacher.jpg",
+                slug: "the-preacher"
+            },
+            // Earlier releases
+            {
+                title: "Critical Beatdown",
+                artist: "Ultramagnetic MCs",
+                year: 1988,
+                category: "collab",
+                search: "critical beatdown ultramagnetic mcs 1988",
+                coverSrc: "album-covers/critical-beatdown.jpg",
+                slug: "critical-beatdown"
+            },
+            {
+                title: "Dr. Octagonecologyst",
+                artist: "Dr. Octagon",
+                year: 1996,
+                category: "solo",
+                search: "dr octagonecologyst octagon kool keith 1996",
+                coverSrc: "album-covers/dr-octagonecologyst.jpg",
+                slug: "dr-octagonecologyst"
+            },
+            {
+                title: "Sex Style",
+                artist: "Kool Keith",
+                year: 1997,
+                category: "solo",
+                search: "sex style kool keith 1997",
+                coverSrc: "album-covers/sex-style.jpg",
+                slug: "sex-style"
+            },
+            {
+                title: "First Come, First Served",
+                artist: "Dr. Dooom",
+                year: 1999,
+                category: "solo",
+                search: "first come first served dr dooom kool keith 1999",
+                coverSrc: "album-covers/first-come-first-served.jpg",
+                slug: "first-come-first-served"
+            },
+            {
+                title: "Black Elvis/Lost in Space",
+                artist: "Kool Keith",
+                year: 1999,
+                category: "solo",
+                search: "black elvis lost in space kool keith 1999",
+                coverSrc: "album-covers/black-elvis.jpg",
+                slug: "black-elvis-lost-in-space"
+            },
+            // 2017
+            {
+                title: "Tashan Dorrsett",
+                artist: "Kool Keith",
+                year: 2017,
+                category: "solo",
+                search: "tashan dorrsett kool keith 2017",
+                coverSrc: "album-covers/tashan-dorrsett.jpg",
+                slug: "tashan-dorrsett"
+            },
+            // 2016
+            {
+                title: "The Return of Dr. Octagon",
+                artist: "Dr. Octagon",
+                year: 2006,
+                category: "solo",
+                search: "return dr octagon kool keith 2006",
+                coverSrc: "album-covers/return-dr-octagon.jpg",
+                slug: "return-of-dr-octagon"
+            },
+            // 2015
+            {
+                title: "Time? Astonishing!",
+                artist: "Kool Keith",
+                year: 2015,
+                category: "solo",
+                search: "time astonishing kool keith 2015",
+                coverSrc: "album-covers/time-astonishing.jpg",
+                slug: "time-astonishing"
+            },
+            // 2014
+            {
+                title: "Listen to My Demo",
+                artist: "Kool Keith",
+                year: 2014,
+                category: "solo",
+                search: "listen my demo kool keith 2014",
+                coverSrc: "album-covers/listen-to-my-demo.jpg",
+                slug: "listen-to-my-demo"
+            },
+            // 2013
+            {
+                title: "Love and Danger",
+                artist: "Kool Keith",
+                year: 2012,
+                category: "solo",
+                search: "love and danger kool keith 2012",
+                coverSrc: "album-covers/love-and-danger.jpg",
+                slug: "love-and-danger"
+            },
+            // 2009
+            {
+                title: "Tashan Dorrsett",
+                artist: "Kool Keith",
+                year: 2009,
+                category: "solo",
+                search: "tashan dorrsett kool keith 2009",
+                coverSrc: "album-covers/tashan-dorrsett-2009.jpg",
+                slug: "tashan-dorrsett-2009"
+            },
+            // 2008
+            {
+                title: "The Return of Dr. Dooom",
+                artist: "Dr. Dooom",
+                year: 2008,
+                category: "solo",
+                search: "return dr dooom kool keith 2008",
+                coverSrc: "album-covers/return-dr-dooom.jpg",
+                slug: "return-of-dr-dooom"
+            },
+            // 2007
+            {
+                title: "Nogatco Rd.",
+                artist: "Kool Keith",
+                year: 2007,
+                category: "solo",
+                search: "nogatco rd kool keith 2007",
+                coverSrc: "album-covers/nogatco-rd.jpg",
+                slug: "nogatco-rd"
+            },
+            // 2004
+            {
+                title: "Diesel Truckers",
+                artist: "KHM (Kool Keith, H-Bomb & Marc Live)",
+                year: 2004,
+                category: "collab",
+                search: "diesel truckers khm kool keith h-bomb marc live 2004",
+                coverSrc: "album-covers/diesel-truckers.jpg",
+                slug: "diesel-truckers"
+            },
+            // 2003
+            {
+                title: "Spankmaster",
+                artist: "Kool Keith",
+                year: 2003,
+                category: "solo",
+                search: "spankmaster kool keith 2003",
+                coverSrc: "album-covers/spankmaster.jpg",
+                slug: "spankmaster"
+            },
+            // 2002
+            {
+                title: "Under Pressure",
+                artist: "Kool Keith Presents Thee Undatakerz",
+                year: 2002,
+                category: "collab",
+                search: "under pressure thee undatakerz kool keith 2002",
+                coverSrc: "album-covers/under-pressure.jpg",
+                slug: "under-pressure"
+            },
+            // 2001
+            {
+                title: "Matthew",
+                artist: "Kool Keith",
+                year: 2001,
+                category: "solo",
+                search: "matthew kool keith 2001",
+                coverSrc: "album-covers/matthew.jpg",
+                slug: "matthew"
+            },
+            // 2000
+            {
+                title: "Big Willie Smith",
+                artist: "Kool Keith",
+                year: 2000,
+                category: "solo",
+                search: "big willie smith kool keith 2000",
+                coverSrc: "album-covers/big-willie-smith.jpg",
+                slug: "big-willie-smith"
+            },
+            // Earlier Ultramagnetic releases
+            {
+                title: "Funk Your Head Up",
+                artist: "Ultramagnetic MCs",
+                year: 1992,
+                category: "collab",
+                search: "funk your head up ultramagnetic mcs 1992",
+                coverSrc: "album-covers/funk-your-head-up.jpg",
+                slug: "funk-your-head-up"
+            },
+            {
+                title: "The Four Horsemen",
+                artist: "Ultramagnetic MCs",
+                year: 1993,
+                category: "collab",
+                search: "four horsemen ultramagnetic mcs 1993",
+                coverSrc: "album-covers/four-horsemen.jpg",
+                slug: "four-horsemen"
+            },
+            // Analog Brothers
+            {
+                title: "Pimp to Eat",
+                artist: "Analog Brothers",
+                year: 2000,
+                category: "collab",
+                search: "pimp to eat analog brothers kool keith ice t 2000",
+                coverSrc: "album-covers/pimp-to-eat.jpg",
+                slug: "pimp-to-eat"
+            }
+        ];
+        
+        return albums;
+    }
+    
+    /**
+     * Initialize the application
+     */
+    init() {
+        console.log('🎵 Initializing music app...');
+        this.bindEvents();
+        this.updateStats();
+        this.applyFiltersAndSort();
+        this.updatePagination();
+        console.log('✅ Music app ready with', this.allAlbums.length, 'albums');
+    }
+    
+    /**
+     * Bind all event listeners
+     */
+    bindEvents() {
+        console.log('🔗 Binding events...');
+        
+        // Filter buttons
+        this.filterButtons.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('🔘 Filter clicked:', btn.dataset.filter);
+                this.handleFilter(btn.dataset.filter);
+            });
+            console.log(`✅ Filter button ${index + 1} bound`);
+        });
+        
+        // Sort select
+        if (this.sortSelect) {
+            this.sortSelect.addEventListener('change', (e) => {
+                console.log('🔄 Sort changed:', e.target.value);
+                this.handleSort(e.target.value);
+            });
+            console.log('✅ Sort select bound');
+        }
+        
+        // Search input
+        if (this.searchInput) {
+            this.searchInput.addEventListener('input', (e) => {
+                console.log('🔍 Search:', e.target.value);
+                this.handleSearch(e.target.value);
+            });
+            console.log('✅ Search input bound');
+        }
+        
+        // Pagination
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => {
+                this.goToPage(this.currentPage - 1);
+            });
+        }
+        
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => {
+                this.goToPage(this.currentPage + 1);
+            });
+        }
+        
+        // Album clicks
+        this.albumsGrid.addEventListener('click', (e) => {
+            const albumCard = e.target.closest('.album-card');
+            if (albumCard) {
+                this.handleAlbumClick(albumCard);
+            }
+        });
+        
+        console.log('✅ All events bound successfully');
+    }
+    
+    /**
+     * Handle filter selection
+     */
+    handleFilter(filter) {
+        console.log('📂 Applying filter:', filter);
+        this.currentFilter = filter;
+        this.currentPage = 1;
+        
+        // Update active button
+        this.filterButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.filter === filter);
+        });
+        
+        this.applyFiltersAndSort();
+        this.updatePagination();
+    }
+    
+    /**
+     * Handle sort selection
+     */
+    handleSort(sortType) {
+        this.currentSort = sortType;
+        this.currentPage = 1;
+        this.applyFiltersAndSort();
+        this.updatePagination();
+    }
+    
+    /**
+     * Handle search input
+     */
+    handleSearch(query) {
+        this.currentSearch = query.toLowerCase().trim();
+        this.currentPage = 1;
+        this.applyFiltersAndSort();
+        this.updatePagination();
+    }
+    
+    /**
+     * Apply filters, search, and sorting
+     */
+    applyFiltersAndSort() {
+        let filtered = [...this.allAlbums];
+        
+        // Apply category filter
+        if (this.currentFilter !== 'all') {
+            filtered = filtered.filter(album => album.category === this.currentFilter);
+        }
+        
+        // Apply search filter
+        if (this.currentSearch) {
+            filtered = filtered.filter(album => {
+                const searchableText = `${album.title} ${album.artist} ${album.search}`.toLowerCase();
+                return searchableText.includes(this.currentSearch);
+            });
+        }
+        
+        // Apply sorting
+        filtered.sort((a, b) => {
+            switch (this.currentSort) {
+                case 'year-desc':
+                    return b.year - a.year;
+                case 'year-asc':
+                    return a.year - b.year;
+                case 'title-asc':
+                    return a.title.localeCompare(b.title);
+                case 'title-desc':
+                    return b.title.localeCompare(a.title);
+                default:
+                    return b.year - a.year;
+            }
+        });
+        
+        this.filteredAlbums = filtered;
+        this.renderCurrentPage();
+        this.updateResultsCount();
+        this.toggleNoResults();
+    }
+    
+    /**
+     * Render albums for current page
+     */
+    renderCurrentPage() {
+        const startIndex = (this.currentPage - 1) * this.albumsPerPage;
+        const endIndex = startIndex + this.albumsPerPage;
+        const pageAlbums = this.filteredAlbums.slice(startIndex, endIndex);
+        
+        // Clear current albums
+        this.albumsGrid.innerHTML = '';
+        
+        // Render page albums
+        pageAlbums.forEach(album => {
+            const albumCard = this.createAlbumCard(album);
+            this.albumsGrid.appendChild(albumCard);
+        });
+        
+        console.log(`📄 Rendered page ${this.currentPage} with ${pageAlbums.length} albums`);
+    }
+    
+    /**
+     * Create album card element - BACK TO ORIGINAL METHOD + BETTER ERROR HANDLING
+     */
+    createAlbumCard(album) {
+        const card = document.createElement('div');
+        card.className = 'album-card';
+        card.dataset.category = album.category;
+        card.dataset.year = album.year;
+        card.dataset.title = album.title;
+        card.dataset.search = album.search;
+        card.dataset.slug = album.slug;
+        
+        const badgeClass = `badge-${album.category}`;
+        const badgeText = album.category.charAt(0).toUpperCase() + album.category.slice(1);
+        
+        // BACK TO ORIGINAL HTML STRUCTURE BUT WITH SILENT ERROR HANDLING
+        card.innerHTML = `
+            <div class="album-badge ${badgeClass}">${badgeText}</div>
+            <img src="${album.coverSrc}" alt="${album.title}" class="album-cover" loading="lazy" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="album-cover-placeholder" style="display: none;">
+                <div class="cover-icon">🎵</div>
+            </div>
+            <h3 class="album-title">${album.title}</h3>
+            <p class="album-artist">${album.artist}</p>
+            <p class="album-year">${album.year}</p>
+        `;
+        
+        return card;
+    }
+    
+    /**
+     * Update pagination controls
+     */
+    updatePagination() {
+        const totalPages = Math.ceil(this.filteredAlbums.length / this.albumsPerPage);
+        
+        if (this.prevBtn) this.prevBtn.disabled = this.currentPage === 1;
+        if (this.nextBtn) this.nextBtn.disabled = this.currentPage === totalPages || totalPages === 0;
+        
+        if (!this.pageNumbers) return;
+        
+        this.pageNumbers.innerHTML = '';
+        
+        if (totalPages <= 1) {
+            this.paginationSection.style.display = 'none';
+            return;
+        }
+        
+        this.paginationSection.style.display = 'flex';
+        
+        // Create page buttons
+        const maxVisible = 5;
+        let startPage = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+        
+        if (endPage - startPage < maxVisible - 1) {
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+        
+        for (let i = startPage; i <= endPage; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.className = `pagination-btn page-btn ${i === this.currentPage ? 'active' : ''}`;
+            pageBtn.textContent = i;
+            pageBtn.type = 'button';
+            pageBtn.dataset.page = i;
+            
+            pageBtn.addEventListener('click', () => {
+                this.goToPage(i);
+            });
+            
+            this.pageNumbers.appendChild(pageBtn);
+        }
+    }
+    
+    /**
+     * Navigate to specific page
+     */
+    goToPage(pageNumber) {
+        const totalPages = Math.ceil(this.filteredAlbums.length / this.albumsPerPage);
+        if (pageNumber < 1 || pageNumber > totalPages) return;
+        
+        this.currentPage = pageNumber;
+        this.renderCurrentPage();
+        this.updatePagination();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    /**
+     * Update results count display
+     */
+    updateResultsCount() {
+        if (!this.resultsCount) return;
+        
+        const startIndex = (this.currentPage - 1) * this.albumsPerPage + 1;
+        const endIndex = Math.min(startIndex + this.albumsPerPage - 1, this.filteredAlbums.length);
+        const total = this.filteredAlbums.length;
+        
+        if (total === 0) {
+            this.resultsCount.textContent = 'No albums found';
+        } else if (total <= this.albumsPerPage) {
+            this.resultsCount.textContent = `Showing ${total} of ${this.allAlbums.length} albums`;
+        } else {
+            this.resultsCount.textContent = `Showing ${startIndex}-${endIndex} of ${total} albums`;
+        }
+    }
+    
+    /**
+     * Update stats in header
+     */
+    updateStats() {
+        if (this.totalAlbumsSpan) {
+            this.totalAlbumsSpan.textContent = this.allAlbums.length;
+        }
+    }
+    
+    /**
+     * Toggle no results message
+     */
+    toggleNoResults() {
+        if (!this.noResults) return;
+        
+        const showNoResults = this.filteredAlbums.length === 0;
+        this.noResults.style.display = showNoResults ? 'block' : 'none';
+        this.albumsGrid.style.display = showNoResults ? 'none' : 'grid';
+    }
+    
+    /**
+     * Handle album card click
+     */
+    handleAlbumClick(albumCard) {
+        const title = albumCard.querySelector('.album-title').textContent;
+        console.log('🎵 Album clicked:', title);
     }
 }
 
-.album-card {
-    background: rgba(26, 26, 26, 0.9);
-    border: 2px solid rgba(218, 181, 71, 0.1);
-    border-radius: var(--radius-xl);
-    padding: var(--space-lg);
-    text-align: center;
-    cursor: pointer;
-    transition: all var(--transition-base);
-    backdrop-filter: blur(20px);
-    position: relative;
-    overflow: hidden;
-}
-
-.album-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
-    transition: left var(--transition-slow);
-    pointer-events: none;
-}
-
-.album-card:hover::before {
-    left: 100%;
-}
-
-.album-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(218, 181, 71, 0.4);
-    box-shadow: var(--shadow-lg);
-    background: rgba(26, 26, 26, 0.95);
-}
-
-/* SMART IMAGE CONTAINER - HANDLES BOTH REAL IMAGES AND FALLBACKS */
-.album-cover-container {
-    width: 100%;
-    margin-bottom: var(--space-md);
-}
-
-/* Real album cover images */
-.album-cover {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: var(--radius-lg);
-    object-fit: cover;
-    border: 2px solid rgba(218, 181, 71, 0.2);
-    background: var(--color-black-light);
-    transition: all var(--transition-base);
-    display: block;
-}
-
-.album-card:hover .album-cover {
-    transform: scale(1.05);
-    border-color: rgba(218, 181, 71, 0.5);
-}
-
-/* CSS PLACEHOLDER FOR MISSING IMAGES */
-.album-cover-placeholder {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, 
-        var(--color-black-light) 0%, 
-        rgba(42, 42, 42, 0.8) 50%, 
-        var(--color-black-light) 100%);
-    border: 2px solid rgba(218, 181, 71, 0.2);
-    transition: all var(--transition-base);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.album-card:hover .album-cover-placeholder {
-    transform: scale(1.05);
-    border-color: rgba(218, 181, 71, 0.5);
-    background: linear-gradient(135deg, 
-        rgba(42, 42, 42, 0.9) 0%, 
-        rgba(218, 181, 71, 0.1) 50%, 
-        rgba(42, 42, 42, 0.9) 100%);
-}
-
-.cover-icon {
-    font-size: 3rem;
-    color: rgba(218, 181, 71, 0.6);
-    transition: all var(--transition-base);
-}
-
-.album-card:hover .cover-icon {
-    color: var(--color-gold-warm);
-    transform: scale(1.1);
-}
-
-/* Old album cover styles - keep for compatibility */
-.album-cover {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: var(--radius-lg);
-    object-fit: cover;
-    margin-bottom: var(--space-md);
-    border: 2px solid rgba(218, 181, 71, 0.2);
-    background: var(--color-black-light);
-    transition: all var(--transition-base);
-}
-
-.album-card:hover .album-cover {
-    transform: scale(1.05);
-    border-color: rgba(218, 181, 71, 0.5);
-}
-
-.album-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-gold-warm);
-    margin-bottom: var(--space-xs);
-    line-height: 1.3;
-    transition: color var(--transition-base);
-}
-
-.album-card:hover .album-title {
-    color: var(--color-gold-light);
-}
-
-.album-artist {
-    font-size: 0.875rem;
-    color: var(--color-white-secondary);
-    margin-bottom: var(--space-xs);
-    font-weight: 500;
-}
-
-.album-year {
-    font-size: 0.75rem;
-    color: var(--color-white-tertiary);
-    font-weight: 400;
-}
-
-.album-badge {
-    position: absolute;
-    top: var(--space-md);
-    right: var(--space-md);
-    font-size: 0.625rem;
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    z-index: 10;
-}
-
-.badge-solo { 
-    background: linear-gradient(135deg, var(--color-gold-warm), var(--color-gold-light)); 
-    color: var(--color-black-pure); 
-}
-
-.badge-collab { 
-    background: linear-gradient(135deg, #27AE60, #229954); 
-    color: var(--color-white-pure); 
-}
-
-/* =================== PAGINATION =================== */
-.pagination-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-md);
-    margin-top: var(--space-2xl);
-}
-
-.page-numbers {
-    display: flex;
-    gap: var(--space-sm);
-}
-
-.pagination-btn {
-    background: rgba(42, 42, 42, 0.8);
-    color: var(--color-white-secondary);
-    border: 1px solid rgba(218, 181, 71, 0.2);
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    font-family: var(--font-display);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    cursor: pointer;
-    transition: all var(--transition-base);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;
-}
-
-.pagination-btn:hover {
-    color: var(--color-gold-warm);
-    border-color: rgba(218, 181, 71, 0.4);
-    transform: translateY(-2px);
-}
-
-.pagination-btn.active {
-    background: var(--color-gold-warm);
-    color: var(--color-black-pure);
-    border-color: var(--color-gold-warm);
-}
-
-.pagination-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.pagination-btn:disabled:hover {
-    transform: none;
-    color: var(--color-white-secondary);
-    border-color: rgba(218, 181, 71, 0.2);
-}
-
-/* No Results State */
-.no-results {
-    text-align: center;
-    padding: var(--space-3xl);
-    color: var(--color-white-tertiary);
-}
-
-.no-results h3 {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    margin-bottom: var(--space-md);
-    color: var(--color-gold-warm);
-}
-
-/* =================== RESPONSIVE DESIGN - COMPLETELY FIXED =================== */
-
-/* Mobile First - Base Styles */
-@media (max-width: 480px) {
-    .main {
-        padding-left: var(--space-sm);
-        padding-right: var(--space-sm);
-        padding-top: 85px;
+/**
+ * Mobile Menu Handler
+ */
+class MobileMenu {
+    constructor() {
+        this.menuBtn = document.getElementById('mobileMenuBtn');
+        this.navMenu = document.getElementById('navMenu');
+        
+        if (this.menuBtn && this.navMenu) {
+            this.bindEvents();
+            console.log('✅ Mobile menu initialized');
+        }
     }
     
-    .music-hero {
-        padding: var(--space-md) 0;
-        margin-bottom: var(--space-md);
+    bindEvents() {
+        this.menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.toggle();
+        });
+        
+        // Close menu when clicking nav links
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                this.close();
+            });
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.close();
+            }
+        });
     }
     
-    .music-title {
-        font-size: 1.75rem;
-        margin-bottom: var(--space-xs);
+    toggle() {
+        const isOpen = this.navMenu.classList.toggle('show');
+        this.menuBtn.setAttribute('aria-expanded', isOpen);
+        console.log('📱 Mobile menu toggled:', isOpen ? 'open' : 'closed');
     }
     
-    .music-subtitle {
-        font-size: 0.875rem;
-        line-height: 1.4;
-    }
-    
-    .stats-section {
-        padding: var(--space-sm);
-        margin-bottom: var(--space-md);
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-xs);
-    }
-    
-    .stat-number {
-        font-size: 1.5rem;
-    }
-    
-    .stat-label {
-        font-size: 0.7rem;
-    }
-    
-    .controls-section {
-        padding: var(--space-sm);
-        margin-bottom: var(--space-md);
-    }
-    
-    .controls-container {
-        grid-template-columns: 1fr;
-        gap: var(--space-sm);
-        text-align: center;
-    }
-    
-    .filter-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-xs);
-    }
-    
-    .filter-btn {
-        width: 140px;
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.7rem;
-    }
-    
-    .sort-select {
-        width: 100%;
-        max-width: 180px;
-        margin: 0 auto;
-        font-size: 0.7rem;
-    }
-    
-    .search-input {
-        width: 100%;
-        font-size: 0.8rem;
-    }
-    
-    .results-count {
-        font-size: 0.7rem;
-    }
-    
-    .album-card {
-        padding: var(--space-sm);
-    }
-    
-    .album-title {
-        font-size: 0.9rem;
-        line-height: 1.2;
-    }
-    
-    .album-artist {
-        font-size: 0.8rem;
-    }
-    
-    .album-year {
-        font-size: 0.7rem;
-    }
-    
-    .pagination-section {
-        gap: 0.25rem;
-        flex-wrap: wrap;
-    }
-    
-    .pagination-btn {
-        font-size: 0.65rem;
-        padding: 0.25rem 0.5rem;
-        min-width: 28px;
+    close() {
+        this.navMenu.classList.remove('show');
+        this.menuBtn.setAttribute('aria-expanded', 'false');
     }
 }
 
-/* Regular Mobile */
-@media (min-width: 481px) and (max-width: 768px) {
-    .main {
-        padding-left: var(--space-md);
-        padding-right: var(--space-md);
-        padding-top: 90px;
-    }
+/**
+ * Initialize application when DOM is ready
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎵 DOM loaded, starting initialization...');
     
-    .music-hero {
-        padding: var(--space-lg) 0;
-        margin-bottom: var(--space-lg);
+    try {
+        // Initialize main application
+        window.musicApp = new MusicDiscographyApp();
+        
+        // Initialize mobile menu
+        window.mobileMenu = new MobileMenu();
+        
+        console.log('🎵 Ultra Keith Music App fully initialized!');
+        
+    } catch (error) {
+        console.error('❌ Error initializing music app:', error);
+        
+        // Fallback event listeners
+        setTimeout(() => {
+            console.log('🔧 Setting up fallback event listeners...');
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('🔘 Fallback filter clicked:', btn.dataset.filter);
+                    
+                    // Update active state
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Basic filtering
+                    const filter = btn.dataset.filter;
+                    const cards = document.querySelectorAll('.album-card');
+                    
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Fallback mobile menu
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileBtn && navMenu) {
+                mobileBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navMenu.classList.toggle('show');
+                    console.log('📱 Fallback mobile menu toggled');
+                });
+            }
+            
+            console.log('✅ Fallback event listeners ready');
+        }, 100);
     }
-    
-    .music-title {
-        font-size: 2rem;
-        margin-bottom: var(--space-sm);
-    }
-    
-    .music-subtitle {
-        font-size: 0.95rem;
-        line-height: 1.5;
-    }
-    
-    .stats-section {
-        padding: var(--space-md);
-        margin-bottom: var(--space-lg);
-    }
-    
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-sm);
-    }
-    
-    .stat-number {
-        font-size: 1.75rem;
-    }
-    
-    .stat-label {
-        font-size: 0.75rem;
-    }
-    
-    .controls-section {
-        padding: var(--space-md);
-        margin-bottom: var(--space-lg);
-    }
-    
-    .controls-container {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-        text-align: center;
-    }
-    
-    .filter-buttons {
-        justify-content: center;
-        gap: var(--space-xs);
-        flex-wrap: wrap;
-    }
-    
-    .filter-btn {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.75rem;
-        min-width: 80px;
-    }
-    
-    .sort-select {
-        max-width: 200px;
-        margin: 0 auto;
-        font-size: 0.75rem;
-    }
-    
-    .search-input {
-        max-width: 100%;
-        font-size: 0.875rem;
-    }
-    
-    .results-count {
-        text-align: center;
-        font-size: 0.75rem;
-    }
-    
-    .album-card {
-        padding: var(--space-sm);
-        border-radius: var(--radius-lg);
-    }
-    
-    .album-title {
-        font-size: 0.85rem;
-        line-height: 1.2;
-        margin-bottom: 0.25rem;
-    }
-    
-    .album-artist {
-        font-size: 0.75rem;
-        margin-bottom: 0.25rem;
-    }
-    
-    .album-year {
-        font-size: 0.7rem;
-    }
-    
-    .album-badge {
-        font-size: 0.5rem;
-        padding: 0.25rem 0.375rem;
-        top: var(--space-sm);
-        right: var(--space-sm);
-    }
-    
-    .pagination-section {
-        gap: var(--space-xs);
-        flex-wrap: wrap;
-        margin-top: var(--space-lg);
-    }
-    
-    .pagination-btn {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.7rem;
-        min-width: 32px;
-    }
-}
+});
 
-/* Tablet */
-@media (min-width: 769px) and (max-width: 1023px) {
-    .main {
-        padding-left: var(--space-lg);
-        padding-right: var(--space-lg);
-        padding-top: 100px;
-    }
-    
-    .nav {
-        height: 80px;
-        padding: 0 var(--space-xl);
-    }
-    
-    .nav-logo img {
-        height: 48px;
-    }
-    
-    .nav-menu {
-        display: flex;
-        font-size: 0.875rem;
-    }
-    
-    .mobile-menu-btn {
-        display: none;
-    }
-    
-    .controls-container {
-        grid-template-columns: auto auto 1fr auto;
-    }
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
-    .nav {
-        height: 80px;
-        padding: 0 var(--space-2xl);
-    }
-    
-    .nav-logo img {
-        height: 48px;
-    }
-    
-    .nav-menu {
-        display: flex;
-        font-size: 0.875rem;
-    }
-    
-    .mobile-menu-btn {
-        display: none;
-    }
-    
-    .main {
-        padding-top: 100px;
-        padding-left: var(--space-2xl);
-        padding-right: var(--space-2xl);
-    }
-    
-    .controls-container {
-        grid-template-columns: auto auto 1fr auto;
-    }
-}
-
-/* =================== LOADING STATES =================== */
-.album-card.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.album-cover-placeholder.loading {
-    background: linear-gradient(90deg, 
-        var(--color-black-light) 25%, 
-        rgba(42, 42, 42, 0.8) 50%, 
-        var(--color-black-light) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-/* =================== ACCESSIBILITY =================== */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* Focus styles for keyboard navigation */
-.filter-btn:focus,
-.sort-select:focus,
-.search-input:focus,
-.pagination-btn:focus,
-.album-card:focus {
-    outline: 2px solid var(--color-gold-warm);
-    outline-offset: 2px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    :root {
-        --color-gold-warm: #FFD700;
-        --color-white-secondary: #FFFFFF;
-        --color-white-tertiary: #CCCCCC;
-    }
-}
+// Global error handling
+window.addEventListener('error', (e) => {
+    console.error('🚨 Global error:', e.error);
+});
