@@ -1,1 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - Ultra Keith Official</title>
+    <meta name="description" content="Career statistics and achievements of Kool Keith - Hip-Hop's most prolific innovator with 40+ years of groundbreaking music.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #000000 100%);
+            color: #FFFFFF;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(218, 181, 71, 0.2);
+            z-index: 100;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 42px;
+        }
+
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            transition: color 0.25s;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #DAB547;
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: #DAB547;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 90px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-bottom: 4rem;
+        }
+
+        /* Hero Section */
+        .stats-hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .stats-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            color: #DAB547;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .stats-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Signature Divider */
+        .signature-divider {
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .signature-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.3), transparent);
+        }
+
+        .signature-text {
+            background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #000000 100%);
+            padding: 0 2rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.875rem;
+            color: #DAB547;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Stats Grid */
+        .stats-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: #DAB547;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .primary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(218, 181, 71, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: #DAB547;
+            display: block;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-description {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+
+        /* Rankings Table */
+        .rankings-container {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            margin-bottom: 3rem;
+            overflow-x: auto;
+        }
+
+        .rankings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .rankings-table th,
+        .rankings-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(218, 181, 71, 0.1);
+        }
+
+        .rankings-table th {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.875rem;
+            color: #DAB547;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .rankings-table td {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .rank-number {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #DAB547;
+        }
+
+        .keith-row {
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid rgba(218, 181, 71, 0.3);
+        }
+
+        .keith-row td {
+            color: #DAB547;
+            font-weight: 600;
+        }
+
+        /* Achievement Cards */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .achievement-card {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(218, 181, 71, 0.4);
+        }
+
+        .achievement-icon {
+            font-size: 2.5rem;
+            color: #DAB547;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #DAB547;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .achievement-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        /* Timeline */
+        .timeline-container {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            margin-bottom: 3rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #DAB547, rgba(218, 181, 71, 0.3));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(50% + 2rem);
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-left: calc(50% + 2rem);
+            padding-right: 0;
+        }
+
+        .timeline-content {
+            background: rgba(42, 42, 42, 0.8);
+            border: 1px solid rgba(218, 181, 71, 0.3);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            max-width: 300px;
+            position: relative;
+        }
+
+        .timeline-year {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.875rem;
+            color: #DAB547;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 1rem;
+            width: 12px;
+            height: 12px;
+            background: #DAB547;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                padding-top: 85px;
+            }
+
+            .primary-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .rankings-container {
+                padding: 1rem;
+            }
+
+            .rankings-table {
+                font-size: 0.8rem;
+            }
+
+            .rankings-table th,
+            .rankings-table td {
+                padding: 0.5rem;
+            }
+
+            .timeline::before {
+                left: 2rem;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-left: 4rem;
+                padding-right: 0;
+            }
+
+            .timeline-dot {
+                left: 2rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-menu {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-content">
+            <a href="../home.html" class="nav-logo">
+                <img src="../koolkeithmainlogo.png" alt="Kool Keith Home">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../bio.html">Biography</a></li>
+                <li><a href="../music/music.html">Music</a></li>
+                <li><a href="../videos.html">Videos</a></li>
+                <li><a href="../tour.html">Tour</a></li>
+                <li><a href="stats.html" class="active">Statistics</a></li>
+                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                <li><a href="../shop.html">Store</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="stats-hero">
+            <h1 class="stats-title">Career Statistics</h1>
+            <p class="stats-subtitle">
+                Four decades of innovation • Hip-Hop's most prolific artist • Legendary status confirmed
+            </p>
+        </section>
+
+        <!-- Primary Stats -->
+        <section class="stats-section">
+            <h2 class="section-title">Core Achievements</h2>
+            <div class="primary-stats">
+                <div class="stat-card">
+                    <span class="stat-number">92+</span>
+                    <div class="stat-label">Total Albums</div>
+                    <div class="stat-description">Most albums by any rapper in hip-hop history</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">41</span>
+                    <div class="stat-label">Years Active</div>
+                    <div class="stat-description">Longest active career in hip-hop (1984-2025)</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">58+</span>
+                    <div class="stat-label">Personas Created</div>
+                    <div class="stat-description">More alter egos than any artist in music</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">150+</span>
+                    <div class="stat-label">Collaborators</div>
+                    <div class="stat-description">Most musical partnerships in hip-hop</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="signature-divider">
+            <span class="signature-text">Hip-Hop's Undisputed Champion</span>
+        </div>
+
+        <!-- Hip-Hop Rankings -->
+        <section class="stats-section">
+            <h2 class="section-title">Hip-Hop Album Rankings</h2>
+            <div class="rankings-container">
+                <table class="rankings-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Artist</th>
+                            <th>Total Albums</th>
+                            <th>Studio</th>
+                            <th>Years Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="keith-row">
+                            <td class="rank-number">1</td>
+                            <td>Kool Keith</td>
+                            <td>92+</td>
+                            <td>40+</td>
+                            <td>41 (1984-2025)</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">2</td>
+                            <td>Tech N9ne</td>
+                            <td>~60</td>
+                            <td>29+</td>
+                            <td>27 (1996-2025)</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">3</td>
+                            <td>E-40</td>
+                            <td>~40</td>
+                            <td>27</td>
+                            <td>33 (1992-2025)</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">4</td>
+                            <td>Snoop Dogg</td>
+                            <td>~35</td>
+                            <td>19</td>
+                            <td>32 (1993-2025)</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">5</td>
+                            <td>Gucci Mane</td>
+                            <td>~35</td>
+                            <td>15+</td>
+                            <td>19 (2005-2025)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- All-Genre Rankings -->
+        <section class="stats-section">
+            <h2 class="section-title">All-Genre Artist Rankings</h2>
+            <div class="rankings-container">
+                <table class="rankings-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Artist</th>
+                            <th>Genre</th>
+                            <th>Total Albums</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rank-number">1</td>
+                            <td>Nana Mouskouri</td>
+                            <td>Pop/Folk</td>
+                            <td>450+</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">2</td>
+                            <td>Merzbow</td>
+                            <td>Noise</td>
+                            <td>431</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">3</td>
+                            <td>Buckethead</td>
+                            <td>Experimental</td>
+                            <td>700+</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">8</td>
+                            <td>Frank Zappa</td>
+                            <td>Rock/Experimental</td>
+                            <td>130</td>
+                        </tr>
+                        <tr>
+                            <td class="rank-number">9</td>
+                            <td>Johnny Cash</td>
+                            <td>Country</td>
+                            <td>213</td>
+                        </tr>
+                        <tr class="keith-row">
+                            <td class="rank-number">10</td>
+                            <td>Kool Keith</td>
+                            <td>Hip-Hop</td>
+                            <td>92+</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="signature-divider">
+            <span class="signature-text">Innovation Through Transformation</span>
+        </div>
+
+        <!-- Record Breaking Achievements -->
+        <section class="stats-section">
+            <h2 class="section-title">Record Breaking Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-icon">🏆</div>
+                    <div class="achievement-title">Most Prolific Rapper</div>
+                    <div class="achievement-description">
+                        92+ albums released over 41 years, significantly more than any other rapper in hip-hop history.
+                    </div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">🎭</div>
+                    <div class="achievement-title">Persona Master</div>
+                    <div class="achievement-description">
+                        Created 58+ distinct musical personas, more than any artist across all genres.
+                    </div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">⚡</div>
+                    <div class="achievement-title">Same-Day Release</div>
+                    <div class="achievement-description">
+                        First rapper to release two full albums on the same day (2006: Mr. Nogatco + Project Polaroid).
+                    </div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">🔬</div>
+                    <div class="achievement-title">Abstract Hip-Hop Pioneer</div>
+                    <div class="achievement-description">
+                        Pioneered abstract hip-hop with Ultramagnetic MCs, influencing countless artists and changing the genre.
+                    </div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">🎨</div>
+                    <div class="achievement-title">Concept Album King</div>
+                    <div class="achievement-description">
+                        Released 25+ concept albums, each with distinct personas and themes, more than any rapper.
+                    </div>
+                </div>
+                <div class="achievement-card">
+                    <div class="achievement-icon">🤝</div>
+                    <div class="achievement-title">Collaboration Champion</div>
+                    <div class="achievement-description">
+                        Worked with 150+ unique collaborators across hip-hop, rock, electronic, and experimental music.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Timeline -->
+        <section class="stats-section">
+            <h2 class="section-title">Legacy Timeline</h2>
+            <div class="timeline-container">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">1984</div>
+                            <div class="timeline-title">Ultramagnetic MCs Formation</div>
+                            <div class="timeline-desc">Co-founded legendary group, beginning 41-year career</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">1988</div>
+                            <div class="timeline-title">Critical Beatdown</div>
+                            <div class="timeline-desc">Groundbreaking debut album changed hip-hop forever</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">1996</div>
+                            <div class="timeline-title">Dr. Octagonecologyst</div>
+                            <div class="timeline-desc">Solo breakthrough: 200K+ independent sales, created template for concept albums</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2006</div>
+                            <div class="timeline-title">Same-Day Release Record</div>
+                            <div class="timeline-desc">First rapper to drop two albums on same day</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <div class="timeline-title">21-Day Release Record</div>
+                            <div class="timeline-desc">Fastest album turnaround in hip-hop history</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2025</div>
+                            <div class="timeline-title">Legend Status Confirmed</div>
+                            <div class="timeline-desc">92+ albums, still actively recording at age 61</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="signature-divider">
+            <span class="signature-text">Four Decades of Excellence</span>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        'use strict';
+        
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('show');
+                });
+            }
+            
+            // Close mobile menu when clicking nav links
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu) {
+                        navMenu.classList.remove('show');
+                    }
+                });
+            });
+            
+            // Animate stat numbers on scroll
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px 0px -100px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumber = entry.target.querySelector('.stat-number');
+                        if (statNumber && !statNumber.classList.contains('animated')) {
+                            animateNumber(statNumber);
+                            statNumber.classList.add('animated');
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.stat-card').forEach(card => {
+                observer.observe(card);
+            });
+            
+            function animateNumber(element) {
+                const finalNumber = element.textContent.trim();
+                const isPlus = finalNumber.includes('+');
+                const numericPart = parseInt(finalNumber.replace(/[^0-9]/g, ''));
+                
+                if (isNaN(numericPart)) return;
+                
+                let current = 0;
+                const increment = Math.ceil(numericPart / 50);
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= numericPart) {
+                        current = numericPart;
+                        clearInterval(timer);
+                    }
+                    element.textContent = current + (isPlus ? '+' : '');
+                }, 30);
+            }
+        });
+    </script>
+</body>
+</html>
