@@ -3,639 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solo Albums - Ultra Keith Official</title>
-    <meta name="description" content="Kool Keith's solo album discography - 18+ groundbreaking hip-hop releases spanning 1997-2025.">
+    <title>Music - Ultra Keith Official</title>
+    <meta name="description" content="Complete discography of Kool Keith - 40+ years of groundbreaking hip-hop music spanning 50+ albums.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
     
-    <style>
-        /* =================== FONT IMPORTS =================== */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        /* =================== CSS CUSTOM PROPERTIES =================== */
-        :root {
-            /* Color System */
-            --color-gold-primary: #D4AF37;
-            --color-gold-light: #E8C547;
-            --color-gold-warm: #DAB547;
-            --color-gold-rich: #B8941F;
-            --color-gold-muted: rgba(212, 175, 55, 0.12);
-            --color-gold-accent: rgba(218, 181, 71, 0.18);
-            
-            --color-burgundy-deep: #0F0505;
-            --color-burgundy-medium: #1A0A0A;
-            --color-burgundy-light: #2A1515;
-            
-            --color-black-pure: #000000;
-            --color-black-soft: #0A0A0A;
-            --color-black-medium: #1A1A1A;
-            --color-black-light: #2A2A2A;
-            
-            --color-white-pure: #FFFFFF;
-            --color-white-soft: #F8F8F8;
-            --color-white-muted: rgba(255, 255, 255, 0.92);
-            --color-white-secondary: rgba(255, 255, 255, 0.75);
-            --color-white-tertiary: rgba(255, 255, 255, 0.55);
-            
-            /* Spacing System */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 4rem;
-            --space-3xl: 6rem;
-            
-            /* Border Radius System */
-            --radius-sm: 0.375rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            --radius-2xl: 1.5rem;
-            
-            /* Shadow System */
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
-            --shadow-gold: 0 0 24px rgba(218, 181, 71, 0.15);
-            --shadow-warm: 0 4px 20px rgba(15, 5, 5, 0.4);
-            
-            /* Animation System */
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-elegant: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            
-            /* Typography System */
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            --font-display: 'Orbitron', 'Courier New', monospace;
-            
-            /* Z-Index System */
-            --z-modal: 10000;
-            --z-nav: 100;
-            --z-overlay: 10;
-            --z-base: 1;
-        }
-        
-        /* =================== BASE STYLES =================== */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-        
-        body {
-            font-family: var(--font-primary);
-            font-size: 1rem;
-            line-height: 1.6;
-            background: linear-gradient(135deg, 
-                var(--color-black-pure) 0%, 
-                var(--color-burgundy-deep) 25%, 
-                var(--color-burgundy-medium) 50%, 
-                var(--color-black-pure) 100%);
-            color: var(--color-white-pure);
-            overflow-x: hidden;
-            min-height: 100vh;
-            font-weight: 400;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        /* =================== NAVIGATION =================== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(218, 181, 71, 0.2);
-            z-index: var(--z-nav);
-            height: 72px;
-            display: flex;
-            align-items: center;
-            padding: 0 var(--space-lg);
-        }
-        
-        .nav-content {
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo img {
-            height: 42px;
-            transition: all var(--transition-base);
-            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-        }
-        
-        .nav-logo:hover img {
-            transform: scale(1.05);
-            filter: drop-shadow(0 4px 12px rgba(218, 181, 71, 0.3));
-        }
-        
-        .nav-menu {
-            display: none;
-            list-style: none;
-            gap: var(--space-2xl);
-            margin: 0;
-        }
-        
-        .nav-menu a {
-            color: var(--color-white-secondary);
-            text-decoration: none;
-            font-family: var(--font-display);
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all var(--transition-base);
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-            position: relative;
-        }
-        
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-gold-warm);
-            transition: width var(--transition-base);
-        }
-        
-        .nav-menu a:hover {
-            color: var(--color-gold-warm);
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-menu a.active {
-            color: var(--color-gold-warm);
-        }
-        
-        .nav-menu a.active::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: block;
-            background: none;
-            border: none;
-            color: var(--color-gold-warm);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: var(--space-xs);
-            transition: all var(--transition-base);
-        }
-        
-        .mobile-menu-btn:hover {
-            color: var(--color-gold-light);
-            transform: scale(1.1);
-        }
-        
-        /* =================== MAIN LAYOUT =================== */
-        .main {
-            padding-top: 90px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-left: var(--space-lg);
-            padding-right: var(--space-lg);
-            padding-bottom: var(--space-3xl);
-        }
-        
-        /* =================== BREADCRUMB =================== */
-        .breadcrumb {
-            margin-bottom: var(--space-lg);
-            font-size: 0.875rem;
-            color: var(--color-white-tertiary);
-        }
-        
-        .breadcrumb a {
-            color: var(--color-gold-warm);
-            text-decoration: none;
-            transition: color var(--transition-base);
-        }
-        
-        .breadcrumb a:hover {
-            color: var(--color-gold-light);
-        }
-        
-        /* =================== HERO SECTION =================== */
-        .page-hero {
-            text-align: center;
-            padding: var(--space-lg) 0 var(--space-xl) 0;
-        }
-        
-        .page-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 900;
-            color: var(--color-gold-warm);
-            margin-bottom: var(--space-sm);
-            line-height: 1.1;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-        }
-        
-        .page-subtitle {
-            font-size: clamp(0.875rem, 2vw, 1rem);
-            color: var(--color-white-muted);
-            line-height: 1.4;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 400;
-        }
-        
-        /* =================== FILTER & SORT SECTION =================== */
-        .controls-section {
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid rgba(218, 181, 71, 0.2);
-            border-radius: var(--radius-xl);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-xl);
-            backdrop-filter: blur(20px);
-        }
-        
-        .controls-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: var(--space-lg);
-            flex-wrap: wrap;
-        }
-        
-        /* Filter Section */
-        .filter-section {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-xs);
-        }
-        
-        .filter-label {
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            color: var(--color-white-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-        }
-        
-        .filter-buttons {
-            display: flex;
-            gap: var(--space-sm);
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            background: rgba(42, 42, 42, 0.8);
-            color: var(--color-white-secondary);
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            white-space: nowrap;
-        }
-        
-        .filter-btn:hover {
-            color: var(--color-gold-warm);
-            border-color: rgba(218, 181, 71, 0.4);
-        }
-        
-        .filter-btn.active {
-            background: var(--color-gold-warm);
-            color: var(--color-black-pure);
-            border-color: var(--color-gold-warm);
-        }
-        
-        /* Sort Section */
-        .sort-section {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-xs);
-        }
-        
-        .sort-label {
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            color: var(--color-white-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-        }
-        
-        .sort-select {
-            background: rgba(42, 42, 42, 0.8);
-            color: var(--color-white-secondary);
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            min-width: 120px;
-        }
-        
-        .sort-select:hover,
-        .sort-select:focus {
-            color: var(--color-gold-warm);
-            border-color: rgba(218, 181, 71, 0.4);
-            outline: none;
-        }
-        
-        /* Results Count */
-        .results-count {
-            font-family: var(--font-display);
-            font-size: 0.875rem;
-            color: var(--color-white-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 500;
-        }
-        
-        /* =================== ALBUM GRID =================== */
-        .albums-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-xl);
-            margin-bottom: var(--space-2xl);
-        }
-        
-        .album-card {
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid rgba(218, 181, 71, 0.1);
-            border-radius: var(--radius-xl);
-            padding: var(--space-lg);
-            text-align: center;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .album-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
-            transition: left var(--transition-slow);
-            pointer-events: none;
-        }
-        
-        .album-card:hover::before {
-            left: 100%;
-        }
-        
-        .album-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(218, 181, 71, 0.4);
-            box-shadow: var(--shadow-lg);
-            background: rgba(26, 26, 26, 0.95);
-        }
-        
-        .album-cover {
-            width: 100%;
-            aspect-ratio: 1;
-            border-radius: var(--radius-lg);
-            object-fit: cover;
-            margin-bottom: var(--space-md);
-            border: 2px solid rgba(218, 181, 71, 0.2);
-            background: var(--color-black-light);
-            transition: all var(--transition-base);
-        }
-        
-        .album-card:hover .album-cover {
-            transform: scale(1.05);
-            border-color: rgba(218, 181, 71, 0.5);
-        }
-        
-        .album-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--color-gold-warm);
-            margin-bottom: var(--space-xs);
-            line-height: 1.3;
-            transition: color var(--transition-base);
-        }
-        
-        .album-card:hover .album-title {
-            color: var(--color-gold-light);
-        }
-        
-        .album-artist {
-            font-size: 0.875rem;
-            color: var(--color-white-secondary);
-            margin-bottom: var(--space-xs);
-            font-weight: 500;
-        }
-        
-        .album-year {
-            font-size: 0.75rem;
-            color: var(--color-white-tertiary);
-            font-weight: 400;
-        }
-        
-        .album-badge {
-            position: absolute;
-            top: var(--space-md);
-            right: var(--space-md);
-            font-size: 0.625rem;
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .badge-solo { 
-            background: linear-gradient(135deg, var(--color-gold-warm), var(--color-gold-light)); 
-            color: var(--color-black-pure); 
-        }
-        
-        /* =================== PAGINATION =================== */
-        .pagination-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: var(--space-md);
-            margin-top: var(--space-2xl);
-        }
-        
-        .pagination-btn {
-            background: rgba(42, 42, 42, 0.8);
-            color: var(--color-white-secondary);
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 40px;
-        }
-        
-        .pagination-btn:hover {
-            color: var(--color-gold-warm);
-            border-color: rgba(218, 181, 71, 0.4);
-            transform: translateY(-2px);
-        }
-        
-        .pagination-btn.active {
-            background: var(--color-gold-warm);
-            color: var(--color-black-pure);
-            border-color: var(--color-gold-warm);
-        }
-        
-        .pagination-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .pagination-btn:disabled:hover {
-            transform: none;
-            color: var(--color-white-secondary);
-            border-color: rgba(218, 181, 71, 0.2);
-        }
-        
-        /* =================== RESPONSIVE DESIGN =================== */
-        @media (max-width: 768px) {
-            .main {
-                padding-left: var(--space-md);
-                padding-right: var(--space-md);
-                padding-top: 90px;
-            }
-            
-            .page-hero {
-                padding: var(--space-md) 0 var(--space-lg) 0;
-            }
-            
-            .controls-container {
-                flex-direction: column;
-                align-items: stretch;
-                gap: var(--space-md);
-            }
-            
-            .filter-section,
-            .sort-section {
-                text-align: center;
-            }
-            
-            .albums-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-lg);
-            }
-            
-            .album-card {
-                padding: var(--space-md);
-            }
-            
-            .album-title {
-                font-size: 0.875rem;
-            }
-            
-            .pagination-section {
-                gap: var(--space-sm);
-                flex-wrap: wrap;
-            }
-            
-            .pagination-btn {
-                padding: var(--space-xs) var(--space-sm);
-                min-width: 35px;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .nav {
-                height: 80px;
-                padding: 0 var(--space-2xl);
-            }
-            
-            .nav-logo img {
-                height: 48px;
-            }
-            
-            .nav-menu {
-                display: flex;
-                font-size: 0.875rem;
-            }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            .main {
-                padding-top: 100px;
-                padding-left: var(--space-2xl);
-                padding-right: var(--space-2xl);
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .albums-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (min-width: 1200px) {
-            .albums-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-    </style>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="music.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="nav" role="navigation" aria-label="Main navigation">
         <div class="nav-content">
-            <a href="home.html" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
+            <a href="../home.html" class="nav-logo">
+                <img src="../koolkeithmainlogo.png" alt="Kool Keith Home">
             </a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="bio.html">Biography</a></li>
-                <li><a href="music.html" class="active">Music</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="tour.html">Tour</a></li>
+                <li><a href="../bio.html">Biography</a></li>
+                <li><a href="../music.html" class="active">Music</a></li>
+                <li><a href="../videos.html">Videos</a></li>
+                <li><a href="../tour.html">Tour</a></li>
                 <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                <li><a href="shop.html">Store</a></li>
+                <li><a href="../shop.html">Store</a></li>
             </ul>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
                 ☰
@@ -645,17 +39,34 @@
     
     <!-- Main Content -->
     <main class="main">
-        <!-- Breadcrumb -->
-        <nav class="breadcrumb">
-            <a href="music.html">Music</a> / Solo Albums
-        </nav>
-        
         <!-- Hero Section -->
-        <section class="page-hero">
-            <h1 class="page-title">Solo Albums</h1>
-            <p class="page-subtitle">
-                Keith's personal artistic vision across four decades of groundbreaking solo releases
+        <section class="music-hero">
+            <h1 class="music-title">Complete Discography</h1>
+            <p class="music-subtitle">
+                40+ Years of Innovation • 50+ Albums • Multiple Personas • Legendary Collaborations
             </p>
+        </section>
+        
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalAlbums">52</span>
+                    <span class="stat-label">Albums Released</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Years Active</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">58+</span>
+                    <span class="stat-label">Alter Egos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Innovation</span>
+                </div>
+            </div>
         </section>
         
         <!-- Controls Section -->
@@ -666,373 +77,164 @@
                     <div class="filter-buttons">
                         <button class="filter-btn active" data-filter="all">All</button>
                         <button class="filter-btn" data-filter="solo">Solo</button>
-                        <button class="filter-btn" data-filter="collab">Collab</button>
+                        <button class="filter-btn" data-filter="collab">Collaborations</button>
+                        <button class="filter-btn" data-filter="persona">Personas</button>
+                        <button class="filter-btn" data-filter="group">Groups</button>
                     </div>
                 </div>
                 
                 <div class="sort-section">
                     <span class="sort-label">Sort</span>
                     <select class="sort-select" id="sortSelect">
-                        <option value="year-desc">Year ▼</option>
-                        <option value="year-asc">Year ▲</option>
+                        <option value="year-desc">Newest First</option>
+                        <option value="year-asc">Oldest First</option>
                         <option value="title-asc">A-Z</option>
                         <option value="title-desc">Z-A</option>
                     </select>
                 </div>
                 
+                <div class="search-section">
+                    <input type="text" class="search-input" placeholder="Search albums..." id="searchInput">
+                </div>
+                
                 <div class="results-count" id="resultsCount">
-                    Showing 12 of 18 albums
+                    Showing 12 of 52 albums
                 </div>
             </div>
         </section>
         
         <!-- Albums Grid -->
-        <section class="albums-grid" id="albumsGrid">
-            <!-- Page 1: Albums 1-12 -->
-            <div class="album-card" data-category="solo" data-year="2021" data-title="Space Goretex 2">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/space-goretex-2.jpg" alt="Space Goretex 2" class="album-cover">
-                <h3 class="album-title">Space Goretex 2</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2006</p>
+        <section class="albums-section">
+            <div class="albums-grid" id="albumsGrid">
+                
+                <!-- 2025 -->
+                <div class="album-card" data-category="collab" data-year="2025" data-title="karpenters" data-search="karpenters kool keith 2025">
+                    <div class="album-badge badge-collab">Collab</div>
+                    <img src="album-covers/karpenters.jpg" alt="Karpenters" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Karpenters</h3>
+                    <p class="album-artist">Kool Keith</p>
+                    <p class="album-year">2025</p>
+                </div>
+                
+                <!-- 2023 -->
+                <div class="album-card" data-category="persona" data-year="2023" data-title="black elvis 2" data-search="black elvis 2 black elvis 2023">
+                    <div class="album-badge badge-persona">Persona</div>
+                    <img src="album-covers/blackelvis2.jpg" alt="Black Elvis 2" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Black Elvis 2</h3>
+                    <p class="album-artist">Black Elvis</p>
+                    <p class="album-year">2023</p>
+                </div>
+                
+                <div class="album-card" data-category="persona" data-year="2023" data-title="mr controller" data-search="mr controller mr controller 2023">
+                    <div class="album-badge badge-persona">Persona</div>
+                    <img src="album-covers/mr-controller.jpg" alt="Mr. Controller" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Mr. Controller</h3>
+                    <p class="album-artist">Mr. Controller</p>
+                    <p class="album-year">2023</p>
+                </div>
+                
+                <!-- 2021 -->
+                <div class="album-card" data-category="solo" data-year="2021" data-title="space goretex 2" data-search="space goretex 2 kool keith 2021">
+                    <div class="album-badge badge-solo">Solo</div>
+                    <img src="album-covers/space-goretex-2.jpg" alt="Space Goretex 2" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Space Goretex 2</h3>
+                    <p class="album-artist">Kool Keith</p>
+                    <p class="album-year">2021</p>
+                </div>
+                
+                <!-- 2020 -->
+                <div class="album-card" data-category="solo" data-year="2020" data-title="space goretex" data-search="space goretex kool keith 2020">
+                    <div class="album-badge badge-solo">Solo</div>
+                    <img src="album-covers/space-goretex.jpg" alt="Space Goretex" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Space Goretex</h3>
+                    <p class="album-artist">Kool Keith</p>
+                    <p class="album-year">2020</p>
+                </div>
+                
+                <!-- 2019 -->
+                <div class="album-card" data-category="solo" data-year="2019" data-title="keith" data-search="keith kool keith 2019">
+                    <div class="album-badge badge-solo">Solo</div>
+                    <img src="album-covers/keith.jpg" alt="Keith" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Keith</h3>
+                    <p class="album-artist">Kool Keith</p>
+                    <p class="album-year">2019</p>
+                </div>
+                
+                <div class="album-card" data-category="collab" data-year="2019" data-title="czarface meets" data-search="czarface meets ghostface czarface kool keith 2019">
+                    <div class="album-badge badge-collab">Collab</div>
+                    <img src="album-covers/czarface-meets.jpg" alt="Czarface Meets..." class="album-cover" loading="lazy">
+                    <h3 class="album-title">Czarface Meets...</h3>
+                    <p class="album-artist">Czarface & Kool Keith</p>
+                    <p class="album-year">2019</p>
+                </div>
+                
+                <div class="album-card" data-category="solo" data-year="2019" data-title="rocket science for dummies" data-search="rocket science for dummies kool keith 2019">
+                    <div class="album-badge badge-solo">Solo</div>
+                    <img src="album-covers/rocket-science.jpg" alt="Rocket Science for Dummies" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Rocket Science for Dummies</h3>
+                    <p class="album-artist">Kool Keith</p>
+                    <p class="album-year">2019</p>
+                </div>
+                
+                <!-- 2018 -->
+                <div class="album-card" data-category="solo" data-year="2018" data-title="computer technology" data-search="computer technology kool keith 2018">
+                    <div class="album-badge badge-solo">Solo</div>
+                    <img src="album-covers/computer-technology.jpg" alt="Computer Technology" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Computer Technology</h3>
+                    <p class="album-artist">Kool Keith</p>
+                    <p class="album-year">2018</p>
+                </div>
+                
+                <div class="album-card" data-category="collab" data-year="2018" data-title="super galactic expander" data-search="super galactic expander real bad man kool keith 2018">
+                    <div class="album-badge badge-collab">Collab</div>
+                    <img src="album-covers/super-galactic.jpg" alt="Super Galactic Expander" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Super Galactic Expander</h3>
+                    <p class="album-artist">Real Bad Man & Kool Keith</p>
+                    <p class="album-year">2018</p>
+                </div>
+                
+                <!-- 2017 -->
+                <div class="album-card" data-category="collab" data-year="2017" data-title="more soup" data-search="more soup ray west kool keith 2017">
+                    <div class="album-badge badge-collab">Collab</div>
+                    <img src="album-covers/more-soup.jpg" alt="More Soup" class="album-cover" loading="lazy">
+                    <h3 class="album-title">More Soup</h3>
+                    <p class="album-artist">Ray West & Kool Keith</p>
+                    <p class="album-year">2017</p>
+                </div>
+                
+                <!-- 2016 -->
+                <div class="album-card" data-category="solo" data-year="2016" data-title="feature magnetic" data-search="feature magnetic kool keith 2016">
+                    <div class="album-badge badge-solo">Solo</div>
+                    <img src="album-covers/feature-magnetic.jpg" alt="Feature Magnetic" class="album-cover" loading="lazy">
+                    <h3 class="album-title">Feature Magnetic</h3>
+                    <p class="album-artist">Kool Keith</p>
+                    <p class="album-year">2016</p>
+                </div>
+                
             </div>
             
-            <div class="album-card" data-category="solo" data-year="2005" data-title="Official Space Tape">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/official-space-tape.jpg" alt="Official Space Tape" class="album-cover">
-                <h3 class="album-title">Official Space Tape</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2005</p>
+            <!-- Load More / Pagination -->
+            <div class="pagination-section" id="paginationSection">
+                <button class="pagination-btn" id="prevBtn" disabled>← Previous</button>
+                <div class="page-numbers" id="pageNumbers">
+                    <button class="pagination-btn page-btn active" data-page="1">1</button>
+                    <button class="pagination-btn page-btn" data-page="2">2</button>
+                    <button class="pagination-btn page-btn" data-page="3">3</button>
+                    <button class="pagination-btn page-btn" data-page="4">4</button>
+                    <button class="pagination-btn page-btn" data-page="5">5</button>
+                </div>
+                <button class="pagination-btn" id="nextBtn">Next →</button>
             </div>
             
-            <div class="album-card" data-category="solo" data-year="2005" data-title="Total Orgasm">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/total-orgasm.jpg" alt="Total Orgasm" class="album-cover">
-                <h3 class="album-title">Total Orgasm</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2005</p>
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <h3>No Albums Found</h3>
+                <p>Try adjusting your search or filter criteria.</p>
             </div>
-        </section>
-        
-        <!-- Pagination -->
-        <section class="pagination-section">
-            <button class="pagination-btn" id="prevBtn" disabled>← Previous</button>
-            <button class="pagination-btn active" data-page="1">1</button>
-            <button class="pagination-btn" data-page="2">2</button>
-            <button class="pagination-btn" id="nextBtn">Next →</button>
         </section>
     </main>
 
     <!-- JavaScript -->
-    <script>
-        'use strict';
-        
-        /**
-         * Solo Albums Page Application
-         * Handles filtering, sorting, and pagination
-         */
-        class SoloAlbumsApp {
-            constructor() {
-                this.currentPage = 1;
-                this.albumsPerPage = 12;
-                this.currentFilter = 'all';
-                this.currentSort = 'year-desc';
-                
-                // All albums data (page 2 albums stored here)
-                this.allAlbums = [
-                    // Page 1 albums (already displayed)
-                    { title: "Space Goretex 2", artist: "Kool Keith", year: 2021, category: "solo" },
-                    { title: "Space Goretex", artist: "Kool Keith", year: 2020, category: "solo" },
-                    { title: "Keith", artist: "Kool Keith", year: 2019, category: "solo" },
-                    { title: "Rocket Science for Dummies", artist: "Kool Keith", year: 2019, category: "solo" },
-                    { title: "Computer Technology", artist: "Kool Keith", year: 2018, category: "solo" },
-                    { title: "Feature Magnetic", artist: "Kool Keith", year: 2016, category: "solo" },
-                    { title: "Demolition Crash", artist: "Kool Keith", year: 2016, category: "solo" },
-                    { title: "Complicated Trip", artist: "Kool Keith", year: 2015, category: "solo" },
-                    { title: "Lost Masters", artist: "Kool Keith", year: 2007, category: "solo" },
-                    { title: "Nogatco Rd.", artist: "Kool Keith", year: 2006, category: "solo" },
-                    { title: "Official Space Tape", artist: "Kool Keith", year: 2005, category: "solo" },
-                    { title: "Total Orgasm", artist: "Kool Keith", year: 2005, category: "solo" },
-                    
-                    // Page 2 albums
-                    { title: "Personal Album", artist: "Kool Keith", year: 2002, category: "solo" },
-                    { title: "World Wide Lambs", artist: "Kool Keith", year: 2001, category: "solo" },
-                    { title: "Sex Style", artist: "Kool Keith", year: 1997, category: "solo" },
-                    { title: "First Come, First Served", artist: "Dr. Dooom", year: 1999, category: "solo" },
-                    { title: "Black Elvis/Lost in Space", artist: "Black Elvis", year: 1999, category: "solo" },
-                    { title: "Dr. Octagonecologyst", artist: "Dr. Octagon", year: 1996, category: "solo" }
-                ];
-                
-                this.init();
-            }
-            
-            init() {
-                this.bindEvents();
-                this.updateResultsCount();
-            }
-            
-            bindEvents() {
-                // Filter buttons
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        this.handleFilter(e.target.dataset.filter);
-                    });
-                });
-                
-                // Sort select
-                document.getElementById('sortSelect').addEventListener('change', (e) => {
-                    this.handleSort(e.target.value);
-                });
-                
-                // Pagination buttons
-                document.getElementById('prevBtn').addEventListener('click', () => {
-                    this.goToPage(this.currentPage - 1);
-                });
-                
-                document.getElementById('nextBtn').addEventListener('click', () => {
-                    this.goToPage(this.currentPage + 1);
-                });
-                
-                document.querySelectorAll('.pagination-btn[data-page]').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        this.goToPage(parseInt(e.target.dataset.page));
-                    });
-                });
-                
-                // Album card clicks
-                document.querySelectorAll('.album-card').forEach(card => {
-                    card.addEventListener('click', () => {
-                        this.handleAlbumClick(card);
-                    });
-                });
-            }
-            
-            handleFilter(filter) {
-                this.currentFilter = filter;
-                
-                // Update active button
-                document.querySelectorAll('.filter-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.filter === filter);
-                });
-                
-                this.applyFilters();
-            }
-            
-            handleSort(sortType) {
-                this.currentSort = sortType;
-                this.applySorting();
-            }
-            
-            applyFilters() {
-                const cards = document.querySelectorAll('.album-card');
-                let visibleCount = 0;
-                
-                cards.forEach(card => {
-                    const category = card.dataset.category;
-                    const matchesFilter = this.currentFilter === 'all' || category === this.currentFilter;
-                    
-                    if (matchesFilter) {
-                        card.style.display = 'block';
-                        visibleCount++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                this.updateResultsCount(visibleCount);
-            }
-            
-            applySorting() {
-                const grid = document.getElementById('albumsGrid');
-                const cards = Array.from(grid.querySelectorAll('.album-card'));
-                
-                cards.sort((a, b) => {
-                    const yearA = parseInt(a.dataset.year);
-                    const yearB = parseInt(b.dataset.year);
-                    const titleA = a.dataset.title.toLowerCase();
-                    const titleB = b.dataset.title.toLowerCase();
-                    
-                    switch (this.currentSort) {
-                        case 'year-desc':
-                            return yearB - yearA;
-                        case 'year-asc':
-                            return yearA - yearB;
-                        case 'title-asc':
-                            return titleA.localeCompare(titleB);
-                        case 'title-desc':
-                            return titleB.localeCompare(titleA);
-                        default:
-                            return yearB - yearA;
-                    }
-                });
-                
-                // Re-append cards in new order
-                cards.forEach(card => {
-                    grid.appendChild(card);
-                });
-            }
-            
-            goToPage(pageNumber) {
-                if (pageNumber < 1 || pageNumber > 2) return;
-                
-                this.currentPage = pageNumber;
-                
-                // Update pagination buttons
-                document.querySelectorAll('.pagination-btn[data-page]').forEach(btn => {
-                    btn.classList.toggle('active', parseInt(btn.dataset.page) === pageNumber);
-                });
-                
-                // Update prev/next buttons
-                document.getElementById('prevBtn').disabled = pageNumber === 1;
-                document.getElementById('nextBtn').disabled = pageNumber === 2;
-                
-                // For now, just log - in full implementation would load different albums
-                console.log(`Navigating to page ${pageNumber}`);
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            
-            updateResultsCount(count = null) {
-                const total = count !== null ? count : 12;
-                const totalAlbums = this.allAlbums.length;
-                document.getElementById('resultsCount').textContent = 
-                    `Showing ${total} of ${totalAlbums} albums`;
-            }
-            
-            handleAlbumClick(card) {
-                const title = card.querySelector('.album-title').textContent;
-                const artist = card.querySelector('.album-artist').textContent;
-                const year = card.querySelector('.album-year').textContent;
-                
-                console.log('Album clicked:', { title, artist, year });
-                // TODO: Navigate to individual album page
-            }
-        }
-        
-        /**
-         * Mobile Menu Handler
-         */
-        class MobileMenu {
-            constructor() {
-                this.menuBtn = document.getElementById('mobileMenuBtn');
-                this.navMenu = document.getElementById('navMenu');
-                
-                if (this.menuBtn && this.navMenu) {
-                    this.bindEvents();
-                }
-            }
-            
-            bindEvents() {
-                this.menuBtn.addEventListener('click', () => {
-                    this.toggle();
-                });
-                
-                // Close menu when clicking nav links
-                document.querySelectorAll('.nav-menu a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        this.close();
-                    });
-                });
-                
-                // Close menu on escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') {
-                        this.close();
-                    }
-                });
-            }
-            
-            toggle() {
-                const isOpen = this.navMenu.classList.toggle('show');
-                this.menuBtn.setAttribute('aria-expanded', isOpen);
-            }
-            
-            close() {
-                this.navMenu.classList.remove('show');
-                this.menuBtn.setAttribute('aria-expanded', 'false');
-            }
-        }
-        
-        /**
-         * Initialize application when DOM is ready
-         */
-        document.addEventListener('DOMContentLoaded', () => {
-            window.soloAlbumsApp = new SoloAlbumsApp();
-            window.mobileMenu = new MobileMenu();
-        });
-    </script>
+    <script src="music.js"></script>
 </body>
-</html>2021</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2020" data-title="Space Goretex">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/space-goretex.jpg" alt="Space Goretex" class="album-cover">
-                <h3 class="album-title">Space Goretex</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2020</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2019" data-title="Keith">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/keith.jpg" alt="Keith" class="album-cover">
-                <h3 class="album-title">Keith</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2019</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2019" data-title="Rocket Science for Dummies">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/rocket-science.jpg" alt="Rocket Science for Dummies" class="album-cover">
-                <h3 class="album-title">Rocket Science for Dummies</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2019</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2018" data-title="Computer Technology">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/computer-technology.jpg" alt="Computer Technology" class="album-cover">
-                <h3 class="album-title">Computer Technology</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2018</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2016" data-title="Feature Magnetic">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/feature-magnetic.jpg" alt="Feature Magnetic" class="album-cover">
-                <h3 class="album-title">Feature Magnetic</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2016</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2016" data-title="Demolition Crash">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/demolition-crash.jpg" alt="Demolition Crash" class="album-cover">
-                <h3 class="album-title">Demolition Crash</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2016</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2015" data-title="Complicated Trip">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/complicated-trip.jpg" alt="Complicated Trip" class="album-cover">
-                <h3 class="album-title">Complicated Trip</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2015</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2007" data-title="Lost Masters">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/lost-masters.jpg" alt="Lost Masters" class="album-cover">
-                <h3 class="album-title">Lost Masters</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">2007</p>
-            </div>
-            
-            <div class="album-card" data-category="solo" data-year="2006" data-title="Nogatco Rd.">
-                <div class="album-badge badge-solo">Solo</div>
-                <img src="album-covers/nogatco-rd.jpg" alt="Nogatco Rd." class="album-cover">
-                <h3 class="album-title">Nogatco Rd.</h3>
-                <p class="album-artist">Kool Keith</p>
-                <p class="album-year">
+</html>
