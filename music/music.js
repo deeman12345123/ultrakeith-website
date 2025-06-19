@@ -762,31 +762,104 @@ class Analytics {
 }
 
 /**
- * Initialize application when DOM is ready
+ * Initialize application when DOM is ready - FIXED EVENT BINDING
  */
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎵 DOM loaded, initializing...');
+    
     try {
         // Initialize main application
         window.musicApp = new MusicDiscographyApp();
+        console.log('✅ Music app initialized');
         
         // Initialize mobile menu
         window.mobileMenu = new MobileMenu();
+        console.log('✅ Mobile menu initialized');
         
         // Initialize utilities
         AppUtils.initLazyLoading();
+        console.log('✅ Utilities initialized');
+        
+        // Test button functionality
+        const testButtons = () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const sortSelect = document.getElementById('sortSelect');
+            const searchInput = document.getElementById('searchInput');
+            
+            console.log('🔍 Found elements:');
+            console.log('Filter buttons:', filterBtns.length);
+            console.log('Sort select:', sortSelect ? 'Found' : 'Not found');
+            console.log('Search input:', searchInput ? 'Found' : 'Not found');
+            
+            // Add emergency event listeners if needed
+            if (filterBtns.length === 0) {
+                console.error('❌ No filter buttons found!');
+            }
+            
+            // Manual button binding as fallback
+            filterBtns.forEach((btn, index) => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🔘 Filter button clicked:', btn.dataset.filter);
+                    if (window.musicApp) {
+                        window.musicApp.handleFilter(btn.dataset.filter);
+                    }
+                });
+                console.log(`✅ Filter button ${index + 1} bound`);
+            });
+        };
+        
+        // Run test after a brief delay
+        setTimeout(testButtons, 100);
         
         console.log('🎵 Ultra Keith Music App fully initialized with 75 albums!');
         
     } catch (error) {
-        console.error('Error initializing music app:', error);
+        console.error('❌ Error initializing music app:', error);
         
         // Fallback: ensure basic functionality works
-        document.querySelectorAll('.album-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('.album-title').textContent;
-                console.log('Fallback: Album clicked -', title);
+        setTimeout(() => {
+            console.log('🔧 Setting up fallback event listeners...');
+            
+            // Fallback filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('🔘 Fallback filter clicked:', btn.dataset.filter);
+                    
+                    // Update active state
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Basic filtering
+                    const filter = btn.dataset.filter;
+                    const cards = document.querySelectorAll('.album-card');
+                    
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
             });
-        });
+            
+            // Fallback mobile menu
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileBtn && navMenu) {
+                mobileBtn.addEventListener('click', () => {
+                    console.log('📱 Mobile menu toggled');
+                    navMenu.classList.toggle('show');
+                });
+            }
+            
+            console.log('✅ Fallback event listeners set up');
+            
+        }, 500);
     }
 });
 
@@ -1358,4 +1431,6 @@ if (typeof module !== 'undefined' && module.exports) {
                 year: 2020,
                 category: "collab",
                 search: "space goretex kool keith thetan 2020",
-                cover
+                coverSrc: "album-covers/space-goretex.jpg",
+                slug: "space-goretex"
+            },
