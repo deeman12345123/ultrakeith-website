@@ -178,7 +178,111 @@ class MusicDiscographyApp {
                 coverSrc: "album-covers/serpent.jpg",
                 slug: "serpent"
             },
-            // Add more albums here - keeping it shorter for now
+            // 2022
+            {
+                title: "Keith's Salon",
+                artist: "Kool Keith",
+                year: 2022,
+                category: "solo",
+                search: "keiths salon kool keith 2022",
+                coverSrc: "album-covers/keiths-salon.jpg",
+                slug: "keiths-salon"
+            },
+            {
+                title: "Fusion Beats",
+                artist: "Kool Keith",
+                year: 2022,
+                category: "solo",
+                search: "fusion beats kool keith 2022",
+                coverSrc: "album-covers/fusion-beats.jpg",
+                slug: "fusion-beats"
+            },
+            {
+                title: "Computer Technology",
+                artist: "Kool Keith",
+                year: 2022,
+                category: "solo",
+                search: "computer technology kool keith 2022",
+                coverSrc: "album-covers/computer-technology.jpg",
+                slug: "computer-technology"
+            },
+            // 2021
+            {
+                title: "Space Goretex",
+                artist: "Kool Keith & L'Orange",
+                year: 2021,
+                category: "collab",
+                search: "space goretex kool keith lorange 2021",
+                coverSrc: "album-covers/space-goretex.jpg",
+                slug: "space-goretex"
+            },
+            {
+                title: "Super Hero",
+                artist: "Kool Keith",
+                year: 2021,
+                category: "solo",
+                search: "super hero kool keith 2021",
+                coverSrc: "album-covers/super-hero.jpg",
+                slug: "super-hero"
+            },
+            // 2020
+            {
+                title: "Keith",
+                artist: "Kool Keith",
+                year: 2020,
+                category: "solo",
+                search: "keith kool keith 2020",
+                coverSrc: "album-covers/keith-2020.jpg",
+                slug: "keith"
+            },
+            {
+                title: "Booty Clap",
+                artist: "Kool Keith",
+                year: 2020,
+                category: "solo",
+                search: "booty clap kool keith 2020",
+                coverSrc: "album-covers/booty-clap.jpg",
+                slug: "booty-clap"
+            },
+            {
+                title: "Feature Magnetic",
+                artist: "Kool Keith",
+                year: 2020,
+                category: "solo",
+                search: "feature magnetic kool keith 2020",
+                coverSrc: "album-covers/feature-magnetic.jpg",
+                slug: "feature-magnetic"
+            },
+            // 2019
+            {
+                title: "Czarface Meets Ghostface",
+                artist: "CZARFACE & Ghostface Killah (feat. Kool Keith)",
+                year: 2019,
+                category: "collab",
+                search: "czarface meets ghostface kool keith 2019",
+                coverSrc: "album-covers/czarface-ghostface.jpg",
+                slug: "czarface-meets-ghostface"
+            },
+            // 2018
+            {
+                title: "Complicated Trip",
+                artist: "Kool Keith & KutMasta Kurt",
+                year: 2018,
+                category: "collab",
+                search: "complicated trip kool keith kutmasta kurt 2018",
+                coverSrc: "album-covers/complicated-trip.jpg",
+                slug: "complicated-trip"
+            },
+            {
+                title: "The Preacher",
+                artist: "Kool Keith",
+                year: 2018,
+                category: "solo",
+                search: "the preacher kool keith 2018",
+                coverSrc: "album-covers/the-preacher.jpg",
+                slug: "the-preacher"
+            },
+            // Earlier releases
             {
                 title: "Critical Beatdown",
                 artist: "Ultramagnetic MCs",
@@ -187,6 +291,42 @@ class MusicDiscographyApp {
                 search: "critical beatdown ultramagnetic mcs 1988",
                 coverSrc: "album-covers/critical-beatdown.jpg",
                 slug: "critical-beatdown"
+            },
+            {
+                title: "Dr. Octagonecologyst",
+                artist: "Dr. Octagon",
+                year: 1996,
+                category: "solo",
+                search: "dr octagonecologyst octagon kool keith 1996",
+                coverSrc: "album-covers/dr-octagonecologyst.jpg",
+                slug: "dr-octagonecologyst"
+            },
+            {
+                title: "Sex Style",
+                artist: "Kool Keith",
+                year: 1997,
+                category: "solo",
+                search: "sex style kool keith 1997",
+                coverSrc: "album-covers/sex-style.jpg",
+                slug: "sex-style"
+            },
+            {
+                title: "First Come, First Served",
+                artist: "Dr. Dooom",
+                year: 1999,
+                category: "solo",
+                search: "first come first served dr dooom kool keith 1999",
+                coverSrc: "album-covers/first-come-first-served.jpg",
+                slug: "first-come-first-served"
+            },
+            {
+                title: "Black Elvis/Lost in Space",
+                artist: "Kool Keith",
+                year: 1999,
+                category: "solo",
+                search: "black elvis lost in space kool keith 1999",
+                coverSrc: "album-covers/black-elvis.jpg",
+                slug: "black-elvis-lost-in-space"
             }
         ];
         
