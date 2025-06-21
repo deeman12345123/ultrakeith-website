@@ -392,7 +392,7 @@
         }
         
         .album-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--gold);
             margin-bottom: 0.5rem;
@@ -405,7 +405,7 @@
         }
         
         .album-artist {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: var(--white-75);
             margin-bottom: var(--space-sm);
             font-weight: 400;
@@ -698,7 +698,7 @@
                 height: 380px !important;
                 overflow: hidden !important;
                 position: relative !important;
-                width: 280px !important;
+                width: 270px !important;
                 margin: 0 auto !important;
                 /* FORCE OVERRIDE DESKTOP STYLES */
                 mask: none !important;
@@ -710,24 +710,25 @@
             .carousel-track {
                 display: flex !important;
                 gap: 0 !important;
-                animation: mobileSlideShow 20s linear infinite !important;
+                animation: mobileSlideShow 25s linear infinite !important;
                 width: max-content !important;
             }
             
             @keyframes mobileSlideShow {
-                0%, 15% { transform: translateX(0); }
-                20%, 35% { transform: translateX(-280px); }
-                40%, 55% { transform: translateX(-560px); }
-                60%, 75% { transform: translateX(-840px); }
-                80%, 95% { transform: translateX(-1120px); }
-                100% { transform: translateX(-1400px); }
+                0%, 12% { transform: translateX(0); }
+                16%, 28% { transform: translateX(-270px); }
+                32%, 44% { transform: translateX(-540px); }
+                48%, 60% { transform: translateX(-810px); }
+                64%, 76% { transform: translateX(-1080px); }
+                80%, 92% { transform: translateX(-1350px); }
+                96%, 100% { transform: translateX(0); }
             }
             
             .carousel-slide {
-                /* PROFESSIONAL MOBILE SIZE */
-                width: 280px !important;
+                /* PROFESSIONAL MOBILE SIZE - SLIGHTLY REDUCED */
+                width: 270px !important;
                 height: 360px !important;
-                flex: 0 0 280px !important;
+                flex: 0 0 270px !important;
                 background: rgba(26, 26, 26, 0.95) !important;
                 border: 1px solid rgba(218, 181, 71, 0.3) !important;
                 border-radius: var(--radius-lg) !important;
@@ -1053,6 +1054,23 @@
                             </div>
                             <div class="album-actions">
                                 <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DUPLICATE FIRST CARD FOR SEAMLESS LOOP -->
+                    <div class="carousel-slide">
+                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Karpenters</h3>
+                                <p class="album-artist">Kool Keith</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-latest">June 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
                             </div>
                         </div>
                     </div>
