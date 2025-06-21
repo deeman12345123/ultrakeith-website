@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<nav class="nav" role="navigation">
+        <div class="nav-content">
+            <a href="home.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
+            </a>
+            
+            <div class="nav-right">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="music/music.html">Music</a></li>
+                    <li><a href="bio.html">Biography</a></li>
+                    <li><a href="tour.html">Tour</a></li>
+                    <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                    <li><a href="shop.html">Store</a></li>
+                </ul>
+                
+                <div class="nav-controls">
+                    <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
+                        <span class="audio-icon" id="audioIcon">🔊</span>
+                        <span class="audio-text" id="audioText">Audio On</span>
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                </div>
+            </div>
+        </div>
+    </nav><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,8 +75,15 @@
             border-bottom: 1px solid rgba(218, 181, 71, 0.2); z-index: 100; height: 72px; display: flex; align-items: center; padding: 0 var(--space-lg);
         }
         .nav-content { max-width: 1400px; width: 100%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        
         .nav-logo img { height: 42px; transition: all var(--transition); }
         .nav-logo:hover img { transform: scale(1.05); }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+        }
         
         .nav-menu { display: none; list-style: none; gap: var(--space-2xl); margin: 0; }
         .nav-menu a {
@@ -79,6 +110,29 @@
         
         .nav-controls {
             display: flex; align-items: center; gap: var(--space-md);
+        }71, 0.2);
+            padding: var(--space-lg);
+            gap: var(--space-md);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .nav-controls {
+            display: flex; align-items: center; gap: var(--space-md);
+        }
+        
+        .nav-left {
+            position: absolute;
+            left: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-right {
+            position: absolute;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
         }
         
         .audio-toggle {
@@ -452,6 +506,10 @@
             /* Desktop Audio Toggle */
             .audio-toggle {
                 padding: 0.5rem 0.75rem;
+            }
+            
+            .nav-right {
+                gap: var(--space-2xl);
             }
         }
         
