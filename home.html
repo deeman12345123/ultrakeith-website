@@ -1,4 +1,219 @@
-</style>
+/* =================== FOOTER =================== */
+        .footer {
+            border-top: 1px solid rgba(218, 181, 71, 0.2);
+            padding: var(--space-2xl) 0;
+            text-align: center;
+            margin-top: var(--space-3xl);
+            background: rgba(10, 10, 10, 0.5);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: var(--color-white-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all var(--transition-base);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links a:hover {
+            color: var(--color-gold-warm);
+        }
+        
+        .footer-copyright {
+            color: var(--color-white-tertiary);
+            font-size: 0.75rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        /* =================== RESPONSIVE DESIGN =================== */
+        @media (max-width: 768px) {
+            .entry-image {
+                width: 95vw;
+                max-width: none;
+                max-height: 80vh;
+            }
+            
+            .sound-controls {
+                min-width: 180px;
+                padding: var(--space-md);
+            }
+            
+            .hero {
+                padding: var(--space-md) 0;
+            }
+            
+            .hero-logo {
+                max-height: 40vh;
+                margin-bottom: var(--space-sm);
+            }
+            
+            .hero-title {
+                font-size: clamp(1.25rem, 5vw, 1.75rem);
+                margin-bottom: var(--space-xs);
+            }
+            
+            .hero-subtitle {
+                font-size: 0.875rem;
+                margin-bottom: var(--space-sm);
+            }
+            
+            .releases {
+                margin: var(--space-md) 0 var(--space-xl) 0;
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .carousel {
+                height: 300px;
+                mask: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    black 3%,
+                    black 97%,
+                    transparent 100%
+                );
+                -webkit-mask: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    black 3%,
+                    black 97%,
+                    transparent 100%
+                );
+            }
+            
+            .carousel-track {
+                animation-duration: 40s;
+                width: calc((200px + var(--space-md)) * 12);
+            }
+            
+            .carousel-slide {
+                flex: 0 0 200px;
+                padding: var(--space-sm);
+            }
+            
+            .album-image {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .album-title {
+                font-size: 0.9rem;
+            }
+            
+            .album-artist {
+                font-size: 0.8rem;
+            }
+            
+            .feature-card {
+                padding: var(--space-xl) var(--space-lg);
+            }
+            
+            .footer-links {
+                flex-direction: column;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .entry-image {
+                max-width: 900px;
+                max-height: 75vh;
+            }
+            
+            .nav {
+                height: 80px;
+                padding: 0 var(--space-2xl);
+            }
+            
+            .nav-logo img {
+                height: 48px;
+            }
+            
+            .nav-menu {
+                display: flex;
+                font-size: 0.875rem;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-top: 80px;
+                padding-left: var(--space-2xl);
+                padding-right: var(--space-2xl);
+            }
+            
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-2xl);
+            }
+            
+            .feature-card {
+                min-height: 500px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .footer-links {
+                flex-direction: row;
+                justify-content: center;
+                gap: var(--space-2xl);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .features {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .features {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 1600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .carousel-track {
+                animation-duration: 55s;
+            }
+        }
+        
+        /* =================== PRINT STYLES =================== */
+        @media print {
+            .entry-overlay,
+            .nav,
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            .main {
+                padding-top: 0 !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Entry Overlay -->
@@ -63,6 +278,15 @@
             
             <div class="carousel">
                 <div class="carousel-track">
+                    <!-- KARPENTERS - LATEST FIRST -->
+                    <div class="carousel-slide">
+                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                        <h3 class="album-title">Karpenters</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-latest">Latest</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                    
                     <div class="carousel-slide">
                         <img src="album1.png" alt="Space Goretex album cover" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
@@ -103,7 +327,15 @@
                         <a href="shop.html" class="btn btn-primary">Buy Now</a>
                     </div>
                     
-                    <!-- Duplicate set for continuous loop -->
+                    <!-- DUPLICATE SET FOR CONTINUOUS LOOP -->
+                    <div class="carousel-slide">
+                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                        <h3 class="album-title">Karpenters</h3>
+                        <p class="album-artist">Kool Keith</p>
+                        <span class="album-badge badge-latest">Latest</span>
+                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
+                    </div>
+                    
                     <div class="carousel-slide">
                         <img src="album1.png" alt="Space Goretex album cover" class="album-image">
                         <h3 class="album-title">Space Goretex</h3>
@@ -604,6 +836,7 @@
                     </div>
                 `;
             }
+            
             setBodyOverflow(value) {
                 document.body.style.overflow = value;
                 document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
@@ -674,8 +907,7 @@
         
     </script>
 </body>
-</html>
-                        <!DOCTYPE html>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -684,11 +916,11 @@
     <meta name="description" content="Official website of Kool Keith - Hip-Hop's most prolific innovator.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://ultrakeith.com/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
+    <link rel="manifest" href="https://ultrakeith.com/site.webmanifest">
     
     <style>
         /* =================== FONT IMPORTS =================== */
@@ -1233,8 +1465,8 @@
         .carousel-track {
             display: flex;
             gap: var(--space-md);
-            width: calc((220px + var(--space-md)) * 10);
-            animation: slideCarousel 45s linear infinite;
+            width: calc((220px + var(--space-md)) * 12);
+            animation: slideCarousel 50s linear infinite;
             will-change: transform;
             backface-visibility: hidden;
             perspective: 1000px;
@@ -1322,6 +1554,17 @@
         .badge-new { 
             background: linear-gradient(135deg, #E74C3C, #C0392B); 
             color: var(--color-white-pure); 
+        }
+        
+        .badge-latest {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: var(--color-white-pure);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
         
         .badge-coming { 
@@ -1513,213 +1756,4 @@
             border-top: 1px solid rgba(218, 181, 71, 0.2);
             padding: var(--space-2xl) 0;
             text-align: center;
-            margin-top: var(--space-3xl);
-            background: rgba(10, 10, 10, 0.5);
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-            margin-bottom: var(--space-xl);
-            list-style: none;
-        }
-        
-        .footer-links a {
-            color: var(--color-white-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all var(--transition-base);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-links a:hover {
-            color: var(--color-gold-warm);
-        }
-        
-        .footer-copyright {
-            color: var(--color-white-tertiary);
-            font-size: 0.75rem;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-        
-        /* =================== RESPONSIVE DESIGN =================== */
-        @media (max-width: 768px) {
-            .entry-image {
-                width: 95vw;
-                max-width: none;
-                max-height: 80vh;
-            }
-            
-            .sound-controls {
-                min-width: 180px;
-                padding: var(--space-md);
-            }
-            
-            .hero {
-                padding: var(--space-md) 0;
-            }
-            
-            .hero-logo {
-                max-height: 40vh;
-                margin-bottom: var(--space-sm);
-            }
-            
-            .hero-title {
-                font-size: clamp(1.25rem, 5vw, 1.75rem);
-                margin-bottom: var(--space-xs);
-            }
-            
-            .hero-subtitle {
-                font-size: 0.875rem;
-                margin-bottom: var(--space-sm);
-            }
-            
-            .releases {
-                margin: var(--space-md) 0 var(--space-xl) 0;
-                padding: var(--space-xl) var(--space-md);
-            }
-            
-            .carousel {
-                height: 300px;
-                mask: linear-gradient(
-                    to right,
-                    transparent 0%,
-                    black 3%,
-                    black 97%,
-                    transparent 100%
-                );
-                -webkit-mask: linear-gradient(
-                    to right,
-                    transparent 0%,
-                    black 3%,
-                    black 97%,
-                    transparent 100%
-                );
-            }
-            
-            .carousel-track {
-                animation-duration: 40s;
-                width: calc((200px + var(--space-md)) * 10);
-            }
-            
-            .carousel-slide {
-                flex: 0 0 200px;
-                padding: var(--space-sm);
-            }
-            
-            .album-image {
-                width: 160px;
-                height: 160px;
-            }
-            
-            .album-title {
-                font-size: 0.9rem;
-            }
-            
-            .album-artist {
-                font-size: 0.8rem;
-            }
-            
-            .feature-card {
-                padding: var(--space-xl) var(--space-lg);
-            }
-            
-            .footer-links {
-                flex-direction: column;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-                gap: var(--space-lg);
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .entry-image {
-                max-width: 900px;
-                max-height: 75vh;
-            }
-            
-            .nav {
-                height: 80px;
-                padding: 0 var(--space-2xl);
-            }
-            
-            .nav-logo img {
-                height: 48px;
-            }
-            
-            .nav-menu {
-                display: flex;
-                font-size: 0.875rem;
-            }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            .main {
-                padding-top: 80px;
-                padding-left: var(--space-2xl);
-                padding-right: var(--space-2xl);
-            }
-            
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-2xl);
-            }
-            
-            .feature-card {
-                min-height: 500px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            
-            .footer-links {
-                flex-direction: row;
-                justify-content: center;
-                gap: var(--space-2xl);
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .features {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        @media (min-width: 1400px) {
-            .features {
-                grid-template-columns: repeat(4, 1fr);
-                max-width: 1600px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .carousel-track {
-                animation-duration: 50s;
-            }
-        }
-        
-        /* =================== PRINT STYLES =================== */
-        @media print {
-            .entry-overlay,
-            .nav,
-            .mobile-menu-btn {
-                display: none !important;
-            }
-            
-            .main {
-                padding-top: 0 !important;
-            }
-            
-            body {
-                background: white !important;
-                color: black !important;
-            }
-        }
+            margin-top: var(--space
