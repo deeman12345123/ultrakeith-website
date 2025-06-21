@@ -61,6 +61,22 @@
         }
         .nav-menu a:hover { color: var(--gold); }
         
+        /* Mobile Menu */
+        .nav-menu.show {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(218, 181, 71, 0.2);
+            padding: var(--space-lg);
+            gap: var(--space-md);
+            box-shadow: var(--shadow-lg);
+        }
+        
         .nav-controls {
             display: flex; align-items: center; gap: var(--space-md);
         }
@@ -450,11 +466,9 @@
                 <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
             </a>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="bio.html">Biography</a></li>
                 <li><a href="music/music.html">Music</a></li>
-                <li><a href="videos.html">Videos</a></li>
+                <li><a href="bio.html">Biography</a></li>
                 <li><a href="tour.html">Tour</a></li>
-                <li><a href="stats.html">Statistics</a></li>
                 <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
                 <li><a href="shop.html">Store</a></li>
             </ul>
@@ -755,12 +769,6 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="press.html">Press Kit</a></li>
                 <li><a href="booking.html">Booking</a></li>
-                <li><a href="personas/personas.html">Personas</a></li>
-                <li><a href="vault.html">Vault</a></li>
-                <li><a href="casino.html">Casino</a></li>
-                <li><a href="keithgpt/chat.html">AI Chat</a></li>
-                <li><a href="stats.html">Statistics</a></li>
-                <li><a href="https://koolkeith.proboards.com/">Forum</a></li>
             </ul>
         </nav>
         <p class="footer-copyright">© 2025 Ultra Keith. All rights reserved.</p>
