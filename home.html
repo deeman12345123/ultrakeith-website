@@ -3,792 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Keith - Official Music Portal</title>
-    <meta name="description" content="Official website of Kool Keith - Hip-Hop's most prolific innovator.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
+    <title>TEST - Simple Carousel</title>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            --gold: #DAB547; 
-            --gold-light: #E8C547; 
-            --black: #000000; 
-            --burgundy: #0F0505; 
-            --white: #FFFFFF;
-            --white-75: rgba(255, 255, 255, 0.75); 
-            --white-55: rgba(255, 255, 255, 0.55);
-            --space-xs: 0.5rem; 
-            --space-sm: 1rem; 
-            --space-md: 1.5rem; 
-            --space-lg: 2rem; 
-            --space-xl: 3rem; 
-            --space-2xl: 4rem;
-            --radius-md: 0.5rem; 
-            --radius-lg: 0.75rem; 
-            --radius-xl: 1rem; 
-            --radius-2xl: 1.5rem;
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25); 
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
-            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Inter', Arial, sans-serif; 
-            background: linear-gradient(135deg, var(--black) 0%, var(--burgundy) 25%, #1A0A0A 50%, var(--black) 100%);
-            color: var(--white); 
-            overflow-x: hidden; 
-            min-height: 100vh; 
-            -webkit-font-smoothing: antialiased;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 2rem;
         }
         
-        /* NAVIGATION */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(218, 181, 71, 0.2);
-            z-index: 100;
-            height: 72px;
-            display: flex;
-            align-items: center;
-            padding: 0 var(--space-lg);
-        }
-        
-        .nav-container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo img {
-            height: 42px;
-            transition: all var(--transition);
-        }
-        
-        .nav-logo:hover img {
-            transform: scale(1.05);
-        }
-        
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: var(--space-lg);
-        }
-        
-        .nav-menu {
-            display: none;
-            list-style: none;
-            gap: var(--space-lg);
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-menu a {
-            color: var(--white-75);
-            text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-        
-        .nav-menu a:hover {
-            color: var(--gold);
-        }
-        
-        .nav-menu.show {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(218, 181, 71, 0.2);
-            padding: var(--space-lg);
-            gap: var(--space-md);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .audio-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            padding: 0.5rem 0.75rem;
-            border-radius: var(--radius-md);
-            transition: all var(--transition);
-            background: rgba(218, 181, 71, 0.1);
-            border: 1px solid rgba(218, 181, 71, 0.2);
-        }
-        
-        .audio-toggle:hover {
-            background: rgba(218, 181, 71, 0.2);
-            border-color: rgba(218, 181, 71, 0.4);
-            transform: translateY(-1px);
-        }
-        
-        .audio-icon {
-            font-size: 1rem;
-            color: var(--gold);
-            transition: all var(--transition);
-        }
-        
-        .audio-toggle.disabled .audio-icon {
-            color: var(--white-55);
-        }
-        
-        .audio-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color var(--transition);
-        }
-        
-        .audio-toggle.disabled .audio-text {
-            color: var(--white-55);
-        }
-        
-        .mobile-menu-btn {
-            display: block;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: all var(--transition);
-        }
-        
-        .mobile-menu-btn:hover {
-            color: var(--gold-light);
-            transform: scale(1.1);
-        }
-        
-        /* BUTTONS */
-        .btn {
-            border: none;
-            cursor: pointer;
-            font-family: 'Orbitron', monospace;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: var(--black);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: var(--radius-md);
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-        
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .btn-secondary {
-            background: rgba(212, 175, 55, 0.12);
-            color: var(--gold);
-            border: 1px solid rgba(218, 181, 71, 0.3);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: var(--radius-md);
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        
-        .btn-secondary:hover:not(:disabled) {
-            border-color: var(--gold);
-            transform: translateY(-1px);
-            color: var(--gold-light);
-        }
-        
-        .btn-small {
-            padding: 0.75rem 1.5rem;
-            font-size: 0.875rem;
-            border-radius: var(--radius-md);
-        }
-        
-        /* MAIN LAYOUT */
-        .main {
-            padding-top: 72px;
-            max-width: 1400px;
+        .test-container {
+            max-width: 800px;
             margin: 0 auto;
-            padding-left: var(--space-lg);
-            padding-right: var(--space-lg);
-            position: relative;
-            z-index: 1;
+            background: #222;
+            padding: 2rem;
+            border-radius: 10px;
         }
         
-        /* HERO SECTION */
-        .hero {
+        h1 {
             text-align: center;
-            padding: var(--space-lg) 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            color: #DAB547;
+            margin-bottom: 2rem;
         }
         
-        .hero-logo {
-            max-height: 60vh;
-            max-width: 90%;
-            width: auto;
-            height: auto;
-            margin-bottom: var(--space-md);
-            opacity: 0.95;
-        }
-        
-        .hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: 900;
-            color: var(--gold);
-            margin-bottom: var(--space-sm);
-            line-height: 1.1;
-            text-transform: uppercase;
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(0.875rem, 2vw, 1rem);
-            color: rgba(255, 255, 255, 0.92);
-            line-height: 1.4;
-            max-width: 600px;
-            margin: 0 auto var(--space-md) auto;
-            font-weight: 400;
-        }
-        
-        /* RELEASES SECTION */
-        .releases {
-            margin: var(--space-lg) 0 var(--space-2xl) 0;
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid rgba(218, 181, 71, 0.2);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-2xl) var(--space-lg);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .releases-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.5rem, 4vw, 2.25rem);
-            font-weight: 700;
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: var(--space-lg);
-            text-transform: uppercase;
-        }
-        
-        /* PROPER CAROUSEL - BUILT FROM SCRATCH */
-        .keith-carousel {
+        /* SIMPLE CAROUSEL CONTAINER */
+        .carousel {
             position: relative;
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 80px; /* Space for navigation buttons */
-        }
-        
-        .carousel-window {
-            width: 100%;
-            height: 450px;
+            height: 400px;
             overflow: hidden;
-            border-radius: var(--radius-lg);
-            background: rgba(42, 42, 42, 0.8);
-            border: 1px solid rgba(218, 181, 71, 0.1);
-            backdrop-filter: blur(10px);
-            position: relative;
+            border: 2px solid #DAB547;
+            border-radius: 10px;
+            background: #333;
         }
         
-        .carousel-slider {
+        /* SLIDER TRACK THAT MOVES */
+        .slider {
             display: flex;
             height: 100%;
-            width: 500%; /* 5 slides × 100% each - KEEP MOBILE WORKING */
             transition: transform 0.6s ease-in-out;
         }
         
+        /* INDIVIDUAL ALBUM SLIDES */
         .slide {
-            width: 20%; /* 100% ÷ 5 slides = 20% each - MOBILE BASELINE */
+            min-width: 100%; /* Mobile: 1 album takes full width */
             height: 100%;
-            flex-shrink: 0;
-            padding: var(--space-lg);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 2rem;
             text-align: center;
-            gap: var(--space-md);
+            background: #444;
+            border-right: 1px solid #555;
         }
         
-        .slide-image {
+        .slide img {
             width: 200px;
             height: 200px;
-            border-radius: var(--radius-md);
-            object-fit: cover;
-            border: 2px solid rgba(218, 181, 71, 0.2);
-            background: #2A2A2A;
-            transition: transform var(--transition);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 2px solid #DAB547;
         }
         
-        .slide:hover .slide-image {
-            transform: scale(1.05);
-            border-color: rgba(218, 181, 71, 0.4);
-        }
-        
-        .slide-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gold);
-            margin-bottom: 0.25rem;
-            line-height: 1.2;
-        }
-        
-        .slide-artist {
-            font-size: 1rem;
-            color: var(--white-75);
-            margin-bottom: var(--space-sm);
-            font-weight: 400;
-        }
-        
-        .slide-badge {
-            font-size: 0.75rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: var(--space-sm);
-            display: inline-block;
-        }
-        
-        .badge-latest {
-            background: linear-gradient(135deg, #FF6B35, #F7931E);
-            color: var(--white);
-        }
-        
-        .badge-new {
-            background: linear-gradient(135deg, #E74C3C, #C0392B);
-            color: var(--white);
-        }
-        
-        .badge-streaming {
-            background: linear-gradient(135deg, #27AE60, #229954);
-            color: var(--white);
-        }
-        
-        /* NAVIGATION BUTTONS */
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--black);
+        .slide h3 {
+            color: #DAB547;
             font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all var(--transition);
-            z-index: 10;
-            user-select: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.5rem;
         }
         
-        .nav-btn:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 25px rgba(218, 181, 71, 0.4);
-        }
-        
-        .nav-btn:active {
-            transform: translateY(-50%) scale(0.95);
-        }
-        
-        .prev-btn {
-            left: 10px;
-        }
-        
-        .next-btn {
-            right: 10px;
-        }
-        
-        /* INDICATORS */
-        .slide-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            margin-top: var(--space-md);
-        }
-        
-        .indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(218, 181, 71, 0.3);
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        
-        .indicator.active {
-            background: var(--gold);
-            transform: scale(1.2);
-            box-shadow: 0 0 10px rgba(218, 181, 71, 0.4);
-        }
-        
-        .indicator:hover {
-            background: rgba(218, 181, 71, 0.6);
-            transform: scale(1.1);
-        }
-        
-        /* FEATURES SECTION */
-        .features {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--space-xl);
-            margin: var(--space-2xl) 0;
-        }
-        
-        .feature-card {
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid rgba(218, 181, 71, 0.2);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-2xl);
-            text-align: center;
-            transition: all 0.4s;
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-12px);
-            border-color: rgba(218, 181, 71, 0.4);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .feature-icon {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto var(--space-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            background: rgba(212, 175, 55, 0.12);
-            border-radius: var(--radius-lg);
-            border: 2px solid rgba(218, 181, 71, 0.3);
-            transition: all var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card:hover .feature-icon {
-            border-color: var(--gold);
-            background: rgba(218, 181, 71, 0.18);
-            transform: scale(1.05);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .feature-icon img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: var(--radius-md);
-            transition: transform var(--transition);
-        }
-        
-        .feature-card:hover .feature-icon img {
-            transform: scale(1.1);
-        }
-        
-        .feature-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: var(--space-md);
-            text-transform: uppercase;
-            transition: color var(--transition);
-        }
-        
-        .feature-card:hover .feature-title {
-            color: var(--gold-light);
-        }
-        
-        .feature-description {
+        .slide p {
+            color: #ccc;
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.92);
-            line-height: 1.6;
-            margin-bottom: var(--space-xl);
-            font-weight: 400;
-            transition: color var(--transition);
         }
         
-        .feature-card:hover .feature-description {
-            color: var(--white);
-        }
-        
-        /* NEWS POST STYLES */
-        .latest-post {
-            margin-bottom: var(--space-md);
-            padding: var(--space-md);
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: var(--radius-md);
-            border-left: 3px solid var(--gold);
-        }
-        
-        .post-loading {
-            color: var(--white-55);
-            font-style: italic;
-            font-size: 0.875rem;
-            text-align: center;
-            padding: var(--space-sm);
-        }
-        
-        .post-title {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-        
-        .post-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: color var(--transition);
-        }
-        
-        .post-title a:hover {
-            color: var(--gold-light);
-        }
-        
-        .post-excerpt {
-            font-size: 0.8rem;
-            color: var(--white-75);
-            line-height: 1.4;
-            margin-bottom: 0.5rem;
-        }
-        
-        .post-date {
-            font-size: 0.75rem;
-            color: var(--white-55);
-            font-style: italic;
-        }
-        
-        .news-description {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.92);
-            line-height: 1.5;
-        }
-        
-        .post-error {
-            color: var(--white-55);
-            font-size: 0.875rem;
-            text-align: center;
-            padding: var(--space-sm);
-            font-style: italic;
-        }
-        
-        /* FOOTER */
-        .footer {
-            border-top: 1px solid rgba(218, 181, 71, 0.2);
-            padding: var(--space-2xl) 0;
-            text-align: center;
-            margin-top: var(--space-2xl);
-            background: rgba(10, 10, 10, 0.95);
-            position: relative;
-            z-index: 10;
-        }
-        
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-            margin-bottom: var(--space-xl);
-            list-style: none;
-        }
-        
-        .footer-links a {
-            color: var(--white-75);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .footer-links a:hover {
-            color: var(--gold);
-        }
-        
-        .footer-copyright {
-            color: var(--white-55);
-            font-size: 0.75rem;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-        
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero {
-                padding: var(--space-md) 0;
-            }
-            
-            .hero-logo {
-                max-height: 40vh;
-                margin-bottom: var(--space-sm);
-            }
-            
-            .releases {
-                margin: var(--space-md) 0 var(--space-xl) 0;
-                padding: var(--space-lg) var(--space-sm);
-            }
-            
-            .keith-carousel {
-                padding: 0 70px;
-            }
-            
-            .carousel-window {
-                height: 400px;
-            }
-            
-            .slide-image {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .slide-title {
-                font-size: 1.1rem;
-            }
-            
-            .slide-artist {
-                font-size: 0.9rem;
-            }
-            
-            .nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-            
-            .prev-btn {
-                left: 5px;
-            }
-            
-            .next-btn {
-                right: 5px;
-            }
-            
-            .nav-right {
-                gap: var(--space-sm);
-            }
-            
-            .audio-toggle {
-                padding: 0.4rem 0.6rem;
-                background: rgba(218, 181, 71, 0.15);
-                border: 1px solid rgba(218, 181, 71, 0.3);
-            }
-            
-            .audio-text {
-                font-size: 0.7rem;
-            }
-            
-            .audio-icon {
-                font-size: 0.9rem;
-            }
-            
-            .feature-card {
-                padding: var(--space-xl) var(--space-lg);
-            }
-            
-            .footer-links {
-                flex-direction: column;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-                gap: var(--space-lg);
-            }
-        }
-        
-        /* DESKTOP STYLES - 2 ALBUMS VISIBLE */
+        /* DESKTOP: 2 ALBUMS SIDE BY SIDE */
         @media (min-width: 769px) {
-            .nav {
-                height: 80px;
-                padding: 0 var(--space-2xl);
-            }
-            
-            .nav-logo img {
-                height: 48px;
-            }
-            
-            .nav-menu {
-                display: flex;
-                font-size: 0.875rem;
-            }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            .main {
-                padding-top: 80px;
-                padding-left: var(--space-2xl);
-                padding-right: var(--space-2xl);
-            }
-            
-            /* DESKTOP CAROUSEL - 2 ALBUMS SIDE BY SIDE */
-            .carousel-window {
-                height: 480px;
-            }
-            
-            .carousel-slider {
-                width: 500%; /* KEEP SAME AS MOBILE */
-            }
-            
             .slide {
-                width: 20%; /* KEEP SAME AS MOBILE */
+                min-width: 50%; /* Desktop: each slide is 50% so 2 are visible */
                 flex-direction: row;
                 text-align: left;
-                gap: var(--space-lg);
-                padding: var(--space-lg);
+                gap: 1.5rem;
             }
             
-            .slide-image {
-                width: 200px;
-                height: 200px;
+            .slide img {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 0;
                 flex-shrink: 0;
             }
             
@@ -796,493 +100,231 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: flex-start;
-                text-align: left;
-                flex: 1;
-                min-width: 200px;
-            }
-            
-            .slide-title {
-                font-size: 1.4rem;
-            }
-            
-            .slide-artist {
-                font-size: 1.1rem;
-            }
-            
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-2xl);
-            }
-            
-            .feature-card {
-                min-height: 500px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            
-            .footer-links {
-                flex-direction: row;
-                justify-content: center;
-                gap: var(--space-2xl);
             }
         }
         
-        @media (min-width: 1024px) {
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        /* NAVIGATION BUTTONS */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #DAB547;
+            color: #000;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
         }
         
-        @media (min-width: 1400px) {
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 1600px;
-                margin-left: auto;
-                margin-right: auto;
-            }
+        .prev {
+            left: 10px;
+        }
+        
+        .next {
+            right: 10px;
+        }
+        
+        .nav-btn:hover {
+            background: #E8C547;
+        }
+        
+        /* STATUS DISPLAY */
+        .status {
+            margin-top: 1rem;
+            text-align: center;
+            font-family: monospace;
+            color: #DAB547;
+        }
+        
+        .controls {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .controls button {
+            background: #DAB547;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <nav class="nav" role="navigation">
-        <div class="nav-container">
-            <a href="home.html" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
-            </a>
-            
-            <div class="nav-right">
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="music/music.html">Music</a></li>
-                    <li><a href="bio.html">Biography</a></li>
-                    <li><a href="tour.html">Tour</a></li>
-                    <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                    <li><a href="shop.html">Store</a></li>
-                </ul>
+    <div class="test-container">
+        <h1>CAROUSEL TEST - Step by Step</h1>
+        
+        <div class="carousel">
+            <div class="slider" id="slider">
+                <!-- SLIDE 1 -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/DAB547/000?text=ALBUM+1" alt="Album 1">
+                    <div class="slide-info">
+                        <h3>Karpenters</h3>
+                        <p>Kool Keith</p>
+                    </div>
+                </div>
                 
-                <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
-                    <span class="audio-icon" id="audioIcon">🔊</span>
-                    <span class="audio-text" id="audioText">Audio On</span>
-                </button>
+                <!-- SLIDE 2 -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/E74C3C/fff?text=ALBUM+2" alt="Album 2">
+                    <div class="slide-info">
+                        <h3>Everybody Eats!</h3>
+                        <p>Stress Eater</p>
+                    </div>
+                </div>
                 
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <!-- SLIDE 3 -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/27AE60/fff?text=ALBUM+3" alt="Album 3">
+                    <div class="slide-info">
+                        <h3>Bandoleros</h3>
+                        <p>Lynx 196.9</p>
+                    </div>
+                </div>
+                
+                <!-- SLIDE 4 -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/8E44AD/fff?text=ALBUM+4" alt="Album 4">
+                    <div class="slide-info">
+                        <h3>Aponia</h3>
+                        <p>Awol One & Kool Keith</p>
+                    </div>
+                </div>
+                
+                <!-- SLIDE 5 -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/F39C12/000?text=ALBUM+5" alt="Album 5">
+                    <div class="slide-info">
+                        <h3>World Area</h3>
+                        <p>Kool Keith</p>
+                    </div>
+                </div>
             </div>
+            
+            <button class="nav-btn prev" id="prevBtn">❮</button>
+            <button class="nav-btn next" id="nextBtn">❯</button>
         </div>
-    </nav>
-    
-    <main class="main" id="mainContent">
-        <section class="hero">
-            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
-            <h1 class="hero-title">Official Music Portal</h1>
-            <p class="hero-subtitle">Hip-Hop's Most Prolific Innovator</p>
-        </section>
         
-        <section class="releases">
-            <h2 class="releases-title">Latest Releases</h2>
-            
-            <div class="keith-carousel">
-                <div class="carousel-window">
-                    <div class="carousel-slider" id="slider">
-                        <!-- SLIDE 1: KARPENTERS -->
-                        <div class="slide">
-                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="slide-image">
-                            <div class="slide-info">
-                                <h3 class="slide-title">Karpenters</h3>
-                                <p class="slide-artist">Kool Keith</p>
-                                <span class="slide-badge badge-latest">June 2025</span>
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                        
-                        <!-- SLIDE 2: EVERYBODY EATS -->
-                        <div class="slide">
-                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="slide-image">
-                            <div class="slide-info">
-                                <h3 class="slide-title">Everybody Eats!</h3>
-                                <p class="slide-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                                <span class="slide-badge badge-new">2024</span>
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                        
-                        <!-- SLIDE 3: BANDOLEROS -->
-                        <div class="slide">
-                            <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="slide-image">
-                            <div class="slide-info">
-                                <h3 class="slide-title">Bandoleros</h3>
-                                <p class="slide-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
-                                <span class="slide-badge badge-new">2024</span>
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                        
-                        <!-- SLIDE 4: APONIA -->
-                        <div class="slide">
-                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="slide-image">
-                            <div class="slide-info">
-                                <h3 class="slide-title">Aponia</h3>
-                                <p class="slide-artist">Awol One & Kool Keith</p>
-                                <span class="slide-badge badge-new">2024</span>
-                                <a href="shop.html" class="btn btn-secondary btn-small">Listen</a>
-                            </div>
-                        </div>
-                        
-                        <!-- SLIDE 5: WORLD AREA -->
-                        <div class="slide">
-                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="slide-image">
-                            <div class="slide-info">
-                                <h3 class="slide-title">World Area</h3>
-                                <p class="slide-artist">Kool Keith</p>
-                                <span class="slide-badge badge-streaming">2023</span>
-                                <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- NAVIGATION BUTTONS -->
-                <button class="nav-btn prev-btn" id="prevButton">❮</button>
-                <button class="nav-btn next-btn" id="nextButton">❯</button>
-                
-                <!-- INDICATORS -->
-                <div class="slide-indicators">
-                    <div class="indicator active" data-slide="0"></div>
-                    <div class="indicator" data-slide="1"></div>
-                    <div class="indicator" data-slide="2"></div>
-                    <div class="indicator" data-slide="3"></div>
-                    <div class="indicator" data-slide="4"></div>
-                </div>
-            </div>
-        </section>
+        <div class="status" id="status">
+            Album 1/5 - Waiting to start auto-advance...
+        </div>
         
-        <section class="features">
-            <article class="feature-card">
-                <div class="feature-icon"><img src="bioicon.png" alt="Biography icon"></div>
-                <h3 class="feature-title">Biography</h3>
-                <p class="feature-description">From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. Discover the complete story of hip-hop's most innovative artist through six defining eras.</p>
-                <a href="bio.html" class="btn btn-secondary">Read Biography</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="musicicon.png" alt="Music icon"></div>
-                <h3 class="feature-title">Discography</h3>
-                <p class="feature-description">Over 40 years of groundbreaking music spanning 92+ albums. Stream classics like Critical Beatdown and discover rare gems from the complete catalog of hip-hop's most prolific artist.</p>
-                <a href="music/music.html" class="btn btn-secondary">Listen Now</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="personaicon.png" alt="Personas icon"></div>
-                <h3 class="feature-title">Personas</h3>
-                <p class="feature-description">Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. Experience 58+ personas through our exclusive trading card collection showcasing 40+ years of character creation.</p>
-                <a href="personas/personas.html" class="btn btn-secondary">Explore Personas</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="touricon.png" alt="Tour icon"></div>
-                <h3 class="feature-title">Tour Dates</h3>
-                <p class="feature-description">Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates with MC Homeless and view professional booking information.</p>
-                <a href="tour.html" class="btn btn-secondary">View Dates</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="vaulticon.png" alt="Vault icon"></div>
-                <h3 class="feature-title">Vault</h3>
-                <p class="feature-description">Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks and hidden treasures from hip-hop's most secretive archive.</p>
-                <a href="vault.html" class="btn btn-secondary">Enter Vault</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="casinoicon.png" alt="Casino icon"></div>
-                <h3 class="feature-title">Casino</h3>
-                <p class="feature-description">Spin the slot machine for exclusive vault tracks and rare content. Play daily to earn points and unlock premium rewards from Keith's secret archive.</p>
-                <a href="casino.html" class="btn btn-secondary">Enter Casino</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon"><img src="aiicon.png" alt="AI Chat icon"></div>
-                <h3 class="feature-title">AI Chat</h3>
-                <p class="feature-description">Chat with AI versions of Keith's legendary personas. Experience conversations with Dr. Octagon, Black Elvis, and other characters through advanced artificial intelligence.</p>
-                <a href="keithgpt/chat.html" class="btn btn-secondary">Start Chat</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon"><img src="statsicon.png" alt="Statistics icon"></div>
-                <h3 class="feature-title">Statistics</h3>
-                <p class="feature-description">Dive into Keith's legendary career stats. NBA-style rankings showing 92+ albums, 41 years active, 58+ personas, and records that cement his status as hip-hop's most prolific innovator.</p>
-                <a href="stats.html" class="btn btn-secondary">View Stats</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="newsicon.png" alt="News icon"></div>
-                <h3 class="feature-title">Latest News</h3>
-                <div class="feature-description">
-                    <div class="latest-post" id="latestPost">
-                        <div class="post-loading">Loading latest news...</div>
-                    </div>
-                    <p class="news-description">Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content.</p>
-                </div>
-                <a href="https://ultrakeithdotcom.blogspot.com/" class="btn btn-secondary">Read All News</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="videosicon.png" alt="Videos icon"></div>
-                <h3 class="feature-title">Videos</h3>
-                <p class="feature-description">Watch music videos, live performances, and behind-the-scenes content. Explore rare footage and exclusive visual content from Keith's extensive multimedia archive.</p>
-                <a href="videos.html" class="btn btn-secondary">Watch Now</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="shoppingicon.png" alt="Store icon"></div>
-                <h3 class="feature-title">Store</h3>
-                <p class="feature-description">Shop exclusive merchandise, vinyl records, and limited edition collectibles. Get official Keith gear and rare items available nowhere else.</p>
-                <a href="shop.html" class="btn btn-secondary">Shop Now</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon"><img src="forumicon.png" alt="Forum icon"></div>
-                <h3 class="feature-title">Forum</h3>
-                <p class="feature-description">Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, share stories, and stay connected with the Keith musical legacy.</p>
-                <a href="https://koolkeith.proboards.com/" class="btn btn-secondary">Join Forum</a>
-            </article>
-        </section>
-    </main>
-    
-    <footer class="footer">
-        <nav aria-label="Footer navigation">
-            <ul class="footer-links">
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="press.html">Press Kit</a></li>
-                <li><a href="booking.html">Booking</a></li>
-            </ul>
-        </nav>
-        <p class="footer-copyright">© 2025 Ultra Keith. All rights reserved.</p>
-    </footer>
+        <div class="controls">
+            <button onclick="startTest()">Start Auto-Advance</button>
+            <button onclick="stopTest()">Stop</button>
+            <button onclick="testNext()">Manual Next</button>
+            <button onclick="testPrev()">Manual Prev</button>
+        </div>
+    </div>
 
     <script>
-        // KEITH CAROUSEL - FIXED AUTO-RESUME + 2 ALBUMS ON DESKTOP
-        class KeithCarousel {
-            constructor() {
-                this.currentSlide = 0;
-                this.totalSlides = 5;
-                this.isPlaying = false;
-                this.isPausedByUser = false;
-                this.autoTimer = null;
-                this.resumeTimer = null;
-                this.pauseDuration = 5000; // 5 seconds pause per slide
-                this.isDesktop = window.innerWidth > 768;
-                
-                // DOM elements
-                this.slider = document.getElementById('slider');
-                this.prevBtn = document.getElementById('prevButton');
-                this.nextBtn = document.getElementById('nextButton');
-                this.indicators = document.querySelectorAll('.indicator');
-                this.carousel = document.querySelector('.keith-carousel');
-                
-                this.init();
+        // SIMPLE TEST CAROUSEL
+        let currentSlide = 0;
+        const totalSlides = 5;
+        let autoTimer = null;
+        let isDesktop = window.innerWidth > 768;
+        
+        const slider = document.getElementById('slider');
+        const status = document.getElementById('status');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        // MOVE TO SPECIFIC SLIDE
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            
+            // Calculate how far to move
+            let movePercent;
+            if (isDesktop) {
+                // Desktop: each slide is 50% wide, so move 50% per slide
+                movePercent = currentSlide * 50;
+            } else {
+                // Mobile: each slide is 100% wide, so move 100% per slide
+                movePercent = currentSlide * 100;
             }
             
-            init() {
-                this.setupEventListeners();
-                this.updateSlideWidth();
-                this.updateSlide();
-                this.startAutoPlay();
-                console.log(`Keith Carousel initialized - ${this.isDesktop ? '2 albums' : '1 album'} visible, 5-second pauses`);
-            }
+            // Move the slider
+            slider.style.transform = `translateX(-${movePercent}%)`;
             
-            setupEventListeners() {
-                // Navigation buttons
-                this.prevBtn.addEventListener('click', () => this.goToPrevious());
-                this.nextBtn.addEventListener('click', () => this.goToNext());
-                
-                // Indicator dots
-                this.indicators.forEach((indicator, index) => {
-                    indicator.addEventListener('click', () => this.goToSlide(index));
-                });
-                
-                // Pause on hover
-                this.carousel.addEventListener('mouseenter', () => this.pauseAutoPlay());
-                this.carousel.addEventListener('mouseleave', () => this.resumeAutoPlay());
-                
-                // Handle window resize
-                window.addEventListener('resize', () => this.handleResize());
-            }
+            // Update status
+            status.textContent = `Album ${currentSlide + 1}/5 - translateX(-${movePercent}%) - ${isDesktop ? 'Desktop (2 visible)' : 'Mobile (1 visible)'}`;
             
-            updateSlideWidth() {
-                // Update based on screen size
-                this.isDesktop = window.innerWidth > 768;
-                
-                // On desktop, slides are wider to show 2 at once
-                // Each slide still takes 20% but layout changes via CSS
-                console.log(`Updated layout: ${this.isDesktop ? 'Desktop (2 albums)' : 'Mobile (1 album)'}`);
-            }
+            console.log(`Moved to slide ${currentSlide + 1}, translateX(-${movePercent}%)`);
+        }
+        
+        // START AUTO-ADVANCE TEST
+        function startTest() {
+            stopTest(); // Clear any existing timer
             
-            goToSlide(slideIndex) {
-                this.handleManualNavigation();
-                this.currentSlide = slideIndex;
-                this.updateSlide();
-                console.log(`Manual navigation to slide ${slideIndex + 1}`);
-            }
+            status.textContent = `Starting auto-advance... Album 1 will show for 3 seconds`;
+            console.log('AUTO-ADVANCE TEST STARTED');
             
-            goToNext() {
-                this.handleManualNavigation();
-                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-                this.updateSlide();
-                console.log(`Next slide: ${this.currentSlide + 1}/${this.totalSlides}`);
-            }
+            // Start from slide 0
+            currentSlide = 0;
+            goToSlide(0);
             
-            goToPrevious() {
-                this.handleManualNavigation();
-                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-                this.updateSlide();
-                console.log(`Previous slide: ${this.currentSlide + 1}/${this.totalSlides}`);
-            }
-            
-            updateSlide() {
-                // SIMPLE: Same movement for both mobile and desktop
-                const translateX = this.currentSlide * 20; // Always move 20% per slide
+            // Wait 3 seconds, then start advancing
+            setTimeout(() => {
+                autoTimer = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    goToSlide(currentSlide);
+                    console.log(`AUTO-ADVANCE: Moved to album ${currentSlide + 1} after 3 second pause`);
+                }, 3000); // 3 seconds between advances
                 
-                this.slider.style.transform = `translateX(-${translateX}%)`;
-                
-                // Update indicators
-                this.indicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === this.currentSlide);
-                });
-                
-                console.log(`Showing slide ${this.currentSlide + 1}, transform: -${translateX}% (${this.isDesktop ? 'Desktop' : 'Mobile'})`);
-            }
-            
-            startAutoPlay() {
-                if (this.isPausedByUser) return;
-                
-                this.isPlaying = true;
-                this.autoTimer = setInterval(() => {
-                    this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-                    this.updateSlide();
-                    console.log(`Auto-advance to slide ${this.currentSlide + 1} (5-second pause)`);
-                }, this.pauseDuration);
-                
-                console.log('Auto-play started - 5 seconds per slide');
-            }
-            
-            pauseAutoPlay() {
-                this.isPlaying = false;
-                if (this.autoTimer) {
-                    clearInterval(this.autoTimer);
-                    this.autoTimer = null;
-                }
-                // Also clear any pending resume timer
-                if (this.resumeTimer) {
-                    clearTimeout(this.resumeTimer);
-                    this.resumeTimer = null;
-                }
-            }
-            
-            resumeAutoPlay() {
-                if (!this.isPausedByUser && !this.isPlaying) {
-                    this.startAutoPlay();
-                }
-            }
-            
-            handleManualNavigation() {
-                // Pause auto-play temporarily
-                this.pauseAutoPlay();
-                this.isPausedByUser = true;
-                
-                // Resume auto-play after 3 seconds
-                this.resumeTimer = setTimeout(() => {
-                    this.isPausedByUser = false;
-                    this.resumeAutoPlay();
-                    console.log('Auto-play resumed after 3-second pause');
-                }, 3000);
-                
-                console.log('Manual navigation - auto-play paused for 3 seconds');
-            }
-            
-            handleResize() {
-                const wasDesktop = this.isDesktop;
-                this.updateSlideWidth();
-                
-                if (wasDesktop !== this.isDesktop) {
-                    // Layout changed, update display
-                    this.updateSlide();
-                    console.log(`Layout switched to ${this.isDesktop ? 'desktop' : 'mobile'}`);
-                }
+                console.log('Auto-timer started - advancing every 3 seconds');
+            }, 3000); // Initial 3 second wait
+        }
+        
+        // STOP AUTO-ADVANCE
+        function stopTest() {
+            if (autoTimer) {
+                clearInterval(autoTimer);
+                autoTimer = null;
+                console.log('Auto-advance stopped');
             }
         }
         
-        // Mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-
-        if (mobileMenuBtn && navMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('show');
-            });
+        // MANUAL NEXT
+        function testNext() {
+            stopTest();
+            currentSlide = (currentSlide + 1) % totalSlides;
+            goToSlide(currentSlide);
+            console.log('MANUAL: Next slide');
         }
-
-        // Audio toggle functionality
-        const audioToggle = document.getElementById('audioToggle');
-        const audioIcon = document.getElementById('audioIcon');
-        const audioText = document.getElementById('audioText');
-        let soundEnabled = true;
-
-        if (audioToggle) {
-            audioToggle.addEventListener('click', () => {
-                soundEnabled = !soundEnabled;
-                
-                if (soundEnabled) {
-                    audioToggle.classList.remove('disabled');
-                    audioIcon.textContent = '🔊';
-                    audioText.textContent = 'Audio On';
-                } else {
-                    audioToggle.classList.add('disabled');
-                    audioIcon.textContent = '🔇';
-                    audioText.textContent = 'Audio Off';
-                }
-            });
+        
+        // MANUAL PREVIOUS  
+        function testPrev() {
+            stopTest();
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(currentSlide);
+            console.log('MANUAL: Previous slide');
         }
-
-        // Load latest news
-        async function loadNews() {
-            const latestPost = document.getElementById('latestPost');
-            if (!latestPost) return;
-
-            try {
-                const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default%3Falt%3Drss&count=1');
-                const data = await response.json();
-                
-                if (data.status === 'ok' && data.items && data.items.length > 0) {
-                    const post = data.items[0];
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = post.description || '';
-                    const excerpt = (tempDiv.textContent || '').substring(0, 120) + '...';
-                    const date = new Date(post.pubDate).toLocaleDateString('en-US', {
-                        month: 'short', day: 'numeric', year: 'numeric'
-                    });
-
-                    latestPost.innerHTML = `
-                        <div class="post-title">
-                            <a href="${post.link}" target="_blank">${post.title}</a>
-                        </div>
-                        <div class="post-excerpt">${excerpt}</div>
-                        <div class="post-date">${date}</div>
-                    `;
-                }
-            } catch (error) {
-                latestPost.innerHTML = '<div class="post-error">Unable to load latest news.</div>';
+        
+        // BUTTON EVENT LISTENERS
+        nextBtn.addEventListener('click', testNext);
+        prevBtn.addEventListener('click', testPrev);
+        
+        // HANDLE RESIZE
+        window.addEventListener('resize', () => {
+            const wasDesktop = isDesktop;
+            isDesktop = window.innerWidth > 768;
+            
+            if (wasDesktop !== isDesktop) {
+                goToSlide(currentSlide); // Recalculate position
+                console.log(`Layout changed to ${isDesktop ? 'desktop' : 'mobile'}`);
             }
-        }
-
-        // Initialize everything when page loads
+        });
+        
+        // INITIALIZE
         document.addEventListener('DOMContentLoaded', () => {
-            // Start the Keith Carousel
-            window.keithCarousel = new KeithCarousel();
-            
-            // Load news
-            loadNews();
-            
-            console.log('Ultra Keith website loaded successfully!');
+            goToSlide(0); // Show first slide
+            console.log('Test carousel initialized');
         });
     </script>
 </body>
