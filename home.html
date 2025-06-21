@@ -839,17 +839,48 @@
             }
             
             .carousel-container {
-                max-width: 600px;
+                max-width: 700px;
             }
             
             .carousel-slide {
-                padding: var(--space-xl);
-                min-height: 500px;
+                padding: var(--space-md);
+                min-height: 380px;
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                gap: var(--space-lg);
             }
             
             .album-image {
-                width: 250px;
-                height: 250px;
+                width: 300px;
+                height: 300px;
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            
+            .album-info {
+                flex: 1;
+                align-items: flex-start;
+                text-align: left;
+                height: 100%;
+                justify-content: center;
+            }
+            
+            .album-header {
+                text-align: left;
+                width: 100%;
+            }
+            
+            .album-title {
+                font-size: 1.5rem;
+            }
+            
+            .album-artist {
+                font-size: 1.1rem;
+            }
+            
+            .album-details {
+                justify-content: flex-start;
             }
             
             .features {
@@ -1184,6 +1215,7 @@
             initCarousel() {
                 // Set initial state
                 this.updateCarouselIndicators();
+                this.trackCurrentSlide();
                 
                 // Manual navigation temporarily pauses auto-slide
                 if (this.elements.carouselPrev) {
@@ -1199,6 +1231,31 @@
                         this.nextSlide();
                         this.resumeCarouselAfterDelay();
                     });
+                }
+            }
+            
+            trackCurrentSlide() {
+                // Track animation progress to sync indicators
+                if (this.elements.carouselTrack) {
+                    setInterval(() => {
+                        if (!this.state.isManuallyControlled) {
+                            const animationElement = this.elements.carouselTrack;
+                            const computedStyle = window.getComputedStyle(animationElement);
+                            const matrix = computedStyle.transform;
+                            
+                            if (matrix && matrix !== 'none') {
+                                const values = matrix.split('(')[1].split(')')[0].split(',');
+                                const translateX = parseFloat(values[4]) || 0;
+                                const slideWidth = animationElement.offsetWidth / 6;
+                                const slideIndex = Math.round(Math.abs(translateX) / slideWidth) % 5;
+                                
+                                if (slideIndex !== this.state.currentSlide) {
+                                    this.state.currentSlide = slideIndex;
+                                    this.updateCarouselIndicators();
+                                }
+                            }
+                        }
+                    }, 100);
                 }
             }
             
@@ -1225,8 +1282,10 @@
             }
             
             goToSlide(slideIndex) {
-                // For infinite carousel, we track the logical position
+                // For infinite carousel, jump to specific slide
+                this.pauseCarousel();
                 this.state.currentSlide = slideIndex % this.state.totalSlides;
+                this.jumpToSlide(this.state.currentSlide);
                 this.updateCarouselIndicators();
             }
             
@@ -1261,13 +1320,30 @@
             }
             
             nextSlide() {
+                // Manually advance to next slide
                 this.state.currentSlide = (this.state.currentSlide + 1) % this.state.totalSlides;
+                this.jumpToSlide(this.state.currentSlide);
                 this.updateCarouselIndicators();
             }
             
             prevSlide() {
+                // Manually go to previous slide
                 this.state.currentSlide = (this.state.currentSlide - 1 + this.state.totalSlides) % this.state.totalSlides;
+                this.jumpToSlide(this.state.currentSlide);
                 this.updateCarouselIndicators();
+            }
+            
+            jumpToSlide(slideIndex) {
+                // Instantly jump to specific slide
+                if (this.elements.carouselTrack) {
+                    const translateX = -slideIndex * 16.66; // 16.66% per slide
+                    this.elements.carouselTrack.style.animation = 'none';
+                    this.elements.carouselTrack.style.transform = `translateX(${translateX}%)`;
+                    
+                    // Force reflow and restart animation from new position
+                    this.elements.carouselTrack.offsetHeight;
+                    this.elements.carouselTrack.style.animation = 'infiniteSlide 18s linear infinite';
+                }
             }
             
             updateCarouselIndicators() {
