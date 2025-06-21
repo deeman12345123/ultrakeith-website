@@ -136,19 +136,19 @@
         }
         .carousel-track {
             display: flex; gap: var(--space-md); width: calc((520px + var(--space-md)) * 10);
-            animation: infiniteSlideAndPause 40s linear infinite; will-change: transform;
+            animation: infiniteSlideAndPause 35s linear infinite; will-change: transform;
         }
         @keyframes infiniteSlideAndPause {
             0% { transform: translateX(0); }
-            10% { transform: translateX(calc(-1 * (520px + 24px))); }
+            1.5% { transform: translateX(calc(-1 * (520px + 24px))); }
             20% { transform: translateX(calc(-1 * (520px + 24px))); }
-            30% { transform: translateX(calc(-2 * (520px + 24px))); }
+            21.5% { transform: translateX(calc(-2 * (520px + 24px))); }
             40% { transform: translateX(calc(-2 * (520px + 24px))); }
-            50% { transform: translateX(calc(-3 * (520px + 24px))); }
+            41.5% { transform: translateX(calc(-3 * (520px + 24px))); }
             60% { transform: translateX(calc(-3 * (520px + 24px))); }
-            70% { transform: translateX(calc(-4 * (520px + 24px))); }
+            61.5% { transform: translateX(calc(-4 * (520px + 24px))); }
             80% { transform: translateX(calc(-4 * (520px + 24px))); }
-            90% { transform: translateX(calc(-5 * (520px + 24px))); }
+            81.5% { transform: translateX(calc(-5 * (520px + 24px))); }
             100% { transform: translateX(calc(-5 * (520px + 24px))); }
         }
         .carousel-track:hover { animation-play-state: paused; }
@@ -282,7 +282,7 @@
             .hero-logo { max-height: 40vh; margin-bottom: var(--space-sm); }
             .releases { margin: var(--space-md) 0 var(--space-xl) 0; padding: var(--space-xl) var(--space-md); }
             .carousel { height: 250px; }
-            .carousel-track { animation-duration: 25s; width: calc((380px + var(--space-md)) * 10); }
+            .carousel-track { animation-duration: 22s; width: calc((380px + var(--space-md)) * 10); }
             .carousel-slide { flex: 0 0 380px; height: 180px; padding: var(--space-sm); }
             .album-image { width: 180px; height: 180px; }
             .album-title { font-size: 1.1rem; }
@@ -840,7 +840,7 @@
                         carouselTrack.style.transform = `translateX(${currentPosition}px)`;
                         carouselTrack.style.animation = 'none';
                         setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 40s linear infinite';
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
                         }, 500);
                     });
                     
@@ -850,7 +850,7 @@
                         carouselTrack.style.transform = `translateX(${currentPosition}px)`;
                         carouselTrack.style.animation = 'none';
                         setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 40s linear infinite';
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
                         }, 500);
                     });
                 }
