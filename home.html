@@ -205,6 +205,24 @@
                         <p>Kool Keith</p>
                     </div>
                 </div>
+                
+                <!-- DUPLICATE SLIDE 1 FOR INFINITE FORWARD -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/DAB547/000?text=ALBUM+1" alt="Album 1">
+                    <div class="slide-info">
+                        <h3>Karpenters</h3>
+                        <p>Kool Keith</p>
+                    </div>
+                </div>
+                
+                <!-- DUPLICATE SLIDE 2 FOR INFINITE FORWARD -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/E74C3C/fff?text=ALBUM+2" alt="Album 2">
+                    <div class="slide-info">
+                        <h3>Everybody Eats!</h3>
+                        <p>Stress Eater</p>
+                    </div>
+                </div>
             </div>
             
             <button class="nav-btn prev" id="prevBtn">❮</button>
@@ -212,11 +230,11 @@
         </div>
         
         <div class="status" id="status">
-            Album 1/5 - Waiting to start auto-advance...
+            Album 1/5 - Ready for FORWARD-ONLY auto-advance test
         </div>
         
         <div class="controls">
-            <button onclick="startTest()">Start Auto-Advance</button>
+            <button onclick="startTest()">Start Forward-Only Auto</button>
             <button onclick="stopTest()">Stop</button>
             <button onclick="testNext()">Manual Next</button>
             <button onclick="testPrev()">Manual Prev</button>
@@ -224,9 +242,10 @@
     </div>
 
     <script>
-        // SIMPLE TEST CAROUSEL
+        // SIMPLE TEST CAROUSEL - TRUE INFINITE FORWARD
         let currentSlide = 0;
-        const totalSlides = 5;
+        const totalSlides = 5; // Logical slides (user sees 5)
+        const actualSlides = 7; // Physical slides (5 + 2 duplicates)
         let autoTimer = null;
         let isDesktop = window.innerWidth > 768;
         
@@ -237,47 +256,68 @@
         
         // MOVE TO SPECIFIC SLIDE
         function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
-            
             // Calculate how far to move
             let movePercent;
             if (isDesktop) {
                 // Desktop: each slide is 50% wide, so move 50% per slide
-                movePercent = currentSlide * 50;
+                movePercent = slideIndex * 50;
             } else {
                 // Mobile: each slide is 100% wide, so move 100% per slide
-                movePercent = currentSlide * 100;
+                movePercent = slideIndex * 100;
             }
             
             // Move the slider
             slider.style.transform = `translateX(-${movePercent}%)`;
             
-            // Update status
-            status.textContent = `Album ${currentSlide + 1}/5 - translateX(-${movePercent}%) - ${isDesktop ? 'Desktop (2 visible)' : 'Mobile (1 visible)'}`;
+            // Show logical album number (1-5)
+            const logicalAlbum = (slideIndex % totalSlides) + 1;
             
-            console.log(`Moved to slide ${currentSlide + 1}, translateX(-${movePercent}%)`);
+            // Update status
+            status.textContent = `Album ${logicalAlbum}/5 - Position ${slideIndex} - translateX(-${movePercent}%) - ${isDesktop ? 'Desktop (2 visible)' : 'Mobile (1 visible)'}`;
+            
+            console.log(`Moved to position ${slideIndex} (Album ${logicalAlbum}), translateX(-${movePercent}%)`);
         }
         
-        // START AUTO-ADVANCE TEST
+        // START AUTO-ADVANCE TEST - TRUE INFINITE FORWARD
         function startTest() {
             stopTest(); // Clear any existing timer
             
-            status.textContent = `Starting auto-advance... Album 1 will show for 3 seconds`;
-            console.log('AUTO-ADVANCE TEST STARTED');
+            status.textContent = `Starting TRUE INFINITE forward auto-advance...`;
+            console.log('AUTO-ADVANCE TEST STARTED - TRUE INFINITE FORWARD');
             
-            // Start from slide 0
+            // Start from position 0
             currentSlide = 0;
             goToSlide(0);
             
-            // Wait 3 seconds, then start advancing
+            // Wait 3 seconds, then start advancing FORWARD ONLY
             setTimeout(() => {
                 autoTimer = setInterval(() => {
-                    currentSlide = (currentSlide + 1) % totalSlides;
-                    goToSlide(currentSlide);
-                    console.log(`AUTO-ADVANCE: Moved to album ${currentSlide + 1} after 3 second pause`);
+                    // ALWAYS move forward
+                    currentSlide++;
+                    
+                    // If we reach the end, reset seamlessly
+                    if (currentSlide >= totalSlides) {
+                        goToSlide(currentSlide); // Show the transition
+                        
+                        // Reset position after transition
+                        setTimeout(() => {
+                            slider.style.transition = 'none';
+                            currentSlide = 0;
+                            goToSlide(0);
+                            
+                            // Re-enable transitions
+                            setTimeout(() => {
+                                slider.style.transition = 'transform 0.6s ease-in-out';
+                            }, 50);
+                        }, 600);
+                    } else {
+                        goToSlide(currentSlide);
+                    }
+                    
+                    console.log(`AUTO-ADVANCE: Moved FORWARD to position ${currentSlide}`);
                 }, 3000); // 3 seconds between advances
                 
-                console.log('Auto-timer started - advancing every 3 seconds');
+                console.log('Auto-timer started - advancing FORWARD every 3 seconds (TRUE INFINITE)');
             }, 3000); // Initial 3 second wait
         }
         
