@@ -1,23 +1,25 @@
 <nav class="nav" role="navigation">
-        <a href="home.html" class="nav-logo">
-            <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
-        </a>
-        
-        <div class="nav-right">
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="music/music.html">Music</a></li>
-                <li><a href="bio.html">Biography</a></li>
-                <li><a href="tour.html">Tour</a></li>
-                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                <li><a href="shop.html">Store</a></li>
-            </ul>
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
+            </a>
             
-            <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
-                <span class="audio-icon" id="audioIcon">🔊</span>
-                <span class="audio-text" id="audioText">Audio On</span>
-            </button>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <div class="nav-right">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="music/music.html">Music</a></li>
+                    <li><a href="bio.html">Biography</a></li>
+                    <li><a href="tour.html">Tour</a></li>
+                    <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                    <li><a href="shop.html">Store</a></li>
+                </ul>
+                
+                <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
+                    <span class="audio-icon" id="audioIcon">🔊</span>
+                    <span class="audio-text" id="audioText">Audio On</span>
+                </button>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </div>
         </div>
     </nav><!DOCTYPE html>
 <html lang="en">
@@ -70,16 +72,20 @@
         .nav {
             position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(25px);
             border-bottom: 1px solid rgba(218, 181, 71, 0.2); z-index: 100; height: 72px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
             padding: 0 var(--space-lg);
+        }
+        
+        .nav-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .nav-logo { 
             margin: 0;
             padding: 0;
-            flex-shrink: 0;
         }
         .nav-logo img { height: 42px; transition: all var(--transition); }
         .nav-logo:hover img { transform: scale(1.05); }
@@ -88,7 +94,6 @@
             display: flex;
             align-items: center;
             gap: var(--space-lg);
-            flex-shrink: 0;
         }
         
         .nav-menu { 
@@ -97,7 +102,6 @@
             gap: var(--space-lg); 
             margin: 0;
             padding: 0;
-            flex-shrink: 0;
         }
         .nav-menu a {
             color: var(--white-75); text-decoration: none; font-family: 'Orbitron', monospace; font-weight: 500; font-size: 0.875rem;
@@ -512,7 +516,7 @@
             }
             .nav-logo img { height: 48px; }
             .nav-menu { 
-                display: flex !important; 
+                display: flex; 
                 font-size: 0.875rem; 
             }
             .mobile-menu-btn { display: none; }
