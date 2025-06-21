@@ -695,10 +695,10 @@
             }
             
             .carousel {
-                height: 350px !important;
+                height: 380px !important;
                 overflow: hidden !important;
                 position: relative !important;
-                width: 200px !important;
+                width: 280px !important;
                 margin: 0 auto !important;
                 /* FORCE OVERRIDE DESKTOP STYLES */
                 mask: none !important;
@@ -716,22 +716,22 @@
             
             @keyframes mobileSlideShow {
                 0%, 15% { transform: translateX(0); }
-                20%, 35% { transform: translateX(-200px); }
-                40%, 55% { transform: translateX(-400px); }
-                60%, 75% { transform: translateX(-600px); }
-                80%, 95% { transform: translateX(-800px); }
-                100% { transform: translateX(-1000px); }
+                20%, 35% { transform: translateX(-280px); }
+                40%, 55% { transform: translateX(-560px); }
+                60%, 75% { transform: translateX(-840px); }
+                80%, 95% { transform: translateX(-1120px); }
+                100% { transform: translateX(-1400px); }
             }
             
             .carousel-slide {
-                /* FORCE SMALL MOBILE SIZE */
-                width: 200px !important;
-                height: 300px !important;
-                flex: 0 0 200px !important;
+                /* PROFESSIONAL MOBILE SIZE */
+                width: 280px !important;
+                height: 360px !important;
+                flex: 0 0 280px !important;
                 background: rgba(26, 26, 26, 0.95) !important;
                 border: 1px solid rgba(218, 181, 71, 0.3) !important;
-                border-radius: var(--radius-md) !important;
-                padding: 8px !important;
+                border-radius: var(--radius-lg) !important;
+                padding: var(--space-sm) !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -739,8 +739,7 @@
                 flex-shrink: 0 !important;
                 box-shadow: var(--shadow-md) !important;
                 box-sizing: border-box !important;
-                /* OVERRIDE DESKTOP LAYOUT */
-                gap: 8px !important;
+                gap: var(--space-sm) !important;
             }
             
             .carousel-slide:hover {
@@ -749,11 +748,11 @@
             }
             
             .album-image {
-                width: 100px !important;
-                height: 100px !important;
-                border-radius: var(--radius-sm) !important;
-                border: 1px solid rgba(218, 181, 71, 0.3) !important;
-                margin: 0 auto 8px auto !important;
+                width: 140px !important;
+                height: 140px !important;
+                border-radius: var(--radius-md) !important;
+                border: 2px solid rgba(218, 181, 71, 0.3) !important;
+                margin: 0 auto var(--space-sm) auto !important;
                 flex-shrink: 0 !important;
                 object-fit: cover !important;
             }
@@ -767,7 +766,7 @@
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
-                gap: 4px !important;
+                gap: var(--space-xs) !important;
                 flex: 1 !important;
                 justify-content: space-between !important;
                 width: 100% !important;
@@ -780,16 +779,17 @@
             }
             
             .album-title {
-                font-size: 0.8rem !important;
-                margin-bottom: 2px !important;
-                line-height: 1.1 !important;
+                font-size: 1rem !important;
+                margin-bottom: 0.25rem !important;
+                line-height: 1.2 !important;
                 color: var(--gold) !important;
                 text-align: center !important;
+                font-weight: 600 !important;
             }
             
             .album-artist {
-                font-size: 0.7rem !important;
-                margin-bottom: 4px !important;
+                font-size: 0.85rem !important;
+                margin-bottom: var(--space-xs) !important;
                 color: var(--white-75) !important;
                 text-align: center !important;
             }
@@ -797,14 +797,15 @@
             .album-details {
                 display: flex !important;
                 justify-content: center !important;
-                margin-bottom: 4px !important;
+                margin-bottom: var(--space-sm) !important;
                 width: 100% !important;
             }
             
             .album-badge {
-                font-size: 0.55rem !important;
-                padding: 2px 6px !important;
+                font-size: 0.7rem !important;
+                padding: 0.3rem 0.6rem !important;
                 text-align: center !important;
+                font-weight: 600 !important;
             }
             
             .album-actions {
@@ -814,10 +815,12 @@
             }
             
             .btn-small {
-                padding: 4px 8px !important;
-                font-size: 0.6rem !important;
-                min-width: 60px !important;
+                padding: 0.75rem 1.2rem !important;
+                font-size: 0.8rem !important;
+                min-width: 100px !important;
+                min-height: 44px !important;
                 text-align: center !important;
+                font-weight: 600 !important;
             }
             
             .nav-right {
