@@ -73,21 +73,22 @@
         .nav {
             position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(25px);
             border-bottom: 1px solid rgba(218, 181, 71, 0.2); z-index: 100; height: 72px; display: flex; align-items: center; 
-            padding: 0 var(--space-2xl);
+            padding: 0 var(--space-lg);
         }
+        
         .nav-content { 
-            max-width: 1400px; 
             width: 100%; 
-            margin: 0 auto; 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
+            margin: 0;
             padding: 0;
         }
         
         .nav-logo { 
             margin: 0;
             padding: 0;
+            flex-shrink: 0;
         }
         .nav-logo img { height: 42px; transition: all var(--transition); }
         .nav-logo:hover img { transform: scale(1.05); }
@@ -95,17 +96,18 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: var(--space-2xl);
-            margin: 0;
-            padding: 0;
+            gap: var(--space-xl);
+            margin-left: auto;
+            flex-shrink: 0;
         }
         
         .nav-menu { 
             display: none; 
             list-style: none; 
-            gap: var(--space-2xl); 
+            gap: var(--space-lg); 
             margin: 0;
             padding: 0;
+            flex-shrink: 0;
         }
         .nav-menu a {
             color: var(--white-75); text-decoration: none; font-family: 'Orbitron', monospace; font-weight: 500; font-size: 0.875rem;
@@ -133,9 +135,10 @@
         .nav-controls {
             display: flex; 
             align-items: center; 
-            gap: var(--space-md);
+            gap: var(--space-sm);
             margin: 0;
             padding: 0;
+            flex-shrink: 0;
         }71, 0.2);
             padding: var(--space-lg);
             gap: var(--space-md);
@@ -520,9 +523,15 @@
         }
         
         @media (min-width: 769px) {
-            .nav { height: 80px; padding: 0 var(--space-2xl); }
+            .nav { 
+                height: 80px; 
+                padding: 0 var(--space-2xl); 
+            }
             .nav-logo img { height: 48px; }
-            .nav-menu { display: flex; font-size: 0.875rem; }
+            .nav-menu { 
+                display: flex !important; 
+                font-size: 0.875rem; 
+            }
             .mobile-menu-btn { display: none; }
             .main { padding-top: 80px; padding-left: var(--space-2xl); padding-right: var(--space-2xl); }
             .features { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
@@ -534,19 +543,20 @@
                 padding: 0.5rem 0.75rem;
             }
             
-            /* Professional Desktop Spacing */
+            /* Force Right Alignment */
+            .nav-content {
+                max-width: none;
+                width: 100%;
+                margin: 0;
+            }
+            
             .nav-right {
-                gap: var(--space-2xl);
+                gap: var(--space-xl);
+                margin-left: auto;
             }
             
             .nav-menu {
                 gap: var(--space-lg);
-            }
-            
-            .nav-content {
-                padding: 0;
-                max-width: none;
-                width: 100%;
             }
         }
         
