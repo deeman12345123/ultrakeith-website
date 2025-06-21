@@ -678,7 +678,7 @@
             opacity: 0.8;
         }
         
-        /* CLEAN MOBILE CAROUSEL - PERFECTLY CENTERED */
+        /* MOBILE CAROUSEL - CLEAN RESTART - ONE FULL CARD ONLY */
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-md) 0;
@@ -694,45 +694,41 @@
                 padding: var(--space-lg) var(--space-sm);
             }
             
-            /* MOBILE CAROUSEL - ONE CENTERED CARD */
+            /* SIMPLE ONE-CARD MOBILE CAROUSEL */
             .carousel {
-                height: 400px;
+                height: 380px;
                 overflow: hidden;
                 position: relative;
                 border-radius: var(--radius-lg);
                 background: rgba(15, 15, 15, 0.3);
                 padding: var(--space-sm);
-                /* CENTER THE WHOLE CAROUSEL */
-                width: 100%;
-                max-width: 100vw;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                /* CONTAINER EXACTLY FITS ONE CARD */
+                width: 260px;
+                margin: 0 auto;
             }
             
             .carousel-track {
                 display: flex;
-                gap: 0; /* No gap between cards for clean sliding */
-                animation: centerSlideShow 20s linear infinite;
+                gap: 0;
+                animation: oneCardSlide 20s linear infinite;
                 width: max-content;
                 height: 100%;
-                align-items: center;
             }
             
-            @keyframes centerSlideShow {
-                /* Each card gets 20% of the time (4 seconds each) */
-                0%, 15% { transform: translateX(calc(50vw - 120px)); }
-                20%, 35% { transform: translateX(calc(50vw - 120px - 240px)); }
-                40%, 55% { transform: translateX(calc(50vw - 120px - 480px)); }
-                60%, 75% { transform: translateX(calc(50vw - 120px - 720px)); }
-                80%, 95% { transform: translateX(calc(50vw - 120px - 960px)); }
-                100% { transform: translateX(calc(50vw - 120px - 1200px)); }
+            @keyframes oneCardSlide {
+                /* Show card 1 for 3 seconds, then slide */
+                0%, 15% { transform: translateX(0); }
+                20%, 35% { transform: translateX(-260px); }
+                40%, 55% { transform: translateX(-520px); }
+                60%, 75% { transform: translateX(-780px); }
+                80%, 95% { transform: translateX(-1040px); }
+                100% { transform: translateX(-1300px); }
             }
             
             .carousel-slide {
-                /* MOBILE-FRIENDLY SIZE - FITS COMFORTABLY */
-                width: 240px;
-                height: 340px;
+                /* EXACTLY 260px - FITS PERFECTLY IN CONTAINER */
+                width: 260px;
+                height: 350px;
                 background: rgba(26, 26, 26, 0.95);
                 border: 2px solid rgba(218, 181, 71, 0.15);
                 border-radius: var(--radius-lg);
@@ -743,19 +739,16 @@
                 text-align: center;
                 flex-shrink: 0;
                 box-shadow: var(--shadow-md);
-                margin: 0;
-                position: relative;
             }
             
             .carousel-slide:hover {
                 border-color: rgba(218, 181, 71, 0.4);
                 background: rgba(26, 26, 26, 1);
-                transform: translateY(-2px);
             }
             
             .album-image {
-                width: 130px;
-                height: 130px;
+                width: 120px;
+                height: 120px;
                 border-radius: var(--radius-md);
                 border: 2px solid rgba(218, 181, 71, 0.3);
                 margin: 0 auto var(--space-sm) auto;
@@ -785,7 +778,7 @@
             }
             
             .album-title {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 margin-bottom: 0.2rem;
                 line-height: 1.2;
                 color: var(--gold);
@@ -793,7 +786,7 @@
             }
             
             .album-artist {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 margin-bottom: var(--space-xs);
                 color: var(--white-75);
                 text-align: center;
@@ -808,7 +801,7 @@
             
             .album-badge {
                 font-size: 0.6rem;
-                padding: 0.25rem 0.5rem;
+                padding: 0.2rem 0.4rem;
                 text-align: center;
             }
             
@@ -819,9 +812,9 @@
             }
             
             .btn-small {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.7rem;
-                min-width: 70px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.65rem;
+                min-width: 60px;
                 text-align: center;
             }
             
