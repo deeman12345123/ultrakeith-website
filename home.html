@@ -123,19 +123,19 @@
         }
         .carousel-track {
             display: flex; gap: var(--space-md); width: calc((520px + var(--space-md)) * 10);
-            animation: infiniteSlideAndPause 35s linear infinite; will-change: transform;
+            animation: infiniteSlideAndPause 20s linear infinite; will-change: transform;
         }
         @keyframes infiniteSlideAndPause {
             0% { transform: translateX(0); }
-            1.5% { transform: translateX(calc(-1 * (520px + 24px))); }
+            2.5% { transform: translateX(calc(-1 * (520px + 24px))); }
             20% { transform: translateX(calc(-1 * (520px + 24px))); }
-            21.5% { transform: translateX(calc(-2 * (520px + 24px))); }
+            22.5% { transform: translateX(calc(-2 * (520px + 24px))); }
             40% { transform: translateX(calc(-2 * (520px + 24px))); }
-            41.5% { transform: translateX(calc(-3 * (520px + 24px))); }
+            42.5% { transform: translateX(calc(-3 * (520px + 24px))); }
             60% { transform: translateX(calc(-3 * (520px + 24px))); }
-            61.5% { transform: translateX(calc(-4 * (520px + 24px))); }
+            62.5% { transform: translateX(calc(-4 * (520px + 24px))); }
             80% { transform: translateX(calc(-4 * (520px + 24px))); }
-            81.5% { transform: translateX(calc(-5 * (520px + 24px))); }
+            82.5% { transform: translateX(calc(-5 * (520px + 24px))); }
             100% { transform: translateX(calc(-5 * (520px + 24px))); }
         }
         .carousel-track:hover { animation-play-state: paused; }
@@ -846,7 +846,7 @@
                         carouselTrack.style.transform = `translateX(${currentPosition}px)`;
                         carouselTrack.style.animation = 'none';
                         setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 20s linear infinite';
                         }, 500);
                     });
                     
@@ -856,7 +856,7 @@
                         carouselTrack.style.transform = `translateX(${currentPosition}px)`;
                         carouselTrack.style.animation = 'none';
                         setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 20s linear infinite';
                         }, 500);
                     });
                 }
