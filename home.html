@@ -130,24 +130,26 @@
         }
         
         .carousel {
-            overflow: hidden; position: relative; height: 340px; border-radius: var(--radius-lg);
+            overflow: hidden; position: relative; height: 324px; border-radius: var(--radius-lg);
             mask: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
             -webkit-mask: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
         }
         .carousel-track {
-            display: flex; gap: var(--space-md); width: calc((520px + var(--space-md)) * 8);
-            animation: slideAndPause 32s infinite; will-change: transform;
+            display: flex; gap: var(--space-md); width: calc((520px + var(--space-md)) * 10);
+            animation: infiniteSlideAndPause 40s linear infinite; will-change: transform;
         }
-        @keyframes slideAndPause {
+        @keyframes infiniteSlideAndPause {
             0% { transform: translateX(0); }
-            12.5% { transform: translateX(calc(-1 * (520px + 24px))); }
-            25% { transform: translateX(calc(-1 * (520px + 24px))); }
-            37.5% { transform: translateX(calc(-2 * (520px + 24px))); }
-            50% { transform: translateX(calc(-2 * (520px + 24px))); }
-            62.5% { transform: translateX(calc(-3 * (520px + 24px))); }
-            75% { transform: translateX(calc(-3 * (520px + 24px))); }
-            87.5% { transform: translateX(calc(-4 * (520px + 24px))); }
-            100% { transform: translateX(0); }
+            10% { transform: translateX(calc(-1 * (520px + 24px))); }
+            20% { transform: translateX(calc(-1 * (520px + 24px))); }
+            30% { transform: translateX(calc(-2 * (520px + 24px))); }
+            40% { transform: translateX(calc(-2 * (520px + 24px))); }
+            50% { transform: translateX(calc(-3 * (520px + 24px))); }
+            60% { transform: translateX(calc(-3 * (520px + 24px))); }
+            70% { transform: translateX(calc(-4 * (520px + 24px))); }
+            80% { transform: translateX(calc(-4 * (520px + 24px))); }
+            90% { transform: translateX(calc(-5 * (520px + 24px))); }
+            100% { transform: translateX(calc(-5 * (520px + 24px))); }
         }
         .carousel-track:hover { animation-play-state: paused; }
         
@@ -279,8 +281,8 @@
             .hero { padding: var(--space-md) 0; }
             .hero-logo { max-height: 40vh; margin-bottom: var(--space-sm); }
             .releases { margin: var(--space-md) 0 var(--space-xl) 0; padding: var(--space-xl) var(--space-md); }
-            .carousel { height: 280px; }
-            .carousel-track { animation-duration: 20s; width: calc((380px + var(--space-md)) * 5); }
+            .carousel { height: 250px; }
+            .carousel-track { animation-duration: 25s; width: calc((380px + var(--space-md)) * 10); }
             .carousel-slide { flex: 0 0 380px; height: 180px; padding: var(--space-sm); }
             .album-image { width: 180px; height: 180px; }
             .album-title { font-size: 1.1rem; }
@@ -442,6 +444,22 @@
                     
                     <!-- SEAMLESS LOOP ALBUMS -->
                     <div class="carousel-slide">
+                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Karpenters</h3>
+                                <p class="album-artist">Kool Keith</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-latest">June 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
                         <img src="album1.png" alt="Space Goretex album cover" class="album-image">
                         <div class="album-info">
                             <div class="album-header">
@@ -485,6 +503,22 @@
                             </div>
                             <div class="album-actions">
                                 <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Black Elvis 2</h3>
+                                <p class="album-artist">Black Elvis</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-new">Jan 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -806,7 +840,7 @@
                         carouselTrack.style.transform = `translateX(${currentPosition}px)`;
                         carouselTrack.style.animation = 'none';
                         setTimeout(() => {
-                            carouselTrack.style.animation = 'slideAndPause 32s infinite';
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 40s linear infinite';
                         }, 500);
                     });
                     
@@ -816,7 +850,7 @@
                         carouselTrack.style.transform = `translateX(${currentPosition}px)`;
                         carouselTrack.style.animation = 'none';
                         setTimeout(() => {
-                            carouselTrack.style.animation = 'slideAndPause 32s infinite';
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 40s linear infinite';
                         }, 500);
                     });
                 }
