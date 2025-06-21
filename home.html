@@ -678,7 +678,7 @@
             opacity: 0.8;
         }
         
-        /* PROFESSIONAL MOBILE STYLES - OPTIMIZED CAROUSEL WIDTH */
+        /* CLEAN MOBILE CAROUSEL - NO CONFLICTS */
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-md) 0;
@@ -694,56 +694,66 @@
                 padding: var(--space-lg) var(--space-sm);
             }
             
+            /* SIMPLE MOBILE CAROUSEL */
             .carousel {
-                height: 360px;
-                mask: none;
-                -webkit-mask: none;
-                border-radius: var(--radius-lg);
-                background: rgba(15, 15, 15, 0.3);
-                padding: var(--space-xs);
-                margin: 0 var(--space-lg); /* Better side margins */
+                height: 400px;
                 overflow: hidden;
                 position: relative;
+                border-radius: var(--radius-lg);
+                background: rgba(15, 15, 15, 0.3);
+                padding: var(--space-sm);
             }
             
             .carousel-track {
-                animation: mobileSlideAndPause 25s linear infinite;
-                /* MOBILE FIT: Much smaller cards that fit nicely */
-                width: calc((260px + var(--space-xl)) * 10);
-                gap: var(--space-xl);
                 display: flex;
-                align-items: center;
-                padding-left: calc(50vw - 130px); /* Center first card */
+                gap: var(--space-lg);
+                /* PERFECT TIMING: 3s wait + 1s slide = 4s per album, 20s total loop */
+                animation: infiniteSlideShow 20s linear infinite;
+                width: max-content;
             }
             
-            @keyframes mobileSlideAndPause {
+            @keyframes infiniteSlideShow {
+                /* Album 1: Show 3s, slide 1s */
                 0% { transform: translateX(0); }
-                2% { transform: translateX(calc(-1 * (260px + 48px))); }
-                20% { transform: translateX(calc(-1 * (260px + 48px))); }
-                22% { transform: translateX(calc(-2 * (260px + 48px))); }
-                40% { transform: translateX(calc(-2 * (260px + 48px))); }
-                42% { transform: translateX(calc(-3 * (260px + 48px))); }
-                60% { transform: translateX(calc(-3 * (260px + 48px))); }
-                62% { transform: translateX(calc(-4 * (260px + 48px))); }
-                80% { transform: translateX(calc(-4 * (260px + 48px))); }
-                82% { transform: translateX(calc(-5 * (260px + 48px))); }
-                100% { transform: translateX(calc(-5 * (260px + 48px))); }
+                15% { transform: translateX(0); }
+                20% { transform: translateX(calc(-100vw)); }
+                
+                /* Album 2: Show 3s, slide 1s */
+                20% { transform: translateX(calc(-100vw)); }
+                35% { transform: translateX(calc(-100vw)); }
+                40% { transform: translateX(calc(-200vw)); }
+                
+                /* Album 3: Show 3s, slide 1s */
+                40% { transform: translateX(calc(-200vw)); }
+                55% { transform: translateX(calc(-200vw)); }
+                60% { transform: translateX(calc(-300vw)); }
+                
+                /* Album 4: Show 3s, slide 1s */
+                60% { transform: translateX(calc(-300vw)); }
+                75% { transform: translateX(calc(-300vw)); }
+                80% { transform: translateX(calc(-400vw)); }
+                
+                /* Album 5: Show 3s, slide 1s */
+                80% { transform: translateX(calc(-400vw)); }
+                95% { transform: translateX(calc(-400vw)); }
+                100% { transform: translateX(calc(-500vw)); }
             }
             
             .carousel-slide {
-                /* PERFECT MOBILE FIT: Smaller card with nice margins */
-                flex: 0 0 260px;
-                width: 260px;
-                max-width: 260px;
-                height: 340px;
-                padding: var(--space-xs);
-                flex-direction: column;
-                text-align: center;
+                width: calc(100vw - 80px);
+                max-width: 300px;
+                min-width: 250px;
+                height: 370px;
                 background: rgba(26, 26, 26, 0.95);
                 border: 2px solid rgba(218, 181, 71, 0.15);
+                border-radius: var(--radius-lg);
+                padding: var(--space-sm);
                 display: flex;
-                overflow: visible;
-                margin: 0;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                flex-shrink: 0;
+                margin: 0 auto;
             }
             
             .carousel-slide:hover {
@@ -752,10 +762,11 @@
             }
             
             .album-image {
-                width: 140px;
-                height: 140px;
-                margin: 0 auto var(--space-xs) auto;
+                width: 150px;
+                height: 150px;
+                border-radius: var(--radius-md);
                 border: 2px solid rgba(218, 181, 71, 0.3);
+                margin-bottom: var(--space-sm);
                 flex-shrink: 0;
             }
             
@@ -764,63 +775,53 @@
                 border-color: rgba(218, 181, 71, 0.5);
             }
             
-            .carousel-slide .album-info {
+            .album-info {
                 display: flex;
                 flex-direction: column;
-                flex: 1;
-                min-height: 140px;
-                padding: 0;
+                align-items: center;
                 gap: var(--space-xs);
-                height: auto;
-                justify-content: flex-start;
+                flex: 1;
+                justify-content: space-between;
+                width: 100%;
             }
             
-            .carousel-slide .album-header {
+            .album-header {
                 text-align: center;
-                flex: none;
-                margin-bottom: 0;
             }
             
-            .carousel-slide .album-title {
-                font-size: 0.9rem;
+            .album-title {
+                font-size: 1rem;
                 margin-bottom: 0.25rem;
                 line-height: 1.2;
+                color: var(--gold);
             }
             
-            .carousel-slide .album-artist {
-                font-size: 0.75rem;
+            .album-artist {
+                font-size: 0.8rem;
                 margin-bottom: var(--space-xs);
                 color: var(--white-75);
             }
             
-            .carousel-slide .album-details {
+            .album-details {
                 display: flex;
                 justify-content: center;
-                margin-bottom: 0;
-                align-items: center;
-                gap: var(--space-xs);
+                margin-bottom: var(--space-sm);
             }
             
-            .carousel-slide .album-badge {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.4rem;
-                margin: 0;
+            .album-badge {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.5rem;
             }
             
-            .carousel-slide .album-actions {
+            .album-actions {
                 display: flex;
                 justify-content: center;
-                margin-top: 0;
-                margin-bottom: 0;
-                padding: 0;
             }
             
-            .carousel-slide .btn-small {
+            .btn-small {
                 padding: 0.5rem 1rem;
-                font-size: 0.7rem;
+                font-size: 0.75rem;
                 min-width: 80px;
-                white-space: nowrap;
-                margin: 0;
             }
             
             .nav-right {
