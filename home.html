@@ -775,7 +775,7 @@
             }
             
             .slide {
-                width: 10%; /* 100% ÷ 10 = 10% per slide (2 slides = 20% visible) */
+                width: 40%; /* Each slide takes 40% of track (2 slides = 80% visible, leaving space) */
                 flex-direction: row;
                 text-align: left;
                 gap: var(--space-lg);
@@ -1138,8 +1138,8 @@
                 let translateX;
                 
                 if (this.isDesktop) {
-                    // Desktop: 2 albums visible, each slide is 10% of track
-                    translateX = this.currentSlide * 10; // Move 10% per slide
+                    // Desktop: 2 albums visible, each slide is 40% of track, move by 50%
+                    translateX = this.currentSlide * 50; // Move 50% per slide to show next 2 albums
                 } else {
                     // Mobile: 1 album visible, each slide is 20% of track  
                     translateX = this.currentSlide * 20; // Move 20% per slide
