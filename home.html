@@ -694,7 +694,7 @@
                 padding: var(--space-lg) var(--space-sm);
             }
             
-            /* SEAMLESS MOBILE CAROUSEL - NO FLICKER */
+            /* SEAMLESS MOBILE CAROUSEL - PERFECTLY CENTERED */
             .carousel {
                 height: 380px;
                 overflow: hidden;
@@ -705,50 +705,50 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                margin: 0 auto;
+                max-width: 100%;
             }
             
             .carousel-track {
                 display: flex;
                 gap: var(--space-lg);
-                /* SEAMLESS LOOP: Duplicate first card at end for smooth transition */
-                animation: seamlessSlideShow 24s linear infinite;
+                /* SLIDE IN, WAIT 3 SECS, SLIDE OUT - INFINITE FORWARD */
+                animation: slideWaitSlide 20s linear infinite;
                 width: max-content;
+                /* CENTER THE FIRST CARD */
+                transform-origin: center;
+                margin-left: calc(50vw - 140px - var(--space-sm)); /* Center first card perfectly */
             }
             
-            @keyframes seamlessSlideShow {
-                /* Album 1: Show 3s, slide 1s */
+            @keyframes slideWaitSlide {
+                /* Album 1: Wait 3s (0-15%), slide out (15-20%) */
                 0% { transform: translateX(0); }
-                12.5% { transform: translateX(0); }
-                16.66% { transform: translateX(-310px); }
+                15% { transform: translateX(0); }
+                20% { transform: translateX(-310px); }
                 
-                /* Album 2: Show 3s, slide 1s */
-                16.66% { transform: translateX(-310px); }
-                29.16% { transform: translateX(-310px); }
-                33.32% { transform: translateX(-620px); }
+                /* Album 2: Wait 3s (20-35%), slide out (35-40%) */
+                20% { transform: translateX(-310px); }
+                35% { transform: translateX(-310px); }
+                40% { transform: translateX(-620px); }
                 
-                /* Album 3: Show 3s, slide 1s */
-                33.32% { transform: translateX(-620px); }
-                45.82% { transform: translateX(-620px); }
-                49.98% { transform: translateX(-930px); }
+                /* Album 3: Wait 3s (40-55%), slide out (55-60%) */
+                40% { transform: translateX(-620px); }
+                55% { transform: translateX(-620px); }
+                60% { transform: translateX(-930px); }
                 
-                /* Album 4: Show 3s, slide 1s */
-                49.98% { transform: translateX(-930px); }
-                62.48% { transform: translateX(-930px); }
-                66.64% { transform: translateX(-1240px); }
+                /* Album 4: Wait 3s (60-75%), slide out (75-80%) */
+                60% { transform: translateX(-930px); }
+                75% { transform: translateX(-930px); }
+                80% { transform: translateX(-1240px); }
                 
-                /* Album 5: Show 3s, slide 1s */
-                66.64% { transform: translateX(-1240px); }
-                79.14% { transform: translateX(-1240px); }
-                83.3% { transform: translateX(-1550px); }
-                
-                /* Duplicate Album 1: Show 3s, instant reset */
-                83.3% { transform: translateX(-1550px); }
-                95.8% { transform: translateX(-1550px); }
-                100% { transform: translateX(0); }
+                /* Album 5: Wait 3s (80-95%), slide out (95-100%) and reset */
+                80% { transform: translateX(-1240px); }
+                95% { transform: translateX(-1240px); }
+                100% { transform: translateX(-1550px); }
             }
             
             .carousel-slide {
-                /* PERFECT MOBILE SIZE: 5% smaller than container for nice margins */
+                /* PERFECTLY CENTERED MOBILE CARDS */
                 width: 280px;
                 max-width: 280px;
                 min-width: 280px;
@@ -763,6 +763,8 @@
                 text-align: center;
                 flex-shrink: 0;
                 box-shadow: var(--shadow-md);
+                margin: 0 auto;
+                position: relative;
             }
             
             .carousel-slide:hover {
@@ -776,9 +778,10 @@
                 height: 140px;
                 border-radius: var(--radius-md);
                 border: 2px solid rgba(218, 181, 71, 0.3);
-                margin-bottom: var(--space-sm);
+                margin: 0 auto var(--space-sm) auto;
                 flex-shrink: 0;
                 object-fit: cover;
+                display: block;
             }
             
             .carousel-slide:hover .album-image {
@@ -794,10 +797,12 @@
                 flex: 1;
                 justify-content: space-between;
                 width: 100%;
+                text-align: center;
             }
             
             .album-header {
                 text-align: center;
+                width: 100%;
             }
             
             .album-title {
@@ -805,34 +810,43 @@
                 margin-bottom: 0.25rem;
                 line-height: 1.2;
                 color: var(--gold);
+                text-align: center;
+                width: 100%;
             }
             
             .album-artist {
                 font-size: 0.8rem;
                 margin-bottom: var(--space-xs);
                 color: var(--white-75);
+                text-align: center;
+                width: 100%;
             }
             
             .album-details {
                 display: flex;
                 justify-content: center;
                 margin-bottom: var(--space-sm);
+                width: 100%;
             }
             
             .album-badge {
                 font-size: 0.65rem;
                 padding: 0.25rem 0.5rem;
+                display: inline-block;
+                text-align: center;
             }
             
             .album-actions {
                 display: flex;
                 justify-content: center;
+                width: 100%;
             }
             
             .btn-small {
                 padding: 0.5rem 1rem;
                 font-size: 0.75rem;
                 min-width: 80px;
+                text-align: center;
             }
             
             .nav-right {
@@ -1065,23 +1079,6 @@
                             </div>
                             <div class="album-actions">
                                 <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- SEAMLESS LOOP: Duplicate first slide for smooth transition -->
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Karpenters</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-latest">June 2025</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
                             </div>
                         </div>
                     </div>
