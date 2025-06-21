@@ -700,34 +700,38 @@
                 -webkit-mask: none;
                 border-radius: var(--radius-lg);
                 background: rgba(15, 15, 15, 0.3);
-                padding: var(--space-xs) var(--space-md); /* Added horizontal padding */
+                padding: var(--space-xs) var(--space-xl); /* More horizontal padding for centering */
                 margin: 0 calc(-1 * var(--space-sm));
+                display: flex;
+                justify-content: center; /* Center the carousel content */
+                align-items: center;
             }
             
             .carousel-track {
                 animation: mobileSlideAndPause 25s linear infinite;
-                /* PROFESSIONAL FIX: Safe margins with max width cap */
-                width: calc((min(75vw, 300px) + var(--space-xs)) * 10);
-                gap: var(--space-xs);
+                /* CENTERED FIX: Much smaller cards with better centering */
+                width: calc((280px + var(--space-md)) * 10);
+                gap: var(--space-md);
             }
             
             @keyframes mobileSlideAndPause {
                 0% { transform: translateX(0); }
-                2% { transform: translateX(calc(-1 * (min(75vw, 300px) + 8px))); }
-                20% { transform: translateX(calc(-1 * (min(75vw, 300px) + 8px))); }
-                22% { transform: translateX(calc(-2 * (min(75vw, 300px) + 8px))); }
-                40% { transform: translateX(calc(-2 * (min(75vw, 300px) + 8px))); }
-                42% { transform: translateX(calc(-3 * (min(75vw, 300px) + 8px))); }
-                60% { transform: translateX(calc(-3 * (min(75vw, 300px) + 8px))); }
-                62% { transform: translateX(calc(-4 * (min(75vw, 300px) + 8px))); }
-                80% { transform: translateX(calc(-4 * (min(75vw, 300px) + 8px))); }
-                82% { transform: translateX(calc(-5 * (min(75vw, 300px) + 8px))); }
-                100% { transform: translateX(calc(-5 * (min(75vw, 300px) + 8px))); }
+                2% { transform: translateX(calc(-1 * (280px + 24px))); }
+                20% { transform: translateX(calc(-1 * (280px + 24px))); }
+                22% { transform: translateX(calc(-2 * (280px + 24px))); }
+                40% { transform: translateX(calc(-2 * (280px + 24px))); }
+                42% { transform: translateX(calc(-3 * (280px + 24px))); }
+                60% { transform: translateX(calc(-3 * (280px + 24px))); }
+                62% { transform: translateX(calc(-4 * (280px + 24px))); }
+                80% { transform: translateX(calc(-4 * (280px + 24px))); }
+                82% { transform: translateX(calc(-5 * (280px + 24px))); }
+                100% { transform: translateX(calc(-5 * (280px + 24px))); }
             }
             
             .carousel-slide {
-                /* PROFESSIONAL SOLUTION: Responsive with safe limits */
-                flex: 0 0 min(75vw, 300px);
+                /* CENTERED SOLUTION: Fixed 280px width for perfect centering */
+                flex: 0 0 280px;
+                max-width: 280px;
                 height: 360px;
                 padding: var(--space-xs);
                 flex-direction: column;
@@ -745,8 +749,8 @@
             }
             
             .album-image {
-                width: 160px;
-                height: 160px;
+                width: 140px;
+                height: 140px;
                 margin: 0 auto var(--space-xs) auto;
                 border: 2px solid rgba(218, 181, 71, 0.3);
                 flex-shrink: 0;
