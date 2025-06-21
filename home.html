@@ -1,26 +1,23 @@
 <nav class="nav" role="navigation">
-        <div class="nav-content">
-            <a href="home.html" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
-            </a>
+        <a href="home.html" class="nav-logo">
+            <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
+        </a>
+        
+        <div class="nav-right">
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="music/music.html">Music</a></li>
+                <li><a href="bio.html">Biography</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                <li><a href="shop.html">Store</a></li>
+            </ul>
             
-            <div class="nav-right">
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="music/music.html">Music</a></li>
-                    <li><a href="bio.html">Biography</a></li>
-                    <li><a href="tour.html">Tour</a></li>
-                    <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                    <li><a href="shop.html">Store</a></li>
-                </ul>
-                
-                <div class="nav-controls">
-                    <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
-                        <span class="audio-icon" id="audioIcon">🔊</span>
-                        <span class="audio-text" id="audioText">Audio On</span>
-                    </button>
-                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-                </div>
-            </div>
+            <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
+                <span class="audio-icon" id="audioIcon">🔊</span>
+                <span class="audio-text" id="audioText">Audio On</span>
+            </button>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
     </nav><!DOCTYPE html>
 <html lang="en">
@@ -41,7 +38,7 @@
         :root {
             --gold: #DAB547; --gold-light: #E8C547; --black: #000000; --burgundy: #0F0505; --white: #FFFFFF;
             --white-75: rgba(255, 255, 255, 0.75); --white-55: rgba(255, 255, 255, 0.55);
-            --space-sm: 1rem; --space-md: 1.5rem; --space-lg: 2rem; --space-xl: 3rem; --space-2xl: 4rem;
+            --space-xs: 0.5rem; --space-sm: 1rem; --space-md: 1.5rem; --space-lg: 2rem; --space-xl: 3rem; --space-2xl: 4rem;
             --radius-md: 0.5rem; --radius-lg: 0.75rem; --radius-xl: 1rem; --radius-2xl: 1.5rem;
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25); --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -72,17 +69,11 @@
         
         .nav {
             position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(218, 181, 71, 0.2); z-index: 100; height: 72px; display: flex; align-items: center; 
-            padding: 0 var(--space-lg);
-        }
-        
-        .nav-content { 
-            width: 100%; 
+            border-bottom: 1px solid rgba(218, 181, 71, 0.2); z-index: 100; height: 72px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            margin: 0;
-            padding: 0;
+            padding: 0 var(--space-lg);
         }
         
         .nav-logo { 
@@ -96,8 +87,7 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: var(--space-xl);
-            margin-left: auto;
+            gap: var(--space-lg);
             flex-shrink: 0;
         }
         
@@ -130,15 +120,6 @@
             padding: var(--space-lg);
             gap: var(--space-md);
             box-shadow: var(--shadow-lg);
-        }
-        
-        .nav-controls {
-            display: flex; 
-            align-items: center; 
-            gap: var(--space-sm);
-            margin: 0;
-            padding: 0;
-            flex-shrink: 0;
         }71, 0.2);
             padding: var(--space-lg);
             gap: var(--space-md);
@@ -366,45 +347,47 @@
             .hero-logo { max-height: 40vh; margin-bottom: var(--space-sm); }
             .releases { margin: var(--space-md) 0 var(--space-xl) 0; padding: var(--space-lg) var(--space-sm); }
             
-            /* Mobile Carousel - Completely Different Design */
+            /* Mobile Carousel - Fixed for Screen Fit */
             .carousel { 
-                height: 500px; 
+                height: 400px; 
                 mask: none; 
                 -webkit-mask: none;
                 border-radius: var(--radius-lg);
                 background: rgba(15, 15, 15, 0.3);
-                padding: var(--space-sm);
+                padding: var(--space-xs);
+                margin: 0 calc(-1 * var(--space-sm));
             }
             .carousel-track { 
-                animation: mobileSlideAndPause 30s linear infinite; 
-                width: calc((340px + var(--space-sm)) * 10);
-                gap: var(--space-sm);
+                animation: mobileSlideAndPause 25s linear infinite; 
+                width: calc((95vw + var(--space-xs)) * 10);
+                gap: var(--space-xs);
             }
             
             @keyframes mobileSlideAndPause {
                 0% { transform: translateX(0); }
-                2% { transform: translateX(calc(-1 * (340px + 16px))); }
-                20% { transform: translateX(calc(-1 * (340px + 16px))); }
-                22% { transform: translateX(calc(-2 * (340px + 16px))); }
-                40% { transform: translateX(calc(-2 * (340px + 16px))); }
-                42% { transform: translateX(calc(-3 * (340px + 16px))); }
-                60% { transform: translateX(calc(-3 * (340px + 16px))); }
-                62% { transform: translateX(calc(-4 * (340px + 16px))); }
-                80% { transform: translateX(calc(-4 * (340px + 16px))); }
-                82% { transform: translateX(calc(-5 * (340px + 16px))); }
-                100% { transform: translateX(calc(-5 * (340px + 16px))); }
+                2% { transform: translateX(calc(-1 * (95vw + 8px))); }
+                20% { transform: translateX(calc(-1 * (95vw + 8px))); }
+                22% { transform: translateX(calc(-2 * (95vw + 8px))); }
+                40% { transform: translateX(calc(-2 * (95vw + 8px))); }
+                42% { transform: translateX(calc(-3 * (95vw + 8px))); }
+                60% { transform: translateX(calc(-3 * (95vw + 8px))); }
+                62% { transform: translateX(calc(-4 * (95vw + 8px))); }
+                80% { transform: translateX(calc(-4 * (95vw + 8px))); }
+                82% { transform: translateX(calc(-5 * (95vw + 8px))); }
+                100% { transform: translateX(calc(-5 * (95vw + 8px))); }
             }
             
             .carousel-slide { 
-                flex: 0 0 340px; 
-                height: 480px; 
-                padding: var(--space-sm);
+                flex: 0 0 95vw; 
+                height: 380px; 
+                padding: var(--space-xs);
                 flex-direction: column;
                 text-align: center;
                 background: rgba(26, 26, 26, 0.95);
                 border: 2px solid rgba(218, 181, 71, 0.15);
                 display: flex;
                 overflow: visible;
+                margin: 0;
             }
             .carousel-slide:hover {
                 border-color: rgba(218, 181, 71, 0.4);
@@ -412,9 +395,9 @@
             }
             
             .album-image { 
-                width: 240px; 
-                height: 240px; 
-                margin: 0 auto var(--space-sm) auto;
+                width: 200px; 
+                height: 200px; 
+                margin: 0 auto var(--space-xs) auto;
                 border: 2px solid rgba(218, 181, 71, 0.3);
                 flex-shrink: 0;
             }
@@ -428,9 +411,9 @@
                 display: flex;
                 flex-direction: column;
                 flex: 1;
-                min-height: 180px;
+                min-height: 120px;
                 padding: 0;
-                gap: var(--space-sm);
+                gap: var(--space-xs);
                 height: auto;
                 justify-content: flex-start;
             }
@@ -442,13 +425,13 @@
             }
             
             .carousel-slide .album-title { 
-                font-size: 1.1rem; 
-                margin-bottom: 0.5rem;
+                font-size: 1rem; 
+                margin-bottom: 0.25rem;
                 line-height: 1.2;
             }
             .carousel-slide .album-artist { 
-                font-size: 0.9rem; 
-                margin-bottom: var(--space-sm);
+                font-size: 0.8rem; 
+                margin-bottom: var(--space-xs);
                 color: var(--white-75);
             }
             
@@ -457,12 +440,12 @@
                 justify-content: center;
                 margin-bottom: 0;
                 align-items: center;
-                gap: var(--space-sm);
+                gap: var(--space-xs);
             }
             
             .carousel-slide .album-badge {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.7rem;
+                font-size: 0.65rem;
+                padding: 0.25rem 0.5rem;
                 margin: 0;
             }
             
@@ -475,9 +458,9 @@
             }
             
             .carousel-slide .btn-small {
-                padding: 0.8rem 1.6rem;
-                font-size: 0.85rem;
-                min-width: 120px;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.75rem;
+                min-width: 100px;
                 white-space: nowrap;
                 margin: 0;
             }
@@ -541,22 +524,6 @@
             /* Desktop Audio Toggle */
             .audio-toggle {
                 padding: 0.5rem 0.75rem;
-            }
-            
-            /* Force Right Alignment */
-            .nav-content {
-                max-width: none;
-                width: 100%;
-                margin: 0;
-            }
-            
-            .nav-right {
-                gap: var(--space-xl);
-                margin-left: auto;
-            }
-            
-            .nav-menu {
-                gap: var(--space-lg);
             }
         }
         
