@@ -678,7 +678,7 @@
             opacity: 0.8;
         }
         
-        /* MOBILE CAROUSEL - CLEAN START */
+        /* MOBILE CAROUSEL - FORCE OVERRIDE ALL DESKTOP STYLES */
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-md) 0;
@@ -695,126 +695,129 @@
             }
             
             .carousel {
-                height: 350px;
-                overflow: hidden;
-                position: relative;
-                /* REMOVED: border-radius, background, padding that were eating space */
-                /* CLEAN CONTAINER - NO BORDERS OR PADDING */
-                width: 250px;
-                margin: 0 auto;
+                height: 350px !important;
+                overflow: hidden !important;
+                position: relative !important;
+                width: 200px !important;
+                margin: 0 auto !important;
+                /* FORCE OVERRIDE DESKTOP STYLES */
+                mask: none !important;
+                -webkit-mask: none !important;
+                padding: 0 !important;
+                background: transparent !important;
             }
             
             .carousel-track {
-                display: flex;
-                gap: 0;
-                /* SLIDE → STOP 3 SECS → SLIDE */
-                animation: mobileSlideShow 20s linear infinite;
-                width: max-content;
+                display: flex !important;
+                gap: 0 !important;
+                animation: mobileSlideShow 20s linear infinite !important;
+                width: max-content !important;
             }
             
             @keyframes mobileSlideShow {
-                /* Card 1: Show 3s (0-15%), slide 1s (15-20%) */
                 0%, 15% { transform: translateX(0); }
-                20%, 35% { transform: translateX(-250px); }
-                40%, 55% { transform: translateX(-500px); }
-                60%, 75% { transform: translateX(-750px); }
-                80%, 95% { transform: translateX(-1000px); }
-                100% { transform: translateX(-1250px); }
+                20%, 35% { transform: translateX(-200px); }
+                40%, 55% { transform: translateX(-400px); }
+                60%, 75% { transform: translateX(-600px); }
+                80%, 95% { transform: translateX(-800px); }
+                100% { transform: translateX(-1000px); }
             }
             
             .carousel-slide {
-                /* CARD = CONTAINER WIDTH - NO THICK BORDERS */
-                width: 250px;
-                height: 320px;
-                background: rgba(26, 26, 26, 0.95);
-                border: 1px solid rgba(218, 181, 71, 0.15); /* THIN BORDER - WAS 2px */
-                border-radius: var(--radius-lg);
-                padding: var(--space-xs); /* REDUCED PADDING - WAS var(--space-sm) */
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                flex-shrink: 0;
-                box-shadow: var(--shadow-md);
-                /* ENSURE NO OVERFLOW */
-                box-sizing: border-box;
+                /* FORCE SMALL MOBILE SIZE */
+                width: 200px !important;
+                height: 300px !important;
+                flex: 0 0 200px !important;
+                background: rgba(26, 26, 26, 0.95) !important;
+                border: 1px solid rgba(218, 181, 71, 0.3) !important;
+                border-radius: var(--radius-md) !important;
+                padding: 8px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                flex-shrink: 0 !important;
+                box-shadow: var(--shadow-md) !important;
+                box-sizing: border-box !important;
+                /* OVERRIDE DESKTOP LAYOUT */
+                gap: 8px !important;
             }
             
             .carousel-slide:hover {
-                border-color: rgba(218, 181, 71, 0.4);
-                background: rgba(26, 26, 26, 1);
+                border-color: rgba(218, 181, 71, 0.4) !important;
+                background: rgba(26, 26, 26, 1) !important;
             }
             
             .album-image {
-                width: 120px;
-                height: 120px;
-                border-radius: var(--radius-md);
-                border: 2px solid rgba(218, 181, 71, 0.3);
-                margin: 0 auto var(--space-sm) auto;
-                flex-shrink: 0;
-                object-fit: cover;
+                width: 100px !important;
+                height: 100px !important;
+                border-radius: var(--radius-sm) !important;
+                border: 1px solid rgba(218, 181, 71, 0.3) !important;
+                margin: 0 auto 8px auto !important;
+                flex-shrink: 0 !important;
+                object-fit: cover !important;
             }
             
             .carousel-slide:hover .album-image {
-                transform: scale(1.02);
-                border-color: rgba(218, 181, 71, 0.5);
+                transform: scale(1.02) !important;
+                border-color: rgba(218, 181, 71, 0.5) !important;
             }
             
             .album-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: var(--space-xs);
-                flex: 1;
-                justify-content: space-between;
-                width: 100%;
-                text-align: center;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 4px !important;
+                flex: 1 !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                text-align: center !important;
             }
             
             .album-header {
-                text-align: center;
-                width: 100%;
+                text-align: center !important;
+                width: 100% !important;
             }
             
             .album-title {
-                font-size: 1rem;
-                margin-bottom: 0.2rem;
-                line-height: 1.2;
-                color: var(--gold);
-                text-align: center;
+                font-size: 0.8rem !important;
+                margin-bottom: 2px !important;
+                line-height: 1.1 !important;
+                color: var(--gold) !important;
+                text-align: center !important;
             }
             
             .album-artist {
-                font-size: 0.8rem;
-                margin-bottom: var(--space-xs);
-                color: var(--white-75);
-                text-align: center;
+                font-size: 0.7rem !important;
+                margin-bottom: 4px !important;
+                color: var(--white-75) !important;
+                text-align: center !important;
             }
             
             .album-details {
-                display: flex;
-                justify-content: center;
-                margin-bottom: var(--space-xs);
-                width: 100%;
+                display: flex !important;
+                justify-content: center !important;
+                margin-bottom: 4px !important;
+                width: 100% !important;
             }
             
             .album-badge {
-                font-size: 0.65rem;
-                padding: 0.25rem 0.5rem;
-                text-align: center;
+                font-size: 0.55rem !important;
+                padding: 2px 6px !important;
+                text-align: center !important;
             }
             
             .album-actions {
-                display: flex;
-                justify-content: center;
-                width: 100%;
+                display: flex !important;
+                justify-content: center !important;
+                width: 100% !important;
             }
             
             .btn-small {
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
-                min-width: 80px;
-                text-align: center;
+                padding: 4px 8px !important;
+                font-size: 0.6rem !important;
+                min-width: 60px !important;
+                text-align: center !important;
             }
             
             .nav-right {
