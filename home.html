@@ -329,12 +329,12 @@
         .carousel-slider {
             display: flex;
             height: 100%;
-            width: 500%; /* 5 slides × 100% each on mobile */
+            width: 500%; /* 5 slides × 100% each - KEEP MOBILE WORKING */
             transition: transform 0.6s ease-in-out;
         }
         
         .slide {
-            width: 20%; /* 100% ÷ 5 slides = 20% each (mobile - 1 album visible) */
+            width: 20%; /* 100% ÷ 5 slides = 20% each - MOBILE BASELINE */
             height: 100%;
             flex-shrink: 0;
             padding: var(--space-lg);
@@ -770,21 +770,25 @@
             }
             
             /* DESKTOP CAROUSEL - 2 ALBUMS SIDE BY SIDE */
+            .carousel-window {
+                height: 480px;
+            }
+            
             .carousel-slider {
-                width: 250%; /* 5 slides × 50% each on desktop */
+                width: 500%; /* KEEP SAME AS MOBILE */
             }
             
             .slide {
-                width: 40%; /* Each slide takes 40% of track (2 slides = 80% visible, leaving space) */
+                width: 20%; /* KEEP SAME AS MOBILE */
                 flex-direction: row;
                 text-align: left;
                 gap: var(--space-lg);
-                padding: var(--space-xl);
+                padding: var(--space-lg);
             }
             
             .slide-image {
-                width: 250px;
-                height: 250px;
+                width: 200px;
+                height: 200px;
                 flex-shrink: 0;
             }
             
@@ -795,6 +799,7 @@
                 align-items: flex-start;
                 text-align: left;
                 flex: 1;
+                min-width: 200px;
             }
             
             .slide-title {
@@ -1134,16 +1139,8 @@
             }
             
             updateSlide() {
-                // Calculate movement based on screen size
-                let translateX;
-                
-                if (this.isDesktop) {
-                    // Desktop: 2 albums visible, each slide is 40% of track, move by 50%
-                    translateX = this.currentSlide * 50; // Move 50% per slide to show next 2 albums
-                } else {
-                    // Mobile: 1 album visible, each slide is 20% of track  
-                    translateX = this.currentSlide * 20; // Move 20% per slide
-                }
+                // SIMPLE: Same movement for both mobile and desktop
+                const translateX = this.currentSlide * 20; // Always move 20% per slide
                 
                 this.slider.style.transform = `translateX(-${translateX}%)`;
                 
@@ -1152,7 +1149,7 @@
                     indicator.classList.toggle('active', index === this.currentSlide);
                 });
                 
-                console.log(`Showing slide ${this.currentSlide + 1}, transform: -${translateX}% (${this.isDesktop ? '2 albums' : '1 album'} visible)`);
+                console.log(`Showing slide ${this.currentSlide + 1}, transform: -${translateX}% (${this.isDesktop ? 'Desktop' : 'Mobile'})`);
             }
             
             startAutoPlay() {
