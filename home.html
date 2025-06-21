@@ -750,16 +750,16 @@
             
             .carousel-track {
                 width: 600%; /* Back to 6 slides for mobile */
-                animation: infiniteSlide 18s linear infinite; /* 3s per slide */
+                animation: mobileSlide 20s linear infinite; /* 4s per position × 5 positions */
             }
             
-            @keyframes infiniteSlide {
-                0%, 16.66% { transform: translateX(0); }           /* Album 1 - pause 3s */
-                20%, 33.33% { transform: translateX(-16.66%); }    /* Album 2 - pause 3s */
-                36.66%, 50% { transform: translateX(-33.33%); }    /* Album 3 - pause 3s */
-                53.33%, 66.66% { transform: translateX(-50%); }    /* Album 4 - pause 3s */
-                70%, 83.33% { transform: translateX(-66.66%); }    /* Album 5 - pause 3s */
-                86.66%, 100% { transform: translateX(-83.33%); }   /* Album 1 (duplicate) - seamless */
+            @keyframes mobileSlide {
+                0%, 16% { transform: translateX(0); }           /* Album 1 - pause 3s */
+                20%, 36% { transform: translateX(-16.66%); }    /* Album 2 - pause 3s */
+                40%, 56% { transform: translateX(-33.33%); }    /* Album 3 - pause 3s */
+                60%, 76% { transform: translateX(-50%); }       /* Album 4 - pause 3s */
+                80%, 96% { transform: translateX(-66.66%); }    /* Album 5 - pause 3s */
+                100% { transform: translateX(-83.33%); }        /* Back to Album 1 - seamless loop */
             }
             
             .carousel-slide {
@@ -1451,7 +1451,7 @@
                     if (isDesktop) {
                         this.elements.carouselTrack.style.animation = 'infiniteSlide 25s linear infinite';
                     } else {
-                        this.elements.carouselTrack.style.animation = 'infiniteSlide 18s linear infinite';
+                        this.elements.carouselTrack.style.animation = 'mobileSlide 20s linear infinite';
                     }
                 }
             }
