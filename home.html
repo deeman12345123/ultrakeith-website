@@ -284,7 +284,7 @@
             
             /* Mobile Carousel - Completely Different Design */
             .carousel { 
-                height: 420px; 
+                height: 460px; 
                 mask: none; 
                 -webkit-mask: none;
                 border-radius: var(--radius-lg);
@@ -313,13 +313,15 @@
             
             .carousel-slide { 
                 flex: 0 0 340px; 
-                height: 400px; 
+                height: 440px; 
                 padding: var(--space-sm);
                 flex-direction: column;
                 text-align: center;
                 gap: var(--space-sm);
                 background: rgba(26, 26, 26, 0.95);
                 border: 2px solid rgba(218, 181, 71, 0.15);
+                display: flex;
+                justify-content: space-between;
             }
             .carousel-slide:hover {
                 border-color: rgba(218, 181, 71, 0.4);
@@ -327,10 +329,11 @@
             }
             
             .album-image { 
-                width: 280px; 
-                height: 280px; 
+                width: 260px; 
+                height: 260px; 
                 margin: 0 auto;
                 border: 2px solid rgba(218, 181, 71, 0.3);
+                flex-shrink: 0;
             }
             .carousel-slide:hover .album-image { 
                 transform: scale(1.02); 
@@ -338,27 +341,34 @@
             }
             
             .album-info {
-                height: auto;
-                padding: var(--space-sm) 0 0 0;
-                gap: var(--space-sm);
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                justify-content: space-between;
+                padding: var(--space-sm) 0;
+                min-height: 140px;
             }
             
             .album-header {
-                margin-bottom: var(--space-sm);
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
             
             .album-title { 
-                font-size: 1.3rem; 
+                font-size: 1.2rem; 
                 margin-bottom: 0.25rem;
                 line-height: 1.1;
             }
             .album-artist { 
-                font-size: 1rem; 
+                font-size: 0.95rem; 
                 margin-bottom: var(--space-sm);
                 color: var(--white-75);
             }
             
             .album-details {
+                display: flex;
                 justify-content: center;
                 margin-bottom: var(--space-sm);
             }
@@ -369,13 +379,16 @@
             }
             
             .album-actions {
+                display: flex;
                 justify-content: center;
-                margin-top: auto;
+                margin-top: var(--space-sm);
+                flex-shrink: 0;
             }
             
             .btn-small {
-                padding: 0.6rem 1.2rem;
+                padding: 0.7rem 1.4rem;
                 font-size: 0.8rem;
+                min-width: 100px;
             }
             
             /* Mobile Navigation Arrows */
