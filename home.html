@@ -324,17 +324,17 @@
         
         .carousel-track {
             display: flex;
-            width: 600%; /* 6 slides for seamless loop */
-            animation: infiniteSlide 18s linear infinite; /* 3 seconds per slide × 6 slides */
+            width: 900%; /* 9 slides total (5 original + 4 duplicates for seamless loop) */
+            animation: infiniteSlide 25s linear infinite; /* 5 seconds per position × 5 positions */
         }
         
         @keyframes infiniteSlide {
-            0%, 16.66% { transform: translateX(0); }           /* Slide 1 - pause 3s */
-            20%, 33.33% { transform: translateX(-16.66%); }    /* Slide 2 - pause 3s */
-            36.66%, 50% { transform: translateX(-33.33%); }    /* Slide 3 - pause 3s */
-            53.33%, 66.66% { transform: translateX(-50%); }    /* Slide 4 - pause 3s */
-            70%, 83.33% { transform: translateX(-66.66%); }    /* Slide 5 - pause 3s */
-            86.66%, 100% { transform: translateX(-83.33%); }   /* Slide 1 (duplicate) - seamless loop */
+            0%, 16% { transform: translateX(0); }           /* Show albums 1&2 - pause 4s */
+            20%, 36% { transform: translateX(-11.11%); }    /* Show albums 2&3 - pause 4s */
+            40%, 56% { transform: translateX(-22.22%); }    /* Show albums 3&4 - pause 4s */
+            60%, 76% { transform: translateX(-33.33%); }    /* Show albums 4&5 - pause 4s */
+            80%, 96% { transform: translateX(-44.44%); }    /* Show albums 5&1 - pause 4s */
+            100% { transform: translateX(-55.55%); }        /* Show albums 1&2 (loop start) - seamless */
         }
         
         .carousel-track:hover {
@@ -748,14 +748,46 @@
                 max-width: 320px;
             }
             
+            .carousel-track {
+                width: 600%; /* Back to 6 slides for mobile */
+                animation: infiniteSlide 18s linear infinite; /* 3s per slide */
+            }
+            
+            @keyframes infiniteSlide {
+                0%, 16.66% { transform: translateX(0); }           /* Album 1 - pause 3s */
+                20%, 33.33% { transform: translateX(-16.66%); }    /* Album 2 - pause 3s */
+                36.66%, 50% { transform: translateX(-33.33%); }    /* Album 3 - pause 3s */
+                53.33%, 66.66% { transform: translateX(-50%); }    /* Album 4 - pause 3s */
+                70%, 83.33% { transform: translateX(-66.66%); }    /* Album 5 - pause 3s */
+                86.66%, 100% { transform: translateX(-83.33%); }   /* Album 1 (duplicate) - seamless */
+            }
+            
             .carousel-slide {
+                width: 16.66%; /* Back to single album mobile layout */
                 padding: var(--space-md);
                 min-height: 400px;
+                flex-direction: column; /* Vertical layout for mobile */
+                text-align: center;
+                align-items: center;
+                margin-right: 0;
             }
             
             .album-image {
                 width: 160px;
                 height: 160px;
+                margin-bottom: var(--space-md); /* Space below image */
+            }
+            
+            .album-info {
+                flex: 1;
+                align-items: center; /* Center align for mobile */
+                text-align: center;
+                min-width: auto;
+            }
+            
+            .album-header {
+                text-align: center; /* Center align for mobile */
+                width: 100%;
             }
             
             .album-title {
@@ -764,6 +796,10 @@
             
             .album-artist {
                 font-size: 0.9rem;
+            }
+            
+            .album-details {
+                justify-content: center; /* Center badges on mobile */
             }
             
             .carousel-nav {
@@ -839,21 +875,31 @@
             }
             
             .carousel-container {
-                max-width: 700px;
+                max-width: 1100px;
+            }
+            
+            .carousel {
+                display: flex;
+            }
+            
+            .carousel-track {
+                width: 900%; /* 9 slides total for 2-album view */
             }
             
             .carousel-slide {
+                width: 11.11%; /* 100% / 9 slides */
                 padding: var(--space-md);
                 min-height: 380px;
                 flex-direction: row;
                 text-align: left;
                 align-items: center;
                 gap: var(--space-lg);
+                margin-right: var(--space-md);
             }
             
             .album-image {
-                width: 300px;
-                height: 300px;
+                width: 250px;
+                height: 250px;
                 margin-bottom: 0;
                 flex-shrink: 0;
             }
@@ -864,6 +910,7 @@
                 text-align: left;
                 height: 100%;
                 justify-content: center;
+                min-width: 200px;
             }
             
             .album-header {
@@ -1037,7 +1084,7 @@
                             </div>
                         </div>
                         
-                        <!-- DUPLICATE FIRST SLIDE FOR SEAMLESS LOOP -->
+                        <!-- DUPLICATES FOR SEAMLESS LOOP -->
                         <div class="carousel-slide">
                             <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
                             <div class="album-info">
@@ -1050,6 +1097,54 @@
                                 </div>
                                 <div class="album-actions">
                                     <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Everybody Eats!</h3>
+                                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-new">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Bandoleros</h3>
+                                    <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-new">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Aponia</h3>
+                                    <p class="album-artist">Awol One & Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-new">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-secondary btn-small">Listen</a>
                                 </div>
                             </div>
                         </div>
@@ -1336,13 +1431,28 @@
             jumpToSlide(slideIndex) {
                 // Instantly jump to specific slide
                 if (this.elements.carouselTrack) {
-                    const translateX = -slideIndex * 16.66; // 16.66% per slide
+                    const isDesktop = window.innerWidth > 768;
+                    let translateX;
+                    
+                    if (isDesktop) {
+                        // Desktop: 2 albums visible, 9 total slides
+                        translateX = -slideIndex * 11.11; // 11.11% per slide
+                    } else {
+                        // Mobile: 1 album visible, 6 total slides  
+                        translateX = -slideIndex * 16.66; // 16.66% per slide
+                    }
+                    
                     this.elements.carouselTrack.style.animation = 'none';
                     this.elements.carouselTrack.style.transform = `translateX(${translateX}%)`;
                     
                     // Force reflow and restart animation from new position
                     this.elements.carouselTrack.offsetHeight;
-                    this.elements.carouselTrack.style.animation = 'infiniteSlide 18s linear infinite';
+                    
+                    if (isDesktop) {
+                        this.elements.carouselTrack.style.animation = 'infiniteSlide 25s linear infinite';
+                    } else {
+                        this.elements.carouselTrack.style.animation = 'infiniteSlide 18s linear infinite';
+                    }
                 }
             }
             
