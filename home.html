@@ -678,7 +678,7 @@
             opacity: 0.8;
         }
         
-        /* MOBILE STYLES - FIXED CAROUSEL WIDTH */
+        /* PROFESSIONAL MOBILE STYLES - OPTIMIZED CAROUSEL WIDTH */
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-md) 0;
@@ -700,35 +700,34 @@
                 -webkit-mask: none;
                 border-radius: var(--radius-lg);
                 background: rgba(15, 15, 15, 0.3);
-                padding: var(--space-xs);
+                padding: var(--space-xs) var(--space-md); /* Added horizontal padding */
                 margin: 0 calc(-1 * var(--space-sm));
             }
             
             .carousel-track {
                 animation: mobileSlideAndPause 25s linear infinite;
-                /* FIXED: Changed from 95vw to 85vw for better mobile fit */
-                width: calc((85vw + var(--space-xs)) * 10);
+                /* PROFESSIONAL FIX: Safe margins with max width cap */
+                width: calc((min(75vw, 300px) + var(--space-xs)) * 10);
                 gap: var(--space-xs);
             }
             
             @keyframes mobileSlideAndPause {
                 0% { transform: translateX(0); }
-                /* FIXED: Updated calculations for new 85vw width */
-                2% { transform: translateX(calc(-1 * (85vw + 8px))); }
-                20% { transform: translateX(calc(-1 * (85vw + 8px))); }
-                22% { transform: translateX(calc(-2 * (85vw + 8px))); }
-                40% { transform: translateX(calc(-2 * (85vw + 8px))); }
-                42% { transform: translateX(calc(-3 * (85vw + 8px))); }
-                60% { transform: translateX(calc(-3 * (85vw + 8px))); }
-                62% { transform: translateX(calc(-4 * (85vw + 8px))); }
-                80% { transform: translateX(calc(-4 * (85vw + 8px))); }
-                82% { transform: translateX(calc(-5 * (85vw + 8px))); }
-                100% { transform: translateX(calc(-5 * (85vw + 8px))); }
+                2% { transform: translateX(calc(-1 * (min(75vw, 300px) + 8px))); }
+                20% { transform: translateX(calc(-1 * (min(75vw, 300px) + 8px))); }
+                22% { transform: translateX(calc(-2 * (min(75vw, 300px) + 8px))); }
+                40% { transform: translateX(calc(-2 * (min(75vw, 300px) + 8px))); }
+                42% { transform: translateX(calc(-3 * (min(75vw, 300px) + 8px))); }
+                60% { transform: translateX(calc(-3 * (min(75vw, 300px) + 8px))); }
+                62% { transform: translateX(calc(-4 * (min(75vw, 300px) + 8px))); }
+                80% { transform: translateX(calc(-4 * (min(75vw, 300px) + 8px))); }
+                82% { transform: translateX(calc(-5 * (min(75vw, 300px) + 8px))); }
+                100% { transform: translateX(calc(-5 * (min(75vw, 300px) + 8px))); }
             }
             
             .carousel-slide {
-                /* FIXED: Changed from 95vw to 85vw for better mobile fit */
-                flex: 0 0 85vw;
+                /* PROFESSIONAL SOLUTION: Responsive with safe limits */
+                flex: 0 0 min(75vw, 300px);
                 height: 360px;
                 padding: var(--space-xs);
                 flex-direction: column;
@@ -746,9 +745,8 @@
             }
             
             .album-image {
-                /* FIXED: Slightly smaller album images for better proportion */
-                width: 180px;
-                height: 180px;
+                width: 160px;
+                height: 160px;
                 margin: 0 auto var(--space-xs) auto;
                 border: 2px solid rgba(218, 181, 71, 0.3);
                 flex-shrink: 0;
@@ -777,13 +775,13 @@
             }
             
             .carousel-slide .album-title {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 margin-bottom: 0.25rem;
                 line-height: 1.2;
             }
             
             .carousel-slide .album-artist {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 margin-bottom: var(--space-xs);
                 color: var(--white-75);
             }
@@ -797,8 +795,8 @@
             }
             
             .carousel-slide .album-badge {
-                font-size: 0.65rem;
-                padding: 0.25rem 0.5rem;
+                font-size: 0.6rem;
+                padding: 0.2rem 0.4rem;
                 margin: 0;
             }
             
@@ -811,9 +809,9 @@
             }
             
             .carousel-slide .btn-small {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.75rem;
-                min-width: 100px;
+                padding: 0.5rem 1rem;
+                font-size: 0.7rem;
+                min-width: 80px;
                 white-space: nowrap;
                 margin: 0;
             }
