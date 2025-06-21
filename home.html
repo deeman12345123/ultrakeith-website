@@ -306,15 +306,16 @@
             text-transform: uppercase;
         }
         
-        /* SIMPLE INFINITE CAROUSEL - FROM SCRATCH */
-        .carousel-container {
+        /* PROPER CAROUSEL - BUILT FROM SCRATCH */
+        .keith-carousel {
             position: relative;
             width: 100%;
+            max-width: 900px;
             margin: 0 auto;
-            overflow: hidden;
+            padding: 0 80px; /* Space for navigation buttons */
         }
         
-        .carousel-viewport {
+        .carousel-window {
             width: 100%;
             height: 450px;
             overflow: hidden;
@@ -325,17 +326,17 @@
             position: relative;
         }
         
-        .carousel-track {
+        .carousel-slider {
             display: flex;
             height: 100%;
-            width: 500%; /* 5 slides at 100% each */
+            width: 500%; /* 5 slides × 100% each */
             transition: transform 0.6s ease-in-out;
         }
         
-        .carousel-slide {
-            width: 20%; /* Each slide is 20% of track (100% / 5 slides) */
-            flex-shrink: 0;
+        .slide {
+            width: 20%; /* 100% ÷ 5 slides = 20% each */
             height: 100%;
+            flex-shrink: 0;
             padding: var(--space-lg);
             display: flex;
             flex-direction: column;
@@ -345,7 +346,7 @@
             gap: var(--space-md);
         }
         
-        .album-image {
+        .slide-image {
             width: 200px;
             height: 200px;
             border-radius: var(--radius-md);
@@ -355,12 +356,12 @@
             transition: transform var(--transition);
         }
         
-        .carousel-slide:hover .album-image {
+        .slide:hover .slide-image {
             transform: scale(1.05);
             border-color: rgba(218, 181, 71, 0.4);
         }
         
-        .album-title {
+        .slide-title {
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--gold);
@@ -368,14 +369,14 @@
             line-height: 1.2;
         }
         
-        .album-artist {
+        .slide-artist {
             font-size: 1rem;
             color: var(--white-75);
             margin-bottom: var(--space-sm);
             font-weight: 400;
         }
         
-        .album-badge {
+        .slide-badge {
             font-size: 0.75rem;
             padding: 0.4rem 0.8rem;
             border-radius: var(--radius-md);
@@ -401,88 +402,70 @@
             color: var(--white);
         }
         
-        /* NAVIGATION BUTTONS - BOTH DIRECTIONS */
-        .carousel-nav {
+        /* NAVIGATION BUTTONS */
+        .nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
-            border: 2px solid rgba(218, 181, 71, 0.4);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border: 2px solid var(--gold);
             border-radius: 50%;
             width: 60px;
             height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gold);
+            color: var(--black);
             font-size: 1.5rem;
             font-weight: bold;
             cursor: pointer;
             transition: all var(--transition);
-            backdrop-filter: blur(25px);
             z-index: 10;
             user-select: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         
-        .carousel-nav:hover {
-            background: linear-gradient(135deg, rgba(218, 181, 71, 0.2), rgba(232, 197, 71, 0.2));
-            border-color: var(--gold);
+        .nav-btn:hover {
             transform: translateY(-50%) scale(1.1);
-            color: var(--gold-light);
-            box-shadow: 0 6px 25px rgba(218, 181, 71, 0.3);
+            box-shadow: 0 6px 25px rgba(218, 181, 71, 0.4);
         }
         
-        .carousel-nav:active {
+        .nav-btn:active {
             transform: translateY(-50%) scale(0.95);
         }
         
-        .carousel-nav.prev {
-            left: -30px;
+        .prev-btn {
+            left: 10px;
         }
         
-        .carousel-nav.next {
-            right: -30px;
-        }
-        
-        .carousel-nav.prev::after {
-            content: '❮';
-            font-size: 1.2rem;
-            margin-left: -2px;
-        }
-        
-        .carousel-nav.next::after {
-            content: '❯';
-            font-size: 1.2rem;
-            margin-right: -2px;
+        .next-btn {
+            right: 10px;
         }
         
         /* INDICATORS */
-        .carousel-indicators {
+        .slide-indicators {
             display: flex;
             justify-content: center;
             gap: 0.75rem;
             margin-top: var(--space-md);
         }
         
-        .carousel-indicator {
+        .indicator {
             width: 12px;
             height: 12px;
             border-radius: 50%;
             background: rgba(218, 181, 71, 0.3);
             cursor: pointer;
             transition: all var(--transition);
-            border: 2px solid transparent;
         }
         
-        .carousel-indicator.active {
+        .indicator.active {
             background: var(--gold);
             transform: scale(1.2);
-            border-color: rgba(218, 181, 71, 0.5);
             box-shadow: 0 0 10px rgba(218, 181, 71, 0.4);
         }
         
-        .carousel-indicator:hover {
+        .indicator:hover {
             background: rgba(218, 181, 71, 0.6);
             transform: scale(1.1);
         }
@@ -693,40 +676,39 @@
                 padding: var(--space-lg) var(--space-sm);
             }
             
-            .carousel-viewport {
+            .keith-carousel {
+                padding: 0 70px;
+            }
+            
+            .carousel-window {
                 height: 400px;
             }
             
-            .carousel-slide {
-                width: 100%; /* 1 album on mobile */
-                padding: var(--space-md);
-            }
-            
-            .album-image {
+            .slide-image {
                 width: 180px;
                 height: 180px;
             }
             
-            .album-title {
+            .slide-title {
                 font-size: 1.1rem;
             }
             
-            .album-artist {
+            .slide-artist {
                 font-size: 0.9rem;
             }
             
-            .carousel-nav {
+            .nav-btn {
                 width: 50px;
                 height: 50px;
                 font-size: 1.2rem;
             }
             
-            .carousel-nav.prev {
-                left: -25px;
+            .prev-btn {
+                left: 5px;
             }
             
-            .carousel-nav.next {
-                right: -25px;
+            .next-btn {
+                right: 5px;
             }
             
             .nav-right {
@@ -785,41 +767,6 @@
                 padding-top: 80px;
                 padding-left: var(--space-2xl);
                 padding-right: var(--space-2xl);
-            }
-            
-            .carousel-viewport {
-                height: 480px;
-            }
-            
-            .carousel-slide {
-                width: 50%; /* 2 albums on desktop */
-                padding: var(--space-lg);
-                flex-direction: row;
-                text-align: left;
-                gap: var(--space-lg);
-            }
-            
-            .album-image {
-                width: 200px;
-                height: 200px;
-                flex-shrink: 0;
-            }
-            
-            .album-info {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: flex-start;
-                text-align: left;
-                flex: 1;
-            }
-            
-            .album-title {
-                font-size: 1.4rem;
-            }
-            
-            .album-artist {
-                font-size: 1.1rem;
             }
             
             .features {
@@ -893,77 +840,77 @@
         <section class="releases">
             <h2 class="releases-title">Latest Releases</h2>
             
-            <div class="carousel-container">
-                <div class="carousel-viewport">
-                    <div class="carousel-track" id="carouselTrack">
-                        <!-- SLIDE 0 -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                            <div class="album-info">
-                                <h3 class="album-title">Karpenters</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <span class="album-badge badge-latest">June 2025</span>
+            <div class="keith-carousel">
+                <div class="carousel-window">
+                    <div class="carousel-slider" id="slider">
+                        <!-- SLIDE 1: KARPENTERS -->
+                        <div class="slide">
+                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="slide-image">
+                            <div class="slide-info">
+                                <h3 class="slide-title">Karpenters</h3>
+                                <p class="slide-artist">Kool Keith</p>
+                                <span class="slide-badge badge-latest">June 2025</span>
                                 <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
                             </div>
                         </div>
                         
-                        <!-- SLIDE 1 -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
-                            <div class="album-info">
-                                <h3 class="album-title">Everybody Eats!</h3>
-                                <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                                <span class="album-badge badge-new">2024</span>
+                        <!-- SLIDE 2: EVERYBODY EATS -->
+                        <div class="slide">
+                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="slide-image">
+                            <div class="slide-info">
+                                <h3 class="slide-title">Everybody Eats!</h3>
+                                <p class="slide-artist">Stress Eater (CZARFACE & Kool Keith)</p>
+                                <span class="slide-badge badge-new">2024</span>
                                 <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
                             </div>
                         </div>
                         
-                        <!-- SLIDE 2 -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="album-image">
-                            <div class="album-info">
-                                <h3 class="album-title">Bandoleros</h3>
-                                <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
-                                <span class="album-badge badge-new">2024</span>
+                        <!-- SLIDE 3: BANDOLEROS -->
+                        <div class="slide">
+                            <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="slide-image">
+                            <div class="slide-info">
+                                <h3 class="slide-title">Bandoleros</h3>
+                                <p class="slide-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
+                                <span class="slide-badge badge-new">2024</span>
                                 <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
                             </div>
                         </div>
                         
-                        <!-- SLIDE 3 -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
-                            <div class="album-info">
-                                <h3 class="album-title">Aponia</h3>
-                                <p class="album-artist">Awol One & Kool Keith</p>
-                                <span class="album-badge badge-new">2024</span>
+                        <!-- SLIDE 4: APONIA -->
+                        <div class="slide">
+                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="slide-image">
+                            <div class="slide-info">
+                                <h3 class="slide-title">Aponia</h3>
+                                <p class="slide-artist">Awol One & Kool Keith</p>
+                                <span class="slide-badge badge-new">2024</span>
                                 <a href="shop.html" class="btn btn-secondary btn-small">Listen</a>
                             </div>
                         </div>
                         
-                        <!-- SLIDE 4 -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
-                            <div class="album-info">
-                                <h3 class="album-title">World Area</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <span class="album-badge badge-streaming">2023</span>
+                        <!-- SLIDE 5: WORLD AREA -->
+                        <div class="slide">
+                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="slide-image">
+                            <div class="slide-info">
+                                <h3 class="slide-title">World Area</h3>
+                                <p class="slide-artist">Kool Keith</p>
+                                <span class="slide-badge badge-streaming">2023</span>
                                 <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- BOTH NAVIGATION BUTTONS -->
-                <button class="carousel-nav prev" id="prevBtn"></button>
-                <button class="carousel-nav next" id="nextBtn"></button>
+                <!-- NAVIGATION BUTTONS -->
+                <button class="nav-btn prev-btn" id="prevButton">❮</button>
+                <button class="nav-btn next-btn" id="nextButton">❯</button>
                 
                 <!-- INDICATORS -->
-                <div class="carousel-indicators" id="indicators">
-                    <div class="carousel-indicator active" data-slide="0"></div>
-                    <div class="carousel-indicator" data-slide="1"></div>
-                    <div class="carousel-indicator" data-slide="2"></div>
-                    <div class="carousel-indicator" data-slide="3"></div>
-                    <div class="carousel-indicator" data-slide="4"></div>
+                <div class="slide-indicators">
+                    <div class="indicator active" data-slide="0"></div>
+                    <div class="indicator" data-slide="1"></div>
+                    <div class="indicator" data-slide="2"></div>
+                    <div class="indicator" data-slide="3"></div>
+                    <div class="indicator" data-slide="4"></div>
                 </div>
             </div>
         </section>
@@ -1072,103 +1019,114 @@
     </footer>
 
     <script>
-        // DEAD SIMPLE CAROUSEL - NO BULLSHIT
-        let currentSlide = 0;
-        const totalSlides = 5;
-        let autoTimer = null;
-        let isPaused = false;
-        
-        const track = document.getElementById('carouselTrack');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const indicators = document.querySelectorAll('.carousel-indicator');
-        
-        // Move to specific slide
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
-            const movePercent = currentSlide * 20; // Each slide is 20%
-            track.style.transform = `translateX(-${movePercent}%)`;
-            
-            // Update dots
-            indicators.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
-            });
-            
-            console.log(`Slide ${currentSlide + 1}/${totalSlides} - Moving ${movePercent}%`);
-        }
-        
-        // Next slide
-        function nextSlide() {
-            pauseAuto();
-            currentSlide = (currentSlide + 1) % totalSlides;
-            goToSlide(currentSlide);
-            resumeAutoDelayed();
-        }
-        
-        // Previous slide
-        function prevSlide() {
-            pauseAuto();
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            goToSlide(currentSlide);
-            resumeAutoDelayed();
-        }
-        
-        // Start auto-play
-        function startAuto() {
-            autoTimer = setInterval(() => {
-                if (!isPaused) {
-                    nextSlide();
-                }
-            }, 3000);
-            console.log('Auto-play started - 3 second intervals');
-        }
-        
-        // Pause auto-play
-        function pauseAuto() {
-            isPaused = true;
-            if (autoTimer) {
-                clearInterval(autoTimer);
-                autoTimer = null;
+        // KEITH CAROUSEL - BUILT FROM SCRATCH WITH PROPER 5-SECOND PAUSES
+        class KeithCarousel {
+            constructor() {
+                this.currentSlide = 0;
+                this.totalSlides = 5;
+                this.isPlaying = false;
+                this.hasUserInteracted = false;
+                this.autoTimer = null;
+                this.pauseDuration = 5000; // 5 seconds pause per slide
+                
+                // DOM elements
+                this.slider = document.getElementById('slider');
+                this.prevBtn = document.getElementById('prevButton');
+                this.nextBtn = document.getElementById('nextButton');
+                this.indicators = document.querySelectorAll('.indicator');
+                this.carousel = document.querySelector('.keith-carousel');
+                
+                this.init();
             }
-        }
-        
-        // Resume auto-play
-        function resumeAuto() {
-            isPaused = false;
-            startAuto();
-        }
-        
-        // Resume auto-play after delay
-        function resumeAutoDelayed() {
-            setTimeout(() => {
-                resumeAuto();
-            }, 3000);
-        }
-        
-        // Event listeners
-        if (nextBtn) {
-            nextBtn.addEventListener('click', nextSlide);
-        }
-        
-        if (prevBtn) {
-            prevBtn.addEventListener('click', prevSlide);
-        }
-        
-        // Dot clicks
-        indicators.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                pauseAuto();
-                goToSlide(index);
-                resumeAutoDelayed();
-            });
-        });
-        
-        // Hover pause
-        if (track) {
-            track.addEventListener('mouseenter', pauseAuto);
-            track.addEventListener('mouseleave', () => {
-                if (!isPaused) resumeAuto();
-            });
+            
+            init() {
+                this.setupEventListeners();
+                this.updateSlide();
+                this.startAutoPlay();
+                console.log('Keith Carousel initialized with 5-second pauses');
+            }
+            
+            setupEventListeners() {
+                // Navigation buttons
+                this.prevBtn.addEventListener('click', () => this.goToPrevious());
+                this.nextBtn.addEventListener('click', () => this.goToNext());
+                
+                // Indicator dots
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
+                
+                // Pause on hover
+                this.carousel.addEventListener('mouseenter', () => this.pauseAutoPlay());
+                this.carousel.addEventListener('mouseleave', () => this.resumeAutoPlay());
+            }
+            
+            goToSlide(slideIndex) {
+                this.currentSlide = slideIndex;
+                this.updateSlide();
+                console.log(`Manual navigation to slide ${slideIndex + 1}`);
+            }
+            
+            goToNext() {
+                this.handleUserInteraction();
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.updateSlide();
+                console.log(`Next slide: ${this.currentSlide + 1}/${this.totalSlides}`);
+            }
+            
+            goToPrevious() {
+                this.handleUserInteraction();
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.updateSlide();
+                console.log(`Previous slide: ${this.currentSlide + 1}/${this.totalSlides}`);
+            }
+            
+            updateSlide() {
+                // Move slider to show current slide
+                const translateX = this.currentSlide * 20; // Each slide is 20%
+                this.slider.style.transform = `translateX(-${translateX}%)`;
+                
+                // Update indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentSlide);
+                });
+                
+                console.log(`Showing slide ${this.currentSlide + 1}, transform: -${translateX}%`);
+            }
+            
+            startAutoPlay() {
+                if (this.hasUserInteracted) return; // Don't restart if user has taken control
+                
+                this.isPlaying = true;
+                this.autoTimer = setInterval(() => {
+                    this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                    this.updateSlide();
+                    console.log(`Auto-advance to slide ${this.currentSlide + 1} (5-second pause)`);
+                }, this.pauseDuration);
+                
+                console.log('Auto-play started - 5 seconds per slide');
+            }
+            
+            pauseAutoPlay() {
+                this.isPlaying = false;
+                if (this.autoTimer) {
+                    clearInterval(this.autoTimer);
+                    this.autoTimer = null;
+                }
+            }
+            
+            resumeAutoPlay() {
+                if (!this.hasUserInteracted && !this.isPlaying) {
+                    this.startAutoPlay();
+                }
+            }
+            
+            handleUserInteraction() {
+                // Once user interacts, stop auto-play permanently (best practice)
+                this.hasUserInteracted = true;
+                this.pauseAutoPlay();
+                console.log('User interaction detected - auto-play stopped permanently');
+            }
         }
         
         // Mobile menu functionality
@@ -1236,13 +1194,13 @@
 
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            // Start carousel immediately
-            goToSlide(0);
-            startAuto();
-            console.log('Simple carousel started!');
+            // Start the Keith Carousel
+            window.keithCarousel = new KeithCarousel();
             
             // Load news
             loadNews();
+            
+            console.log('Ultra Keith website loaded successfully!');
         });
     </script>
 </body>
