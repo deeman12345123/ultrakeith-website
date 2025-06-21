@@ -743,7 +743,7 @@
             }
         }
         
-        /* DESKTOP STYLES */
+        /* DESKTOP STYLES - 2 ALBUMS VISIBLE */
         @media (min-width: 769px) {
             .nav {
                 height: 80px;
@@ -767,6 +767,41 @@
                 padding-top: 80px;
                 padding-left: var(--space-2xl);
                 padding-right: var(--space-2xl);
+            }
+            
+            /* DESKTOP CAROUSEL - 2 ALBUMS SIDE BY SIDE */
+            .carousel-window {
+                height: 480px;
+            }
+            
+            .slide {
+                flex-direction: row;
+                text-align: left;
+                gap: var(--space-lg);
+                padding: var(--space-xl);
+            }
+            
+            .slide-image {
+                width: 250px;
+                height: 250px;
+                flex-shrink: 0;
+            }
+            
+            .slide-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                text-align: left;
+                flex: 1;
+            }
+            
+            .slide-title {
+                font-size: 1.4rem;
+            }
+            
+            .slide-artist {
+                font-size: 1.1rem;
             }
             
             .features {
@@ -1019,15 +1054,17 @@
     </footer>
 
     <script>
-        // KEITH CAROUSEL - BUILT FROM SCRATCH WITH PROPER 5-SECOND PAUSES
+        // KEITH CAROUSEL - FIXED AUTO-RESUME + 2 ALBUMS ON DESKTOP
         class KeithCarousel {
             constructor() {
                 this.currentSlide = 0;
                 this.totalSlides = 5;
                 this.isPlaying = false;
-                this.hasUserInteracted = false;
+                this.isPausedByUser = false;
                 this.autoTimer = null;
+                this.resumeTimer = null;
                 this.pauseDuration = 5000; // 5 seconds pause per slide
+                this.isDesktop = window.innerWidth > 768;
                 
                 // DOM elements
                 this.slider = document.getElementById('slider');
@@ -1041,9 +1078,10 @@
             
             init() {
                 this.setupEventListeners();
+                this.updateSlideWidth();
                 this.updateSlide();
                 this.startAutoPlay();
-                console.log('Keith Carousel initialized with 5-second pauses');
+                console.log(`Keith Carousel initialized - ${this.isDesktop ? '2 albums' : '1 album'} visible, 5-second pauses`);
             }
             
             setupEventListeners() {
@@ -1059,23 +1097,36 @@
                 // Pause on hover
                 this.carousel.addEventListener('mouseenter', () => this.pauseAutoPlay());
                 this.carousel.addEventListener('mouseleave', () => this.resumeAutoPlay());
+                
+                // Handle window resize
+                window.addEventListener('resize', () => this.handleResize());
+            }
+            
+            updateSlideWidth() {
+                // Update based on screen size
+                this.isDesktop = window.innerWidth > 768;
+                
+                // On desktop, slides are wider to show 2 at once
+                // Each slide still takes 20% but layout changes via CSS
+                console.log(`Updated layout: ${this.isDesktop ? 'Desktop (2 albums)' : 'Mobile (1 album)'}`);
             }
             
             goToSlide(slideIndex) {
+                this.handleManualNavigation();
                 this.currentSlide = slideIndex;
                 this.updateSlide();
                 console.log(`Manual navigation to slide ${slideIndex + 1}`);
             }
             
             goToNext() {
-                this.handleUserInteraction();
+                this.handleManualNavigation();
                 this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
                 this.updateSlide();
                 console.log(`Next slide: ${this.currentSlide + 1}/${this.totalSlides}`);
             }
             
             goToPrevious() {
-                this.handleUserInteraction();
+                this.handleManualNavigation();
                 this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
                 this.updateSlide();
                 console.log(`Previous slide: ${this.currentSlide + 1}/${this.totalSlides}`);
@@ -1095,7 +1146,7 @@
             }
             
             startAutoPlay() {
-                if (this.hasUserInteracted) return; // Don't restart if user has taken control
+                if (this.isPausedByUser) return;
                 
                 this.isPlaying = true;
                 this.autoTimer = setInterval(() => {
@@ -1113,19 +1164,43 @@
                     clearInterval(this.autoTimer);
                     this.autoTimer = null;
                 }
+                // Also clear any pending resume timer
+                if (this.resumeTimer) {
+                    clearTimeout(this.resumeTimer);
+                    this.resumeTimer = null;
+                }
             }
             
             resumeAutoPlay() {
-                if (!this.hasUserInteracted && !this.isPlaying) {
+                if (!this.isPausedByUser && !this.isPlaying) {
                     this.startAutoPlay();
                 }
             }
             
-            handleUserInteraction() {
-                // Once user interacts, stop auto-play permanently (best practice)
-                this.hasUserInteracted = true;
+            handleManualNavigation() {
+                // Pause auto-play temporarily
                 this.pauseAutoPlay();
-                console.log('User interaction detected - auto-play stopped permanently');
+                this.isPausedByUser = true;
+                
+                // Resume auto-play after 3 seconds
+                this.resumeTimer = setTimeout(() => {
+                    this.isPausedByUser = false;
+                    this.resumeAutoPlay();
+                    console.log('Auto-play resumed after 3-second pause');
+                }, 3000);
+                
+                console.log('Manual navigation - auto-play paused for 3 seconds');
+            }
+            
+            handleResize() {
+                const wasDesktop = this.isDesktop;
+                this.updateSlideWidth();
+                
+                if (wasDesktop !== this.isDesktop) {
+                    // Layout changed, update display
+                    this.updateSlide();
+                    console.log(`Layout switched to ${this.isDesktop ? 'desktop' : 'mobile'}`);
+                }
             }
         }
         
