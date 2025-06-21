@@ -135,23 +135,19 @@
             -webkit-mask: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
         }
         .carousel-track {
-            display: flex; gap: var(--space-md); width: calc((420px + var(--space-md)) * 6);
-            animation: smoothCarousel 36s ease-in-out infinite; will-change: transform;
+            display: flex; gap: var(--space-md); width: calc((500px + var(--space-md)) * 10);
+            animation: infiniteCarousel 60s linear infinite; will-change: transform;
         }
-        @keyframes smoothCarousel {
-            0%, 16% { transform: translateX(0); }
-            20%, 36% { transform: translateX(calc(-1 * (420px + var(--space-md)))); }
-            40%, 56% { transform: translateX(calc(-2 * (420px + var(--space-md)))); }
-            60%, 76% { transform: translateX(calc(-3 * (420px + var(--space-md)))); }
-            80%, 96% { transform: translateX(calc(-4 * (420px + var(--space-md)))); }
-            100% { transform: translateX(0); }
+        @keyframes infiniteCarousel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50%)); }
         }
         .carousel-track:hover { animation-play-state: paused; }
         
         .carousel-slide {
-            flex: 0 0 420px; height: 120px; background: rgba(42, 42, 42, 0.8); border-radius: var(--radius-lg); 
+            flex: 0 0 500px; height: 200px; background: rgba(42, 42, 42, 0.8); border-radius: var(--radius-lg); 
             padding: var(--space-md); border: 1px solid rgba(218, 181, 71, 0.1); transition: all var(--transition); 
-            backdrop-filter: blur(10px); display: flex; align-items: center; gap: var(--space-md);
+            backdrop-filter: blur(10px); display: flex; align-items: center; gap: var(--space-lg);
         }
         .carousel-slide:hover { 
             border-color: rgba(218, 181, 71, 0.3); transform: translateY(-2px); 
@@ -159,15 +155,15 @@
         }
         
         .album-image {
-            width: 120px; height: 120px; border-radius: var(--radius-md); object-fit: cover; 
+            width: 200px; height: 200px; border-radius: var(--radius-md); object-fit: cover; 
             border: 1px solid rgba(218, 181, 71, 0.2); background: #2A2A2A; 
             transition: transform var(--transition); flex-shrink: 0;
         }
-        .carousel-slide:hover .album-image { transform: scale(1.05); }
+        .carousel-slide:hover .album-image { transform: scale(1.03); }
         
         .album-info {
             flex: 1; display: flex; flex-direction: column; justify-content: space-between; 
-            height: 100%; padding: var(--space-xs) 0;
+            height: 100%; padding: var(--space-sm) 0;
         }
         
         .album-header {
@@ -175,21 +171,21 @@
         }
         
         .album-title { 
-            font-size: 1.1rem; font-weight: 600; color: var(--gold); margin-bottom: 0.25rem; 
+            font-size: 1.4rem; font-weight: 600; color: var(--gold); margin-bottom: 0.5rem; 
             line-height: 1.2; transition: color var(--transition);
         }
         .carousel-slide:hover .album-title { color: var(--gold-light); }
         
         .album-artist { 
-            font-size: 0.9rem; color: var(--white-75); margin-bottom: 0.5rem; font-weight: 400; 
+            font-size: 1.1rem; color: var(--white-75); margin-bottom: var(--space-sm); font-weight: 400; 
         }
         
         .album-details {
-            display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);
+            display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md);
         }
         
         .album-badge {
-            font-size: 0.7rem; padding: 0.25rem 0.5rem; border-radius: var(--radius-md); 
+            font-size: 0.8rem; padding: 0.4rem 0.8rem; border-radius: var(--radius-md); 
             font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
         }
         .badge-latest { background: linear-gradient(135deg, #FF6B35, #F7931E); color: var(--white); }
@@ -198,12 +194,27 @@
         .badge-streaming { background: linear-gradient(135deg, #27AE60, #229954); color: var(--white); }
         
         .album-actions {
-            display: flex; gap: 0.5rem;
+            display: flex; gap: var(--space-sm);
         }
         
         .btn-small {
-            padding: 0.5rem 1rem; font-size: 0.75rem; border-radius: var(--radius-md);
+            padding: 0.75rem 1.5rem; font-size: 0.875rem; border-radius: var(--radius-md);
         }
+        
+        /* Carousel Navigation Arrows */
+        .carousel-nav {
+            position: absolute; top: 50%; transform: translateY(-50%); 
+            background: rgba(26, 26, 26, 0.9); border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 1.25rem; cursor: pointer; transition: all var(--transition);
+            backdrop-filter: blur(20px); z-index: 10;
+        }
+        .carousel-nav:hover {
+            background: rgba(218, 181, 71, 0.2); border-color: var(--gold); 
+            transform: translateY(-50%) scale(1.1); color: var(--gold-light);
+        }
+        .carousel-nav.prev { left: 10px; }
+        .carousel-nav.next { right: 10px; }
         
         .features { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); margin: var(--space-2xl) 0; }
         .feature-card {
@@ -340,7 +351,7 @@
             <h2 class="releases-title">Latest Releases</h2>
             
             <div class="carousel">
-                <div class="carousel-track">
+                <div class="carousel-track" id="carouselTrack">
                     <!-- KARPENTERS FIRST -->
                     <div class="carousel-slide">
                         <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
@@ -421,7 +432,96 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- DUPLICATE SET FOR INFINITE LOOP -->
+                    <div class="carousel-slide">
+                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Karpenters</h3>
+                                <p class="album-artist">Kool Keith</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-latest">June 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album1.png" alt="Space Goretex album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Space Goretex</h3>
+                                <p class="album-artist">Kool Keith</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-new">March 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Dr. Octagon Returns</h3>
+                                <p class="album-artist">Dr. Octagon</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-coming">July 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="shop.html" class="btn btn-secondary btn-small">Pre-Order</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Keith's Vault Series</h3>
+                                <p class="album-artist">Ultra Keith</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-streaming">Feb 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image">
+                        <div class="album-info">
+                            <div class="album-header">
+                                <h3 class="album-title">Black Elvis 2</h3>
+                                <p class="album-artist">Black Elvis</p>
+                                <div class="album-details">
+                                    <span class="album-badge badge-new">Jan 2025</span>
+                                </div>
+                            </div>
+                            <div class="album-actions">
+                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Navigation Arrows -->
+                <button class="carousel-nav prev" id="carouselPrev" aria-label="Previous albums">
+                    ←
+                </button>
+                <button class="carousel-nav next" id="carouselNext" aria-label="Next albums">
+                    →
+                </button>
             </div>
         </section>
         
@@ -715,6 +815,37 @@
                     this.elements.mobileMenuBtn.addEventListener('click', () => this.toggleMobileMenu());
                 }
                 
+                // Carousel navigation
+                const carouselTrack = document.getElementById('carouselTrack');
+                const prevBtn = document.getElementById('carouselPrev');
+                const nextBtn = document.getElementById('carouselNext');
+                
+                if (carouselTrack && prevBtn && nextBtn) {
+                    let currentPosition = 0;
+                    const slideWidth = 500 + 24; // 500px card + 24px gap
+                    const maxPosition = slideWidth * 5; // 5 unique slides
+                    
+                    prevBtn.addEventListener('click', () => {
+                        currentPosition += slideWidth;
+                        if (currentPosition > 0) currentPosition = -maxPosition;
+                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+                        carouselTrack.style.animation = 'none';
+                        setTimeout(() => {
+                            carouselTrack.style.animation = 'infiniteCarousel 60s linear infinite';
+                        }, 500);
+                    });
+                    
+                    nextBtn.addEventListener('click', () => {
+                        currentPosition -= slideWidth;
+                        if (currentPosition < -maxPosition) currentPosition = 0;
+                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+                        carouselTrack.style.animation = 'none';
+                        setTimeout(() => {
+                            carouselTrack.style.animation = 'infiniteCarousel 60s linear infinite';
+                        }, 500);
+                    });
+                }
+                
                 document.querySelectorAll('.nav-menu a').forEach(link => {
                     link.addEventListener('click', () => {
                         if (this.elements.navMenu) {
@@ -744,52 +875,4 @@
     </script>
 </body>
 </html>
-                    
-                    <div class="carousel-slide">
-                        <img src="album5.png" alt="Black Elvis 2 album cover" class="album-image">
-                        <h3 class="album-title">Black Elvis 2</h3>
-                        <p class="album-artist">Black Elvis</p>
-                        <span class="album-badge badge-new">Available</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <!-- DUPLICATE SET -->
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                        <h3 class="album-title">Karpenters</h3>
-                        <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-latest">Latest</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album1.png" alt="Space Goretex album cover" class="album-image">
-                        <h3 class="album-title">Space Goretex</h3>
-                        <p class="album-artist">Kool Keith</p>
-                        <span class="album-badge badge-new">Out Now</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album2.png" alt="Dr. Octagon Returns album cover" class="album-image">
-                        <h3 class="album-title">Dr. Octagon Returns</h3>
-                        <p class="album-artist">Dr. Octagon</p>
-                        <span class="album-badge badge-coming">July 2025</span>
-                        <a href="shop.html" class="btn btn-primary">Pre-Order</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album3.png" alt="Keith's Vault Series album cover" class="album-image">
-                        <h3 class="album-title">Keith's Vault Series</h3>
-                        <p class="album-artist">Ultra Keith</p>
-                        <span class="album-badge badge-streaming">Streaming</span>
-                        <a href="shop.html" class="btn btn-primary">Listen</a>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="album4.png" alt="Critical Beatdown album cover" class="album-image">
-                        <h3 class="album-title">Critical Beatdown</h3>
-                        <p class="album-artist">Ultramagnetic MCs</p>
-                        <span class="album-badge badge-streaming">Remastered</span>
-                        <a href="shop.html" class="btn btn-primary">Buy Now</a>
-                    </div>
+      
