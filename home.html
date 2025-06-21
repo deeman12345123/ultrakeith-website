@@ -30,42 +30,6 @@
             color: var(--white); overflow-x: hidden; min-height: 100vh; -webkit-font-smoothing: antialiased;
         }
         
-        .entry-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000;
-            background: linear-gradient(135deg, var(--black) 0%, var(--burgundy) 25%, #1A0A0A 50%, var(--black) 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: var(--space-lg);
-            opacity: 1; visibility: visible; transition: opacity 0.6s, visibility 0.6s;
-        }
-        .entry-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        
-        .entry-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; width: 100%; height: 100vh; padding: var(--space-lg); }
-        .entry-image-container { flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; }
-        .entry-image { width: 100%; max-width: 800px; height: auto; max-height: 70vh; object-fit: contain; opacity: 0.95; border-radius: var(--radius-lg); }
-        
-        .sound-controls {
-            display: flex; flex-direction: column; align-items: center; gap: var(--space-md); padding: var(--space-lg);
-            background: rgba(26, 26, 26, 0.9); border: 2px solid rgba(218, 181, 71, 0.2); border-radius: var(--radius-xl);
-            backdrop-filter: blur(20px); min-width: 200px; box-shadow: var(--shadow-lg); transition: all var(--transition);
-        }
-        .sound-controls:hover { transform: translateY(-2px); border-color: rgba(218, 181, 71, 0.4); }
-        
-        .audio-toggle-container { display: flex; align-items: center; justify-content: center; gap: var(--space-sm); width: 100%; }
-        .audio-label { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 500; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
-        
-        .toggle-switch {
-            position: relative; width: 40px; height: 20px; background: #2A2A2A; border-radius: 10px; cursor: pointer;
-            transition: all var(--transition); border: 1px solid rgba(218, 181, 71, 0.3);
-        }
-        .toggle-switch.active { background: var(--gold); border-color: var(--gold); }
-        .toggle-slider {
-            position: absolute; top: 1px; left: 1px; width: 16px; height: 16px; background: var(--white);
-            border-radius: 50%; transition: all var(--transition);
-        }
-        .toggle-switch.active .toggle-slider { transform: translateX(20px); background: var(--black); }
-        
-        .audio-status { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 500; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
-        .audio-status.disabled { color: var(--white-55); }
-        
         .btn {
             border: none; cursor: pointer; font-family: 'Orbitron', monospace; text-decoration: none; display: inline-block;
             text-align: center; transition: all var(--transition); text-transform: uppercase; letter-spacing: 0.1em;
@@ -97,16 +61,39 @@
         }
         .nav-menu a:hover { color: var(--gold); }
         
+        .nav-controls {
+            display: flex; align-items: center; gap: var(--space-md);
+        }
+        
+        .audio-toggle {
+            display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem;
+            border-radius: var(--radius-md); transition: all var(--transition);
+            background: rgba(218, 181, 71, 0.1); border: 1px solid rgba(218, 181, 71, 0.2);
+        }
+        .audio-toggle:hover {
+            background: rgba(218, 181, 71, 0.2); border-color: rgba(218, 181, 71, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        .audio-icon {
+            font-size: 1rem; color: var(--gold); transition: all var(--transition);
+        }
+        .audio-toggle.disabled .audio-icon { color: var(--white-55); }
+        
+        .audio-text {
+            font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 500;
+            color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em;
+            transition: color var(--transition);
+        }
+        .audio-toggle.disabled .audio-text { color: var(--white-55); }
+        
         .mobile-menu-btn {
             display: block; background: none; border: none; color: var(--gold); font-size: 1.5rem;
             cursor: pointer; padding: 0.5rem; transition: all var(--transition);
         }
         .mobile-menu-btn:hover { color: var(--gold-light); transform: scale(1.1); }
         
-        .main { padding-top: 72px; max-width: 1400px; margin: 0 auto; padding-left: var(--space-lg); padding-right: var(--space-lg); opacity: 0; transition: opacity var(--transition); position: relative; z-index: 1; }
-        
-        body:not(.site-loaded) .nav, body:not(.site-loaded) .main { opacity: 0; pointer-events: none; }
-        body.site-loaded .nav, body.site-loaded .main { opacity: 1; pointer-events: auto; }
+        .main { padding-top: 72px; max-width: 1400px; margin: 0 auto; padding-left: var(--space-lg); padding-right: var(--space-lg); position: relative; z-index: 1; }
         
         .hero { text-align: center; padding: var(--space-lg) 0; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .hero-logo { max-height: 60vh; max-width: 90%; width: auto; height: auto; margin-bottom: var(--space-md); opacity: 0.95; }
@@ -276,8 +263,6 @@
         .footer-copyright { color: var(--white-55); font-size: 0.75rem; font-weight: 400; opacity: 0.8; }
         
         @media (max-width: 768px) {
-            .entry-image { width: 95vw; max-width: none; max-height: 80vh; }
-            .sound-controls { min-width: 180px; padding: var(--space-md); }
             .hero { padding: var(--space-md) 0; }
             .hero-logo { max-height: 40vh; margin-bottom: var(--space-sm); }
             .releases { margin: var(--space-md) 0 var(--space-xl) 0; padding: var(--space-lg) var(--space-sm); }
@@ -398,7 +383,25 @@
                 margin: 0;
             }
             
-            /* Mobile Navigation Arrows */
+            /* Mobile Navigation - Clean Audio Toggle */
+            .nav-controls {
+                gap: var(--space-sm);
+            }
+            
+            .audio-toggle {
+                padding: 0.4rem 0.6rem;
+                background: rgba(218, 181, 71, 0.15);
+                border: 1px solid rgba(218, 181, 71, 0.3);
+            }
+            
+            .audio-text {
+                font-size: 0.7rem;
+            }
+            
+            .audio-icon {
+                font-size: 0.9rem;
+            }
+            
             .carousel-nav {
                 width: 40px;
                 height: 40px;
@@ -429,6 +432,11 @@
             .features { grid-template-columns: repeat(2, 1fr); gap: var(--space-2xl); }
             .feature-card { min-height: 500px; display: flex; flex-direction: column; justify-content: space-between; }
             .footer-links { flex-direction: row; justify-content: center; gap: var(--space-2xl); }
+            
+            /* Desktop Audio Toggle */
+            .audio-toggle {
+                padding: 0.5rem 0.75rem;
+            }
         }
         
         @media (min-width: 1024px) { .features { grid-template-columns: repeat(2, 1fr); } }
@@ -436,29 +444,6 @@
     </style>
 </head>
 <body>
-    <div class="entry-overlay" id="entryOverlay">
-        <div class="entry-content">
-            <div class="entry-image-container">
-                <img src="entry.png" alt="Kool Keith Entry" class="entry-image">
-            </div>
-            
-            <div class="sound-controls">
-                <div class="audio-toggle-container">
-                    <span class="audio-label">Audio</span>
-                    <button class="toggle-switch active" id="toggleSwitch" aria-label="Toggle audio">
-                        <div class="toggle-slider"></div>
-                    </button>
-                    <span class="audio-status" id="audioStatus">Enabled</span>
-                </div>
-                
-                <button class="btn btn-primary" id="enterButton" disabled>
-                    <span class="sr-only">Enter the site</span>
-                    Loading
-                </button>
-            </div>
-        </div>
-    </div>
-
     <nav class="nav" role="navigation">
         <div class="nav-content">
             <a href="home.html" class="nav-logo">
@@ -473,7 +458,13 @@
                 <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
                 <li><a href="shop.html">Store</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <div class="nav-controls">
+                <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
+                    <span class="audio-icon" id="audioIcon">🔊</span>
+                    <span class="audio-text" id="audioText">Audio On</span>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </div>
         </div>
     </nav>
     
@@ -776,17 +767,16 @@
         
         class UltraKeithApp {
             constructor() {
-                this.state = { soundEnabled: true, loadingComplete: false, siteLoaded: false };
+                this.state = { soundEnabled: true };
                 this.elements = this.getElements();
                 this.init();
             }
             
             getElements() {
                 return {
-                    entryOverlay: document.getElementById('entryOverlay'),
-                    enterButton: document.getElementById('enterButton'),
-                    toggleSwitch: document.getElementById('toggleSwitch'),
-                    audioStatus: document.getElementById('audioStatus'),
+                    audioToggle: document.getElementById('audioToggle'),
+                    audioIcon: document.getElementById('audioIcon'),
+                    audioText: document.getElementById('audioText'),
                     mobileMenuBtn: document.getElementById('mobileMenuBtn'),
                     navMenu: document.getElementById('navMenu'),
                     mainContent: document.getElementById('mainContent')
@@ -794,47 +784,28 @@
             }
             
             init() {
-                this.setBodyOverflow('hidden');
-                this.simulateLoading();
                 this.bindEvents();
                 this.loadLatestNews();
-            }
-            
-            simulateLoading() {
-                setTimeout(() => {
-                    this.state.loadingComplete = true;
-                    if (this.elements.enterButton) {
-                        this.elements.enterButton.textContent = 'Enter';
-                        this.elements.enterButton.disabled = false;
-                    }
-                }, 1000);
+                this.updateAudioUI();
             }
             
             toggleSound() {
                 this.state.soundEnabled = !this.state.soundEnabled;
-                this.updateSoundUI();
+                this.updateAudioUI();
             }
             
-            updateSoundUI() {
-                const { audioStatus, toggleSwitch } = this.elements;
-                if (audioStatus) {
-                    audioStatus.textContent = this.state.soundEnabled ? 'Enabled' : 'Disabled';
-                    audioStatus.classList.toggle('disabled', !this.state.soundEnabled);
-                }
-                if (toggleSwitch) {
-                    toggleSwitch.classList.toggle('active', this.state.soundEnabled);
-                }
-            }
-            
-            enterSite() {
-                if (this.elements.entryOverlay) {
-                    this.elements.entryOverlay.classList.add('hidden');
-                }
-                document.body.classList.add('site-loaded');
-                this.state.siteLoaded = true;
-                this.setBodyOverflow('auto');
-                if (this.elements.mainContent) {
-                    this.elements.mainContent.focus();
+            updateAudioUI() {
+                const { audioToggle, audioIcon, audioText } = this.elements;
+                if (audioToggle && audioIcon && audioText) {
+                    if (this.state.soundEnabled) {
+                        audioToggle.classList.remove('disabled');
+                        audioIcon.textContent = '🔊';
+                        audioText.textContent = 'Audio On';
+                    } else {
+                        audioToggle.classList.add('disabled');
+                        audioIcon.textContent = '🔇';
+                        audioText.textContent = 'Audio Off';
+                    }
                 }
             }
             
@@ -845,6 +816,63 @@
                         this.elements.mobileMenuBtn.setAttribute('aria-expanded', isOpen);
                     }
                 }
+            }
+            
+            bindEvents() {
+                if (this.elements.audioToggle) {
+                    this.elements.audioToggle.addEventListener('click', () => this.toggleSound());
+                }
+                if (this.elements.mobileMenuBtn) {
+                    this.elements.mobileMenuBtn.addEventListener('click', () => this.toggleMobileMenu());
+                }
+                
+                // Carousel navigation
+                const carouselTrack = document.getElementById('carouselTrack');
+                const prevBtn = document.getElementById('carouselPrev');
+                const nextBtn = document.getElementById('carouselNext');
+                
+                if (carouselTrack && prevBtn && nextBtn) {
+                    let currentPosition = 0;
+                    const slideWidth = 520 + 24; // 520px card + 24px gap
+                    const maxPosition = slideWidth * 5; // 5 unique slides
+                    
+                    prevBtn.addEventListener('click', () => {
+                        currentPosition += slideWidth;
+                        if (currentPosition > 0) currentPosition = -maxPosition;
+                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+                        carouselTrack.style.animation = 'none';
+                        setTimeout(() => {
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
+                        }, 500);
+                    });
+                    
+                    nextBtn.addEventListener('click', () => {
+                        currentPosition -= slideWidth;
+                        if (currentPosition < -maxPosition) currentPosition = 0;
+                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+                        carouselTrack.style.animation = 'none';
+                        setTimeout(() => {
+                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
+                        }, 500);
+                    });
+                }
+                
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (this.elements.navMenu) {
+                            this.elements.navMenu.classList.remove('show');
+                            if (this.elements.mobileMenuBtn) {
+                                this.elements.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    });
+                });
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.elements.navMenu?.classList.contains('show')) {
+                        this.toggleMobileMenu();
+                    }
+                });
             }
             
             async loadLatestNews() {
@@ -934,71 +962,6 @@
             
             renderNewsError(container) {
                 container.innerHTML = '<div class="post-error">Unable to load latest news. Check the blog for updates.</div>';
-            }
-            
-            setBodyOverflow(value) {
-                document.body.style.overflow = value;
-                document.body.style.overscrollBehavior = value === 'hidden' ? 'contain' : 'auto';
-            }
-            
-            bindEvents() {
-                if (this.elements.toggleSwitch) {
-                    this.elements.toggleSwitch.addEventListener('click', () => this.toggleSound());
-                }
-                if (this.elements.enterButton) {
-                    this.elements.enterButton.addEventListener('click', () => this.enterSite());
-                }
-                if (this.elements.mobileMenuBtn) {
-                    this.elements.mobileMenuBtn.addEventListener('click', () => this.toggleMobileMenu());
-                }
-                
-                // Carousel navigation
-                const carouselTrack = document.getElementById('carouselTrack');
-                const prevBtn = document.getElementById('carouselPrev');
-                const nextBtn = document.getElementById('carouselNext');
-                
-                if (carouselTrack && prevBtn && nextBtn) {
-                    let currentPosition = 0;
-                    const slideWidth = 520 + 24; // 520px card + 24px gap
-                    const maxPosition = slideWidth * 5; // 5 unique slides
-                    
-                    prevBtn.addEventListener('click', () => {
-                        currentPosition += slideWidth;
-                        if (currentPosition > 0) currentPosition = -maxPosition;
-                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
-                        carouselTrack.style.animation = 'none';
-                        setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
-                        }, 500);
-                    });
-                    
-                    nextBtn.addEventListener('click', () => {
-                        currentPosition -= slideWidth;
-                        if (currentPosition < -maxPosition) currentPosition = 0;
-                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
-                        carouselTrack.style.animation = 'none';
-                        setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 35s linear infinite';
-                        }, 500);
-                    });
-                }
-                
-                document.querySelectorAll('.nav-menu a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (this.elements.navMenu) {
-                            this.elements.navMenu.classList.remove('show');
-                            if (this.elements.mobileMenuBtn) {
-                                this.elements.mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                            }
-                        }
-                    });
-                });
-                
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && this.elements.navMenu?.classList.contains('show')) {
-                        this.toggleMobileMenu();
-                    }
-                });
             }
         }
         
