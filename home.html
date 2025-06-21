@@ -678,7 +678,7 @@
             opacity: 0.8;
         }
         
-        /* CLEAN MOBILE CAROUSEL - NO CONFLICTS */
+        /* CLEAN MOBILE CAROUSEL - PERFECTLY CENTERED */
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-md) 0;
@@ -694,63 +694,45 @@
                 padding: var(--space-lg) var(--space-sm);
             }
             
-            /* SINGLE ALBUM MOBILE CAROUSEL - FIXED APPROACH */
+            /* MOBILE CAROUSEL - ONE CENTERED CARD */
             .carousel {
-                height: 380px;
+                height: 400px;
                 overflow: hidden;
                 position: relative;
                 border-radius: var(--radius-lg);
                 background: rgba(15, 15, 15, 0.3);
                 padding: var(--space-sm);
-                margin: 0 var(--space-lg);
-                width: 300px;
-                margin-left: auto;
-                margin-right: auto;
+                /* CENTER THE WHOLE CAROUSEL */
+                width: 100%;
+                max-width: 100vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
             
             .carousel-track {
                 display: flex;
-                gap: var(--space-lg);
-                /* SLIDE IN, WAIT 3 SECS, SLIDE OUT - INFINITE FORWARD */
-                animation: slideWaitSlide 20s linear infinite;
+                gap: 0; /* No gap between cards for clean sliding */
+                animation: centerSlideShow 20s linear infinite;
                 width: max-content;
-                /* START WITH FIRST CARD CENTERED IN 300px CONTAINER */
-                transform: translateX(10px);
+                height: 100%;
+                align-items: center;
             }
             
-            @keyframes slideWaitSlide {
-                /* Album 1: Wait 3s (0-15%), slide out (15-20%) */
-                0% { transform: translateX(10px); }
-                15% { transform: translateX(10px); }
-                20% { transform: translateX(-300px); }
-                
-                /* Album 2: Wait 3s (20-35%), slide out (35-40%) */
-                20% { transform: translateX(-300px); }
-                35% { transform: translateX(-300px); }
-                40% { transform: translateX(-610px); }
-                
-                /* Album 3: Wait 3s (40-55%), slide out (55-60%) */
-                40% { transform: translateX(-610px); }
-                55% { transform: translateX(-610px); }
-                60% { transform: translateX(-920px); }
-                
-                /* Album 4: Wait 3s (60-75%), slide out (75-80%) */
-                60% { transform: translateX(-920px); }
-                75% { transform: translateX(-920px); }
-                80% { transform: translateX(-1230px); }
-                
-                /* Album 5: Wait 3s (80-95%), slide out (95-100%) and reset */
-                80% { transform: translateX(-1230px); }
-                95% { transform: translateX(-1230px); }
-                100% { transform: translateX(-1540px); }
+            @keyframes centerSlideShow {
+                /* Each card gets 20% of the time (4 seconds each) */
+                0%, 15% { transform: translateX(calc(50vw - 120px)); }
+                20%, 35% { transform: translateX(calc(50vw - 120px - 240px)); }
+                40%, 55% { transform: translateX(calc(50vw - 120px - 480px)); }
+                60%, 75% { transform: translateX(calc(50vw - 120px - 720px)); }
+                80%, 95% { transform: translateX(calc(50vw - 120px - 960px)); }
+                100% { transform: translateX(calc(50vw - 120px - 1200px)); }
             }
             
             .carousel-slide {
-                /* SINGLE CARD DISPLAY - FITS IN 300px CONTAINER */
-                width: 280px;
-                max-width: 280px;
-                min-width: 280px;
-                height: 350px;
+                /* MOBILE-FRIENDLY SIZE - FITS COMFORTABLY */
+                width: 240px;
+                height: 340px;
                 background: rgba(26, 26, 26, 0.95);
                 border: 2px solid rgba(218, 181, 71, 0.15);
                 border-radius: var(--radius-lg);
@@ -761,6 +743,8 @@
                 text-align: center;
                 flex-shrink: 0;
                 box-shadow: var(--shadow-md);
+                margin: 0;
+                position: relative;
             }
             
             .carousel-slide:hover {
@@ -770,14 +754,13 @@
             }
             
             .album-image {
-                width: 140px;
-                height: 140px;
+                width: 130px;
+                height: 130px;
                 border-radius: var(--radius-md);
                 border: 2px solid rgba(218, 181, 71, 0.3);
                 margin: 0 auto var(--space-sm) auto;
                 flex-shrink: 0;
                 object-fit: cover;
-                display: block;
             }
             
             .carousel-slide:hover .album-image {
@@ -802,33 +785,30 @@
             }
             
             .album-title {
-                font-size: 1rem;
-                margin-bottom: 0.25rem;
+                font-size: 0.95rem;
+                margin-bottom: 0.2rem;
                 line-height: 1.2;
                 color: var(--gold);
                 text-align: center;
-                width: 100%;
             }
             
             .album-artist {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 margin-bottom: var(--space-xs);
                 color: var(--white-75);
                 text-align: center;
-                width: 100%;
             }
             
             .album-details {
                 display: flex;
                 justify-content: center;
-                margin-bottom: var(--space-sm);
+                margin-bottom: var(--space-xs);
                 width: 100%;
             }
             
             .album-badge {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
                 padding: 0.25rem 0.5rem;
-                display: inline-block;
                 text-align: center;
             }
             
@@ -839,9 +819,9 @@
             }
             
             .btn-small {
-                padding: 0.5rem 1rem;
-                font-size: 0.75rem;
-                min-width: 80px;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.7rem;
+                min-width: 70px;
                 text-align: center;
             }
             
