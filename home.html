@@ -306,33 +306,35 @@
             text-transform: uppercase;
         }
         
-        /* DESKTOP CAROUSEL */
+        /* NEW INFINITE CAROUSEL SYSTEM */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
         .carousel {
             overflow: hidden;
-            position: relative;
-            height: 324px;
             border-radius: var(--radius-lg);
-            mask: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
-            -webkit-mask: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+            background: rgba(42, 42, 42, 0.8);
+            border: 1px solid rgba(218, 181, 71, 0.1);
+            backdrop-filter: blur(10px);
         }
         
         .carousel-track {
             display: flex;
-            gap: var(--space-md);
-            width: calc((420px + var(--space-md)) * 6);
-            animation: desktopSlideShow 24s linear infinite;
-            will-change: transform;
+            width: 600%; /* 6 slides for seamless loop */
+            animation: infiniteSlide 18s linear infinite; /* 3 seconds per slide × 6 slides */
         }
         
-        @keyframes desktopSlideShow {
-            /* SEAMLESS DESKTOP LOOP: 1→2→3→4→5→1→2→3... */
-            0%, 12.5% { transform: translateX(0); }
-            16.66%, 29.16% { transform: translateX(calc(-1 * (420px + 24px))); }
-            33.32%, 45.82% { transform: translateX(calc(-2 * (420px + 24px))); }
-            49.98%, 62.48% { transform: translateX(calc(-3 * (420px + 24px))); }
-            66.64%, 79.14% { transform: translateX(calc(-4 * (420px + 24px))); }
-            83.3%, 95.8% { transform: translateX(calc(-5 * (420px + 24px))); }
-            100% { transform: translateX(calc(-5 * (420px + 24px))); }
+        @keyframes infiniteSlide {
+            0%, 16.66% { transform: translateX(0); }           /* Slide 1 - pause 3s */
+            20%, 33.33% { transform: translateX(-16.66%); }    /* Slide 2 - pause 3s */
+            36.66%, 50% { transform: translateX(-33.33%); }    /* Slide 3 - pause 3s */
+            53.33%, 66.66% { transform: translateX(-50%); }    /* Slide 4 - pause 3s */
+            70%, 83.33% { transform: translateX(-66.66%); }    /* Slide 5 - pause 3s */
+            86.66%, 100% { transform: translateX(-83.33%); }   /* Slide 1 (duplicate) - seamless loop */
         }
         
         .carousel-track:hover {
@@ -340,56 +342,48 @@
         }
         
         .carousel-slide {
-            flex: 0 0 420px;
-            height: 320px;
-            background: rgba(42, 42, 42, 0.8);
-            border-radius: var(--radius-lg);
-            padding: var(--space-sm);
-            border: 1px solid rgba(218, 181, 71, 0.1);
-            transition: all var(--transition);
-            backdrop-filter: blur(10px);
+            width: 16.66%; /* 100% / 6 slides */
+            flex-shrink: 0;
+            padding: var(--space-lg);
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: var(--space-md);
-        }
-        
-        .carousel-slide:hover {
-            border-color: rgba(218, 181, 71, 0.3);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            background: rgba(42, 42, 42, 0.95);
+            text-align: center;
+            min-height: 450px;
         }
         
         .album-image {
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             border-radius: var(--radius-md);
             object-fit: cover;
-            border: 1px solid rgba(218, 181, 71, 0.2);
+            border: 2px solid rgba(218, 181, 71, 0.2);
             background: #2A2A2A;
             transition: transform var(--transition);
-            flex-shrink: 0;
+            margin-bottom: var(--space-md);
         }
         
         .carousel-slide:hover .album-image {
             transform: scale(1.03);
+            border-color: rgba(218, 181, 71, 0.4);
         }
         
         .album-info {
-            flex: 1;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+            flex: 1;
             justify-content: space-between;
-            height: 100%;
-            padding: var(--space-sm) 0;
         }
         
         .album-header {
-            flex: 1;
+            text-align: center;
+            margin-bottom: var(--space-sm);
         }
         
         .album-title {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--gold);
             margin-bottom: 0.5rem;
@@ -402,7 +396,7 @@
         }
         
         .album-artist {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--white-75);
             margin-bottom: var(--space-sm);
             font-weight: 400;
@@ -410,13 +404,12 @@
         
         .album-details {
             display: flex;
-            align-items: center;
-            gap: var(--space-sm);
+            justify-content: center;
             margin-bottom: var(--space-md);
         }
         
         .album-badge {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             padding: 0.5rem 1rem;
             border-radius: var(--radius-md);
             font-weight: 600;
@@ -445,46 +438,104 @@
         }
         
         .album-actions {
-            display: flex;
-            gap: var(--space-sm);
+            margin-top: auto;
         }
         
-        /* Carousel Navigation Arrows - DESKTOP ONLY */
-        @media (min-width: 769px) {
-            .carousel-nav {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(26, 26, 26, 0.9);
-                border: 2px solid rgba(218, 181, 71, 0.3);
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--gold);
-                font-size: 1.25rem;
-                cursor: pointer;
-                transition: all var(--transition);
-                backdrop-filter: blur(20px);
-                z-index: 10;
-            }
-            
-            .carousel-nav:hover {
-                background: rgba(218, 181, 71, 0.2);
-                border-color: var(--gold);
-                transform: translateY(-50%) scale(1.1);
-                color: var(--gold-light);
-            }
-            
-            .carousel-nav.prev {
-                left: 10px;
-            }
-            
-            .carousel-nav.next {
-                right: 10px;
-            }
+        /* CAROUSEL NAVIGATION - BETTER LOOKING ARROWS */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+            border: 2px solid rgba(218, 181, 71, 0.4);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all var(--transition);
+            backdrop-filter: blur(25px);
+            z-index: 10;
+            user-select: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .carousel-nav::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity var(--transition);
+            z-index: -1;
+        }
+        
+        .carousel-nav:hover {
+            background: linear-gradient(135deg, rgba(218, 181, 71, 0.2), rgba(232, 197, 71, 0.2));
+            border-color: var(--gold);
+            transform: translateY(-50%) scale(1.1);
+            color: var(--gold-light);
+            box-shadow: 0 6px 25px rgba(218, 181, 71, 0.3);
+        }
+        
+        .carousel-nav:hover::before {
+            opacity: 0.1;
+        }
+        
+        .carousel-nav:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        
+        .carousel-nav.prev {
+            left: -30px;
+        }
+        
+        .carousel-nav.next {
+            right: -30px;
+        }
+        
+        .carousel-nav.prev::after {
+            content: '❮';
+            font-size: 1.2rem;
+            margin-left: -2px;
+        }
+        
+        .carousel-nav.next::after {
+            content: '❯';
+            font-size: 1.2rem;
+            margin-right: -2px;
+        }
+        
+        /* CAROUSEL INDICATORS */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: var(--space-md);
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(218, 181, 71, 0.3);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        
+        .carousel-indicator.active {
+            background: var(--gold);
+            transform: scale(1.2);
+        }
+        
+        .carousel-indicator:hover {
+            background: rgba(218, 181, 71, 0.6);
         }
         
         /* FEATURES SECTION */
@@ -677,7 +728,7 @@
             opacity: 0.8;
         }
         
-        /* MOBILE CAROUSEL - FORCE OVERRIDE ALL DESKTOP STYLES */
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-md) 0;
@@ -693,142 +744,40 @@
                 padding: var(--space-lg) var(--space-sm);
             }
             
-            /* MOBILE CAROUSEL WRAPPER */
-            .carousel {
-                height: 380px !important;
-                overflow: hidden !important;
-                position: relative !important;
-                width: 320px !important;
-                margin: 0 auto !important;
-                /* FORCE OVERRIDE DESKTOP STYLES */
-                mask: none !important;
-                -webkit-mask: none !important;
-                padding: 0 25px !important;
-                background: transparent !important;
-                /* BOX SIZING */
-                box-sizing: border-box !important;
-            }
-            
-            .carousel-track {
-                display: flex !important;
-                gap: 0 !important;
-                animation: mobileSlideShow 20s linear infinite !important;
-                width: max-content !important;
-                position: relative !important;
-                z-index: 2 !important;
-                /* CENTER IN 320px CONTAINER */
-                margin-left: 0 !important;
-            }
-            
-            @keyframes mobileSlideShow {
-                /* SEAMLESS FORWARD LOOP: 1→2→3→4→5→1→2→3... */
-                0%, 15% { transform: translateX(0); }           /* Show card 1 */
-                20%, 35% { transform: translateX(-270px); }     /* Show card 2 */
-                40%, 55% { transform: translateX(-540px); }     /* Show card 3 */
-                60%, 75% { transform: translateX(-810px); }     /* Show card 4 */
-                80%, 95% { transform: translateX(-1080px); }    /* Show card 5 */
-                100% { transform: translateX(-1350px); }        /* Show duplicate card 1, then instant reset to 0 */
+            .carousel-container {
+                max-width: 320px;
             }
             
             .carousel-slide {
-                /* PROFESSIONAL MOBILE SIZE - SLIGHTLY REDUCED */
-                width: 270px !important;
-                height: 360px !important;
-                flex: 0 0 270px !important;
-                background: rgba(26, 26, 26, 0.95) !important;
-                border: 1px solid rgba(218, 181, 71, 0.3) !important;
-                border-radius: var(--radius-lg) !important;
-                padding: var(--space-sm) !important;
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                text-align: center !important;
-                flex-shrink: 0 !important;
-                box-shadow: var(--shadow-md) !important;
-                box-sizing: border-box !important;
-                gap: var(--space-sm) !important;
-            }
-            
-            .carousel-slide:hover {
-                border-color: rgba(218, 181, 71, 0.4) !important;
-                background: rgba(26, 26, 26, 1) !important;
+                padding: var(--space-md);
+                min-height: 400px;
             }
             
             .album-image {
-                width: 160px !important;
-                height: 160px !important;
-                border-radius: var(--radius-md) !important;
-                border: 2px solid rgba(218, 181, 71, 0.3) !important;
-                margin: 0 auto 4px auto !important;
-                flex-shrink: 0 !important;
-                object-fit: cover !important;
-            }
-            
-            .carousel-slide:hover .album-image {
-                transform: scale(1.02) !important;
-                border-color: rgba(218, 181, 71, 0.5) !important;
-            }
-            
-            .album-info {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                gap: 2px !important;
-                flex: 1 !important;
-                justify-content: space-between !important;
-                width: 100% !important;
-                text-align: center !important;
-            }
-            
-            .album-header {
-                text-align: center !important;
-                width: 100% !important;
-                margin-bottom: 4px !important;
+                width: 160px;
+                height: 160px;
             }
             
             .album-title {
-                font-size: 1rem !important;
-                margin-bottom: 2px !important;
-                line-height: 1.1 !important;
-                color: var(--gold) !important;
-                text-align: center !important;
-                font-weight: 600 !important;
+                font-size: 1.1rem;
             }
             
             .album-artist {
-                font-size: 0.85rem !important;
-                margin-bottom: 2px !important;
-                color: var(--white-75) !important;
-                text-align: center !important;
+                font-size: 0.9rem;
             }
             
-            .album-details {
-                display: flex !important;
-                justify-content: center !important;
-                margin-bottom: 4px !important;
-                width: 100% !important;
+            .carousel-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
             }
             
-            .album-badge {
-                font-size: 0.7rem !important;
-                padding: 0.3rem 0.6rem !important;
-                text-align: center !important;
-                font-weight: 600 !important;
+            .carousel-nav.prev {
+                left: -25px;
             }
             
-            .album-actions {
-                display: flex !important;
-                justify-content: center !important;
-                width: 100% !important;
-            }
-            
-            .btn-small {
-                padding: 0.75rem 1.2rem !important;
-                font-size: 0.8rem !important;
-                min-width: 100px !important;
-                min-height: 44px !important;
-                text-align: center !important;
-                font-weight: 600 !important;
+            .carousel-nav.next {
+                right: -25px;
             }
             
             .nav-right {
@@ -847,29 +796,6 @@
             
             .audio-icon {
                 font-size: 0.9rem;
-            }
-            
-            .carousel-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-                background: rgba(218, 181, 71, 0.9);
-                border: 1px solid rgba(218, 181, 71, 1);
-                color: var(--black);
-            }
-            
-            .carousel-nav:hover {
-                background: rgba(218, 181, 71, 1);
-                transform: translateY(-50%) scale(1.05);
-                color: var(--black);
-            }
-            
-            .carousel-nav.prev {
-                left: 5px;
-            }
-            
-            .carousel-nav.next {
-                right: 5px;
             }
             
             .feature-card {
@@ -910,6 +836,20 @@
                 padding-top: 80px;
                 padding-left: var(--space-2xl);
                 padding-right: var(--space-2xl);
+            }
+            
+            .carousel-container {
+                max-width: 600px;
+            }
+            
+            .carousel-slide {
+                padding: var(--space-xl);
+                min-height: 500px;
+            }
+            
+            .album-image {
+                width: 250px;
+                height: 250px;
             }
             
             .features {
@@ -983,107 +923,120 @@
         <section class="releases">
             <h2 class="releases-title">Latest Releases</h2>
             
-            <div class="carousel">
-                <div class="carousel-track" id="carouselTrack">
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Karpenters</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-latest">June 2025</span>
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Karpenters</h3>
+                                    <p class="album-artist">Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-latest">June 2025</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
                                 </div>
                             </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Everybody Eats!</h3>
+                                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-new">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Bandoleros</h3>
+                                    <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-new">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Aponia</h3>
+                                    <p class="album-artist">Awol One & Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-new">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-secondary btn-small">Listen</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">World Area</h3>
+                                    <p class="album-artist">Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-streaming">2023</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DUPLICATE FIRST SLIDE FOR SEAMLESS LOOP -->
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Karpenters</h3>
+                                    <p class="album-artist">Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-badge badge-latest">June 2025</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Everybody Eats!</h3>
-                                <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-new">2024</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Bandoleros</h3>
-                                <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-new">2024</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Aponia</h3>
-                                <p class="album-artist">Awol One & Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-new">2024</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-secondary btn-small">Listen</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">World Area</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-streaming">2023</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- DUPLICATE FIRST CARD FOR SEAMLESS DESKTOP LOOP -->
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Karpenters</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-latest">June 2025</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
                 </div>
                 
-                <button class="carousel-nav prev" id="carouselPrev" aria-label="Previous albums">←</button>
-                <button class="carousel-nav next" id="carouselNext" aria-label="Next albums">→</button>
+                <!-- NAVIGATION BUTTONS -->
+                <button class="carousel-nav prev" id="carouselPrev" aria-label="Previous album"></button>
+                <button class="carousel-nav next" id="carouselNext" aria-label="Next album"></button>
+                
+                <!-- INDICATORS -->
+                <div class="carousel-indicators" id="carouselIndicators">
+                    <div class="carousel-indicator active" data-slide="0"></div>
+                    <div class="carousel-indicator" data-slide="1"></div>
+                    <div class="carousel-indicator" data-slide="2"></div>
+                    <div class="carousel-indicator" data-slide="3"></div>
+                    <div class="carousel-indicator" data-slide="4"></div>
+                </div>
             </div>
         </section>
         
@@ -1195,7 +1148,12 @@
         
         class UltraKeithApp {
             constructor() {
-                this.state = { soundEnabled: true };
+                this.state = { 
+                    soundEnabled: true,
+                    currentSlide: 0,
+                    totalSlides: 5,
+                    isManuallyControlled: false
+                };
                 this.elements = this.getElements();
                 this.init();
             }
@@ -1207,7 +1165,11 @@
                     audioText: document.getElementById('audioText'),
                     mobileMenuBtn: document.getElementById('mobileMenuBtn'),
                     navMenu: document.getElementById('navMenu'),
-                    mainContent: document.getElementById('mainContent')
+                    mainContent: document.getElementById('mainContent'),
+                    carouselTrack: document.getElementById('carouselTrack'),
+                    carouselPrev: document.getElementById('carouselPrev'),
+                    carouselNext: document.getElementById('carouselNext'),
+                    carouselIndicators: document.getElementById('carouselIndicators')
                 };
             }
             
@@ -1215,7 +1177,59 @@
                 this.bindEvents();
                 this.loadLatestNews();
                 this.updateAudioUI();
+                this.initCarousel();
             }
+            
+            // CAROUSEL METHODS
+            initCarousel() {
+                // Set initial state
+                this.updateCarouselIndicators();
+                
+                // Manual navigation temporarily pauses auto-slide
+                if (this.elements.carouselPrev) {
+                    this.elements.carouselPrev.addEventListener('click', () => {
+                        this.pauseCarousel();
+                        this.prevSlide();
+                        this.resumeCarouselAfterDelay();
+                    });
+                }
+                if (this.elements.carouselNext) {
+                    this.elements.carouselNext.addEventListener('click', () => {
+                        this.pauseCarousel();
+                        this.nextSlide();
+                        this.resumeCarouselAfterDelay();
+                    });
+                }
+            }
+            
+            pauseCarousel() {
+                if (this.elements.carouselTrack) {
+                    this.elements.carouselTrack.style.animationPlayState = 'paused';
+                    this.state.isManuallyControlled = true;
+                }
+            }
+            
+            resumeCarousel() {
+                if (this.elements.carouselTrack) {
+                    this.elements.carouselTrack.style.animationPlayState = 'running';
+                    this.state.isManuallyControlled = false;
+                }
+            }
+            
+            resumeCarouselAfterDelay() {
+                setTimeout(() => {
+                    if (this.state.isManuallyControlled) {
+                        this.resumeCarousel();
+                    }
+                }, 5000); // Resume after 5 seconds
+            }
+            
+            goToSlide(slideIndex) {
+                // For infinite carousel, we track the logical position
+                this.state.currentSlide = slideIndex % this.state.totalSlides;
+                this.updateCarouselIndicators();
+            }
+            
             
             toggleSound() {
                 this.state.soundEnabled = !this.state.soundEnabled;
@@ -1246,6 +1260,26 @@
                 }
             }
             
+            nextSlide() {
+                this.state.currentSlide = (this.state.currentSlide + 1) % this.state.totalSlides;
+                this.updateCarouselIndicators();
+            }
+            
+            prevSlide() {
+                this.state.currentSlide = (this.state.currentSlide - 1 + this.state.totalSlides) % this.state.totalSlides;
+                this.updateCarouselIndicators();
+            }
+            
+            updateCarouselIndicators() {
+                // Update indicators to show current logical position
+                if (this.elements.carouselIndicators) {
+                    const indicators = this.elements.carouselIndicators.querySelectorAll('.carousel-indicator');
+                    indicators.forEach((indicator, index) => {
+                        indicator.classList.toggle('active', index === this.state.currentSlide);
+                    });
+                }
+            }
+            
             bindEvents() {
                 if (this.elements.audioToggle) {
                     this.elements.audioToggle.addEventListener('click', () => this.toggleSound());
@@ -1254,34 +1288,64 @@
                     this.elements.mobileMenuBtn.addEventListener('click', () => this.toggleMobileMenu());
                 }
                 
-                // Carousel navigation
-                const carouselTrack = document.getElementById('carouselTrack');
-                const prevBtn = document.getElementById('carouselPrev');
-                const nextBtn = document.getElementById('carouselNext');
+                // Carousel indicators
+                if (this.elements.carouselIndicators) {
+                    this.elements.carouselIndicators.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('carousel-indicator')) {
+                            const slideIndex = parseInt(e.target.dataset.slide);
+                            this.pauseCarousel();
+                            this.goToSlide(slideIndex);
+                            this.resumeCarouselAfterDelay();
+                        }
+                    });
+                }
                 
-                if (carouselTrack && prevBtn && nextBtn) {
-                    let currentPosition = 0;
-                    const slideWidth = 420 + 24;
-                    const maxPosition = slideWidth * 4;
-                    
-                    prevBtn.addEventListener('click', () => {
-                        currentPosition += slideWidth;
-                        if (currentPosition > 0) currentPosition = -maxPosition;
-                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
-                        carouselTrack.style.animation = 'none';
-                        setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 20s linear infinite';
-                        }, 500);
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        this.pauseCarousel();
+                        this.prevSlide();
+                        this.resumeCarouselAfterDelay();
+                    } else if (e.key === 'ArrowRight') {
+                        this.pauseCarousel();
+                        this.nextSlide();
+                        this.resumeCarouselAfterDelay();
+                    } else if (e.key === 'Escape' && this.elements.navMenu?.classList.contains('show')) {
+                        this.toggleMobileMenu();
+                    }
+                });
+                
+                // Touch/swipe support for mobile
+                let startX = 0;
+                let endX = 0;
+                
+                if (this.elements.carouselTrack) {
+                    this.elements.carouselTrack.addEventListener('touchstart', (e) => {
+                        startX = e.touches[0].clientX;
+                        this.pauseCarousel();
                     });
                     
-                    nextBtn.addEventListener('click', () => {
-                        currentPosition -= slideWidth;
-                        if (currentPosition < -maxPosition) currentPosition = 0;
-                        carouselTrack.style.transform = `translateX(${currentPosition}px)`;
-                        carouselTrack.style.animation = 'none';
-                        setTimeout(() => {
-                            carouselTrack.style.animation = 'infiniteSlideAndPause 20s linear infinite';
-                        }, 500);
+                    this.elements.carouselTrack.addEventListener('touchend', (e) => {
+                        endX = e.changedTouches[0].clientX;
+                        const diff = startX - endX;
+                        
+                        if (Math.abs(diff) > 50) { // Minimum swipe distance
+                            if (diff > 0) {
+                                this.nextSlide(); // Swipe left = next
+                            } else {
+                                this.prevSlide(); // Swipe right = previous
+                            }
+                        }
+                        this.resumeCarouselAfterDelay();
+                    });
+                    
+                    // Pause on hover for desktop
+                    this.elements.carouselTrack.addEventListener('mouseenter', () => {
+                        this.pauseCarousel();
+                    });
+                    
+                    this.elements.carouselTrack.addEventListener('mouseleave', () => {
+                        this.resumeCarousel();
                     });
                 }
                 
@@ -1294,12 +1358,6 @@
                             }
                         }
                     });
-                });
-                
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && this.elements.navMenu?.classList.contains('show')) {
-                        this.toggleMobileMenu();
-                    }
                 });
             }
             
