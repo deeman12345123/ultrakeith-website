@@ -126,7 +126,7 @@
         }
         .releases-title {
             font-family: 'Orbitron', monospace; font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 700; color: var(--gold);
-            text-align: center; margin-bottom: var(--space-2xl); text-transform: uppercase;
+            text-align: center; margin-bottom: var(--space-lg); text-transform: uppercase;
         }
         
         .carousel {
@@ -339,52 +339,63 @@
                 border-color: rgba(218, 181, 71, 0.5);
             }
             
-            .album-info {
+            /* Mobile Album Info - Override Desktop Styles */
+            .carousel-slide .album-info {
                 display: flex;
                 flex-direction: column;
                 flex: 1;
                 min-height: 180px;
                 padding: 0;
                 gap: var(--space-sm);
+                height: auto;
+                justify-content: flex-start;
             }
             
-            .album-header {
+            .carousel-slide .album-header {
                 text-align: center;
+                flex: none;
+                margin-bottom: 0;
             }
             
-            .album-title { 
+            .carousel-slide .album-title { 
                 font-size: 1.1rem; 
                 margin-bottom: 0.5rem;
                 line-height: 1.2;
             }
-            .album-artist { 
+            .carousel-slide .album-artist { 
                 font-size: 0.9rem; 
                 margin-bottom: var(--space-sm);
                 color: var(--white-75);
             }
             
-            .album-details {
+            .carousel-slide .album-details {
                 display: flex;
                 justify-content: center;
-                margin-bottom: var(--space-sm);
+                margin-bottom: 0;
+                align-items: center;
+                gap: var(--space-sm);
             }
             
-            .album-badge {
+            .carousel-slide .album-badge {
                 font-size: 0.7rem;
                 padding: 0.3rem 0.7rem;
+                margin: 0;
             }
             
-            .album-actions {
+            .carousel-slide .album-actions {
                 display: flex;
                 justify-content: center;
                 margin-top: 0;
+                margin-bottom: 0;
+                padding: 0;
             }
             
-            .btn-small {
+            .carousel-slide .btn-small {
                 padding: 0.8rem 1.6rem;
                 font-size: 0.85rem;
                 min-width: 120px;
                 white-space: nowrap;
+                margin: 0;
             }
             
             /* Mobile Navigation Arrows */
