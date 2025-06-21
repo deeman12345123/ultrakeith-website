@@ -157,38 +157,11 @@
 </head>
 <body>
     <div class="test-container">
-        <h1>CAROUSEL TEST - Step by Step</h1>
+        <h1>CAROUSEL TEST - Fixed Smooth Backward</h1>
         
         <div class="carousel">
             <div class="slider" id="slider">
-                <!-- SLIDE 1 -->
-                <div class="slide">
-                    <img src="https://via.placeholder.com/200x200/DAB547/000?text=ALBUM+1" alt="Album 1">
-                    <div class="slide-info">
-                        <h3>Karpenters</h3>
-                        <p>Kool Keith</p>
-                    </div>
-                </div>
-                
-                <!-- SLIDE 2 -->
-                <div class="slide">
-                    <img src="https://via.placeholder.com/200x200/E74C3C/fff?text=ALBUM+2" alt="Album 2">
-                    <div class="slide-info">
-                        <h3>Everybody Eats!</h3>
-                        <p>Stress Eater</p>
-                    </div>
-                </div>
-                
-                <!-- SLIDE 3 -->
-                <div class="slide">
-                    <img src="https://via.placeholder.com/200x200/27AE60/fff?text=ALBUM+3" alt="Album 3">
-                    <div class="slide-info">
-                        <h3>Bandoleros</h3>
-                        <p>Lynx 196.9</p>
-                    </div>
-                </div>
-                
-                <!-- SLIDE 4 -->
+                <!-- DUPLICATE SLIDE 4 & 5 AT BEGINNING FOR SMOOTH BACKWARD -->
                 <div class="slide">
                     <img src="https://via.placeholder.com/200x200/8E44AD/fff?text=ALBUM+4" alt="Album 4">
                     <div class="slide-info">
@@ -197,7 +170,6 @@
                     </div>
                 </div>
                 
-                <!-- SLIDE 5 -->
                 <div class="slide">
                     <img src="https://via.placeholder.com/200x200/F39C12/000?text=ALBUM+5" alt="Album 5">
                     <div class="slide-info">
@@ -206,7 +178,7 @@
                     </div>
                 </div>
                 
-                <!-- DUPLICATE SLIDE 1 FOR INFINITE FORWARD -->
+                <!-- ORIGINAL 5 SLIDES -->
                 <div class="slide">
                     <img src="https://via.placeholder.com/200x200/DAB547/000?text=ALBUM+1" alt="Album 1">
                     <div class="slide-info">
@@ -215,7 +187,47 @@
                     </div>
                 </div>
                 
-                <!-- DUPLICATE SLIDE 2 FOR INFINITE FORWARD -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/E74C3C/fff?text=ALBUM+2" alt="Album 2">
+                    <div class="slide-info">
+                        <h3>Everybody Eats!</h3>
+                        <p>Stress Eater</p>
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/27AE60/fff?text=ALBUM+3" alt="Album 3">
+                    <div class="slide-info">
+                        <h3>Bandoleros</h3>
+                        <p>Lynx 196.9</p>
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/8E44AD/fff?text=ALBUM+4" alt="Album 4">
+                    <div class="slide-info">
+                        <h3>Aponia</h3>
+                        <p>Awol One & Kool Keith</p>
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/F39C12/000?text=ALBUM+5" alt="Album 5">
+                    <div class="slide-info">
+                        <h3>World Area</h3>
+                        <p>Kool Keith</p>
+                    </div>
+                </div>
+                
+                <!-- DUPLICATE SLIDE 1 & 2 AT END FOR SMOOTH FORWARD -->
+                <div class="slide">
+                    <img src="https://via.placeholder.com/200x200/DAB547/000?text=ALBUM+1" alt="Album 1">
+                    <div class="slide-info">
+                        <h3>Karpenters</h3>
+                        <p>Kool Keith</p>
+                    </div>
+                </div>
+                
                 <div class="slide">
                     <img src="https://via.placeholder.com/200x200/E74C3C/fff?text=ALBUM+2" alt="Album 2">
                     <div class="slide-info">
@@ -230,24 +242,26 @@
         </div>
         
         <div class="status" id="status">
-            Album 1/5 - Ready for FORWARD-ONLY auto-advance test
+            Album 1/5 - Ready for smooth forward/backward test
         </div>
         
         <div class="controls">
             <button onclick="startTest()">Start Forward-Only Auto</button>
             <button onclick="stopTest()">Stop</button>
-            <button onclick="testNext()">Manual Next</button>
-            <button onclick="testPrev()">Manual Prev</button>
+            <button onclick="testNext()">Manual Next (resumes auto in 3s)</button>
+            <button onclick="testPrev()">Manual Prev (resumes auto in 3s)</button>
         </div>
     </div>
 
     <script>
-        // SIMPLE TEST CAROUSEL - TRUE INFINITE FORWARD
-        let currentSlide = 0;
+        // SIMPLE TEST CAROUSEL - FIXED SMOOTH BACKWARD
+        let currentSlide = 2; // Start at position 2 (which shows Album 1)
         const totalSlides = 5; // Logical slides (user sees 5)
-        const actualSlides = 7; // Physical slides (5 + 2 duplicates)
+        const startPosition = 2; // Where the real slides start
         let autoTimer = null;
+        let resumeTimer = null;
         let isDesktop = window.innerWidth > 768;
+        let isAutoPaused = false;
         
         const slider = document.getElementById('slider');
         const status = document.getElementById('status');
@@ -259,91 +273,150 @@
             // Calculate how far to move
             let movePercent;
             if (isDesktop) {
-                // Desktop: each slide is 50% wide, so move 50% per slide
                 movePercent = slideIndex * 50;
             } else {
-                // Mobile: each slide is 100% wide, so move 100% per slide
                 movePercent = slideIndex * 100;
             }
             
-            // Move the slider
             slider.style.transform = `translateX(-${movePercent}%)`;
             
-            // Show logical album number (1-5)
-            const logicalAlbum = (slideIndex % totalSlides) + 1;
+            // Calculate which logical album we're showing
+            const adjustedIndex = slideIndex - startPosition;
+            const logicalAlbum = ((adjustedIndex % totalSlides) + totalSlides) % totalSlides + 1;
+            status.textContent = `Album ${logicalAlbum}/5 - Position ${slideIndex} - ${isDesktop ? 'Desktop' : 'Mobile'} - ${isAutoPaused ? 'PAUSED' : 'AUTO'}`;
             
-            // Update status
-            status.textContent = `Album ${logicalAlbum}/5 - Position ${slideIndex} - translateX(-${movePercent}%) - ${isDesktop ? 'Desktop (2 visible)' : 'Mobile (1 visible)'}`;
-            
-            console.log(`Moved to position ${slideIndex} (Album ${logicalAlbum}), translateX(-${movePercent}%)`);
+            console.log(`Moved to position ${slideIndex} (Album ${logicalAlbum})`);
         }
         
-        // START AUTO-ADVANCE TEST - TRUE INFINITE FORWARD
-        function startTest() {
-            stopTest(); // Clear any existing timer
-            
-            status.textContent = `Starting TRUE INFINITE forward auto-advance...`;
-            console.log('AUTO-ADVANCE TEST STARTED - TRUE INFINITE FORWARD');
-            
-            // Start from position 0
-            currentSlide = 0;
-            goToSlide(0);
-            
-            // Wait 3 seconds, then start advancing FORWARD ONLY
-            setTimeout(() => {
-                autoTimer = setInterval(() => {
-                    // ALWAYS move forward
-                    currentSlide++;
-                    
-                    // If we reach the end, reset seamlessly
-                    if (currentSlide >= totalSlides) {
-                        goToSlide(currentSlide); // Show the transition
-                        
-                        // Reset position after transition
-                        setTimeout(() => {
-                            slider.style.transition = 'none';
-                            currentSlide = 0;
-                            goToSlide(0);
-                            
-                            // Re-enable transitions
-                            setTimeout(() => {
-                                slider.style.transition = 'transform 0.6s ease-in-out';
-                            }, 50);
-                        }, 600);
-                    } else {
-                        goToSlide(currentSlide);
-                    }
-                    
-                    console.log(`AUTO-ADVANCE: Moved FORWARD to position ${currentSlide}`);
-                }, 3000); // 3 seconds between advances
-                
-                console.log('Auto-timer started - advancing FORWARD every 3 seconds (TRUE INFINITE)');
-            }, 3000); // Initial 3 second wait
-        }
-        
-        // STOP AUTO-ADVANCE
-        function stopTest() {
+        // CLEAR ALL TIMERS
+        function clearAllTimers() {
             if (autoTimer) {
                 clearInterval(autoTimer);
                 autoTimer = null;
-                console.log('Auto-advance stopped');
             }
+            if (resumeTimer) {
+                clearTimeout(resumeTimer);
+                resumeTimer = null;
+            }
+        }
+        
+        // START AUTO-ADVANCE
+        function startAutoAdvance() {
+            if (autoTimer) return; // Don't start if already running
+            
+            autoTimer = setInterval(() => {
+                if (!isAutoPaused) {
+                    autoMoveForward();
+                }
+            }, 3000);
+            
+            console.log('Auto-advance timer started');
+        }
+        
+        // AUTO MOVE FORWARD (used by timer)
+        function autoMoveForward() {
+            currentSlide++;
+            
+            // If we reach the end duplicates, jump back to start
+            if (currentSlide >= startPosition + totalSlides) {
+                goToSlide(currentSlide);
+                setTimeout(() => {
+                    slider.style.transition = 'none';
+                    currentSlide = startPosition;
+                    goToSlide(currentSlide);
+                    setTimeout(() => {
+                        slider.style.transition = 'transform 0.6s ease-in-out';
+                    }, 50);
+                }, 600);
+            } else {
+                goToSlide(currentSlide);
+            }
+            
+            console.log(`AUTO: Moved forward to position ${currentSlide}`);
+        }
+        
+        // START TEST - MAIN FUNCTION
+        function startTest() {
+            clearAllTimers();
+            isAutoPaused = false;
+            currentSlide = startPosition; // Start at Album 1
+            goToSlide(currentSlide);
+            
+            console.log('TEST STARTED - waiting 3 seconds then auto-advance');
+            
+            setTimeout(() => {
+                startAutoAdvance();
+            }, 3000);
+        }
+        
+        // STOP TEST
+        function stopTest() {
+            clearAllTimers();
+            isAutoPaused = true;
+            console.log('Auto-advance stopped');
         }
         
         // MANUAL NEXT
         function testNext() {
-            stopTest();
-            currentSlide = (currentSlide + 1) % totalSlides;
-            goToSlide(currentSlide);
-            console.log('MANUAL: Next slide');
+            clearAllTimers();
+            isAutoPaused = true;
+            
+            // Move forward like auto
+            currentSlide++;
+            if (currentSlide >= startPosition + totalSlides) {
+                goToSlide(currentSlide);
+                setTimeout(() => {
+                    slider.style.transition = 'none';
+                    currentSlide = startPosition;
+                    goToSlide(currentSlide);
+                    setTimeout(() => {
+                        slider.style.transition = 'transform 0.6s ease-in-out';
+                    }, 50);
+                }, 600);
+            } else {
+                goToSlide(currentSlide);
+            }
+            
+            console.log('MANUAL: Next (auto resumes in 3s)');
+            
+            // Resume auto after 3 seconds
+            resumeTimer = setTimeout(() => {
+                isAutoPaused = false;
+                startAutoAdvance();
+                console.log('Auto resumed after manual next');
+            }, 3000);
         }
         
-        // MANUAL PREVIOUS  
+        // MANUAL PREVIOUS - NOW SMOOTH!
         function testPrev() {
-            stopTest();
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            goToSlide(currentSlide);
-            console.log('MANUAL: Previous slide');
+            clearAllTimers();
+            isAutoPaused = true;
+            
+            currentSlide--;
+            
+            // If we go before the start, jump to the end duplicates
+            if (currentSlide < startPosition) {
+                goToSlide(currentSlide);
+                setTimeout(() => {
+                    slider.style.transition = 'none';
+                    currentSlide = startPosition + totalSlides - 1; // Jump to last real slide
+                    goToSlide(currentSlide);
+                    setTimeout(() => {
+                        slider.style.transition = 'transform 0.6s ease-in-out';
+                    }, 50);
+                }, 600);
+            } else {
+                goToSlide(currentSlide);
+            }
+            
+            console.log('MANUAL: Prev (auto resumes in 3s)');
+            
+            // Resume auto after 3 seconds
+            resumeTimer = setTimeout(() => {
+                isAutoPaused = false;
+                startAutoAdvance();
+                console.log('Auto resumed after manual prev');
+            }, 3000);
         }
         
         // BUTTON EVENT LISTENERS
@@ -363,7 +436,7 @@
         
         // INITIALIZE
         document.addEventListener('DOMContentLoaded', () => {
-            goToSlide(0); // Show first slide
+            goToSlide(startPosition); // Show first album
             console.log('Test carousel initialized');
         });
     </script>
