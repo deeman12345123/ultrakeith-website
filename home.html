@@ -306,7 +306,7 @@
             text-transform: uppercase;
         }
         
-        /* CAROUSEL */
+        /* DESKTOP CAROUSEL */
         .carousel {
             overflow: hidden;
             position: relative;
@@ -319,23 +319,23 @@
         .carousel-track {
             display: flex;
             gap: var(--space-md);
-            width: calc((520px + var(--space-md)) * 10);
+            width: calc((420px + var(--space-md)) * 10);
             animation: infiniteSlideAndPause 20s linear infinite;
             will-change: transform;
         }
         
         @keyframes infiniteSlideAndPause {
             0% { transform: translateX(0); }
-            2.5% { transform: translateX(calc(-1 * (520px + 24px))); }
-            20% { transform: translateX(calc(-1 * (520px + 24px))); }
-            22.5% { transform: translateX(calc(-2 * (520px + 24px))); }
-            40% { transform: translateX(calc(-2 * (520px + 24px))); }
-            42.5% { transform: translateX(calc(-3 * (520px + 24px))); }
-            60% { transform: translateX(calc(-3 * (520px + 24px))); }
-            62.5% { transform: translateX(calc(-4 * (520px + 24px))); }
-            80% { transform: translateX(calc(-4 * (520px + 24px))); }
-            82.5% { transform: translateX(calc(-5 * (520px + 24px))); }
-            100% { transform: translateX(calc(-5 * (520px + 24px))); }
+            2.5% { transform: translateX(calc(-1 * (420px + 24px))); }
+            20% { transform: translateX(calc(-1 * (420px + 24px))); }
+            22.5% { transform: translateX(calc(-2 * (420px + 24px))); }
+            40% { transform: translateX(calc(-2 * (420px + 24px))); }
+            42.5% { transform: translateX(calc(-3 * (420px + 24px))); }
+            60% { transform: translateX(calc(-3 * (420px + 24px))); }
+            62.5% { transform: translateX(calc(-4 * (420px + 24px))); }
+            80% { transform: translateX(calc(-4 * (420px + 24px))); }
+            82.5% { transform: translateX(calc(-5 * (420px + 24px))); }
+            100% { transform: translateX(calc(-5 * (420px + 24px))); }
         }
         
         .carousel-track:hover {
@@ -343,8 +343,8 @@
         }
         
         .carousel-slide {
-            flex: 0 0 520px;
-            height: 300px;
+            flex: 0 0 420px;
+            height: 280px;
             background: rgba(42, 42, 42, 0.8);
             border-radius: var(--radius-lg);
             padding: var(--space-sm);
@@ -364,8 +364,8 @@
         }
         
         .album-image {
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: 250px;
             border-radius: var(--radius-md);
             object-fit: cover;
             border: 1px solid rgba(218, 181, 71, 0.2);
@@ -678,7 +678,7 @@
             opacity: 0.8;
         }
         
-        /* MOBILE CAROUSEL - CLEAN RESTART - ONE FULL CARD ONLY */
+        /* MOBILE CAROUSEL - CLEAN START */
         @media (max-width: 768px) {
             .hero {
                 padding: var(--space-md) 0;
@@ -694,41 +694,40 @@
                 padding: var(--space-lg) var(--space-sm);
             }
             
-            /* SIMPLE ONE-CARD MOBILE CAROUSEL */
             .carousel {
-                height: 380px;
-                overflow: hidden;
-                position: relative;
-                border-radius: var(--radius-lg);
-                background: rgba(15, 15, 15, 0.3);
-                padding: var(--space-sm);
-                /* CONTAINER EXACTLY FITS ONE CARD */
-                width: 260px;
+                height: 350px;
+                mask: none;
+                -webkit-mask: none;
+                /* CONTAINER = ONE CARD WIDTH ONLY */
+                width: 250px;
                 margin: 0 auto;
+                padding: var(--space-sm);
+                background: rgba(15, 15, 15, 0.3);
+                border-radius: var(--radius-lg);
             }
             
             .carousel-track {
                 display: flex;
                 gap: 0;
-                animation: oneCardSlide 20s linear infinite;
+                /* SLIDE → STOP 3 SECS → SLIDE */
+                animation: mobileSlideShow 20s linear infinite;
                 width: max-content;
-                height: 100%;
             }
             
-            @keyframes oneCardSlide {
-                /* Show card 1 for 3 seconds, then slide */
+            @keyframes mobileSlideShow {
+                /* Card 1: Show 3s (0-15%), slide 1s (15-20%) */
                 0%, 15% { transform: translateX(0); }
-                20%, 35% { transform: translateX(-260px); }
-                40%, 55% { transform: translateX(-520px); }
-                60%, 75% { transform: translateX(-780px); }
-                80%, 95% { transform: translateX(-1040px); }
-                100% { transform: translateX(-1300px); }
+                20%, 35% { transform: translateX(-250px); }
+                40%, 55% { transform: translateX(-500px); }
+                60%, 75% { transform: translateX(-750px); }
+                80%, 95% { transform: translateX(-1000px); }
+                100% { transform: translateX(-1250px); }
             }
             
             .carousel-slide {
-                /* EXACTLY 260px - FITS PERFECTLY IN CONTAINER */
-                width: 260px;
-                height: 350px;
+                /* CARD = CONTAINER WIDTH */
+                width: 250px;
+                height: 320px;
                 background: rgba(26, 26, 26, 0.95);
                 border: 2px solid rgba(218, 181, 71, 0.15);
                 border-radius: var(--radius-lg);
@@ -778,7 +777,7 @@
             }
             
             .album-title {
-                font-size: 0.9rem;
+                font-size: 1rem;
                 margin-bottom: 0.2rem;
                 line-height: 1.2;
                 color: var(--gold);
@@ -786,7 +785,7 @@
             }
             
             .album-artist {
-                font-size: 0.7rem;
+                font-size: 0.8rem;
                 margin-bottom: var(--space-xs);
                 color: var(--white-75);
                 text-align: center;
@@ -800,8 +799,8 @@
             }
             
             .album-badge {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.4rem;
+                font-size: 0.65rem;
+                padding: 0.25rem 0.5rem;
                 text-align: center;
             }
             
@@ -812,9 +811,9 @@
             }
             
             .btn-small {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.65rem;
-                min-width: 60px;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+                min-width: 80px;
                 text-align: center;
             }
             
@@ -972,86 +971,6 @@
             
             <div class="carousel">
                 <div class="carousel-track" id="carouselTrack">
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Karpenters</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-latest">June 2025</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Everybody Eats!</h3>
-                                <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-new">2024</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Bandoleros</h3>
-                                <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-new">2024</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">Aponia</h3>
-                                <p class="album-artist">Awol One & Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-new">2024</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="shop.html" class="btn btn-secondary btn-small">Listen</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-slide">
-                        <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
-                        <div class="album-info">
-                            <div class="album-header">
-                                <h3 class="album-title">World Area</h3>
-                                <p class="album-artist">Kool Keith</p>
-                                <div class="album-details">
-                                    <span class="album-badge badge-streaming">2023</span>
-                                </div>
-                            </div>
-                            <div class="album-actions">
-                                <a href="vault.html" class="btn btn-secondary btn-small">Listen</a>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <div class="carousel-slide">
                         <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
                         <div class="album-info">
@@ -1312,8 +1231,8 @@
                 
                 if (carouselTrack && prevBtn && nextBtn) {
                     let currentPosition = 0;
-                    const slideWidth = 520 + 24;
-                    const maxPosition = slideWidth * 5;
+                    const slideWidth = 420 + 24;
+                    const maxPosition = slideWidth * 4;
                     
                     prevBtn.addEventListener('click', () => {
                         currentPosition += slideWidth;
