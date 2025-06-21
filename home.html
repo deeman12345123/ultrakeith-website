@@ -344,7 +344,7 @@
         
         .carousel-slide {
             flex: 0 0 420px;
-            height: 280px;
+            height: 320px;
             background: rgba(42, 42, 42, 0.8);
             border-radius: var(--radius-lg);
             padding: var(--space-sm);
@@ -364,8 +364,8 @@
         }
         
         .album-image {
-            width: 250px;
-            height: 250px;
+            width: 300px;
+            height: 300px;
             border-radius: var(--radius-md);
             object-fit: cover;
             border: 1px solid rgba(218, 181, 71, 0.2);
@@ -710,18 +710,18 @@
             .carousel-track {
                 display: flex !important;
                 gap: 0 !important;
-                animation: mobileSlideShow 25s linear infinite !important;
+                animation: mobileSlideShow 20s linear infinite !important;
                 width: max-content !important;
             }
             
             @keyframes mobileSlideShow {
-                0%, 12% { transform: translateX(0); }
-                16%, 28% { transform: translateX(-270px); }
-                32%, 44% { transform: translateX(-540px); }
-                48%, 60% { transform: translateX(-810px); }
-                64%, 76% { transform: translateX(-1080px); }
-                80%, 92% { transform: translateX(-1350px); }
-                96%, 100% { transform: translateX(0); }
+                /* SEAMLESS FORWARD LOOP: 1→2→3→4→5→1→2→3... */
+                0%, 15% { transform: translateX(0); }           /* Show card 1 */
+                20%, 35% { transform: translateX(-270px); }     /* Show card 2 */
+                40%, 55% { transform: translateX(-540px); }     /* Show card 3 */
+                60%, 75% { transform: translateX(-810px); }     /* Show card 4 */
+                80%, 95% { transform: translateX(-1080px); }    /* Show card 5 */
+                100% { transform: translateX(-1350px); }        /* Show duplicate card 1, then instant reset to 0 */
             }
             
             .carousel-slide {
@@ -749,8 +749,8 @@
             }
             
             .album-image {
-                width: 140px !important;
-                height: 140px !important;
+                width: 160px !important;
+                height: 160px !important;
                 border-radius: var(--radius-md) !important;
                 border: 2px solid rgba(218, 181, 71, 0.3) !important;
                 margin: 0 auto var(--space-sm) auto !important;
