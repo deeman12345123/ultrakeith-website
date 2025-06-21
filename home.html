@@ -103,7 +103,7 @@
         }
         .mobile-menu-btn:hover { color: var(--gold-light); transform: scale(1.1); }
         
-        .main { padding-top: 72px; max-width: 1400px; margin: 0 auto; padding-left: var(--space-lg); padding-right: var(--space-lg); opacity: 0; transition: opacity var(--transition); }
+        .main { padding-top: 72px; max-width: 1400px; margin: 0 auto; padding-left: var(--space-lg); padding-right: var(--space-lg); opacity: 0; transition: opacity var(--transition); position: relative; z-index: 1; }
         
         body:not(.site-loaded) .nav, body:not(.site-loaded) .main { opacity: 0; pointer-events: none; }
         body.site-loaded .nav, body.site-loaded .main { opacity: 1; pointer-events: auto; }
@@ -130,28 +130,22 @@
         }
         
         .carousel {
-            overflow: hidden; position: relative; height: 320px; border-radius: var(--radius-lg);
+            overflow: hidden; position: relative; height: 380px; border-radius: var(--radius-lg);
             mask: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
             -webkit-mask: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
         }
         .carousel-track {
             display: flex; gap: var(--space-md); width: calc((220px + var(--space-md)) * 12);
-            animation: slideStopCarousel 48s infinite; will-change: transform;
+            animation: smoothCarousel 36s ease-in-out infinite; will-change: transform;
         }
-        @keyframes slideStopCarousel {
-            0% { transform: translateX(0); }
-            8.33% { transform: translateX(0); }
-            16.66% { transform: translateX(calc(-1 * (220px + var(--space-md)))); }
-            25% { transform: translateX(calc(-1 * (220px + var(--space-md)))); }
-            33.33% { transform: translateX(calc(-2 * (220px + var(--space-md)))); }
-            41.66% { transform: translateX(calc(-2 * (220px + var(--space-md)))); }
-            50% { transform: translateX(calc(-3 * (220px + var(--space-md)))); }
-            58.33% { transform: translateX(calc(-3 * (220px + var(--space-md)))); }
-            66.66% { transform: translateX(calc(-4 * (220px + var(--space-md)))); }
-            75% { transform: translateX(calc(-4 * (220px + var(--space-md)))); }
-            83.33% { transform: translateX(calc(-5 * (220px + var(--space-md)))); }
-            91.66% { transform: translateX(calc(-5 * (220px + var(--space-md)))); }
-            100% { transform: translateX(calc(-6 * (220px + var(--space-md)))); }
+        @keyframes smoothCarousel {
+            0%, 14% { transform: translateX(0); }
+            16.5%, 30.5% { transform: translateX(calc(-1 * (220px + var(--space-md)))); }
+            33%, 47% { transform: translateX(calc(-2 * (220px + var(--space-md)))); }
+            49.5%, 63.5% { transform: translateX(calc(-3 * (220px + var(--space-md)))); }
+            66%, 80% { transform: translateX(calc(-4 * (220px + var(--space-md)))); }
+            82.5%, 96.5% { transform: translateX(calc(-5 * (220px + var(--space-md)))); }
+            100% { transform: translateX(0); }
         }
         .carousel-track:hover { animation-play-state: paused; }
         
@@ -221,7 +215,7 @@
         
         .footer {
             border-top: 1px solid rgba(218, 181, 71, 0.2); padding: var(--space-2xl) 0; text-align: center;
-            margin-top: var(--space-2xl); background: rgba(10, 10, 10, 0.5);
+            margin-top: var(--space-2xl); background: rgba(10, 10, 10, 0.95); position: relative; z-index: 10;
         }
         .footer-links { display: flex; flex-direction: column; gap: var(--space-md); margin-bottom: var(--space-xl); list-style: none; }
         .footer-links a {
@@ -237,7 +231,7 @@
             .hero { padding: var(--space-md) 0; }
             .hero-logo { max-height: 40vh; margin-bottom: var(--space-sm); }
             .releases { margin: var(--space-md) 0 var(--space-xl) 0; padding: var(--space-xl) var(--space-md); }
-            .carousel { height: 300px; }
+            .carousel { height: 340px; }
             .carousel-track { animation-duration: 40s; width: calc((200px + var(--space-md)) * 12); }
             .carousel-slide { flex: 0 0 200px; padding: var(--space-sm); }
             .album-image { width: 160px; height: 160px; }
