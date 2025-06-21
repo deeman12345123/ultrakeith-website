@@ -700,38 +700,41 @@
                 -webkit-mask: none;
                 border-radius: var(--radius-lg);
                 background: rgba(15, 15, 15, 0.3);
-                padding: var(--space-xs) var(--space-xl); /* More horizontal padding for centering */
+                padding: var(--space-xs) 0; /* Remove horizontal padding */
                 margin: 0 calc(-1 * var(--space-sm));
-                display: flex;
-                justify-content: center; /* Center the carousel content */
-                align-items: center;
+                overflow: hidden;
+                position: relative;
             }
             
             .carousel-track {
                 animation: mobileSlideAndPause 25s linear infinite;
-                /* CENTERED FIX: Much smaller cards with better centering */
-                width: calc((280px + var(--space-md)) * 10);
-                gap: var(--space-md);
+                /* SINGLE CARD FIX: Show one card at a time centered */
+                width: calc((320px + var(--space-lg)) * 10);
+                gap: var(--space-lg);
+                display: flex;
+                align-items: center;
+                padding-left: calc(50vw - 160px); /* Center first card */
             }
             
             @keyframes mobileSlideAndPause {
                 0% { transform: translateX(0); }
-                2% { transform: translateX(calc(-1 * (280px + 24px))); }
-                20% { transform: translateX(calc(-1 * (280px + 24px))); }
-                22% { transform: translateX(calc(-2 * (280px + 24px))); }
-                40% { transform: translateX(calc(-2 * (280px + 24px))); }
-                42% { transform: translateX(calc(-3 * (280px + 24px))); }
-                60% { transform: translateX(calc(-3 * (280px + 24px))); }
-                62% { transform: translateX(calc(-4 * (280px + 24px))); }
-                80% { transform: translateX(calc(-4 * (280px + 24px))); }
-                82% { transform: translateX(calc(-5 * (280px + 24px))); }
-                100% { transform: translateX(calc(-5 * (280px + 24px))); }
+                2% { transform: translateX(calc(-1 * (320px + 32px))); }
+                20% { transform: translateX(calc(-1 * (320px + 32px))); }
+                22% { transform: translateX(calc(-2 * (320px + 32px))); }
+                40% { transform: translateX(calc(-2 * (320px + 32px))); }
+                42% { transform: translateX(calc(-3 * (320px + 32px))); }
+                60% { transform: translateX(calc(-3 * (320px + 32px))); }
+                62% { transform: translateX(calc(-4 * (320px + 32px))); }
+                80% { transform: translateX(calc(-4 * (320px + 32px))); }
+                82% { transform: translateX(calc(-5 * (320px + 32px))); }
+                100% { transform: translateX(calc(-5 * (320px + 32px))); }
             }
             
             .carousel-slide {
-                /* CENTERED SOLUTION: Fixed 280px width for perfect centering */
-                flex: 0 0 280px;
-                max-width: 280px;
+                /* SINGLE CENTERED CARD: Fixed width for one card display */
+                flex: 0 0 320px;
+                width: 320px;
+                max-width: 320px;
                 height: 360px;
                 padding: var(--space-xs);
                 flex-direction: column;
@@ -749,8 +752,8 @@
             }
             
             .album-image {
-                width: 140px;
-                height: 140px;
+                width: 160px;
+                height: 160px;
                 margin: 0 auto var(--space-xs) auto;
                 border: 2px solid rgba(218, 181, 71, 0.3);
                 flex-shrink: 0;
