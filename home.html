@@ -136,9 +136,23 @@
         }
         .carousel-track {
             display: flex; gap: var(--space-md); width: calc((220px + var(--space-md)) * 12);
-            animation: slideCarousel 50s linear infinite; will-change: transform;
+            animation: slideStopCarousel 48s infinite; will-change: transform;
         }
-        @keyframes slideCarousel { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% + var(--space-md) / 2)); } }
+        @keyframes slideStopCarousel {
+            0% { transform: translateX(0); }
+            8.33% { transform: translateX(0); }
+            16.66% { transform: translateX(calc(-1 * (220px + var(--space-md)))); }
+            25% { transform: translateX(calc(-1 * (220px + var(--space-md)))); }
+            33.33% { transform: translateX(calc(-2 * (220px + var(--space-md)))); }
+            41.66% { transform: translateX(calc(-2 * (220px + var(--space-md)))); }
+            50% { transform: translateX(calc(-3 * (220px + var(--space-md)))); }
+            58.33% { transform: translateX(calc(-3 * (220px + var(--space-md)))); }
+            66.66% { transform: translateX(calc(-4 * (220px + var(--space-md)))); }
+            75% { transform: translateX(calc(-4 * (220px + var(--space-md)))); }
+            83.33% { transform: translateX(calc(-5 * (220px + var(--space-md)))); }
+            91.66% { transform: translateX(calc(-5 * (220px + var(--space-md)))); }
+            100% { transform: translateX(calc(-6 * (220px + var(--space-md)))); }
+        }
         .carousel-track:hover { animation-play-state: paused; }
         
         .carousel-slide {
