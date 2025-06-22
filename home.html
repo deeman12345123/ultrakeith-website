@@ -619,6 +619,25 @@
             color: var(--white);
         }
         
+        /* FOR SALE CARD SPECIAL STYLING */
+        .for-sale-card {
+            border: 2px solid #FF6B35;
+            background: linear-gradient(145deg, rgba(42, 26, 26, 0.9), rgba(58, 42, 42, 0.9));
+        }
+        
+        .for-sale-card:hover {
+            border-color: #FF8C69;
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.3);
+        }
+        
+        .for-sale-card .feature-title {
+            color: #FF6B35;
+        }
+        
+        .for-sale-card:hover .feature-title {
+            color: #FF8C69;
+        }
+        
         /* NEWS POST STYLES - ENHANCED FOR BETTER VISIBILITY */
         .latest-post {
             margin-bottom: var(--space-lg);
@@ -1245,6 +1264,14 @@
                 <h3 class="feature-title">Forum</h3>
                 <p class="feature-description">Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, share stories, and stay connected with the Keith musical legacy.</p>
                 <a href="https://koolkeith.proboards.com/" class="btn btn-secondary">Join Forum</a>
+            </article>
+
+            <!-- FOR SALE CARD ADDED HERE -->
+            <article class="feature-card for-sale-card">
+                <div class="feature-icon"><img src="4sale.png" alt="For Sale icon"></div>
+                <h3 class="feature-title">FOR SALE</h3>
+                <p class="feature-description">Exclusive Property Listing - Unique urban artist loft with character features. Virtual tour available.</p>
+                <a href="apartment.html" class="btn btn-secondary">View Property</a>
             </article>
         </section>
     </main>
