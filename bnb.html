@@ -374,11 +374,12 @@
             }
             
             .photo-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(10, 200px);
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 250px repeat(5, 200px);
             }
             
             .photo-main {
+                grid-column: 1 / 3;
                 grid-row: 1;
             }
             
