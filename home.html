@@ -557,38 +557,38 @@
         }
         
         .feature-icon {
-            width: 140px;
-            height: 140px;
+            width: 180px; /* Bigger size */
+            height: 180px; /* Bigger size */
             margin: 0 auto var(--space-lg);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--gold);
-            background: rgba(212, 175, 55, 0.12);
+            background: transparent; /* No background */
             border-radius: var(--radius-lg);
-            border: 2px solid rgba(218, 181, 71, 0.3);
+            border: none; /* No border */
             transition: all var(--transition);
             position: relative;
             overflow: hidden;
         }
         
         .feature-card:hover .feature-icon {
-            border-color: var(--gold);
-            background: rgba(218, 181, 71, 0.18);
-            transform: scale(1.05);
-            box-shadow: var(--shadow-md);
+            border: none; /* No hover border */
+            background: transparent; /* No hover background */
+            transform: scale(1.1); /* Bigger hover scale */
+            box-shadow: none; /* No shadow */
         }
         
         .feature-icon img {
-            width: 80px;
-            height: 80px;
+            width: 120px; /* Much bigger icons */
+            height: 120px; /* Much bigger icons */
             object-fit: contain;
-            border-radius: var(--radius-md);
+            border-radius: 0; /* No border radius on images */
             transition: transform var(--transition);
         }
         
         .feature-card:hover .feature-icon img {
-            transform: scale(1.1);
+            transform: scale(1.05); /* Subtle hover on the image itself */
         }
         
         .feature-title {
