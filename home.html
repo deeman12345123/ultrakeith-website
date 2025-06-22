@@ -357,7 +357,7 @@
         }
         
         .carousel-slide {
-            width: calc(100% - 12px); /* Slightly more space on mobile */
+            width: calc(100% - 8px); /* Back to 8px for mobile consistency */
             flex-shrink: 0;
             padding: var(--space-lg);
             display: flex;
@@ -370,7 +370,7 @@
             border: 2px solid rgba(218, 181, 71, 0.2);
             border-radius: var(--radius-lg);
             transition: all var(--transition);
-            margin-right: 12px; /* Increased mobile spacing */
+            margin-right: 8px; /* Back to 8px for mobile consistency */
         }
         
         .carousel-slide:last-child {
@@ -869,13 +869,13 @@
             }
             
             .carousel-slide {
-                width: calc(50% - 4px); /* Adjust width for desktop spacing */
+                width: calc(50% - 4px); /* Desktop: adjust width for 8px spacing */
                 flex-direction: row;
                 text-align: left;
                 align-items: center;
                 gap: var(--space-md);
                 padding: var(--space-md);
-                margin-right: 8px;
+                margin-right: 8px; /* Desktop: 8px spacing */
             }
             
             .album-image {
@@ -1387,9 +1387,10 @@
             goToSlide(slideIndex) {
                 if (!this.track) return;
                 
-                // Improved spacing calculations for both mobile and desktop
+                // Precise spacing calculations based on container width
                 const slideWidth = this.isDesktop ? 50 : 100;
-                const spacing = this.isDesktop ? 0.4 : 2.1; // Increased mobile spacing compensation
+                // Mobile: 8px spacing on 380px container = ~2.1%, Desktop: 8px on 1300px = ~0.6%
+                const spacing = this.isDesktop ? 0.6 : 2.1; 
                 const translateX = -(slideIndex * (slideWidth + spacing));
                 
                 this.track.style.transform = `translateX(${translateX}%)`;
