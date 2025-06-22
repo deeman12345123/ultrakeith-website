@@ -559,7 +559,7 @@
         .feature-icon {
             width: 180px; /* Bigger size */
             height: 180px; /* Bigger size */
-            margin: 0 auto var(--space-lg); /* Back to original bottom margin */
+            margin: 0 auto var(--space-lg);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -570,6 +570,7 @@
             transition: all var(--transition);
             position: relative;
             overflow: hidden;
+            padding: 0; /* Remove all padding */
         }
         
         .feature-card:hover .feature-icon {
@@ -815,7 +816,7 @@
             }
             
             .feature-card {
-                padding: var(--space-xl) var(--space-lg);
+                padding: var(--space-lg); /* Remove extra padding on mobile */
             }
             
             .footer-links {
