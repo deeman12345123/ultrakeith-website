@@ -23,7 +23,7 @@
         .room-container {
             position: relative;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -41,7 +41,7 @@
         .room-scene {
             position: relative;
             width: 100%;
-            height: 600px;
+            height: 700px;
             background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
             border: 3px solid #DAB547;
             border-radius: 15px;
@@ -56,6 +56,10 @@
             transition: all 0.3s ease;
             border: 2px solid transparent;
             border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
         }
 
         .room-element:hover {
@@ -64,83 +68,39 @@
             box-shadow: 0 0 15px rgba(218, 181, 71, 0.6);
         }
 
-        /* Fridge */
+        /* Original Elements */
         .fridge {
             top: 50px;
             left: 50px;
             width: 120px;
             height: 200px;
             background: linear-gradient(180deg, #333, #555);
-            border-radius: 10px;
         }
 
-        .fridge::before {
-            content: '🧊';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-        }
-
-        /* Closet */
         .closet {
             top: 30px;
             right: 80px;
             width: 150px;
             height: 250px;
             background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-            border-radius: 10px;
         }
 
-        .closet::before {
-            content: '👔';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-        }
-
-        /* Bed */
         .bed {
-            bottom: 50px;
+            bottom: 120px;
             left: 200px;
             width: 250px;
             height: 100px;
             background: linear-gradient(180deg, #4a4a4a, #2a2a2a);
-            border-radius: 15px;
         }
 
-        .bed::before {
-            content: '🛏️';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-        }
-
-        /* Desk */
         .desk {
             bottom: 80px;
             right: 100px;
             width: 180px;
             height: 80px;
             background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
-            border-radius: 8px;
         }
 
-        .desk::before {
-            content: '📝';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-        }
-
-        /* TV */
         .tv {
             top: 100px;
             left: 50%;
@@ -148,35 +108,75 @@
             width: 200px;
             height: 120px;
             background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
-            border-radius: 10px;
         }
 
-        .tv::before {
-            content: '📺';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-        }
-
-        /* Medicine Cabinet */
         .medicine {
             top: 40px;
             left: 300px;
             width: 100px;
             height: 120px;
             background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-            border-radius: 8px;
         }
 
-        .medicine::before {
-            content: '💊';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
+        /* NEW ELEMENTS */
+        .under-bed {
+            bottom: 80px;
+            left: 180px;
+            width: 60px;
+            height: 40px;
+            background: rgba(139, 69, 19, 0.8);
+            z-index: -1;
+        }
+
+        .phone-corner {
+            top: 280px;
+            left: 50px;
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(45deg, #654321, #8B4513);
+        }
+
+        .music-equipment {
+            top: 180px;
+            right: 200px;
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(180deg, #444, #222);
+        }
+
+        .floor-items {
+            bottom: 30px;
+            left: 400px;
+            width: 300px;
+            height: 50px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px dashed #DAB547;
+        }
+
+        .pest-corner {
+            bottom: 200px;
+            right: 50px;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #444, #111);
+            border-radius: 50%;
+        }
+
+        .bathroom-door {
+            top: 150px;
+            left: 20px;
+            width: 30px;
+            height: 120px;
+            background: linear-gradient(180deg, #654321, #4a2c1a);
+        }
+
+        .window {
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(180deg, #1a1a2e, #16213e);
+            border: 2px solid #333;
         }
 
         /* Modal */
@@ -273,36 +273,45 @@
 
         @media (max-width: 768px) {
             .room-scene {
-                height: 400px;
+                height: 500px;
             }
             
             .room-title {
                 font-size: 1.8rem;
             }
             
-            .fridge, .closet, .bed, .desk, .tv, .medicine {
+            .room-element {
                 transform: scale(0.8);
             }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="nav-btn">← Back to Site</a>
+    <a href="home.html" class="nav-btn">← Back to Site</a>
     
     <div class="room-container">
         <h1 class="room-title">Apartment 223</h1>
         
         <div class="room-scene">
-            <!-- Interactive Room Elements -->
-            <div class="room-element fridge" data-item="fridge"></div>
-            <div class="room-element closet" data-item="closet"></div>
-            <div class="room-element bed" data-item="bed"></div>
-            <div class="room-element desk" data-item="desk"></div>
-            <div class="room-element tv" data-item="tv"></div>
-            <div class="room-element medicine" data-item="medicine"></div>
+            <!-- Original Elements -->
+            <div class="room-element fridge" data-item="fridge">🧊</div>
+            <div class="room-element closet" data-item="closet">👔</div>
+            <div class="room-element bed" data-item="bed">🛏️</div>
+            <div class="room-element desk" data-item="desk">📝</div>
+            <div class="room-element tv" data-item="tv">📺</div>
+            <div class="room-element medicine" data-item="medicine">💊</div>
+            
+            <!-- NEW Interactive Elements -->
+            <div class="room-element under-bed" data-item="under-bed">📦</div>
+            <div class="room-element phone-corner" data-item="phone-corner">📞</div>
+            <div class="room-element music-equipment" data-item="music-equipment">🎹</div>
+            <div class="room-element floor-items" data-item="floor-items">📚</div>
+            <div class="room-element pest-corner" data-item="pest-corner">🐀</div>
+            <div class="room-element bathroom-door" data-item="bathroom-door">🚪</div>
+            <div class="room-element window" data-item="window">🪟</div>
             
             <div class="hover-hint">
-                Click around Apartment 223 to discover Keith's secrets...
+                Click around Dr. Dooom's apartment to discover Keith's universe...
             </div>
         </div>
     </div>
@@ -323,29 +332,60 @@
         const closeBtn = document.getElementById('closeBtn');
 
         const roomContent = {
+            // Original Elements
             fridge: {
                 title: "Keith's Fridge",
-                text: "The legendary Kool Keith Bean Cereal sits here - 'little beans with little pieces of rocks in it like little white rice.' Franken Berry, King Vitamin, and original Apple Jacks line the shelves. 40oz bottles and champagne from his party sessions glow mysteriously, along with energy drinks that pulse with otherworldly light."
+                text: "King Vitamin cereal glows with fluorescent energy. Kool-Aid with syrupy consistency, Pabst Blue Ribbon beer, and Oreo cookies line the shelves. The legendary Kool Keith Bean Cereal sits here - 'little beans with little pieces of rocks in it like little white rice.'"
             },
             closet: {
                 title: "The Persona Closet",
-                text: "His bedazzled power scarf hangs prominently - the one he actually wore on stage like a ghost revealing itself. Dr. Octagon's lab coat, Black Elvis's wig, glasses and cape, plus his performance mask await the next transformation. Tuxedos from the old school era remind him of Big Daddy Kane and Caz."
+                text: "Black Elvis's wig, glasses and cape hang prominently. Dr. Octagon's lab coat awaits the next transformation. True Religion jeans, Lane Bryant clothing for various personas, and an extensive shoe collection fill the space. Contact lenses solution sits on the shelf."
             },
             bed: {
-                title: "Under the Bed",
-                text: "Hidden here are notebooks filled with bizarre phrases like 'Chief administrator suck my oil' and 'Dr. Ludicrous I turn into an octopus.' Paper bags that some rappers use for writing lyrics, and mysterious USB drives containing beats for his 'imaginary metronome.' Paint cans represent his work ethic analogy."
+                title: "Keith's Bed",
+                text: "His bedazzled power scarf hangs on the headboard - the one he wore on stage like a ghost revealing itself. Performance masks and costume pieces are stored in the drawers. Notebooks with lyrics scattered on the nightstand."
             },
             desk: {
                 title: "The Writing Desk",
-                text: "His SP-1200, SP-12, and MPC-60 sit here - the actual machines that created Critical Beatdown's revolutionary sound. Notebooks contain abstract concepts and 'All this jealousy shit is mayonnaise and celery shit' type lyrics. Multiple personas have left their mark with different handwriting styles."
+                text: "Notebooks contain abstract concepts and bizarre phrases like 'All this jealousy shit is mayonnaise and celery shit.' Multiple personas have left their mark with different handwriting styles. BIC lighters that don't work are scattered around."
             },
             tv: {
                 title: "Keith's Monitor",
-                text: "Playing the 'Country Girl' video and footage from his Switzerland underwear performance. Screen flickers between his fictional movies - one where Jason chops off his legs, another where he's 'pissing on rappers and Ninja Turtles come out.' Sometimes shows film concepts for his planned theatrical releases."
+                text: "Playing the 'Country Girl' video and footage from his Switzerland underwear performance. Screen flickers between his fictional movies and Keith-related content. Sometimes shows WBLS footage from his radio appearances."
             },
             medicine: {
                 title: "Dr. Dooom's Cabinet",
-                text: "Surgical tools for 'lyrical operations' and experimental substances for creativity enhancement. Contact lenses sit in solution - 'I wear contact lenses, it's more like a trend.' Medical supplies for emergency persona transformations and his heat ray finger enhancement experiments."
+                text: "Surgical tools for 'lyrical operations' and experimental substances. Flintstones vitamins (character obsession), Pepto-Bismol, and X-ray sunglasses. Medical supplies for emergency persona transformations."
+            },
+            
+            // NEW Elements
+            "under-bed": {
+                title: "Under the Bed Storage",
+                text: "Hidden funk record collection: Ohio Players, Slave, Con Funk Shun, Black Ivory. Comic book stash featuring Batman, Lost in Space, Buck Rogers, Fantastic Four. Jars of collected insects - termites, lightning bugs. VHS tapes and mysterious notebooks with phone numbers."
+            },
+            "phone-corner": {
+                title: "WBLS Connection Center",
+                text: "Vintage rotary phone with speed-dial to WBLS radio station. Answering machine with Keith-style messages. Pacific Bell phone bills scattered around. Radio tuned to classic hip-hop. '1-800 numbers' written on the wall. Six phones setup reference."
+            },
+            "music-equipment": {
+                title: "Keith Korg Station",
+                text: "Korg synthesizer (Keith Korg alias reference), Roland drum machines, SP-1200 sampler from Ultramagnetic days. Headphones hanging up, cassette tapes scattered. Miniature 48-track mixing board for home recordings."
+            },
+            "floor-items": {
+                title: "Scattered Treasures",
+                text: "Fluorescent cereal pieces glowing on the floor. Comic book pages torn and scattered. The Krossover of the Flower Kosmic graphic novel open. Cigarette butts and empty beer cans. Funk records without cases. Unpaid bills and housing notices."
+            },
+            "pest-corner": {
+                title: "Dr. Dooom's Creatures",
+                text: "Pet rats in small cages (Dr. Dooom signature). 'Naked roaches' scurrying when disturbed. Dead mice in corners. Parakeets in tiny cage. Ant farm setup. Spider webs with mysterious contents. Fly paper hanging with catches."
+            },
+            "bathroom-door": {
+                title: "Dr. Dooom's Laboratory",
+                text: "Medicine cabinet with experimental substances. Shower curtain with strange stains. Hair products for various persona wigs. Dental equipment. Mirror reflecting different personas. Bathtub with unusual scientific contents."
+            },
+            "window": {
+                title: "Projects View",
+                text: "Urban cityscape with apartment buildings. Fire escape with items stored outside. Clothesline with persona costumes drying. View of other Section 8 housing. Security bars on windows. Window AC unit probably broken. The streets Keith raps about."
             }
         };
 
@@ -379,14 +419,23 @@
             }
         });
 
-        // Add some random animations
+        // Random pest animations
+        setInterval(() => {
+            const pestElement = document.querySelector('[data-item="pest-corner"]');
+            pestElement.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                pestElement.style.transform = 'scale(1)';
+            }, 300);
+        }, 5000);
+
+        // Random flickering for equipment
         setInterval(() => {
             const elements = document.querySelectorAll('.room-element');
             const randomElement = elements[Math.floor(Math.random() * elements.length)];
-            randomElement.style.transform = 'scale(1.02)';
+            randomElement.style.opacity = '0.7';
             setTimeout(() => {
-                randomElement.style.transform = 'scale(1)';
-            }, 500);
+                randomElement.style.opacity = '1';
+            }, 200);
         }, 3000);
     </script>
 </body>
