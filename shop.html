@@ -1,1 +1,784 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Ultra Keith Official Store</title>
+    <meta name="description" content="Official Kool Keith merchandise, vinyl records, CDs, and digital downloads. Available worldwide through Amazon.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --gold: #DAB547;
+            --gold-light: #E8C547;
+            --black: #000000;
+            --burgundy: #0F0505;
+            --white: #FFFFFF;
+            --white-75: rgba(255, 255, 255, 0.75);
+            --white-55: rgba(255, 255, 255, 0.55);
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, var(--burgundy) 25%, #1A0A0A 50%, var(--black) 100%);
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* NAVIGATION - Matches homepage exactly */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(218, 181, 71, 0.2);
+            z-index: 100;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--space-lg);
+        }
+        
+        .nav-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo img {
+            height: 42px;
+            transition: all var(--transition);
+        }
+        
+        .nav-logo:hover img {
+            transform: scale(1.05);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--white-75);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all var(--transition);
+            text-transform: uppercase;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        /* MAIN LAYOUT */
+        .main {
+            padding-top: 72px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: var(--space-lg);
+            padding-right: var(--space-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* PAGE HEADER */
+        .page-header {
+            text-align: center;
+            padding: var(--space-xl) 0;
+        }
+        
+        .page-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .page-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--white-75);
+            margin-bottom: var(--space-lg);
+        }
+        
+        /* CATALOG HERO STATS */
+        .catalog-hero {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s;
+        }
+        
+        .catalog-hero:hover {
+            transform: translateY(-8px);
+            border-color: rgba(218, 181, 71, 0.4);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: var(--space-lg);
+            text-transform: uppercase;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            display: block;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--white-75);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+        }
+        
+        .hero-description {
+            color: var(--white-75);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* SEARCH & FILTER CONTROLS */
+        .controls {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            backdrop-filter: blur(20px);
+        }
+        
+        .controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            background: rgba(42, 42, 42, 0.8);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--white);
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(42, 42, 42, 1);
+            box-shadow: 0 0 0 3px rgba(218, 181, 71, 0.1);
+        }
+        
+        .search-input::placeholder {
+            color: var(--white-55);
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.75rem 1.25rem;
+            background: rgba(42, 42, 42, 0.8);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--white-75);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(218, 181, 71, 0.15);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        /* SHOP SECTIONS - Match homepage feature card style */
+        .shop-section {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s;
+        }
+        
+        .shop-section:hover {
+            transform: translateY(-12px);
+            border-color: rgba(218, 181, 71, 0.4);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .section-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(212, 175, 55, 0.12);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: var(--radius-lg);
+            font-size: 2rem;
+            transition: all var(--transition);
+        }
+        
+        .shop-section:hover .section-icon {
+            border-color: var(--gold);
+            background: rgba(218, 181, 71, 0.18);
+            transform: scale(1.05);
+        }
+        
+        .section-content {
+            flex: 1;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            transition: color var(--transition);
+        }
+        
+        .shop-section:hover .section-title {
+            color: var(--gold-light);
+        }
+        
+        .section-subtitle {
+            color: var(--white-75);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: color var(--transition);
+        }
+        
+        .shop-section:hover .section-subtitle {
+            color: var(--white);
+        }
+        
+        /* PRODUCT GRID - Optimized for 60+ albums */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-lg);
+        }
+        
+        .product-card {
+            background: rgba(42, 42, 42, 0.8);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(218, 181, 71, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .product-image {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto var(--space-md);
+            border-radius: var(--radius-md);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            background: #2A2A2A;
+            object-fit: cover;
+            transition: all var(--transition);
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+            border-color: rgba(218, 181, 71, 0.4);
+        }
+        
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: var(--space-sm);
+            line-height: 1.3;
+            transition: color var(--transition);
+        }
+        
+        .product-card:hover .product-name {
+            color: var(--gold-light);
+        }
+        
+        .product-artist {
+            color: var(--white-75);
+            font-size: 0.9rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .product-year {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-formats {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+        }
+        
+        .format-tag {
+            padding: 0.25rem 0.5rem;
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid rgba(218, 181, 71, 0.3);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-price {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: var(--space-md);
+        }
+        
+        /* AMAZON AFFILIATE BUTTONS - Professional styling */
+        .amazon-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        
+        .amazon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #FF9900, #ffb84d);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .amazon-btn:hover {
+            background: linear-gradient(135deg, #ffb84d, #ffc966);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.3);
+        }
+        
+        .amazon-btn.primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            font-size: 0.9rem;
+            padding: 0.875rem 1.25rem;
+            font-weight: 600;
+        }
+        
+        .amazon-btn.primary:hover {
+            background: linear-gradient(135deg, var(--gold-light), #F0D060);
+            box-shadow: 0 6px 20px rgba(218, 181, 71, 0.3);
+        }
+        
+        /* LOAD MORE SYSTEM */
+        .load-more {
+            text-align: center;
+            padding: var(--space-xl) 0;
+        }
+        
+        .load-more-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition);
+            letter-spacing: 0.5px;
+        }
+        
+        .load-more-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--gold-light), #F0D060);
+        }
+        
+        .load-more-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* FOOTER - Match homepage */
+        .footer {
+            border-top: 1px solid rgba(218, 181, 71, 0.2);
+            padding: var(--space-xl) 0;
+            text-align: center;
+            margin-top: var(--space-2xl);
+            background: rgba(10, 10, 10, 0.95);
+        }
+        
+        .footer-copyright {
+            color: var(--white-55);
+            font-size: 0.875rem;
+        }
+        
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .main {
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .shop-section {
+                padding: var(--space-lg);
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .catalog-hero {
+                padding: var(--space-lg);
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .nav {
+                height: 80px;
+                padding: 0 var(--space-xl);
+            }
+            
+            .nav-logo img {
+                height: 48px;
+            }
+            
+            .main {
+                padding-top: 80px;
+                padding-left: var(--space-xl);
+                padding-right: var(--space-xl);
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        /* LOADING & ANIMATION STATES */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* FILTER STATES */
+        .product-card.hidden {
+            display: none;
+        }
+        
+        .product-card.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" role="navigation">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="music/music.html">Music</a></li>
+                <li><a href="bio.html">Biography</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="shop.html">Store</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="main">
+        <section class="page-header">
+            <h1 class="page-title">Official Store</h1>
+            <p class="page-subtitle">Complete Catalog • Amazon Affiliate • Worldwide Shipping</p>
+        </section>
+        
+        <div class="catalog-hero">
+            <h2 class="hero-title">Hip-Hop's Most Prolific Archive</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">90+</span>
+                    <span class="stat-label">Albums</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">41</span>
+                    <span class="stat-label">Years Active</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">58+</span>
+                    <span class="stat-label">Personas</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Innovation</span>
+                </div>
+            </div>
+            <p class="hero-description">
+                From the legendary Critical Beatdown to the latest Karpenters release. Every format, every era, every persona - available through our official Amazon partnerships with global shipping.
+            </p>
+        </div>
+        
+        <div class="controls">
+            <div class="controls-row">
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search albums, personas, collaborations...">
+                </div>
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">All Items</button>
+                    <button class="filter-btn" data-filter="featured">Featured</button>
+                    <button class="filter-btn" data-filter="classics">Classics</button>
+                    <button class="filter-btn" data-filter="vinyl">Vinyl</button>
+                    <button class="filter-btn" data-filter="recent">2020s</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FEATURED/NEW RELEASES -->
+        <section class="shop-section">
+            <div class="section-header">
+                <div class="section-icon">⭐</div>
+                <div class="section-content">
+                    <h2 class="section-title">Featured Releases</h2>
+                    <p class="section-subtitle">Latest albums and exclusive editions</p>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="featuredGrid">
+                <div class="product-card" data-category="featured vinyl cd digital recent" data-keywords="karpenters kool keith 2025">
+                    <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters" class="product-image">
+                    <h3 class="product-name">Karpenters</h3>
+                    <p class="product-artist">Kool Keith</p>
+                    <p class="product-year">June 2025</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $29.99</div>
+                    <div class="amazon-buttons">
+                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="featured vinyl cd digital recent" data-keywords="everybody eats stress eater czarface">
+                    <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats!" class="product-image">
+                    <h3 class="product-name">Everybody Eats!</h3>
+                    <p class="product-artist">Stress Eater (CZARFACE & Kool Keith)</p>
+                    <p class="product-year">2024</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $32.99</div>
+                    <div class="amazon-buttons">
+                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="featured vinyl digital recent" data-keywords="aponia awol one collaboration">
+                    <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia" class="product-image">
+                    <h3 class="product-name">Aponia</h3>
+                    <p class="product-artist">Awol One & Kool Keith</p>
+                    <p class="product-year">2024</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $28.99</div>
+                    <div class="amazon-buttons">
+                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="featured vinyl cd recent" data-keywords="bandoleros lynx collaboration">
+                    <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros" class="product-image">
+                    <h3 class="product-name">Bandoleros</h3>
+                    <p class="product-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
+                    <p class="product-year">2024</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                    </div>
+                    <div class="product-price">From $31.99</div>
+                    <div class="amazon-buttons">
+                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CLASSIC ALBUMS -->
+        <section class="shop-section">
+            <div class="section-header">
+                <div class="section-icon">💿</div>
+                <div class="section-content">
+                    <h2 class="section-title">Essential Classics</h2>
+                    <p class="section-subtitle">Legendary albums that defined hip-hop innovation</p>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="classicsGrid">
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="critical beatdown ultramagnetic mcs 1988">
+                    <img src="https://via.placeholder.com/180x180/F39C12/000?text=Critical+Beatdown" alt="Critical Beatdown" class="product-image">
+                    <h3 class="product-name">Critical Beatdown</h3>
+                    <p class="product-artist">Ultramagnetic MCs</p>
+                    <p class="product-year">1988</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $34.99</div>
+                    <div class="amazon-buttons">
+                        <a href="#" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="#" class="amazon-btn">🇺🇸 Amazon US</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="dr octagonecologyst octagon 1996">
+                    <img src="https://via.placeholder.com/180x180/27AE60/fff?text=Dr+Octagon" alt="Dr. Octagonecologyst" class="product-image">
+                    <h3 class="product-name">Dr. Octagonecologyst</h3>
+                    <p class="product-artist">Dr. Octagon</p>
+                    <p class="product-year">1996</p>
+                    <div
