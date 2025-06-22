@@ -81,7 +81,7 @@
         .photo-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            grid-template-rows: 200px 200px 200px;
+            grid-template-rows: 300px 200px 200px 200px;
             gap: 8px;
             margin: 30px 0;
             border-radius: 12px;
@@ -107,7 +107,8 @@
         }
 
         .photo-main {
-            grid-row: 1 / 3;
+            grid-column: 1 / 3;
+            grid-row: 1;
         }
 
         .host-section {
@@ -374,12 +375,12 @@
             }
             
             .photo-grid {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 250px repeat(5, 200px);
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(10, 200px);
             }
             
             .photo-main {
-                grid-column: 1 / 3;
+                grid-column: 1;
                 grid-row: 1;
             }
             
@@ -418,34 +419,34 @@
 
                 <div class="photo-grid">
                     <div class="photo photo-main">
-                        <img src="main.jpg" alt="Historic Building Hallway" />
+                        <img src="main.jpg" alt="Historic Building Interior" />
                     </div>
                     <div class="photo">
                         <img src="attic.jpg" alt="Attic Studio Space" />
                     </div>
                     <div class="photo">
-                        <img src="basement.jpg" alt="Basement Medical Area" />
+                        <img src="basement.jpg" alt="Basement Area" />
                     </div>
                     <div class="photo">
-                        <img src="exterior.jpg" alt="Exterior Property View" />
+                        <img src="exterior.jpg" alt="Exterior View" />
                     </div>
                     <div class="photo">
                         <img src="office.jpg" alt="Study Room" />
                     </div>
                     <div class="photo">
-                        <img src="closet.jpg" alt="Storage Closet" />
+                        <img src="closet.jpg" alt="Storage Space" />
                     </div>
                     <div class="photo">
-                        <img src="elevator.jpg" alt="Building Entrance" />
+                        <img src="elevator.jpg" alt="Building Access" />
                     </div>
                     <div class="photo">
-                        <img src="door.jpg" alt="Apartment 223 Door" />
+                        <img src="door.jpg" alt="Apartment 223 Entrance" />
                     </div>
                     <div class="photo">
-                        <img src="bathroom.jpg" alt="Classic Bathroom" />
+                        <img src="bathroom.jpg" alt="Bathroom" />
                     </div>
                     <div class="photo">
-                        <img src="kitchen.jpg" alt="Vintage Kitchen" />
+                        <img src="kitchen.jpg" alt="Kitchen Area" />
                     </div>
                 </div>
 
@@ -646,11 +647,22 @@
     <script>
         // Set minimum date to today
         const today = new Date().toISOString().split('T')[0];
-        document.querySelector('input[type="date"]').setAttribute('min', today);
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs.forEach(input => {
+            input.setAttribute('min', today);
+        });
         
         // Basic booking interaction
         document.querySelector('.reserve-btn').addEventListener('click', function() {
             alert('Thanks for your interest! Please contact the host directly to complete your booking.');
+        });
+
+        // Photo click functionality
+        document.querySelectorAll('.photo').forEach(photo => {
+            photo.addEventListener('click', function() {
+                // Simple click response - you can enhance this
+                console.log('Photo clicked:', this.querySelector('img').alt);
+            });
         });
     </script>
 </body>
