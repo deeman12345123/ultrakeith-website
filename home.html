@@ -35,6 +35,14 @@
             --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25); 
             --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Carousel-specific variables */
+            --carousel-slide-duration: 0.6s;
+            --carousel-auto-interval: 3600ms;
+            --carousel-manual-delay: 3000ms;
+            --carousel-start-position: 2;
+            --carousel-real-slides: 5;
+            --carousel-total-slides: 9;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -305,7 +313,7 @@
         .carousel-track {
             display: flex;
             height: 100%;
-            transition: transform 0.6s ease-in-out;
+            transition: transform var(--carousel-slide-duration) ease-in-out;
         }
         
         .carousel-slide {
@@ -1184,245 +1192,373 @@
     </footer>
 
     <script>
-        // CLEAN CAROUSEL - NO CODE SPILLS
-        let currentSlide = 2; // Start at slide 2 (first real album)
-        let autoTimer = null;
-        let isManualControl = false;
-        const totalSlides = 9; // Total slides including duplicates
-        const realSlides = 5; // Number of real albums user sees
-        const startPosition = 2; // Where real albums start
-
-        const track = document.getElementById('carouselTrack');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const indicators = document.getElementById('indicators');
-
-        // Move to specific slide
-        function goToSlide(slideIndex) {
-            const isDesktop = window.innerWidth > 768;
-            const slideWidth = isDesktop ? 50 : 100; // 50% for desktop (2 albums), 100% for mobile (1 album)
-            const translateX = -(slideIndex * slideWidth);
-            
-            track.style.transform = `translateX(${translateX}%)`;
-            currentSlide = slideIndex;
-            updateIndicators();
-        }
-
-        // Update indicator dots
-        function updateIndicators() {
-            if (!indicators) return;
-            
-            const dots = indicators.querySelectorAll('.carousel-indicator');
-            // Calculate which logical album we're showing (0-4)
-            const logicalIndex = (currentSlide - startPosition + realSlides) % realSlides;
-            
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === logicalIndex);
-            });
-        }
-
-        // Next slide with smooth infinite
-        function nextSlide() {
-            clearAutoTimer();
-            isManualControl = true;
-
-            currentSlide++;
-            goToSlide(currentSlide);
-
-            // If we've gone past the real slides, reset invisibly
-            if (currentSlide >= startPosition + realSlides) {
-                setTimeout(() => {
-                    track.style.transition = 'none';
-                    currentSlide = startPosition;
-                    goToSlide(currentSlide);
-                    setTimeout(() => {
-                        track.style.transition = 'transform 0.6s ease-in-out';
-                    }, 50);
-                }, 600);
+        // BULLETPROOF CAROUSEL - Enhanced with error handling and performance optimization
+        class CarouselManager {
+            constructor() {
+                // Configuration from CSS variables
+                this.config = {
+                    startPosition: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-start-position')) || 2,
+                    realSlides: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-real-slides')) || 5,
+                    totalSlides: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-total-slides')) || 9,
+                    autoInterval: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-auto-interval')) || 3600,
+                    manualDelay: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-manual-delay')) || 3000,
+                    slideDuration: 600
+                };
+                
+                // State
+                this.currentSlide = this.config.startPosition;
+                this.autoTimer = null;
+                this.isManualControl = false;
+                this.isDesktop = false;
+                
+                // DOM elements - with error handling
+                this.track = document.getElementById('carouselTrack');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.indicators = document.getElementById('indicators');
+                
+                // Media query for responsive handling
+                this.mediaQuery = window.matchMedia('(min-width: 769px)');
+                
+                this.init();
             }
-
-            resumeAfterManual();
-        }
-
-        // Previous slide with smooth infinite
-        function prevSlide() {
-            clearAutoTimer();
-            isManualControl = true;
-
-            currentSlide--;
-            goToSlide(currentSlide);
-
-            // If we've gone before the real slides, reset invisibly
-            if (currentSlide < startPosition) {
-                setTimeout(() => {
-                    track.style.transition = 'none';
-                    currentSlide = startPosition + realSlides - 1;
-                    goToSlide(currentSlide);
-                    setTimeout(() => {
-                        track.style.transition = 'transform 0.6s ease-in-out';
-                    }, 50);
-                }, 600);
-            }
-
-            resumeAfterManual();
-        }
-
-        // Go to specific album via indicator
-        function goToAlbum(albumIndex) {
-            clearAutoTimer();
-            isManualControl = true;
             
-            currentSlide = startPosition + albumIndex;
-            goToSlide(currentSlide);
-            
-            resumeAfterManual();
-        }
-
-        // Resume auto-play after manual control
-        function resumeAfterManual() {
-            setTimeout(() => {
-                isManualControl = false;
-                startAutoPlay();
-            }, 3000);
-        }
-
-        // Start auto-play
-        function startAutoPlay() {
-            if (autoTimer) return;
-            
-            autoTimer = setInterval(() => {
-                if (!isManualControl) {
-                    currentSlide++;
-                    goToSlide(currentSlide);
+            init() {
+                if (!this.track) {
+                    console.warn('Carousel track not found');
+                    return;
+                }
+                
+                this.updateResponsiveState();
+                this.setupEventListeners();
+                this.setupMediaQueryListener();
+                
+                // Set initial position with error handling
+                requestAnimationFrame(() => {
+                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                    this.goToSlide(this.currentSlide);
                     
-                    // Reset if needed
-                    if (currentSlide >= startPosition + realSlides) {
+                    // Start auto-play after initialization
+                    setTimeout(() => {
+                        this.startAutoPlay();
+                    }, 1000);
+                });
+            }
+            
+            updateResponsiveState() {
+                this.isDesktop = this.mediaQuery.matches;
+            }
+            
+            setupMediaQueryListener() {
+                this.mediaQuery.addListener((e) => {
+                    this.isDesktop = e.matches;
+                    // Recalculate position on screen change
+                    if (this.track) {
+                        this.track.style.transition = 'none';
+                        this.goToSlide(this.currentSlide);
                         setTimeout(() => {
-                            track.style.transition = 'none';
-                            currentSlide = startPosition;
-                            goToSlide(currentSlide);
-                            setTimeout(() => {
-                                track.style.transition = 'transform 0.6s ease-in-out';
-                            }, 50);
-                        }, 600);
+                            this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                        }, 50);
                     }
-                }
-            }, 3600); // 3 seconds + 0.6 transition
-        }
-
-        // Clear auto timer
-        function clearAutoTimer() {
-            if (autoTimer) {
-                clearInterval(autoTimer);
-                autoTimer = null;
+                });
             }
-        }
-
-        // Event listeners
-        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-
-        if (indicators) {
-            indicators.addEventListener('click', (e) => {
-                if (e.target.classList.contains('carousel-indicator')) {
-                    const albumIndex = parseInt(e.target.dataset.slide);
-                    goToAlbum(albumIndex);
+            
+            setupEventListeners() {
+                // Navigation buttons
+                if (this.prevBtn) {
+                    this.prevBtn.addEventListener('click', () => this.prevSlide());
                 }
-            });
-        }
-
-        // Pause on hover
-        if (track) {
-            track.addEventListener('mouseenter', clearAutoTimer);
-            track.addEventListener('mouseleave', () => {
-                if (!isManualControl) startAutoPlay();
-            });
-        }
-
-        // Handle resize
-        window.addEventListener('resize', () => {
-            track.style.transition = 'none';
-            goToSlide(currentSlide);
-            setTimeout(() => {
-                track.style.transition = 'transform 0.6s ease-in-out';
-            }, 50);
-        });
-
-        // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-
-        if (mobileMenuBtn && navMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('show');
-            });
-        }
-
-        // Audio toggle
-        const audioToggle = document.getElementById('audioToggle');
-        const audioIcon = document.getElementById('audioIcon');
-        const audioText = document.getElementById('audioText');
-        let soundEnabled = true;
-
-        if (audioToggle) {
-            audioToggle.addEventListener('click', () => {
-                soundEnabled = !soundEnabled;
-                
-                if (soundEnabled) {
-                    audioToggle.classList.remove('disabled');
-                    audioIcon.textContent = '🔊';
-                    audioText.textContent = 'Audio On';
-                } else {
-                    audioToggle.classList.add('disabled');
-                    audioIcon.textContent = '🔇';
-                    audioText.textContent = 'Audio Off';
+                if (this.nextBtn) {
+                    this.nextBtn.addEventListener('click', () => this.nextSlide());
                 }
-            });
-        }
-
-        // Load news
-        async function loadNews() {
-            const latestPost = document.getElementById('latestPost');
-            if (!latestPost) return;
-
-            try {
-                const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default%3Falt%3Drss&count=1');
-                const data = await response.json();
                 
-                if (data.status === 'ok' && data.items && data.items.length > 0) {
-                    const post = data.items[0];
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = post.description || '';
-                    const excerpt = (tempDiv.textContent || '').substring(0, 120) + '...';
-                    const date = new Date(post.pubDate).toLocaleDateString('en-US', {
-                        month: 'short', day: 'numeric', year: 'numeric'
+                // Indicators
+                if (this.indicators) {
+                    this.indicators.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('carousel-indicator')) {
+                            const albumIndex = parseInt(e.target.dataset.slide);
+                            if (!isNaN(albumIndex)) {
+                                this.goToAlbum(albumIndex);
+                            }
+                        }
                     });
-
-                    latestPost.innerHTML = `
-                        <div class="post-title">
-                            <a href="${post.link}" target="_blank">${post.title}</a>
-                        </div>
-                        <div class="post-excerpt">${excerpt}</div>
-                        <div class="post-date">${date}</div>
-                    `;
                 }
-            } catch (error) {
-                latestPost.innerHTML = '<div class="post-error">Unable to load latest news.</div>';
+                
+                // Hover pause/resume
+                if (this.track) {
+                    this.track.addEventListener('mouseenter', () => this.clearAutoTimer());
+                    this.track.addEventListener('mouseleave', () => {
+                        if (!this.isManualControl) {
+                            this.startAutoPlay();
+                        }
+                    });
+                }
+                
+                // Resize handling with debounce
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        this.handleResize();
+                    }, 150);
+                });
+            }
+            
+            handleResize() {
+                if (!this.track) return;
+                
+                this.updateResponsiveState();
+                this.track.style.transition = 'none';
+                this.goToSlide(this.currentSlide);
+                setTimeout(() => {
+                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                }, 50);
+            }
+            
+            goToSlide(slideIndex) {
+                if (!this.track) return;
+                
+                const slideWidth = this.isDesktop ? 50 : 100;
+                const translateX = -(slideIndex * slideWidth);
+                
+                this.track.style.transform = `translateX(${translateX}%)`;
+                this.currentSlide = slideIndex;
+                this.updateIndicators();
+            }
+            
+            updateIndicators() {
+                if (!this.indicators) return;
+                
+                const dots = this.indicators.querySelectorAll('.carousel-indicator');
+                if (dots.length === 0) return;
+                
+                const logicalIndex = (this.currentSlide - this.config.startPosition + this.config.realSlides) % this.config.realSlides;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === logicalIndex);
+                });
+            }
+            
+            nextSlide() {
+                this.clearAutoTimer();
+                this.isManualControl = true;
+                
+                this.currentSlide++;
+                this.goToSlide(this.currentSlide);
+                
+                // Handle infinite loop
+                if (this.currentSlide >= this.config.startPosition + this.config.realSlides) {
+                    setTimeout(() => {
+                        if (this.track) {
+                            this.track.style.transition = 'none';
+                            this.currentSlide = this.config.startPosition;
+                            this.goToSlide(this.currentSlide);
+                            setTimeout(() => {
+                                if (this.track) {
+                                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                                }
+                            }, 50);
+                        }
+                    }, this.config.slideDuration);
+                }
+                
+                this.resumeAfterManual();
+            }
+            
+            prevSlide() {
+                this.clearAutoTimer();
+                this.isManualControl = true;
+                
+                this.currentSlide--;
+                this.goToSlide(this.currentSlide);
+                
+                // Handle infinite loop
+                if (this.currentSlide < this.config.startPosition) {
+                    setTimeout(() => {
+                        if (this.track) {
+                            this.track.style.transition = 'none';
+                            this.currentSlide = this.config.startPosition + this.config.realSlides - 1;
+                            this.goToSlide(this.currentSlide);
+                            setTimeout(() => {
+                                if (this.track) {
+                                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                                }
+                            }, 50);
+                        }
+                    }, this.config.slideDuration);
+                }
+                
+                this.resumeAfterManual();
+            }
+            
+            goToAlbum(albumIndex) {
+                if (albumIndex < 0 || albumIndex >= this.config.realSlides) return;
+                
+                this.clearAutoTimer();
+                this.isManualControl = true;
+                
+                this.currentSlide = this.config.startPosition + albumIndex;
+                this.goToSlide(this.currentSlide);
+                
+                this.resumeAfterManual();
+            }
+            
+            resumeAfterManual() {
+                setTimeout(() => {
+                    this.isManualControl = false;
+                    this.startAutoPlay();
+                }, this.config.manualDelay);
+            }
+            
+            startAutoPlay() {
+                if (this.autoTimer) return;
+                
+                this.autoTimer = setInterval(() => {
+                    if (!this.isManualControl) {
+                        this.currentSlide++;
+                        this.goToSlide(this.currentSlide);
+                        
+                        // Handle infinite loop for auto-play
+                        if (this.currentSlide >= this.config.startPosition + this.config.realSlides) {
+                            setTimeout(() => {
+                                if (this.track) {
+                                    this.track.style.transition = 'none';
+                                    this.currentSlide = this.config.startPosition;
+                                    this.goToSlide(this.currentSlide);
+                                    setTimeout(() => {
+                                        if (this.track) {
+                                            this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                                        }
+                                    }, 50);
+                                }
+                            }, this.config.slideDuration);
+                        }
+                    }
+                }, this.config.autoInterval);
+            }
+            
+            clearAutoTimer() {
+                if (this.autoTimer) {
+                    clearInterval(this.autoTimer);
+                    this.autoTimer = null;
+                }
+            }
+            
+            destroy() {
+                this.clearAutoTimer();
+                this.mediaQuery.removeListener(this.handleResize);
             }
         }
 
-        // Initialize
+        // UI Manager for other site functionality
+        class UIManager {
+            constructor() {
+                this.soundEnabled = true;
+                this.init();
+            }
+            
+            init() {
+                this.setupMobileMenu();
+                this.setupAudioToggle();
+                this.loadNews();
+            }
+            
+            setupMobileMenu() {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const navMenu = document.getElementById('navMenu');
+                
+                if (mobileMenuBtn && navMenu) {
+                    mobileMenuBtn.addEventListener('click', () => {
+                        navMenu.classList.toggle('show');
+                    });
+                }
+            }
+            
+            setupAudioToggle() {
+                const audioToggle = document.getElementById('audioToggle');
+                const audioIcon = document.getElementById('audioIcon');
+                const audioText = document.getElementById('audioText');
+                
+                if (audioToggle && audioIcon && audioText) {
+                    audioToggle.addEventListener('click', () => {
+                        this.soundEnabled = !this.soundEnabled;
+                        
+                        if (this.soundEnabled) {
+                            audioToggle.classList.remove('disabled');
+                            audioIcon.textContent = '🔊';
+                            audioText.textContent = 'Audio On';
+                        } else {
+                            audioToggle.classList.add('disabled');
+                            audioIcon.textContent = '🔇';
+                            audioText.textContent = 'Audio Off';
+                        }
+                    });
+                }
+            }
+            
+            async loadNews() {
+                const latestPost = document.getElementById('latestPost');
+                if (!latestPost) return;
+                
+                try {
+                    const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default%3Falt%3Drss&count=1');
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.status === 'ok' && data.items && data.items.length > 0) {
+                        const post = data.items[0];
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = post.description || '';
+                        const excerpt = (tempDiv.textContent || '').substring(0, 120) + '...';
+                        const date = new Date(post.pubDate).toLocaleDateString('en-US', {
+                            month: 'short', 
+                            day: 'numeric', 
+                            year: 'numeric'
+                        });
+
+                        latestPost.innerHTML = `
+                            <div class="post-title">
+                                <a href="${post.link}" target="_blank" rel="noopener noreferrer">${post.title}</a>
+                            </div>
+                            <div class="post-excerpt">${excerpt}</div>
+                            <div class="post-date">${date}</div>
+                        `;
+                    } else {
+                        latestPost.innerHTML = '<div class="post-error">No recent news available.</div>';
+                    }
+                } catch (error) {
+                    console.warn('News loading failed:', error);
+                    latestPost.innerHTML = '<div class="post-error">Unable to load latest news.</div>';
+                }
+            }
+        }
+
+        // Initialize everything when DOM is ready
+        let carousel, uiManager;
+        
         document.addEventListener('DOMContentLoaded', () => {
-            // Set initial position and transition
-            track.style.transition = 'transform 0.6s ease-in-out';
-            goToSlide(currentSlide); // Start at first real album
-            
-            // Start auto-play after a brief delay
-            setTimeout(() => {
-                startAutoPlay();
-            }, 1000);
-            
-            loadNews();
+            try {
+                carousel = new CarouselManager();
+                uiManager = new UIManager();
+                console.log('Site initialized successfully');
+            } catch (error) {
+                console.error('Initialization error:', error);
+                // Fallback: still try to load news even if carousel fails
+                if (!carousel) {
+                    const fallbackUI = new UIManager();
+                }
+            }
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (carousel) {
+                carousel.destroy();
+            }
         });
     </script>
 </body>
