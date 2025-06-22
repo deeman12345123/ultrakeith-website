@@ -1551,95 +1551,53 @@
                 const latestPost = document.getElementById('latestPost');
                 if (!latestPost) return;
                 
-                try {
-                    // Try multiple RSS services as fallbacks
-                    const rssServices = [
-                        'https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default&count=1',
-                        'https://api.allorigins.win/get?url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default',
-                        'https://cors-anywhere.herokuapp.com/https://ultrakeithdotcom.blogspot.com/feeds/posts/default'
-                    ];
-                    
-                    let newsLoaded = false;
-                    
-                    // Try RSS2JSON first
+                // Simple, direct approach - test the actual RSS URL first
+                const testUrls = [
+                    'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default',
+                    'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss'
+                ];
+                
+                for (let i = 0; i < testUrls.length; i++) {
                     try {
-                        const response = await fetch(rssServices[0]);
+                        console.log(`Trying RSS URL ${i + 1}:`, testUrls[i]);
+                        const response = await fetch(testUrls[i]);
+                        
                         if (response.ok) {
                             const data = await response.json();
+                            console.log('RSS Response:', data);
+                            
                             if (data.status === 'ok' && data.items && data.items.length > 0) {
                                 const post = data.items[0];
-                                this.displayPost(post, latestPost);
-                                newsLoaded = true;
-                            }
-                        }
-                    } catch (e) {
-                        console.warn('RSS2JSON failed:', e);
-                    }
-                    
-                    // Fallback: Try AllOrigins
-                    if (!newsLoaded) {
-                        try {
-                            const response = await fetch(rssServices[1]);
-                            if (response.ok) {
-                                const data = await response.json();
-                                const parser = new DOMParser();
-                                const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
-                                const entries = xmlDoc.getElementsByTagName('entry');
-                                if (entries.length > 0) {
-                                    const entry = entries[0];
-                                    const post = this.parseAtomEntry(entry);
-                                    this.displayPost(post, latestPost);
-                                    newsLoaded = true;
-                                }
-                            }
-                        } catch (e) {
-                            console.warn('AllOrigins failed:', e);
-                        }
-                    }
-                    
-                    if (!newsLoaded) {
-                        latestPost.innerHTML = '<div class="post-error">Latest news temporarily unavailable</div>';
-                    }
-                    
-                } catch (error) {
-                    console.warn('All news loading methods failed:', error);
-                    latestPost.innerHTML = '<div class="post-error">Unable to load latest news</div>';
-                }
-            }
-            
-            parseAtomEntry(entry) {
-                const title = entry.getElementsByTagName('title')[0]?.textContent || 'Untitled';
-                const link = entry.getElementsByTagName('link')[0]?.getAttribute('href') || '#';
-                const content = entry.getElementsByTagName('content')[0]?.textContent || 
-                              entry.getElementsByTagName('summary')[0]?.textContent || '';
-                const updated = entry.getElementsByTagName('updated')[0]?.textContent || 
-                               entry.getElementsByTagName('published')[0]?.textContent || '';
-                
-                return {
-                    title: title,
-                    link: link,
-                    description: content,
-                    pubDate: updated
-                };
-            }
-            
-            displayPost(post, container) {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = post.description || '';
-                const excerpt = (tempDiv.textContent || '').substring(0, 140) + '...';
-                const date = new Date(post.pubDate).toLocaleDateString('en-US', {
-                    month: 'short', 
-                    day: 'numeric', 
-                    year: 'numeric'
-                });
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = post.description || '';
+                                const excerpt = (tempDiv.textContent || '').substring(0, 140) + '...';
+                                const date = new Date(post.pubDate).toLocaleDateString('en-US', {
+                                    month: 'short', 
+                                    day: 'numeric', 
+                                    year: 'numeric'
+                                });
 
-                container.innerHTML = `
-                    <div class="post-title">
-                        <a href="${post.link}" target="_blank" rel="noopener noreferrer">${post.title}</a>
-                    </div>
-                    <div class="post-excerpt">${excerpt}</div>
-                    <div class="post-date">${date}</div>
-                `;
+                                latestPost.innerHTML = `
+                                    <div class="post-title">
+                                        <a href="${post.link}" target="_blank" rel="noopener noreferrer">${post.title}</a>
+                                    </div>
+                                    <div class="post-excerpt">${excerpt}</div>
+                                    <div class="post-date">${date}</div>
+                                `;
+                                return; // Success - exit the loop
+                            } else {
+                                console.log('RSS data format issue:', data);
+                            }
+                        } else {
+                            console.log('HTTP error:', response.status, response.statusText);
+                        }
+                    } catch (error) {
+                        console.log(`RSS attempt ${i + 1} failed:`, error);
+                    }
+                }
+                
+                // If all methods fail, show a simple fallback
+                latestPost.innerHTML = '<div class="post-error">News feed temporarily unavailable</div>';
             }
         }
 
