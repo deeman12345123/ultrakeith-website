@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keith's Player Statistics - Ultra Keith Official</title>
+    <title>Player Statistics - Ultra Keith Official</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -17,7 +17,6 @@
             background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #000000 100%);
             color: #FFFFFF;
             min-height: 100vh;
-            line-height: 1.6;
         }
 
         /* Navigation */
@@ -29,52 +28,36 @@
             background: #0a0a0a;
             border-bottom: 1px solid rgba(218, 181, 71, 0.2);
             z-index: 100;
-            height: 72px;
+            height: 60px;
             display: flex;
             align-items: center;
             padding: 0 2rem;
         }
 
-        .nav-logo {
+        .nav a {
             color: #DAB547;
             text-decoration: none;
             font-family: 'Orbitron', monospace;
             font-weight: 700;
-            font-size: 1.2rem;
         }
 
-        /* Main Layout */
-        .main {
-            padding-top: 90px;
-            max-width: 1400px;
+        /* Main Container */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding-left: 2rem;
-            padding-right: 2rem;
-            padding-bottom: 4rem;
+            padding: 80px 20px 40px;
             position: relative;
+            z-index: 10;
         }
 
-        /* Watermarks */
-        .basketball-watermark {
-            position: fixed;
-            top: 20%;
-            right: 5%;
-            width: 200px;
-            height: 200px;
-            background: url('Basketball.png') no-repeat center;
-            background-size: contain;
-            opacity: 0.06;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .mc-watermark {
+        /* Background Images */
+        .bg-mc {
             position: fixed;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
+            left: 3%;
+            transform: translateY(-50%);
+            width: 250px;
+            height: 250px;
             background: url('personas/mc.png') no-repeat center;
             background-size: contain;
             opacity: 0.08;
@@ -82,169 +65,89 @@
             pointer-events: none;
         }
 
-        /* Hero Section */
-        .stats-hero {
-            text-align: center;
-            padding: 2rem 0;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 10;
+        .bg-basketball {
+            position: fixed;
+            top: 30%;
+            right: 3%;
+            width: 180px;
+            height: 180px;
+            background: url('Basketball.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.06;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .stats-title {
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
             font-family: 'Orbitron', monospace;
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 900;
             color: #DAB547;
-            margin-bottom: 0.5rem;
             text-transform: uppercase;
+            margin-bottom: 10px;
         }
 
-        .stats-subtitle {
-            font-size: clamp(0.9rem, 2vw, 1rem);
-            color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 1rem;
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
         }
 
-        /* Header Stats */
-        .header-stats {
+        /* Stats Grid */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 2px solid rgba(218, 181, 71, 0.3);
-            border-radius: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 20px;
             background: #1a1a1a;
-            position: relative;
-            z-index: 10;
+            border: 1px solid rgba(218, 181, 71, 0.3);
+            border-radius: 8px;
         }
 
-        .header-stat {
+        .stat-box {
             text-align: center;
         }
 
-        .header-stat-number {
+        .stat-number {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-size: 2rem;
             font-weight: 900;
             color: #DAB547;
             display: block;
-            line-height: 1;
         }
 
-        .header-stat-label {
-            font-size: 0.75rem;
+        .stat-label {
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.7);
             text-transform: uppercase;
-            font-weight: 500;
-            margin-top: 0.25rem;
+            margin-top: 5px;
         }
 
-        /* Tables */
-        .standings-section {
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.25rem, 3vw, 1.5rem);
-            font-weight: 700;
-            color: #DAB547;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .standings-table {
-            width: 100%;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: 0.5rem;
-            overflow: hidden;
-            background: #1a1a1a;
-        }
-
-        .standings-table th {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-transform: uppercase;
-            font-weight: 600;
-            background: #2a2a2a;
-            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
-        }
-
-        .standings-table th.number,
-        .standings-table th.stat {
-            text-align: center;
-        }
-
-        .standings-table td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid rgba(218, 181, 71, 0.1);
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .standings-table td.rank {
-            text-align: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            color: #DAB547;
-        }
-
-        .standings-table td.stat {
-            text-align: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
-        }
-
-        .keith-row {
-            background: #2d1f0a !important;
-        }
-
-        .keith-row td {
-            color: #DAB547 !important;
-            font-weight: 600;
-        }
-
-        .keith-row td.artist {
-            color: #E8C547 !important;
-            font-weight: 700;
-        }
-
-        /* Category Grid */
-        .category-grid {
+        /* Category Cards */
+        .categories {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 10;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
         .category-card {
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: 0.5rem;
-            overflow: hidden;
             background: #1a1a1a;
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .category-header {
-            padding: 1rem;
-            border-bottom: 2px solid rgba(218, 181, 71, 0.3);
             background: #2a2a2a;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(218, 181, 71, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -256,33 +159,30 @@
             color: #DAB547;
             text-transform: uppercase;
             font-weight: 700;
-            margin-bottom: 0.25rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
 
-        .category-title::before {
-            content: '';
-            width: 20px;
-            height: 20px;
+        .basketball-icon {
+            width: 16px;
+            height: 16px;
             background: url('Basketball.png') no-repeat center;
             background-size: contain;
-            flex-shrink: 0;
-        }
-
-        .category-subtitle {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
         }
 
         .mc-logo-small {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             background: url('personas/mc.png') no-repeat center;
             background-size: contain;
             opacity: 0.7;
-            flex-shrink: 0;
+        }
+
+        .category-subtitle {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 3px;
         }
 
         .category-list {
@@ -293,7 +193,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.75rem 1rem;
+            padding: 12px 20px;
             border-bottom: 1px solid rgba(218, 181, 71, 0.1);
         }
 
@@ -302,265 +202,316 @@
         }
 
         .category-item.keith {
-            background: #2d1f0a !important;
-            margin: 0 0.5rem;
-            border-radius: 0.25rem;
-            border: 1px solid rgba(218, 181, 71, 0.3);
+            background: #2d1f0a;
+            margin: 0 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(218, 181, 71, 0.4);
         }
 
-        .category-rank {
+        .rank {
             font-family: 'Orbitron', monospace;
             font-weight: 700;
             color: #DAB547;
-            font-size: 0.875rem;
-            min-width: 30px;
+            min-width: 25px;
         }
 
-        .category-artist {
+        .artist {
             flex: 1;
-            margin: 0 1rem;
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.9);
+            margin: 0 15px;
+            font-size: 0.9rem;
         }
 
-        .category-item.keith .category-artist {
-            color: #E8C547 !important;
+        .category-item.keith .artist {
+            color: #DAB547;
             font-weight: 700;
         }
 
-        .category-stat {
+        .value {
             font-family: 'Orbitron', monospace;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.8);
-            font-size: 0.875rem;
+            font-size: 0.85rem;
         }
 
-        .category-item.keith .category-stat {
-            color: #DAB547 !important;
+        .category-item.keith .value {
+            color: #DAB547;
+        }
+
+        /* Tables */
+        .table-section {
+            margin-bottom: 30px;
+        }
+
+        .table-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: #DAB547;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .table {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background: #2a2a2a;
+            padding: 12px 15px;
+            text-align: left;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(218, 181, 71, 0.3);
+        }
+
+        .table th.center {
+            text-align: center;
+        }
+
+        .table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(218, 181, 71, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .table td.center {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+        }
+
+        .table tr.keith {
+            background: #2d1f0a;
+        }
+
+        .table tr.keith td {
+            color: #DAB547;
+            font-weight: 600;
         }
 
         @media (max-width: 768px) {
-            .main {
-                padding-left: 1rem;
-                padding-right: 1rem;
-                padding-top: 85px;
+            .container {
+                padding: 70px 15px 30px;
             }
 
-            .header-stats {
+            .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 0.5rem;
-                padding: 1rem;
+                padding: 15px;
             }
 
-            .category-grid {
+            .categories {
                 grid-template-columns: 1fr;
+            }
+
+            .bg-mc {
+                width: 150px;
+                height: 150px;
+                left: 2%;
+            }
+
+            .bg-basketball {
+                width: 120px;
+                height: 120px;
+                right: 2%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Watermarks -->
-    <div class="basketball-watermark"></div>
-    <div class="mc-watermark"></div>
+    <!-- Background Images -->
+    <div class="bg-mc"></div>
+    <div class="bg-basketball"></div>
 
     <!-- Navigation -->
     <nav class="nav">
-        <a href="index.html" class="nav-logo">← KOOL KEITH STATISTICS</a>
+        <a href="index.html">← KOOL KEITH</a>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Hero Section -->
-        <section class="stats-hero">
-            <h1 class="stats-title">Player Statistics</h1>
-            <p class="stats-subtitle">NBA-Style Career Rankings vs Music Legends</p>
-        </section>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Player Statistics</h1>
+            <p class="subtitle">NBA-Style Career Rankings vs Music Legends</p>
+        </div>
 
-        <!-- Header Stats -->
-        <div class="header-stats">
-            <div class="header-stat">
-                <span class="header-stat-number">92+</span>
-                <span class="header-stat-label">Albums</span>
+        <!-- Key Stats -->
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-number">92+</span>
+                <span class="stat-label">Albums</span>
             </div>
-            <div class="header-stat">
-                <span class="header-stat-number">41</span>
-                <span class="header-stat-label">Years</span>
+            <div class="stat-box">
+                <span class="stat-number">41</span>
+                <span class="stat-label">Years</span>
             </div>
-            <div class="header-stat">
-                <span class="header-stat-number">58+</span>
-                <span class="header-stat-label">Personas</span>
+            <div class="stat-box">
+                <span class="stat-number">58+</span>
+                <span class="stat-label">Personas</span>
             </div>
-            <div class="header-stat">
-                <span class="header-stat-number">150+</span>
-                <span class="header-stat-label">Collabs</span>
+            <div class="stat-box">
+                <span class="stat-number">150+</span>
+                <span class="stat-label">Collabs</span>
             </div>
-            <div class="header-stat">
-                <span class="header-stat-number">#1</span>
-                <span class="header-stat-label">Hip-Hop</span>
+            <div class="stat-box">
+                <span class="stat-number">#1</span>
+                <span class="stat-label">Hip-Hop</span>
             </div>
-            <div class="header-stat">
-                <span class="header-stat-number">#7</span>
-                <span class="header-stat-label">All Music</span>
+            <div class="stat-box">
+                <span class="stat-number">#7</span>
+                <span class="stat-label">All Music</span>
             </div>
         </div>
 
-        <!-- Hip-Hop Album Leaders -->
-        <section class="standings-section">
-            <h2 class="section-title">Hip-Hop Album Leaders</h2>
-            <p class="section-subtitle">Ranking of rappers by total album output including studio albums, collaborations, and official releases</p>
-            <table class="standings-table">
+        <!-- Hip-Hop Leaders Table -->
+        <div class="table-section">
+            <h2 class="table-title">Hip-Hop Album Leaders</h2>
+            <table class="table">
                 <thead>
                     <tr>
-                        <th class="number">Rank</th>
+                        <th class="center">Rank</th>
                         <th>Artist</th>
-                        <th class="stat">Albums</th>
-                        <th class="stat">Studio</th>
-                        <th class="stat">Years</th>
+                        <th class="center">Albums</th>
+                        <th class="center">Years</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="keith-row">
-                        <td class="rank">1</td>
-                        <td class="artist">Kool Keith</td>
-                        <td class="stat">92+</td>
-                        <td class="stat">40+</td>
-                        <td class="stat">41</td>
+                    <tr class="keith">
+                        <td class="center">1</td>
+                        <td>Kool Keith</td>
+                        <td class="center">92+</td>
+                        <td class="center">41</td>
                     </tr>
                     <tr>
-                        <td class="rank">2</td>
+                        <td class="center">2</td>
                         <td>Tech N9ne</td>
-                        <td class="stat">~60</td>
-                        <td class="stat">29+</td>
-                        <td class="stat">27</td>
+                        <td class="center">~60</td>
+                        <td class="center">27</td>
                     </tr>
                     <tr>
-                        <td class="rank">3</td>
+                        <td class="center">3</td>
                         <td>E-40</td>
-                        <td class="stat">~40</td>
-                        <td class="stat">27</td>
-                        <td class="stat">33</td>
+                        <td class="center">~40</td>
+                        <td class="center">33</td>
                     </tr>
                     <tr>
-                        <td class="rank">4</td>
+                        <td class="center">4</td>
                         <td>Snoop Dogg</td>
-                        <td class="stat">~35</td>
-                        <td class="stat">19</td>
-                        <td class="stat">32</td>
+                        <td class="center">~35</td>
+                        <td class="center">32</td>
                     </tr>
                     <tr>
-                        <td class="rank">5</td>
+                        <td class="center">5</td>
                         <td>Gucci Mane</td>
-                        <td class="stat">~35</td>
-                        <td class="stat">15+</td>
-                        <td class="stat">19</td>
+                        <td class="center">~35</td>
+                        <td class="center">19</td>
                     </tr>
                 </tbody>
             </table>
-        </section>
+        </div>
 
-        <!-- All-Genre Rankings -->
-        <section class="standings-section">
-            <h2 class="section-title">All-Genre Artist Rankings</h2>
-            <p class="section-subtitle">Kool Keith's position among the most prolific recording artists across all musical genres</p>
-            <table class="standings-table">
+        <!-- All-Genre Leaders Table -->
+        <div class="table-section">
+            <h2 class="table-title">All-Genre Artist Rankings</h2>
+            <table class="table">
                 <thead>
                     <tr>
-                        <th class="number">Rank</th>
+                        <th class="center">Rank</th>
                         <th>Artist</th>
                         <th>Genre</th>
-                        <th class="stat">Albums</th>
-                        <th class="stat">Years</th>
+                        <th class="center">Albums</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="rank">1</td>
+                        <td class="center">1</td>
                         <td>Willie Nelson</td>
                         <td>Country</td>
-                        <td class="stat">103</td>
-                        <td class="stat">60+</td>
+                        <td class="center">103</td>
                     </tr>
                     <tr>
-                        <td class="rank">2</td>
+                        <td class="center">2</td>
                         <td>Sun Ra</td>
                         <td>Jazz</td>
-                        <td class="stat">100+</td>
-                        <td class="stat">44</td>
+                        <td class="center">100+</td>
                     </tr>
                     <tr>
-                        <td class="rank">3</td>
+                        <td class="center">3</td>
                         <td>Frank Zappa</td>
                         <td>Rock</td>
-                        <td class="stat">62</td>
-                        <td class="stat">31</td>
+                        <td class="center">62</td>
                     </tr>
                     <tr>
-                        <td class="rank">4</td>
+                        <td class="center">4</td>
                         <td>Miles Davis</td>
                         <td>Jazz</td>
-                        <td class="stat">60</td>
-                        <td class="stat">48</td>
+                        <td class="center">60</td>
                     </tr>
                     <tr>
-                        <td class="rank">5</td>
+                        <td class="center">5</td>
                         <td>Neil Young</td>
                         <td>Rock</td>
-                        <td class="stat">43</td>
-                        <td class="stat">55+</td>
+                        <td class="center">43</td>
                     </tr>
                     <tr>
-                        <td class="rank">6</td>
+                        <td class="center">6</td>
                         <td>Bob Dylan</td>
                         <td>Folk/Rock</td>
-                        <td class="stat">40</td>
-                        <td class="stat">64</td>
+                        <td class="center">40</td>
                     </tr>
-                    <tr class="keith-row">
-                        <td class="rank">7</td>
-                        <td class="artist">Kool Keith</td>
+                    <tr class="keith">
+                        <td class="center">7</td>
+                        <td>Kool Keith</td>
                         <td>Hip-Hop</td>
-                        <td class="stat">39</td>
-                        <td class="stat">41</td>
+                        <td class="center">39</td>
                     </tr>
                 </tbody>
             </table>
-        </section>
+        </div>
 
         <!-- Category Rankings -->
-        <div class="category-grid">
+        <div class="categories">
             <div class="category-card">
                 <div class="category-header">
                     <div>
-                        <div class="category-title">Musical Personas</div>
+                        <div class="category-title">
+                            <div class="basketball-icon"></div>
+                            Musical Personas
+                        </div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
                     <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">58+</span>
+                        <span class="rank">1</span>
+                        <span class="artist">Kool Keith</span>
+                        <span class="value">58+</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Tyler the Creator</span>
-                        <span class="category-stat">12</span>
+                        <span class="rank">2</span>
+                        <span class="artist">Tyler the Creator</span>
+                        <span class="value">12</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">David Bowie</span>
-                        <span class="category-stat">11</span>
+                        <span class="rank">3</span>
+                        <span class="artist">David Bowie</span>
+                        <span class="value">11</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Prince</span>
-                        <span class="category-stat">8-10</span>
+                        <span class="rank">4</span>
+                        <span class="artist">Prince</span>
+                        <span class="value">8-10</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Lady Gaga</span>
-                        <span class="category-stat">7</span>
+                        <span class="rank">5</span>
+                        <span class="artist">Lady Gaga</span>
+                        <span class="value">7</span>
                     </div>
                 </div>
             </div>
@@ -568,36 +519,39 @@
             <div class="category-card">
                 <div class="category-header">
                     <div>
-                        <div class="category-title">Concept Albums</div>
+                        <div class="category-title">
+                            <div class="basketball-icon"></div>
+                            Concept Albums
+                        </div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
                     <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">25+</span>
+                        <span class="rank">1</span>
+                        <span class="artist">Kool Keith</span>
+                        <span class="value">25+</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Pink Floyd</span>
-                        <span class="category-stat">4-5</span>
+                        <span class="rank">2</span>
+                        <span class="artist">Pink Floyd</span>
+                        <span class="value">4-5</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Tool</span>
-                        <span class="category-stat">5</span>
+                        <span class="rank">3</span>
+                        <span class="artist">Tool</span>
+                        <span class="value">5</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Kendrick Lamar</span>
-                        <span class="category-stat">4</span>
+                        <span class="rank">4</span>
+                        <span class="artist">Kendrick Lamar</span>
+                        <span class="value">4</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">The Who</span>
-                        <span class="category-stat">2</span>
+                        <span class="rank">5</span>
+                        <span class="artist">The Who</span>
+                        <span class="value">2</span>
                     </div>
                 </div>
             </div>
@@ -605,36 +559,39 @@
             <div class="category-card">
                 <div class="category-header">
                     <div>
-                        <div class="category-title">Career Longevity</div>
+                        <div class="category-title">
+                            <div class="basketball-icon"></div>
+                            Career Longevity
+                        </div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
                     <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Bob Dylan</span>
-                        <span class="category-stat">64 years</span>
+                        <span class="rank">1</span>
+                        <span class="artist">Bob Dylan</span>
+                        <span class="value">64 years</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Rolling Stones</span>
-                        <span class="category-stat">63 years</span>
+                        <span class="rank">2</span>
+                        <span class="artist">Rolling Stones</span>
+                        <span class="value">63 years</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Willie Nelson</span>
-                        <span class="category-stat">60+ years</span>
+                        <span class="rank">3</span>
+                        <span class="artist">Willie Nelson</span>
+                        <span class="value">60+ years</span>
                     </div>
                     <div class="category-item keith">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">41 years</span>
+                        <span class="rank">4</span>
+                        <span class="artist">Kool Keith</span>
+                        <span class="value">41 years</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Neil Young</span>
-                        <span class="category-stat">55+ years</span>
+                        <span class="rank">5</span>
+                        <span class="artist">Neil Young</span>
+                        <span class="value">55+ years</span>
                     </div>
                 </div>
             </div>
@@ -642,36 +599,39 @@
             <div class="category-card">
                 <div class="category-header">
                     <div>
-                        <div class="category-title">Hip-Hop Innovation</div>
+                        <div class="category-title">
+                            <div class="basketball-icon"></div>
+                            Hip-Hop Innovation
+                        </div>
                         <div class="category-subtitle">Genre Pioneers</div>
                     </div>
                     <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Grandmaster Flash</span>
-                        <span class="category-stat">Turntables</span>
+                        <span class="rank">1</span>
+                        <span class="artist">Grandmaster Flash</span>
+                        <span class="value">Turntables</span>
                     </div>
                     <div class="category-item keith">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">Sci-Fi Rap</span>
+                        <span class="rank">2</span>
+                        <span class="artist">Kool Keith</span>
+                        <span class="value">Sci-Fi Rap</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Kanye West</span>
-                        <span class="category-stat">Soul Samples</span>
+                        <span class="rank">3</span>
+                        <span class="artist">Kanye West</span>
+                        <span class="value">Soul Samples</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">T-Pain</span>
-                        <span class="category-stat">Auto-Tune</span>
+                        <span class="rank">4</span>
+                        <span class="artist">T-Pain</span>
+                        <span class="value">Auto-Tune</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Public Enemy</span>
-                        <span class="category-stat">Political Rap</span>
+                        <span class="rank">5</span>
+                        <span class="artist">Public Enemy</span>
+                        <span class="value">Political Rap</span>
                     </div>
                 </div>
             </div>
@@ -679,36 +639,39 @@
             <div class="category-card">
                 <div class="category-header">
                     <div>
-                        <div class="category-title">Collaborations</div>
+                        <div class="category-title">
+                            <div class="basketball-icon"></div>
+                            Collaborations
+                        </div>
                         <div class="category-subtitle">Hip-Hop Artists</div>
                     </div>
                     <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">150+</span>
+                        <span class="rank">1</span>
+                        <span class="artist">Kool Keith</span>
+                        <span class="value">150+</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Snoop Dogg</span>
-                        <span class="category-stat">~140</span>
+                        <span class="rank">2</span>
+                        <span class="artist">Snoop Dogg</span>
+                        <span class="value">~140</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Tech N9ne</span>
-                        <span class="category-stat">~120</span>
+                        <span class="rank">3</span>
+                        <span class="artist">Tech N9ne</span>
+                        <span class="value">~120</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">E-40</span>
-                        <span class="category-stat">~100</span>
+                        <span class="rank">4</span>
+                        <span class="artist">E-40</span>
+                        <span class="value">~100</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Busta Rhymes</span>
-                        <span class="category-stat">~100</span>
+                        <span class="rank">5</span>
+                        <span class="artist">Busta Rhymes</span>
+                        <span class="value">~100</span>
                     </div>
                 </div>
             </div>
@@ -716,40 +679,43 @@
             <div class="category-card">
                 <div class="category-header">
                     <div>
-                        <div class="category-title">Creative Reinvention</div>
+                        <div class="category-title">
+                            <div class="basketball-icon"></div>
+                            Creative Reinvention
+                        </div>
                         <div class="category-subtitle">Era Changes</div>
                     </div>
                     <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">6 Eras</span>
+                        <span class="rank">1</span>
+                        <span class="artist">Kool Keith</span>
+                        <span class="value">6 Eras</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">David Bowie</span>
-                        <span class="category-stat">5 Eras</span>
+                        <span class="rank">2</span>
+                        <span class="artist">David Bowie</span>
+                        <span class="value">5 Eras</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Madonna</span>
-                        <span class="category-stat">4 Eras</span>
+                        <span class="rank">3</span>
+                        <span class="artist">Madonna</span>
+                        <span class="value">4 Eras</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Radiohead</span>
-                        <span class="category-stat">4 Eras</span>
+                        <span class="rank">4</span>
+                        <span class="artist">Radiohead</span>
+                        <span class="value">4 Eras</span>
                     </div>
                     <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Prince</span>
-                        <span class="category-stat">3 Eras</span>
+                        <span class="rank">5</span>
+                        <span class="artist">Prince</span>
+                        <span class="value">3 Eras</span>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 </body>
 </html>
