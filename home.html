@@ -285,28 +285,7 @@
             font-weight: 400;
         }
         
-        /* RELEASES SECTION */
-        .releases {
-            margin: var(--space-lg) 0 var(--space-2xl) 0;
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid rgba(218, 181, 71, 0.2);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-2xl) var(--space-lg);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .releases-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.5rem, 4vw, 2.25rem);
-            font-weight: 700;
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: var(--space-lg);
-            text-transform: uppercase;
-        }
-        
-        /* CLEAN CAROUSEL FROM SCRATCH */
+        /* CLEAN CAROUSEL */
         .carousel-container {
             position: relative;
             width: 100%;
@@ -714,11 +693,6 @@
                 margin-bottom: var(--space-sm);
             }
             
-            .releases {
-                margin: var(--space-md) 0 var(--space-xl) 0;
-                padding: var(--space-lg) var(--space-sm);
-            }
-            
             .carousel-container {
                 max-width: 320px;
             }
@@ -933,10 +907,10 @@
             <h1 class="hero-title">Official Music Portal</h1>
             <p class="hero-subtitle">Hip-Hop's Most Prolific Innovator</p>
             
-                        <div class="carousel-container">
+            <div class="carousel-container">
                 <div class="carousel">
                     <div class="carousel-track" id="carouselTrack">
-                        <!-- DUPLICATE SLIDES FOR SMOOTH INFINITE -->
+                        <!-- DUPLICATE FOR BACKWARD -->
                         <div class="carousel-slide">
                             <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
                             <div class="album-info">
@@ -1097,51 +1071,6 @@
                     <div class="carousel-indicator" data-slide="3"></div>
                     <div class="carousel-indicator" data-slide="4"></div>
                 </div>
-            </div>Karpenters album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Karpenters</h3>
-                                    <p class="album-artist">Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-badge badge-latest">June 2025</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Everybody Eats!</h3>
-                                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                                    <div class="album-details">
-                                        <span class="album-badge badge-new">2024</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="shop.html" class="btn btn-primary btn-small">Buy Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- NAVIGATION BUTTONS -->
-                <button class="carousel-nav prev" id="prevBtn"></button>
-                <button class="carousel-nav next" id="nextBtn"></button>
-                
-                <!-- INDICATORS -->
-                <div class="carousel-indicators" id="indicators">
-                    <div class="carousel-indicator active" data-slide="0"></div>
-                    <div class="carousel-indicator" data-slide="1"></div>
-                    <div class="carousel-indicator" data-slide="2"></div>
-                    <div class="carousel-indicator" data-slide="3"></div>
-                    <div class="carousel-indicator" data-slide="4"></div>
-                </div>
             </div>
         </section>
         
@@ -1249,7 +1178,7 @@
     </footer>
 
     <script>
-        // CLEAN CAROUSEL FROM SCRATCH - SIMPLE AND RELIABLE
+        // CLEAN CAROUSEL - NO CODE SPILLS
         let currentSlide = 2; // Start at slide 2 (first real album)
         let autoTimer = null;
         let isManualControl = false;
