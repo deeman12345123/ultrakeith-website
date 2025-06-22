@@ -25,7 +25,8 @@
             text-align: center;
             padding: 60px 20px 40px;
             position: relative;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><text x="100" y="120" font-size="120" text-anchor="middle" fill="rgba(212,175,55,0.15)" font-family="Orbitron, monospace">MC</text></svg>') center/400px no-repeat;
+            background: url('mc.png') center/300px no-repeat;
+            background-blend-mode: overlay;
         }
 
         .leaderboard {
@@ -63,49 +64,38 @@
         }
 
         .logo-circle {
-            width: 120px;
-            height: 120px;
-            border: 3px solid #E8C547;
-            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            background: url('personas/mclogogo.png') center/contain no-repeat;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(145deg, #1A0A0A, #000000);
-            box-shadow: 0 0 30px rgba(232, 197, 71, 0.4);
             position: relative;
-            overflow: hidden;
+            filter: drop-shadow(0 0 20px rgba(232, 197, 71, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .logo-circle:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(232, 197, 71, 0.8));
         }
 
         .logo-circle::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
             background: linear-gradient(45deg, transparent, rgba(232, 197, 71, 0.1), transparent);
+            border-radius: 50%;
             animation: rotate 3s linear infinite;
+            z-index: -1;
         }
 
-        .mc-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 24px;
-            font-weight: 900;
-            color: #E8C547;
-            text-shadow: 0 0 10px rgba(232, 197, 71, 0.5);
-            z-index: 2;
-            position: relative;
-        }
-
-        .keith-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 12px;
-            font-weight: 700;
-            color: #D4AF37;
-            letter-spacing: 2px;
-            z-index: 2;
-            position: relative;
+        .mc-text, .keith-text {
+            display: none; /* Hide text since we're using the logo image */
         }
 
         @keyframes rotate {
@@ -120,6 +110,31 @@
             gap: 30px;
             flex-wrap: wrap;
             margin-top: 20px;
+            position: relative;
+        }
+
+        .stats-summary::before {
+            content: '';
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: url('Basketball.png') center/contain no-repeat;
+            opacity: 0.6;
+        }
+
+        .stats-summary::after {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: url('Basketball.png') center/contain no-repeat;
+            opacity: 0.6;
         }
 
         .summary-item {
@@ -131,6 +146,13 @@
             font-size: 0.9em;
             color: #E8C547;
             text-shadow: 0 0 5px rgba(232, 197, 71, 0.3);
+            position: relative;
+        }
+
+        .summary-item::before {
+            content: '🏀';
+            margin-right: 8px;
+            font-size: 0.8em;
         }
 
         /* Main Container */
