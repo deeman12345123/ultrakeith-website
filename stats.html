@@ -1,4 +1,217 @@
-<!-- Leaderboards Section -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keith's Player Statistics - Ultra Keith Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #1A0A0A 100%);
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="80" fill="rgba(212,175,55,0.03)">MC</text></svg>') center/cover;
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3em;
+            font-weight: 900;
+            color: #E8C547;
+            text-shadow: 0 0 30px rgba(232, 197, 71, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #D4AF37;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        /* Leaderboards Styling */
+        .leaderboards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .leaderboard {
+            background: linear-gradient(145deg, #1A0A0A, #000000);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .leaderboard h3 {
+            color: #E8C547;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(232, 197, 71, 0.3);
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .leader-item {
+            display: grid;
+            grid-template-columns: 40px 1fr auto;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(26, 10, 10, 0.6);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .leader-item:hover {
+            background: rgba(26, 10, 10, 0.8);
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateX(5px);
+        }
+
+        .leader-item.gold-rank {
+            background: linear-gradient(135deg, rgba(232, 197, 71, 0.15), rgba(212, 175, 55, 0.1));
+            border-color: #E8C547;
+            box-shadow: 0 0 15px rgba(232, 197, 71, 0.2);
+        }
+
+        .leader-item .rank {
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            color: #E8C547;
+            font-size: 1.1em;
+        }
+
+        .leader-item.gold-rank .rank {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .leader-item .name {
+            color: #FFFFFF;
+            font-weight: 500;
+            padding-left: 10px;
+        }
+
+        .leader-item.gold-rank .name {
+            color: #E8C547;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(232, 197, 71, 0.3);
+        }
+
+        .leader-item .count {
+            color: #D4AF37;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .leader-item.gold-rank .count {
+            color: #FFD700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Navigation */
+        .nav-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(145deg, #D4AF37, #E8C547);
+            color: #000;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .leaderboards-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .leaderboard {
+                padding: 20px;
+            }
+            
+            .leader-item {
+                padding: 10px 12px;
+            }
+            
+            .nav-button {
+                top: 20px;
+                left: 20px;
+                padding: 10px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="nav-button">← Home</a>
+    
+    <div class="header">
+        <h1>KEITH'S PLAYER STATISTICS</h1>
+        <p>NBA-Style Career Rankings vs Music Legends</p>
+    </div>
+
+    <div class="container">
+        <!-- Leaderboards Section -->
         <div class="leaderboards-container">
             
             <!-- Personas & Alter Egos Leaderboard -->
@@ -194,3 +407,6 @@
             </div>
 
         </div>
+    </div>
+</body>
+</html>
