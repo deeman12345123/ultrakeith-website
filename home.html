@@ -833,8 +833,8 @@
             }
             
             .album-image {
-                width: 320px;
-                height: 320px;
+                width: 200px;
+                height: 200px;
                 margin-bottom: 0;
                 flex-shrink: 0;
             }
@@ -1221,11 +1221,10 @@
 
         // Move to specific slide position
         function slideToPosition(slideIndex) {
-            const translateX = -slideIndex * 100; // 100% per slide for mobile
             const isDesktop = window.innerWidth > 768;
-            const actualTranslate = isDesktop ? -slideIndex * 50 : translateX; // 50% per slide for desktop
+            const translateX = isDesktop ? -slideIndex * 50 : -slideIndex * 100; // 50% per slide for desktop, 100% for mobile
             
-            track.style.transform = `translateX(${actualTranslate}%)`;
+            track.style.transform = `translateX(${translateX}%)`;
             currentSlide = slideIndex;
             updateIndicators();
         }
@@ -1441,6 +1440,8 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
+            // Set correct initial position for current screen size
+            slideToPosition(currentSlide);
             startAutoSlide();
             loadNews();
             updateIndicators(); // Set initial indicator state
