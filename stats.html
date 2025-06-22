@@ -4,72 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keith's Player Statistics - Ultra Keith Official</title>
-    <meta name="description" content="Keith's player statistics and achievements - Hip-Hop's most prolific innovator with 40+ years of groundbreaking music performance.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
-
-        /* NUCLEAR RESET - ELIMINATE ALL TRANSPARENCY */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-        }
-
-        /* FORCE SOLID BACKGROUNDS ON EVERYTHING */
-        .header-stats,
-        .standings-table,
-        .category-table,
-        .record-item,
-        table,
-        thead,
-        tbody,
-        tr,
-        td,
-        th,
-        div[class*="solid"],
-        div[class*="category"],
-        div[class*="record"],
-        div[class*="header"],
-        div[class*="stats"] {
-            background: #1a1a1a !important;
-            background-color: #1a1a1a !important;
-            background-image: none !important;
-            opacity: 1 !important;
-        }
-
-        /* FORCE SOLID HEADERS */
-        .standings-table thead,
-        .standings-table thead tr,
-        .standings-table thead th,
-        .category-header,
-        thead,
-        th {
-            background: #2a2a2a !important;
-            background-color: #2a2a2a !important;
-            background-image: none !important;
-            opacity: 1 !important;
-        }
-
-        /* FORCE KEITH HIGHLIGHTING */
-        .keith-row,
-        .keith-row td,
-        .category-item.keith,
-        tr.keith-row,
-        .keith-highlight {
-            background: #2d1f0a !important;
-            background-color: #2d1f0a !important;
-            background-image: none !important;
-            opacity: 1 !important;
         }
 
         body {
@@ -86,7 +26,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background: #0a0a0a !important;
+            background: #0a0a0a;
             border-bottom: 1px solid rgba(218, 181, 71, 0.2);
             z-index: 100;
             height: 72px;
@@ -152,6 +92,7 @@
             padding-left: 2rem;
             padding-right: 2rem;
             padding-bottom: 4rem;
+            position: relative;
         }
 
         /* Watermarks */
@@ -167,7 +108,6 @@
             opacity: 0.06;
             z-index: 0;
             pointer-events: none;
-            animation: slowFloat 45s ease-in-out infinite;
         }
 
         .main::after {
@@ -183,17 +123,6 @@
             opacity: 0.08;
             z-index: 1;
             pointer-events: none;
-            animation: subtlePulse 8s ease-in-out infinite;
-        }
-
-        @keyframes slowFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        @keyframes subtlePulse {
-            0%, 100% { opacity: 0.08; transform: scale(1); }
-            50% { opacity: 0.12; transform: scale(1.05); }
         }
 
         /* Hero Section */
@@ -201,6 +130,8 @@
             text-align: center;
             padding: 2rem 0;
             margin-bottom: 2rem;
+            position: relative;
+            z-index: 10;
         }
 
         .stats-title {
@@ -218,14 +149,6 @@
             margin-bottom: 1rem;
         }
 
-        .last-updated {
-            text-align: center;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
         /* Header Stats */
         .header-stats {
             display: grid;
@@ -235,13 +158,14 @@
             margin-bottom: 2rem;
             border: 2px solid rgba(218, 181, 71, 0.3);
             border-radius: 0.5rem;
+            background: #1a1a1a;
+            position: relative;
+            z-index: 10;
         }
 
         .header-stat {
             text-align: center;
             border-right: 1px solid rgba(218, 181, 71, 0.2);
-            position: relative;
-            z-index: 2;
         }
 
         .header-stat:last-child {
@@ -265,34 +189,11 @@
             margin-top: 0.25rem;
         }
 
-        .stat-progress {
-            width: 100%;
-            height: 4px;
-            background: #2a2a2a;
-            border-radius: 2px;
-            margin-top: 0.5rem;
-            overflow: hidden;
-        }
-
-        .stat-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #DAB547, #E8C547);
-            border-radius: 2px;
-            width: 0%;
-            transition: width 1.5s ease-out;
-        }
-
-        /* Section Headers */
+        /* Tables */
         .standings-section {
             margin-bottom: 2rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 0 0.5rem;
+            position: relative;
+            z-index: 10;
         }
 
         .section-title {
@@ -301,7 +202,7 @@
             font-weight: 700;
             color: #DAB547;
             text-transform: uppercase;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .section-subtitle {
@@ -311,20 +212,13 @@
             text-align: center;
         }
 
-        .section-filter {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-            font-family: 'Orbitron', monospace;
-        }
-
-        /* Tables */
         .standings-table {
             width: 100%;
             margin-bottom: 1.5rem;
             border: 1px solid rgba(218, 181, 71, 0.2);
             border-radius: 0.5rem;
             overflow: hidden;
+            background: #1a1a1a;
         }
 
         .standings-table th {
@@ -335,7 +229,7 @@
             color: rgba(255, 255, 255, 0.8);
             text-transform: uppercase;
             font-weight: 600;
-            letter-spacing: 0.05em;
+            background: #2a2a2a;
             border-bottom: 2px solid rgba(218, 181, 71, 0.3);
         }
 
@@ -343,9 +237,6 @@
         .standings-table th.stat {
             text-align: center;
         }
-
-        .standings-table th.number { width: 60px; }
-        .standings-table th.stat { width: 80px; }
 
         .standings-table td {
             padding: 0.75rem 1rem;
@@ -367,6 +258,10 @@
             font-weight: 600;
         }
 
+        .keith-row {
+            background: #2d1f0a !important;
+        }
+
         .keith-row td {
             color: #DAB547 !important;
             font-weight: 600;
@@ -383,31 +278,28 @@
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            position: relative;
+            z-index: 10;
         }
 
         .category-table {
             border: 1px solid rgba(218, 181, 71, 0.2);
             border-radius: 0.5rem;
             overflow: hidden;
+            background: #1a1a1a;
         }
 
+        /* CATEGORY HEADER WITH MC LOGO */
         .category-header {
             padding: 1rem;
             border-bottom: 2px solid rgba(218, 181, 71, 0.3);
-            position: relative;
-        }
-
-        .category-header-content {
+            background: #2a2a2a;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
+            align-items: center;
         }
 
-        .category-title-section {
+        .category-text {
             flex: 1;
         }
 
@@ -423,16 +315,31 @@
         .category-subtitle {
             font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.6);
-            margin-top: 0.25rem;
         }
 
-        .category-mc-logo {
+        .mc-logo {
             width: 32px;
             height: 32px;
-            background: url('personas/mclogogo.png') center/contain no-repeat;
-            opacity: 0.4;
+            background-image: url('personas/mclogogo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.6;
             flex-shrink: 0;
-            margin-left: 1rem;
+            border: 1px solid rgba(218, 181, 71, 0.2);
+        }
+
+        /* Fallback if mclogogo.png doesn't work - try different paths */
+        .mc-logo.backup1 {
+            background-image: url('mclogogo.png');
+        }
+
+        .mc-logo.backup2 {
+            background-image: url('personas/mc.png');
+        }
+
+        .mc-logo.backup3 {
+            background-image: url('mc.png');
         }
 
         .category-list {
@@ -452,6 +359,7 @@
         }
 
         .category-item.keith {
+            background: #2d1f0a !important;
             margin: 0 0.5rem;
             border-radius: 0.25rem;
             border: 1px solid rgba(218, 181, 71, 0.3);
@@ -494,36 +402,29 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            position: relative;
+            z-index: 10;
         }
 
         .record-item {
             border: 2px solid rgba(218, 181, 71, 0.3);
             border-radius: 0.75rem;
             padding: 1.5rem;
+            background: #1a1a1a;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .record-item:hover {
             border-color: rgba(218, 181, 71, 0.6);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.2);
+            transform: translateY(-3px);
         }
 
         .record-value {
             font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #DAB547, #E8C547);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #DAB547;
             margin-bottom: 0.75rem;
-            line-height: 1.2;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -532,7 +433,6 @@
         .record-value::before {
             content: '🏆';
             font-size: 1.25rem;
-            filter: sepia(1) saturate(2) hue-rotate(25deg) brightness(1.2);
         }
 
         .record-title {
@@ -541,117 +441,12 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.025em;
         }
 
         .record-desc {
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.7);
             line-height: 1.4;
-            position: relative;
-            padding-left: 1rem;
-        }
-
-        .record-desc::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: #DAB547;
-            font-weight: bold;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: linear-gradient(135deg, #DAB547, #E8C547);
-            color: #000000;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.25rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-        }
-
-        /* DESKTOP TRANSPARENCY FIX - ADDITIONAL OVERRIDES */
-        @media (min-width: 769px) {
-            /* Force solid backgrounds on desktop */
-            .header-stats,
-            .standings-table,
-            .standings-table tbody,
-            .standings-table thead,
-            .category-table,
-            .category-header,
-            .record-item,
-            table,
-            tbody,
-            thead {
-                background: #1a1a1a !important;
-                background-color: #1a1a1a !important;
-                background-image: none !important;
-                opacity: 1 !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-            
-            /* Desktop header overrides */
-            .standings-table thead,
-            .standings-table thead tr,
-            .standings-table thead th,
-            .category-header,
-            thead,
-            th {
-                background: #2a2a2a !important;
-                background-color: #2a2a2a !important;
-                background-image: none !important;
-                opacity: 1 !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-            
-            /* Desktop Keith highlighting */
-            .keith-row,
-            .keith-row td,
-            .category-item.keith,
-            tr.keith-row {
-                background: #2d1f0a !important;
-                background-color: #2d1f0a !important;
-                background-image: none !important;
-                opacity: 1 !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-            }
-            
-            /* Remove any gradients on desktop */
-            .header-stats::before,
-            .header-stats::after,
-            .standings-table::before,
-            .standings-table::after,
-            .category-table::before,
-            .category-table::after,
-            .record-item::before {
-                display: none !important;
-            }
         }
 
         @media (max-width: 768px) {
@@ -661,71 +456,30 @@
                 padding-top: 85px;
             }
 
-            .main::after {
-                width: 280px;
-                height: 280px;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                opacity: 0.06;
-            }
-
             .header-stats {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.5rem;
                 padding: 1rem;
             }
 
-            .header-stat {
-                border-right: none;
-                border-bottom: 1px solid rgba(218, 181, 71, 0.2);
-                padding-bottom: 0.5rem;
-            }
-
-            .header-stat:nth-child(-n+2) {
-                border-bottom: 1px solid rgba(218, 181, 71, 0.2);
-            }
-
-            .header-stat:nth-child(n+3) {
-                border-bottom: none;
-                padding-top: 0.5rem;
-            }
-
             .category-grid {
                 grid-template-columns: 1fr;
             }
 
-            .standings-table {
-                font-size: 0.75rem;
-            }
-
-            .standings-table th,
-            .standings-table td {
-                padding: 0.5rem 0.75rem;
-            }
-
             .records-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .back-to-top {
-                bottom: 1rem;
-                right: 1rem;
-                width: 45px;
-                height: 45px;
-                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav" role="navigation" aria-label="Main navigation">
+    <nav class="nav">
         <div class="nav-content">
             <a href="index.html" class="nav-logo">
                 <img src="personas/mclogogo.png" alt="Kool Keith Home">
             </a>
-            <ul class="nav-menu" id="navMenu">
+            <ul class="nav-menu">
                 <li><a href="bio.html">Biography</a></li>
                 <li><a href="music.html">Music</a></li>
                 <li><a href="videos.html">Videos</a></li>
@@ -734,9 +488,7 @@
                 <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
                 <li><a href="shop.html">Store</a></li>
             </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">
-                ☰
-            </button>
+            <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
 
@@ -746,61 +498,39 @@
         <section class="stats-hero">
             <h1 class="stats-title">Keith's Player Statistics</h1>
             <p class="stats-subtitle">Career Performance • Rankings • Records</p>
-            <p class="last-updated">Last Updated: June 22, 2025</p>
         </section>
 
         <!-- Header Stats -->
-        <div class="header-stats" id="header-stats">
+        <div class="header-stats">
             <div class="header-stat">
                 <span class="header-stat-number">92+</span>
                 <span class="header-stat-label">Albums</span>
-                <div class="stat-progress">
-                    <div class="stat-progress-bar" data-width="100"></div>
-                </div>
             </div>
             <div class="header-stat">
                 <span class="header-stat-number">41</span>
                 <span class="header-stat-label">Years</span>
-                <div class="stat-progress">
-                    <div class="stat-progress-bar" data-width="95"></div>
-                </div>
             </div>
             <div class="header-stat">
                 <span class="header-stat-number">58+</span>
                 <span class="header-stat-label">Personas</span>
-                <div class="stat-progress">
-                    <div class="stat-progress-bar" data-width="100"></div>
-                </div>
             </div>
             <div class="header-stat">
                 <span class="header-stat-number">150+</span>
                 <span class="header-stat-label">Collabs</span>
-                <div class="stat-progress">
-                    <div class="stat-progress-bar" data-width="100"></div>
-                </div>
             </div>
             <div class="header-stat">
                 <span class="header-stat-number">#1</span>
                 <span class="header-stat-label">Hip-Hop</span>
-                <div class="stat-progress">
-                    <div class="stat-progress-bar" data-width="100"></div>
-                </div>
             </div>
             <div class="header-stat">
-                <span class="header-stat-number">#10</span>
+                <span class="header-stat-number">#7</span>
                 <span class="header-stat-label">All Music</span>
-                <div class="stat-progress">
-                    <div class="stat-progress-bar" data-width="85"></div>
-                </div>
             </div>
         </div>
 
         <!-- Hip-Hop Album Leaders -->
-        <section class="standings-section" id="hip-hop-leaders">
-            <div class="section-header">
-                <h2 class="section-title">Hip-Hop Album Leaders</h2>
-                <span class="section-filter">Physical Releases Only</span>
-            </div>
+        <section class="standings-section">
+            <h2 class="section-title">Hip-Hop Album Leaders</h2>
             <p class="section-subtitle">Ranking of rappers by total album output including studio albums, collaborations, and official releases</p>
             <table class="standings-table">
                 <thead>
@@ -809,7 +539,6 @@
                         <th>Artist</th>
                         <th class="stat">Albums</th>
                         <th class="stat">Studio</th>
-                        <th class="stat">Collab</th>
                         <th class="stat">Years</th>
                     </tr>
                 </thead>
@@ -819,7 +548,6 @@
                         <td class="artist">Kool Keith</td>
                         <td class="stat">92+</td>
                         <td class="stat">40+</td>
-                        <td class="stat">30+</td>
                         <td class="stat">41</td>
                     </tr>
                     <tr>
@@ -827,7 +555,6 @@
                         <td>Tech N9ne</td>
                         <td class="stat">~60</td>
                         <td class="stat">29+</td>
-                        <td class="stat">15+</td>
                         <td class="stat">27</td>
                     </tr>
                     <tr>
@@ -835,7 +562,6 @@
                         <td>E-40</td>
                         <td class="stat">~40</td>
                         <td class="stat">27</td>
-                        <td class="stat">7</td>
                         <td class="stat">33</td>
                     </tr>
                     <tr>
@@ -843,7 +569,6 @@
                         <td>Snoop Dogg</td>
                         <td class="stat">~35</td>
                         <td class="stat">19</td>
-                        <td class="stat">15+</td>
                         <td class="stat">32</td>
                     </tr>
                     <tr>
@@ -851,44 +576,16 @@
                         <td>Gucci Mane</td>
                         <td class="stat">~35</td>
                         <td class="stat">15+</td>
-                        <td class="stat">20+</td>
                         <td class="stat">19</td>
-                    </tr>
-                    <tr>
-                        <td class="rank">6</td>
-                        <td>Lil Wayne</td>
-                        <td class="stat">~33</td>
-                        <td class="stat">13</td>
-                        <td class="stat">20+</td>
-                        <td class="stat">29</td>
-                    </tr>
-                    <tr>
-                        <td class="rank">7</td>
-                        <td>Jay-Z</td>
-                        <td class="stat">~30</td>
-                        <td class="stat">14</td>
-                        <td class="stat">16+</td>
-                        <td class="stat">29</td>
-                    </tr>
-                    <tr>
-                        <td class="rank">8</td>
-                        <td>Eminem</td>
-                        <td class="stat">~25</td>
-                        <td class="stat">12</td>
-                        <td class="stat">13+</td>
-                        <td class="stat">25</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
         <!-- All-Genre Rankings -->
-        <section class="standings-section" id="all-genre">
-            <div class="section-header">
-                <h2 class="section-title">All-Genre Artist Rankings</h2>
-                <span class="section-filter">Most Prolific Musicians</span>
-            </div>
-            <p class="section-subtitle">Kool Keith's position among the most prolific recording artists across all musical genres in history</p>
+        <section class="standings-section">
+            <h2 class="section-title">All-Genre Artist Rankings</h2>
+            <p class="section-subtitle">Kool Keith's position among the most prolific recording artists across all musical genres</p>
             <table class="standings-table">
                 <thead>
                     <tr>
@@ -917,7 +614,7 @@
                     <tr>
                         <td class="rank">3</td>
                         <td>Frank Zappa</td>
-                        <td>Rock/Experimental</td>
+                        <td>Rock</td>
                         <td class="stat">62</td>
                         <td class="stat">31</td>
                     </tr>
@@ -949,223 +646,19 @@
                         <td class="stat">39</td>
                         <td class="stat">41</td>
                     </tr>
-                    <tr>
-                        <td class="rank">8</td>
-                        <td>Rolling Stones</td>
-                        <td>Rock</td>
-                        <td class="stat">31</td>
-                        <td class="stat">63</td>
-                    </tr>
                 </tbody>
             </table>
         </section>
 
         <!-- Category Rankings -->
-        <div class="category-grid" id="category-rankings">
+        <div class="category-grid">
             <div class="category-table">
                 <div class="category-header">
-                    <div class="category-header-content">
-                        <div class="category-title-section">
-                            <div class="category-title">🎭 Musical Personas</div>
-                            <div class="category-subtitle">All Genres</div>
-                        </div>
-                        <div class="category-mc-logo"></div>
+                    <div class="category-text">
+                        <div class="category-title">🎭 Musical Personas</div>
+                        <div class="category-subtitle">All Genres</div>
                     </div>
-                </div>
-                <div class="category-list">
-                    <div class="category-item keith">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">58+</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Tyler the Creator</span>
-                        <span class="category-stat">12</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">David Bowie</span>
-                        <span class="category-stat">11</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Prince</span>
-                        <span class="category-stat">8-10</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Lady Gaga</span>
-                        <span class="category-stat">7</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-table">
-                <div class="category-header">
-                    <div class="category-header-content">
-                        <div class="category-title-section">
-                            <div class="category-title">🎨 Concept Albums</div>
-                            <div class="category-subtitle">Hip-Hop Artists</div>
-                        </div>
-                        <div class="category-mc-logo"></div>
-                    </div>
-                </div>
-                <div class="category-list">
-                    <div class="category-item keith">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">25+</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Pink Floyd</span>
-                        <span class="category-stat">4-5</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Tool</span>
-                        <span class="category-stat">5</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Kendrick Lamar</span>
-                        <span class="category-stat">4</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">The Who</span>
-                        <span class="category-stat">2</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-table">
-                <div class="category-header">
-                    <div class="category-header-content">
-                        <div class="category-title-section">
-                            <div class="category-title">⏳ Career Longevity</div>
-                            <div class="category-subtitle">All Genres</div>
-                        </div>
-                        <div class="category-mc-logo"></div>
-                    </div>
-                </div>
-                <div class="category-list">
-                    <div class="category-item">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Bob Dylan</span>
-                        <span class="category-stat">64 years</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Rolling Stones</span>
-                        <span class="category-stat">63 years</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Willie Nelson</span>
-                        <span class="category-stat">60+ years</span>
-                    </div>
-                    <div class="category-item keith">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">41 years</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Neil Young</span>
-                        <span class="category-stat">55+ years</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-table">
-                <div class="category-header">
-                    <div class="category-header-content">
-                        <div class="category-title-section">
-                            <div class="category-title">🚀 Hip-Hop Innovation</div>
-                            <div class="category-subtitle">Genre Pioneers</div>
-                        </div>
-                        <div class="category-mc-logo"></div>
-                    </div>
-                </div>
-                <div class="category-list">
-                    <div class="category-item">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Grandmaster Flash</span>
-                        <span class="category-stat">Turntables</span>
-                    </div>
-                    <div class="category-item keith">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">Sci-Fi Rap</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Kanye West</span>
-                        <span class="category-stat">Soul Samples</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">T-Pain</span>
-                        <span class="category-stat">Auto-Tune</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Public Enemy</span>
-                        <span class="category-stat">Political Rap</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-table">
-                <div class="category-header">
-                    <div class="category-header-content">
-                        <div class="category-title-section">
-                            <div class="category-title">🤝 Collaborations</div>
-                            <div class="category-subtitle">Hip-Hop Artists</div>
-                        </div>
-                        <div class="category-mc-logo"></div>
-                    </div>
-                </div>
-                <div class="category-list">
-                    <div class="category-item keith">
-                        <span class="category-rank">1</span>
-                        <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">150+</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">Snoop Dogg</span>
-                        <span class="category-stat">~140</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Tech N9ne</span>
-                        <span class="category-stat">~120</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">E-40</span>
-                        <span class="category-stat">~100</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Busta Rhymes</span>
-                        <span class="category-stat">~100</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-table">
-                <div class="category-header">
-                    <div class="category-header-content">
-                        <div class="category-title-section">
-                            <div class="category-title">🔄 Creative Reinvention</div>
-                            <div class="category-subtitle">Era Changes</div>
-                        </div>
-                        <div class="category-mc-logo"></div>
-                    </div>
+                    <div class="mc-logo backup1 backup2 backup3"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
@@ -1198,11 +691,8 @@
         </div>
 
         <!-- Records -->
-        <section class="standings-section" id="records">
-            <div class="section-header">
-                <h2 class="section-title">Records Held</h2>
-                <span class="section-filter">Hip-Hop Industry</span>
-            </div>
+        <section class="standings-section">
+            <h2 class="section-title">Records Held</h2>
             <p class="section-subtitle">Industry-first achievements and record-breaking accomplishments across Kool Keith's 41-year career</p>
             <div class="records-grid">
                 <div class="record-item">
@@ -1288,138 +778,190 @@
             </div>
         </section>
     </main>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        ↑
-    </button>
-
-    <!-- JavaScript -->
-    <script>
-        'use strict';
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu functionality
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navMenu = document.getElementById('navMenu');
-            
-            if (mobileMenuBtn && navMenu) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    navMenu.classList.toggle('show');
-                });
-            }
-            
-            // Back to top button
-            const backToTopBtn = document.getElementById('backToTop');
-            if (backToTopBtn) {
-                window.addEventListener('scroll', () => {
-                    if (window.pageYOffset > 300) {
-                        backToTopBtn.classList.add('visible');
-                    } else {
-                        backToTopBtn.classList.remove('visible');
-                    }
-                });
-                
-                backToTopBtn.addEventListener('click', () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-            
-            // Progress bars animation
-            const progressBars = document.querySelectorAll('.stat-progress-bar');
-            const progressObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const bar = entry.target;
-                        const width = bar.getAttribute('data-width');
-                        setTimeout(() => {
-                            bar.style.width = width + '%';
-                        }, 200);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            progressBars.forEach(bar => progressObserver.observe(bar));
-            
-            // Animate header stats on scroll
-            const observerOptions = {
-                threshold: 0.3,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const statNumbers = entry.target.querySelectorAll('.header-stat-number');
-                        statNumbers.forEach(statNumber => {
-                            if (!statNumber.classList.contains('animated')) {
-                                animateHeaderStat(statNumber);
-                                statNumber.classList.add('animated');
-                            }
-                        });
-                    }
-                });
-            }, observerOptions);
-            
-            const headerStats = document.querySelector('.header-stats');
-            if (headerStats) {
-                observer.observe(headerStats);
-            }
-            
-            function animateHeaderStat(element) {
-                const finalText = element.textContent.trim();
-                
-                if (finalText.includes('#')) {
-                    const rankNumber = parseInt(finalText.replace('#', ''));
-                    let current = rankNumber > 5 ? rankNumber - 3 : 1;
-                    const timer = setInterval(() => {
-                        current++;
-                        element.textContent = '#' + current;
-                        if (current >= rankNumber) {
-                            clearInterval(timer);
-                        }
-                    }, 100);
-                } else if (finalText.includes('+')) {
-                    const number = parseInt(finalText.replace('+', ''));
-                    let current = 0;
-                    const increment = Math.ceil(number / 30);
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= number) {
-                            current = number;
-                            clearInterval(timer);
-                        }
-                        element.textContent = current + '+';
-                    }, 50);
-                } else {
-                    const number = parseInt(finalText);
-                    if (!isNaN(number)) {
-                        let current = 0;
-                        const increment = Math.ceil(number / 20);
-                        const timer = setInterval(() => {
-                            current += increment;
-                            if (current >= number) {
-                                current = number;
-                                clearInterval(timer);
-                            }
-                            element.textContent = current;
-                        }, 75);
-                    }
-                }
-            }
-            
-            // Add hover effects to table rows
-            document.querySelectorAll('.standings-table tbody tr').forEach(row => {
-                if (!row.classList.contains('keith-row')) {
-                    row.addEventListener('mouseenter', function() {
-                        this.style.backgroundColor = 'rgba(42, 42, 42, 0.5)';
-                    });
-                    row.addEventListener('mouseleave', function() {
-                        this.style.backgroundColor = '';
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
+                        <span class="category-stat">58+</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">2</span>
+                        <span class="category-artist">Tyler the Creator</span>
+                        <span class="category-stat">12</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">3</span>
+                        <span class="category-artist">David Bowie</span>
+                        <span class="category-stat">11</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">4</span>
+                        <span class="category-artist">Prince</span>
+                        <span class="category-stat">8-10</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">5</span>
+                        <span class="category-artist">Lady Gaga</span>
+                        <span class="category-stat">7</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-table">
+                <div class="category-header">
+                    <div class="category-text">
+                        <div class="category-title">🎨 Concept Albums</div>
+                        <div class="category-subtitle">All Genres</div>
+                    </div>
+                    <div class="mc-logo backup1 backup2 backup3"></div>
+                </div>
+                <div class="category-list">
+                    <div class="category-item keith">
+                        <span class="category-rank">1</span>
+                        <span class="category-artist">Kool Keith</span>
+                        <span class="category-stat">25+</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">2</span>
+                        <span class="category-artist">Pink Floyd</span>
+                        <span class="category-stat">4-5</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">3</span>
+                        <span class="category-artist">Tool</span>
+                        <span class="category-stat">5</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">4</span>
+                        <span class="category-artist">Kendrick Lamar</span>
+                        <span class="category-stat">4</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">5</span>
+                        <span class="category-artist">The Who</span>
+                        <span class="category-stat">2</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-table">
+                <div class="category-header">
+                    <div class="category-text">
+                        <div class="category-title">⏳ Career Longevity</div>
+                        <div class="category-subtitle">All Genres</div>
+                    </div>
+                    <div class="mc-logo backup1 backup2 backup3"></div>
+                </div>
+                <div class="category-list">
+                    <div class="category-item">
+                        <span class="category-rank">1</span>
+                        <span class="category-artist">Bob Dylan</span>
+                        <span class="category-stat">64 years</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">2</span>
+                        <span class="category-artist">Rolling Stones</span>
+                        <span class="category-stat">63 years</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">3</span>
+                        <span class="category-artist">Willie Nelson</span>
+                        <span class="category-stat">60+ years</span>
+                    </div>
+                    <div class="category-item keith">
+                        <span class="category-rank">4</span>
+                        <span class="category-artist">Kool Keith</span>
+                        <span class="category-stat">41 years</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">5</span>
+                        <span class="category-artist">Neil Young</span>
+                        <span class="category-stat">55+ years</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-table">
+                <div class="category-header">
+                    <div class="category-text">
+                        <div class="category-title">🚀 Hip-Hop Innovation</div>
+                        <div class="category-subtitle">Genre Pioneers</div>
+                    </div>
+                    <div class="mc-logo backup1 backup2 backup3"></div>
+                </div>
+                <div class="category-list">
+                    <div class="category-item">
+                        <span class="category-rank">1</span>
+                        <span class="category-artist">Grandmaster Flash</span>
+                        <span class="category-stat">Turntables</span>
+                    </div>
+                    <div class="category-item keith">
+                        <span class="category-rank">2</span>
+                        <span class="category-artist">Kool Keith</span>
+                        <span class="category-stat">Sci-Fi Rap</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">3</span>
+                        <span class="category-artist">Kanye West</span>
+                        <span class="category-stat">Soul Samples</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">4</span>
+                        <span class="category-artist">T-Pain</span>
+                        <span class="category-stat">Auto-Tune</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">5</span>
+                        <span class="category-artist">Public Enemy</span>
+                        <span class="category-stat">Political Rap</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-table">
+                <div class="category-header">
+                    <div class="category-text">
+                        <div class="category-title">🤝 Collaborations</div>
+                        <div class="category-subtitle">Hip-Hop Artists</div>
+                    </div>
+                    <div class="mc-logo backup1 backup2 backup3"></div>
+                </div>
+                <div class="category-list">
+                    <div class="category-item keith">
+                        <span class="category-rank">1</span>
+                        <span class="category-artist">Kool Keith</span>
+                        <span class="category-stat">150+</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">2</span>
+                        <span class="category-artist">Snoop Dogg</span>
+                        <span class="category-stat">~140</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">3</span>
+                        <span class="category-artist">Tech N9ne</span>
+                        <span class="category-stat">~120</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">4</span>
+                        <span class="category-artist">E-40</span>
+                        <span class="category-stat">~100</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">5</span>
+                        <span class="category-artist">Busta Rhymes</span>
+                        <span class="category-stat">~100</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-table">
+                <div class="category-header">
+                    <div class="category-text">
+                        <div class="category-title">🔄 Creative Reinvention</div>
+                        <div class="category-subtitle">Era Changes</div>
+                    </div>
+                    <div class="mc-logo backup1 backup2 backup3"></div>
+                </div>
+                <div class="category-list">
+                    <div class="category-item keith">
+                        <span class="category-rank">1</span>
+                        <span class="category-artist">Kool Keith</span>
