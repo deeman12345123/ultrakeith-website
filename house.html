@@ -144,31 +144,7 @@
             background: linear-gradient(180deg, #444, #222);
         }
 
-        .floor-items {
-            bottom: 30px;
-            left: 400px;
-            width: 300px;
-            height: 50px;
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px dashed #DAB547;
-        }
 
-        .pest-corner {
-            bottom: 200px;
-            right: 50px;
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, #444, #111);
-            border-radius: 50%;
-        }
-
-        .bathroom-door {
-            top: 150px;
-            left: 20px;
-            width: 30px;
-            height: 120px;
-            background: linear-gradient(180deg, #654321, #4a2c1a);
-        }
 
         .window {
             top: 20px;
@@ -301,13 +277,10 @@
             <div class="room-element tv" data-item="tv">📺</div>
             <div class="room-element medicine" data-item="medicine">💊</div>
             
-            <!-- NEW Interactive Elements -->
+            <!-- ESSENTIAL NEW ELEMENTS -->
             <div class="room-element under-bed" data-item="under-bed">📦</div>
             <div class="room-element phone-corner" data-item="phone-corner">📞</div>
             <div class="room-element music-equipment" data-item="music-equipment">🎹</div>
-            <div class="room-element floor-items" data-item="floor-items">📚</div>
-            <div class="room-element pest-corner" data-item="pest-corner">🐀</div>
-            <div class="room-element bathroom-door" data-item="bathroom-door">🚪</div>
             <div class="room-element window" data-item="window">🪟</div>
             
             <div class="hover-hint">
@@ -358,34 +331,22 @@
                 text: "Surgical tools for 'lyrical operations' and experimental substances. Flintstones vitamins (character obsession), Pepto-Bismol, and X-ray sunglasses. Medical supplies for emergency persona transformations."
             },
             
-            // NEW Elements
+            // NEW Essential Elements
             "under-bed": {
-                title: "Under the Bed Storage",
-                text: "Hidden funk record collection: Ohio Players, Slave, Con Funk Shun, Black Ivory. Comic book stash featuring Batman, Lost in Space, Buck Rogers, Fantastic Four. Jars of collected insects - termites, lightning bugs. VHS tapes and mysterious notebooks with phone numbers."
+                title: "Keith's Archive",
+                text: "Hidden collection of rare funk records and comic books. Ohio Players and Slave vinyl from his personal collection. Classic comic issues and notebooks containing contact information for industry connections."
             },
             "phone-corner": {
-                title: "WBLS Connection Center",
-                text: "Vintage rotary phone with speed-dial to WBLS radio station. Answering machine with Keith-style messages. Pacific Bell phone bills scattered around. Radio tuned to classic hip-hop. '1-800 numbers' written on the wall. Six phones setup reference."
+                title: "Industry Connect",
+                text: "Professional communication hub with vintage equipment. Direct lines to radio stations and industry contacts. Classic hip-hop plays softly from the radio - this is where business gets handled."
             },
             "music-equipment": {
-                title: "Keith Korg Station",
-                text: "Korg synthesizer (Keith Korg alias reference), Roland drum machines, SP-1200 sampler from Ultramagnetic days. Headphones hanging up, cassette tapes scattered. Miniature 48-track mixing board for home recordings."
-            },
-            "floor-items": {
-                title: "Scattered Treasures",
-                text: "Fluorescent cereal pieces glowing on the floor. Comic book pages torn and scattered. The Krossover of the Flower Kosmic graphic novel open. Cigarette butts and empty beer cans. Funk records without cases. Unpaid bills and housing notices."
-            },
-            "pest-corner": {
-                title: "Dr. Dooom's Creatures",
-                text: "Pet rats in small cages (Dr. Dooom signature). 'Naked roaches' scurrying when disturbed. Dead mice in corners. Parakeets in tiny cage. Ant farm setup. Spider webs with mysterious contents. Fly paper hanging with catches."
-            },
-            "bathroom-door": {
-                title: "Dr. Dooom's Laboratory",
-                text: "Medicine cabinet with experimental substances. Shower curtain with strange stains. Hair products for various persona wigs. Dental equipment. Mirror reflecting different personas. Bathtub with unusual scientific contents."
+                title: "Production Station", 
+                text: "Professional music production setup featuring the SP-1200 sampler that helped create hip-hop history. Modern synthesis equipment alongside classic gear. Where the magic happens - beats, samples, and innovation."
             },
             "window": {
-                title: "Projects View",
-                text: "Urban cityscape with apartment buildings. Fire escape with items stored outside. Clothesline with persona costumes drying. View of other Section 8 housing. Security bars on windows. Window AC unit probably broken. The streets Keith raps about."
+                title: "City View",
+                text: "Overlooking the urban landscape that shaped his sound. Fire escape storage and city life below. The streets and experiences that inform every bar and every beat - the real inspiration behind the music."
             }
         };
 
@@ -419,24 +380,16 @@
             }
         });
 
-        // Random pest animations
+        // Random equipment animations
         setInterval(() => {
-            const pestElement = document.querySelector('[data-item="pest-corner"]');
-            pestElement.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                pestElement.style.transform = 'scale(1)';
-            }, 300);
-        }, 5000);
-
-        // Random flickering for equipment
-        setInterval(() => {
-            const elements = document.querySelectorAll('.room-element');
-            const randomElement = elements[Math.floor(Math.random() * elements.length)];
-            randomElement.style.opacity = '0.7';
-            setTimeout(() => {
-                randomElement.style.opacity = '1';
-            }, 200);
-        }, 3000);
+            const musicElement = document.querySelector('[data-item="music-equipment"]');
+            if (musicElement) {
+                musicElement.style.opacity = '0.8';
+                setTimeout(() => {
+                    musicElement.style.opacity = '1';
+                }, 200);
+            }
+        }, 8000);
     </script>
 </body>
 </html>
