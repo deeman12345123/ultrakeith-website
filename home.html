@@ -1552,8 +1552,8 @@
                 if (!latestPost) return;
                 
                 try {
-                    // FIXED: Using correct Blogspot RSS feed URL format
-                    const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default%3Falt%3Drss&count=1');
+                    // FIXED: Using correct Blogspot Atom feed format (more reliable than RSS)
+                    const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A//ultrakeithdotcom.blogspot.com/feeds/posts/default&count=1');
                     
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
