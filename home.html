@@ -357,7 +357,7 @@
         }
         
         .carousel-slide {
-            width: 100%;
+            width: calc(100% - 8px); /* Reduce width to create space */
             flex-shrink: 0;
             padding: var(--space-lg);
             display: flex;
@@ -370,10 +370,11 @@
             border: 2px solid rgba(218, 181, 71, 0.2);
             border-radius: var(--radius-lg);
             transition: all var(--transition);
+            margin-right: 8px; /* Add space between cards */
         }
         
-        .carousel-slide:not(:first-child) {
-            border-left: 1px solid rgba(218, 181, 71, 0.4);
+        .carousel-slide:last-child {
+            margin-right: 0; /* No margin on last card */
         }
         
         .carousel-slide:hover {
@@ -868,12 +869,13 @@
             }
             
             .carousel-slide {
-                width: 50%;
+                width: calc(50% - 4px); /* Adjust width for desktop spacing */
                 flex-direction: row;
                 text-align: left;
                 align-items: center;
                 gap: var(--space-md);
                 padding: var(--space-md);
+                margin-right: 8px;
             }
             
             .album-image {
@@ -1385,8 +1387,10 @@
             goToSlide(slideIndex) {
                 if (!this.track) return;
                 
+                // Adjust slide width calculation to account for spacing
                 const slideWidth = this.isDesktop ? 50 : 100;
-                const translateX = -(slideIndex * slideWidth);
+                const spacing = this.isDesktop ? 0.4 : 0.8; // Account for 8px spacing as percentage
+                const translateX = -(slideIndex * (slideWidth + spacing));
                 
                 this.track.style.transform = `translateX(${translateX}%)`;
                 this.currentSlide = slideIndex;
