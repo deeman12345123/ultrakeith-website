@@ -333,6 +333,7 @@
             width: 100%;
             max-width: 500px;
             margin: 0 auto;
+            overflow: visible; /* Allow partial card previews */
         }
         
         .carousel {
@@ -342,6 +343,11 @@
             border: 1px solid rgba(218, 181, 71, 0.1);
             backdrop-filter: blur(10px);
             height: 450px;
+            /* Add subtle side shadows for depth */
+            box-shadow: 
+                -20px 0 30px -15px rgba(0, 0, 0, 0.3),
+                20px 0 30px -15px rgba(0, 0, 0, 0.3),
+                var(--shadow-md);
         }
         
         .carousel-track {
@@ -363,17 +369,11 @@
             box-sizing: border-box;
             border: 2px solid rgba(218, 181, 71, 0.2);
             border-radius: var(--radius-lg);
+            transition: all var(--transition);
         }
         
-        .carousel-slide:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: -1px;
-            top: 10%;
-            bottom: 10%;
-            width: 1px;
-            background: rgba(218, 181, 71, 0.3);
-            z-index: 1;
+        .carousel-slide:not(:first-child) {
+            border-left: 1px solid rgba(218, 181, 71, 0.4);
         }
         
         .carousel-slide:hover {
@@ -748,11 +748,16 @@
             }
             
             .carousel-container {
-                max-width: 320px;
+                max-width: 380px; /* Slightly wider for peek effect */
             }
             
             .carousel {
                 height: 400px;
+                /* Enhanced shadow for mobile depth */
+                box-shadow: 
+                    -15px 0 25px -10px rgba(0, 0, 0, 0.4),
+                    15px 0 25px -10px rgba(0, 0, 0, 0.4),
+                    var(--shadow-md);
             }
             
             .carousel-slide {
