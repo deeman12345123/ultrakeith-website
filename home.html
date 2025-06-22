@@ -293,7 +293,63 @@
             font-weight: 400;
         }
         
-        /* CLEAN CAROUSEL */
+        /* CAROUSEL SECTION - STYLED LIKE FEATURE CARDS */
+        .carousel-section {
+            background: rgba(26, 26, 26, 0.9);
+            border: 2px solid rgba(218, 181, 71, 0.2);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-2xl);
+            text-align: center;
+            transition: all 0.4s;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .carousel-section:hover {
+            transform: translateY(-12px);
+            border-color: rgba(218, 181, 71, 0.4);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .carousel-section-icon {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.12);
+            border-radius: var(--radius-lg);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel-section:hover .carousel-section-icon {
+            border-color: var(--gold);
+            background: rgba(218, 181, 71, 0.18);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .carousel-section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: var(--space-xl);
+            text-transform: uppercase;
+            transition: color var(--transition);
+        }
+        
+        .carousel-section:hover .carousel-section-title {
+            color: var(--gold-light);
+        }
+        
         .carousel-container {
             position: relative;
             width: 100%;
@@ -686,6 +742,25 @@
                 margin-bottom: var(--space-sm);
             }
             
+            .carousel-section {
+                padding: var(--space-xl) var(--space-lg);
+            }
+            
+            .carousel-section-icon {
+                width: 120px;
+                height: 120px;
+                margin-bottom: var(--space-md);
+            }
+            
+            .carousel-section-icon span {
+                font-size: 3rem !important;
+            }
+            
+            .carousel-section-title {
+                font-size: 1.1rem;
+                margin-bottom: var(--space-lg);
+            }
+            
             .carousel-container {
                 max-width: 320px;
             }
@@ -790,6 +865,11 @@
             
             .carousel-container {
                 max-width: 1200px;
+            }
+            
+            .carousel-title {
+                font-size: 2.5rem;
+                margin-bottom: var(--space-xl);
             }
             
             .carousel {
@@ -915,8 +995,13 @@
             <h1 class="hero-title">Official Music Portal</h1>
             <p class="hero-subtitle">Hip-Hop's Most Prolific Innovator</p>
             
-            <div class="carousel-container">
-                <div class="carousel">
+            <div class="carousel-section">
+                <div class="carousel-section-icon">
+                    <span style="font-size: 4rem;">🎵</span>
+                </div>
+                <h2 class="carousel-section-title">Latest Releases</h2>
+                <div class="carousel-container">
+                    <div class="carousel">
                     <div class="carousel-track" id="carouselTrack">
                         <!-- DUPLICATE FOR BACKWARD -->
                         <div class="carousel-slide">
