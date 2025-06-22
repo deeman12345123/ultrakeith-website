@@ -397,6 +397,10 @@
         .category-header {
             padding: 1rem;
             border-bottom: 2px solid rgba(218, 181, 71, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
         }
 
         .category-title {
@@ -405,6 +409,16 @@
             color: #DAB547;
             text-transform: uppercase;
             font-weight: 700;
+            flex: 1;
+        }
+
+        .category-header::after {
+            content: '';
+            width: 32px;
+            height: 32px;
+            background: url('personas/mclogogo.png') center/contain no-repeat;
+            opacity: 0.4;
+            flex-shrink: 0;
         }
 
         .category-subtitle {
