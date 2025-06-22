@@ -25,33 +25,15 @@
             text-align: center;
             padding: 60px 20px 40px;
             position: relative;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><text x="100" y="120" font-size="120" text-anchor="middle" fill="rgba(212,175,55,0.08)" font-family="Orbitron">MC</text></svg>') center/contain no-repeat;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        /* Additional MC watermarks throughout */
-        .leaderboard::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="65" font-size="60" text-anchor="middle" fill="rgba(212,175,55,0.05)" font-family="Orbitron">MC</text></svg>') center/contain no-repeat;
-            pointer-events: none;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><text x="100" y="120" font-size="120" text-anchor="middle" fill="rgba(212,175,55,0.15)" font-family="Orbitron, monospace">MC</text></svg>') center/400px no-repeat;
         }
 
         .leaderboard {
+            background: linear-gradient(145deg, #1A0A0A, #000000);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
         }
 
