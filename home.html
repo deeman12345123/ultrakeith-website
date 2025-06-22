@@ -357,7 +357,7 @@
         }
         
         .carousel-slide {
-            width: calc(100% - 8px); /* Reduce width to create space */
+            width: calc(100% - 12px); /* Slightly more space on mobile */
             flex-shrink: 0;
             padding: var(--space-lg);
             display: flex;
@@ -370,7 +370,7 @@
             border: 2px solid rgba(218, 181, 71, 0.2);
             border-radius: var(--radius-lg);
             transition: all var(--transition);
-            margin-right: 8px; /* Add space between cards */
+            margin-right: 12px; /* Increased mobile spacing */
         }
         
         .carousel-slide:last-child {
@@ -1387,9 +1387,9 @@
             goToSlide(slideIndex) {
                 if (!this.track) return;
                 
-                // Adjust slide width calculation to account for spacing
+                // Improved spacing calculations for both mobile and desktop
                 const slideWidth = this.isDesktop ? 50 : 100;
-                const spacing = this.isDesktop ? 0.4 : 0.8; // Account for 8px spacing as percentage
+                const spacing = this.isDesktop ? 0.4 : 2.1; // Increased mobile spacing compensation
                 const translateX = -(slideIndex * (slideWidth + spacing));
                 
                 this.track.style.transform = `translateX(${translateX}%)`;
