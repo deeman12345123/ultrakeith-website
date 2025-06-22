@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keith's Room - Ultra Keith</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #1A0A0A 100%);
+            color: #FFFFFF;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .room-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .room-title {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: #DAB547;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(218, 181, 71, 0.5);
+        }
+
+        .room-scene {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+            border: 3px solid #DAB547;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(218, 181, 71, 0.3);
+        }
+
+        /* Room Elements */
+        .room-element {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            border-radius: 8px;
+        }
+
+        .room-element:hover {
+            border-color: #DAB547;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(218, 181, 71, 0.6);
+        }
+
+        /* Fridge */
+        .fridge {
+            top: 50px;
+            left: 50px;
+            width: 120px;
+            height: 200px;
+            background: linear-gradient(180deg, #333, #555);
+            border-radius: 10px;
+        }
+
+        .fridge::before {
+            content: '🧊';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        /* Closet */
+        .closet {
+            top: 30px;
+            right: 80px;
+            width: 150px;
+            height: 250px;
+            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+            border-radius: 10px;
+        }
+
+        .closet::before {
+            content: '👔';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        /* Bed */
+        .bed {
+            bottom: 50px;
+            left: 200px;
+            width: 250px;
+            height: 100px;
+            background: linear-gradient(180deg, #4a4a4a, #2a2a2a);
+            border-radius: 15px;
+        }
+
+        .bed::before {
+            content: '🛏️';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        /* Desk */
+        .desk {
+            bottom: 80px;
+            right: 100px;
+            width: 180px;
+            height: 80px;
+            background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
+            border-radius: 8px;
+        }
+
+        .desk::before {
+            content: '📝';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+
+        /* TV */
+        .tv {
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 120px;
+            background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+            border-radius: 10px;
+        }
+
+        .tv::before {
+            content: '📺';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        /* Medicine Cabinet */
+        .medicine {
+            top: 40px;
+            left: 300px;
+            width: 100px;
+            height: 120px;
+            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+            border-radius: 8px;
+        }
+
+        .medicine::before {
+            content: '💊';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #DAB547;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #DAB547;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .modal-text {
+            color: #FFFFFF;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #DAB547;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #E8C547;
+        }
+
+        .nav-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #DAB547, #E8C547);
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(218, 181, 71, 0.5);
+        }
+
+        .hover-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #DAB547;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .room-scene {
+                height: 400px;
+            }
+            
+            .room-title {
+                font-size: 1.8rem;
+            }
+            
+            .fridge, .closet, .bed, .desk, .tv, .medicine {
+                transform: scale(0.8);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="nav-btn">← Back to Site</a>
+    
+    <div class="room-container">
+        <h1 class="room-title">Keith's Room</h1>
+        
+        <div class="room-scene">
+            <!-- Interactive Room Elements -->
+            <div class="room-element fridge" data-item="fridge"></div>
+            <div class="room-element closet" data-item="closet"></div>
+            <div class="room-element bed" data-item="bed"></div>
+            <div class="room-element desk" data-item="desk"></div>
+            <div class="room-element tv" data-item="tv"></div>
+            <div class="room-element medicine" data-item="medicine"></div>
+            
+            <div class="hover-hint">
+                Click around the room to discover Keith's secrets...
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeBtn">&times;</button>
+            <h3 class="modal-title" id="modalTitle"></h3>
+            <p class="modal-text" id="modalText"></p>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const closeBtn = document.getElementById('closeBtn');
+
+        const roomContent = {
+            fridge: {
+                title: "Keith's Fridge",
+                text: "The legendary Kool Keith Bean Cereal sits here - 'little beans with little pieces of rocks in it like little white rice.' Franken Berry, King Vitamin, and original Apple Jacks line the shelves. 40oz bottles and champagne from his party sessions glow mysteriously, along with energy drinks that pulse with otherworldly light."
+            },
+            closet: {
+                title: "The Persona Closet",
+                text: "His bedazzled power scarf hangs prominently - the one he actually wore on stage like a ghost revealing itself. Dr. Octagon's lab coat, Black Elvis's wig, glasses and cape, plus his performance mask await the next transformation. Tuxedos from the old school era remind him of Big Daddy Kane and Caz."
+            },
+            bed: {
+                title: "Under the Bed",
+                text: "Hidden here are notebooks filled with bizarre phrases like 'Chief administrator suck my oil' and 'Dr. Ludicrous I turn into an octopus.' Paper bags that some rappers use for writing lyrics, and mysterious USB drives containing beats for his 'imaginary metronome.' Paint cans represent his work ethic analogy."
+            },
+            desk: {
+                title: "The Writing Desk",
+                text: "His SP-1200, SP-12, and MPC-60 sit here - the actual machines that created Critical Beatdown's revolutionary sound. Notebooks contain abstract concepts and 'All this jealousy shit is mayonnaise and celery shit' type lyrics. Multiple personas have left their mark with different handwriting styles."
+            },
+            tv: {
+                title: "Keith's Monitor",
+                text: "Playing the 'Country Girl' video and footage from his Switzerland underwear performance. Screen flickers between his fictional movies - one where Jason chops off his legs, another where he's 'pissing on rappers and Ninja Turtles come out.' Sometimes shows film concepts for his planned theatrical releases."
+            },
+            medicine: {
+                title: "Dr. Dooom's Cabinet",
+                text: "Surgical tools for 'lyrical operations' and experimental substances for creativity enhancement. Contact lenses sit in solution - 'I wear contact lenses, it's more like a trend.' Medical supplies for emergency persona transformations and his heat ray finger enhancement experiments."
+            }
+        };
+
+        // Add click listeners to room elements
+        document.querySelectorAll('.room-element').forEach(element => {
+            element.addEventListener('click', function() {
+                const item = this.dataset.item;
+                const content = roomContent[item];
+                
+                modalTitle.textContent = content.title;
+                modalText.textContent = content.text;
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Keyboard close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Add some random animations
+        setInterval(() => {
+            const elements = document.querySelectorAll('.room-element');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            randomElement.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                randomElement.style.transform = 'scale(1)';
+            }, 500);
+        }, 3000);
+    </script>
+</body>
+</html>
