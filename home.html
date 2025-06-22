@@ -833,13 +833,22 @@
                 align-items: flex-start;
                 text-align: left;
                 height: 100%;
-                justify-content: center;
+                justify-content: space-between;
                 min-width: 180px;
+                display: flex;
+                flex-direction: column;
             }
             
             .album-header {
                 text-align: left;
                 width: 100%;
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            
+            .album-actions {
+                margin-top: auto;
+                align-self: flex-end;
             }
             
             .album-title {
