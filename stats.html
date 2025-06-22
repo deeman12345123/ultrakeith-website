@@ -397,10 +397,18 @@
         .category-header {
             padding: 1rem;
             border-bottom: 2px solid rgba(218, 181, 71, 0.3);
+            position: relative;
+        }
+
+        .category-header-content {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            position: relative;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .category-title-section {
+            flex: 1;
         }
 
         .category-title {
@@ -409,22 +417,22 @@
             color: #DAB547;
             text-transform: uppercase;
             font-weight: 700;
-            flex: 1;
-        }
-
-        .category-header::after {
-            content: '';
-            width: 32px;
-            height: 32px;
-            background: url('personas/mclogogo.png') center/contain no-repeat;
-            opacity: 0.4;
-            flex-shrink: 0;
+            margin-bottom: 0.25rem;
         }
 
         .category-subtitle {
             font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.6);
             margin-top: 0.25rem;
+        }
+
+        .category-mc-logo {
+            width: 32px;
+            height: 32px;
+            background: url('personas/mclogogo.png') center/contain no-repeat;
+            opacity: 0.4;
+            flex-shrink: 0;
+            margin-left: 1rem;
         }
 
         .category-list {
@@ -956,8 +964,13 @@
         <div class="category-grid" id="category-rankings">
             <div class="category-table">
                 <div class="category-header">
-                    <div class="category-title">🎭 Musical Personas</div>
-                    <div class="category-subtitle">All Genres</div>
+                    <div class="category-header-content">
+                        <div class="category-title-section">
+                            <div class="category-title">🎭 Musical Personas</div>
+                            <div class="category-subtitle">All Genres</div>
+                        </div>
+                        <div class="category-mc-logo"></div>
+                    </div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
@@ -990,8 +1003,13 @@
 
             <div class="category-table">
                 <div class="category-header">
-                    <div class="category-title">🎨 Concept Albums</div>
-                    <div class="category-subtitle">Hip-Hop Artists</div>
+                    <div class="category-header-content">
+                        <div class="category-title-section">
+                            <div class="category-title">🎨 Concept Albums</div>
+                            <div class="category-subtitle">Hip-Hop Artists</div>
+                        </div>
+                        <div class="category-mc-logo"></div>
+                    </div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
@@ -1024,8 +1042,13 @@
 
             <div class="category-table">
                 <div class="category-header">
-                    <div class="category-title">⏳ Career Longevity</div>
-                    <div class="category-subtitle">All Genres</div>
+                    <div class="category-header-content">
+                        <div class="category-title-section">
+                            <div class="category-title">⏳ Career Longevity</div>
+                            <div class="category-subtitle">All Genres</div>
+                        </div>
+                        <div class="category-mc-logo"></div>
+                    </div>
                 </div>
                 <div class="category-list">
                     <div class="category-item">
@@ -1058,8 +1081,13 @@
 
             <div class="category-table">
                 <div class="category-header">
-                    <div class="category-title">🚀 Hip-Hop Innovation</div>
-                    <div class="category-subtitle">Genre Pioneers</div>
+                    <div class="category-header-content">
+                        <div class="category-title-section">
+                            <div class="category-title">🚀 Hip-Hop Innovation</div>
+                            <div class="category-subtitle">Genre Pioneers</div>
+                        </div>
+                        <div class="category-mc-logo"></div>
+                    </div>
                 </div>
                 <div class="category-list">
                     <div class="category-item">
@@ -1092,8 +1120,13 @@
 
             <div class="category-table">
                 <div class="category-header">
-                    <div class="category-title">🤝 Collaborations</div>
-                    <div class="category-subtitle">Hip-Hop Artists</div>
+                    <div class="category-header-content">
+                        <div class="category-title-section">
+                            <div class="category-title">🤝 Collaborations</div>
+                            <div class="category-subtitle">Hip-Hop Artists</div>
+                        </div>
+                        <div class="category-mc-logo"></div>
+                    </div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
@@ -1126,8 +1159,13 @@
 
             <div class="category-table">
                 <div class="category-header">
-                    <div class="category-title">🔄 Creative Reinvention</div>
-                    <div class="category-subtitle">Era Changes</div>
+                    <div class="category-header-content">
+                        <div class="category-title-section">
+                            <div class="category-title">🔄 Creative Reinvention</div>
+                            <div class="category-subtitle">Era Changes</div>
+                        </div>
+                        <div class="category-mc-logo"></div>
+                    </div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
