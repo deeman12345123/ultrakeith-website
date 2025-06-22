@@ -19,7 +19,6 @@
             min-height: 100vh;
         }
 
-        /* Navigation */
         .nav {
             position: fixed;
             top: 0;
@@ -41,7 +40,6 @@
             font-weight: 700;
         }
 
-        /* Main Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -50,7 +48,6 @@
             z-index: 10;
         }
 
-        /* Background Images */
         .bg-mc {
             position: fixed;
             top: 50%;
@@ -78,7 +75,6 @@
             pointer-events: none;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -98,7 +94,6 @@
             font-size: 1rem;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -129,119 +124,6 @@
             margin-top: 5px;
         }
 
-        /* Category Cards */
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .category-card {
-            background: #1a1a1a;
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .category-header {
-            background: #2a2a2a;
-            padding: 15px 10px;
-            border-bottom: 1px solid rgba(218, 181, 71, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .category-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            color: #DAB547;
-            text-transform: uppercase;
-            font-weight: 700;
-            flex: 1;
-            text-align: center;
-        }
-
-        .basketball-icon {
-            width: 28px;
-            height: 28px;
-            background: url('Basketball.png') no-repeat center;
-            background-size: contain;
-            position: absolute;
-            left: 10px;
-        }
-
-        .mc-logo-small {
-            width: 50px;
-            height: 50px;
-            background: url('personas/mc.png') no-repeat center;
-            background-size: contain;
-            opacity: 0.7;
-            position: absolute;
-            right: 10px;
-        }
-
-        .category-subtitle {
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 3px;
-        }
-
-        .category-list {
-            padding: 0;
-        }
-
-        .category-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
-            border-bottom: 1px solid rgba(218, 181, 71, 0.1);
-        }
-
-        .category-item:last-child {
-            border-bottom: none;
-        }
-
-        .category-item.keith {
-            background: #2d1f0a;
-            margin: 0 10px;
-            border-radius: 4px;
-            border: 1px solid rgba(218, 181, 71, 0.4);
-        }
-
-        .rank {
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            color: #DAB547;
-            min-width: 25px;
-        }
-
-        .artist {
-            flex: 1;
-            margin: 0 15px;
-            font-size: 0.9rem;
-        }
-
-        .category-item.keith .artist {
-            color: #DAB547;
-            font-weight: 700;
-        }
-
-        .value {
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.85rem;
-        }
-
-        .category-item.keith .value {
-            color: #DAB547;
-        }
-
-        /* Tables */
         .table-section {
             margin-bottom: 30px;
         }
@@ -298,6 +180,115 @@
             font-weight: 600;
         }
 
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: #1a1a1a;
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: #2a2a2a;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(218, 181, 71, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .basketball-icon {
+            width: 28px;
+            height: 28px;
+            background: url('Basketball.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .category-info {
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        .category-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: #DAB547;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .category-subtitle {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .mc-logo-small {
+            width: 50px;
+            height: 50px;
+            background: url('personas/mc.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.7;
+        }
+
+        .category-list {
+            padding: 0;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(218, 181, 71, 0.1);
+        }
+
+        .category-item:last-child {
+            border-bottom: none;
+        }
+
+        .category-item.keith {
+            background: #2d1f0a;
+            margin: 0 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(218, 181, 71, 0.4);
+        }
+
+        .rank {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #DAB547;
+            min-width: 25px;
+        }
+
+        .artist {
+            flex: 1;
+            margin: 0 15px;
+            font-size: 0.9rem;
+        }
+
+        .category-item.keith .artist {
+            color: #DAB547;
+            font-weight: 700;
+        }
+
+        .value {
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+        }
+
+        .category-item.keith .value {
+            color: #DAB547;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 70px 15px 30px;
@@ -327,24 +318,19 @@
     </style>
 </head>
 <body>
-    <!-- Background Images -->
     <div class="bg-mc"></div>
     <div class="bg-basketball"></div>
 
-    <!-- Navigation -->
     <nav class="nav">
         <a href="index.html">← KOOL KEITH</a>
     </nav>
 
-    <!-- Main Container -->
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1 class="title">Player Statistics</h1>
             <p class="subtitle">NBA-Style Career Rankings vs Music Legends</p>
         </div>
 
-        <!-- Key Stats -->
         <div class="stats-grid">
             <div class="stat-box">
                 <span class="stat-number">92+</span>
@@ -372,7 +358,6 @@
             </div>
         </div>
 
-        <!-- Hip-Hop Leaders Table -->
         <div class="table-section">
             <h2 class="table-title">Hip-Hop Album Leaders</h2>
             <table class="table">
@@ -419,7 +404,6 @@
             </table>
         </div>
 
-        <!-- All-Genre Leaders Table -->
         <div class="table-section">
             <h2 class="table-title">All-Genre Artist Rankings</h2>
             <table class="table">
@@ -478,12 +462,11 @@
             </table>
         </div>
 
-        <!-- Category Rankings -->
         <div class="categories">
             <div class="category-card">
                 <div class="category-header">
                     <div class="basketball-icon"></div>
-                    <div class="category-text-section">
+                    <div class="category-info">
                         <div class="category-title">Musical Personas</div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
@@ -521,7 +504,7 @@
             <div class="category-card">
                 <div class="category-header">
                     <div class="basketball-icon"></div>
-                    <div class="category-text-section">
+                    <div class="category-info">
                         <div class="category-title">Concept Albums</div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
@@ -559,7 +542,7 @@
             <div class="category-card">
                 <div class="category-header">
                     <div class="basketball-icon"></div>
-                    <div class="category-text-section">
+                    <div class="category-info">
                         <div class="category-title">Career Longevity</div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
@@ -597,7 +580,7 @@
             <div class="category-card">
                 <div class="category-header">
                     <div class="basketball-icon"></div>
-                    <div class="category-text-section">
+                    <div class="category-info">
                         <div class="category-title">Hip-Hop Innovation</div>
                         <div class="category-subtitle">Genre Pioneers</div>
                     </div>
@@ -635,7 +618,7 @@
             <div class="category-card">
                 <div class="category-header">
                     <div class="basketball-icon"></div>
-                    <div class="category-text-section">
+                    <div class="category-info">
                         <div class="category-title">Collaborations</div>
                         <div class="category-subtitle">Hip-Hop Artists</div>
                     </div>
@@ -673,7 +656,7 @@
             <div class="category-card">
                 <div class="category-header">
                     <div class="basketball-icon"></div>
-                    <div class="category-text-section">
+                    <div class="category-info">
                         <div class="category-title">Creative Reinvention</div>
                         <div class="category-subtitle">Era Changes</div>
                     </div>
