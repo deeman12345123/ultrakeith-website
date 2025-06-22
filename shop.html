@@ -132,68 +132,6 @@
             margin-bottom: var(--space-lg);
         }
         
-        /* CATALOG HERO STATS */
-        .catalog-hero {
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid rgba(218, 181, 71, 0.3);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-2xl);
-            margin-bottom: var(--space-xl);
-            text-align: center;
-            backdrop-filter: blur(20px);
-            transition: all 0.4s;
-        }
-        
-        .catalog-hero:hover {
-            transform: translateY(-8px);
-            border-color: rgba(218, 181, 71, 0.4);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: var(--space-lg);
-            text-transform: uppercase;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: var(--space-lg);
-            margin-bottom: var(--space-lg);
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--gold);
-            display: block;
-            line-height: 1;
-        }
-        
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--white-75);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 0.5rem;
-        }
-        
-        .hero-description {
-            color: var(--white-75);
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
         /* SEARCH & FILTER CONTROLS */
         .controls {
             background: rgba(26, 26, 26, 0.9);
@@ -554,14 +492,6 @@
             .filter-group {
                 justify-content: center;
             }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .catalog-hero {
-                padding: var(--space-lg);
-            }
         }
         
         @media (min-width: 769px) {
@@ -633,8 +563,6 @@
             <p class="page-subtitle">Complete Catalog • Amazon Affiliate • Worldwide Shipping</p>
         </section>
         
-
-        
         <div class="controls">
             <div class="controls-row">
                 <div class="search-box">
@@ -673,7 +601,9 @@
                     </div>
                     <div class="product-price">From $29.99</div>
                     <div class="amazon-buttons">
-                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                        <a href="https://www.amazon.com.au/s?k=kool+keith+karpenters&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=kool+keith+karpenters&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=kool+keith+karpenters&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
                     </div>
                 </div>
                 
@@ -689,7 +619,9 @@
                     </div>
                     <div class="product-price">From $32.99</div>
                     <div class="amazon-buttons">
-                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                        <a href="https://www.amazon.com.au/s?k=everybody+eats+czarface+keith&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=everybody+eats+czarface+keith&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=everybody+eats+czarface+keith&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
                     </div>
                 </div>
                 
@@ -704,7 +636,9 @@
                     </div>
                     <div class="product-price">From $28.99</div>
                     <div class="amazon-buttons">
-                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                        <a href="https://www.amazon.com.au/s?k=aponia+awol+one+kool+keith&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=aponia+awol+one+kool+keith&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=aponia+awol+one+kool+keith&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
                     </div>
                 </div>
                 
@@ -719,7 +653,9 @@
                     </div>
                     <div class="product-price">From $31.99</div>
                     <div class="amazon-buttons">
-                        <a href="#" class="amazon-btn primary">🎵 Buy Now - All Regions</a>
+                        <a href="https://www.amazon.com.au/s?k=bandoleros+lynx+kool+keith&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=bandoleros+lynx+kool+keith&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=bandoleros+lynx+kool+keith&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
                     </div>
                 </div>
             </div>
@@ -748,8 +684,9 @@
                     </div>
                     <div class="product-price">From $34.99</div>
                     <div class="amazon-buttons">
-                        <a href="#" class="amazon-btn">🇦🇺 Amazon AU</a>
-                        <a href="#" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.com.au/s?k=ultramagnetic+mcs+critical+beatdown&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=ultramagnetic+mcs+critical+beatdown&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=ultramagnetic+mcs+critical+beatdown&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
                     </div>
                 </div>
                 
@@ -758,4 +695,366 @@
                     <h3 class="product-name">Dr. Octagonecologyst</h3>
                     <p class="product-artist">Dr. Octagon</p>
                     <p class="product-year">1996</p>
-                    <div
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $29.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=dr+octagonecologyst&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=dr+octagonecologyst&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=dr+octagonecologyst&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="sex style 1997">
+                    <img src="https://via.placeholder.com/180x180/8E44AD/fff?text=Sex+Style" alt="Sex Style" class="product-image">
+                    <h3 class="product-name">Sex Style</h3>
+                    <p class="product-artist">Kool Keith</p>
+                    <p class="product-year">1997</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $24.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=kool+keith+sex+style&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=kool+keith+sex+style&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=kool+keith+sex+style&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="black elvis lost space 1999">
+                    <img src="https://via.placeholder.com/180x180/E74C3C/fff?text=Black+Elvis" alt="Black Elvis/Lost in Space" class="product-image">
+                    <h3 class="product-name">Black Elvis/Lost in Space</h3>
+                    <p class="product-artist">Black Elvis</p>
+                    <p class="product-year">1999</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $26.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=black+elvis+lost+space+keith&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=black+elvis+lost+space+keith&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=black+elvis+lost+space+keith&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- MERCHANDISE -->
+        <section class="shop-section">
+            <div class="section-header">
+                <div class="section-icon">👕</div>
+                <div class="section-content">
+                    <h2 class="section-title">Official Merchandise</h2>
+                    <p class="section-subtitle">Exclusive apparel and collectibles</p>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="merchGrid">
+                <div class="product-card" data-category="merch apparel" data-keywords="keith tshirt ultra">
+                    <img src="https://via.placeholder.com/180x180/000000/DAB547?text=Keith+Tee" alt="Keith T-Shirt" class="product-image">
+                    <h3 class="product-name">Ultra Keith T-Shirt</h3>
+                    <p class="product-artist">Official Merchandise</p>
+                    <p class="product-year">Limited Edition</p>
+                    <div class="product-formats">
+                        <span class="format-tag">S-XXL</span>
+                        <span class="format-tag">Premium Cotton</span>
+                    </div>
+                    <div class="product-price">From $24.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=kool+keith+shirt&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=kool+keith+shirt&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=kool+keith+shirt&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="merch apparel" data-keywords="dr octagon hoodie">
+                    <img src="https://via.placeholder.com/180x180/8E44AD/fff?text=Dr+Octagon" alt="Dr Octagon Hoodie" class="product-image">
+                    <h3 class="product-name">Dr. Octagon Hoodie</h3>
+                    <p class="product-artist">Official Merchandise</p>
+                    <p class="product-year">Persona Collection</p>
+                    <div class="product-formats">
+                        <span class="format-tag">S-XXL</span>
+                        <span class="format-tag">Heavyweight</span>
+                    </div>
+                    <div class="product-price">From $59.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=dr+octagon+hoodie&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=dr+octagon+hoodie&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=dr+octagon+hoodie&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="merch accessories" data-keywords="diamond logo cap keith">
+                    <img src="https://via.placeholder.com/180x180/DAB547/000?text=Keith+Hat" alt="Keith Cap" class="product-image">
+                    <h3 class="product-name">Diamond Logo Cap</h3>
+                    <p class="product-artist">Official Merchandise</p>
+                    <p class="product-year">Signature Collection</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Adjustable</span>
+                        <span class="format-tag">Embroidered</span>
+                    </div>
+                    <div class="product-price">From $34.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=kool+keith+cap+hat&tag=YOUR-AU-ID" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=kool+keith+cap+hat&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=kool+keith+cap+hat&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- LOAD MORE ALBUMS SECTION -->
+        <section class="shop-section">
+            <div class="section-header">
+                <div class="section-icon">🎵</div>
+                <div class="section-content">
+                    <h2 class="section-title">Complete Discography</h2>
+                    <p class="section-subtitle">Browse through 90+ albums from the complete Keith universe</p>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="fullCatalogGrid">
+                <!-- This will be populated by JavaScript with the remaining albums -->
+            </div>
+            
+            <div class="load-more" id="loadMoreSection">
+                <button class="load-more-btn" id="loadMoreBtn">Load More Albums</button>
+                <p style="color: var(--white-55); margin-top: 1rem; font-size: 0.875rem;">
+                    Showing <span id="albumCount">12</span> of 90+ total albums
+                </p>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p class="footer-copyright">© 2025 Ultra Keith. All rights reserved. Amazon Associate Program.</p>
+    </footer>
+
+    <script>
+        // PROFESSIONAL SHOP MANAGER - Scalable for 60+ albums with real affiliate links
+        class ShopManager {
+            constructor() {
+                this.albumsPerLoad = 12;
+                this.currentLoadCount = 0;
+                this.maxAlbums = 90;
+                this.currentFilter = 'all';
+                this.searchTerm = '';
+                
+                // Amazon affiliate IDs for all regions
+                this.affiliateIds = {
+                    au: 'YOUR-AU-ID',  // Replace with your actual AU ID
+                    us: 'ultrakeith-20',
+                    uk: 'ultrakeith-21'
+                };
+                
+                // Expanded album database with real Keith catalog
+                this.albumDatabase = [
+                    {name: "Matthew", artist: "Kool Keith", year: "2000", category: "classics vinyl cd digital", keywords: "matthew kool keith 2000", price: "$26.99", searchTerm: "kool+keith+matthew"},
+                    {name: "Spankmaster", artist: "Kool Keith", year: "2001", category: "classics vinyl cd digital", keywords: "spankmaster kool keith 2001", price: "$25.99", searchTerm: "kool+keith+spankmaster"},
+                    {name: "Diesel Truckers", artist: "Diesel Truckers", year: "2004", category: "vinyl cd digital", keywords: "diesel truckers collaboration 2004", price: "$28.99", searchTerm: "diesel+truckers+kool+keith"},
+                    {name: "Nogatco Rd.", artist: "Kool Keith", year: "2006", category: "vinyl cd digital", keywords: "nogatco rd kool keith 2006", price: "$24.99", searchTerm: "kool+keith+nogatco+rd"},
+                    {name: "Tashan Dorrsett", artist: "Tashan Dorrsett", year: "2009", category: "vinyl cd digital", keywords: "tashan dorrsett persona 2009", price: "$23.99", searchTerm: "tashan+dorrsett+kool+keith"},
+                    {name: "Feature Magnetic", artist: "Kool Keith", year: "2016", category: "vinyl cd digital recent", keywords: "feature magnetic keith 2016", price: "$27.99", searchTerm: "kool+keith+feature+magnetic"},
+                    {name: "Keith's Big Rap Agenda", artist: "Kool Keith", year: "2017", category: "vinyl cd digital recent", keywords: "big rap agenda keith 2017", price: "$29.99", searchTerm: "kool+keith+big+rap+agenda"},
+                    {name: "World Area", artist: "Kool Keith", year: "2023", category: "vinyl cd digital recent", keywords: "world area keith 2023", price: "$31.99", searchTerm: "kool+keith+world+area"},
+                    {name: "Computer Technology", artist: "Kool Keith", year: "2017", category: "vinyl cd digital recent", keywords: "computer technology keith 2017", price: "$28.99", searchTerm: "kool+keith+computer+technology"},
+                    {name: "Total Orgasm", artist: "Kool Keith", year: "2005", category: "vinyl cd digital", keywords: "total orgasm keith 2005", price: "$26.99", searchTerm: "kool+keith+total+orgasm"},
+                    {name: "The Return of Dr. Octagon", artist: "Dr. Octagon", year: "2006", category: "classics vinyl cd digital", keywords: "return dr octagon 2006", price: "$32.99", searchTerm: "return+dr+octagon"},
+                    {name: "Moosebumps", artist: "Dr. Dooom", year: "2007", category: "classics vinyl cd digital", keywords: "moosebumps dr dooom 2007", price: "$29.99", searchTerm: "dr+dooom+moosebumps"},
+                    {name: "First Come, First Served", artist: "Kool Keith", year: "1999", category: "classics vinyl cd digital", keywords: "first come served keith 1999", price: "$25.99", searchTerm: "kool+keith+first+come+first+served"},
+                    {name: "Analog Brothers", artist: "Analog Brothers", year: "2000", category: "vinyl cd digital", keywords: "analog brothers ice-t collaboration 2000", price: "$28.99", searchTerm: "analog+brothers+kool+keith"},
+                    {name: "Masters of Illusion", artist: "Kool Keith", year: "2000", category: "vinyl cd digital", keywords: "masters illusion keith 2000", price: "$24.99", searchTerm: "kool+keith+masters+illusion"},
+                    {name: "Under Pressure", artist: "Kool Keith", year: "2004", category: "vinyl cd digital", keywords: "under pressure keith 2004", price: "$23.99", searchTerm: "kool+keith+under+pressure"},
+                    {name: "Official Space Tape", artist: "Kool Keith", year: "2004", category: "vinyl cd digital", keywords: "official space tape keith 2004", price: "$26.99", searchTerm: "kool+keith+official+space+tape"},
+                    {name: "Dr. Dooom 2", artist: "Dr. Dooom", year: "2008", category: "classics vinyl cd digital", keywords: "dr dooom 2 persona 2008", price: "$29.99", searchTerm: "dr+dooom+2"},
+                    {name: "Love & Danger", artist: "Kool Keith", year: "2012", category: "vinyl cd digital recent", keywords: "love danger keith 2012", price: "$25.99", searchTerm: "kool+keith+love+danger"},
+                    {name: "Keith", artist: "Kool Keith", year: "2018", category: "vinyl cd digital recent", keywords: "keith self titled 2018", price: "$30.99", searchTerm: "kool+keith+2018"},
+                    {name: "Space Goretex", artist: "Kool Keith", year: "2020", category: "vinyl cd digital recent", keywords: "space goretex keith 2020", price: "$31.99", searchTerm: "kool+keith+space+goretex"},
+                    {name: "Keith Kosmik", artist: "Kool Keith", year: "2021", category: "vinyl cd digital recent", keywords: "keith kosmik 2021", price: "$29.99", searchTerm: "keith+kosmik"},
+                    {name: "Demolition Crash", artist: "Kool Keith", year: "2019", category: "vinyl cd digital recent", keywords: "demolition crash keith 2019", price: "$28.99", searchTerm: "kool+keith+demolition+crash"},
+                    {name: "Keith Meets Dan the Automator", artist: "Kool Keith", year: "2000", category: "classics vinyl cd digital", keywords: "keith dan automator 2000", price: "$27.99", searchTerm: "kool+keith+dan+automator"}
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.loadMoreAlbums(); // Load first batch
+            }
+            
+            setupEventListeners() {
+                // Search functionality
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        this.searchTerm = e.target.value.toLowerCase();
+                        this.filterProducts();
+                    });
+                }
+                
+                // Filter buttons
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        // Update active state
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        
+                        // Apply filter
+                        this.currentFilter = e.target.dataset.filter;
+                        this.filterProducts();
+                    });
+                });
+                
+                // Load more button
+                const loadMoreBtn = document.getElementById('loadMoreBtn');
+                if (loadMoreBtn) {
+                    loadMoreBtn.addEventListener('click', () => {
+                        this.loadMoreAlbums();
+                    });
+                }
+            }
+            
+            loadMoreAlbums() {
+                const grid = document.getElementById('fullCatalogGrid');
+                const loadMoreBtn = document.getElementById('loadMoreBtn');
+                const albumCount = document.getElementById('albumCount');
+                
+                if (!grid || this.currentLoadCount >= this.albumDatabase.length) return;
+                
+                // Add loading state
+                if (loadMoreBtn) loadMoreBtn.classList.add('loading');
+                
+                // Simulate loading delay for professional feel
+                setTimeout(() => {
+                    const startIndex = this.currentLoadCount;
+                    const endIndex = Math.min(startIndex + this.albumsPerLoad, this.albumDatabase.length);
+                    
+                    for (let i = startIndex; i < endIndex; i++) {
+                        const album = this.albumDatabase[i];
+                        const productCard = this.createProductCard(album);
+                        grid.appendChild(productCard);
+                    }
+                    
+                    this.currentLoadCount = endIndex;
+                    
+                    // Update UI
+                    if (albumCount) {
+                        const totalVisible = document.querySelectorAll('.product-card').length;
+                        albumCount.textContent = totalVisible;
+                    }
+                    
+                    // Hide load more if no more albums
+                    if (this.currentLoadCount >= this.albumDatabase.length) {
+                        if (loadMoreBtn) {
+                            loadMoreBtn.textContent = 'All Albums Loaded';
+                            loadMoreBtn.disabled = true;
+                        }
+                    }
+                    
+                    // Remove loading state
+                    if (loadMoreBtn) loadMoreBtn.classList.remove('loading');
+                    
+                    // Apply current filters
+                    this.filterProducts();
+                    
+                }, 800); // Professional loading delay
+            }
+            
+            createProductCard(album) {
+                const card = document.createElement('div');
+                card.className = 'product-card fade-in';
+                card.setAttribute('data-category', album.category);
+                card.setAttribute('data-keywords', album.keywords);
+                
+                // Generate Amazon affiliate links
+                const auLink = `https://www.amazon.com.au/s?k=${album.searchTerm}&tag=${this.affiliateIds.au}`;
+                const usLink = `https://www.amazon.com/s?k=${album.searchTerm}&tag=${this.affiliateIds.us}`;
+                const ukLink = `https://www.amazon.co.uk/s?k=${album.searchTerm}&tag=${this.affiliateIds.uk}`;
+                
+                card.innerHTML = `
+                    <img src="https://via.placeholder.com/180x180/34495E/fff?text=${encodeURIComponent(album.name.substring(0, 10))}" alt="${album.name}" class="product-image">
+                    <h3 class="product-name">${album.name}</h3>
+                    <p class="product-artist">${album.artist}</p>
+                    <p class="product-year">${album.year}</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From ${album.price}</div>
+                    <div class="amazon-buttons">
+                        <a href="${auLink}" class="amazon-btn" target="_blank" rel="noopener">🇦🇺 Amazon AU</a>
+                        <a href="${usLink}" class="amazon-btn" target="_blank" rel="noopener">🇺🇸 Amazon US</a>
+                        <a href="${ukLink}" class="amazon-btn" target="_blank" rel="noopener">🇬🇧 Amazon UK</a>
+                    </div>
+                `;
+                
+                return card;
+            }
+            
+            filterProducts() {
+                const allProducts = document.querySelectorAll('.product-card');
+                
+                allProducts.forEach(product => {
+                    const categories = product.getAttribute('data-category') || '';
+                    const keywords = product.getAttribute('data-keywords') || '';
+                    
+                    // Check filter match
+                    const filterMatch = this.currentFilter === 'all' || categories.includes(this.currentFilter);
+                    
+                    // Check search match
+                    const searchMatch = this.searchTerm === '' || 
+                        keywords.toLowerCase().includes(this.searchTerm) ||
+                        product.textContent.toLowerCase().includes(this.searchTerm);
+                    
+                    // Show/hide product
+                    if (filterMatch && searchMatch) {
+                        product.classList.remove('hidden');
+                        product.classList.add('visible');
+                    } else {
+                        product.classList.add('hidden');
+                        product.classList.remove('visible');
+                    }
+                });
+                
+                // Update visible count
+                const visibleProducts = document.querySelectorAll('.product-card.visible').length;
+                const albumCount = document.getElementById('albumCount');
+                if (albumCount) {
+                    albumCount.textContent = visibleProducts;
+                }
+            }
+        }
+        
+        // Initialize shop when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const shop = new ShopManager();
+            console.log('Ultra Keith Shop initialized with Amazon affiliate integration');
+            console.log('Affiliate IDs: US=ultrakeith-20, UK=ultrakeith-21, AU=YOUR-AU-ID');
+        });
+        
+        // Test affiliate links function
+        function testAffiliateLinks() {
+            console.log('Testing affiliate link structure...');
+            const testLink = document.querySelector('.amazon-btn[href*="amazon.com"]');
+            if (testLink) {
+                console.log('Sample affiliate link:', testLink.href);
+            }
+        }
+        
+        // Call test after page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(testAffiliateLinks, 2000);
+        });
+    </script>
+</body>
+</html>
