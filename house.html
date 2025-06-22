@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apartment 223 - Ultra Keith</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Apartment 223 - For Rent | NYC Housing</title>
     <style>
         * {
             margin: 0;
@@ -13,383 +12,372 @@
         }
 
         body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #1A0A0A 100%);
-            color: #FFFFFF;
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Circular', Arial, sans-serif;
+            background: #fff;
+            color: #222;
+            line-height: 1.4;
         }
 
-        .room-container {
-            position: relative;
-            width: 100%;
-            max-width: 1400px;
+        .header {
+            background: #FF5A5F;
+            color: white;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .airbnb-logo {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-        }
-
-        .room-title {
-            text-align: center;
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            color: #DAB547;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(218, 181, 71, 0.5);
-        }
-
-        .room-scene {
-            position: relative;
-            width: 100%;
-            height: 700px;
-            background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
-            border: 3px solid #DAB547;
-            border-radius: 15px;
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(218, 181, 71, 0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
 
-        /* Room Elements */
-        .room-element {
-            position: absolute;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            border-radius: 8px;
+        .listing-header {
+            padding: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .listing-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .listing-subtitle {
+            font-size: 1.1rem;
+            color: #717171;
+            margin-bottom: 1rem;
+        }
+
+        .host-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .host-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FF5A5F, #FF8E53);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            color: white;
         }
 
-        .room-element:hover {
-            border-color: #DAB547;
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(218, 181, 71, 0.6);
-        }
-
-        /* Original Elements */
-        .fridge {
-            top: 50px;
-            left: 50px;
-            width: 120px;
-            height: 200px;
-            background: linear-gradient(180deg, #333, #555);
-        }
-
-        .closet {
-            top: 30px;
-            right: 80px;
-            width: 150px;
-            height: 250px;
-            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-        }
-
-        .bed {
-            bottom: 120px;
-            left: 200px;
-            width: 250px;
-            height: 100px;
-            background: linear-gradient(180deg, #4a4a4a, #2a2a2a);
-        }
-
-        .desk {
-            bottom: 80px;
-            right: 100px;
-            width: 180px;
-            height: 80px;
-            background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
-        }
-
-        .tv {
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 120px;
-            background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
-        }
-
-        .medicine {
-            top: 40px;
-            left: 300px;
-            width: 100px;
-            height: 120px;
-            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-        }
-
-        /* NEW ELEMENTS */
-        .under-bed {
-            bottom: 80px;
-            left: 180px;
-            width: 60px;
-            height: 40px;
-            background: rgba(139, 69, 19, 0.8);
-            z-index: -1;
-        }
-
-        .phone-corner {
-            top: 280px;
-            left: 50px;
-            width: 80px;
-            height: 60px;
-            background: linear-gradient(45deg, #654321, #8B4513);
-        }
-
-        .music-equipment {
-            top: 180px;
-            right: 200px;
-            width: 120px;
-            height: 80px;
-            background: linear-gradient(180deg, #444, #222);
-        }
-
-
-
-        .window {
-            top: 20px;
-            right: 20px;
-            width: 60px;
-            height: 80px;
-            background: linear-gradient(180deg, #1a1a2e, #16213e);
-            border: 2px solid #333;
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
+        .rating {
+            display: flex;
             align-items: center;
-            z-index: 1000;
+            gap: 0.5rem;
+            font-weight: 600;
         }
 
-        .modal-content {
-            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
-            border: 2px solid #DAB547;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 500px;
+        .stars {
+            color: #FF5A5F;
+        }
+
+        .listing-body {
+            padding: 2rem;
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
             text-align: center;
-            position: relative;
         }
 
-        .modal-title {
-            font-family: 'Orbitron', monospace;
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f7f7f7;
+            border-radius: 12px;
+        }
+
+        .detail-card {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .detail-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            color: #717171;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h3 {
             font-size: 1.5rem;
-            color: #DAB547;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #222;
         }
 
-        .modal-text {
-            color: #FFFFFF;
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
         }
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: #DAB547;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: #f7f7f7;
+            border-radius: 8px;
         }
 
-        .close-btn:hover {
-            color: #E8C547;
+        .reviews-section {
+            background: #f7f7f7;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
         }
 
-        .nav-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, #DAB547, #E8C547);
-            color: #000;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            font-family: 'Orbitron', monospace;
+        .review {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #FF5A5F;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
+        }
+
+        .btn {
+            background: #FF5A5F;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
             text-decoration: none;
+            display: inline-block;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
             transition: all 0.3s ease;
-            z-index: 100;
         }
 
-        .nav-btn:hover {
+        .btn:hover {
+            background: #E00007;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(218, 181, 71, 0.5);
         }
 
-        .hover-hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #DAB547;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            text-align: center;
-            animation: pulse 2s infinite;
+        .btn-outline {
+            background: transparent;
+            color: #FF5A5F;
+            border: 2px solid #FF5A5F;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+        .btn-outline:hover {
+            background: #FF5A5F;
+            color: white;
         }
 
         @media (max-width: 768px) {
-            .room-scene {
-                height: 500px;
+            .container {
+                margin: 1rem;
+                border-radius: 0;
             }
             
-            .room-title {
-                font-size: 1.8rem;
-            }
-            
-            .room-element {
-                transform: scale(0.8);
+            .amenities ul {
+                columns: 1;
             }
         }
     </style>
 </head>
 <body>
-    <a href="home.html" class="nav-btn">← Back to Site</a>
-    
-    <div class="room-container">
-        <h1 class="room-title">Apartment 223</h1>
-        
-        <div class="room-scene">
-            <!-- Original Elements -->
-            <div class="room-element fridge" data-item="fridge">🧊</div>
-            <div class="room-element closet" data-item="closet">👔</div>
-            <div class="room-element bed" data-item="bed">🛏️</div>
-            <div class="room-element desk" data-item="desk">📝</div>
-            <div class="room-element tv" data-item="tv">📺</div>
-            <div class="room-element medicine" data-item="medicine">💊</div>
-            
-            <!-- ESSENTIAL NEW ELEMENTS -->
-            <div class="room-element under-bed" data-item="under-bed">📦</div>
-            <div class="room-element phone-corner" data-item="phone-corner">📞</div>
-            <div class="room-element music-equipment" data-item="music-equipment">🎹</div>
-            <div class="room-element window" data-item="window">🪟</div>
-            
-            <div class="hover-hint">
-                Click around Dr. Dooom's apartment to discover Keith's universe...
-            </div>
-        </div>
+    <div class="header">
+        <h1>NYC Housing Listings - Trusted Rentals Since 1995</h1>
     </div>
 
-    <!-- Modal -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <button class="close-btn" id="closeBtn">&times;</button>
-            <h3 class="modal-title" id="modalTitle"></h3>
-            <p class="modal-text" id="modalText"></p>
+    <div class="container">
+        <div class="listing-header">
+            <h2 class="listing-title">🏠 APARTMENT 223 - Ultra Unique Artist Space - WORLDWIDE DELIVERY</h2>
+            <div class="listing-meta">
+                Posted: 223 minutes ago | Views: 58 personas worldwide | Listing ID: #OCTAGON-GLOBAL
+            </div>
+        </div>
+
+        <div class="listing-body">
+            <div class="price-details">
+                <div class="price">$223/month</div>
+                <div>Security deposit: 1 rare vinyl record • First month rent + cereal subscription</div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Bedrooms:</span>
+                    <span>1 (dimensions shift periodically)</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Bathrooms:</span>
+                    <span>1 (medical equipment included)</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Square Feet:</span>
+                    <span>800 sq ft (portal space not included)</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Available:</span>
+                    <span>When the beat drops</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Lease Term:</span>
+                    <span>1 year or until persona change</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Pet Policy:</span>
+                    <span>Roaches welcome, rats preferred</span>
+                </div>
+            </div>
+
+            <div class="description">
+                <h3>Property Description</h3>
+                <p>ATTENTION ARTISTS & VISIONARIES WORLDWIDE: This isn't your typical apartment. Apartment 223 is a creative sanctuary where legends are born and beats are made. Location flexible - apartment exists in multiple dimensions simultaneously.</p>
+                
+                <p>Features include authentic underground vibes, fluorescent cereal permanently embedded in kitchen floor, and mysterious substances in the medicine cabinet. Perfect for rappers, mad scientists, or anyone with 58+ personalities. Available in any city where creativity exists.</p>
+                
+                <p>WARNING: Apartment may contain residual creative energy. Previous tenants from various continents report sudden urges to create underground classics. Side effects include: persona multiplication, increased lyricism, and attraction to vintage equipment.</p>
+            </div>
+
+            <div class="amenities">
+                <h3>Unique Features & "Amenities"</h3>
+                <ul>
+                    <li>Pre-installed SP-1200 sampler (may or may not work)</li>
+                    <li>Collection of vintage wigs and masks</li>
+                    <li>Fridge stocked with King Vitamin cereal (glowing)</li>
+                    <li>Under-bed storage with "mysterious contents"</li>
+                    <li>Multiple phones for "industry connections"</li>
+                    <li>Medicine cabinet full of "experimental supplies"</li>
+                    <li>Roach sanctuary in corner (they're friendly)</li>
+                    <li>Heat included (sometimes)</li>
+                    <li>Original graffiti by "someone famous"</li>
+                    <li>Portal to alternate dimensions (door #3)</li>
+                    <li>Complimentary contact lenses</li>
+                    <li>Bedazzled power scarf (one size fits all)</li>
+                </ul>
+            </div>
+
+            <div class="contact-section">
+                <h3>Contact Information</h3>
+                <p><strong>Landlord:</strong> Ultra Keith Properties International</p>
+                <p><strong>Phone:</strong> +1-800-ULTRAMAGNETIC (Works globally)</p>
+                <p><strong>Email:</strong> rentals@apartment223.universe</p>
+                <p><strong>Office Hours:</strong> When the vibe is right in any timezone (usually 3 AM local)</p>
+                <p><strong>References Required:</strong> Must know difference between Dr. Octagon and Dr. Dooom</p>
+                <p><strong>Available Locations:</strong> Anywhere hip-hop exists (worldwide portal access)</p>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+                <a href="apartment.html" class="btn">Enter the Apartment (Virtual Reality)</a>
+                <a href="apartment.html" class="btn btn-secondary">View Previous Tenant's Items</a>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ GLOBAL DISCLAIMER:</strong> This apartment has been the creative headquarters for multiple legendary personas across all continents. Available worldwide through dimensional portal technology. Not responsible for sudden increases in rap skills, mysterious phone calls from the future, or finding unusual items under furniture. Rent includes utilities and occasional appearances by giant insects. NO REFUNDS. Currency accepted: USD, EUR, GBP, YEN, or rare vinyl records.
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="#" onclick="alert('Contact Keith Property Management for more listings!')">More Properties</a>
+            <a href="#" onclick="alert('Rental applications available upon tour completion.')">Apply Now</a>
+            <a href="home.html">← Back to Main Site</a>
         </div>
     </div>
 
     <script>
-        const modal = document.getElementById('modal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalText = document.getElementById('modalText');
-        const closeBtn = document.getElementById('closeBtn');
+        // Add some subtle interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate view counter incrementing
+            let viewCount = 47;
+            setInterval(() => {
+                viewCount++;
+                const viewsElement = document.querySelector('.listing-meta');
+                if (viewsElement) {
+                    viewsElement.innerHTML = viewsElement.innerHTML.replace(/Views: \d+/, `Views: ${viewCount}`);
+                }
+            }, 30000); // Update every 30 seconds
 
-        const roomContent = {
-            // Original Elements
-            fridge: {
-                title: "Keith's Fridge",
-                text: "King Vitamin cereal glows with fluorescent energy. Kool-Aid with syrupy consistency, Pabst Blue Ribbon beer, and Oreo cookies line the shelves. The legendary Kool Keith Bean Cereal sits here - 'little beans with little pieces of rocks in it like little white rice.'"
-            },
-            closet: {
-                title: "The Persona Closet",
-                text: "Black Elvis's wig, glasses and cape hang prominently. Dr. Octagon's lab coat awaits the next transformation. True Religion jeans, Lane Bryant clothing for various personas, and an extensive shoe collection fill the space. Contact lenses solution sits on the shelf."
-            },
-            bed: {
-                title: "Keith's Bed",
-                text: "His bedazzled power scarf hangs on the headboard - the one he wore on stage like a ghost revealing itself. Performance masks and costume pieces are stored in the drawers. Notebooks with lyrics scattered on the nightstand."
-            },
-            desk: {
-                title: "The Writing Desk",
-                text: "Notebooks contain abstract concepts and bizarre phrases like 'All this jealousy shit is mayonnaise and celery shit.' Multiple personas have left their mark with different handwriting styles. BIC lighters that don't work are scattered around."
-            },
-            tv: {
-                title: "Keith's Monitor",
-                text: "Playing the 'Country Girl' video and footage from his Switzerland underwear performance. Screen flickers between his fictional movies and Keith-related content. Sometimes shows WBLS footage from his radio appearances."
-            },
-            medicine: {
-                title: "Dr. Dooom's Cabinet",
-                text: "Surgical tools for 'lyrical operations' and experimental substances. Flintstones vitamins (character obsession), Pepto-Bismol, and X-ray sunglasses. Medical supplies for emergency persona transformations."
-            },
-            
-            // NEW Essential Elements
-            "under-bed": {
-                title: "Keith's Archive",
-                text: "Hidden collection of rare funk records and comic books. Ohio Players and Slave vinyl from his personal collection. Classic comic issues and notebooks containing contact information for industry connections."
-            },
-            "phone-corner": {
-                title: "Industry Connect",
-                text: "Professional communication hub with vintage equipment. Direct lines to radio stations and industry contacts. Classic hip-hop plays softly from the radio - this is where business gets handled."
-            },
-            "music-equipment": {
-                title: "Production Station", 
-                text: "Professional music production setup featuring the SP-1200 sampler that helped create hip-hop history. Modern synthesis equipment alongside classic gear. Where the magic happens - beats, samples, and innovation."
-            },
-            "window": {
-                title: "City View",
-                text: "Overlooking the urban landscape that shaped his sound. Fire escape storage and city life below. The streets and experiences that inform every bar and every beat - the real inspiration behind the music."
-            }
-        };
-
-        // Add click listeners to room elements
-        document.querySelectorAll('.room-element').forEach(element => {
-            element.addEventListener('click', function() {
-                const item = this.dataset.item;
-                const content = roomContent[item];
-                
-                modalTitle.textContent = content.title;
-                modalText.textContent = content.text;
-                modal.style.display = 'flex';
+            // Add click tracking to tour buttons
+            document.querySelectorAll('a[href="apartment.html"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Could add analytics tracking here
+                    console.log('Virtual tour initiated for Apartment 223');
+                });
             });
         });
-
-        // Close modal
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Keyboard close
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modal.style.display = 'none';
-            }
-        });
-
-        // Random equipment animations
-        setInterval(() => {
-            const musicElement = document.querySelector('[data-item="music-equipment"]');
-            if (musicElement) {
-                musicElement.style.opacity = '0.8';
-                setTimeout(() => {
-                    musicElement.style.opacity = '1';
-                }, 200);
-            }
-        }, 8000);
     </script>
 </body>
 </html>
