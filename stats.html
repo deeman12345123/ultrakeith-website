@@ -35,53 +35,12 @@
             padding: 0 2rem;
         }
 
-        .nav-content {
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo img {
-            height: 42px;
-        }
-
-        .nav-menu {
-            display: none;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-menu a {
-            color: rgba(255, 255, 255, 0.75);
+        .nav-logo {
+            color: #DAB547;
             text-decoration: none;
             font-family: 'Orbitron', monospace;
-            font-weight: 500;
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            transition: color 0.25s;
-        }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: #DAB547;
-        }
-
-        .mobile-menu-btn {
-            display: block;
-            background: none;
-            border: none;
-            color: #DAB547;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        @media (min-width: 769px) {
-            .nav-menu { display: flex; }
-            .mobile-menu-btn { display: none; }
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         /* Main Layout */
@@ -96,29 +55,27 @@
         }
 
         /* Watermarks */
-        .main::before {
-            content: '';
+        .basketball-watermark {
             position: fixed;
             top: 20%;
             right: 5%;
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             background: url('Basketball.png') no-repeat center;
             background-size: contain;
             opacity: 0.06;
-            z-index: 0;
+            z-index: 1;
             pointer-events: none;
         }
 
-        .main::after {
-            content: '';
+        .mc-watermark {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 400px;
-            height: 400px;
-            background: url('mc.png') no-repeat center;
+            width: 300px;
+            height: 300px;
+            background: url('personas/mc.png') no-repeat center;
             background-size: contain;
             opacity: 0.08;
             z-index: 1;
@@ -165,11 +122,6 @@
 
         .header-stat {
             text-align: center;
-            border-right: 1px solid rgba(218, 181, 71, 0.2);
-        }
-
-        .header-stat:last-child {
-            border-right: none;
         }
 
         .header-stat-number {
@@ -282,14 +234,13 @@
             z-index: 10;
         }
 
-        .category-table {
+        .category-card {
             border: 1px solid rgba(218, 181, 71, 0.2);
             border-radius: 0.5rem;
             overflow: hidden;
             background: #1a1a1a;
         }
 
-        /* CATEGORY HEADER WITH MC LOGO */
         .category-header {
             padding: 1rem;
             border-bottom: 2px solid rgba(218, 181, 71, 0.3);
@@ -297,10 +248,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .category-text {
-            flex: 1;
         }
 
         .category-title {
@@ -317,29 +264,13 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
-        .mc-logo {
-            width: 32px;
-            height: 32px;
-            background-image: url('personas/mclogogo.png');
+        .mc-logo-small {
+            width: 28px;
+            height: 28px;
+            background: url('personas/mc.png') no-repeat center;
             background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.6;
+            opacity: 0.7;
             flex-shrink: 0;
-            border: 1px solid rgba(218, 181, 71, 0.2);
-        }
-
-        /* Fallback if mclogogo.png doesn't work - try different paths */
-        .mc-logo.backup1 {
-            background-image: url('mclogogo.png');
-        }
-
-        .mc-logo.backup2 {
-            background-image: url('personas/mc.png');
-        }
-
-        .mc-logo.backup3 {
-            background-image: url('mc.png');
         }
 
         .category-list {
@@ -396,59 +327,6 @@
             color: #DAB547 !important;
         }
 
-        /* Records Grid */
-        .records-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .record-item {
-            border: 2px solid rgba(218, 181, 71, 0.3);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            background: #1a1a1a;
-            transition: all 0.3s ease;
-        }
-
-        .record-item:hover {
-            border-color: rgba(218, 181, 71, 0.6);
-            transform: translateY(-3px);
-        }
-
-        .record-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #DAB547;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .record-value::before {
-            content: '🏆';
-            font-size: 1.25rem;
-        }
-
-        .record-title {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.95);
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .record-desc {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.4;
-        }
-
         @media (max-width: 768px) {
             .main {
                 padding-left: 1rem;
@@ -465,31 +343,17 @@
             .category-grid {
                 grid-template-columns: 1fr;
             }
-
-            .records-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
+    <!-- Watermarks -->
+    <div class="basketball-watermark"></div>
+    <div class="mc-watermark"></div>
+
     <!-- Navigation -->
     <nav class="nav">
-        <div class="nav-content">
-            <a href="index.html" class="nav-logo">
-                <img src="personas/mclogogo.png" alt="Kool Keith Home">
-            </a>
-            <ul class="nav-menu">
-                <li><a href="bio.html">Biography</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="videos.html">Videos</a></li>
-                <li><a href="tour.html">Tour</a></li>
-                <li><a href="stats.html" class="active">Statistics</a></li>
-                <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                <li><a href="shop.html">Store</a></li>
-            </ul>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
+        <a href="index.html" class="nav-logo">← KOOL KEITH STATISTICS</a>
     </nav>
 
     <!-- Main Content -->
@@ -497,7 +361,7 @@
         <!-- Hero Section -->
         <section class="stats-hero">
             <h1 class="stats-title">Keith's Player Statistics</h1>
-            <p class="stats-subtitle">Career Performance • Rankings • Records</p>
+            <p class="stats-subtitle">NBA-Style Career Rankings vs Music Legends</p>
         </section>
 
         <!-- Header Stats -->
@@ -652,134 +516,18 @@
 
         <!-- Category Rankings -->
         <div class="category-grid">
-            <div class="category-table">
+            <div class="category-card">
                 <div class="category-header">
-                    <div class="category-text">
+                    <div>
                         <div class="category-title">🎭 Musical Personas</div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
-                    <div class="mc-logo backup1 backup2 backup3"></div>
+                    <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
                         <span class="category-rank">1</span>
                         <span class="category-artist">Kool Keith</span>
-                        <span class="category-stat">6 Eras</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">2</span>
-                        <span class="category-artist">David Bowie</span>
-                        <span class="category-stat">5 Eras</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">3</span>
-                        <span class="category-artist">Madonna</span>
-                        <span class="category-stat">4 Eras</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">4</span>
-                        <span class="category-artist">Radiohead</span>
-                        <span class="category-stat">4 Eras</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="category-rank">5</span>
-                        <span class="category-artist">Prince</span>
-                        <span class="category-stat">3 Eras</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Records -->
-        <section class="standings-section">
-            <h2 class="section-title">Records Held</h2>
-            <p class="section-subtitle">Industry-first achievements and record-breaking accomplishments across Kool Keith's 41-year career</p>
-            <div class="records-grid">
-                <div class="record-item">
-                    <div class="record-value">58+</div>
-                    <div class="record-title">Musical Personas</div>
-                    <div class="record-desc">More alter egos than any artist in music history</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">25+</div>
-                    <div class="record-title">Concept Albums</div>
-                    <div class="record-desc">Most concept albums by any rapper</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">1988</div>
-                    <div class="record-title">Abstract Hip-Hop Pioneer</div>
-                    <div class="record-desc">Critical Beatdown changed the genre forever</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">200K+</div>
-                    <div class="record-title">Independent Sales</div>
-                    <div class="record-desc">Dr. Octagonecologyst underground success</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">41 Years</div>
-                    <div class="record-title">Continuous Output</div>
-                    <div class="record-desc">Longest uninterrupted album career in hip-hop</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">2006</div>
-                    <div class="record-title">Same Day Double Drop</div>
-                    <div class="record-desc">Mr. Nogatco + Project Polaroid released simultaneously</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">21 Days</div>
-                    <div class="record-title">Fastest Turnaround</div>
-                    <div class="record-desc">Shortest gap between studio albums (2023)</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">150+</div>
-                    <div class="record-title">Collaborations</div>
-                    <div class="record-desc">Most unique collaborators in hip-hop history</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">First</div>
-                    <div class="record-title">Sci-Fi Hip-Hop</div>
-                    <div class="record-desc">Pioneered space and medical themes in rap</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">3 Times</div>
-                    <div class="record-title">Persona Deaths</div>
-                    <div class="record-desc">Killed Dr. Octagon when industry tried to control</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">1996</div>
-                    <div class="record-title">Indie Blueprint</div>
-                    <div class="record-desc">Proved independent artists could outsell majors</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">Multiple</div>
-                    <div class="record-title">Cross-Genre Impact</div>
-                    <div class="record-desc">Influenced rock, electronic, and jazz artists</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">2025</div>
-                    <div class="record-title">Still Active</div>
-                    <div class="record-desc">Only 40+ year rapper still releasing annually</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">1984-2025</div>
-                    <div class="record-title">Decade Spanning</div>
-                    <div class="record-desc">Released albums across five decades</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">Unmatched</div>
-                    <div class="record-title">Industry Rebellion</div>
-                    <div class="record-desc">Master of anti-branding and artistic freedom</div>
-                </div>
-                <div class="record-item">
-                    <div class="record-value">Academic</div>
-                    <div class="record-title">Scholarly Study</div>
-                    <div class="record-desc">Subject of university hip-hop research</div>
-                </div>
-            </div>
-        </section>
-    </main>
-</body>
-</html>
                         <span class="category-stat">58+</span>
                     </div>
                     <div class="category-item">
@@ -805,13 +553,13 @@
                 </div>
             </div>
 
-            <div class="category-table">
+            <div class="category-card">
                 <div class="category-header">
-                    <div class="category-text">
+                    <div>
                         <div class="category-title">🎨 Concept Albums</div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
-                    <div class="mc-logo backup1 backup2 backup3"></div>
+                    <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
@@ -842,13 +590,13 @@
                 </div>
             </div>
 
-            <div class="category-table">
+            <div class="category-card">
                 <div class="category-header">
-                    <div class="category-text">
+                    <div>
                         <div class="category-title">⏳ Career Longevity</div>
                         <div class="category-subtitle">All Genres</div>
                     </div>
-                    <div class="mc-logo backup1 backup2 backup3"></div>
+                    <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item">
@@ -879,13 +627,13 @@
                 </div>
             </div>
 
-            <div class="category-table">
+            <div class="category-card">
                 <div class="category-header">
-                    <div class="category-text">
+                    <div>
                         <div class="category-title">🚀 Hip-Hop Innovation</div>
                         <div class="category-subtitle">Genre Pioneers</div>
                     </div>
-                    <div class="mc-logo backup1 backup2 backup3"></div>
+                    <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item">
@@ -916,13 +664,13 @@
                 </div>
             </div>
 
-            <div class="category-table">
+            <div class="category-card">
                 <div class="category-header">
-                    <div class="category-text">
+                    <div>
                         <div class="category-title">🤝 Collaborations</div>
                         <div class="category-subtitle">Hip-Hop Artists</div>
                     </div>
-                    <div class="mc-logo backup1 backup2 backup3"></div>
+                    <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
@@ -953,15 +701,43 @@
                 </div>
             </div>
 
-            <div class="category-table">
+            <div class="category-card">
                 <div class="category-header">
-                    <div class="category-text">
+                    <div>
                         <div class="category-title">🔄 Creative Reinvention</div>
                         <div class="category-subtitle">Era Changes</div>
                     </div>
-                    <div class="mc-logo backup1 backup2 backup3"></div>
+                    <div class="mc-logo-small"></div>
                 </div>
                 <div class="category-list">
                     <div class="category-item keith">
                         <span class="category-rank">1</span>
                         <span class="category-artist">Kool Keith</span>
+                        <span class="category-stat">6 Eras</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">2</span>
+                        <span class="category-artist">David Bowie</span>
+                        <span class="category-stat">5 Eras</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">3</span>
+                        <span class="category-artist">Madonna</span>
+                        <span class="category-stat">4 Eras</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">4</span>
+                        <span class="category-artist">Radiohead</span>
+                        <span class="category-stat">4 Eras</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="category-rank">5</span>
+                        <span class="category-artist">Prince</span>
+                        <span class="category-stat">3 Eras</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
