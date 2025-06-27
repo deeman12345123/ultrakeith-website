@@ -826,6 +826,104 @@
             }
             
             .features {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+        }
+        
+        /* DESKTOP STYLES */
+        @media (min-width: 769px) {
+            .nav {
+                height: 80px;
+                padding: 0 var(--space-2xl);
+            }
+            
+            .nav-logo img {
+                height: 48px;
+            }
+            
+            .nav-menu {
+                display: flex;
+                font-size: 0.875rem;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-top: 80px;
+                padding-left: var(--space-2xl);
+                padding-right: var(--space-2xl);
+            }
+            
+            .carousel-container {
+                max-width: 1200px;
+            }
+            
+            .carousel-title {
+                font-size: 2.5rem;
+                margin-bottom: var(--space-xl);
+            }
+            
+            .carousel {
+                height: 420px;
+            }
+            
+            .carousel-slide {
+                width: calc(50% - 4px); /* Desktop only: spacing */
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                gap: var(--space-md);
+                padding: var(--space-md);
+                margin-right: 8px; /* Desktop only: spacing */
+            }
+            
+            .album-image {
+                width: 300px;
+                height: 300px;
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            
+            .album-info {
+                flex: 1;
+                align-items: flex-start;
+                text-align: left;
+                height: 300px;
+                justify-content: space-between;
+                min-width: 180px;
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+            }
+            
+            .album-header {
+                text-align: left;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .album-actions {
+                margin: 0;
+                align-self: flex-start;
+            }
+            
+            .album-title {
+                font-size: 1.4rem;
+            }
+            
+            .album-artist {
+                font-size: 1.05rem;
+            }
+            
+            .album-details {
+                justify-content: flex-start;
+            }
+            
+            .features {
                 grid-template-columns: repeat(2, 1fr);
                 gap: var(--space-2xl);
             }
@@ -1499,146 +1597,3 @@
                                         <a href="${post.link}" target="_blank" rel="noopener noreferrer">${post.title}</a>
                                     </div>
                                     <div class="post-excerpt">${excerpt}</div>
-                                    <div class="post-date">${date}</div>
-                                `;
-                                return; // Success - exit the loop
-                            } else {
-                                console.log('RSS data format issue:', data);
-                            }
-                        } else {
-                            console.log('HTTP error:', response.status, response.statusText);
-                        }
-                    } catch (error) {
-                        console.log(`RSS attempt ${i + 1} failed:`, error);
-                    }
-                }
-                
-                // If all methods fail, show a simple fallback
-                latestPost.innerHTML = '<div class="post-error">News feed temporarily unavailable</div>';
-            }
-        }
-
-        // Initialize everything when DOM is ready
-        let carousel, uiManager;
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                carousel = new CarouselManager();
-                uiManager = new UIManager();
-                console.log('Site initialized successfully');
-            } catch (error) {
-                console.error('Initialization error:', error);
-                // Fallback: still try to load news even if carousel fails
-                if (!carousel) {
-                    const fallbackUI = new UIManager();
-                }
-            }
-        });
-        
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', () => {
-            if (carousel) {
-                carousel.destroy();
-            }
-        });
-    </script>
-</body>
-</html>: 1fr;
-                gap: var(--space-lg);
-            }
-        }
-        
-        /* DESKTOP STYLES */
-        @media (min-width: 769px) {
-            .nav {
-                height: 80px;
-                padding: 0 var(--space-2xl);
-            }
-            
-            .nav-logo img {
-                height: 48px;
-            }
-            
-            .nav-menu {
-                display: flex;
-                font-size: 0.875rem;
-            }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            .main {
-                padding-top: 80px;
-                padding-left: var(--space-2xl);
-                padding-right: var(--space-2xl);
-            }
-            
-            .carousel-container {
-                max-width: 1200px;
-            }
-            
-            .carousel-title {
-                font-size: 2.5rem;
-                margin-bottom: var(--space-xl);
-            }
-            
-            .carousel {
-                height: 420px;
-            }
-            
-            .carousel-slide {
-                width: calc(50% - 4px); /* Desktop only: spacing */
-                flex-direction: row;
-                text-align: left;
-                align-items: center;
-                gap: var(--space-md);
-                padding: var(--space-md);
-                margin-right: 8px; /* Desktop only: spacing */
-            }
-            
-            .album-image {
-                width: 300px;
-                height: 300px;
-                margin-bottom: 0;
-                flex-shrink: 0;
-            }
-            
-            .album-info {
-                flex: 1;
-                align-items: flex-start;
-                text-align: left;
-                height: 300px;
-                justify-content: space-between;
-                min-width: 180px;
-                display: flex;
-                flex-direction: column;
-                padding: 0;
-            }
-            
-            .album-header {
-                text-align: left;
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .album-actions {
-                margin: 0;
-                align-self: flex-start;
-            }
-            
-            .album-title {
-                font-size: 1.4rem;
-            }
-            
-            .album-artist {
-                font-size: 1.05rem;
-            }
-            
-            .album-details {
-                justify-content: flex-start;
-            }
-            
-            .features {
-                grid-template-columns
