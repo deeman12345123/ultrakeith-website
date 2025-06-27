@@ -805,6 +805,39 @@ body {
     color: var(--keith-gold);
 }
 
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: var(--space-lg);
+}
+
+.footer-social a {
+    color: var(--keith-white-55);
+    transition: all var(--transition);
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-social a:hover {
+    color: var(--keith-gold);
+    transform: translateY(-2px);
+    background: rgba(218, 181, 71, 0.1);
+}
+
+.footer-social svg {
+    width: 20px;
+    height: 20px;
+    transition: transform var(--transition);
+}
+
+.footer-social a:hover svg {
+    transform: scale(1.1);
+}
+
 .footer-copyright {
     color: var(--keith-white-55);
     font-size: 0.75rem;
