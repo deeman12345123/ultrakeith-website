@@ -1,28 +1,61 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
+/* ================================
+   KEITH BRAND VARIABLES
+   ================================ */
 :root {
-    --gold: #DAB547; 
-    --gold-light: #E8C547; 
-    --black: #000000; 
-    --burgundy: #0F0505; 
-    --white: #FFFFFF;
-    --white-75: rgba(255, 255, 255, 0.75); 
-    --white-55: rgba(255, 255, 255, 0.55);
+    /* Keith Brand Colors */
+    --keith-gold: #DAB547; 
+    --keith-gold-light: #E8C547; 
+    --keith-black: #000000; 
+    --keith-burgundy: #0F0505; 
+    --keith-white: #FFFFFF;
+    --keith-white-75: rgba(255, 255, 255, 0.75); 
+    --keith-white-55: rgba(255, 255, 255, 0.55);
+    
+    /* Legacy support - keep old names for compatibility */
+    --gold: var(--keith-gold);
+    --gold-light: var(--keith-gold-light);
+    --black: var(--keith-black);
+    --burgundy: var(--keith-burgundy);
+    --white: var(--keith-white);
+    --white-75: var(--keith-white-75);
+    --white-55: var(--keith-white-55);
+    
+    /* Component Spacing System */
     --space-xs: 0.5rem; 
     --space-sm: 1rem; 
     --space-md: 1.5rem; 
     --space-lg: 2rem; 
     --space-xl: 3rem; 
     --space-2xl: 4rem;
+    
+    /* Component Radius System */
     --radius-md: 0.5rem; 
     --radius-lg: 0.75rem; 
     --radius-xl: 1rem; 
     --radius-2xl: 1.5rem;
+    
+    /* Component Shadows */
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25); 
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
-    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Carousel-specific variables */
+    /* Animation System */
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Responsive Breakpoints */
+    --mobile-max: 768px;
+    --tablet-max: 1024px;
+    --desktop-min: 1025px;
+    
+    /* Feature Card System */
+    --card-padding: var(--space-lg);
+    --card-gap: var(--space-xl);
+    --card-border: 2px solid rgba(218, 181, 71, 0.2);
+    --card-hover-border: rgba(218, 181, 71, 0.4);
+    
+    /* Carousel System */
     --carousel-slide-duration: 0.6s;
     --carousel-auto-interval: 3600ms;
     --carousel-manual-delay: 3000ms;
@@ -31,18 +64,79 @@
     --carousel-total-slides: 9;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ================================
+   BASE STYLES & RESET
+   ================================ */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
     font-family: 'Inter', Arial, sans-serif; 
-    background: linear-gradient(135deg, var(--black) 0%, var(--burgundy) 25%, #1A0A0A 50%, var(--black) 100%);
-    color: var(--white); 
+    background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 25%, #1A0A0A 50%, var(--keith-black) 100%);
+    color: var(--keith-white); 
     overflow-x: hidden; 
     min-height: 100vh; 
     -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
 }
 
-/* NAVIGATION */
+/* ================================
+   DESKTOP RECOMMENDATION BANNER
+   ================================ */
+.desktop-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
+    color: var(--keith-black);
+    padding: 0.75rem var(--space-lg);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    z-index: 200;
+    display: none;
+    transform: translateY(-100%);
+    transition: transform var(--transition);
+}
+
+.desktop-banner.show {
+    display: block;
+    transform: translateY(0);
+}
+
+.desktop-banner-close {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--keith-black);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: all var(--transition);
+}
+
+.desktop-banner-close:hover {
+    color: var(--keith-burgundy);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Adjust main content when banner is shown */
+.main.with-banner {
+    padding-top: 120px; /* 72px nav + 48px banner */
+}
+
+/* ================================
+   NAVIGATION SYSTEM
+   ================================ */
 .nav {
     position: fixed;
     top: 0;
@@ -50,7 +144,7 @@ body {
     right: 0;
     background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(218, 181, 71, 0.2);
+    border-bottom: 1px solid var(--keith-gold-light);
     z-index: 100;
     height: 72px;
     display: flex;
@@ -89,7 +183,7 @@ body {
 }
 
 .nav-menu a {
-    color: var(--white-75);
+    color: var(--keith-white-75);
     text-decoration: none;
     font-family: 'Orbitron', monospace;
     font-weight: 500;
@@ -100,7 +194,7 @@ body {
 }
 
 .nav-menu a:hover {
-    color: var(--gold);
+    color: var(--keith-gold);
 }
 
 .nav-menu.show {
@@ -112,7 +206,7 @@ body {
     right: 0;
     background: rgba(10, 10, 10, 0.98);
     backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(218, 181, 71, 0.2);
+    border-bottom: 1px solid var(--keith-gold-light);
     padding: var(--space-lg);
     gap: var(--space-md);
     box-shadow: var(--shadow-lg);
@@ -127,44 +221,44 @@ body {
     border-radius: var(--radius-md);
     transition: all var(--transition);
     background: rgba(218, 181, 71, 0.1);
-    border: 1px solid rgba(218, 181, 71, 0.2);
+    border: 1px solid var(--keith-gold-light);
 }
 
 .audio-toggle:hover {
     background: rgba(218, 181, 71, 0.2);
-    border-color: rgba(218, 181, 71, 0.4);
+    border-color: var(--keith-gold);
     transform: translateY(-1px);
 }
 
 .audio-icon {
     font-size: 1rem;
-    color: var(--gold);
+    color: var(--keith-gold);
     transition: all var(--transition);
 }
 
 .audio-toggle.disabled .audio-icon {
-    color: var(--white-55);
+    color: var(--keith-white-55);
 }
 
 .audio-text {
     font-family: 'Orbitron', monospace;
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--gold);
+    color: var(--keith-gold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     transition: color var(--transition);
 }
 
 .audio-toggle.disabled .audio-text {
-    color: var(--white-55);
+    color: var(--keith-white-55);
 }
 
 .mobile-menu-btn {
     display: block;
     background: none;
     border: none;
-    color: var(--gold);
+    color: var(--keith-gold);
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.5rem;
@@ -172,11 +266,13 @@ body {
 }
 
 .mobile-menu-btn:hover {
-    color: var(--gold-light);
+    color: var(--keith-gold-light);
     transform: scale(1.1);
 }
 
-/* BUTTONS */
+/* ================================
+   BUTTON SYSTEM
+   ================================ */
 .btn {
     border: none;
     cursor: pointer;
@@ -187,6 +283,8 @@ body {
     transition: all var(--transition);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn:disabled {
@@ -195,8 +293,8 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--black);
+    background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
+    color: var(--keith-black);
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-md);
     font-size: 0.875rem;
@@ -210,8 +308,8 @@ body {
 
 .btn-secondary {
     background: rgba(212, 175, 55, 0.12);
-    color: var(--gold);
-    border: 1px solid rgba(218, 181, 71, 0.3);
+    color: var(--keith-gold);
+    border: 1px solid var(--keith-gold-light);
     padding: var(--space-sm) var(--space-lg);
     border-radius: var(--radius-md);
     font-size: 0.875rem;
@@ -219,9 +317,9 @@ body {
 }
 
 .btn-secondary:hover:not(:disabled) {
-    border-color: var(--gold);
+    border-color: var(--keith-gold);
     transform: translateY(-1px);
-    color: var(--gold-light);
+    color: var(--keith-gold-light);
 }
 
 .btn-small {
@@ -230,7 +328,9 @@ body {
     border-radius: var(--radius-md);
 }
 
-/* MAIN LAYOUT */
+/* ================================
+   MAIN LAYOUT SYSTEM
+   ================================ */
 .main {
     padding-top: 72px;
     max-width: 1400px;
@@ -241,7 +341,9 @@ body {
     z-index: 1;
 }
 
-/* HERO SECTION */
+/* ================================
+   HERO SECTION
+   ================================ */
 .hero {
     text-align: center;
     padding: var(--space-lg) 0;
@@ -264,7 +366,7 @@ body {
     font-family: 'Orbitron', monospace;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 900;
-    color: var(--gold);
+    color: var(--keith-gold);
     margin-bottom: var(--space-sm);
     line-height: 1.1;
     text-transform: uppercase;
@@ -272,21 +374,23 @@ body {
 
 .hero-subtitle {
     font-size: clamp(0.875rem, 2vw, 1rem);
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--keith-white-75);
     line-height: 1.4;
     max-width: 600px;
     margin: 0 auto var(--space-md) auto;
     font-weight: 400;
 }
 
-/* CAROUSEL SECTION - STYLED LIKE FEATURE CARDS */
+/* ================================
+   CAROUSEL SYSTEM
+   ================================ */
 .carousel-section {
     background: rgba(26, 26, 26, 0.9);
-    border: 2px solid rgba(218, 181, 71, 0.2);
+    border: var(--card-border);
     border-radius: var(--radius-2xl);
-    padding: var(--space-lg) var(--space-2xl) var(--space-2xl) var(--space-2xl);
+    padding: var(--card-padding) var(--space-2xl) var(--space-2xl) var(--space-2xl);
     text-align: center;
-    transition: all 0.4s;
+    transition: all var(--transition-slow);
     backdrop-filter: blur(20px);
     position: relative;
     overflow: hidden;
@@ -295,7 +399,7 @@ body {
 
 .carousel-section:hover {
     transform: translateY(-12px);
-    border-color: rgba(218, 181, 71, 0.4);
+    border-color: var(--card-hover-border);
     box-shadow: var(--shadow-lg);
 }
 
@@ -303,7 +407,7 @@ body {
     font-family: 'Orbitron', monospace;
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--keith-gold);
     margin-bottom: var(--space-xl);
     margin-top: 0;
     text-transform: uppercase;
@@ -311,7 +415,7 @@ body {
 }
 
 .carousel-section:hover .carousel-section-title {
-    color: var(--gold-light);
+    color: var(--keith-gold-light);
 }
 
 .carousel-container {
@@ -319,17 +423,16 @@ body {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
-    overflow: visible; /* Allow partial card previews */
+    overflow: visible;
 }
 
 .carousel {
     overflow: hidden;
     border-radius: var(--radius-lg);
     background: rgba(42, 42, 42, 0.8);
-    border: 1px solid rgba(218, 181, 71, 0.1);
+    border: 1px solid var(--keith-gold-light);
     backdrop-filter: blur(10px);
     height: 450px;
-    /* Add subtle side shadows for depth */
     box-shadow: 
         -20px 0 30px -15px rgba(0, 0, 0, 0.3),
         20px 0 30px -15px rgba(0, 0, 0, 0.3),
@@ -343,7 +446,7 @@ body {
 }
 
 .carousel-slide {
-    width: 100%; /* Back to original mobile width */
+    width: 100%;
     flex-shrink: 0;
     padding: var(--space-lg);
     display: flex;
@@ -353,17 +456,17 @@ body {
     height: 100%;
     justify-content: center;
     box-sizing: border-box;
-    border: 2px solid rgba(218, 181, 71, 0.2);
+    border: var(--card-border);
     border-radius: var(--radius-lg);
     transition: all var(--transition);
 }
 
 .carousel-slide:last-child {
-    margin-right: 0; /* No margin on last card */
+    margin-right: 0;
 }
 
 .carousel-slide:hover {
-    border-color: rgba(218, 181, 71, 0.4);
+    border-color: var(--card-hover-border);
 }
 
 .album-image {
@@ -371,7 +474,7 @@ body {
     height: 200px;
     border-radius: var(--radius-md);
     object-fit: cover;
-    border: 2px solid rgba(218, 181, 71, 0.2);
+    border: var(--card-border);
     background: #2A2A2A;
     transition: transform var(--transition);
     margin-bottom: var(--space-md);
@@ -379,7 +482,7 @@ body {
 
 .carousel-slide:hover .album-image {
     transform: scale(1.03);
-    border-color: rgba(218, 181, 71, 0.4);
+    border-color: var(--card-hover-border);
 }
 
 .album-info {
@@ -399,19 +502,19 @@ body {
 .album-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--gold);
+    color: var(--keith-gold);
     margin-bottom: 0.5rem;
     line-height: 1.2;
     transition: color var(--transition);
 }
 
 .carousel-slide:hover .album-title {
-    color: var(--gold-light);
+    color: var(--keith-gold-light);
 }
 
 .album-artist {
     font-size: 1rem;
-    color: var(--white-75);
+    color: var(--keith-white-75);
     margin-bottom: var(--space-sm);
     font-weight: 400;
 }
@@ -424,7 +527,7 @@ body {
 
 .album-year {
     font-size: 0.9rem;
-    color: var(--gold);
+    color: var(--keith-gold);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -434,20 +537,22 @@ body {
     margin-top: auto;
 }
 
-/* CAROUSEL NAVIGATION */
+/* ================================
+   CAROUSEL NAVIGATION
+   ================================ */
 .carousel-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
-    border: 2px solid rgba(218, 181, 71, 0.4);
+    border: 2px solid var(--keith-gold);
     border-radius: 50%;
     width: 60px;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--gold);
+    color: var(--keith-gold);
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
@@ -459,10 +564,10 @@ body {
 }
 
 .carousel-nav:hover {
-    background: linear-gradient(135deg, rgba(218, 181, 71, 0.2), rgba(232, 197, 71, 0.2));
-    border-color: var(--gold);
+    background: linear-gradient(135deg, var(--keith-gold-light), var(--keith-gold));
+    border-color: var(--keith-gold);
     transform: translateY(-50%) scale(1.1);
-    color: var(--gold-light);
+    color: var(--keith-black);
     box-shadow: 0 6px 25px rgba(218, 181, 71, 0.3);
 }
 
@@ -490,7 +595,9 @@ body {
     margin-right: -2px;
 }
 
-/* CAROUSEL INDICATORS */
+/* ================================
+   CAROUSEL INDICATORS
+   ================================ */
 .carousel-indicators {
     display: flex;
     justify-content: center;
@@ -502,35 +609,37 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(218, 181, 71, 0.3);
+    background: var(--keith-gold-light);
     cursor: pointer;
     transition: all var(--transition);
 }
 
 .carousel-indicator.active {
-    background: var(--gold);
+    background: var(--keith-gold);
     transform: scale(1.2);
 }
 
 .carousel-indicator:hover {
-    background: rgba(218, 181, 71, 0.6);
+    background: var(--keith-gold);
 }
 
-/* FEATURES SECTION */
+/* ================================
+   FEATURE CARD SYSTEM
+   ================================ */
 .features {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: var(--card-gap);
     margin: 0 0 var(--space-2xl) 0;
 }
 
 .feature-card {
     background: rgba(26, 26, 26, 0.9);
-    border: 2px solid rgba(218, 181, 71, 0.2);
+    border: var(--card-border);
     border-radius: var(--radius-2xl);
-    padding: var(--space-lg) var(--space-2xl) var(--space-2xl) var(--space-2xl); /* Less top padding */
+    padding: var(--card-padding) var(--space-2xl) var(--space-2xl) var(--space-2xl);
     text-align: center;
-    transition: all 0.4s;
+    transition: all var(--transition-slow);
     backdrop-filter: blur(20px);
     position: relative;
     overflow: hidden;
@@ -538,63 +647,63 @@ body {
 
 .feature-card:hover {
     transform: translateY(-12px);
-    border-color: rgba(218, 181, 71, 0.4);
+    border-color: var(--card-hover-border);
     box-shadow: var(--shadow-lg);
 }
 
 .feature-icon {
-    width: 180px; /* Bigger size */
-    height: 180px; /* Bigger size */
+    width: 180px;
+    height: 180px;
     margin: 0 auto var(--space-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--gold);
-    background: transparent; /* No background */
+    color: var(--keith-gold);
+    background: transparent;
     border-radius: var(--radius-lg);
-    border: none; /* No border */
+    border: none;
     transition: all var(--transition);
     position: relative;
     overflow: hidden;
-    padding: 0; /* Remove all padding */
+    padding: 0;
 }
 
 .feature-card:hover .feature-icon {
-    border: none; /* No hover border */
-    background: transparent; /* No hover background */
-    transform: scale(1.1); /* Bigger hover scale */
-    box-shadow: none; /* No shadow */
+    border: none;
+    background: transparent;
+    transform: scale(1.1);
+    box-shadow: none;
 }
 
 .feature-icon img {
-    width: 160px; /* Much bigger icons */
-    height: 160px; /* Much bigger icons */
+    width: 160px;
+    height: 160px;
     object-fit: contain;
-    border-radius: 0; /* No border radius on images */
+    border-radius: 0;
     transition: transform var(--transition);
 }
 
 .feature-card:hover .feature-icon img {
-    transform: scale(1.05); /* Subtle hover on the image itself */
+    transform: scale(1.05);
 }
 
 .feature-title {
     font-family: 'Orbitron', monospace;
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--gold);
+    color: var(--keith-gold);
     margin-bottom: var(--space-md);
     text-transform: uppercase;
     transition: color var(--transition);
 }
 
 .feature-card:hover .feature-title {
-    color: var(--gold-light);
+    color: var(--keith-gold-light);
 }
 
 .feature-description {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--keith-white-75);
     line-height: 1.6;
     margin-bottom: var(--space-xl);
     font-weight: 400;
@@ -602,26 +711,14 @@ body {
 }
 
 .feature-card:hover .feature-description {
-    color: var(--white);
+    color: var(--keith-white);
 }
 
-/* NEWS POST STYLES - BLENDED WITH FEATURE CARDS */
-.latest-post {
-    margin-bottom: var(--space-lg);
-    padding: 0; /* Remove padding */
-    background: transparent; /* Remove dark background */
-    border-radius: 0; /* Remove border radius */
-    border: none; /* Remove all borders */
-    transition: none; /* Remove transition */
-}
-
-.latest-post:hover {
-    border: none; /* Remove hover border */
-    background: transparent; /* Keep transparent on hover */
-}
-
+/* ================================
+   NEWS POST SYSTEM
+   ================================ */
 .post-loading {
-    color: var(--white-75);
+    color: var(--keith-white-75);
     font-style: italic;
     font-size: 1rem;
     text-align: center;
@@ -631,7 +728,7 @@ body {
 .post-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--gold);
+    color: var(--keith-gold);
     margin-bottom: var(--space-sm);
     line-height: 1.4;
 }
@@ -643,92 +740,41 @@ body {
 }
 
 .post-title a:hover {
-    color: var(--gold-light);
+    color: var(--keith-gold-light);
 }
 
 .post-excerpt {
     font-size: 1rem;
-    color: var(--white-75);
+    color: var(--keith-white-75);
     line-height: 1.5;
     margin-bottom: var(--space-sm);
 }
 
 .post-date {
     font-size: 0.9rem;
-    color: var(--white-55);
+    color: var(--keith-white-55);
     font-style: italic;
 }
 
 .news-description {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--keith-white-75);
     line-height: 1.6;
 }
 
 .post-error {
-    color: var(--white-55);
+    color: var(--keith-white-55);
     font-size: 1rem;
     text-align: center;
     padding: var(--space-md);
     font-style: italic;
 }
 
-/* DESKTOP RECOMMENDATION BANNER */
-.desktop-banner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--black);
-    padding: 0.75rem var(--space-lg);
-    font-family: 'Orbitron', monospace;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-align: center;
-    z-index: 200;
-    display: none;
-    transform: translateY(-100%);
-    transition: transform var(--transition);
-}
-
-.desktop-banner.show {
-    display: block;
-    transform: translateY(0);
-}
-
-.desktop-banner-close {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--black);
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 0.25rem;
-    transition: all var(--transition);
-}
-
-.desktop-banner-close:hover {
-    color: var(--burgundy);
-    transform: translateY(-50%) scale(1.1);
-}
-
-/* Adjust main content when banner is shown */
-.main.with-banner {
-    padding-top: 120px; /* 72px nav + 48px banner */
-}
-
-@media (min-width: 769px) {
-    .desktop-banner {
-        display: none !important;
-    }
-}
+/* ================================
+   FOOTER SYSTEM
+   ================================ */
 .footer {
-    border-top: 1px solid rgba(218, 181, 71, 0.2);
+    border-top: 1px solid var(--keith-gold-light);
     padding: var(--space-2xl) 0;
     text-align: center;
     margin-top: var(--space-2xl);
@@ -746,7 +792,7 @@ body {
 }
 
 .footer-links a {
-    color: var(--white-75);
+    color: var(--keith-white-75);
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
@@ -756,18 +802,24 @@ body {
 }
 
 .footer-links a:hover {
-    color: var(--gold);
+    color: var(--keith-gold);
 }
 
 .footer-copyright {
-    color: var(--white-55);
+    color: var(--keith-white-55);
     font-size: 0.75rem;
     font-weight: 400;
     opacity: 0.8;
 }
 
-/* MOBILE RESPONSIVE */
+/* ================================
+   MOBILE RESPONSIVE SYSTEM
+   ================================ */
 @media (max-width: 768px) {
+    .desktop-banner {
+        display: none !important;
+    }
+    
     .hero {
         padding: var(--space-md) 0;
     }
@@ -787,12 +839,11 @@ body {
     }
     
     .carousel-container {
-        max-width: 320px; /* Back to original mobile width */
+        max-width: 320px;
     }
     
     .carousel {
         height: 400px;
-        /* Enhanced shadow for mobile depth */
         box-shadow: 
             -15px 0 25px -10px rgba(0, 0, 0, 0.4),
             15px 0 25px -10px rgba(0, 0, 0, 0.4),
@@ -842,7 +893,7 @@ body {
     .audio-toggle {
         padding: 0.4rem 0.6rem;
         background: rgba(218, 181, 71, 0.15);
-        border: 1px solid rgba(218, 181, 71, 0.3);
+        border: 1px solid var(--keith-gold-light);
     }
     
     .audio-text {
@@ -854,7 +905,7 @@ body {
     }
     
     .feature-card {
-        padding: var(--space-sm); /* Minimal padding on mobile */
+        padding: var(--space-sm);
     }
     
     .footer-links {
@@ -867,7 +918,9 @@ body {
     }
 }
 
-/* DESKTOP STYLES */
+/* ================================
+   DESKTOP RESPONSIVE SYSTEM
+   ================================ */
 @media (min-width: 769px) {
     .nav {
         height: 80px;
@@ -893,6 +946,10 @@ body {
         padding-right: var(--space-2xl);
     }
     
+    .main.with-banner {
+        padding-top: 128px; /* 80px nav + 48px banner */
+    }
+    
     .carousel-container {
         max-width: 1200px;
     }
@@ -907,13 +964,13 @@ body {
     }
     
     .carousel-slide {
-        width: calc(50% - 4px); /* Desktop only: spacing */
+        width: calc(50% - 4px);
         flex-direction: row;
         text-align: left;
         align-items: center;
         gap: var(--space-md);
         padding: var(--space-md);
-        margin-right: 8px; /* Desktop only: spacing */
+        margin-right: 8px;
     }
     
     .album-image {
@@ -992,3 +1049,74 @@ body {
         margin-right: auto;
     }
 }
+
+/* ================================
+   ERROR HANDLING & FALLBACKS
+   ================================ */
+.error-fallback {
+    color: var(--keith-white-55);
+    font-style: italic;
+    text-align: center;
+    padding: var(--space-md);
+}
+
+.loading-state {
+    color: var(--keith-white-75);
+    font-style: italic;
+    text-align: center;
+    padding: var(--space-md);
+}
+
+/* Smooth loading for images */
+img {
+    transition: opacity var(--transition);
+}
+
+img[src=""], img:not([src]) {
+    opacity: 0;
+}
+
+/* Focus states for accessibility */
+.btn:focus,
+.carousel-nav:focus,
+.carousel-indicator:focus,
+.audio-toggle:focus,
+.mobile-menu-btn:focus {
+    outline: 2px solid var(--keith-gold);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .nav,
+    .desktop-banner,
+    .carousel-nav,
+    .audio-toggle,
+    .mobile-menu-btn {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .main {
+        padding-top: 0 !important;
+    }
+}@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ================================
+   KEITH BRAND VARIABLES
+   ================================ */
+:root {
+    /* Keith Brand Colors */
+    --keith-gold: #DAB547; 
+    --keith-gold-light: #E8C547; 
+    --keith-black: #000000; 
+    --keith-burgundy: #0F0505; 
+    --keith-white: #FFFFFF;
+    --keith-white-75: rgba(255, 255, 255, 0.75); 
+    --keith-white-55: rgba(255, 255, 255, 0.55);
+    
+    /* Legacy support - keep
