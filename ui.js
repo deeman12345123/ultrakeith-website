@@ -8,7 +8,30 @@ class UIManager {
     init() {
         this.setupMobileMenu();
         this.setupAudioToggle();
+        this.setupDesktopBanner();
         this.loadNews();
+    }
+    
+    setupDesktopBanner() {
+        // Only show on mobile and if not previously dismissed
+        if (window.innerWidth <= 768 && !localStorage.getItem('desktopBannerDismissed')) {
+            const banner = document.getElementById('desktopBanner');
+            const closeBtn = document.getElementById('closeBanner');
+            const mainContent = document.getElementById('mainContent');
+            
+            if (banner && closeBtn && mainContent) {
+                // Show banner
+                banner.classList.add('show');
+                mainContent.classList.add('with-banner');
+                
+                // Close banner functionality
+                closeBtn.addEventListener('click', () => {
+                    banner.classList.remove('show');
+                    mainContent.classList.remove('with-banner');
+                    localStorage.setItem('desktopBannerDismissed', 'true');
+                });
+            }
+        }
     }
     
     setupMobileMenu() {
