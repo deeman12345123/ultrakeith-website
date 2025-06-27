@@ -826,104 +826,6 @@
             }
             
             .features {
-                grid-template-columns: 1fr;
-                gap: var(--space-lg);
-            }
-        }
-        
-        /* DESKTOP STYLES */
-        @media (min-width: 769px) {
-            .nav {
-                height: 80px;
-                padding: 0 var(--space-2xl);
-            }
-            
-            .nav-logo img {
-                height: 48px;
-            }
-            
-            .nav-menu {
-                display: flex;
-                font-size: 0.875rem;
-            }
-            
-            .mobile-menu-btn {
-                display: none;
-            }
-            
-            .main {
-                padding-top: 80px;
-                padding-left: var(--space-2xl);
-                padding-right: var(--space-2xl);
-            }
-            
-            .carousel-container {
-                max-width: 1200px;
-            }
-            
-            .carousel-title {
-                font-size: 2.5rem;
-                margin-bottom: var(--space-xl);
-            }
-            
-            .carousel {
-                height: 420px;
-            }
-            
-            .carousel-slide {
-                width: calc(50% - 4px); /* Desktop only: spacing */
-                flex-direction: row;
-                text-align: left;
-                align-items: center;
-                gap: var(--space-md);
-                padding: var(--space-md);
-                margin-right: 8px; /* Desktop only: spacing */
-            }
-            
-            .album-image {
-                width: 300px;
-                height: 300px;
-                margin-bottom: 0;
-                flex-shrink: 0;
-            }
-            
-            .album-info {
-                flex: 1;
-                align-items: flex-start;
-                text-align: left;
-                height: 300px;
-                justify-content: space-between;
-                min-width: 180px;
-                display: flex;
-                flex-direction: column;
-                padding: 0;
-            }
-            
-            .album-header {
-                text-align: left;
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .album-actions {
-                margin: 0;
-                align-self: flex-start;
-            }
-            
-            .album-title {
-                font-size: 1.4rem;
-            }
-            
-            .album-artist {
-                font-size: 1.05rem;
-            }
-            
-            .album-details {
-                justify-content: flex-start;
-            }
-            
-            .features {
                 grid-template-columns: repeat(2, 1fr);
                 gap: var(--space-2xl);
             }
@@ -1196,17 +1098,10 @@
             </article>
             
             <article class="feature-card">
-                <div class="feature-icon"><img src="casinoicon.png" alt="Casino icon"></div>
-                <h3 class="feature-title">Casino</h3>
-                <p class="feature-description">Spin the slot machine for exclusive vault tracks and rare content. Play daily to earn points and unlock premium rewards from Keith's secret archive.</p>
-                <a href="casino.html" class="btn btn-secondary">Enter Casino</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon"><img src="aiicon.png" alt="AI Chat icon"></div>
-                <h3 class="feature-title">AI Chat</h3>
-                <p class="feature-description">Chat with AI versions of Keith's legendary personas. Experience conversations with Dr. Octagon, Black Elvis, and other characters through advanced artificial intelligence.</p>
-                <a href="keithgpt/chat.html" class="btn btn-secondary">Start Chat</a>
+                <div class="feature-icon"><img src="playersclub.png" alt="Players Club icon"></div>
+                <h3 class="feature-title">Players Club</h3>
+                <p class="feature-description">Enter Keith's exclusive VIP gaming lounge. Play slots and dice games, chat with AI personas, and earn chips to unlock rare tracks and exclusive content from the vault.</p>
+                <a href="players-club.html" class="btn btn-secondary">Enter Club</a>
             </article>
 
             <article class="feature-card">
@@ -1247,13 +1142,6 @@
                 <h3 class="feature-title">Forum</h3>
                 <p class="feature-description">Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, share stories, and stay connected with the Keith musical legacy.</p>
                 <a href="https://koolkeith.proboards.com/" class="btn btn-secondary">Join Forum</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon"><img src="horrorscopes.png" alt="Horrorscopes icon"></div>
-                <h3 class="feature-title">HORRORSCOPES</h3>
-                <p class="feature-description">Daily horror-themed horoscopes and cosmic predictions from the dark side. Get your twisted daily forecast and supernatural guidance.</p>
-                <a href="horrorscopes.html" class="btn btn-secondary">Read Forecast</a>
             </article>
         </section>
     </main>
@@ -1655,4 +1543,102 @@
         });
     </script>
 </body>
-</html>
+</html>: 1fr;
+                gap: var(--space-lg);
+            }
+        }
+        
+        /* DESKTOP STYLES */
+        @media (min-width: 769px) {
+            .nav {
+                height: 80px;
+                padding: 0 var(--space-2xl);
+            }
+            
+            .nav-logo img {
+                height: 48px;
+            }
+            
+            .nav-menu {
+                display: flex;
+                font-size: 0.875rem;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-top: 80px;
+                padding-left: var(--space-2xl);
+                padding-right: var(--space-2xl);
+            }
+            
+            .carousel-container {
+                max-width: 1200px;
+            }
+            
+            .carousel-title {
+                font-size: 2.5rem;
+                margin-bottom: var(--space-xl);
+            }
+            
+            .carousel {
+                height: 420px;
+            }
+            
+            .carousel-slide {
+                width: calc(50% - 4px); /* Desktop only: spacing */
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                gap: var(--space-md);
+                padding: var(--space-md);
+                margin-right: 8px; /* Desktop only: spacing */
+            }
+            
+            .album-image {
+                width: 300px;
+                height: 300px;
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            
+            .album-info {
+                flex: 1;
+                align-items: flex-start;
+                text-align: left;
+                height: 300px;
+                justify-content: space-between;
+                min-width: 180px;
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+            }
+            
+            .album-header {
+                text-align: left;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .album-actions {
+                margin: 0;
+                align-self: flex-start;
+            }
+            
+            .album-title {
+                font-size: 1.4rem;
+            }
+            
+            .album-artist {
+                font-size: 1.05rem;
+            }
+            
+            .album-details {
+                justify-content: flex-start;
+            }
+            
+            .features {
+                grid-template-columns
