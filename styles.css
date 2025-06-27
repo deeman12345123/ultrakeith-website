@@ -810,25 +810,6 @@ body {
     font-size: 0.75rem;
     font-weight: 400;
     opacity: 0.8;
-    margin-bottom: 0.5rem;
-}
-
-.footer-credit {
-    color: var(--keith-white-55);
-    font-size: 0.75rem;
-    font-weight: 400;
-    opacity: 0.8;
-}
-
-.footer-credit a {
-    color: var(--keith-gold);
-    text-decoration: none;
-    transition: all var(--transition);
-}
-
-.footer-credit a:hover {
-    color: var(--keith-gold-light);
-    text-decoration: underline;
 }
 
 /* ================================
