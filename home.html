@@ -1,4 +1,722 @@
-<!DOCTYPE html>
+.features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-2xl);
+            }
+            
+            .feature-card {
+                min-height: 500px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .footer-links {
+                flex-direction: row;
+                justify-content: center;
+                gap: var(--space-2xl);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 1600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" role="navigation">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
+            </a>
+            
+            <div class="nav-right">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="music/music.html">Music</a></li>
+                    <li><a href="bio.html">Biography</a></li>
+                    <li><a href="tour.html">Tour</a></li>
+                    <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                    <li><a href="shop.html">Store</a></li>
+                </ul>
+                
+                <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
+                    <span class="audio-icon" id="audioIcon">🔊</span>
+                    <span class="audio-text" id="audioText">Audio On</span>
+                </button>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="main" id="mainContent">
+        <section class="hero">
+            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
+            <h1 class="hero-title">Official Music Portal</h1>
+            <p class="hero-subtitle">Hip-Hop's Most Prolific Innovator</p>
+            
+            <div class="carousel-section">
+                <h2 class="carousel-section-title">Latest Releases</h2>
+                <div class="carousel-container">
+                    <div class="carousel">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- DUPLICATE FOR BACKWARD -->
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Aponia</h3>
+                                    <p class="album-artist">Awol One & Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-year">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/aponia.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">World Area</h3>
+                                    <p class="album-artist">Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-year">2023</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/world-area.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- MAIN 5 ALBUMS -->
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Karpenters</h3>
+                                    <p class="album-artist">Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-year">June 2025</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/karpenters.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Everybody Eats!</h3>
+                                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
+                                    <div class="album-details">
+                                        <span class="album-year">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/everybody-eats.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Bandoleros</h3>
+                                    <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-year">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/bandoleros.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Aponia</h3>
+                                    <p class="album-artist">Awol One & Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-year">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/aponia.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">World Area</h3>
+                                    <p class="album-artist">Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-year">2023</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/world-area.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DUPLICATE FOR FORWARD -->
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Karpenters</h3>
+                                    <p class="album-artist">Kool Keith</p>
+                                    <div class="album-details">
+                                        <span class="album-year">June 2025</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/karpenters.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-slide">
+                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
+                            <div class="album-info">
+                                <div class="album-header">
+                                    <h3 class="album-title">Everybody Eats!</h3>
+                                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
+                                    <div class="album-details">
+                                        <span class="album-year">2024</span>
+                                    </div>
+                                </div>
+                                <div class="album-actions">
+                                    <a href="albums/everybody-eats.html" class="btn btn-primary btn-small">Listen & Buy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NAVIGATION BUTTONS -->
+                <button class="carousel-nav prev" id="prevBtn"></button>
+                <button class="carousel-nav next" id="nextBtn"></button>
+                
+                <!-- INDICATORS -->
+                <div class="carousel-indicators" id="indicators">
+                    <div class="carousel-indicator active" data-slide="0"></div>
+                    <div class="carousel-indicator" data-slide="1"></div>
+                    <div class="carousel-indicator" data-slide="2"></div>
+                    <div class="carousel-indicator" data-slide="3"></div>
+                    <div class="carousel-indicator" data-slide="4"></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features">
+            <article class="feature-card">
+                <div class="feature-icon"><img src="bioicon.png" alt="Biography icon"></div>
+                <h3 class="feature-title">Biography</h3>
+                <p class="feature-description">From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. Discover the complete story of hip-hop's most innovative artist through six defining eras.</p>
+                <a href="bio.html" class="btn btn-secondary">Read Biography</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="musicicon.png" alt="Music icon"></div>
+                <h3 class="feature-title">Discography</h3>
+                <p class="feature-description">Over 40 years of groundbreaking music spanning 92+ albums. Stream classics like Critical Beatdown and discover rare gems from the complete catalog of hip-hop's most prolific artist.</p>
+                <a href="music/music.html" class="btn btn-secondary">Listen Now</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="personaicon.png" alt="Personas icon"></div>
+                <h3 class="feature-title">Personas</h3>
+                <p class="feature-description">Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. Experience 58+ personas through our exclusive trading card collection showcasing 40+ years of character creation.</p>
+                <a href="personas/personas.html" class="btn btn-secondary">Explore Personas</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="touricon.png" alt="Tour icon"></div>
+                <h3 class="feature-title">Tour Dates</h3>
+                <p class="feature-description">Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates with MC Homeless and view professional booking information.</p>
+                <a href="tour.html" class="btn btn-secondary">View Dates</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="vaulticon.png" alt="Vault icon"></div>
+                <h3 class="feature-title">Vault</h3>
+                <p class="feature-description">Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks and hidden treasures from hip-hop's most secretive archive.</p>
+                <a href="vault.html" class="btn btn-secondary">Enter Vault</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="playersclub.png" alt="Players Club icon"></div>
+                <h3 class="feature-title">Players Club</h3>
+                <p class="feature-description">Enter Keith's exclusive VIP gaming lounge. Play slots and dice games, chat with AI personas, and earn chips to unlock rare tracks and exclusive content from the vault.</p>
+                <a href="players-club.html" class="btn btn-secondary">Enter Club</a>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon"><img src="statsicon.png" alt="Statistics icon"></div>
+                <h3 class="feature-title">Statistics</h3>
+                <p class="feature-description">Dive into Keith's legendary career stats. NBA-style rankings showing 92+ albums, 41 years active, 58+ personas, and records that cement his status as hip-hop's most prolific innovator.</p>
+                <a href="stats.html" class="btn btn-secondary">View Stats</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="newsicon.png" alt="News icon"></div>
+                <h3 class="feature-title">Latest News</h3>
+                <div class="feature-description">
+                    <div class="latest-post" id="latestPost">
+                        <div class="post-loading">Loading latest news...</div>
+                    </div>
+                    <p class="news-description">Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content.</p>
+                </div>
+                <a href="https://ultrakeithdotcom.blogspot.com/" class="btn btn-secondary">Read All News</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="videosicon.png" alt="Videos icon"></div>
+                <h3 class="feature-title">Videos</h3>
+                <p class="feature-description">Watch music videos, live performances, and behind-the-scenes content. Explore rare footage and exclusive visual content from Keith's extensive multimedia archive.</p>
+                <a href="videos.html" class="btn btn-secondary">Watch Now</a>
+            </article>
+            
+            <article class="feature-card">
+                <div class="feature-icon"><img src="shoppingicon.png" alt="Store icon"></div>
+                <h3 class="feature-title">Store</h3>
+                <p class="feature-description">Shop exclusive merchandise, vinyl records, and limited edition collectibles. Get official Keith gear and rare items available nowhere else.</p>
+                <a href="shop.html" class="btn btn-secondary">Shop Now</a>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon"><img src="forumicon.png" alt="Forum icon"></div>
+                <h3 class="feature-title">Forum</h3>
+                <p class="feature-description">Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, share stories, and stay connected with the Keith musical legacy.</p>
+                <a href="https://koolkeith.proboards.com/" class="btn btn-secondary">Join Forum</a>
+            </article>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <nav aria-label="Footer navigation">
+            <ul class="footer-links">
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="press.html">Press Kit</a></li>
+                <li><a href="booking.html">Booking</a></li>
+            </ul>
+        </nav>
+        <p class="footer-copyright">© 2025 Ultra Keith. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // BULLETPROOF CAROUSEL - Enhanced with error handling and performance optimization
+        class CarouselManager {
+            constructor() {
+                // Configuration from CSS variables
+                this.config = {
+                    startPosition: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-start-position')) || 2,
+                    realSlides: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-real-slides')) || 5,
+                    totalSlides: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-total-slides')) || 9,
+                    autoInterval: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-auto-interval')) || 3600,
+                    manualDelay: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-manual-delay')) || 3000,
+                    slideDuration: 600
+                };
+                
+                // State
+                this.currentSlide = this.config.startPosition;
+                this.autoTimer = null;
+                this.isManualControl = false;
+                this.isDesktop = false;
+                
+                // DOM elements - with error handling
+                this.track = document.getElementById('carouselTrack');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.indicators = document.getElementById('indicators');
+                
+                // Media query for responsive handling
+                this.mediaQuery = window.matchMedia('(min-width: 769px)');
+                
+                this.init();
+            }
+            
+            init() {
+                if (!this.track) {
+                    console.warn('Carousel track not found');
+                    return;
+                }
+                
+                this.updateResponsiveState();
+                this.setupEventListeners();
+                this.setupMediaQueryListener();
+                
+                // Set initial position with error handling
+                requestAnimationFrame(() => {
+                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                    this.goToSlide(this.currentSlide);
+                    
+                    // Start auto-play after initialization
+                    setTimeout(() => {
+                        this.startAutoPlay();
+                    }, 1000);
+                });
+            }
+            
+            updateResponsiveState() {
+                this.isDesktop = this.mediaQuery.matches;
+            }
+            
+            setupMediaQueryListener() {
+                this.mediaQuery.addListener((e) => {
+                    this.isDesktop = e.matches;
+                    // Recalculate position on screen change
+                    if (this.track) {
+                        this.track.style.transition = 'none';
+                        this.goToSlide(this.currentSlide);
+                        setTimeout(() => {
+                            this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                        }, 50);
+                    }
+                });
+            }
+            
+            setupEventListeners() {
+                // Navigation buttons
+                if (this.prevBtn) {
+                    this.prevBtn.addEventListener('click', () => this.prevSlide());
+                }
+                if (this.nextBtn) {
+                    this.nextBtn.addEventListener('click', () => this.nextSlide());
+                }
+                
+                // Indicators
+                if (this.indicators) {
+                    this.indicators.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('carousel-indicator')) {
+                            const albumIndex = parseInt(e.target.dataset.slide);
+                            if (!isNaN(albumIndex)) {
+                                this.goToAlbum(albumIndex);
+                            }
+                        }
+                    });
+                }
+                
+                // Hover pause/resume
+                if (this.track) {
+                    this.track.addEventListener('mouseenter', () => this.clearAutoTimer());
+                    this.track.addEventListener('mouseleave', () => {
+                        if (!this.isManualControl) {
+                            this.startAutoPlay();
+                        }
+                    });
+                }
+                
+                // Resize handling with debounce
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        this.handleResize();
+                    }, 150);
+                });
+            }
+            
+            handleResize() {
+                if (!this.track) return;
+                
+                this.updateResponsiveState();
+                this.track.style.transition = 'none';
+                this.goToSlide(this.currentSlide);
+                setTimeout(() => {
+                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                }, 50);
+            }
+            
+            goToSlide(slideIndex) {
+                if (!this.track) return;
+                
+                // Desktop gets spacing compensation, mobile stays original
+                const slideWidth = this.isDesktop ? 50 : 100;
+                const spacing = this.isDesktop ? 0.6 : 0; // Only desktop has spacing
+                const translateX = -(slideIndex * (slideWidth + spacing));
+                
+                this.track.style.transform = `translateX(${translateX}%)`;
+                this.currentSlide = slideIndex;
+                this.updateIndicators();
+            }
+            
+            updateIndicators() {
+                if (!this.indicators) return;
+                
+                const dots = this.indicators.querySelectorAll('.carousel-indicator');
+                if (dots.length === 0) return;
+                
+                const logicalIndex = (this.currentSlide - this.config.startPosition + this.config.realSlides) % this.config.realSlides;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === logicalIndex);
+                });
+            }
+            
+            nextSlide() {
+                this.clearAutoTimer();
+                this.isManualControl = true;
+                
+                this.currentSlide++;
+                this.goToSlide(this.currentSlide);
+                
+                // Handle infinite loop
+                if (this.currentSlide >= this.config.startPosition + this.config.realSlides) {
+                    setTimeout(() => {
+                        if (this.track) {
+                            this.track.style.transition = 'none';
+                            this.currentSlide = this.config.startPosition;
+                            this.goToSlide(this.currentSlide);
+                            setTimeout(() => {
+                                if (this.track) {
+                                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                                }
+                            }, 50);
+                        }
+                    }, this.config.slideDuration);
+                }
+                
+                this.resumeAfterManual();
+            }
+            
+            prevSlide() {
+                this.clearAutoTimer();
+                this.isManualControl = true;
+                
+                this.currentSlide--;
+                this.goToSlide(this.currentSlide);
+                
+                // Handle infinite loop
+                if (this.currentSlide < this.config.startPosition) {
+                    setTimeout(() => {
+                        if (this.track) {
+                            this.track.style.transition = 'none';
+                            this.currentSlide = this.config.startPosition + this.config.realSlides - 1;
+                            this.goToSlide(this.currentSlide);
+                            setTimeout(() => {
+                                if (this.track) {
+                                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                                }
+                            }, 50);
+                        }
+                    }, this.config.slideDuration);
+                }
+                
+                this.resumeAfterManual();
+            }
+            
+            goToAlbum(albumIndex) {
+                if (albumIndex < 0 || albumIndex >= this.config.realSlides) return;
+                
+                this.clearAutoTimer();
+                this.isManualControl = true;
+                
+                this.currentSlide = this.config.startPosition + albumIndex;
+                this.goToSlide(this.currentSlide);
+                
+                this.resumeAfterManual();
+            }
+            
+            resumeAfterManual() {
+                setTimeout(() => {
+                    this.isManualControl = false;
+                    this.startAutoPlay();
+                }, this.config.manualDelay);
+            }
+            
+            startAutoPlay() {
+                if (this.autoTimer) return;
+                
+                this.autoTimer = setInterval(() => {
+                    if (!this.isManualControl) {
+                        this.currentSlide++;
+                        this.goToSlide(this.currentSlide);
+                        
+                        // Handle infinite loop for auto-play
+                        if (this.currentSlide >= this.config.startPosition + this.config.realSlides) {
+                            setTimeout(() => {
+                                if (this.track) {
+                                    this.track.style.transition = 'none';
+                                    this.currentSlide = this.config.startPosition;
+                                    this.goToSlide(this.currentSlide);
+                                    setTimeout(() => {
+                                        if (this.track) {
+                                            this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
+                                        }
+                                    }, 50);
+                                }
+                            }, this.config.slideDuration);
+                        }
+                    }
+                }, this.config.autoInterval);
+            }
+            
+            clearAutoTimer() {
+                if (this.autoTimer) {
+                    clearInterval(this.autoTimer);
+                    this.autoTimer = null;
+                }
+            }
+            
+            destroy() {
+                this.clearAutoTimer();
+                this.mediaQuery.removeListener(this.handleResize);
+            }
+        }
+
+        // UI Manager for other site functionality
+        class UIManager {
+            constructor() {
+                this.soundEnabled = true;
+                this.init();
+            }
+            
+            init() {
+                this.setupMobileMenu();
+                this.setupAudioToggle();
+                this.loadNews();
+            }
+            
+            setupMobileMenu() {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const navMenu = document.getElementById('navMenu');
+                
+                if (mobileMenuBtn && navMenu) {
+                    mobileMenuBtn.addEventListener('click', () => {
+                        navMenu.classList.toggle('show');
+                    });
+                }
+            }
+            
+            setupAudioToggle() {
+                const audioToggle = document.getElementById('audioToggle');
+                const audioIcon = document.getElementById('audioIcon');
+                const audioText = document.getElementById('audioText');
+                
+                if (audioToggle && audioIcon && audioText) {
+                    audioToggle.addEventListener('click', () => {
+                        this.soundEnabled = !this.soundEnabled;
+                        
+                        if (this.soundEnabled) {
+                            audioToggle.classList.remove('disabled');
+                            audioIcon.textContent = '🔊';
+                            audioText.textContent = 'Audio On';
+                        } else {
+                            audioToggle.classList.add('disabled');
+                            audioIcon.textContent = '🔇';
+                            audioText.textContent = 'Audio Off';
+                        }
+                    });
+                }
+            }
+            
+            async loadNews() {
+                const latestPost = document.getElementById('latestPost');
+                if (!latestPost) return;
+                
+                // Simple, direct approach - test the actual RSS URL first
+                const testUrls = [
+                    'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default',
+                    'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss'
+                ];
+                
+                for (let i = 0; i < testUrls.length; i++) {
+                    try {
+                        console.log(`Trying RSS URL ${i + 1}:`, testUrls[i]);
+                        const response = await fetch(testUrls[i]);
+                        
+                        if (response.ok) {
+                            const data = await response.json();
+                            console.log('RSS Response:', data);
+                            
+                            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                                const post = data.items[0];
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = post.description || '';
+                                const excerpt = (tempDiv.textContent || '').substring(0, 140) + '...';
+                                const date = new Date(post.pubDate).toLocaleDateString('en-US', {
+                                    month: 'short', 
+                                    day: 'numeric', 
+                                    year: 'numeric'
+                                });
+
+                                latestPost.innerHTML = `
+                                    <div class="post-title">
+                                        <a href="${post.link}" target="_blank" rel="noopener noreferrer">${post.title}</a>
+                                    </div>
+                                    <div class="post-excerpt">${excerpt}</div>
+                                    <div class="post-date">${date}</div>
+                                `;
+                                return; // Success - exit the loop
+                            } else {
+                                console.log('RSS data format issue:', data);
+                            }
+                        } else {
+                            console.log('HTTP error:', response.status, response.statusText);
+                        }
+                    } catch (error) {
+                        console.log(`RSS attempt ${i + 1} failed:`, error);
+                    }
+                }
+                
+                // If all methods fail, show a simple fallback
+                latestPost.innerHTML = '<div class="post-error">News feed temporarily unavailable</div>';
+            }
+        }
+
+        // Initialize everything when DOM is ready
+        let carousel, uiManager;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                carousel = new CarouselManager();
+                uiManager = new UIManager();
+                console.log('Site initialized successfully');
+            } catch (error) {
+                console.error('Initialization error:', error);
+                // Fallback: still try to load news even if carousel fails
+                if (!carousel) {
+                    const fallbackUI = new UIManager();
+                }
+            }
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (carousel) {
+                carousel.destroy();
+            }
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -923,677 +1641,4 @@
                 justify-content: flex-start;
             }
             
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-2xl);
-            }
-            
-            .feature-card {
-                min-height: 500px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            
-            .footer-links {
-                flex-direction: row;
-                justify-content: center;
-                gap: var(--space-2xl);
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (min-width: 1400px) {
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 1600px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-    </style>
-</head>
-<body>
-    <nav class="nav" role="navigation">
-        <div class="nav-container">
-            <a href="home.html" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
-            </a>
-            
-            <div class="nav-right">
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="music/music.html">Music</a></li>
-                    <li><a href="bio.html">Biography</a></li>
-                    <li><a href="tour.html">Tour</a></li>
-                    <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
-                    <li><a href="shop.html">Store</a></li>
-                </ul>
-                
-                <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
-                    <span class="audio-icon" id="audioIcon">🔊</span>
-                    <span class="audio-text" id="audioText">Audio On</span>
-                </button>
-                
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-            </div>
-        </div>
-    </nav>
-    
-    <main class="main" id="mainContent">
-        <section class="hero">
-            <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo">
-            <h1 class="hero-title">Official Music Portal</h1>
-            <p class="hero-subtitle">Hip-Hop's Most Prolific Innovator</p>
-            
-            <div class="carousel-section">
-                <h2 class="carousel-section-title">Latest Releases</h2>
-                <div class="carousel-container">
-                    <div class="carousel">
-                    <div class="carousel-track" id="carouselTrack">
-                        <!-- DUPLICATE FOR BACKWARD -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Aponia</h3>
-                                    <p class="album-artist">Awol One & Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-year">2024</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/aponia.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">World Area</h3>
-                                    <p class="album-artist">Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-year">2023</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/world-area.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- MAIN 5 ALBUMS -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Karpenters</h3>
-                                    <p class="album-artist">Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-year">June 2025</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/karpenters.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Everybody Eats!</h3>
-                                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                                    <div class="album-details">
-                                        <span class="album-year">2024</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/everybody-eats.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Bandoleros</h3>
-                                    <p class="album-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-year">2024</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/bandoleros.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Aponia</h3>
-                                    <p class="album-artist">Awol One & Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-year">2024</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/aponia.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/world-area.jpg" alt="World Area album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">World Area</h3>
-                                    <p class="album-artist">Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-year">2023</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/world-area.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- DUPLICATE FOR FORWARD -->
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Karpenters</h3>
-                                    <p class="album-artist">Kool Keith</p>
-                                    <div class="album-details">
-                                        <span class="album-year">June 2025</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/karpenters.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image">
-                            <div class="album-info">
-                                <div class="album-header">
-                                    <h3 class="album-title">Everybody Eats!</h3>
-                                    <p class="album-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                                    <div class="album-details">
-                                        <span class="album-year">2024</span>
-                                    </div>
-                                </div>
-                                <div class="album-actions">
-                                    <a href="albums/everybody-eats.html" class="btn btn-primary btn-small">Listen & Buy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- NAVIGATION BUTTONS -->
-                <button class="carousel-nav prev" id="prevBtn"></button>
-                <button class="carousel-nav next" id="nextBtn"></button>
-                
-                <!-- INDICATORS -->
-                <div class="carousel-indicators" id="indicators">
-                    <div class="carousel-indicator active" data-slide="0"></div>
-                    <div class="carousel-indicator" data-slide="1"></div>
-                    <div class="carousel-indicator" data-slide="2"></div>
-                    <div class="carousel-indicator" data-slide="3"></div>
-                    <div class="carousel-indicator" data-slide="4"></div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="features">
-            <article class="feature-card">
-                <div class="feature-icon"><img src="bioicon.png" alt="Biography icon"></div>
-                <h3 class="feature-title">Biography</h3>
-                <p class="feature-description">From Bronx genesis with Ultramagnetic MCs to West Coast evolution and mainstream breakthrough. Discover the complete story of hip-hop's most innovative artist through six defining eras.</p>
-                <a href="bio.html" class="btn btn-secondary">Read Biography</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="musicicon.png" alt="Music icon"></div>
-                <h3 class="feature-title">Discography</h3>
-                <p class="feature-description">Over 40 years of groundbreaking music spanning 92+ albums. Stream classics like Critical Beatdown and discover rare gems from the complete catalog of hip-hop's most prolific artist.</p>
-                <a href="music/music.html" class="btn btn-secondary">Listen Now</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="personaicon.png" alt="Personas icon"></div>
-                <h3 class="feature-title">Personas</h3>
-                <p class="feature-description">Explore the multiverse of Kool Keith's alter egos - from Dr. Octagon to Black Elvis. Experience 58+ personas through our exclusive trading card collection showcasing 40+ years of character creation.</p>
-                <a href="personas/personas.html" class="btn btn-secondary">Explore Personas</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="touricon.png" alt="Tour icon"></div>
-                <h3 class="feature-title">Tour Dates</h3>
-                <p class="feature-description">Experience the energy of Kool Keith live on stage. Check upcoming Punk Rap Tour 2025 dates with MC Homeless and view professional booking information.</p>
-                <a href="tour.html" class="btn btn-secondary">View Dates</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="vaulticon.png" alt="Vault icon"></div>
-                <h3 class="feature-title">Vault</h3>
-                <p class="feature-description">Unreleased tracks, rare recordings, and exclusive content for true fans. Access 150+ unreleased tracks and hidden treasures from hip-hop's most secretive archive.</p>
-                <a href="vault.html" class="btn btn-secondary">Enter Vault</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="playersclub.png" alt="Players Club icon"></div>
-                <h3 class="feature-title">Players Club</h3>
-                <p class="feature-description">Enter Keith's exclusive VIP gaming lounge. Play slots and dice games, chat with AI personas, and earn chips to unlock rare tracks and exclusive content from the vault.</p>
-                <a href="players-club.html" class="btn btn-secondary">Enter Club</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon"><img src="statsicon.png" alt="Statistics icon"></div>
-                <h3 class="feature-title">Statistics</h3>
-                <p class="feature-description">Dive into Keith's legendary career stats. NBA-style rankings showing 92+ albums, 41 years active, 58+ personas, and records that cement his status as hip-hop's most prolific innovator.</p>
-                <a href="stats.html" class="btn btn-secondary">View Stats</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="newsicon.png" alt="News icon"></div>
-                <h3 class="feature-title">Latest News</h3>
-                <div class="feature-description">
-                    <div class="latest-post" id="latestPost">
-                        <div class="post-loading">Loading latest news...</div>
-                    </div>
-                    <p class="news-description">Stay updated with the latest Keith announcements, new releases, tour updates, and exclusive content.</p>
-                </div>
-                <a href="https://ultrakeithdotcom.blogspot.com/" class="btn btn-secondary">Read All News</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="videosicon.png" alt="Videos icon"></div>
-                <h3 class="feature-title">Videos</h3>
-                <p class="feature-description">Watch music videos, live performances, and behind-the-scenes content. Explore rare footage and exclusive visual content from Keith's extensive multimedia archive.</p>
-                <a href="videos.html" class="btn btn-secondary">Watch Now</a>
-            </article>
-            
-            <article class="feature-card">
-                <div class="feature-icon"><img src="shoppingicon.png" alt="Store icon"></div>
-                <h3 class="feature-title">Store</h3>
-                <p class="feature-description">Shop exclusive merchandise, vinyl records, and limited edition collectibles. Get official Keith gear and rare items available nowhere else.</p>
-                <a href="shop.html" class="btn btn-secondary">Shop Now</a>
-            </article>
-
-            <article class="feature-card">
-                <div class="feature-icon"><img src="forumicon.png" alt="Forum icon"></div>
-                <h3 class="feature-title">Forum</h3>
-                <p class="feature-description">Join the official Kool Keith community forum. Connect with fans worldwide, discuss music, share stories, and stay connected with the Keith musical legacy.</p>
-                <a href="https://koolkeith.proboards.com/" class="btn btn-secondary">Join Forum</a>
-            </article>
-        </section>
-    </main>
-    
-    <footer class="footer">
-        <nav aria-label="Footer navigation">
-            <ul class="footer-links">
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="press.html">Press Kit</a></li>
-                <li><a href="booking.html">Booking</a></li>
-            </ul>
-        </nav>
-        <p class="footer-copyright">© 2025 Ultra Keith. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // BULLETPROOF CAROUSEL - Enhanced with error handling and performance optimization
-        class CarouselManager {
-            constructor() {
-                // Configuration from CSS variables
-                this.config = {
-                    startPosition: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-start-position')) || 2,
-                    realSlides: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-real-slides')) || 5,
-                    totalSlides: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-total-slides')) || 9,
-                    autoInterval: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-auto-interval')) || 3600,
-                    manualDelay: parseInt(getComputedStyle(document.documentElement).getPropertyValue('--carousel-manual-delay')) || 3000,
-                    slideDuration: 600
-                };
-                
-                // State
-                this.currentSlide = this.config.startPosition;
-                this.autoTimer = null;
-                this.isManualControl = false;
-                this.isDesktop = false;
-                
-                // DOM elements - with error handling
-                this.track = document.getElementById('carouselTrack');
-                this.prevBtn = document.getElementById('prevBtn');
-                this.nextBtn = document.getElementById('nextBtn');
-                this.indicators = document.getElementById('indicators');
-                
-                // Media query for responsive handling
-                this.mediaQuery = window.matchMedia('(min-width: 769px)');
-                
-                this.init();
-            }
-            
-            init() {
-                if (!this.track) {
-                    console.warn('Carousel track not found');
-                    return;
-                }
-                
-                this.updateResponsiveState();
-                this.setupEventListeners();
-                this.setupMediaQueryListener();
-                
-                // Set initial position with error handling
-                requestAnimationFrame(() => {
-                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
-                    this.goToSlide(this.currentSlide);
-                    
-                    // Start auto-play after initialization
-                    setTimeout(() => {
-                        this.startAutoPlay();
-                    }, 1000);
-                });
-            }
-            
-            updateResponsiveState() {
-                this.isDesktop = this.mediaQuery.matches;
-            }
-            
-            setupMediaQueryListener() {
-                this.mediaQuery.addListener((e) => {
-                    this.isDesktop = e.matches;
-                    // Recalculate position on screen change
-                    if (this.track) {
-                        this.track.style.transition = 'none';
-                        this.goToSlide(this.currentSlide);
-                        setTimeout(() => {
-                            this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
-                        }, 50);
-                    }
-                });
-            }
-            
-            setupEventListeners() {
-                // Navigation buttons
-                if (this.prevBtn) {
-                    this.prevBtn.addEventListener('click', () => this.prevSlide());
-                }
-                if (this.nextBtn) {
-                    this.nextBtn.addEventListener('click', () => this.nextSlide());
-                }
-                
-                // Indicators
-                if (this.indicators) {
-                    this.indicators.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('carousel-indicator')) {
-                            const albumIndex = parseInt(e.target.dataset.slide);
-                            if (!isNaN(albumIndex)) {
-                                this.goToAlbum(albumIndex);
-                            }
-                        }
-                    });
-                }
-                
-                // Hover pause/resume
-                if (this.track) {
-                    this.track.addEventListener('mouseenter', () => this.clearAutoTimer());
-                    this.track.addEventListener('mouseleave', () => {
-                        if (!this.isManualControl) {
-                            this.startAutoPlay();
-                        }
-                    });
-                }
-                
-                // Resize handling with debounce
-                let resizeTimeout;
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(() => {
-                        this.handleResize();
-                    }, 150);
-                });
-            }
-            
-            handleResize() {
-                if (!this.track) return;
-                
-                this.updateResponsiveState();
-                this.track.style.transition = 'none';
-                this.goToSlide(this.currentSlide);
-                setTimeout(() => {
-                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
-                }, 50);
-            }
-            
-            goToSlide(slideIndex) {
-                if (!this.track) return;
-                
-                // Desktop gets spacing compensation, mobile stays original
-                const slideWidth = this.isDesktop ? 50 : 100;
-                const spacing = this.isDesktop ? 0.6 : 0; // Only desktop has spacing
-                const translateX = -(slideIndex * (slideWidth + spacing));
-                
-                this.track.style.transform = `translateX(${translateX}%)`;
-                this.currentSlide = slideIndex;
-                this.updateIndicators();
-            }
-            
-            updateIndicators() {
-                if (!this.indicators) return;
-                
-                const dots = this.indicators.querySelectorAll('.carousel-indicator');
-                if (dots.length === 0) return;
-                
-                const logicalIndex = (this.currentSlide - this.config.startPosition + this.config.realSlides) % this.config.realSlides;
-                
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === logicalIndex);
-                });
-            }
-            
-            nextSlide() {
-                this.clearAutoTimer();
-                this.isManualControl = true;
-                
-                this.currentSlide++;
-                this.goToSlide(this.currentSlide);
-                
-                // Handle infinite loop
-                if (this.currentSlide >= this.config.startPosition + this.config.realSlides) {
-                    setTimeout(() => {
-                        if (this.track) {
-                            this.track.style.transition = 'none';
-                            this.currentSlide = this.config.startPosition;
-                            this.goToSlide(this.currentSlide);
-                            setTimeout(() => {
-                                if (this.track) {
-                                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
-                                }
-                            }, 50);
-                        }
-                    }, this.config.slideDuration);
-                }
-                
-                this.resumeAfterManual();
-            }
-            
-            prevSlide() {
-                this.clearAutoTimer();
-                this.isManualControl = true;
-                
-                this.currentSlide--;
-                this.goToSlide(this.currentSlide);
-                
-                // Handle infinite loop
-                if (this.currentSlide < this.config.startPosition) {
-                    setTimeout(() => {
-                        if (this.track) {
-                            this.track.style.transition = 'none';
-                            this.currentSlide = this.config.startPosition + this.config.realSlides - 1;
-                            this.goToSlide(this.currentSlide);
-                            setTimeout(() => {
-                                if (this.track) {
-                                    this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
-                                }
-                            }, 50);
-                        }
-                    }, this.config.slideDuration);
-                }
-                
-                this.resumeAfterManual();
-            }
-            
-            goToAlbum(albumIndex) {
-                if (albumIndex < 0 || albumIndex >= this.config.realSlides) return;
-                
-                this.clearAutoTimer();
-                this.isManualControl = true;
-                
-                this.currentSlide = this.config.startPosition + albumIndex;
-                this.goToSlide(this.currentSlide);
-                
-                this.resumeAfterManual();
-            }
-            
-            resumeAfterManual() {
-                setTimeout(() => {
-                    this.isManualControl = false;
-                    this.startAutoPlay();
-                }, this.config.manualDelay);
-            }
-            
-            startAutoPlay() {
-                if (this.autoTimer) return;
-                
-                this.autoTimer = setInterval(() => {
-                    if (!this.isManualControl) {
-                        this.currentSlide++;
-                        this.goToSlide(this.currentSlide);
-                        
-                        // Handle infinite loop for auto-play
-                        if (this.currentSlide >= this.config.startPosition + this.config.realSlides) {
-                            setTimeout(() => {
-                                if (this.track) {
-                                    this.track.style.transition = 'none';
-                                    this.currentSlide = this.config.startPosition;
-                                    this.goToSlide(this.currentSlide);
-                                    setTimeout(() => {
-                                        if (this.track) {
-                                            this.track.style.transition = `transform var(--carousel-slide-duration) ease-in-out`;
-                                        }
-                                    }, 50);
-                                }
-                            }, this.config.slideDuration);
-                        }
-                    }
-                }, this.config.autoInterval);
-            }
-            
-            clearAutoTimer() {
-                if (this.autoTimer) {
-                    clearInterval(this.autoTimer);
-                    this.autoTimer = null;
-                }
-            }
-            
-            destroy() {
-                this.clearAutoTimer();
-                this.mediaQuery.removeListener(this.handleResize);
-            }
-        }
-
-        // UI Manager for other site functionality
-        class UIManager {
-            constructor() {
-                this.soundEnabled = true;
-                this.init();
-            }
-            
-            init() {
-                this.setupMobileMenu();
-                this.setupAudioToggle();
-                this.loadNews();
-            }
-            
-            setupMobileMenu() {
-                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-                const navMenu = document.getElementById('navMenu');
-                
-                if (mobileMenuBtn && navMenu) {
-                    mobileMenuBtn.addEventListener('click', () => {
-                        navMenu.classList.toggle('show');
-                    });
-                }
-            }
-            
-            setupAudioToggle() {
-                const audioToggle = document.getElementById('audioToggle');
-                const audioIcon = document.getElementById('audioIcon');
-                const audioText = document.getElementById('audioText');
-                
-                if (audioToggle && audioIcon && audioText) {
-                    audioToggle.addEventListener('click', () => {
-                        this.soundEnabled = !this.soundEnabled;
-                        
-                        if (this.soundEnabled) {
-                            audioToggle.classList.remove('disabled');
-                            audioIcon.textContent = '🔊';
-                            audioText.textContent = 'Audio On';
-                        } else {
-                            audioToggle.classList.add('disabled');
-                            audioIcon.textContent = '🔇';
-                            audioText.textContent = 'Audio Off';
-                        }
-                    });
-                }
-            }
-            
-            async loadNews() {
-                const latestPost = document.getElementById('latestPost');
-                if (!latestPost) return;
-                
-                // Simple, direct approach - test the actual RSS URL first
-                const testUrls = [
-                    'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default',
-                    'https://api.rss2json.com/v1/api.json?rss_url=https://ultrakeithdotcom.blogspot.com/feeds/posts/default?alt=rss'
-                ];
-                
-                for (let i = 0; i < testUrls.length; i++) {
-                    try {
-                        console.log(`Trying RSS URL ${i + 1}:`, testUrls[i]);
-                        const response = await fetch(testUrls[i]);
-                        
-                        if (response.ok) {
-                            const data = await response.json();
-                            console.log('RSS Response:', data);
-                            
-                            if (data.status === 'ok' && data.items && data.items.length > 0) {
-                                const post = data.items[0];
-                                const tempDiv = document.createElement('div');
-                                tempDiv.innerHTML = post.description || '';
-                                const excerpt = (tempDiv.textContent || '').substring(0, 140) + '...';
-                                const date = new Date(post.pubDate).toLocaleDateString('en-US', {
-                                    month: 'short', 
-                                    day: 'numeric', 
-                                    year: 'numeric'
-                                });
-
-                                latestPost.innerHTML = `
-                                    <div class="post-title">
-                                        <a href="${post.link}" target="_blank" rel="noopener noreferrer">${post.title}</a>
-                                    </div>
-                                    <div class="post-excerpt">${excerpt}</div>
+            .features
