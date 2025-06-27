@@ -250,10 +250,29 @@
     <script>
         // Game state
         let chipCount = 500;
-        let playerName = '';
+        let playerName = localStorage.getItem('keithPlayerName') || '';
         let drunkLevel = 0;
         let isDoubleClickMode = false;
         let clickCounts = {};
+        let hasSeenWelcome = localStorage.getItem('keithWelcomeSeen') === 'true';
+        
+        // Welcome message control
+        function checkWelcomeStatus() {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            if (hasSeenWelcome || playerName) {
+                welcomeMessage.style.display = 'none';
+            } else {
+                welcomeMessage.style.display = 'block';
+            }
+        }
+        
+        function closeWelcome() {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            welcomeMessage.style.display = 'none';
+            hasSeenWelcome = true;
+            localStorage.setItem('keithWelcomeSeen', 'true');
+            playSound('enter');
+        }
         
         // Drunk system
         function drinkChampagne() {
@@ -359,10 +378,19 @@
             const nameInput = document.getElementById('playerName');
             if (nameInput.value.trim()) {
                 playerName = nameInput.value.trim();
+                localStorage.setItem('keithPlayerName', playerName);
                 document.getElementById('nameRegistration').style.display = 'none';
                 document.getElementById('welcomeBack').style.display = 'block';
                 document.getElementById('welcomeName').textContent = playerName;
                 playSound('register');
+                
+                // Hide welcome message once name is registered
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                if (welcomeMessage) {
+                    welcomeMessage.style.display = 'none';
+                    hasSeenWelcome = true;
+                    localStorage.setItem('keithWelcomeSeen', 'true');
+                }
             } else {
                 alert('Keith needs to know your name!');
             }
@@ -374,11 +402,16 @@
                 document.getElementById(type + 'Modal').style.display = 'flex';
                 playSound('click');
                 
-                // Show welcome back message for returning players
-                if (type === 'cashout' && playerName) {
-                    document.getElementById('nameRegistration').style.display = 'none';
-                    document.getElementById('welcomeBack').style.display = 'block';
-                    document.getElementById('welcomeName').textContent = playerName;
+                // Show correct cashier interface based on name registration
+                if (type === 'cashout') {
+                    if (playerName) {
+                        document.getElementById('nameRegistration').style.display = 'none';
+                        document.getElementById('welcomeBack').style.display = 'block';
+                        document.getElementById('welcomeName').textContent = playerName;
+                    } else {
+                        document.getElementById('nameRegistration').style.display = 'block';
+                        document.getElementById('welcomeBack').style.display = 'none';
+                    }
                 }
             });
         }
@@ -386,11 +419,6 @@
         function closeModal(type) {
             document.getElementById(type + 'Modal').style.display = 'none';
             playSound('close');
-        }
-        
-        function closeWelcome() {
-            document.getElementById('welcomeMessage').style.display = 'none';
-            playSound('enter');
         }
         
         // Audio simulation with drunk effects
@@ -774,14 +802,9 @@
         // Initialize on load
         document.addEventListener('DOMContentLoaded', function() {
             updateChipDisplay();
+            checkWelcomeStatus(); // Check if welcome should be shown
             
-            // Auto-dismiss welcome after 12 seconds
-            setTimeout(() => {
-                const welcome = document.getElementById('welcomeMessage');
-                if (welcome && welcome.style.display !== 'none') {
-                    welcome.style.opacity = '0.8';
-                }
-            }, 12000);
+            // No auto-dismiss timer - welcome only closes manually or if name registered
             
             // Initialize blackjack
             setTimeout(() => {
@@ -794,6 +817,7 @@
             console.log('🎲 Games: Slots, Cee-Lo, Blackjack with drunk effects');
             console.log('🔊 Audio: Exclusive Keith tracks + casino ambiance');
             console.log('⌨️  Shortcut: Press C to drink champagne');
+            console.log(`👤 Player: ${playerName || 'New visitor'}`);
         });
     </script>
 </body>
