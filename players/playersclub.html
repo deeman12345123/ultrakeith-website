@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Keith Players Club</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --gold: #DAB547;
+            --gold-light: #E8C547;
+            --black: #000000;
+            --burgundy: #0F0505;
+            --white: #FFFFFF;
+            --neon-gold: #FFD700;
+            --neon-glow: rgba(255, 215, 0, 0.6);
+            --red: #FF073A;
+            --green: #00FF41;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #000;
+            color: var(--white);
+            overflow: hidden;
+            height: 100vh;
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23DAB547" opacity="0.8"/><circle cx="10" cy="10" r="3" fill="%23000"/></svg>'), auto;
+        }
+        
+        /* DESKTOP POV CASINO */
+        .desktop-view {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: 
+                /* Atmospheric lighting overlay */
+                radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 60%, rgba(218, 181, 71, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 40%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
+                /* Main casino floor gradient */
+                linear-gradient(
+                    180deg,
+                    #1a1a1a 0%,
+                    #0d0d0d 30%,
+                    #000000 70%,
+                    #0a0a0a 100%
+                );
+            background-size: cover;
+            background-position: center bottom;
+            perspective: 1000px;
+        }
+        
+        /* AMBIENT PARTICLES */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 8s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10px) translateX(100px); opacity: 0; }
+        }
+        
+        /* NEON KEITH LOGO */
+        .neon-logo {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', monospace;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--neon-gold);
+            text-shadow: 
+                0 0 10px var(--neon-glow),
+                0 0 20px var(--neon-glow),
+                0 0 40px var(--neon-glow),
+                0 0 80px var(--neon-glow);
+            animation: neonPulse 4s ease-in-out infinite alternate;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            z-index: 5;
+        }
+        
+        @keyframes neonPulse {
+            from {
+                text-shadow: 
+                    0 0 10px var(--neon-glow),
+                    0 0 20px var(--neon-glow),
+                    0 0 40px var(--neon-glow),
+                    0 0 80px var(--neon-glow);
+            }
+            to {
+                text-shadow: 
+                    0 0 20px var(--neon-glow),
+                    0 0 30px var(--neon-glow),
+                    0 0 60px var(--neon-glow),
+                    0 0 120px var(--neon-glow);
+            }
+        }
+        
+        /* CASINO FLOOR ELEMENTS */
+        .casino-floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+            background: 
+                linear-gradient(45deg, transparent 0%, rgba(218, 181, 71, 0.03) 50%, transparent 100%),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255, 255, 255, 0.01) 101px,
+                    rgba(255, 255, 255, 0.01) 102px
+                );
+        }
+        
+        /* GAMING TABLES */
+        .slot-machine {
+            position: absolute;
+            top: 180px;
+            left: 200px;
+            width: 180px;
+            height: 280px;
+            background: 
+                linear-gradient(145deg, #2a2a2a, #1a1a1a),
+                radial-gradient(circle at 50% 30%, #444, #222);
+            border: 3px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transform: perspective(600px) rotateY(-5deg);
+        }
+        
+        .blackjack-table {
+            position: absolute;
+            top: 140px;
+            left: 50%;
+            transform: translateX(-50%) perspective(600px) rotateY(0deg);
+            width: 320px;
+            height: 180px;
+            background: 
+                radial-gradient(ellipse at center, #1a4a1a, #0d2d0d),
+                linear-gradient(145deg, #2a5a2a, #1a3a1a);
+            border: 4px solid var(--gold);
+            border-radius: 50% / 30%;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                inset 0 2px 0 rgba(218, 181, 71, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+        
+        .dice-table {
+            position: absolute;
+            top: 160px;
+            right: 200px;
+            width: 200px;
+            height: 240px;
+            background: 
+                linear-gradient(145deg, #3a1a1a, #2a0a0a),
+                radial-gradient(circle at 30% 30%, #4a2a2a, #2a1a1a);
+            border: 3px solid transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transform: perspective(600px) rotateY(5deg);
+        }
+        
+        .cashout-booth {
+            position: absolute;
+            top: 100px;
+            right: 50px;
+            width: 160px;
+            height: 300px;
+            background: 
+                linear-gradient(145deg, #1a1a2a, #0a0a1a),
+                linear-gradient(90deg, #2a2a3a, #1a1a2a);
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                inset 0 2px 0 rgba(218, 181, 71, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transform: perspective(600px) rotateY(10deg);
+        }
+        
+        /* HOVER EFFECTS */
+        .slot-machine:hover, .blackjack-table:hover, .dice-table:hover, .cashout-booth:hover {
+            border-color: var(--neon-gold);
+            box-shadow: 
+                0 0 30px var(--neon-glow),
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(255, 215, 0, 0.1);
+            transform: perspective(600px) rotateY(0deg) translateY(-10px) scale(1.05);
+        }
+        
+        .slot-machine:hover { background: linear-gradient(145deg, #3a3a3a, #2a2a2a); }
+        .blackjack-table:hover { background: radial-gradient(ellipse at center, #2a6a2a, #1d4d1d); }
+        .dice-table:hover { background: linear-gradient(145deg, #4a2a2a, #3a1a1a); }
+        .cashout-booth:hover { background: linear-gradient(145deg, #2a2a3a, #1a1a2a); }
+        
+        /* HOVER LABELS */
+        .hotspot-label {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 26, 0.9));
+            color: var(--gold);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+            border: 1px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slot-machine:hover .hotspot-label,
+        .blackjack-table:hover .hotspot-label,
+        .dice-table:hover .hotspot-label,
+        .cashout-booth:hover .hotspot-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        
+        /* FOREGROUND VIP TABLE */
+        .vip-table {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 400px;
+            background: 
+                radial-gradient(ellipse at center top, rgba(26, 26, 26, 0.9) 0%, rgba(0, 0, 0, 0.95) 60%, #000 100%),
+                linear-gradient(to top, #000 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .phone {
+            position: absolute;
+            bottom: 120px;
+            right: 180px;
+            width: 100px;
+            height: 160px;
+            background: 
+                linear-gradient(145deg, #1a1a1a, #000),
+                radial-gradient(circle at 50% 20%, #333, #111);
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: all;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(218, 181, 71, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+        
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+        }
+        
+        .phone:hover {
+            transform: translateY(-15px) scale(1.1);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.9),
+                0 0 40px var(--neon-glow),
+                inset 0 0 20px rgba(255, 215, 0, 0.1);
+            border-color: var(--neon-gold);
+        }
+        
+        .champagne {
+            position: absolute;
+            bottom: 140px;
+            left: 200px;
+            width: 60px;
+            height: 120px;
+            background: 
+                linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 70%, #0a0a0a 100%),
+                radial-gradient(circle at 30% 30%, #333, #111);
+            border-radius: 8px 8px 30px 30px;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: all 0.3s;
+            pointer-events: all;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+        
+        .champagne::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 15px;
+            background: #444;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .champagne:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.8),
+                0 0 25px rgba(218, 181, 71, 0.3);
+            border-color: var(--gold-light);
+        }
+        
+        /* WELCOME MESSAGE */
+        .welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.9)),
+                radial-gradient(circle at center, rgba(218, 181, 71, 0.05), transparent);
+            padding: 40px 60px;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            max-width: 700px;
+            backdrop-filter: blur(15px);
+            animation: fadeInScale 1.2s ease-out 0.5s both;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(218, 181, 71, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .welcome-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(218, 181, 71, 0.5);
+        }
+        
+        .keith-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--gold-light);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            border-left: 4px solid var(--gold);
+            padding-left: 20px;
+            margin-left: 20px;
+            text-align: left;
+        }
+        
+        .starter-package {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .package-item {
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 0.95rem;
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.3s;
+        }
+        
+        .package-item:hover {
+            background: rgba(218, 181, 71, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .package-item strong {
+            color: var(--gold);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .enter-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(218, 181, 71, 0.3);
+        }
+        
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(218, 181, 71, 0.5);
+            background: linear-gradient(135deg, var(--gold-light), #F4D03F);
+        }
+        
+        /* MOBILE VIEW */
+        .mobile-view {
+            display: none;
+            padding: 20px;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(218, 181, 71, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, var(--black) 0%, var(--burgundy) 50%, var(--black) 100%);
+        }
+        
+        .mobile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .mobile-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(218, 181, 71, 0.5);
+        }
+        
+        .mobile-subtitle {
+            color: var(--white);
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .mobile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .mobile-button {
+            background: 
+                linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.9)),
+                radial-gradient(circle at 30% 30%, rgba(218, 181, 71, 0.05), transparent);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: var(--white);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mobile-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .mobile-button:hover::before {
+            left: 100%;
+        }
+        
+        .mobile-button:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(218, 181, 71, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .mobile-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(218, 181, 71, 0.3));
+        }
+        
+        .mobile-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+        }
+        
+        /* MODAL SYSTEM */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: 
+                linear-gradient(135deg, #1a1a1a, #2a2a2a),
+                radial-gradient(circle at center, rgba(218, 181, 71, 0.05), transparent);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(218, 181, 71, 0.2);
+            animation: modalFadeIn 0.4s ease-out;
+            position: relative;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .modal-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(218, 181, 71, 0.5);
+        }
+        
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--white);
+            opacity: 0.9;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover {
+            background: rgba(218, 181, 71, 0.1);
+            color: var(--gold-light);
+            transform: rotate(90deg);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .desktop-view {
+                display: none;
+            }
+            .mobile-view {
+                display: block;
+            }
+            .modal-content {
+                padding: 30px 25px;
+                margin: 20px;
+            }
+            .welcome-message {
+                margin: 20px;
+                padding: 30px 25px;
+            }
+            .starter-package {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .package-item {
+                min-width: auto;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .desktop-view {
+                display: block;
+            }
+            .mobile-view {
+                display: none;
+            }
+        }
+        
+        /* AUDIO INDICATOR */
+        .audio-status {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .audio-icon {
+            font-size: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- AUDIO STATUS INDICATOR -->
+    <div class="audio-status">
+        <span class="audio-icon">🎵</span>
+        <span>Club Audio: Ambient + Exclusive Tracks</span>
+    </div>
+
+    <!-- DESKTOP POV VIEW -->
+    <div class="desktop-view">
+        <!-- AMBIENT PARTICLES -->
+        <div class="particles" id="particles"></div>
+        
+        <div class="neon-logo">ULTRA KEITH</div>
+        <div class="casino-floor"></div>
+        
+        <!-- GAMING AREAS -->
+        <div class="slot-machine" onclick="openModal('slot')">
+            🎰
+            <div class="hotspot-label">Slot Machine</div>
+        </div>
+        
+        <div class="blackjack-table" onclick="openModal('blackjack')">
+            🃏
+            <div class="hotspot-label">Blackjack</div>
+        </div>
+        
+        <div class="dice-table" onclick="openModal('dice')">
+            🎲
+            <div class="hotspot-label">Cee-Lo Dice</div>
+        </div>
+        
+        <div class="cashout-booth" onclick="openModal('cashout')">
+            💰
+            <div class="hotspot-label">Cashout Booth</div>
+        </div>
+        
+        <!-- VIP TABLE FOREGROUND -->
+        <div class="vip-table">
+            <div class="phone" onclick="openModal('chat')" title="Keith's Phone">📱</div>
+            <div class="champagne" onclick="openModal('bonus')" title="Daily Bonus">🥂</div>
+        </div>
+        
+        <!-- WELCOME MESSAGE -->
+        <div class="welcome-message" id="welcomeMessage">
+            <h2 class="welcome-title">Welcome to The Players Club</h2>
+            <div class="keith-quote">
+                "Welcome to my exclusive spot. I'm hooking you up with everything you need - 
+                chips to play, my personal line to hit me up, and access to tracks nobody else can get. 
+                This is how legends live."
+            </div>
+            <div class="starter-package">
+                <div class="package-item">
+                    <strong>🎰 500 Chips</strong>
+                    Play all games<br>Earn more through wins
+                </div>
+                <div class="package-item">
+                    <strong>📱 Keith's Phone</strong>
+                    Direct AI access<br>All personas available
+                </div>
+                <div class="package-item">
+                    <strong>🎫 VIP Access</strong>
+                    Exclusive rewards<br>Rare track shop
+                </div>
+            </div>
+            <button class="enter-btn" onclick="closeWelcome()">Enter The Club</button>
+        </div>
+    </div>
+    
+    <!-- MOBILE VIEW -->
+    <div class="mobile-view">
+        <div class="mobile-header">
+            <h1 class="mobile-logo">Players Club</h1>
+            <p class="mobile-subtitle">Keith's Exclusive Gaming Lounge</p>
+        </div>
+        
+        <div class="mobile-grid">
+            <div class="mobile-button" onclick="openModal('chat')">
+                <span class="mobile-icon">📱</span>
+                <div class="mobile-label">Call Keith</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('slot')">
+                <span class="mobile-icon">🎰</span>
+                <div class="mobile-label">Slots</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('blackjack')">
+                <span class="mobile-icon">🃏</span>
+                <div class="mobile-label">Blackjack</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('dice')">
+                <span class="mobile-icon">🎲</span>
+                <div class="mobile-label">Cee-Lo</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('cashout')">
+                <span class="mobile-icon">💰</span>
+                <div class="mobile-label">Cash Out</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('bonus')">
+                <span class="mobile-icon">🥂</span>
+                <div class="mobile-label">Daily Bonus</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODALS -->
+    <div class="modal" id="chatModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('chat')">&times;</button>
+            <h3 class="modal-title">📱 Keith's Phone</h3>
+            <div class="modal-description">
+                <p style="margin-bottom: 20px;">Pick up Keith's phone and choose which persona you want to talk to:</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('octagon')">
+                        <div style="font-size: 2rem; margin-bottom: 5px;">🩺</div>
+                        <div style="color: var(--gold); font-weight: bold;">Dr. Octagon</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Medical madness</div>
+                    </div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('dooom')">
+                        <div style="font-size: 2rem; margin-bottom: 5px;">💀</div>
+                        <div style="color: var(--gold); font-weight: bold;">Dr. Dooom</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Destruction mode</div>
+                    </div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('elvis')">
+                        <div style="font-size: 2rem; margin-bottom: 5px;">👑</div>
+                        <div style="color: var(--gold); font-weight: bold;">Black Elvis</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Space king</div>
+                    </div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('keith')">
+                        <div style="font-size: 2rem; margin-bottom: 5px;">🎤</div>
+                        <div style="color: var(--gold); font-weight: bold;">Kool Keith</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">The original</div>
+                    </div>
+                </div>
+                
+                <p style="font-style: italic; opacity: 0.7; font-size: 0.9rem;">
+                    * AI-powered conversations for entertainment purposes
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="slotModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('slot')">&times;</button>
+            <h3 class="modal-title">🎰 Slot Machine</h3>
+            <div class="modal-description">
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <div style="background: #222; border: 2px solid var(--gold); border-radius: 15px; padding: 30px; text-align: center;">
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px; font-size: 3rem;">
+                            <div id="slot1">🩺</div>
+                            <div id="slot2">👑</div>
+                            <div id="slot3">💀</div>
+                        </div>
+                        <div style="margin: 20px 0;">
+                            <button style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="spinSlots()">
+                                SPIN (50 chips)
+                            </button>
+                        </div>
+                        <div style="color: var(--gold); font-family: 'Orbitron', monospace;">
+                            Chips: <span id="chipCount">500</span>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Persona Symbols:</strong><br>
+                🩺 Dr. Octagon • 👑 Black Elvis • 💀 Dr. Dooom<br>
+                🎤 Kool Keith • 🎭 Mr. Gerbik • 🎰 JACKPOT</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="blackjackModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('blackjack')">&times;</button>
+            <h3 class="modal-title">🃏 Blackjack</h3>
+            <div class="modal-description">
+                <div style="background: #1a4a1a; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="color: var(--gold); margin-bottom: 10px;">House: <span id="houseTotal">??</span></div>
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;" id="houseCards">
+                            <div style="background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">?</div>
+                            <div style="background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">?</div>
+                        </div>
+                        
+                        <div style="color: var(--white); margin-bottom: 10px;">You: <span id="playerTotal">0</span></div>
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;" id="playerCards">
+                            <!-- Player cards will appear here -->
+                        </div>
+                        
+                        <div style="margin: 20px 0;">
+                            <button style="background: var(--green); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="hit()">HIT</button>
+                            <button style="background: var(--red); color: var(--white); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="stand()">STAND</button>
+                            <button style="background: var(--gold); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="newHand()">NEW HAND</button>
+                        </div>
+                        
+                        <div style="color: var(--gold); font-family: 'Orbitron', monospace;">
+                            Bet: 100 chips
+                        </div>
+                    </div>
+                </div>
+                <p>Classic 21 - Beat the house without going over!</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="diceModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('dice')">&times;</button>
+            <h3 class="modal-title">🎲 Cee-Lo Dice</h3>
+            <div class="modal-description">
+                <div style="background: #3a1a1a; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="color: var(--gold); margin-bottom: 15px;">Keith's Roll: <span id="keithRoll">Roll to see...</span></div>
+                        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;" id="keithDice">
+                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
+                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
+                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
+                        </div>
+                        
+                        <div style="color: var(--white); margin: 15px 0;">Your Roll: <span id="playerRoll">Click to roll!</span></div>
+                        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;" id="playerDice">
+                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
+                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
+                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
+                        </div>
+                        
+                        <button style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; margin: 10px;" onclick="rollDice()">
+                            ROLL DICE (75 chips)
+                        </button>
+                        
+                        <div id="diceResult" style="margin: 15px 0; font-weight: bold; font-size: 1.1rem;"></div>
+                    </div>
+                </div>
+                <p><strong>Cee-Lo Rules:</strong><br>
+                <strong>Instant Win:</strong> 4-5-6, Trips (111, 222, etc.)<br>
+                <strong>Instant Loss:</strong> 1-2-3<br>
+                <strong>Points:</strong> Doubles + kicker (6 beats 5 beats 4, etc.)</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="cashoutModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('cashout')">&times;</button>
+            <h3 class="modal-title">💰 Cashout Booth</h3>
+            <div class="modal-description">
+                <p style="margin-bottom: 25px;">Spend your chips on exclusive Keith content:</p>
+                
+                <div style="display: grid; gap: 15px; text-align: left;">
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: var(--gold); font-weight: bold;">🎵 Rare Track Pack</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">5 unreleased collaborations</div>
+                        </div>
+                        <div style="color: var(--gold); font-weight: bold;">300 chips</div>
+                    </div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: var(--gold); font-weight: bold;">💿 Lost Album</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Complete unreleased project</div>
+                        </div>
+                        <div style="color: var(--gold); font-weight: bold;">800 chips</div>
+                    </div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: var(--gold); font-weight: bold;">🎤 Keith Voice Message</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Personal greeting from Keith</div>
+                        </div>
+                        <div style="color: var(--gold); font-weight: bold;">400 chips</div>
+                    </div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: var(--gold); font-weight: bold;">📸 Rare Photos</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">Behind-the-scenes collection</div>
+                        </div>
+                        <div style="color: var(--gold); font-weight: bold;">200 chips</div>
+                    </div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="color: var(--gold); font-weight: bold;">🎭 Persona Origin Story</div>
+                            <div style="font-size: 0.9rem; opacity: 0.8;">How each character was created</div>
+                        </div>
+                        <div style="color: var(--gold); font-weight: bold;">150 chips</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 25px; padding: 15px; background: rgba(0, 0, 0, 0.5); border-radius: 10px;">
+                    <div style="color: var(--gold); font-family: 'Orbitron', monospace; text-align: center;">
+                        Your Chips: <span id="totalChips">500</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="bonusModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('bonus')">&times;</button>
+            <h3 class="modal-title">🥂 Daily Bonus</h3>
+            <div class="modal-description">
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🎁</div>
+                    <div style="color: var(--gold); font-size: 1.5rem; margin-bottom: 15px;">Welcome Back Bonus!</div>
+                    <div style="font-size: 1.2rem; margin-bottom: 20px;">You've earned <strong style="color: var(--gold);">+100 chips</strong></div>
+                    
+                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <div style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">Streak Rewards:</div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>Day 1:</span><span>+100 chips</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>Day 3:</span><span>+200 chips</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>Day 7:</span><span>+500 chips</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
+                            <span>Day 30:</span><span>Exclusive Keith message</span>
+                        </div>
+                    </div>
+                    
+                    <button style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="claimBonus()">
+                        CLAIM BONUS
+                    </button>
+                </div>
+                
+                <p style="text-align: center; font-style: italic; opacity: 0.7;">
+                    Come back daily for bigger rewards!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let chipCount = 500;
+        let gameActive = false;
+        
+        // Initialize particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particles.appendChild(particle);
+            }
+        }
+        
+        // Modal functions
+        function openModal(type) {
+            document.getElementById(type + 'Modal').style.display = 'flex';
+            playSound('click');
+        }
+        
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').style.display = 'none';
+            playSound('close');
+        }
+        
+        function closeWelcome() {
+            document.getElementById('welcomeMessage').style.display = 'none';
+            playSound('enter');
+        }
+        
+        // Audio simulation
+        function playSound(type) {
+            // In real implementation, this would play actual casino sounds
+            console.log(`Playing sound: ${type}`);
+        }
+        
+        // Slot machine game
+        function spinSlots() {
+            if (chipCount < 50) {
+                alert('Not enough chips!');
+                return;
+            }
+            
+            chipCount -= 50;
+            updateChipDisplay();
+            playSound('slot-spin');
+            
+            const symbols = ['🩺', '👑', '💀', '🎤', '🎭', '🎰'];
+            const results = [];
+            
+            // Animate spinning
+            for (let i = 1; i <= 3; i++) {
+                const slot = document.getElementById(`slot${i}`);
+                let spins = 0;
+                const spinInterval = setInterval(() => {
+                    slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    spins++;
+                    if (spins > 10 + i * 5) {
+                        clearInterval(spinInterval);
+                        const result = symbols[Math.floor(Math.random() * symbols.length)];
+                        slot.textContent = result;
+                        results.push(result);
+                        
+                        if (results.length === 3) {
+                            checkSlotWin(results);
+                        }
+                    }
+                }, 100);
+            }
+        }
+        
+        function checkSlotWin(results) {
+            let winAmount = 0;
+            
+            if (results[0] === results[1] && results[1] === results[2]) {
+                if (results[0] === '🎰') {
+                    winAmount = 1000; // Jackpot
+                    playSound('jackpot');
+                } else {
+                    winAmount = 200; // Three of a kind
+                    playSound('big-win');
+                }
+            } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+                winAmount = 75; // Pair
+                playSound('small-win');
+            }
+            
+            if (winAmount > 0) {
+                chipCount += winAmount;
+                updateChipDisplay();
+                setTimeout(() => {
+                    alert(`You won ${winAmount} chips!`);
+                }, 500);
+            }
+        }
+        
+        // Cee-Lo dice game
+        function rollDice() {
+            if (chipCount < 75) {
+                alert('Not enough chips!');
+                return;
+            }
+            
+            chipCount -= 75;
+            updateChipDisplay();
+            playSound('dice-roll');
+            
+            // Keith's roll (house)
+            const keithDice = [
+                Math.floor(Math.random() * 6) + 1,
+                Math.floor(Math.random() * 6) + 1,
+                Math.floor(Math.random() * 6) + 1
+            ];
+            
+            // Player's roll
+            const playerDice = [
+                Math.floor(Math.random() * 6) + 1,
+                Math.floor(Math.random() * 6) + 1,
+                Math.floor(Math.random() * 6) + 1
+            ];
+            
+            // Display dice
+            document.getElementById('keithDice').children[0].textContent = keithDice[0];
+            document.getElementById('keithDice').children[1].textContent = keithDice[1];
+            document.getElementById('keithDice').children[2].textContent = keithDice[2];
+            
+            document.getElementById('playerDice').children[0].textContent = playerDice[0];
+            document.getElementById('playerDice').children[1].textContent = playerDice[1];
+            document.getElementById('playerDice').children[2].textContent = playerDice[2];
+            
+            // Evaluate results
+            const keithResult = evaluateCeeLo(keithDice);
+            const playerResult = evaluateCeeLo(playerDice);
+            
+            document.getElementById('keithRoll').textContent = keithResult.description;
+            document.getElementById('playerRoll').textContent = playerResult.description;
+            
+            // Determine winner
+            const result = compareCeeLoResults(keithResult, playerResult);
+            document.getElementById('diceResult').textContent = result.message;
+            
+            if (result.winner === 'player') {
+                chipCount += 150;
+                updateChipDisplay();
+                playSound('win');
+            } else if (result.winner === 'tie') {
+                chipCount += 75; // Return bet
+                updateChipDisplay();
+            } else {
+                playSound('lose');
+            }
+        }
+        
+        function evaluateCeeLo(dice) {
+            const sorted = [...dice].sort((a, b) => a - b);
+            
+            // Check for instant win/loss
+            if (sorted[0] === 4 && sorted[1] === 5 && sorted[2] === 6) {
+                return { type: 'instant-win', value: 456, description: '4-5-6 (Instant Win!)' };
+            }
+            if (sorted[0] === 1 && sorted[1] === 2 && sorted[2] === 3) {
+                return { type: 'instant-loss', value: 123, description: '1-2-3 (Instant Loss)' };
+            }
+            
+            // Check for trips
+            if (sorted[0] === sorted[1] && sorted[1] === sorted[2]) {
+                return { type: 'trips', value: sorted[0] * 100, description: `Trips ${sorted[0]}s` };
+            }
+            
+            // Check for point (pair + kicker)
+            if (sorted[0] === sorted[1]) {
+                return { type: 'point', value: sorted[2], description: `Point ${sorted[2]}` };
+            }
+            if (sorted[1] === sorted[2]) {
+                return { type: 'point', value: sorted[0], description: `Point ${sorted[0]}` };
+            }
+            
+            return { type: 'nothing', value: 0, description: 'No point' };
+        }
+        
+        function compareCeeLoResults(keith, player) {
+            // Instant results
+            if (player.type === 'instant-win') return { winner: 'player', message: 'You win with 4-5-6!' };
+            if (player.type === 'instant-loss') return { winner: 'keith', message: 'You lose with 1-2-3!' };
+            if (keith.type === 'instant-win') return { winner: 'keith', message: 'Keith wins with 4-5-6!' };
+            if (keith.type === 'instant-loss') return { winner: 'player', message: 'Keith loses with 1-2-3!' };
+            
+            // Trips vs other
+            if (player.type === 'trips' && keith.type !== 'trips') return { winner: 'player', message: 'You win with trips!' };
+            if (keith.type === 'trips' && player.type !== 'trips') return { winner: 'keith', message: 'Keith wins with trips!' };
+            
+            // Trips vs trips
+            if (player.type === 'trips' && keith.type === 'trips') {
+                if (player.value > keith.value) return { winner: 'player', message: 'Your trips beat Keith!' };
+                if (keith.value > player.value) return { winner: 'keith', message: 'Keith\'s trips beat yours!' };
+                return { winner: 'tie', message: 'Tie - same trips!' };
+            }
+            
+            // Point vs point
+            if (player.type === 'point' && keith.type === 'point') {
+                if (player.value > keith.value) return { winner: 'player', message: `Your point ${player.value} beats Keith's ${keith.value}!` };
+                if (keith.value > player.value) return { winner: 'keith', message: `Keith's point ${keith.value} beats your ${player.value}!` };
+                return { winner: 'tie', message: 'Tie - same point!' };
+            }
+            
+            // Point vs nothing
+            if (player.type === 'point' && keith.type === 'nothing') return { winner: 'player', message: 'You win with a point!' };
+            if (keith.type === 'point' && player.type === 'nothing') return { winner: 'keith', message: 'Keith wins with a point!' };
+            
+            return { winner: 'tie', message: 'No winner - roll again!' };
+        }
+        
+        // Blackjack (simplified)
+        let blackjackState = {
+            playerCards: [],
+            houseCards: [],
+            gameOver: false
+        };
+        
+        function newHand() {
+            if (chipCount < 100) {
+                alert('Not enough chips for blackjack!');
+                return;
+            }
+            
+            chipCount -= 100;
+            updateChipDisplay();
+            playSound('card-shuffle');
+            
+            blackjackState = {
+                playerCards: [getRandomCard(), getRandomCard()],
+                houseCards: [getRandomCard(), getRandomCard()],
+                gameOver: false
+            };
+            
+            updateBlackjackDisplay();
+        }
+        
+        function getRandomCard() {
+            const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]; // 10, J, Q, K all worth 10
+            return cards[Math.floor(Math.random() * cards.length)];
+        }
+        
+        function calculateTotal(cards) {
+            let total = cards.reduce((sum, card) => sum + card, 0);
+            let aces = cards.filter(card => card === 1).length;
+            
+            // Handle aces (1 or 11)
+            while (aces > 0 && total + 10 <= 21) {
+                total += 10;
+                aces--;
+            }
+            
+            return total;
+        }
+        
+        function updateBlackjackDisplay() {
+            const playerTotal = calculateTotal(blackjackState.playerCards);
+            const houseTotal = calculateTotal(blackjackState.houseCards);
+            
+            document.getElementById('playerTotal').textContent = playerTotal;
+            document.getElementById('houseTotal').textContent = blackjackState.gameOver ? houseTotal : '??';
+            
+            // Update player cards display
+            const playerCardsDiv = document.getElementById('playerCards');
+            playerCardsDiv.innerHTML = '';
+            blackjackState.playerCards.forEach(card => {
+                const cardDiv = document.createElement('div');
+                cardDiv.style.cssText = 'background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 5px;';
+                cardDiv.textContent = card === 1 ? 'A' : card;
+                playerCardsDiv.appendChild(cardDiv);
+            });
+            
+            // Update house cards display (hide second card unless game over)
+            const houseCardsDiv = document.getElementById('houseCards');
+            houseCardsDiv.innerHTML = '';
+            blackjackState.houseCards.forEach((card, index) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.style.cssText = 'background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 5px;';
+                cardDiv.textContent = (index === 1 && !blackjackState.gameOver) ? '?' : (card === 1 ? 'A' : card);
+                houseCardsDiv.appendChild(cardDiv);
+            });
+            
+            // Check for bust or blackjack
+            if (playerTotal > 21) {
+                blackjackState.gameOver = true;
+                setTimeout(() => alert('Bust! You lose!'), 500);
+                playSound('lose');
+            } else if (playerTotal === 21) {
+                stand(); // Automatically stand on 21
+            }
+        }
+        
+        function hit() {
+            if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
+            
+            playSound('card-flip');
+            blackjackState.playerCards.push(getRandomCard());
+            updateBlackjackDisplay();
+        }
+        
+        function stand() {
+            if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
+            
+            blackjackState.gameOver = true;
+            playSound('card-flip');
+            
+            // House draws until 17 or higher
+            while (calculateTotal(blackjackState.houseCards) < 17) {
+                blackjackState.houseCards.push(getRandomCard());
+            }
+            
+            updateBlackjackDisplay();
+            
+            const playerTotal = calculateTotal(blackjackState.playerCards);
+            const houseTotal = calculateTotal(blackjackState.houseCards);
+            
+            setTimeout(() => {
+                let message = '';
+                let winAmount = 0;
+                
+                if (houseTotal > 21) {
+                    message = 'House busts! You win!';
+                    winAmount = 200;
+                    playSound('win');
+                } else if (playerTotal > houseTotal) {
+                    message = 'You win!';
+                    winAmount = 200;
+                    playSound('win');
+                } else if (houseTotal > playerTotal) {
+                    message = 'House wins!';
+                    playSound('lose');
+                } else {
+                    message = 'Push! Bet returned.';
+                    winAmount = 100;
+                }
+                
+                chipCount += winAmount;
+                updateChipDisplay();
+                alert(message);
+            }, 1000);
+        }
+        
+        // AI Chat simulation
+        function startChat(persona) {
+            playSound('phone-pickup');
+            
+            const responses = {
+                octagon: "Dr. Octagon here. My medical expertise extends beyond traditional boundaries into cosmic surgery. What dimension are you calling from?",
+                dooom: "Dr. Dooom speaking. I specialize in lyrical destruction and microphone demolition. State your business before I prescribe some verbal medication.",
+                elvis: "Black Elvis in the building. I'm broadcasting from my space station above Earth. What cosmic message do you need transmitted?",
+                keith: "Kool Keith on the line. You've reached the original, the innovator, the one who started this whole movement. What's on your mind?"
+            };
+            
+            setTimeout(() => {
+                alert(`📱 ${responses[persona] || "This persona is currently in another dimension. Try again later."}`);
+            }, 1000);
+        }
+        
+        // Bonus system
+        function claimBonus() {
+            chipCount += 100;
+            updateChipDisplay();
+            playSound('bonus');
+            
+            alert('Bonus claimed! +100 chips added to your account.');
+            closeModal('bonus');
+        }
+        
+        // Utility functions
+        function updateChipDisplay() {
+            const displays = document.querySelectorAll('#chipCount, #totalChips');
+            displays.forEach(display => {
+                if (display) display.textContent = chipCount;
+            });
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                playSound('close');
+            }
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateChipDisplay();
+            
+            // Auto-dismiss welcome after 10 seconds
+            setTimeout(() => {
+                const welcome = document.getElementById('welcomeMessage');
+                if (welcome && welcome.style.display !== 'none') {
+                    welcome.style.opacity = '0.8';
+                }
+            }, 10000);
+            
+            // Initialize blackjack
+            setTimeout(() => {
+                newHand();
+            }, 1000);
+            
+            console.log('🎰 Ultra Keith Players Club initialized');
+            console.log('🎵 Background audio: Exclusive Keith tracks + club ambiance');
+            console.log('🔊 Interactive sounds: Casino effects for all games');
+            console.log('📱 AI Chat: 4 personas available via phone');
+            console.log('🎲 Games: Slots, Cee-Lo, Blackjack with real rules');
+            console.log('💰 Rewards: Spend chips on exclusive content');
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // Close any open modal
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            if (e.key === 'Enter' && document.getElementById('welcomeMessage').style.display !== 'none') {
+                closeWelcome();
+            }
+        });
+        
+        // Simulate ambient audio
+        console.log('🎵 Now playing: Exclusive Keith instrumental + casino ambiance');
+        console.log('🔊 Audio layers: Background music, ambient sounds, interactive effects');
+        console.log('📱 Voice integration ready for Keith recordings');
+    </script>
+</body>
+</html>
