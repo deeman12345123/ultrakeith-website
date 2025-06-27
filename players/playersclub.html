@@ -872,7 +872,7 @@
         </div>
     </div>
     
-    <!-- CHAT MODAL - UPDATED TO KEITH ONLY -->
+    <!-- CHAT MODAL - KEITH ONLY -->
     <div class="modal" id="chatModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('chat')">&times;</button>
@@ -1001,11 +1001,11 @@
     <script>
         // Game state
         let chipCount = 500;
-        let playerName = '';
+        let playerName = localStorage.getItem('keithPlayerName') || '';
         let drunkLevel = 0;
         let isDoubleClickMode = false;
         let clickCounts = {};
-        let hasSeenWelcome = false;
+        let hasSeenWelcome = localStorage.getItem('keithWelcomeSeen') === 'true';
         
         // Welcome message control
         function checkWelcomeStatus() {
@@ -1019,11 +1019,10 @@
         
         function closeWelcome() {
             const welcomeMessage = document.getElementById('welcomeMessage');
-            if (welcomeMessage) {
-                welcomeMessage.style.display = 'none';
-                hasSeenWelcome = true;
-                playSound('enter');
-            }
+            welcomeMessage.style.display = 'none';
+            hasSeenWelcome = true;
+            localStorage.setItem('keithWelcomeSeen', 'true');
+            playSound('enter');
         }
         
         // Drunk system
@@ -1130,6 +1129,7 @@
             const nameInput = document.getElementById('playerName');
             if (nameInput.value.trim()) {
                 playerName = nameInput.value.trim();
+                localStorage.setItem('keithPlayerName', playerName);
                 document.getElementById('nameRegistration').style.display = 'none';
                 document.getElementById('welcomeBack').style.display = 'block';
                 document.getElementById('welcomeName').textContent = playerName;
@@ -1140,6 +1140,7 @@
                 if (welcomeMessage) {
                     welcomeMessage.style.display = 'none';
                     hasSeenWelcome = true;
+                    localStorage.setItem('keithWelcomeSeen', 'true');
                 }
             } else {
                 alert('Keith needs to know your name!');
@@ -1176,9 +1177,9 @@
             console.log(`Playing sound: ${type}${drunkLevel > 2 ? ' (distorted)' : ''}`);
         }
         
-        // UPDATED: Keith-only chat function
+        // Keith-only chat function
         function startKeithChat() {
-            handleDrunkClick('keith-chat', () => {
+            handleDrunkClick(`keith-chat`, () => {
                 playSound('phone-pickup');
                 
                 const keithResponses = [
@@ -1191,13 +1192,13 @@
                 
                 let message = keithResponses[Math.floor(Math.random() * keithResponses.length)];
                 
-                // Add drunk commentary if applicable
+                // Add drunk commentary
                 if (drunkLevel >= 3) {
                     const drunkComments = [
-                        " You sound a little wobbly, you been hitting that champagne?",
+                        " You sound a little wobbly, you been hitting the champagne?",
                         " I can tell you've been enjoying the club amenities...",
-                        " Maybe slow down on the drinks while we talk.",
-                        " You starting to sound like you need some water."
+                        " Maybe take it easy on the drinks while we talk.",
+                        " You're starting to sound like you need some water."
                     ];
                     message += drunkComments[Math.floor(Math.random() * drunkComments.length)];
                 }
@@ -1332,7 +1333,7 @@
             });
         }
         
-        // Cee-Lo evaluation functions
+        // Cee-Lo evaluation functions (same as before)
         function evaluateCeeLo(dice) {
             const sorted = [...dice].sort((a, b) => a - b);
             
@@ -1553,7 +1554,7 @@
         // Initialize on load
         document.addEventListener('DOMContentLoaded', function() {
             updateChipDisplay();
-            checkWelcomeStatus();
+            checkWelcomeStatus(); // Check if welcome should be shown
             
             // Initialize blackjack
             setTimeout(() => {
