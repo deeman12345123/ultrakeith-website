@@ -1121,6 +1121,12 @@
                 clickCounts[elementId] = 0;
             } else {
                 showDrunkWarning("Your coordination is off... try double-clicking!");
+                // Reset counter after 3 seconds if user doesn't double-click
+                setTimeout(() => {
+                    if (clickCounts[elementId] === 1) {
+                        clickCounts[elementId] = 0;
+                    }
+                }, 3000);
             }
         }
         
