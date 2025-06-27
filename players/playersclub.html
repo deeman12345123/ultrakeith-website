@@ -1,804 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultra Keith Players Club</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            --gold: #DAB547;
-            --gold-light: #E8C547;
-            --black: #000000;
-            --burgundy: #0F0505;
-            --white: #FFFFFF;
-            --neon-gold: #FFD700;
-            --neon-glow: rgba(255, 215, 0, 0.6);
-            --red: #FF073A;
-            --green: #00FF41;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: #000;
-            color: var(--white);
-            overflow: hidden;
-            height: 100vh;
-            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23DAB547" opacity="0.8"/><circle cx="10" cy="10" r="3" fill="%23000"/></svg>'), auto;
-        }
-        
-        /* DESKTOP POV CASINO */
-        .desktop-view {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            background: 
-                /* Atmospheric lighting overlay */
-                radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 20% 60%, rgba(218, 181, 71, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 40%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
-                /* Main casino floor gradient */
-                linear-gradient(
-                    180deg,
-                    #1a1a1a 0%,
-                    #0d0d0d 30%,
-                    #000000 70%,
-                    #0a0a0a 100%
-                );
-            background-size: cover;
-            background-position: center bottom;
-            perspective: 1000px;
-        }
-        
-        /* AMBIENT PARTICLES */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--gold);
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 8s infinite linear;
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(100vh) translateX(0px); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
-            100% { transform: translateY(-10px) translateX(100px); opacity: 0; }
-        }
-        
-        /* NEON KEITH LOGO */
-        .neon-logo {
-            position: absolute;
-            top: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Orbitron', monospace;
-            font-size: 4.5rem;
-            font-weight: 900;
-            color: var(--neon-gold);
-            text-shadow: 
-                0 0 10px var(--neon-glow),
-                0 0 20px var(--neon-glow),
-                0 0 40px var(--neon-glow),
-                0 0 80px var(--neon-glow);
-            animation: neonPulse 4s ease-in-out infinite alternate;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            z-index: 5;
-        }
-        
-        @keyframes neonPulse {
-            from {
-                text-shadow: 
-                    0 0 10px var(--neon-glow),
-                    0 0 20px var(--neon-glow),
-                    0 0 40px var(--neon-glow),
-                    0 0 80px var(--neon-glow);
-            }
-            to {
-                text-shadow: 
-                    0 0 20px var(--neon-glow),
-                    0 0 30px var(--neon-glow),
-                    0 0 60px var(--neon-glow),
-                    0 0 120px var(--neon-glow);
-            }
-        }
-        
-        /* CASINO FLOOR ELEMENTS */
-        .casino-floor {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 70%;
-            background: 
-                linear-gradient(45deg, transparent 0%, rgba(218, 181, 71, 0.03) 50%, transparent 100%),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 100px,
-                    rgba(255, 255, 255, 0.01) 101px,
-                    rgba(255, 255, 255, 0.01) 102px
-                );
-        }
-        
-        /* GAMING TABLES */
-        .slot-machine {
-            position: absolute;
-            top: 180px;
-            left: 200px;
-            width: 180px;
-            height: 280px;
-            background: 
-                linear-gradient(145deg, #2a2a2a, #1a1a1a),
-                radial-gradient(circle at 50% 30%, #444, #222);
-            border: 3px solid transparent;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            transform: perspective(600px) rotateY(-5deg);
-        }
-        
-        .blackjack-table {
-            position: absolute;
-            top: 140px;
-            left: 50%;
-            transform: translateX(-50%) perspective(600px) rotateY(0deg);
-            width: 320px;
-            height: 180px;
-            background: 
-                radial-gradient(ellipse at center, #1a4a1a, #0d2d0d),
-                linear-gradient(145deg, #2a5a2a, #1a3a1a);
-            border: 4px solid var(--gold);
-            border-radius: 50% / 30%;
-            cursor: pointer;
-            transition: all 0.4s;
-            box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.6),
-                inset 0 2px 0 rgba(218, 181, 71, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-        }
-        
-        .dice-table {
-            position: absolute;
-            top: 160px;
-            right: 200px;
-            width: 200px;
-            height: 240px;
-            background: 
-                linear-gradient(145deg, #3a1a1a, #2a0a0a),
-                radial-gradient(circle at 30% 30%, #4a2a2a, #2a1a1a);
-            border: 3px solid transparent;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.4s;
-            box-shadow: 
-                0 12px 35px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            transform: perspective(600px) rotateY(5deg);
-        }
-        
-        .cashout-booth {
-            position: absolute;
-            top: 100px;
-            right: 50px;
-            width: 160px;
-            height: 300px;
-            background: 
-                linear-gradient(145deg, #1a1a2a, #0a0a1a),
-                linear-gradient(90deg, #2a2a3a, #1a1a2a);
-            border: 3px solid var(--gold);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.4s;
-            box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.6),
-                inset 0 2px 0 rgba(218, 181, 71, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            transform: perspective(600px) rotateY(10deg);
-        }
-        
-        /* HOVER EFFECTS */
-        .slot-machine:hover, .blackjack-table:hover, .dice-table:hover, .cashout-booth:hover {
-            border-color: var(--neon-gold);
-            box-shadow: 
-                0 0 30px var(--neon-glow),
-                0 20px 50px rgba(0, 0, 0, 0.8),
-                inset 0 0 20px rgba(255, 215, 0, 0.1);
-            transform: perspective(600px) rotateY(0deg) translateY(-10px) scale(1.05);
-        }
-        
-        .slot-machine:hover { background: linear-gradient(145deg, #3a3a3a, #2a2a2a); }
-        .blackjack-table:hover { background: radial-gradient(ellipse at center, #2a6a2a, #1d4d1d); }
-        .dice-table:hover { background: linear-gradient(145deg, #4a2a2a, #3a1a1a); }
-        .cashout-booth:hover { background: linear-gradient(145deg, #2a2a3a, #1a1a2a); }
-        
-        /* HOVER LABELS */
-        .hotspot-label {
-            position: absolute;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 26, 0.9));
-            color: var(--gold);
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            opacity: 0;
-            transition: all 0.3s;
-            pointer-events: none;
-            white-space: nowrap;
-            border: 1px solid var(--gold);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-        
-        .slot-machine:hover .hotspot-label,
-        .blackjack-table:hover .hotspot-label,
-        .dice-table:hover .hotspot-label,
-        .cashout-booth:hover .hotspot-label {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
-        }
-        
-        /* FOREGROUND VIP TABLE */
-        .vip-table {
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            right: 0;
-            height: 400px;
-            background: 
-                radial-gradient(ellipse at center top, rgba(26, 26, 26, 0.9) 0%, rgba(0, 0, 0, 0.95) 60%, #000 100%),
-                linear-gradient(to top, #000 0%, transparent 50%);
-            pointer-events: none;
-        }
-        
-        .phone {
-            position: absolute;
-            bottom: 120px;
-            right: 180px;
-            width: 100px;
-            height: 160px;
-            background: 
-                linear-gradient(145deg, #1a1a1a, #000),
-                radial-gradient(circle at 50% 20%, #333, #111);
-            border-radius: 20px;
-            border: 2px solid var(--gold);
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: all;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.8),
-                0 0 20px rgba(218, 181, 71, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            z-index: 10;
-        }
-        
-        .phone::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-        }
-        
-        .phone:hover {
-            transform: translateY(-15px) scale(1.1);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.9),
-                0 0 40px var(--neon-glow),
-                inset 0 0 20px rgba(255, 215, 0, 0.1);
-            border-color: var(--neon-gold);
-        }
-        
-        .champagne {
-            position: absolute;
-            bottom: 140px;
-            left: 200px;
-            width: 60px;
-            height: 120px;
-            background: 
-                linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 70%, #0a0a0a 100%),
-                radial-gradient(circle at 30% 30%, #333, #111);
-            border-radius: 8px 8px 30px 30px;
-            border: 2px solid var(--gold);
-            cursor: pointer;
-            transition: all 0.3s;
-            pointer-events: all;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.7),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            z-index: 10;
-        }
-        
-        .champagne::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 15px;
-            background: #444;
-            border-radius: 50% 50% 0 0;
-        }
-        
-        .champagne:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.8),
-                0 0 25px rgba(218, 181, 71, 0.3);
-            border-color: var(--gold-light);
-        }
-        
-        /* WELCOME MESSAGE */
-        .welcome-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            background: 
-                linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.9)),
-                radial-gradient(circle at center, rgba(218, 181, 71, 0.05), transparent);
-            padding: 40px 60px;
-            border-radius: 20px;
-            border: 2px solid var(--gold);
-            max-width: 700px;
-            backdrop-filter: blur(15px);
-            animation: fadeInScale 1.2s ease-out 0.5s both;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.8),
-                0 0 30px rgba(218, 181, 71, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            z-index: 100;
-        }
-        
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-        
-        .welcome-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(218, 181, 71, 0.5);
-        }
-        
-        .keith-quote {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--gold-light);
-            margin-bottom: 25px;
-            line-height: 1.6;
-            border-left: 4px solid var(--gold);
-            padding-left: 20px;
-            margin-left: 20px;
-            text-align: left;
-        }
-        
-        .starter-package {
-            display: flex;
-            gap: 25px;
-            justify-content: center;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        .package-item {
-            background: rgba(218, 181, 71, 0.1);
-            border: 1px solid var(--gold);
-            border-radius: 12px;
-            padding: 20px;
-            font-size: 0.95rem;
-            text-align: center;
-            min-width: 140px;
-            transition: all 0.3s;
-        }
-        
-        .package-item:hover {
-            background: rgba(218, 181, 71, 0.2);
-            transform: translateY(-3px);
-        }
-        
-        .package-item strong {
-            color: var(--gold);
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-        
-        .enter-btn {
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
-            color: var(--black);
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            font-size: 1rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.4s;
-            box-shadow: 0 5px 20px rgba(218, 181, 71, 0.3);
-        }
-        
-        .enter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(218, 181, 71, 0.5);
-            background: linear-gradient(135deg, var(--gold-light), #F4D03F);
-        }
-        
-        /* MOBILE VIEW */
-        .mobile-view {
-            display: none;
-            padding: 20px;
-            height: 100vh;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(218, 181, 71, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
-                linear-gradient(135deg, var(--black) 0%, var(--burgundy) 50%, var(--black) 100%);
-        }
-        
-        .mobile-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .mobile-logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            color: var(--gold);
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(218, 181, 71, 0.5);
-        }
-        
-        .mobile-subtitle {
-            color: var(--white);
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-        
-        .mobile-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .mobile-button {
-            background: 
-                linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.9)),
-                radial-gradient(circle at 30% 30%, rgba(218, 181, 71, 0.05), transparent);
-            border: 2px solid rgba(218, 181, 71, 0.3);
-            border-radius: 20px;
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
-            color: var(--white);
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .mobile-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
-            transition: left 0.6s;
-        }
-        
-        .mobile-button:hover::before {
-            left: 100%;
-        }
-        
-        .mobile-button:hover {
-            border-color: var(--gold);
-            transform: translateY(-8px);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.5),
-                0 0 25px rgba(218, 181, 71, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-        
-        .mobile-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            display: block;
-            filter: drop-shadow(0 0 10px rgba(218, 181, 71, 0.3));
-        }
-        
-        .mobile-label {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--gold);
-            letter-spacing: 0.5px;
-        }
-        
-        /* MODAL SYSTEM */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-        
-        .modal-content {
-            background: 
-                linear-gradient(135deg, #1a1a1a, #2a2a2a),
-                radial-gradient(circle at center, rgba(218, 181, 71, 0.05), transparent);
-            border: 2px solid var(--gold);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.8),
-                0 0 30px rgba(218, 181, 71, 0.2);
-            animation: modalFadeIn 0.4s ease-out;
-            position: relative;
-        }
-        
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .modal-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            color: var(--gold);
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(218, 181, 71, 0.5);
-        }
-        
-        .modal-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--white);
-            opacity: 0.9;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            background: none;
-            border: none;
-            color: var(--gold);
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .close-btn:hover {
-            background: rgba(218, 181, 71, 0.1);
-            color: var(--gold-light);
-            transform: rotate(90deg);
-        }
-        
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .desktop-view {
-                display: none;
-            }
-            .mobile-view {
-                display: block;
-            }
-            .modal-content {
-                padding: 30px 25px;
-                margin: 20px;
-            }
-            .welcome-message {
-                margin: 20px;
-                padding: 30px 25px;
-            }
-            .starter-package {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .package-item {
-                min-width: auto;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .desktop-view {
-                display: block;
-            }
-            .mobile-view {
-                display: none;
-            }
-        }
-        
-        /* AUDIO INDICATOR */
-        .audio-status {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--gold);
-            border-radius: 50px;
-            padding: 10px 20px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: var(--gold);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .audio-icon {
-            font-size: 1rem;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-    </style>
-</head>
-<body>
-    <!-- AUDIO STATUS INDICATOR -->
-    <div class="audio-status">
-        <span class="audio-icon">🎵</span>
-        <span>Club Audio: Ambient + Exclusive Tracks</span>
-    </div>
-
-    <!-- DESKTOP POV VIEW -->
-    <div class="desktop-view">
-        <!-- AMBIENT PARTICLES -->
-        <div class="particles" id="particles"></div>
-        
-        <div class="neon-logo">ULTRA KEITH</div>
-        <div class="casino-floor"></div>
-        
-        <!-- GAMING AREAS -->
-        <div class="slot-machine" onclick="openModal('slot')">
-            🎰
-            <div class="hotspot-label">Slot Machine</div>
-        </div>
-        
-        <div class="blackjack-table" onclick="openModal('blackjack')">
-            🃏
-            <div class="hotspot-label">Blackjack</div>
-        </div>
-        
-        <div class="dice-table" onclick="openModal('dice')">
-            🎲
-            <div class="hotspot-label">Cee-Lo Dice</div>
-        </div>
-        
-        <div class="cashout-booth" onclick="openModal('cashout')">
-            💰
-            <div class="hotspot-label">Cashout Booth</div>
-        </div>
-        
-        <!-- VIP TABLE FOREGROUND -->
-        <div class="vip-table">
-            <div class="phone" onclick="openModal('chat')" title="Keith's Phone">📱</div>
-            <div class="champagne" onclick="openModal('bonus')" title="Daily Bonus">🥂</div>
-        </div>
-        
-        <!-- WELCOME MESSAGE -->
-        <div class="welcome-message" id="welcomeMessage">
-            <h2 class="welcome-title">Welcome to The Players Club</h2>
-            <div class="keith-quote">
-                "Welcome to my exclusive spot. I'm hooking you up with everything you need - 
-                chips to play, my personal line to hit me up, and access to tracks nobody else can get. 
-                This is how legends live."
-            </div>
-            <div class="starter-package">
-                <div class="package-item">
-                    <strong>🎰 500 Chips</strong>
-                    Play all games<br>Earn more through wins
-                </div>
-                <div class="package-item">
-                    <strong>📱 Keith's Phone</strong>
-                    Direct AI access<br>All personas available
-                </div>
-                <div class="package-item">
-                    <strong>🎫 VIP Access</strong>
-                    Exclusive rewards<br>Rare track shop
-                </div>
-            </div>
-            <button class="enter-btn" onclick="closeWelcome()">Enter The Club</button>
+<button class="enter-btn" onclick="closeWelcome()">Enter The Club</button>
         </div>
     </div>
     
@@ -806,13 +6,18 @@
     <div class="mobile-view">
         <div class="mobile-header">
             <h1 class="mobile-logo">Players Club</h1>
-            <p class="mobile-subtitle">Keith's Exclusive Gaming Lounge</p>
+            <p>Keith's Exclusive Gaming Lounge</p>
         </div>
         
         <div class="mobile-grid">
+            <div class="mobile-button" onclick="openModal('cashout')">
+                <span class="mobile-icon">💰</span>
+                <div class="mobile-label">Cashier</div>
+            </div>
+            
             <div class="mobile-button" onclick="openModal('chat')">
                 <span class="mobile-icon">📱</span>
-                <div class="mobile-label">Call Keith</div>
+                <div class="mobile-label">Keith's Phone</div>
             </div>
             
             <div class="mobile-button" onclick="openModal('slot')">
@@ -830,25 +35,82 @@
                 <div class="mobile-label">Cee-Lo</div>
             </div>
             
-            <div class="mobile-button" onclick="openModal('cashout')">
-                <span class="mobile-icon">💰</span>
-                <div class="mobile-label">Cash Out</div>
-            </div>
-            
-            <div class="mobile-button" onclick="openModal('bonus')">
+            <div class="mobile-button" onclick="drinkChampagne()">
                 <span class="mobile-icon">🥂</span>
-                <div class="mobile-label">Daily Bonus</div>
+                <div class="mobile-label">Champagne</div>
             </div>
         </div>
     </div>
     
     <!-- MODALS -->
+    <!-- CASHIER MODAL -->
+    <div class="modal" id="cashoutModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('cashout')">&times;</button>
+            <h3 class="modal-title">💰 Cashier Booth</h3>
+            <div class="modal-description">
+                <div id="nameRegistration" style="display: block;">
+                    <p style="margin-bottom: 20px;">Keith sent you, huh? What's your name?</p>
+                    <input type="text" id="playerName" placeholder="Enter your name" style="background: rgba(218, 181, 71, 0.1); border: 2px solid var(--gold); border-radius: 10px; padding: 15px; font-size: 1rem; color: var(--white); width: 100%; margin-bottom: 20px;">
+                    <button onclick="registerName()" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">
+                        Register with Keith
+                    </button>
+                </div>
+                
+                <div id="welcomeBack" style="display: none;">
+                    <p style="margin-bottom: 25px;">Welcome back, <span id="welcomeName"></span>! Keith said you might be coming by.</p>
+                    
+                    <div style="display: grid; gap: 15px; text-align: left; margin: 20px 0;">
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">🎵 Rare Track Pack</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">5 unreleased collaborations</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">300 chips</div>
+                        </div>
+                        
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">💿 Lost Album</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Complete unreleased project</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">800 chips</div>
+                        </div>
+                        
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">📸 Rare Photos</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Behind-the-scenes collection</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">200 chips</div>
+                        </div>
+                        
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">🎭 Persona Stories</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Character creation docs</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">150 chips</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: rgba(0, 0, 0, 0.5); border-radius: 10px;">
+                        <div style="color: var(--gold); font-family: 'Orbitron', monospace; text-align: center;">
+                            Your Chips: <span id="totalChips">500</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CHAT MODAL -->
     <div class="modal" id="chatModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('chat')">&times;</button>
             <h3 class="modal-title">📱 Keith's Phone</h3>
             <div class="modal-description">
-                <p style="margin-bottom: 20px;">Pick up Keith's phone and choose which persona you want to talk to:</p>
+                <p style="margin-bottom: 20px;">Pick up Keith's phone and choose which persona to talk to:</p>
                 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
                     <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('octagon')">
@@ -883,6 +145,7 @@
         </div>
     </div>
     
+    <!-- SLOT MODAL -->
     <div class="modal" id="slotModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('slot')">&times;</button>
@@ -896,7 +159,7 @@
                             <div id="slot3">💀</div>
                         </div>
                         <div style="margin: 20px 0;">
-                            <button style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="spinSlots()">
+                            <button id="spinBtn" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="spinSlots()">
                                 SPIN (50 chips)
                             </button>
                         </div>
@@ -912,6 +175,7 @@
         </div>
     </div>
     
+    <!-- BLACKJACK MODAL -->
     <div class="modal" id="blackjackModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('blackjack')">&times;</button>
@@ -931,9 +195,9 @@
                         </div>
                         
                         <div style="margin: 20px 0;">
-                            <button style="background: var(--green); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="hit()">HIT</button>
-                            <button style="background: var(--red); color: var(--white); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="stand()">STAND</button>
-                            <button style="background: var(--gold); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="newHand()">NEW HAND</button>
+                            <button id="hitBtn" style="background: var(--green); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="hit()">HIT</button>
+                            <button id="standBtn" style="background: var(--red); color: var(--white); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="stand()">STAND</button>
+                            <button id="newHandBtn" style="background: var(--gold); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="newHand()">NEW HAND</button>
                         </div>
                         
                         <div style="color: var(--gold); font-family: 'Orbitron', monospace;">
@@ -946,6 +210,7 @@
         </div>
     </div>
     
+    <!-- DICE MODAL -->
     <div class="modal" id="diceModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('dice')">&times;</button>
@@ -967,7 +232,7 @@
                             <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
                         </div>
                         
-                        <button style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; margin: 10px;" onclick="rollDice()">
+                        <button id="rollBtn" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; margin: 10px;" onclick="rollDice()">
                             ROLL DICE (75 chips)
                         </button>
                         
@@ -981,125 +246,141 @@
             </div>
         </div>
     </div>
-    
-    <div class="modal" id="cashoutModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('cashout')">&times;</button>
-            <h3 class="modal-title">💰 Cashout Booth</h3>
-            <div class="modal-description">
-                <p style="margin-bottom: 25px;">Spend your chips on exclusive Keith content:</p>
-                
-                <div style="display: grid; gap: 15px; text-align: left;">
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="color: var(--gold); font-weight: bold;">🎵 Rare Track Pack</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">5 unreleased collaborations</div>
-                        </div>
-                        <div style="color: var(--gold); font-weight: bold;">300 chips</div>
-                    </div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="color: var(--gold); font-weight: bold;">💿 Lost Album</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Complete unreleased project</div>
-                        </div>
-                        <div style="color: var(--gold); font-weight: bold;">800 chips</div>
-                    </div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="color: var(--gold); font-weight: bold;">🎤 Keith Voice Message</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Personal greeting from Keith</div>
-                        </div>
-                        <div style="color: var(--gold); font-weight: bold;">400 chips</div>
-                    </div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="color: var(--gold); font-weight: bold;">📸 Rare Photos</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">Behind-the-scenes collection</div>
-                        </div>
-                        <div style="color: var(--gold); font-weight: bold;">200 chips</div>
-                    </div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="color: var(--gold); font-weight: bold;">🎭 Persona Origin Story</div>
-                            <div style="font-size: 0.9rem; opacity: 0.8;">How each character was created</div>
-                        </div>
-                        <div style="color: var(--gold); font-weight: bold;">150 chips</div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 25px; padding: 15px; background: rgba(0, 0, 0, 0.5); border-radius: 10px;">
-                    <div style="color: var(--gold); font-family: 'Orbitron', monospace; text-align: center;">
-                        Your Chips: <span id="totalChips">500</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal" id="bonusModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('bonus')">&times;</button>
-            <h3 class="modal-title">🥂 Daily Bonus</h3>
-            <div class="modal-description">
-                <div style="text-align: center; margin: 20px 0;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">🎁</div>
-                    <div style="color: var(--gold); font-size: 1.5rem; margin-bottom: 15px;">Welcome Back Bonus!</div>
-                    <div style="font-size: 1.2rem; margin-bottom: 20px;">You've earned <strong style="color: var(--gold);">+100 chips</strong></div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 20px; margin: 20px 0;">
-                        <div style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">Streak Rewards:</div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Day 1:</span><span>+100 chips</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Day 3:</span><span>+200 chips</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Day 7:</span><span>+500 chips</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                            <span>Day 30:</span><span>Exclusive Keith message</span>
-                        </div>
-                    </div>
-                    
-                    <button style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="claimBonus()">
-                        CLAIM BONUS
-                    </button>
-                </div>
-                
-                <p style="text-align: center; font-style: italic; opacity: 0.7;">
-                    Come back daily for bigger rewards!
-                </p>
-            </div>
-        </div>
-    </div>
 
     <script>
         // Game state
         let chipCount = 500;
-        let gameActive = false;
+        let playerName = '';
+        let drunkLevel = 0;
+        let isDoubleClickMode = false;
+        let clickCounts = {};
         
-        // Initialize particles
-        function createParticles() {
-            const particles = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
-                particles.appendChild(particle);
+        // Drunk system
+        function drinkChampagne() {
+            if (drunkLevel >= 5) {
+                showDrunkWarning("Security: That's enough! You've been cut off!");
+                return;
+            }
+            
+            drunkLevel++;
+            updateDrunkLevel();
+            playSound('drink');
+            
+            // Show drunk meter after first drink
+            if (drunkLevel === 1) {
+                document.getElementById('drunkMeter').style.display = 'block';
+            }
+            
+            // Keith's warnings
+            if (drunkLevel === 3) {
+                showDrunkWarning("Keith: Yo, you might wanna slow down...");
+            } else if (drunkLevel === 4) {
+                showDrunkWarning("Keith: Seriously, pace yourself in my spot!");
+                isDoubleClickMode = true; // Require double clicks
+            } else if (drunkLevel === 5) {
+                showDrunkWarning("Security: Alright, that's enough. Time to sober up!");
+                setTimeout(() => {
+                    resetDrunkLevel();
+                    showDrunkWarning("You've been escorted to the VIP recovery lounge. Welcome back!");
+                }, 3000);
             }
         }
         
-        // Modal functions
+        function updateDrunkLevel() {
+            document.body.className = drunkLevel > 0 ? `drunk-level-${drunkLevel}` : '';
+            document.getElementById('drinkCount').textContent = drunkLevel;
+            
+            // Add drunk effects to buttons
+            if (drunkLevel >= 3) {
+                document.querySelectorAll('button').forEach(btn => {
+                    if (!btn.classList.contains('close-btn')) {
+                        btn.classList.add('drunk-button');
+                    }
+                });
+            }
+            
+            // Double click requirement
+            if (drunkLevel >= 4) {
+                document.querySelectorAll('button, .mobile-button, .slot-machine, .blackjack-table, .dice-table, .cashout-booth').forEach(el => {
+                    el.classList.add('needs-double-click');
+                });
+            }
+        }
+        
+        function resetDrunkLevel() {
+            drunkLevel = 0;
+            isDoubleClickMode = false;
+            clickCounts = {};
+            updateDrunkLevel();
+            document.getElementById('drunkMeter').style.display = 'none';
+            
+            // Remove drunk effects
+            document.querySelectorAll('.drunk-button').forEach(btn => {
+                btn.classList.remove('drunk-button');
+            });
+            document.querySelectorAll('.needs-double-click').forEach(el => {
+                el.classList.remove('needs-double-click');
+            });
+        }
+        
+        function showDrunkWarning(message) {
+            const warning = document.getElementById('drunkWarning');
+            warning.textContent = message;
+            warning.style.display = 'block';
+            
+            setTimeout(() => {
+                warning.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Enhanced click handler for drunk mode
+        function handleDrunkClick(elementId, callback) {
+            if (!isDoubleClickMode) {
+                callback();
+                return;
+            }
+            
+            if (!clickCounts[elementId]) {
+                clickCounts[elementId] = 0;
+            }
+            
+            clickCounts[elementId]++;
+            
+            if (clickCounts[elementId] >= 2) {
+                callback();
+                clickCounts[elementId] = 0;
+            } else {
+                showDrunkWarning("Your coordination is off... try double-clicking!");
+            }
+        }
+        
+        // Name registration system
+        function registerName() {
+            const nameInput = document.getElementById('playerName');
+            if (nameInput.value.trim()) {
+                playerName = nameInput.value.trim();
+                document.getElementById('nameRegistration').style.display = 'none';
+                document.getElementById('welcomeBack').style.display = 'block';
+                document.getElementById('welcomeName').textContent = playerName;
+                playSound('register');
+            } else {
+                alert('Keith needs to know your name!');
+            }
+        }
+        
+        // Modal functions with drunk handling
         function openModal(type) {
-            document.getElementById(type + 'Modal').style.display = 'flex';
-            playSound('click');
+            handleDrunkClick(`modal-${type}`, () => {
+                document.getElementById(type + 'Modal').style.display = 'flex';
+                playSound('click');
+                
+                // Show welcome back message for returning players
+                if (type === 'cashout' && playerName) {
+                    document.getElementById('nameRegistration').style.display = 'none';
+                    document.getElementById('welcomeBack').style.display = 'block';
+                    document.getElementById('welcomeName').textContent = playerName;
+                }
+            });
         }
         
         function closeModal(type) {
@@ -1112,45 +393,80 @@
             playSound('enter');
         }
         
-        // Audio simulation
+        // Audio simulation with drunk effects
         function playSound(type) {
-            // In real implementation, this would play actual casino sounds
-            console.log(`Playing sound: ${type}`);
+            console.log(`Playing sound: ${type}${drunkLevel > 2 ? ' (distorted)' : ''}`);
         }
         
-        // Slot machine game
+        // AI Chat with personalization
+        function startChat(persona) {
+            handleDrunkClick(`chat-${persona}`, () => {
+                playSound('phone-pickup');
+                
+                const responses = {
+                    octagon: `Dr. Octagon here${playerName ? ', ' + playerName : ''}. My medical expertise extends beyond traditional boundaries into cosmic surgery. What dimension are you calling from?`,
+                    dooom: `Dr. Dooom speaking${playerName ? ', ' + playerName : ''}. I specialize in lyrical destruction and microphone demolition. State your business before I prescribe some verbal medication.`,
+                    elvis: `Black Elvis in the building${playerName ? ', ' + playerName : ''}. I'm broadcasting from my space station above Earth. What cosmic message do you need transmitted?`,
+                    keith: `Kool Keith on the line${playerName ? ', ' + playerName : ''}. You've reached the original, the innovator, the one who started this whole movement. What's on your mind?`
+                };
+                
+                let message = responses[persona] || "This persona is currently in another dimension. Try again later.";
+                
+                // Add drunk commentary
+                if (drunkLevel >= 3) {
+                    const drunkComments = [
+                        " You sound a little wobbly, you been hitting the champagne?",
+                        " I can tell you've been enjoying the club amenities...",
+                        " Maybe take it easy on the drinks while we talk.",
+                        " You're starting to sound like you need some water."
+                    ];
+                    message += drunkComments[Math.floor(Math.random() * drunkComments.length)];
+                }
+                
+                setTimeout(() => {
+                    alert(`📱 ${message}`);
+                }, 1000);
+            });
+        }
+        
+        // Enhanced slot machine with drunk effects
         function spinSlots() {
-            if (chipCount < 50) {
-                alert('Not enough chips!');
-                return;
-            }
-            
-            chipCount -= 50;
-            updateChipDisplay();
-            playSound('slot-spin');
-            
-            const symbols = ['🩺', '👑', '💀', '🎤', '🎭', '🎰'];
-            const results = [];
-            
-            // Animate spinning
-            for (let i = 1; i <= 3; i++) {
-                const slot = document.getElementById(`slot${i}`);
-                let spins = 0;
-                const spinInterval = setInterval(() => {
-                    slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                    spins++;
-                    if (spins > 10 + i * 5) {
-                        clearInterval(spinInterval);
-                        const result = symbols[Math.floor(Math.random() * symbols.length)];
-                        slot.textContent = result;
-                        results.push(result);
-                        
-                        if (results.length === 3) {
-                            checkSlotWin(results);
+            handleDrunkClick('slot-spin', () => {
+                if (chipCount < 50) {
+                    alert('Not enough chips!');
+                    return;
+                }
+                
+                chipCount -= 50;
+                updateChipDisplay();
+                playSound('slot-spin');
+                
+                const symbols = ['🩺', '👑', '💀', '🎤', '🎭', '🎰'];
+                const results = [];
+                
+                // Slower spinning when drunk
+                const spinSpeed = drunkLevel >= 3 ? 200 : 100;
+                const totalSpins = drunkLevel >= 3 ? 15 : 10;
+                
+                for (let i = 1; i <= 3; i++) {
+                    const slot = document.getElementById(`slot${i}`);
+                    let spins = 0;
+                    const spinInterval = setInterval(() => {
+                        slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                        spins++;
+                        if (spins > totalSpins + i * 5) {
+                            clearInterval(spinInterval);
+                            const result = symbols[Math.floor(Math.random() * symbols.length)];
+                            slot.textContent = result;
+                            results.push(result);
+                            
+                            if (results.length === 3) {
+                                setTimeout(() => checkSlotWin(results), 500);
+                            }
                         }
-                    }
-                }, 100);
-            }
+                    }, spinSpeed);
+                }
+            });
         }
         
         function checkSlotWin(results) {
@@ -1158,14 +474,14 @@
             
             if (results[0] === results[1] && results[1] === results[2]) {
                 if (results[0] === '🎰') {
-                    winAmount = 1000; // Jackpot
+                    winAmount = 1000;
                     playSound('jackpot');
                 } else {
-                    winAmount = 200; // Three of a kind
+                    winAmount = 200;
                     playSound('big-win');
                 }
             } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
-                winAmount = 75; // Pair
+                winAmount = 75;
                 playSound('small-win');
             }
             
@@ -1173,72 +489,74 @@
                 chipCount += winAmount;
                 updateChipDisplay();
                 setTimeout(() => {
-                    alert(`You won ${winAmount} chips!`);
+                    alert(`You won ${winAmount} chips!${playerName ? ' Nice work, ' + playerName + '!' : ''}`);
                 }, 500);
             }
         }
         
-        // Cee-Lo dice game
+        // Dice game with drunk effects
         function rollDice() {
-            if (chipCount < 75) {
-                alert('Not enough chips!');
-                return;
-            }
-            
-            chipCount -= 75;
-            updateChipDisplay();
-            playSound('dice-roll');
-            
-            // Keith's roll (house)
-            const keithDice = [
-                Math.floor(Math.random() * 6) + 1,
-                Math.floor(Math.random() * 6) + 1,
-                Math.floor(Math.random() * 6) + 1
-            ];
-            
-            // Player's roll
-            const playerDice = [
-                Math.floor(Math.random() * 6) + 1,
-                Math.floor(Math.random() * 6) + 1,
-                Math.floor(Math.random() * 6) + 1
-            ];
-            
-            // Display dice
-            document.getElementById('keithDice').children[0].textContent = keithDice[0];
-            document.getElementById('keithDice').children[1].textContent = keithDice[1];
-            document.getElementById('keithDice').children[2].textContent = keithDice[2];
-            
-            document.getElementById('playerDice').children[0].textContent = playerDice[0];
-            document.getElementById('playerDice').children[1].textContent = playerDice[1];
-            document.getElementById('playerDice').children[2].textContent = playerDice[2];
-            
-            // Evaluate results
-            const keithResult = evaluateCeeLo(keithDice);
-            const playerResult = evaluateCeeLo(playerDice);
-            
-            document.getElementById('keithRoll').textContent = keithResult.description;
-            document.getElementById('playerRoll').textContent = playerResult.description;
-            
-            // Determine winner
-            const result = compareCeeLoResults(keithResult, playerResult);
-            document.getElementById('diceResult').textContent = result.message;
-            
-            if (result.winner === 'player') {
-                chipCount += 150;
+            handleDrunkClick('dice-roll', () => {
+                if (chipCount < 75) {
+                    alert('Not enough chips!');
+                    return;
+                }
+                
+                chipCount -= 75;
                 updateChipDisplay();
-                playSound('win');
-            } else if (result.winner === 'tie') {
-                chipCount += 75; // Return bet
-                updateChipDisplay();
-            } else {
-                playSound('lose');
-            }
+                playSound('dice-roll');
+                
+                // Keith's roll
+                const keithDice = [
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1
+                ];
+                
+                // Player's roll
+                const playerDice = [
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1
+                ];
+                
+                // Display with delay when drunk
+                setTimeout(() => {
+                    document.getElementById('keithDice').children[0].textContent = keithDice[0];
+                    document.getElementById('keithDice').children[1].textContent = keithDice[1];
+                    document.getElementById('keithDice').children[2].textContent = keithDice[2];
+                    
+                    document.getElementById('playerDice').children[0].textContent = playerDice[0];
+                    document.getElementById('playerDice').children[1].textContent = playerDice[1];
+                    document.getElementById('playerDice').children[2].textContent = playerDice[2];
+                    
+                    const keithResult = evaluateCeeLo(keithDice);
+                    const playerResult = evaluateCeeLo(playerDice);
+                    
+                    document.getElementById('keithRoll').textContent = keithResult.description;
+                    document.getElementById('playerRoll').textContent = playerResult.description;
+                    
+                    const result = compareCeeLoResults(keithResult, playerResult);
+                    document.getElementById('diceResult').textContent = result.message;
+                    
+                    if (result.winner === 'player') {
+                        chipCount += 150;
+                        updateChipDisplay();
+                        playSound('win');
+                    } else if (result.winner === 'tie') {
+                        chipCount += 75;
+                        updateChipDisplay();
+                    } else {
+                        playSound('lose');
+                    }
+                }, drunkLevel >= 3 ? 1000 : 500);
+            });
         }
         
+        // Cee-Lo evaluation functions (same as before)
         function evaluateCeeLo(dice) {
             const sorted = [...dice].sort((a, b) => a - b);
             
-            // Check for instant win/loss
             if (sorted[0] === 4 && sorted[1] === 5 && sorted[2] === 6) {
                 return { type: 'instant-win', value: 456, description: '4-5-6 (Instant Win!)' };
             }
@@ -1246,12 +564,10 @@
                 return { type: 'instant-loss', value: 123, description: '1-2-3 (Instant Loss)' };
             }
             
-            // Check for trips
             if (sorted[0] === sorted[1] && sorted[1] === sorted[2]) {
                 return { type: 'trips', value: sorted[0] * 100, description: `Trips ${sorted[0]}s` };
             }
             
-            // Check for point (pair + kicker)
             if (sorted[0] === sorted[1]) {
                 return { type: 'point', value: sorted[2], description: `Point ${sorted[2]}` };
             }
@@ -1263,65 +579,115 @@
         }
         
         function compareCeeLoResults(keith, player) {
-            // Instant results
             if (player.type === 'instant-win') return { winner: 'player', message: 'You win with 4-5-6!' };
             if (player.type === 'instant-loss') return { winner: 'keith', message: 'You lose with 1-2-3!' };
             if (keith.type === 'instant-win') return { winner: 'keith', message: 'Keith wins with 4-5-6!' };
             if (keith.type === 'instant-loss') return { winner: 'player', message: 'Keith loses with 1-2-3!' };
             
-            // Trips vs other
             if (player.type === 'trips' && keith.type !== 'trips') return { winner: 'player', message: 'You win with trips!' };
             if (keith.type === 'trips' && player.type !== 'trips') return { winner: 'keith', message: 'Keith wins with trips!' };
             
-            // Trips vs trips
             if (player.type === 'trips' && keith.type === 'trips') {
                 if (player.value > keith.value) return { winner: 'player', message: 'Your trips beat Keith!' };
                 if (keith.value > player.value) return { winner: 'keith', message: 'Keith\'s trips beat yours!' };
                 return { winner: 'tie', message: 'Tie - same trips!' };
             }
             
-            // Point vs point
             if (player.type === 'point' && keith.type === 'point') {
                 if (player.value > keith.value) return { winner: 'player', message: `Your point ${player.value} beats Keith's ${keith.value}!` };
                 if (keith.value > player.value) return { winner: 'keith', message: `Keith's point ${keith.value} beats your ${player.value}!` };
                 return { winner: 'tie', message: 'Tie - same point!' };
             }
             
-            // Point vs nothing
             if (player.type === 'point' && keith.type === 'nothing') return { winner: 'player', message: 'You win with a point!' };
             if (keith.type === 'point' && player.type === 'nothing') return { winner: 'keith', message: 'Keith wins with a point!' };
             
             return { winner: 'tie', message: 'No winner - roll again!' };
         }
         
-        // Blackjack (simplified)
-        let blackjackState = {
-            playerCards: [],
-            houseCards: [],
-            gameOver: false
-        };
+        // Blackjack with drunk effects
+        let blackjackState = { playerCards: [], houseCards: [], gameOver: false };
         
         function newHand() {
-            if (chipCount < 100) {
-                alert('Not enough chips for blackjack!');
-                return;
-            }
-            
-            chipCount -= 100;
-            updateChipDisplay();
-            playSound('card-shuffle');
-            
-            blackjackState = {
-                playerCards: [getRandomCard(), getRandomCard()],
-                houseCards: [getRandomCard(), getRandomCard()],
-                gameOver: false
-            };
-            
-            updateBlackjackDisplay();
+            handleDrunkClick('new-hand', () => {
+                if (chipCount < 100) {
+                    alert('Not enough chips for blackjack!');
+                    return;
+                }
+                
+                chipCount -= 100;
+                updateChipDisplay();
+                playSound('card-shuffle');
+                
+                blackjackState = {
+                    playerCards: [getRandomCard(), getRandomCard()],
+                    houseCards: [getRandomCard(), getRandomCard()],
+                    gameOver: false
+                };
+                
+                updateBlackjackDisplay();
+            });
+        }
+        
+        function hit() {
+            handleDrunkClick('hit', () => {
+                if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
+                
+                playSound('card-flip');
+                blackjackState.playerCards.push(getRandomCard());
+                updateBlackjackDisplay();
+            });
+        }
+        
+        function stand() {
+            handleDrunkClick('stand', () => {
+                if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
+                
+                blackjackState.gameOver = true;
+                playSound('card-flip');
+                
+                while (calculateTotal(blackjackState.houseCards) < 17) {
+                    blackjackState.houseCards.push(getRandomCard());
+                }
+                
+                updateBlackjackDisplay();
+                
+                const playerTotal = calculateTotal(blackjackState.playerCards);
+                const houseTotal = calculateTotal(blackjackState.houseCards);
+                
+                setTimeout(() => {
+                    let message = '';
+                    let winAmount = 0;
+                    
+                    if (houseTotal > 21) {
+                        message = 'House busts! You win!';
+                        winAmount = 200;
+                        playSound('win');
+                    } else if (playerTotal > houseTotal) {
+                        message = 'You win!';
+                        winAmount = 200;
+                        playSound('win');
+                    } else if (houseTotal > playerTotal) {
+                        message = 'House wins!';
+                        playSound('lose');
+                    } else {
+                        message = 'Push! Bet returned.';
+                        winAmount = 100;
+                    }
+                    
+                    if (playerName && winAmount > 0) {
+                        message += ` Nice job, ${playerName}!`;
+                    }
+                    
+                    chipCount += winAmount;
+                    updateChipDisplay();
+                    alert(message);
+                }, 1000);
+            });
         }
         
         function getRandomCard() {
-            const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]; // 10, J, Q, K all worth 10
+            const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
             return cards[Math.floor(Math.random() * cards.length)];
         }
         
@@ -1329,7 +695,6 @@
             let total = cards.reduce((sum, card) => sum + card, 0);
             let aces = cards.filter(card => card === 1).length;
             
-            // Handle aces (1 or 11)
             while (aces > 0 && total + 10 <= 21) {
                 total += 10;
                 aces--;
@@ -1345,7 +710,6 @@
             document.getElementById('playerTotal').textContent = playerTotal;
             document.getElementById('houseTotal').textContent = blackjackState.gameOver ? houseTotal : '??';
             
-            // Update player cards display
             const playerCardsDiv = document.getElementById('playerCards');
             playerCardsDiv.innerHTML = '';
             blackjackState.playerCards.forEach(card => {
@@ -1355,7 +719,6 @@
                 playerCardsDiv.appendChild(cardDiv);
             });
             
-            // Update house cards display (hide second card unless game over)
             const houseCardsDiv = document.getElementById('houseCards');
             houseCardsDiv.innerHTML = '';
             blackjackState.houseCards.forEach((card, index) => {
@@ -1365,90 +728,13 @@
                 houseCardsDiv.appendChild(cardDiv);
             });
             
-            // Check for bust or blackjack
             if (playerTotal > 21) {
                 blackjackState.gameOver = true;
                 setTimeout(() => alert('Bust! You lose!'), 500);
                 playSound('lose');
             } else if (playerTotal === 21) {
-                stand(); // Automatically stand on 21
+                stand();
             }
-        }
-        
-        function hit() {
-            if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
-            
-            playSound('card-flip');
-            blackjackState.playerCards.push(getRandomCard());
-            updateBlackjackDisplay();
-        }
-        
-        function stand() {
-            if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
-            
-            blackjackState.gameOver = true;
-            playSound('card-flip');
-            
-            // House draws until 17 or higher
-            while (calculateTotal(blackjackState.houseCards) < 17) {
-                blackjackState.houseCards.push(getRandomCard());
-            }
-            
-            updateBlackjackDisplay();
-            
-            const playerTotal = calculateTotal(blackjackState.playerCards);
-            const houseTotal = calculateTotal(blackjackState.houseCards);
-            
-            setTimeout(() => {
-                let message = '';
-                let winAmount = 0;
-                
-                if (houseTotal > 21) {
-                    message = 'House busts! You win!';
-                    winAmount = 200;
-                    playSound('win');
-                } else if (playerTotal > houseTotal) {
-                    message = 'You win!';
-                    winAmount = 200;
-                    playSound('win');
-                } else if (houseTotal > playerTotal) {
-                    message = 'House wins!';
-                    playSound('lose');
-                } else {
-                    message = 'Push! Bet returned.';
-                    winAmount = 100;
-                }
-                
-                chipCount += winAmount;
-                updateChipDisplay();
-                alert(message);
-            }, 1000);
-        }
-        
-        // AI Chat simulation
-        function startChat(persona) {
-            playSound('phone-pickup');
-            
-            const responses = {
-                octagon: "Dr. Octagon here. My medical expertise extends beyond traditional boundaries into cosmic surgery. What dimension are you calling from?",
-                dooom: "Dr. Dooom speaking. I specialize in lyrical destruction and microphone demolition. State your business before I prescribe some verbal medication.",
-                elvis: "Black Elvis in the building. I'm broadcasting from my space station above Earth. What cosmic message do you need transmitted?",
-                keith: "Kool Keith on the line. You've reached the original, the innovator, the one who started this whole movement. What's on your mind?"
-            };
-            
-            setTimeout(() => {
-                alert(`📱 ${responses[persona] || "This persona is currently in another dimension. Try again later."}`);
-            }, 1000);
-        }
-        
-        // Bonus system
-        function claimBonus() {
-            chipCount += 100;
-            updateChipDisplay();
-            playSound('bonus');
-            
-            alert('Bonus claimed! +100 chips added to your account.');
-            closeModal('bonus');
         }
         
         // Utility functions
@@ -1467,36 +753,9 @@
             }
         }
         
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            updateChipDisplay();
-            
-            // Auto-dismiss welcome after 10 seconds
-            setTimeout(() => {
-                const welcome = document.getElementById('welcomeMessage');
-                if (welcome && welcome.style.display !== 'none') {
-                    welcome.style.opacity = '0.8';
-                }
-            }, 10000);
-            
-            // Initialize blackjack
-            setTimeout(() => {
-                newHand();
-            }, 1000);
-            
-            console.log('🎰 Ultra Keith Players Club initialized');
-            console.log('🎵 Background audio: Exclusive Keith tracks + club ambiance');
-            console.log('🔊 Interactive sounds: Casino effects for all games');
-            console.log('📱 AI Chat: 4 personas available via phone');
-            console.log('🎲 Games: Slots, Cee-Lo, Blackjack with real rules');
-            console.log('💰 Rewards: Spend chips on exclusive content');
-        });
-        
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                // Close any open modal
                 document.querySelectorAll('.modal').forEach(modal => {
                     modal.style.display = 'none';
                 });
@@ -1505,12 +764,805 @@
             if (e.key === 'Enter' && document.getElementById('welcomeMessage').style.display !== 'none') {
                 closeWelcome();
             }
+            
+            // Drunk mode shortcuts
+            if (e.key === 'c' || e.key === 'C') {
+                drinkChampagne();
+            }
         });
         
-        // Simulate ambient audio
-        console.log('🎵 Now playing: Exclusive Keith instrumental + casino ambiance');
-        console.log('🔊 Audio layers: Background music, ambient sounds, interactive effects');
-        console.log('📱 Voice integration ready for Keith recordings');
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateChipDisplay();
+            
+            // Auto-dismiss welcome after 12 seconds
+            setTimeout(() => {
+                const welcome = document.getElementById('welcomeMessage');
+                if (welcome && welcome.style.display !== 'none') {
+                    welcome.style.opacity = '0.8';
+                }
+            }, 12000);
+            
+            // Initialize blackjack
+            setTimeout(() => {
+                newHand();
+            }, 1000);
+            
+            console.log('🎰 Ultra Keith Players Club initialized');
+            console.log('🍷 Easter Egg: Click champagne glass to get drunk!');
+            console.log('📱 Name registration: Visit cashier booth first');
+            console.log('🎲 Games: Slots, Cee-Lo, Blackjack with drunk effects');
+            console.log('🔊 Audio: Exclusive Keith tracks + casino ambiance');
+            console.log('⌨️  Shortcut: Press C to drink champagne');
+        });
     </script>
 </body>
-</html>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultra Keith Players Club</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --gold: #DAB547;
+            --gold-light: #E8C547;
+            --black: #000000;
+            --burgundy: #0F0505;
+            --white: #FFFFFF;
+            --neon-gold: #FFD700;
+            --neon-glow: rgba(255, 215, 0, 0.6);
+            --neon-pink: #FF1493;
+            --pink-glow: rgba(255, 20, 147, 0.6);
+            --red: #FF073A;
+            --green: #00FF41;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #000;
+            color: var(--white);
+            overflow: hidden;
+            height: 100vh;
+            transition: filter 0.3s ease;
+        }
+        
+        /* DRUNK EFFECTS */
+        .drunk-level-1 { 
+            filter: blur(0.5px); 
+        }
+        
+        .drunk-level-2 { 
+            filter: blur(1px);
+            animation: subtleSway 4s ease-in-out infinite;
+        }
+        
+        .drunk-level-3 { 
+            filter: blur(2px);
+            animation: moderateSway 3s ease-in-out infinite;
+        }
+        
+        .drunk-level-4 { 
+            filter: blur(3px);
+            animation: heavySway 2s ease-in-out infinite;
+        }
+        
+        .drunk-level-5 { 
+            filter: blur(5px) saturate(1.3);
+            animation: maxSway 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes subtleSway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(1px) translateY(0.5px); }
+        }
+        
+        @keyframes moderateSway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(2px) translateY(1px); }
+            75% { transform: translateX(-1px) translateY(-0.5px); }
+        }
+        
+        @keyframes heavySway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(3px) translateY(2px); }
+            50% { transform: translateX(-2px) translateY(1px); }
+            75% { transform: translateX(1px) translateY(-2px); }
+        }
+        
+        @keyframes maxSway {
+            0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+            25% { transform: translateX(5px) translateY(3px) rotate(0.5deg); }
+            50% { transform: translateX(-3px) translateY(2px) rotate(-0.3deg); }
+            75% { transform: translateX(2px) translateY(-3px) rotate(0.2deg); }
+        }
+        
+        /* DESKTOP POV CASINO */
+        .desktop-view {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: 
+                /* VIP booth lighting */
+                radial-gradient(ellipse at 50% 100%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+                /* Pink neon glow from sign */
+                radial-gradient(ellipse at 50% 15%, var(--pink-glow) 0%, transparent 40%),
+                /* Atmospheric lighting */
+                radial-gradient(circle at 20% 60%, rgba(218, 181, 71, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 40%, rgba(255, 215, 0, 0.06) 0%, transparent 40%),
+                /* Main casino gradient */
+                linear-gradient(
+                    180deg,
+                    #1a1a1a 0%,
+                    #0d0d0d 30%,
+                    #0a0505 50%,
+                    #000000 80%,
+                    #050000 100%
+                );
+            background-size: cover;
+            background-position: center bottom;
+        }
+        
+        /* PINK NEON SIGN */
+        .neon-sign {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--neon-pink);
+            text-shadow: 
+                0 0 10px var(--pink-glow),
+                0 0 20px var(--pink-glow),
+                0 0 40px var(--pink-glow),
+                0 0 80px var(--pink-glow);
+            animation: pinkNeonPulse 3s ease-in-out infinite alternate;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            z-index: 5;
+        }
+        
+        @keyframes pinkNeonPulse {
+            from {
+                text-shadow: 
+                    0 0 10px var(--pink-glow),
+                    0 0 20px var(--pink-glow),
+                    0 0 40px var(--pink-glow),
+                    0 0 80px var(--pink-glow);
+            }
+            to {
+                text-shadow: 
+                    0 0 20px var(--pink-glow),
+                    0 0 30px var(--pink-glow),
+                    0 0 60px var(--pink-glow),
+                    0 0 120px var(--pink-glow);
+            }
+        }
+        
+        /* VIP BOOTH FOREGROUND */
+        .vip-booth {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 350px;
+            background: 
+                /* Booth cushion curve */
+                radial-gradient(ellipse at center bottom, rgba(139, 69, 19, 0.4) 0%, transparent 60%),
+                /* Table surface */
+                linear-gradient(to top, rgba(26, 26, 26, 0.95) 0%, rgba(0, 0, 0, 0.8) 40%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        /* VIP TABLE SURFACE */
+        .vip-table {
+            position: absolute;
+            bottom: 80px;
+            left: 20%;
+            right: 20%;
+            height: 120px;
+            background: 
+                linear-gradient(135deg, #2d1810, #1a0f08),
+                radial-gradient(ellipse at center, #3d2820, #2d1810);
+            border-radius: 50px;
+            border: 3px solid var(--gold);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.8),
+                inset 0 2px 0 rgba(218, 181, 71, 0.3);
+            pointer-events: none;
+        }
+        
+        /* GAMING FLOOR AREAS */
+        .casino-floor {
+            position: absolute;
+            top: 25%;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: 
+                /* Carpet pattern */
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(139, 0, 0, 0.1),
+                    rgba(139, 0, 0, 0.1) 2px,
+                    transparent 2px,
+                    transparent 20px
+                ),
+                /* Gaming area spots */
+                radial-gradient(circle at 25% 60%, rgba(218, 181, 71, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 50% 70%, rgba(218, 181, 71, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 75% 60%, rgba(218, 181, 71, 0.1) 0%, transparent 30%);
+        }
+        
+        /* GAMING EQUIPMENT */
+        .slot-machine {
+            position: absolute;
+            top: 200px;
+            left: 15%;
+            width: 150px;
+            height: 220px;
+            background: 
+                linear-gradient(145deg, #2a2a2a, #1a1a1a),
+                radial-gradient(circle at 50% 30%, #444, #222);
+            border: 3px solid transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transform: perspective(400px) rotateY(-10deg);
+        }
+        
+        .blackjack-table {
+            position: absolute;
+            top: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 160px;
+            background: 
+                radial-gradient(ellipse at center, #1a4a1a, #0d2d0d),
+                linear-gradient(145deg, #2a5a2a, #1a3a1a);
+            border: 3px solid var(--gold);
+            border-radius: 50% / 40%;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.7),
+                inset 0 2px 0 rgba(218, 181, 71, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .dice-table {
+            position: absolute;
+            top: 200px;
+            right: 15%;
+            width: 160px;
+            height: 200px;
+            background: 
+                linear-gradient(145deg, #3a1a1a, #2a0a0a),
+                radial-gradient(circle at 30% 30%, #4a2a2a, #2a1a1a);
+            border: 3px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transform: perspective(400px) rotateY(10deg);
+        }
+        
+        .cashout-booth {
+            position: absolute;
+            top: 160px;
+            right: 5%;
+            width: 120px;
+            height: 240px;
+            background: 
+                linear-gradient(145deg, #1a1a2a, #0a0a1a),
+                linear-gradient(90deg, #2a2a3a, #1a1a2a);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.6),
+                inset 0 2px 0 rgba(218, 181, 71, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transform: perspective(400px) rotateY(15deg);
+        }
+        
+        /* HOVER EFFECTS */
+        .slot-machine:hover, .blackjack-table:hover, .dice-table:hover, .cashout-booth:hover {
+            border-color: var(--neon-gold);
+            box-shadow: 
+                0 0 30px var(--neon-glow),
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(255, 215, 0, 0.1);
+            transform: perspective(400px) rotateY(0deg) translateY(-8px) scale(1.05);
+        }
+        
+        /* TABLE ITEMS */
+        .phone {
+            position: absolute;
+            bottom: 120px;
+            right: 25%;
+            width: 80px;
+            height: 130px;
+            background: 
+                linear-gradient(145deg, #1a1a1a, #000),
+                radial-gradient(circle at 50% 20%, #333, #111);
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: all 0.4s;
+            pointer-events: all;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(218, 181, 71, 0.3);
+            z-index: 20;
+        }
+        
+        .phone:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.9),
+                0 0 30px var(--neon-glow);
+            border-color: var(--neon-gold);
+        }
+        
+        .champagne {
+            position: absolute;
+            bottom: 130px;
+            left: 25%;
+            width: 50px;
+            height: 100px;
+            background: 
+                linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 70%, #0a0a0a 100%),
+                radial-gradient(circle at 30% 30%, #333, #111);
+            border-radius: 6px 6px 25px 25px;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: all 0.3s;
+            pointer-events: all;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            z-index: 20;
+        }
+        
+        .champagne:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(218, 181, 71, 0.4);
+            border-color: var(--gold-light);
+        }
+        
+        /* DRUNK OVERLAY EFFECTS */
+        .drunk-warning {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 7, 58, 0.95);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+            z-index: 1000;
+            border: 2px solid #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            animation: warningPulse 0.5s ease-in-out;
+            display: none;
+        }
+        
+        @keyframes warningPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        /* WELCOME MESSAGE */
+        .welcome-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.9)),
+                radial-gradient(circle at center, rgba(218, 181, 71, 0.05), transparent);
+            padding: 40px 60px;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            max-width: 700px;
+            backdrop-filter: blur(15px);
+            animation: fadeInScale 1.2s ease-out 0.5s both;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(218, 181, 71, 0.2);
+            z-index: 100;
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .welcome-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .keith-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--gold-light);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            border-left: 4px solid var(--gold);
+            padding-left: 20px;
+            text-align: left;
+        }
+        
+        .cashier-instruction {
+            background: rgba(255, 20, 147, 0.1);
+            border: 1px solid var(--neon-pink);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 1rem;
+            color: var(--white);
+        }
+        
+        .starter-package {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .package-item {
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.3s;
+        }
+        
+        .package-item strong {
+            color: var(--gold);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .enter-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(218, 181, 71, 0.3);
+        }
+        
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(218, 181, 71, 0.5);
+        }
+        
+        /* MOBILE VIEW */
+        .mobile-view {
+            display: none;
+            padding: 20px;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 50% 10%, var(--pink-glow) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(218, 181, 71, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--black) 0%, var(--burgundy) 50%, var(--black) 100%);
+        }
+        
+        .mobile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .mobile-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px var(--pink-glow);
+        }
+        
+        .mobile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .mobile-button {
+            background: 
+                linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.9)),
+                radial-gradient(circle at 30% 30%, rgba(218, 181, 71, 0.05), transparent);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-decoration: none;
+            color: var(--white);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .mobile-button:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        .mobile-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .mobile-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        
+        /* MODAL SYSTEM */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: 
+                linear-gradient(135deg, #1a1a1a, #2a2a2a),
+                radial-gradient(circle at center, rgba(218, 181, 71, 0.05), transparent);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: modalFadeIn 0.4s ease-out;
+            position: relative;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .modal-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover {
+            background: rgba(218, 181, 71, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        /* DRUNK BUTTON EFFECTS */
+        .drunk-button {
+            animation: buttonWobble 0.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes buttonWobble {
+            0% { transform: rotate(-1deg) scale(0.98); }
+            100% { transform: rotate(1deg) scale(1.02); }
+        }
+        
+        /* DOUBLE CLICK REQUIREMENT */
+        .needs-double-click {
+            opacity: 0.7;
+            cursor: help;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .desktop-view { display: none; }
+            .mobile-view { display: block; }
+            .neon-sign { font-size: 1.8rem; }
+        }
+        
+        @media (min-width: 769px) {
+            .desktop-view { display: block; }
+            .mobile-view { display: none; }
+        }
+        
+        /* AUDIO INDICATOR */
+        .audio-status {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* DRUNK LEVEL INDICATOR */
+        .drunk-meter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--gold);
+            border-radius: 25px;
+            padding: 10px 15px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body id="gameBody">
+    <!-- AUDIO STATUS -->
+    <div class="audio-status">
+        <span>🎵</span>
+        <span>Club Audio: Keith Tracks + Ambiance</span>
+    </div>
+    
+    <!-- DRUNK METER -->
+    <div class="drunk-meter" id="drunkMeter">
+        🍷 Drinks: <span id="drinkCount">0</span>/5
+    </div>
+    
+    <!-- DRUNK WARNING -->
+    <div class="drunk-warning" id="drunkWarning"></div>
+
+    <!-- DESKTOP POV VIEW -->
+    <div class="desktop-view">
+        <div class="neon-sign">THE PLAYERS CLUB</div>
+        
+        <div class="casino-floor"></div>
+        
+        <!-- GAMING EQUIPMENT -->
+        <div class="slot-machine" onclick="openModal('slot')">🎰</div>
+        <div class="blackjack-table" onclick="openModal('blackjack')">🃏</div>
+        <div class="dice-table" onclick="openModal('dice')">🎲</div>
+        <div class="cashout-booth" onclick="openModal('cashout')">💰</div>
+        
+        <!-- VIP BOOTH -->
+        <div class="vip-booth">
+            <div class="vip-table"></div>
+            <div class="phone" onclick="openModal('chat')" title="Keith's Phone">📱</div>
+            <div class="champagne" onclick="drinkChampagne()" title="Champagne Glass">🥂</div>
+        </div>
+        
+        <!-- WELCOME MESSAGE -->
+        <div class="welcome-message" id="welcomeMessage">
+            <h2 class="welcome-title">Welcome to The Players Club</h2>
+            <div class="keith-quote">
+                "Welcome to my exclusive spot. Before you start playing, go up to the cashier and tell 'em your name. 
+                Say Keith sent you. They'll hook you up with your starter package and make sure you're taken care of 
+                every time you come through. That's how we do business in my spot."
+            </div>
+            
+            <div class="cashier-instruction">
+                💰 <strong>First Step:</strong> Visit the cashier booth to register your name and get your VIP package!
+            </div>
+            
+            <div class="starter-package">
+                <div class="package-item">
+                    <strong>🎰 500 Chips</strong>
+                    Play all games<br>Earn more through wins
+                </div>
+                <div class="package-item">
+                    <strong>📱 Keith's Phone</strong>
+                    Direct AI access<br>Personalized conversations
+                </div>
+                <div class="package-item">
+                    <strong>🎫 VIP Status</strong>
+                    Exclusive rewards<br>Name recognition
+                </div>
+            </div>
+            <button class="enter-btn"
