@@ -1,827 +1,4 @@
-<button class="enter-btn" onclick="closeWelcome()">Enter The Club</button>
-        </div>
-    </div>
-    
-    <!-- MOBILE VIEW -->
-    <div class="mobile-view">
-        <div class="mobile-header">
-            <h1 class="mobile-logo">Players Club</h1>
-            <p>Keith's Exclusive Gaming Lounge</p>
-        </div>
-        
-        <div class="mobile-grid">
-            <div class="mobile-button" onclick="openModal('cashout')">
-                <span class="mobile-icon">💰</span>
-                <div class="mobile-label">Cashier</div>
-            </div>
-            
-            <div class="mobile-button" onclick="openModal('chat')">
-                <span class="mobile-icon">📱</span>
-                <div class="mobile-label">Keith's Phone</div>
-            </div>
-            
-            <div class="mobile-button" onclick="openModal('slot')">
-                <span class="mobile-icon">🎰</span>
-                <div class="mobile-label">Slots</div>
-            </div>
-            
-            <div class="mobile-button" onclick="openModal('blackjack')">
-                <span class="mobile-icon">🃏</span>
-                <div class="mobile-label">Blackjack</div>
-            </div>
-            
-            <div class="mobile-button" onclick="openModal('dice')">
-                <span class="mobile-icon">🎲</span>
-                <div class="mobile-label">Cee-Lo</div>
-            </div>
-            
-            <div class="mobile-button" onclick="drinkChampagne()">
-                <span class="mobile-icon">🥂</span>
-                <div class="mobile-label">Champagne</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- MODALS -->
-    <!-- CASHIER MODAL -->
-    <div class="modal" id="cashoutModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('cashout')">&times;</button>
-            <h3 class="modal-title">💰 Cashier Booth</h3>
-            <div class="modal-description">
-                <div id="nameRegistration" style="display: block;">
-                    <p style="margin-bottom: 20px;">Keith sent you, huh? What's your name?</p>
-                    <input type="text" id="playerName" placeholder="Enter your name" style="background: rgba(218, 181, 71, 0.1); border: 2px solid var(--gold); border-radius: 10px; padding: 15px; font-size: 1rem; color: var(--white); width: 100%; margin-bottom: 20px;">
-                    <button onclick="registerName()" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">
-                        Register with Keith
-                    </button>
-                </div>
-                
-                <div id="welcomeBack" style="display: none;">
-                    <p style="margin-bottom: 25px;">Welcome back, <span id="welcomeName"></span>! Keith said you might be coming by.</p>
-                    
-                    <div style="display: grid; gap: 15px; text-align: left; margin: 20px 0;">
-                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="color: var(--gold); font-weight: bold;">🎵 Rare Track Pack</div>
-                                <div style="font-size: 0.9rem; opacity: 0.8;">5 unreleased collaborations</div>
-                            </div>
-                            <div style="color: var(--gold); font-weight: bold;">300 chips</div>
-                        </div>
-                        
-                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="color: var(--gold); font-weight: bold;">💿 Lost Album</div>
-                                <div style="font-size: 0.9rem; opacity: 0.8;">Complete unreleased project</div>
-                            </div>
-                            <div style="color: var(--gold); font-weight: bold;">800 chips</div>
-                        </div>
-                        
-                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="color: var(--gold); font-weight: bold;">📸 Rare Photos</div>
-                                <div style="font-size: 0.9rem; opacity: 0.8;">Behind-the-scenes collection</div>
-                            </div>
-                            <div style="color: var(--gold); font-weight: bold;">200 chips</div>
-                        </div>
-                        
-                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="color: var(--gold); font-weight: bold;">🎭 Persona Stories</div>
-                                <div style="font-size: 0.9rem; opacity: 0.8;">Character creation docs</div>
-                            </div>
-                            <div style="color: var(--gold); font-weight: bold;">150 chips</div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 25px; padding: 15px; background: rgba(0, 0, 0, 0.5); border-radius: 10px;">
-                        <div style="color: var(--gold); font-family: 'Orbitron', monospace; text-align: center;">
-                            Your Chips: <span id="totalChips">500</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- CHAT MODAL -->
-    <div class="modal" id="chatModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('chat')">&times;</button>
-            <h3 class="modal-title">📱 Keith's Phone</h3>
-            <div class="modal-description">
-                <p style="margin-bottom: 20px;">Pick up Keith's phone and choose which persona to talk to:</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('octagon')">
-                        <div style="font-size: 2rem; margin-bottom: 5px;">🩺</div>
-                        <div style="color: var(--gold); font-weight: bold;">Dr. Octagon</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">Medical madness</div>
-                    </div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('dooom')">
-                        <div style="font-size: 2rem; margin-bottom: 5px;">💀</div>
-                        <div style="color: var(--gold); font-weight: bold;">Dr. Dooom</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">Destruction mode</div>
-                    </div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('elvis')">
-                        <div style="font-size: 2rem; margin-bottom: 5px;">👑</div>
-                        <div style="color: var(--gold); font-weight: bold;">Black Elvis</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">Space king</div>
-                    </div>
-                    
-                    <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; cursor: pointer;" onclick="startChat('keith')">
-                        <div style="font-size: 2rem; margin-bottom: 5px;">🎤</div>
-                        <div style="color: var(--gold); font-weight: bold;">Kool Keith</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">The original</div>
-                    </div>
-                </div>
-                
-                <p style="font-style: italic; opacity: 0.7; font-size: 0.9rem;">
-                    * AI-powered conversations for entertainment purposes
-                </p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- SLOT MODAL -->
-    <div class="modal" id="slotModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('slot')">&times;</button>
-            <h3 class="modal-title">🎰 Slot Machine</h3>
-            <div class="modal-description">
-                <div style="display: flex; justify-content: center; margin: 20px 0;">
-                    <div style="background: #222; border: 2px solid var(--gold); border-radius: 15px; padding: 30px; text-align: center;">
-                        <div style="display: flex; gap: 20px; margin-bottom: 20px; font-size: 3rem;">
-                            <div id="slot1">🩺</div>
-                            <div id="slot2">👑</div>
-                            <div id="slot3">💀</div>
-                        </div>
-                        <div style="margin: 20px 0;">
-                            <button id="spinBtn" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="spinSlots()">
-                                SPIN (50 chips)
-                            </button>
-                        </div>
-                        <div style="color: var(--gold); font-family: 'Orbitron', monospace;">
-                            Chips: <span id="chipCount">500</span>
-                        </div>
-                    </div>
-                </div>
-                <p><strong>Persona Symbols:</strong><br>
-                🩺 Dr. Octagon • 👑 Black Elvis • 💀 Dr. Dooom<br>
-                🎤 Kool Keith • 🎭 Mr. Gerbik • 🎰 JACKPOT</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- BLACKJACK MODAL -->
-    <div class="modal" id="blackjackModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('blackjack')">&times;</button>
-            <h3 class="modal-title">🃏 Blackjack</h3>
-            <div class="modal-description">
-                <div style="background: #1a4a1a; border-radius: 15px; padding: 30px; margin: 20px 0;">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <div style="color: var(--gold); margin-bottom: 10px;">House: <span id="houseTotal">??</span></div>
-                        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;" id="houseCards">
-                            <div style="background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">?</div>
-                            <div style="background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">?</div>
-                        </div>
-                        
-                        <div style="color: var(--white); margin-bottom: 10px;">You: <span id="playerTotal">0</span></div>
-                        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;" id="playerCards">
-                            <!-- Player cards will appear here -->
-                        </div>
-                        
-                        <div style="margin: 20px 0;">
-                            <button id="hitBtn" style="background: var(--green); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="hit()">HIT</button>
-                            <button id="standBtn" style="background: var(--red); color: var(--white); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="stand()">STAND</button>
-                            <button id="newHandBtn" style="background: var(--gold); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="newHand()">NEW HAND</button>
-                        </div>
-                        
-                        <div style="color: var(--gold); font-family: 'Orbitron', monospace;">
-                            Bet: 100 chips
-                        </div>
-                    </div>
-                </div>
-                <p>Classic 21 - Beat the house without going over!</p>
-            </div>
-        </div>
-    </div>
-    
-    <!-- DICE MODAL -->
-    <div class="modal" id="diceModal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModal('dice')">&times;</button>
-            <h3 class="modal-title">🎲 Cee-Lo Dice</h3>
-            <div class="modal-description">
-                <div style="background: #3a1a1a; border-radius: 15px; padding: 30px; margin: 20px 0;">
-                    <div style="text-align: center;">
-                        <div style="color: var(--gold); margin-bottom: 15px;">Keith's Roll: <span id="keithRoll">Roll to see...</span></div>
-                        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;" id="keithDice">
-                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
-                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
-                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
-                        </div>
-                        
-                        <div style="color: var(--white); margin: 15px 0;">Your Roll: <span id="playerRoll">Click to roll!</span></div>
-                        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;" id="playerDice">
-                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
-                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
-                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
-                        </div>
-                        
-                        <button id="rollBtn" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; margin: 10px;" onclick="rollDice()">
-                            ROLL DICE (75 chips)
-                        </button>
-                        
-                        <div id="diceResult" style="margin: 15px 0; font-weight: bold; font-size: 1.1rem;"></div>
-                    </div>
-                </div>
-                <p><strong>Cee-Lo Rules:</strong><br>
-                <strong>Instant Win:</strong> 4-5-6, Trips (111, 222, etc.)<br>
-                <strong>Instant Loss:</strong> 1-2-3<br>
-                <strong>Points:</strong> Doubles + kicker (6 beats 5 beats 4, etc.)</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Game state
-        let chipCount = 500;
-        let playerName = localStorage.getItem('keithPlayerName') || '';
-        let drunkLevel = 0;
-        let isDoubleClickMode = false;
-        let clickCounts = {};
-        let hasSeenWelcome = localStorage.getItem('keithWelcomeSeen') === 'true';
-        
-        // Welcome message control
-        function checkWelcomeStatus() {
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            if (hasSeenWelcome || playerName) {
-                welcomeMessage.style.display = 'none';
-            } else {
-                welcomeMessage.style.display = 'block';
-            }
-        }
-        
-        function closeWelcome() {
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            welcomeMessage.style.display = 'none';
-            hasSeenWelcome = true;
-            localStorage.setItem('keithWelcomeSeen', 'true');
-            playSound('enter');
-        }
-        
-        // Drunk system
-        function drinkChampagne() {
-            if (drunkLevel >= 5) {
-                showDrunkWarning("Security: That's enough! You've been cut off!");
-                return;
-            }
-            
-            drunkLevel++;
-            updateDrunkLevel();
-            playSound('drink');
-            
-            // Show drunk meter after first drink
-            if (drunkLevel === 1) {
-                document.getElementById('drunkMeter').style.display = 'block';
-            }
-            
-            // Keith's warnings
-            if (drunkLevel === 3) {
-                showDrunkWarning("Keith: Yo, you might wanna slow down...");
-            } else if (drunkLevel === 4) {
-                showDrunkWarning("Keith: Seriously, pace yourself in my spot!");
-                isDoubleClickMode = true; // Require double clicks
-            } else if (drunkLevel === 5) {
-                showDrunkWarning("Security: Alright, that's enough. Time to sober up!");
-                setTimeout(() => {
-                    resetDrunkLevel();
-                    showDrunkWarning("You've been escorted to the VIP recovery lounge. Welcome back!");
-                }, 3000);
-            }
-        }
-        
-        function updateDrunkLevel() {
-            document.body.className = drunkLevel > 0 ? `drunk-level-${drunkLevel}` : '';
-            document.getElementById('drinkCount').textContent = drunkLevel;
-            
-            // Add drunk effects to buttons
-            if (drunkLevel >= 3) {
-                document.querySelectorAll('button').forEach(btn => {
-                    if (!btn.classList.contains('close-btn')) {
-                        btn.classList.add('drunk-button');
-                    }
-                });
-            }
-            
-            // Double click requirement
-            if (drunkLevel >= 4) {
-                document.querySelectorAll('button, .mobile-button, .slot-machine, .blackjack-table, .dice-table, .cashout-booth').forEach(el => {
-                    el.classList.add('needs-double-click');
-                });
-            }
-        }
-        
-        function resetDrunkLevel() {
-            drunkLevel = 0;
-            isDoubleClickMode = false;
-            clickCounts = {};
-            updateDrunkLevel();
-            document.getElementById('drunkMeter').style.display = 'none';
-            
-            // Remove drunk effects
-            document.querySelectorAll('.drunk-button').forEach(btn => {
-                btn.classList.remove('drunk-button');
-            });
-            document.querySelectorAll('.needs-double-click').forEach(el => {
-                el.classList.remove('needs-double-click');
-            });
-        }
-        
-        function showDrunkWarning(message) {
-            const warning = document.getElementById('drunkWarning');
-            warning.textContent = message;
-            warning.style.display = 'block';
-            
-            setTimeout(() => {
-                warning.style.display = 'none';
-            }, 3000);
-        }
-        
-        // Enhanced click handler for drunk mode
-        function handleDrunkClick(elementId, callback) {
-            if (!isDoubleClickMode) {
-                callback();
-                return;
-            }
-            
-            if (!clickCounts[elementId]) {
-                clickCounts[elementId] = 0;
-            }
-            
-            clickCounts[elementId]++;
-            
-            if (clickCounts[elementId] >= 2) {
-                callback();
-                clickCounts[elementId] = 0;
-            } else {
-                showDrunkWarning("Your coordination is off... try double-clicking!");
-            }
-        }
-        
-        // Name registration system
-        function registerName() {
-            const nameInput = document.getElementById('playerName');
-            if (nameInput.value.trim()) {
-                playerName = nameInput.value.trim();
-                localStorage.setItem('keithPlayerName', playerName);
-                document.getElementById('nameRegistration').style.display = 'none';
-                document.getElementById('welcomeBack').style.display = 'block';
-                document.getElementById('welcomeName').textContent = playerName;
-                playSound('register');
-                
-                // Hide welcome message once name is registered
-                const welcomeMessage = document.getElementById('welcomeMessage');
-                if (welcomeMessage) {
-                    welcomeMessage.style.display = 'none';
-                    hasSeenWelcome = true;
-                    localStorage.setItem('keithWelcomeSeen', 'true');
-                }
-            } else {
-                alert('Keith needs to know your name!');
-            }
-        }
-        
-        // Modal functions with drunk handling
-        function openModal(type) {
-            handleDrunkClick(`modal-${type}`, () => {
-                document.getElementById(type + 'Modal').style.display = 'flex';
-                playSound('click');
-                
-                // Show correct cashier interface based on name registration
-                if (type === 'cashout') {
-                    if (playerName) {
-                        document.getElementById('nameRegistration').style.display = 'none';
-                        document.getElementById('welcomeBack').style.display = 'block';
-                        document.getElementById('welcomeName').textContent = playerName;
-                    } else {
-                        document.getElementById('nameRegistration').style.display = 'block';
-                        document.getElementById('welcomeBack').style.display = 'none';
-                    }
-                }
-            });
-        }
-        
-        function closeModal(type) {
-            document.getElementById(type + 'Modal').style.display = 'none';
-            playSound('close');
-        }
-        
-        // Audio simulation with drunk effects
-        function playSound(type) {
-            console.log(`Playing sound: ${type}${drunkLevel > 2 ? ' (distorted)' : ''}`);
-        }
-        
-        // AI Chat with personalization
-        function startChat(persona) {
-            handleDrunkClick(`chat-${persona}`, () => {
-                playSound('phone-pickup');
-                
-                const responses = {
-                    octagon: `Dr. Octagon here${playerName ? ', ' + playerName : ''}. My medical expertise extends beyond traditional boundaries into cosmic surgery. What dimension are you calling from?`,
-                    dooom: `Dr. Dooom speaking${playerName ? ', ' + playerName : ''}. I specialize in lyrical destruction and microphone demolition. State your business before I prescribe some verbal medication.`,
-                    elvis: `Black Elvis in the building${playerName ? ', ' + playerName : ''}. I'm broadcasting from my space station above Earth. What cosmic message do you need transmitted?`,
-                    keith: `Kool Keith on the line${playerName ? ', ' + playerName : ''}. You've reached the original, the innovator, the one who started this whole movement. What's on your mind?`
-                };
-                
-                let message = responses[persona] || "This persona is currently in another dimension. Try again later.";
-                
-                // Add drunk commentary
-                if (drunkLevel >= 3) {
-                    const drunkComments = [
-                        " You sound a little wobbly, you been hitting the champagne?",
-                        " I can tell you've been enjoying the club amenities...",
-                        " Maybe take it easy on the drinks while we talk.",
-                        " You're starting to sound like you need some water."
-                    ];
-                    message += drunkComments[Math.floor(Math.random() * drunkComments.length)];
-                }
-                
-                setTimeout(() => {
-                    alert(`📱 ${message}`);
-                }, 1000);
-            });
-        }
-        
-        // Enhanced slot machine with drunk effects
-        function spinSlots() {
-            handleDrunkClick('slot-spin', () => {
-                if (chipCount < 50) {
-                    alert('Not enough chips!');
-                    return;
-                }
-                
-                chipCount -= 50;
-                updateChipDisplay();
-                playSound('slot-spin');
-                
-                const symbols = ['🩺', '👑', '💀', '🎤', '🎭', '🎰'];
-                const results = [];
-                
-                // Slower spinning when drunk
-                const spinSpeed = drunkLevel >= 3 ? 200 : 100;
-                const totalSpins = drunkLevel >= 3 ? 15 : 10;
-                
-                for (let i = 1; i <= 3; i++) {
-                    const slot = document.getElementById(`slot${i}`);
-                    let spins = 0;
-                    const spinInterval = setInterval(() => {
-                        slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                        spins++;
-                        if (spins > totalSpins + i * 5) {
-                            clearInterval(spinInterval);
-                            const result = symbols[Math.floor(Math.random() * symbols.length)];
-                            slot.textContent = result;
-                            results.push(result);
-                            
-                            if (results.length === 3) {
-                                setTimeout(() => checkSlotWin(results), 500);
-                            }
-                        }
-                    }, spinSpeed);
-                }
-            });
-        }
-        
-        function checkSlotWin(results) {
-            let winAmount = 0;
-            
-            if (results[0] === results[1] && results[1] === results[2]) {
-                if (results[0] === '🎰') {
-                    winAmount = 1000;
-                    playSound('jackpot');
-                } else {
-                    winAmount = 200;
-                    playSound('big-win');
-                }
-            } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
-                winAmount = 75;
-                playSound('small-win');
-            }
-            
-            if (winAmount > 0) {
-                chipCount += winAmount;
-                updateChipDisplay();
-                setTimeout(() => {
-                    alert(`You won ${winAmount} chips!${playerName ? ' Nice work, ' + playerName + '!' : ''}`);
-                }, 500);
-            }
-        }
-        
-        // Dice game with drunk effects
-        function rollDice() {
-            handleDrunkClick('dice-roll', () => {
-                if (chipCount < 75) {
-                    alert('Not enough chips!');
-                    return;
-                }
-                
-                chipCount -= 75;
-                updateChipDisplay();
-                playSound('dice-roll');
-                
-                // Keith's roll
-                const keithDice = [
-                    Math.floor(Math.random() * 6) + 1,
-                    Math.floor(Math.random() * 6) + 1,
-                    Math.floor(Math.random() * 6) + 1
-                ];
-                
-                // Player's roll
-                const playerDice = [
-                    Math.floor(Math.random() * 6) + 1,
-                    Math.floor(Math.random() * 6) + 1,
-                    Math.floor(Math.random() * 6) + 1
-                ];
-                
-                // Display with delay when drunk
-                setTimeout(() => {
-                    document.getElementById('keithDice').children[0].textContent = keithDice[0];
-                    document.getElementById('keithDice').children[1].textContent = keithDice[1];
-                    document.getElementById('keithDice').children[2].textContent = keithDice[2];
-                    
-                    document.getElementById('playerDice').children[0].textContent = playerDice[0];
-                    document.getElementById('playerDice').children[1].textContent = playerDice[1];
-                    document.getElementById('playerDice').children[2].textContent = playerDice[2];
-                    
-                    const keithResult = evaluateCeeLo(keithDice);
-                    const playerResult = evaluateCeeLo(playerDice);
-                    
-                    document.getElementById('keithRoll').textContent = keithResult.description;
-                    document.getElementById('playerRoll').textContent = playerResult.description;
-                    
-                    const result = compareCeeLoResults(keithResult, playerResult);
-                    document.getElementById('diceResult').textContent = result.message;
-                    
-                    if (result.winner === 'player') {
-                        chipCount += 150;
-                        updateChipDisplay();
-                        playSound('win');
-                    } else if (result.winner === 'tie') {
-                        chipCount += 75;
-                        updateChipDisplay();
-                    } else {
-                        playSound('lose');
-                    }
-                }, drunkLevel >= 3 ? 1000 : 500);
-            });
-        }
-        
-        // Cee-Lo evaluation functions (same as before)
-        function evaluateCeeLo(dice) {
-            const sorted = [...dice].sort((a, b) => a - b);
-            
-            if (sorted[0] === 4 && sorted[1] === 5 && sorted[2] === 6) {
-                return { type: 'instant-win', value: 456, description: '4-5-6 (Instant Win!)' };
-            }
-            if (sorted[0] === 1 && sorted[1] === 2 && sorted[2] === 3) {
-                return { type: 'instant-loss', value: 123, description: '1-2-3 (Instant Loss)' };
-            }
-            
-            if (sorted[0] === sorted[1] && sorted[1] === sorted[2]) {
-                return { type: 'trips', value: sorted[0] * 100, description: `Trips ${sorted[0]}s` };
-            }
-            
-            if (sorted[0] === sorted[1]) {
-                return { type: 'point', value: sorted[2], description: `Point ${sorted[2]}` };
-            }
-            if (sorted[1] === sorted[2]) {
-                return { type: 'point', value: sorted[0], description: `Point ${sorted[0]}` };
-            }
-            
-            return { type: 'nothing', value: 0, description: 'No point' };
-        }
-        
-        function compareCeeLoResults(keith, player) {
-            if (player.type === 'instant-win') return { winner: 'player', message: 'You win with 4-5-6!' };
-            if (player.type === 'instant-loss') return { winner: 'keith', message: 'You lose with 1-2-3!' };
-            if (keith.type === 'instant-win') return { winner: 'keith', message: 'Keith wins with 4-5-6!' };
-            if (keith.type === 'instant-loss') return { winner: 'player', message: 'Keith loses with 1-2-3!' };
-            
-            if (player.type === 'trips' && keith.type !== 'trips') return { winner: 'player', message: 'You win with trips!' };
-            if (keith.type === 'trips' && player.type !== 'trips') return { winner: 'keith', message: 'Keith wins with trips!' };
-            
-            if (player.type === 'trips' && keith.type === 'trips') {
-                if (player.value > keith.value) return { winner: 'player', message: 'Your trips beat Keith!' };
-                if (keith.value > player.value) return { winner: 'keith', message: 'Keith\'s trips beat yours!' };
-                return { winner: 'tie', message: 'Tie - same trips!' };
-            }
-            
-            if (player.type === 'point' && keith.type === 'point') {
-                if (player.value > keith.value) return { winner: 'player', message: `Your point ${player.value} beats Keith's ${keith.value}!` };
-                if (keith.value > player.value) return { winner: 'keith', message: `Keith's point ${keith.value} beats your ${player.value}!` };
-                return { winner: 'tie', message: 'Tie - same point!' };
-            }
-            
-            if (player.type === 'point' && keith.type === 'nothing') return { winner: 'player', message: 'You win with a point!' };
-            if (keith.type === 'point' && player.type === 'nothing') return { winner: 'keith', message: 'Keith wins with a point!' };
-            
-            return { winner: 'tie', message: 'No winner - roll again!' };
-        }
-        
-        // Blackjack with drunk effects
-        let blackjackState = { playerCards: [], houseCards: [], gameOver: false };
-        
-        function newHand() {
-            handleDrunkClick('new-hand', () => {
-                if (chipCount < 100) {
-                    alert('Not enough chips for blackjack!');
-                    return;
-                }
-                
-                chipCount -= 100;
-                updateChipDisplay();
-                playSound('card-shuffle');
-                
-                blackjackState = {
-                    playerCards: [getRandomCard(), getRandomCard()],
-                    houseCards: [getRandomCard(), getRandomCard()],
-                    gameOver: false
-                };
-                
-                updateBlackjackDisplay();
-            });
-        }
-        
-        function hit() {
-            handleDrunkClick('hit', () => {
-                if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
-                
-                playSound('card-flip');
-                blackjackState.playerCards.push(getRandomCard());
-                updateBlackjackDisplay();
-            });
-        }
-        
-        function stand() {
-            handleDrunkClick('stand', () => {
-                if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
-                
-                blackjackState.gameOver = true;
-                playSound('card-flip');
-                
-                while (calculateTotal(blackjackState.houseCards) < 17) {
-                    blackjackState.houseCards.push(getRandomCard());
-                }
-                
-                updateBlackjackDisplay();
-                
-                const playerTotal = calculateTotal(blackjackState.playerCards);
-                const houseTotal = calculateTotal(blackjackState.houseCards);
-                
-                setTimeout(() => {
-                    let message = '';
-                    let winAmount = 0;
-                    
-                    if (houseTotal > 21) {
-                        message = 'House busts! You win!';
-                        winAmount = 200;
-                        playSound('win');
-                    } else if (playerTotal > houseTotal) {
-                        message = 'You win!';
-                        winAmount = 200;
-                        playSound('win');
-                    } else if (houseTotal > playerTotal) {
-                        message = 'House wins!';
-                        playSound('lose');
-                    } else {
-                        message = 'Push! Bet returned.';
-                        winAmount = 100;
-                    }
-                    
-                    if (playerName && winAmount > 0) {
-                        message += ` Nice job, ${playerName}!`;
-                    }
-                    
-                    chipCount += winAmount;
-                    updateChipDisplay();
-                    alert(message);
-                }, 1000);
-            });
-        }
-        
-        function getRandomCard() {
-            const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
-            return cards[Math.floor(Math.random() * cards.length)];
-        }
-        
-        function calculateTotal(cards) {
-            let total = cards.reduce((sum, card) => sum + card, 0);
-            let aces = cards.filter(card => card === 1).length;
-            
-            while (aces > 0 && total + 10 <= 21) {
-                total += 10;
-                aces--;
-            }
-            
-            return total;
-        }
-        
-        function updateBlackjackDisplay() {
-            const playerTotal = calculateTotal(blackjackState.playerCards);
-            const houseTotal = calculateTotal(blackjackState.houseCards);
-            
-            document.getElementById('playerTotal').textContent = playerTotal;
-            document.getElementById('houseTotal').textContent = blackjackState.gameOver ? houseTotal : '??';
-            
-            const playerCardsDiv = document.getElementById('playerCards');
-            playerCardsDiv.innerHTML = '';
-            blackjackState.playerCards.forEach(card => {
-                const cardDiv = document.createElement('div');
-                cardDiv.style.cssText = 'background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 5px;';
-                cardDiv.textContent = card === 1 ? 'A' : card;
-                playerCardsDiv.appendChild(cardDiv);
-            });
-            
-            const houseCardsDiv = document.getElementById('houseCards');
-            houseCardsDiv.innerHTML = '';
-            blackjackState.houseCards.forEach((card, index) => {
-                const cardDiv = document.createElement('div');
-                cardDiv.style.cssText = 'background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 5px;';
-                cardDiv.textContent = (index === 1 && !blackjackState.gameOver) ? '?' : (card === 1 ? 'A' : card);
-                houseCardsDiv.appendChild(cardDiv);
-            });
-            
-            if (playerTotal > 21) {
-                blackjackState.gameOver = true;
-                setTimeout(() => alert('Bust! You lose!'), 500);
-                playSound('lose');
-            } else if (playerTotal === 21) {
-                stand();
-            }
-        }
-        
-        // Utility functions
-        function updateChipDisplay() {
-            const displays = document.querySelectorAll('#chipCount, #totalChips');
-            displays.forEach(display => {
-                if (display) display.textContent = chipCount;
-            });
-        }
-        
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-                playSound('close');
-            }
-        }
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal').forEach(modal => {
-                    modal.style.display = 'none';
-                });
-            }
-            
-            if (e.key === 'Enter' && document.getElementById('welcomeMessage').style.display !== 'none') {
-                closeWelcome();
-            }
-            
-            // Drunk mode shortcuts
-            if (e.key === 'c' || e.key === 'C') {
-                drinkChampagne();
-            }
-        });
-        
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateChipDisplay();
-            checkWelcomeStatus(); // Check if welcome should be shown
-            
-            // No auto-dismiss timer - welcome only closes manually or if name registered
-            
-            // Initialize blackjack
-            setTimeout(() => {
-                newHand();
-            }, 1000);
-            
-            console.log('🎰 Ultra Keith Players Club initialized');
-            console.log('🍷 Easter Egg: Click champagne glass to get drunk!');
-            console.log('📱 Name registration: Visit cashier booth first');
-            console.log('🎲 Games: Slots, Cee-Lo, Blackjack with drunk effects');
-            console.log('🔊 Audio: Exclusive Keith tracks + casino ambiance');
-            console.log('⌨️  Shortcut: Press C to drink champagne');
-            console.log(`👤 Player: ${playerName || 'New visitor'}`);
-        });
-    </script>
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1589,4 +766,806 @@
                     Exclusive rewards<br>Name recognition
                 </div>
             </div>
-            <button class="enter-btn"
+            <button class="enter-btn" onclick="closeWelcome()">Enter The Club</button>
+        </div>
+    </div>
+    
+    <!-- MOBILE VIEW -->
+    <div class="mobile-view">
+        <div class="mobile-header">
+            <h1 class="mobile-logo">Players Club</h1>
+            <p>Keith's Exclusive Gaming Lounge</p>
+        </div>
+        
+        <div class="mobile-grid">
+            <div class="mobile-button" onclick="openModal('cashout')">
+                <span class="mobile-icon">💰</span>
+                <div class="mobile-label">Cashier</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('chat')">
+                <span class="mobile-icon">📱</span>
+                <div class="mobile-label">Keith's Phone</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('slot')">
+                <span class="mobile-icon">🎰</span>
+                <div class="mobile-label">Slots</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('blackjack')">
+                <span class="mobile-icon">🃏</span>
+                <div class="mobile-label">Blackjack</div>
+            </div>
+            
+            <div class="mobile-button" onclick="openModal('dice')">
+                <span class="mobile-icon">🎲</span>
+                <div class="mobile-label">Cee-Lo</div>
+            </div>
+            
+            <div class="mobile-button" onclick="drinkChampagne()">
+                <span class="mobile-icon">🥂</span>
+                <div class="mobile-label">Champagne</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODALS -->
+    <!-- CASHIER MODAL -->
+    <div class="modal" id="cashoutModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('cashout')">&times;</button>
+            <h3 class="modal-title">💰 Cashier Booth</h3>
+            <div class="modal-description">
+                <div id="nameRegistration" style="display: block;">
+                    <p style="margin-bottom: 20px;">Keith sent you, huh? What's your name?</p>
+                    <input type="text" id="playerName" placeholder="Enter your name" style="background: rgba(218, 181, 71, 0.1); border: 2px solid var(--gold); border-radius: 10px; padding: 15px; font-size: 1rem; color: var(--white); width: 100%; margin-bottom: 20px;">
+                    <button onclick="registerName()" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;">
+                        Register with Keith
+                    </button>
+                </div>
+                
+                <div id="welcomeBack" style="display: none;">
+                    <p style="margin-bottom: 25px;">Welcome back, <span id="welcomeName"></span>! Keith said you might be coming by.</p>
+                    
+                    <div style="display: grid; gap: 15px; text-align: left; margin: 20px 0;">
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">🎵 Rare Track Pack</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">5 unreleased collaborations</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">300 chips</div>
+                        </div>
+                        
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">💿 Lost Album</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Complete unreleased project</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">800 chips</div>
+                        </div>
+                        
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">📸 Rare Photos</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Behind-the-scenes collection</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">200 chips</div>
+                        </div>
+                        
+                        <div style="background: rgba(218, 181, 71, 0.1); border: 1px solid var(--gold); border-radius: 10px; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: var(--gold); font-weight: bold;">🎭 Persona Stories</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Character creation docs</div>
+                            </div>
+                            <div style="color: var(--gold); font-weight: bold;">150 chips</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: rgba(0, 0, 0, 0.5); border-radius: 10px;">
+                        <div style="color: var(--gold); font-family: 'Orbitron', monospace; text-align: center;">
+                            Your Chips: <span id="totalChips">500</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CHAT MODAL - UPDATED TO KEITH ONLY -->
+    <div class="modal" id="chatModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('chat')">&times;</button>
+            <h3 class="modal-title">📱 Keith's Phone</h3>
+            <div class="modal-description">
+                <div style="text-align: center; margin: 30px 0;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🎤</div>
+                    <p style="margin-bottom: 25px; font-size: 1.1rem;">
+                        "Yo, you reached Keith directly. What's on your mind?"
+                    </p>
+                    
+                    <button onclick="startKeithChat()" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1.1rem;">
+                        Talk to Keith
+                    </button>
+                </div>
+                
+                <p style="font-style: italic; opacity: 0.7; font-size: 0.9rem; text-align: center; margin-top: 20px;">
+                    * AI chat using 40+ years of Keith interviews for authentic responses
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SLOT MODAL -->
+    <div class="modal" id="slotModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('slot')">&times;</button>
+            <h3 class="modal-title">🎰 Slot Machine</h3>
+            <div class="modal-description">
+                <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <div style="background: #222; border: 2px solid var(--gold); border-radius: 15px; padding: 30px; text-align: center;">
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px; font-size: 3rem;">
+                            <div id="slot1">🩺</div>
+                            <div id="slot2">👑</div>
+                            <div id="slot3">💀</div>
+                        </div>
+                        <div style="margin: 20px 0;">
+                            <button id="spinBtn" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer;" onclick="spinSlots()">
+                                SPIN (50 chips)
+                            </button>
+                        </div>
+                        <div style="color: var(--gold); font-family: 'Orbitron', monospace;">
+                            Chips: <span id="chipCount">500</span>
+                        </div>
+                    </div>
+                </div>
+                <p><strong>Persona Symbols:</strong><br>
+                🩺 Dr. Octagon • 👑 Black Elvis • 💀 Dr. Dooom<br>
+                🎤 Kool Keith • 🎭 Mr. Gerbik • 🎰 JACKPOT</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- BLACKJACK MODAL -->
+    <div class="modal" id="blackjackModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('blackjack')">&times;</button>
+            <h3 class="modal-title">🃏 Blackjack</h3>
+            <div class="modal-description">
+                <div style="background: #1a4a1a; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="color: var(--gold); margin-bottom: 10px;">House: <span id="houseTotal">??</span></div>
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;" id="houseCards">
+                            <div style="background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">?</div>
+                            <div style="background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">?</div>
+                        </div>
+                        
+                        <div style="color: var(--white); margin-bottom: 10px;">You: <span id="playerTotal">0</span></div>
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;" id="playerCards">
+                            <!-- Player cards will appear here -->
+                        </div>
+                        
+                        <div style="margin: 20px 0;">
+                            <button id="hitBtn" style="background: var(--green); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="hit()">HIT</button>
+                            <button id="standBtn" style="background: var(--red); color: var(--white); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="stand()">STAND</button>
+                            <button id="newHandBtn" style="background: var(--gold); color: var(--black); border: none; padding: 10px 20px; border-radius: 15px; margin: 0 5px; cursor: pointer;" onclick="newHand()">NEW HAND</button>
+                        </div>
+                        
+                        <div style="color: var(--gold); font-family: 'Orbitron', monospace;">
+                            Bet: 100 chips
+                        </div>
+                    </div>
+                </div>
+                <p>Classic 21 - Beat the house without going over!</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- DICE MODAL -->
+    <div class="modal" id="diceModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('dice')">&times;</button>
+            <h3 class="modal-title">🎲 Cee-Lo Dice</h3>
+            <div class="modal-description">
+                <div style="background: #3a1a1a; border-radius: 15px; padding: 30px; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="color: var(--gold); margin-bottom: 15px;">Keith's Roll: <span id="keithRoll">Roll to see...</span></div>
+                        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;" id="keithDice">
+                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
+                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
+                            <div style="background: white; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">?</div>
+                        </div>
+                        
+                        <div style="color: var(--white); margin: 15px 0;">Your Roll: <span id="playerRoll">Click to roll!</span></div>
+                        <div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0;" id="playerDice">
+                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
+                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
+                            <div style="background: #ddd; color: black; width: 50px; height: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">-</div>
+                        </div>
+                        
+                        <button id="rollBtn" style="background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); border: none; padding: 15px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; margin: 10px;" onclick="rollDice()">
+                            ROLL DICE (75 chips)
+                        </button>
+                        
+                        <div id="diceResult" style="margin: 15px 0; font-weight: bold; font-size: 1.1rem;"></div>
+                    </div>
+                </div>
+                <p><strong>Cee-Lo Rules:</strong><br>
+                <strong>Instant Win:</strong> 4-5-6, Trips (111, 222, etc.)<br>
+                <strong>Instant Loss:</strong> 1-2-3<br>
+                <strong>Points:</strong> Doubles + kicker (6 beats 5 beats 4, etc.)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let chipCount = 500;
+        let playerName = '';
+        let drunkLevel = 0;
+        let isDoubleClickMode = false;
+        let clickCounts = {};
+        let hasSeenWelcome = false;
+        
+        // Welcome message control
+        function checkWelcomeStatus() {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            if (hasSeenWelcome || playerName) {
+                welcomeMessage.style.display = 'none';
+            } else {
+                welcomeMessage.style.display = 'block';
+            }
+        }
+        
+        function closeWelcome() {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            welcomeMessage.style.display = 'none';
+            hasSeenWelcome = true;
+            playSound('enter');
+        }
+        
+        // Drunk system
+        function drinkChampagne() {
+            if (drunkLevel >= 5) {
+                showDrunkWarning("Security: That's enough! You've been cut off!");
+                return;
+            }
+            
+            drunkLevel++;
+            updateDrunkLevel();
+            playSound('drink');
+            
+            // Show drunk meter after first drink
+            if (drunkLevel === 1) {
+                document.getElementById('drunkMeter').style.display = 'block';
+            }
+            
+            // Keith's warnings
+            if (drunkLevel === 3) {
+                showDrunkWarning("Keith: Yo, you might wanna slow down...");
+            } else if (drunkLevel === 4) {
+                showDrunkWarning("Keith: Seriously, pace yourself in my spot!");
+                isDoubleClickMode = true; // Require double clicks
+            } else if (drunkLevel === 5) {
+                showDrunkWarning("Security: Alright, that's enough. Time to sober up!");
+                setTimeout(() => {
+                    resetDrunkLevel();
+                    showDrunkWarning("You've been escorted to the VIP recovery lounge. Welcome back!");
+                }, 3000);
+            }
+        }
+        
+        function updateDrunkLevel() {
+            document.body.className = drunkLevel > 0 ? `drunk-level-${drunkLevel}` : '';
+            document.getElementById('drinkCount').textContent = drunkLevel;
+            
+            // Add drunk effects to buttons
+            if (drunkLevel >= 3) {
+                document.querySelectorAll('button').forEach(btn => {
+                    if (!btn.classList.contains('close-btn')) {
+                        btn.classList.add('drunk-button');
+                    }
+                });
+            }
+            
+            // Double click requirement
+            if (drunkLevel >= 4) {
+                document.querySelectorAll('button, .mobile-button, .slot-machine, .blackjack-table, .dice-table, .cashout-booth').forEach(el => {
+                    el.classList.add('needs-double-click');
+                });
+            }
+        }
+        
+        function resetDrunkLevel() {
+            drunkLevel = 0;
+            isDoubleClickMode = false;
+            clickCounts = {};
+            updateDrunkLevel();
+            document.getElementById('drunkMeter').style.display = 'none';
+            
+            // Remove drunk effects
+            document.querySelectorAll('.drunk-button').forEach(btn => {
+                btn.classList.remove('drunk-button');
+            });
+            document.querySelectorAll('.needs-double-click').forEach(el => {
+                el.classList.remove('needs-double-click');
+            });
+        }
+        
+        function showDrunkWarning(message) {
+            const warning = document.getElementById('drunkWarning');
+            warning.textContent = message;
+            warning.style.display = 'block';
+            
+            setTimeout(() => {
+                warning.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Enhanced click handler for drunk mode
+        function handleDrunkClick(elementId, callback) {
+            if (!isDoubleClickMode) {
+                callback();
+                return;
+            }
+            
+            if (!clickCounts[elementId]) {
+                clickCounts[elementId] = 0;
+            }
+            
+            clickCounts[elementId]++;
+            
+            if (clickCounts[elementId] >= 2) {
+                callback();
+                clickCounts[elementId] = 0;
+            } else {
+                showDrunkWarning("Your coordination is off... try double-clicking!");
+            }
+        }
+        
+        // Name registration system
+        function registerName() {
+            const nameInput = document.getElementById('playerName');
+            if (nameInput.value.trim()) {
+                playerName = nameInput.value.trim();
+                document.getElementById('nameRegistration').style.display = 'none';
+                document.getElementById('welcomeBack').style.display = 'block';
+                document.getElementById('welcomeName').textContent = playerName;
+                playSound('register');
+                
+                // Hide welcome message once name is registered
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                if (welcomeMessage) {
+                    welcomeMessage.style.display = 'none';
+                    hasSeenWelcome = true;
+                }
+            } else {
+                alert('Keith needs to know your name!');
+            }
+        }
+        
+        // Modal functions with drunk handling
+        function openModal(type) {
+            handleDrunkClick(`modal-${type}`, () => {
+                document.getElementById(type + 'Modal').style.display = 'flex';
+                playSound('click');
+                
+                // Show correct cashier interface based on name registration
+                if (type === 'cashout') {
+                    if (playerName) {
+                        document.getElementById('nameRegistration').style.display = 'none';
+                        document.getElementById('welcomeBack').style.display = 'block';
+                        document.getElementById('welcomeName').textContent = playerName;
+                    } else {
+                        document.getElementById('nameRegistration').style.display = 'block';
+                        document.getElementById('welcomeBack').style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').style.display = 'none';
+            playSound('close');
+        }
+        
+        // Audio simulation with drunk effects
+        function playSound(type) {
+            console.log(`Playing sound: ${type}${drunkLevel > 2 ? ' (distorted)' : ''}`);
+        }
+        
+        // UPDATED: Keith-only chat function
+        function startKeithChat() {
+            handleDrunkClick('keith-chat', () => {
+                playSound('phone-pickup');
+                
+                const keithResponses = [
+                    `Yo${playerName ? ', ' + playerName : ''}, you reached the original. I've been innovating since '84 with Ultramagnetic MCs. What you want to know?`,
+                    `${playerName ? playerName + ', ' : ''}this is Keith. I created Dr. Octagon with Dan the Automator because nobody was doing that space medical rap. That album changed everything.`,
+                    `What's good${playerName ? ', ' + playerName : ''}? I got 58 different personas because I refuse to be boxed in by these industry cats. Each one represents a different side of my creativity.`,
+                    `${playerName ? playerName + ', ' : ''}you know I've been doing this since before most of these rappers were born. Critical Beatdown was revolutionary - we were on some other level.`,
+                    `${playerName ? playerName + ', ' : ''}I been working with everyone from MF DOOM to Dan the Automator. That's what real collaboration looks like in this business.`
+                ];
+                
+                let message = keithResponses[Math.floor(Math.random() * keithResponses.length)];
+                
+                // Add drunk commentary if applicable
+                if (drunkLevel >= 3) {
+                    const drunkComments = [
+                        " You sound a little wobbly, you been hitting that champagne?",
+                        " I can tell you've been enjoying the club amenities...",
+                        " Maybe slow down on the drinks while we talk.",
+                        " You starting to sound like you need some water."
+                    ];
+                    message += drunkComments[Math.floor(Math.random() * drunkComments.length)];
+                }
+                
+                setTimeout(() => {
+                    alert(`📱 ${message}`);
+                }, 1000);
+            });
+        }
+        
+        // Enhanced slot machine with drunk effects
+        function spinSlots() {
+            handleDrunkClick('slot-spin', () => {
+                if (chipCount < 50) {
+                    alert('Not enough chips!');
+                    return;
+                }
+                
+                chipCount -= 50;
+                updateChipDisplay();
+                playSound('slot-spin');
+                
+                const symbols = ['🩺', '👑', '💀', '🎤', '🎭', '🎰'];
+                const results = [];
+                
+                // Slower spinning when drunk
+                const spinSpeed = drunkLevel >= 3 ? 200 : 100;
+                const totalSpins = drunkLevel >= 3 ? 15 : 10;
+                
+                for (let i = 1; i <= 3; i++) {
+                    const slot = document.getElementById(`slot${i}`);
+                    let spins = 0;
+                    const spinInterval = setInterval(() => {
+                        slot.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                        spins++;
+                        if (spins > totalSpins + i * 5) {
+                            clearInterval(spinInterval);
+                            const result = symbols[Math.floor(Math.random() * symbols.length)];
+                            slot.textContent = result;
+                            results.push(result);
+                            
+                            if (results.length === 3) {
+                                setTimeout(() => checkSlotWin(results), 500);
+                            }
+                        }
+                    }, spinSpeed);
+                }
+            });
+        }
+        
+        function checkSlotWin(results) {
+            let winAmount = 0;
+            
+            if (results[0] === results[1] && results[1] === results[2]) {
+                if (results[0] === '🎰') {
+                    winAmount = 1000;
+                    playSound('jackpot');
+                } else {
+                    winAmount = 200;
+                    playSound('big-win');
+                }
+            } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+                winAmount = 75;
+                playSound('small-win');
+            }
+            
+            if (winAmount > 0) {
+                chipCount += winAmount;
+                updateChipDisplay();
+                setTimeout(() => {
+                    alert(`You won ${winAmount} chips!${playerName ? ' Nice work, ' + playerName + '!' : ''}`);
+                }, 500);
+            }
+        }
+        
+        // Dice game with drunk effects
+        function rollDice() {
+            handleDrunkClick('dice-roll', () => {
+                if (chipCount < 75) {
+                    alert('Not enough chips!');
+                    return;
+                }
+                
+                chipCount -= 75;
+                updateChipDisplay();
+                playSound('dice-roll');
+                
+                // Keith's roll
+                const keithDice = [
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1
+                ];
+                
+                // Player's roll
+                const playerDice = [
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1
+                ];
+                
+                // Display with delay when drunk
+                setTimeout(() => {
+                    document.getElementById('keithDice').children[0].textContent = keithDice[0];
+                    document.getElementById('keithDice').children[1].textContent = keithDice[1];
+                    document.getElementById('keithDice').children[2].textContent = keithDice[2];
+                    
+                    document.getElementById('playerDice').children[0].textContent = playerDice[0];
+                    document.getElementById('playerDice').children[1].textContent = playerDice[1];
+                    document.getElementById('playerDice').children[2].textContent = playerDice[2];
+                    
+                    const keithResult = evaluateCeeLo(keithDice);
+                    const playerResult = evaluateCeeLo(playerDice);
+                    
+                    document.getElementById('keithRoll').textContent = keithResult.description;
+                    document.getElementById('playerRoll').textContent = playerResult.description;
+                    
+                    const result = compareCeeLoResults(keithResult, playerResult);
+                    document.getElementById('diceResult').textContent = result.message;
+                    
+                    if (result.winner === 'player') {
+                        chipCount += 150;
+                        updateChipDisplay();
+                        playSound('win');
+                    } else if (result.winner === 'tie') {
+                        chipCount += 75;
+                        updateChipDisplay();
+                    } else {
+                        playSound('lose');
+                    }
+                }, drunkLevel >= 3 ? 1000 : 500);
+            });
+        }
+        
+        // Cee-Lo evaluation functions
+        function evaluateCeeLo(dice) {
+            const sorted = [...dice].sort((a, b) => a - b);
+            
+            if (sorted[0] === 4 && sorted[1] === 5 && sorted[2] === 6) {
+                return { type: 'instant-win', value: 456, description: '4-5-6 (Instant Win!)' };
+            }
+            if (sorted[0] === 1 && sorted[1] === 2 && sorted[2] === 3) {
+                return { type: 'instant-loss', value: 123, description: '1-2-3 (Instant Loss)' };
+            }
+            
+            if (sorted[0] === sorted[1] && sorted[1] === sorted[2]) {
+                return { type: 'trips', value: sorted[0] * 100, description: `Trips ${sorted[0]}s` };
+            }
+            
+            if (sorted[0] === sorted[1]) {
+                return { type: 'point', value: sorted[2], description: `Point ${sorted[2]}` };
+            }
+            if (sorted[1] === sorted[2]) {
+                return { type: 'point', value: sorted[0], description: `Point ${sorted[0]}` };
+            }
+            
+            return { type: 'nothing', value: 0, description: 'No point' };
+        }
+        
+        function compareCeeLoResults(keith, player) {
+            if (player.type === 'instant-win') return { winner: 'player', message: 'You win with 4-5-6!' };
+            if (player.type === 'instant-loss') return { winner: 'keith', message: 'You lose with 1-2-3!' };
+            if (keith.type === 'instant-win') return { winner: 'keith', message: 'Keith wins with 4-5-6!' };
+            if (keith.type === 'instant-loss') return { winner: 'player', message: 'Keith loses with 1-2-3!' };
+            
+            if (player.type === 'trips' && keith.type !== 'trips') return { winner: 'player', message: 'You win with trips!' };
+            if (keith.type === 'trips' && player.type !== 'trips') return { winner: 'keith', message: 'Keith wins with trips!' };
+            
+            if (player.type === 'trips' && keith.type === 'trips') {
+                if (player.value > keith.value) return { winner: 'player', message: 'Your trips beat Keith!' };
+                if (keith.value > player.value) return { winner: 'keith', message: 'Keith\'s trips beat yours!' };
+                return { winner: 'tie', message: 'Tie - same trips!' };
+            }
+            
+            if (player.type === 'point' && keith.type === 'point') {
+                if (player.value > keith.value) return { winner: 'player', message: `Your point ${player.value} beats Keith's ${keith.value}!` };
+                if (keith.value > player.value) return { winner: 'keith', message: `Keith's point ${keith.value} beats your ${player.value}!` };
+                return { winner: 'tie', message: 'Tie - same point!' };
+            }
+            
+            if (player.type === 'point' && keith.type === 'nothing') return { winner: 'player', message: 'You win with a point!' };
+            if (keith.type === 'point' && player.type === 'nothing') return { winner: 'keith', message: 'Keith wins with a point!' };
+            
+            return { winner: 'tie', message: 'No winner - roll again!' };
+        }
+        
+        // Blackjack with drunk effects
+        let blackjackState = { playerCards: [], houseCards: [], gameOver: false };
+        
+        function newHand() {
+            handleDrunkClick('new-hand', () => {
+                if (chipCount < 100) {
+                    alert('Not enough chips for blackjack!');
+                    return;
+                }
+                
+                chipCount -= 100;
+                updateChipDisplay();
+                playSound('card-shuffle');
+                
+                blackjackState = {
+                    playerCards: [getRandomCard(), getRandomCard()],
+                    houseCards: [getRandomCard(), getRandomCard()],
+                    gameOver: false
+                };
+                
+                updateBlackjackDisplay();
+            });
+        }
+        
+        function hit() {
+            handleDrunkClick('hit', () => {
+                if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
+                
+                playSound('card-flip');
+                blackjackState.playerCards.push(getRandomCard());
+                updateBlackjackDisplay();
+            });
+        }
+        
+        function stand() {
+            handleDrunkClick('stand', () => {
+                if (blackjackState.gameOver || blackjackState.playerCards.length === 0) return;
+                
+                blackjackState.gameOver = true;
+                playSound('card-flip');
+                
+                while (calculateTotal(blackjackState.houseCards) < 17) {
+                    blackjackState.houseCards.push(getRandomCard());
+                }
+                
+                updateBlackjackDisplay();
+                
+                const playerTotal = calculateTotal(blackjackState.playerCards);
+                const houseTotal = calculateTotal(blackjackState.houseCards);
+                
+                setTimeout(() => {
+                    let message = '';
+                    let winAmount = 0;
+                    
+                    if (houseTotal > 21) {
+                        message = 'House busts! You win!';
+                        winAmount = 200;
+                        playSound('win');
+                    } else if (playerTotal > houseTotal) {
+                        message = 'You win!';
+                        winAmount = 200;
+                        playSound('win');
+                    } else if (houseTotal > playerTotal) {
+                        message = 'House wins!';
+                        playSound('lose');
+                    } else {
+                        message = 'Push! Bet returned.';
+                        winAmount = 100;
+                    }
+                    
+                    if (playerName && winAmount > 0) {
+                        message += ` Nice job, ${playerName}!`;
+                    }
+                    
+                    chipCount += winAmount;
+                    updateChipDisplay();
+                    alert(message);
+                }, 1000);
+            });
+        }
+        
+        function getRandomCard() {
+            const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+            return cards[Math.floor(Math.random() * cards.length)];
+        }
+        
+        function calculateTotal(cards) {
+            let total = cards.reduce((sum, card) => sum + card, 0);
+            let aces = cards.filter(card => card === 1).length;
+            
+            while (aces > 0 && total + 10 <= 21) {
+                total += 10;
+                aces--;
+            }
+            
+            return total;
+        }
+        
+        function updateBlackjackDisplay() {
+            const playerTotal = calculateTotal(blackjackState.playerCards);
+            const houseTotal = calculateTotal(blackjackState.houseCards);
+            
+            document.getElementById('playerTotal').textContent = playerTotal;
+            document.getElementById('houseTotal').textContent = blackjackState.gameOver ? houseTotal : '??';
+            
+            const playerCardsDiv = document.getElementById('playerCards');
+            playerCardsDiv.innerHTML = '';
+            blackjackState.playerCards.forEach(card => {
+                const cardDiv = document.createElement('div');
+                cardDiv.style.cssText = 'background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 5px;';
+                cardDiv.textContent = card === 1 ? 'A' : card;
+                playerCardsDiv.appendChild(cardDiv);
+            });
+            
+            const houseCardsDiv = document.getElementById('houseCards');
+            houseCardsDiv.innerHTML = '';
+            blackjackState.houseCards.forEach((card, index) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.style.cssText = 'background: white; color: black; width: 60px; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 5px;';
+                cardDiv.textContent = (index === 1 && !blackjackState.gameOver) ? '?' : (card === 1 ? 'A' : card);
+                houseCardsDiv.appendChild(cardDiv);
+            });
+            
+            if (playerTotal > 21) {
+                blackjackState.gameOver = true;
+                setTimeout(() => alert('Bust! You lose!'), 500);
+                playSound('lose');
+            } else if (playerTotal === 21) {
+                stand();
+            }
+        }
+        
+        // Utility functions
+        function updateChipDisplay() {
+            const displays = document.querySelectorAll('#chipCount, #totalChips');
+            displays.forEach(display => {
+                if (display) display.textContent = chipCount;
+            });
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                playSound('close');
+            }
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            if (e.key === 'Enter' && document.getElementById('welcomeMessage').style.display !== 'none') {
+                closeWelcome();
+            }
+            
+            // Drunk mode shortcuts
+            if (e.key === 'c' || e.key === 'C') {
+                drinkChampagne();
+            }
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateChipDisplay();
+            checkWelcomeStatus();
+            
+            // Initialize blackjack
+            setTimeout(() => {
+                newHand();
+            }, 1000);
+            
+            console.log('🎰 Ultra Keith Players Club initialized');
+            console.log('🍷 Easter Egg: Click champagne glass to get drunk!');
+            console.log('📱 Keith Direct Line: Talk to Keith using 40+ years of interview knowledge');
+            console.log('🎲 Games: Slots, Cee-Lo, Blackjack with drunk effects');
+            console.log('🔊 Audio: Exclusive Keith tracks + casino ambiance');
+            console.log('⌨️  Shortcut: Press C to drink champagne');
+            console.log(`👤 Player: ${playerName || 'New visitor'}`);
+        });
+    </script>
+</body>
+</html>
