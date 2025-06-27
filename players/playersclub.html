@@ -1019,9 +1019,11 @@
         
         function closeWelcome() {
             const welcomeMessage = document.getElementById('welcomeMessage');
-            welcomeMessage.style.display = 'none';
-            hasSeenWelcome = true;
-            playSound('enter');
+            if (welcomeMessage) {
+                welcomeMessage.style.display = 'none';
+                hasSeenWelcome = true;
+                playSound('enter');
+            }
         }
         
         // Drunk system
