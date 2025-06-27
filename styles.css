@@ -605,20 +605,19 @@ body {
     color: var(--white);
 }
 
-/* NEWS POST STYLES - ENHANCED FOR BETTER VISIBILITY */
+/* NEWS POST STYLES - BLENDED WITH FEATURE CARDS */
 .latest-post {
     margin-bottom: var(--space-lg);
-    padding: var(--space-lg);
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--gold);
-    border: 1px solid rgba(218, 181, 71, 0.2);
-    transition: all var(--transition);
+    padding: 0; /* Remove padding */
+    background: transparent; /* Remove dark background */
+    border-radius: 0; /* Remove border radius */
+    border: none; /* Remove all borders */
+    transition: none; /* Remove transition */
 }
 
 .latest-post:hover {
-    border-color: rgba(218, 181, 71, 0.4);
-    background: rgba(0, 0, 0, 0.6);
+    border: none; /* Remove hover border */
+    background: transparent; /* Keep transparent on hover */
 }
 
 .post-loading {
