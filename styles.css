@@ -808,34 +808,39 @@ body {
 .footer-social {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: var(--space-lg);
+    gap: 1rem;
+    margin-bottom: var(--space-xl);
 }
 
 .footer-social a {
-    color: var(--keith-white-55);
+    color: var(--keith-gold);
     transition: all var(--transition);
-    padding: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(218, 181, 71, 0.3);
     border-radius: var(--radius-md);
+    background: rgba(218, 181, 71, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(10px);
 }
 
 .footer-social a:hover {
-    color: var(--keith-gold);
+    color: var(--keith-gold-light);
     transform: translateY(-2px);
-    background: rgba(218, 181, 71, 0.1);
+    border-color: var(--keith-gold);
+    background: rgba(218, 181, 71, 0.15);
+    box-shadow: 0 4px 15px rgba(218, 181, 71, 0.2);
 }
 
 .footer-social svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     transition: transform var(--transition);
 }
 
 .footer-social a:hover svg {
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 .footer-copyright {
