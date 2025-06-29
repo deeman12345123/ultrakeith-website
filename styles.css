@@ -1,9 +1,9 @@
 /* ================================
-   FOOTER SYSTEM - UPDATED
+   FOOTER SYSTEM
    ================================ */
 .footer {
     border-top: 1px solid var(--keith-gold-light);
-    padding: var(--space-xl) 0 var(--space-lg) 0; /* Reduced top padding */
+    padding: var(--space-lg) 0; /* Reduced padding */
     text-align: center;
     margin-top: var(--space-2xl);
     background: rgba(10, 10, 10, 0.95);
@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    margin-bottom: var(--space-lg); /* Reduced from var(--space-xl) */
+    margin-bottom: var(--space-md); /* Reduced spacing */
     list-style: none;
 }
 
@@ -36,68 +36,41 @@
 .footer-social {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 1.5rem; /* Increased gap for better spacing */
-    margin-bottom: var(--space-lg); /* Reduced from var(--space-xl) */
+    gap: 1.25rem; /* Better spacing */
+    margin-bottom: var(--space-md); /* Reduced spacing */
 }
 
 .footer-social a {
     color: var(--keith-gold);
     transition: all var(--transition);
-    padding: 1rem; /* Increased padding for larger click area */
-    border: 2px solid rgba(218, 181, 71, 0.3);
-    border-radius: var(--radius-lg); /* Increased border radius */
-    background: rgba(218, 181, 71, 0.08);
+    padding: 0.875rem; /* Increased padding */
+    border: 2px solid rgba(218, 181, 71, 0.4); /* Stronger border */
+    border-radius: var(--radius-lg);
+    background: rgba(218, 181, 71, 0.12); /* Slightly more visible */
     display: flex;
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(15px);
-    width: 56px; /* Fixed width for consistency */
-    height: 56px; /* Fixed height for consistency */
-    position: relative;
-    overflow: hidden;
-}
-
-.footer-social a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.2), transparent);
-    transition: left var(--transition-slow);
-}
-
-.footer-social a:hover::before {
-    left: 100%;
+    width: 50px; /* Fixed consistent size */
+    height: 50px;
 }
 
 .footer-social a:hover {
     color: var(--keith-gold-light);
-    transform: translateY(-3px) scale(1.05);
+    transform: translateY(-2px);
     border-color: var(--keith-gold);
-    background: rgba(218, 181, 71, 0.2);
-    box-shadow: 
-        0 8px 25px rgba(218, 181, 71, 0.25),
-        0 0 0 1px rgba(218, 181, 71, 0.1);
-}
-
-.footer-social a:active {
-    transform: translateY(-1px) scale(1.02);
+    background: rgba(218, 181, 71, 0.25);
+    box-shadow: 0 6px 20px rgba(218, 181, 71, 0.3);
 }
 
 .footer-social svg {
-    width: 22px; /* Increased size */
-    height: 22px;
-    transition: all var(--transition);
-    position: relative;
-    z-index: 1;
+    width: 20px;
+    height: 20px;
+    transition: transform var(--transition);
 }
 
 .footer-social a:hover svg {
-    transform: scale(1.1);
-    filter: drop-shadow(0 2px 4px rgba(218, 181, 71, 0.3));
+    transform: scale(1.15);
 }
 
 .footer-copyright {
@@ -105,63 +78,227 @@
     font-size: 0.75rem;
     font-weight: 400;
     opacity: 0.8;
-    margin-top: var(--space-sm); /* Added top margin for better separation */
 }
 
 /* ================================
-   MOBILE RESPONSIVE FOOTER
+   MOBILE RESPONSIVE SYSTEM
    ================================ */
 @media (max-width: 768px) {
-    .footer {
-        padding: var(--space-lg) 0; /* Reduced padding on mobile */
+    .desktop-banner {
+        display: none !important;
+    }
+    
+    .hero {
+        padding: var(--space-md) 0;
+    }
+    
+    .hero-logo {
+        max-height: 40vh;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .carousel-section {
+        padding: var(--space-sm) var(--space-lg) var(--space-xl) var(--space-lg);
+    }
+    
+    .carousel-section-title {
+        font-size: 1.1rem;
+        margin-bottom: var(--space-lg);
+    }
+    
+    .carousel-container {
+        max-width: 320px;
+    }
+    
+    .carousel {
+        height: 400px;
+        box-shadow: 
+            -15px 0 25px -10px rgba(0, 0, 0, 0.4),
+            15px 0 25px -10px rgba(0, 0, 0, 0.4),
+            var(--shadow-md);
+    }
+    
+    .carousel-slide {
+        padding: var(--space-md);
+    }
+    
+    .album-image {
+        width: 160px;
+        height: 160px;
+        margin-top: var(--space-lg);
+    }
+    
+    .album-actions {
+        margin-bottom: var(--space-lg);
+    }
+    
+    .album-title {
+        font-size: 1.1rem;
+    }
+    
+    .album-artist {
+        font-size: 0.9rem;
+    }
+    
+    .carousel-nav {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .carousel-nav.prev {
+        left: -25px;
+    }
+    
+    .carousel-nav.next {
+        right: -25px;
+    }
+    
+    .nav-right {
+        gap: var(--space-sm);
+    }
+    
+    .audio-toggle {
+        padding: 0.4rem 0.6rem;
+        background: rgba(218, 181, 71, 0.15);
+        border: 1px solid var(--keith-gold-light);
+    }
+    
+    .audio-text {
+        font-size: 0.7rem;
+    }
+    
+    .audio-icon {
+        font-size: 0.9rem;
+    }
+    
+    .feature-card {
+        padding: var(--space-sm);
     }
     
     .footer-links {
         flex-direction: column;
-        margin-bottom: var(--space-md);
     }
     
-    .footer-social {
-        gap: 1rem;
-        margin-bottom: var(--space-md);
-    }
-    
-    .footer-social a {
-        width: 48px;
-        height: 48px;
-        padding: 0.75rem;
-    }
-    
-    .footer-social svg {
-        width: 20px;
-        height: 20px;
+    .features {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
     }
 }
 
 /* ================================
-   DESKTOP RESPONSIVE FOOTER
+   DESKTOP RESPONSIVE SYSTEM
    ================================ */
 @media (min-width: 769px) {
+    .nav {
+        height: 80px;
+        padding: 0 var(--space-2xl);
+    }
+    
+    .nav-logo img {
+        height: 48px;
+    }
+    
+    .nav-menu {
+        display: flex;
+        font-size: 0.875rem;
+    }
+    
+    .mobile-menu-btn {
+        display: none;
+    }
+    
+    .main {
+        padding-top: 80px;
+        padding-left: var(--space-2xl);
+        padding-right: var(--space-2xl);
+    }
+    
+    .main.with-banner {
+        padding-top: 128px; /* 80px nav + 48px banner */
+    }
+    
+    .carousel-container {
+        max-width: 1200px;
+    }
+    
+    .carousel-title {
+        font-size: 2.5rem;
+        margin-bottom: var(--space-xl);
+    }
+    
+    .carousel {
+        height: 420px;
+    }
+    
+    .carousel-slide {
+        width: calc(50% - 4px);
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        gap: var(--space-md);
+        padding: var(--space-md);
+        margin-right: 8px;
+    }
+    
+    .album-image {
+        width: 300px;
+        height: 300px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .album-info {
+        flex: 1;
+        align-items: flex-start;
+        text-align: left;
+        height: 300px;
+        justify-content: space-between;
+        min-width: 180px;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+    
+    .album-header {
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .album-actions {
+        margin: 0;
+        align-self: flex-start;
+    }
+    
+    .album-title {
+        font-size: 1.4rem;
+    }
+    
+    .album-artist {
+        font-size: 1.05rem;
+    }
+    
+    .album-details {
+        justify-content: flex-start;
+    }
+    
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-2xl);
+    }
+    
+    .feature-card {
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
     .footer-links {
         flex-direction: row;
         justify-content: center;
         gap: var(--space-2xl);
-        margin-bottom: var(--space-lg);
-    }
-    
-    .footer-social {
-        gap: 2rem;
-        margin-bottom: var(--space-lg);
-    }
-    
-    .footer-social a {
-        width: 60px;
-        height: 60px;
-        padding: 1.25rem;
-    }
-    
-    .footer-social svg {
-        width: 24px;
-        height: 24px;
     }
 }
