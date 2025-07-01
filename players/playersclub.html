@@ -169,17 +169,28 @@
             width: 60px;
             height: 80px;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 2px solid var(--keith-gold);
             border-radius: 8px;
             transition: all 0.3s ease;
-            opacity: 0;
+            opacity: 0.3;
+            background: rgba(218, 181, 71, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
         }
         
         .pin-hotspot:hover {
             opacity: 1;
             border-color: var(--keith-gold);
-            background: rgba(218, 181, 71, 0.2);
+            background: rgba(218, 181, 71, 0.3);
             box-shadow: 0 0 15px rgba(218, 181, 71, 0.4);
+            transform: translateY(-50%) scale(1.05);
+        }
+        
+        .pin-hotspot::after {
+            content: '🔢';
+            color: var(--keith-gold);
         }
         
         /* CASHIER SCENE */
