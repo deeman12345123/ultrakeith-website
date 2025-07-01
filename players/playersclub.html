@@ -280,21 +280,22 @@
         /* ERROR/SUCCESS MESSAGES */
         .message-display {
             position: absolute;
-            top: 60%;
+            top: 65%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             border: 2px solid var(--keith-gold);
             border-radius: 15px;
-            padding: 20px 30px;
+            padding: 25px 35px;
             font-family: 'Orbitron', monospace;
-            font-size: 1rem;
+            font-size: 1.1rem;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             opacity: 0;
             transition: all 0.4s ease;
             backdrop-filter: blur(10px);
-            max-width: 400px;
+            max-width: 500px;
+            line-height: 1.4;
         }
         
         .message-display.show {
@@ -305,6 +306,15 @@
         .message-display.error {
             border-color: #ff073a;
             color: #ff073a;
+            background: rgba(0, 0, 0, 0.95);
+        }
+        
+        .message-display.hint {
+            border-color: var(--keith-gold-light);
+            color: var(--keith-gold-light);
+            background: rgba(218, 181, 71, 0.1);
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(218, 181, 71, 0.5);
         }
         
         .message-display.success {
@@ -679,16 +689,19 @@
         
         function showError() {
             const messageEl = document.getElementById('messageDisplay');
-            messageEl.className = 'message-display show error';
             
             if (attempts === 1) {
+                messageEl.className = 'message-display show error';
                 messageEl.textContent = messages.attempt1;
             } else if (attempts === 2) {
+                messageEl.className = 'message-display show error';
                 messageEl.textContent = messages.attempt2;
             } else if (attempts === 3) {
-                // Show Dr. Doom hint
+                // Show Dr. Doom hint with special styling
+                messageEl.className = 'message-display show hint';
                 const clubPin = pinDatabase['223'];
                 messageEl.textContent = messages.attempt3 + clubPin.hint;
+                console.log('🔍 HINT DISPLAYED: ' + messages.attempt3 + clubPin.hint);
             } else {
                 // Kick them out after 4th failed attempt
                 kickOut();
@@ -698,9 +711,11 @@
             playSound('error');
             clearPin();
             
+            // Longer display time for hint (attempt 3)
+            const displayTime = attempts === 3 ? 5000 : 3000;
             setTimeout(() => {
                 messageEl.classList.remove('show');
-            }, 3000);
+            }, displayTime);
         }
         
         function kickOut() {
