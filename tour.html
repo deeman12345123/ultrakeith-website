@@ -390,56 +390,55 @@
             box-shadow: none;
         }
         
-        /* Booking Info */
-        .booking-info {
-            margin: 100px 0;
+        /* Booking Bar */
+        .booking-bar {
+            margin: 80px 0;
             text-align: center;
+            position: relative;
         }
         
-        .booking-card {
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 50px 40px;
-            backdrop-filter: blur(15px);
-            max-width: 600px;
-            margin: 0 auto;
+        .booking-bar::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
         }
         
-        .booking-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            color: var(--gold);
-            margin-bottom: 25px;
-            font-weight: 700;
+        .booking-bar::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
         }
         
         .booking-text {
+            font-family: 'Orbitron', monospace;
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-            margin-bottom: 30px;
+            letter-spacing: 2px;
+            font-weight: 400;
         }
         
-        .contact-btn {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+        .booking-email {
             color: var(--gold);
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
             text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
             font-weight: 600;
-            letter-spacing: 1px;
-            font-family: 'Orbitron', monospace;
+            transition: all 0.3s ease;
         }
         
-        .contact-btn:hover {
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
-            border-color: var(--gold);
-            transform: translateY(-2px);
+        .booking-email:hover {
+            color: var(--gold-light);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
         
         /* Footer */
@@ -507,8 +506,8 @@
                 order: 2;
             }
             
-            .booking-card {
-                padding: 40px 25px;
+            .booking-bar {
+                padding: 0 10px;
             }
         }
         
@@ -692,17 +691,11 @@
             </div>
         </section>
 
-        <!-- Booking Info -->
-        <section class="booking-info">
-            <div class="booking-card">
-                <h2 class="booking-title">BOOKING INFORMATION</h2>
-                <p class="booking-text">
-                    For booking inquiries, festival appearances, and private events, 
-                    contact our professional management team. Kool Keith is available 
-                    for venues worldwide with full production support.
-                </p>
-                <a href="contact.html" class="contact-btn">CONTACT MANAGEMENT</a>
-            </div>
+        <!-- Booking Bar -->
+        <section class="booking-bar">
+            <p class="booking-text">
+                BOOKING INQUIRIES: <a href="mailto:KoolKeithMusic@Gmail.com" class="booking-email">KoolKeithMusic@Gmail.com</a>
+            </p>
         </section>
     </main>
 
