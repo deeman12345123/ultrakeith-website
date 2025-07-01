@@ -9,11 +9,14 @@
         .players-club-container {
             position: relative;
             background-image: url('club.png');
-            background-size: cover;
-            background-position: center;
+            background-size: contain; /* Changed from cover to contain */
+            background-repeat: no-repeat;
+            background-position: center center;
             height: 100vh;
             overflow: hidden;
             cursor: default;
+            /* Add a dark background color for areas not covered by image */
+            background-color: #000;
         }
 
         /* Interactive Hotspots */
@@ -57,34 +60,34 @@
             opacity: 1;
         }
 
-        /* Specific Hotspot Positions (adjust based on your background) */
+        /* Specific Hotspot Positions - Adjusted for typical casino layout */
         .slot-machine-hotspot {
-            top: 35%;
-            left: 15%;
-            width: 120px;
-            height: 180px;
+            top: 45%;
+            left: 12%;
+            width: 100px;
+            height: 150px;
         }
 
         .blackjack-table-hotspot {
-            top: 55%;
-            left: 45%;
-            width: 280px;
-            height: 140px;
+            top: 60%;
+            left: 35%;
+            width: 200px;
+            height: 120px;
             border-radius: 50%;
         }
 
         .dice-table-hotspot {
-            top: 40%;
-            right: 20%;
-            width: 140px;
-            height: 160px;
+            top: 45%;
+            right: 15%;
+            width: 120px;
+            height: 140px;
         }
 
         .cashier-hotspot {
-            top: 25%;
-            right: 8%;
-            width: 120px;
-            height: 200px;
+            top: 30%;
+            right: 5%;
+            width: 100px;
+            height: 180px;
         }
 
         /* Phone and Champagne (VIP Table Items) */
@@ -111,13 +114,13 @@
         }
 
         .phone-item {
-            bottom: 15%;
-            right: 30%;
+            bottom: 20%;
+            right: 35%;
         }
 
         .champagne-item {
-            bottom: 18%;
-            left: 28%;
+            bottom: 22%;
+            left: 35%;
             height: 70px;
         }
 
@@ -220,6 +223,7 @@
         @media (max-width: 768px) {
             .players-club-container {
                 background-position: center top;
+                background-size: cover; /* Use cover on mobile for better fit */
             }
             
             .hotspot {
@@ -243,6 +247,35 @@
             
             .club-logo {
                 font-size: 1.2rem;
+            }
+            
+            /* Adjust hotspots for mobile */
+            .slot-machine-hotspot {
+                top: 40%;
+                left: 10%;
+                width: 80px;
+                height: 120px;
+            }
+            
+            .blackjack-table-hotspot {
+                top: 55%;
+                left: 30%;
+                width: 150px;
+                height: 90px;
+            }
+            
+            .dice-table-hotspot {
+                top: 40%;
+                right: 10%;
+                width: 90px;
+                height: 110px;
+            }
+            
+            .cashier-hotspot {
+                top: 25%;
+                right: 5%;
+                width: 80px;
+                height: 140px;
             }
         }
 
