@@ -144,11 +144,13 @@
         /* ENTRANCE SCENE - LIFE-SIZE PHOTO */
         .entrance-scene {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: calc(100vh - 80px);
             background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
             position: relative;
+            padding: 20px;
         }
 
         .club-entrance-container {
@@ -157,18 +159,17 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: 100%;
-            max-width: 1200px;
+            height: auto;
+            max-width: 1000px;
+            gap: 40px;
+            margin-top: 20px;
         }
 
         /* CLUB SIGN OVERLAY */
         .club-sign-overlay {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
             text-align: center;
+            z-index: 10;
+            margin-bottom: 30px;
         }
         
         .club-sign {
@@ -215,10 +216,6 @@
 
         /* SECURITY KEYPAD - POSITIONED RIGHT OF DOOR */
         .security-keypad {
-            position: absolute;
-            right: 20%;
-            top: 50%;
-            transform: translateY(-50%);
             width: auto;
             height: 12vh;
             max-height: 120px;
@@ -229,7 +226,7 @@
         }
         
         .security-keypad:hover {
-            transform: translateY(-50%) scale(1.05);
+            transform: scale(1.05);
             filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
         }
 
@@ -534,8 +531,10 @@
         }
         
         .message-display.success {
-            border-color: #00ff41;
-            color: #00ff41;
+            border-color: var(--keith-gold);
+            color: var(--keith-gold);
+            background: rgba(218, 181, 71, 0.15);
+            text-shadow: 0 0 10px var(--keith-gold);
         }
 
         .message-display.song-hint {
@@ -656,15 +655,30 @@
             .nav-menu { display: none; }
             .main-content { margin-top: 70px; }
             
+            .entrance-scene {
+                padding: 15px;
+            }
+            
+            .club-entrance-container {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            
             .club-door {
-                height: 60vh;
-                max-height: 400px;
+                height: 50vh;
+                max-height: 350px;
             }
             
             .security-keypad {
                 height: 8vh;
                 min-height: 60px;
-                right: 15%;
+                position: relative;
+                transform: none;
+            }
+            
+            .security-keypad:hover {
+                transform: scale(1.05);
             }
             
             .table-items-container {
@@ -704,20 +718,69 @@
         }
 
         @media (max-width: 480px) {
+            .entrance-scene {
+                padding: 10px;
+            }
+            
+            .club-entrance-container {
+                gap: 15px;
+            }
+            
             .club-door {
-                height: 50vh;
-                max-height: 300px;
+                height: 45vh;
+                max-height: 280px;
             }
             
             .security-keypad {
                 height: 6vh;
                 min-height: 50px;
-                right: 10%;
             }
             
             .table-items-container {
                 gap: 60px;
                 bottom: 12%;
+            }
+
+            .club-sign {
+                font-size: clamp(1.2rem, 5vw, 2rem);
+                margin-bottom: 10px;
+            }
+
+            .club-description {
+                font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+            }
+        }
+
+        /* LANDSCAPE MOBILE */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .entrance-scene {
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px;
+            }
+            
+            .club-sign-overlay {
+                margin-bottom: 0;
+                flex: 1;
+                max-width: 300px;
+            }
+            
+            .club-entrance-container {
+                flex-direction: row;
+                gap: 20px;
+                flex: 1;
+                max-width: 400px;
+            }
+            
+            .club-door {
+                height: 60vh;
+                max-height: 300px;
+            }
+            
+            .security-keypad {
+                height: 15vh;
+                max-height: 80px;
             }
         }
     </style>
