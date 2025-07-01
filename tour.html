@@ -195,6 +195,7 @@
             margin: 0 auto;
         }
         
+        /* Date Cards */
         .date-card {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
             border: 1px solid rgba(255, 215, 0, 0.25);
@@ -203,7 +204,7 @@
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             backdrop-filter: blur(20px);
             display: grid;
-            grid-template-columns: auto 1fr;
+            grid-template-columns: auto 1fr auto;
             gap: 30px;
             align-items: center;
             position: relative;
@@ -229,6 +230,56 @@
             transform: translateY(-8px) translateX(5px);
             border-color: rgba(255, 215, 0, 0.6);
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.2);
+        }
+        
+        .ticket-action {
+            text-align: center;
+        }
+        
+        .ticket-btn {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', monospace;
+            min-width: 100px;
+        }
+        
+        .ticket-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        .ticket-btn.sold-out {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            cursor: not-allowed;
+        }
+        
+        .ticket-btn.sold-out:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .ticket-btn.coming-soon {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--gold);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            cursor: default;
+        }
+        
+        .ticket-btn.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
         }
         
         .date-info {
@@ -330,6 +381,10 @@
             .venue-info {
                 order: 2;
             }
+            
+            .ticket-action {
+                order: 3;
+            }
         }
         
         /* Desktop Responsive */
@@ -425,78 +480,8 @@
         <!-- Tour Dates -->
         <section class="tour-dates">
             <h2 class="section-title">UPCOMING SHOWS</h2>
-            <div class="dates-grid">
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-month">FEB</div>
-                        <div class="date-day">17</div>
-                    </div>
-                    <div class="venue-info">
-                        <div class="venue-name">The Observatory</div>
-                        <div class="venue-location">Santa Ana, CA</div>
-                        <div class="venue-details">Doors 7:00 PM • Show 8:30 PM</div>
-                    </div>
-                </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-month">FEB</div>
-                        <div class="date-day">28</div>
-                    </div>
-                    <div class="venue-info">
-                        <div class="venue-name">Rubber Gloves Rehearsal Studios</div>
-                        <div class="venue-location">Denton, TX</div>
-                        <div class="venue-details">Doors 7:30 PM • Show 9:00 PM</div>
-                    </div>
-                </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-month">MAR</div>
-                        <div class="date-day">15</div>
-                    </div>
-                    <div class="venue-info">
-                        <div class="venue-name">Mobtown Ballroom</div>
-                        <div class="venue-location">Baltimore, MD</div>
-                        <div class="venue-details">Doors 7:00 PM • Show 8:00 PM</div>
-                    </div>
-                </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-month">APR</div>
-                        <div class="date-day">04</div>
-                    </div>
-                    <div class="venue-info">
-                        <div class="venue-name">Will's Pub</div>
-                        <div class="venue-location">Orlando, FL</div>
-                        <div class="venue-details">Doors 7:30 PM • Show 8:30 PM</div>
-                    </div>
-                </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-month">APR</div>
-                        <div class="date-day">08</div>
-                    </div>
-                    <div class="venue-info">
-                        <div class="venue-name">191 Toole</div>
-                        <div class="venue-location">Tucson, AZ</div>
-                        <div class="venue-details">Doors 8:00 PM • Show 9:00 PM</div>
-                    </div>
-                </div>
-
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-month">MAY</div>
-                        <div class="date-day">12</div>
-                    </div>
-                    <div class="venue-info">
-                        <div class="venue-name">Mercury Lounge</div>
-                        <div class="venue-location">New York, NY</div>
-                        <div class="venue-details">Doors 7:00 PM • Show 8:00 PM</div>
-                    </div>
-                </div>
+            <div class="dates-grid" id="datesGrid">
+                <!-- Tour dates generated by JavaScript -->
             </div>
         </section>
     </main>
@@ -517,6 +502,96 @@
     </footer>
 
     <script>
+        // TOUR DATES DATA - Easy to update!
+        const tourDates = [
+            {
+                month: "FEB",
+                day: "17",
+                venue: "The Observatory",
+                location: "Santa Ana, CA",
+                doors: "7:00 PM",
+                show: "8:30 PM",
+                ticketUrl: "", // Add URL when available
+                soldOut: false
+            },
+            {
+                month: "FEB", 
+                day: "28",
+                venue: "Rubber Gloves Rehearsal Studios",
+                location: "Denton, TX",
+                doors: "7:30 PM",
+                show: "9:00 PM",
+                ticketUrl: "",
+                soldOut: false
+            },
+            {
+                month: "MAR",
+                day: "15", 
+                venue: "Mobtown Ballroom",
+                location: "Baltimore, MD",
+                doors: "7:00 PM",
+                show: "8:00 PM",
+                ticketUrl: "",
+                soldOut: false
+            },
+            {
+                month: "APR",
+                day: "04",
+                venue: "Will's Pub", 
+                location: "Orlando, FL",
+                doors: "7:30 PM",
+                show: "8:30 PM",
+                ticketUrl: "",
+                soldOut: false
+            },
+            {
+                month: "APR",
+                day: "08",
+                venue: "191 Toole",
+                location: "Tucson, AZ", 
+                doors: "8:00 PM",
+                show: "9:00 PM",
+                ticketUrl: "",
+                soldOut: false
+            },
+            {
+                month: "MAY",
+                day: "12",
+                venue: "Mercury Lounge",
+                location: "New York, NY",
+                doors: "7:00 PM", 
+                show: "8:00 PM",
+                ticketUrl: "",
+                soldOut: false
+            }
+        ];
+
+        // Function to generate tour date HTML
+        function generateTourDate(date) {
+            const ticketButton = date.ticketUrl 
+                ? `<a href="${date.ticketUrl}" class="ticket-btn" target="_blank">TICKETS</a>`
+                : date.soldOut 
+                ? `<span class="ticket-btn sold-out">SOLD OUT</span>`
+                : `<span class="ticket-btn coming-soon">INFO SOON</span>`;
+
+            return `
+                <div class="date-card">
+                    <div class="date-info">
+                        <div class="date-month">${date.month}</div>
+                        <div class="date-day">${date.day}</div>
+                    </div>
+                    <div class="venue-info">
+                        <div class="venue-name">${date.venue}</div>
+                        <div class="venue-location">${date.location}</div>
+                        <div class="venue-details">Doors ${date.doors} • Show ${date.show}</div>
+                    </div>
+                    <div class="ticket-action">
+                        ${ticketButton}
+                    </div>
+                </div>
+            `;
+        }
+
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
@@ -532,16 +607,23 @@
                 navMenu.classList.remove('show');
             });
         });
-        
-        // Add hover effects to date cards
-        const dateCards = document.querySelectorAll('.date-card');
-        dateCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-12px) translateX(8px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-8px) translateX(5px)';
+
+        // Generate tour dates when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const datesGrid = document.getElementById('datesGrid');
+            const tourHTML = tourDates.map(generateTourDate).join('');
+            datesGrid.innerHTML = tourHTML;
+
+            // Add hover effects to date cards
+            const dateCards = document.querySelectorAll('.date-card');
+            dateCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-12px) translateX(8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-8px) translateX(5px)';
+                });
             });
         });
     </script>
