@@ -986,18 +986,25 @@
         
         // DRUNK SYSTEM
         function drinkChampagne() {
-            if (drinkCount >= 10) return;
+            if (drinkCount >= 10) {
+                showMessage('You\'ve had enough!', 'warning3');
+                return;
+            }
             
             drinkCount++;
             document.getElementById('drinkCount').textContent = drinkCount;
             updateDrunkEffects();
             
+            // Show drunk items based on drink count
             if (drinkCount >= 3) showDrunkItem('earring-item');
             if (drinkCount >= 5) showDrunkItem('bra-item');
             if (drinkCount >= 7) showDrunkItem('panties-item');
             if (drinkCount >= 9) showDrunkItem('heels-item');
             
-            if (drinkCount === 3) {
+            // Messages with proper delays
+            if (drinkCount === 1) {
+                showMessage('Nice champagne...', 'success');
+            } else if (drinkCount === 3) {
                 showMessage('Nice champagne... wait, what\'s that?', 'warning1');
             } else if (drinkCount === 5) {
                 showMessage('Things are getting interesting...', 'warning2');
@@ -1006,18 +1013,27 @@
             } else if (drinkCount === 9) {
                 showMessage('Seriously? Heels on the table?!', 'warning3');
             } else if (drinkCount === 10) {
+                showMessage('SECURITY! You\'re outta here!', 'warning3');
                 setTimeout(() => {
                     createLockout('drunk_ejection');
-                }, 1000);
+                }, 2000);
             }
         }
         
         function updateDrunkEffects() {
-            document.body.className = drinkCount > 0 ? `drunk-${drinkCount}` : '';
+            // Remove any existing drunk class
+            document.body.className = document.body.className.replace(/drunk-\d+/g, '');
+            // Add new drunk class if drinking
+            if (drinkCount > 0) {
+                document.body.classList.add(`drunk-${drinkCount}`);
+            }
         }
         
         function showDrunkItem(className) {
-            document.querySelector('.' + className).classList.add('visible');
+            const item = document.querySelector('.' + className);
+            if (item) {
+                item.classList.add('visible');
+            }
         }
         
         // PHONE SYSTEM
