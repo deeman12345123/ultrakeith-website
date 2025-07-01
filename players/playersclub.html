@@ -107,7 +107,6 @@
             opacity: 0;
         }
         
-        /* DOOR DETAILS */
         .door-window {
             position: absolute;
             top: 15%;
@@ -133,7 +132,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
         
-        /* PIN BOX HOTSPOT - Invisible clickable area */
+        /* PIN HOTSPOT */
         .pin-hotspot {
             position: absolute;
             right: -80px;
@@ -156,14 +155,14 @@
             box-shadow: 0 0 15px rgba(218, 181, 71, 0.4);
         }
         
-        /* OVERLAY PIN PAD - Shows on click */
-        .pin-pad-overlay {
+        /* PIN PAD OVERLAY */
+        .pin-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             display: none;
             align-items: center;
             justify-content: center;
@@ -171,88 +170,22 @@
             backdrop-filter: blur(10px);
         }
         
-        /* PIN PAD - Large overlay version */
         .pin-pad {
-            background: 
-                linear-gradient(145deg, #1a1a1a, #0a0a0a),
-                radial-gradient(circle at center, #2a2a2a, #0a0a0a);
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
             border: 3px solid var(--keith-gold);
             border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            width: 250px;
-            height: 350px;
+            padding: 30px;
+            width: 280px;
+            height: 380px;
             animation: pinPadFadeIn 0.3s ease-out;
+            position: relative;
         }
         
         @keyframes pinPadFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         
-        .pin-display {
-            width: 100%;
-            height: 40px;
-            background: #000;
-            border: 2px solid var(--keith-gold);
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            color: var(--keith-gold);
-            letter-spacing: 0.5em;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-        
-        .pin-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            height: 220px;
-        }
-        
-        .pin-btn {
-            background: 
-                linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 2px solid var(--keith-gold);
-            border-radius: 8px;
-            color: var(--keith-gold);
-            font-family: 'Orbitron', monospace;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 45px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .pin-btn:hover {
-            background: linear-gradient(145deg, var(--keith-gold), #b8941f);
-            color: var(--keith-black);
-            transform: scale(1.05);
-            font-size: 1.3rem;
-            font-weight: 900;
-            box-shadow: 0 6px 20px rgba(218, 181, 71, 0.5);
-            border: 3px solid var(--keith-gold-light);
-        }
-        
-        .pin-btn:active {
-            transform: scale(1.02);
-        }
-        
-        /* CLOSE BUTTON for overlay */
         .pin-close {
             position: absolute;
             top: -10px;
@@ -269,60 +202,167 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        .pin-display {
+            width: 100%;
+            height: 50px;
+            background: #000;
+            border: 2px solid var(--keith-gold);
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+            letter-spacing: 0.5em;
+        }
+        
+        .pin-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            height: 240px;
+        }
+        
+        .pin-btn {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 2px solid var(--keith-gold);
+            border-radius: 8px;
+            color: var(--keith-gold);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .pin-close:hover {
-            background: var(--keith-gold-light);
-            transform: scale(1.1);
+        .pin-btn:hover {
+            background: linear-gradient(145deg, var(--keith-gold), #b8941f);
+            color: var(--keith-black);
+            transform: scale(1.05);
+            font-size: 1.4rem;
         }
         
-        /* ERROR/SUCCESS MESSAGES */
-        .message-display {
+        /* MESSAGE DISPLAY */
+        .message-box {
             position: absolute;
-            top: 65%;
+            top: 70%;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.95);
-            border: 2px solid var(--keith-gold);
+            border: 3px solid var(--keith-gold);
             border-radius: 15px;
             padding: 25px 35px;
             font-family: 'Orbitron', monospace;
             font-size: 1.1rem;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
             opacity: 0;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(15px);
             max-width: 500px;
-            line-height: 1.4;
+            line-height: 1.5;
+            z-index: 999;
         }
         
-        .message-display.show {
+        .message-box.show {
             opacity: 1;
             transform: translateX(-50%) translateY(-10px);
         }
         
-        .message-display.error {
+        .message-box.error {
             border-color: #ff073a;
             color: #ff073a;
-            background: rgba(0, 0, 0, 0.95);
         }
         
-        .message-display.hint {
+        .message-box.hint {
             border-color: var(--keith-gold-light);
             color: var(--keith-gold-light);
-            background: rgba(218, 181, 71, 0.1);
+            background: rgba(218, 181, 71, 0.15);
+            text-shadow: 0 0 8px rgba(218, 181, 71, 0.6);
             font-weight: bold;
-            text-shadow: 0 0 5px rgba(218, 181, 71, 0.5);
         }
         
-        .message-display.success {
+        .message-box.success {
             border-color: #00ff41;
             color: #00ff41;
         }
         
-        /* AUDIO INDICATOR */
+        /* LOCKOUT SCREEN */
+        .lockout-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .lockout-content {
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border: 3px solid #ff073a;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(255, 7, 58, 0.4);
+            max-width: 600px;
+        }
+        
+        .lockout-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: #ff073a;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px #ff073a;
+            font-weight: 900;
+        }
+        
+        .lockout-subtitle {
+            font-size: 1.3rem;
+            color: #ff073a;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        .lockout-message {
+            font-size: 1rem;
+            color: var(--keith-white);
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .track-embed {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid var(--keith-gold);
+            border-radius: 10px;
+        }
+        
+        .unlock-btn {
+            background: linear-gradient(145deg, var(--keith-gold), #b8941f);
+            color: var(--keith-black);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        /* AUDIO STATUS */
         .audio-status {
             position: fixed;
             bottom: 30px;
@@ -339,22 +379,6 @@
             gap: 8px;
         }
         
-        .volume-indicator {
-            width: 50px;
-            height: 4px;
-            background: rgba(218, 181, 71, 0.3);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        
-        .volume-bar {
-            height: 100%;
-            background: var(--keith-gold);
-            width: 30%;
-            transition: width 0.5s ease;
-        }
-        
-        /* INSTRUCTIONS */
         .instructions {
             position: absolute;
             bottom: 10%;
@@ -366,143 +390,23 @@
             font-size: 0.9rem;
         }
         
-        .pin-hotspot-hint {
-            position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: var(--keith-gold);
-            opacity: 0.5;
-            font-size: 0.8rem;
-            font-style: italic;
-        }
-        
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .entrance-container {
-                background: 
-                    radial-gradient(ellipse at 50% 10%, var(--pink-glow) 0%, transparent 40%),
-                    linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 50%, var(--keith-black) 100%);
-            }
-            
-            .club-sign {
-                top: 10%;
-                font-size: 2.2rem;
-            }
-            
             .door-container {
-                width: 220px;
-                height: 280px;
-                bottom: 35%;
+                width: 250px;
+                height: 320px;
             }
             
             .pin-pad {
-                right: -100px;
-                width: 90px;
-                height: 130px;
-                padding: 8px;
+                width: 250px;
+                height: 350px;
+                padding: 25px;
             }
             
-            .pin-display {
-                height: 22px;
-                font-size: 0.9rem;
-                margin-bottom: 8px;
-            }
-            
-            .pin-buttons {
-                height: 85px;
-                gap: 4px;
-            }
-            
-            .pin-btn {
-                font-size: 0.8rem;
-                min-height: 22px;
-            }
-            
-            .pin-btn:hover {
-                transform: scale(1.3);
-                font-size: 1rem;
-            }
-            
-            .message-display {
-                top: 75%;
+            .message-box {
                 max-width: 90%;
-                padding: 15px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .instructions {
-                bottom: 15%;
-                font-size: 0.8rem;
-                padding: 0 20px;
-            }
-            
-            .audio-status {
-                bottom: 20px;
-                left: 20px;
-                padding: 8px 12px;
-                font-size: 0.7rem;
-            }
-            
-            .volume-indicator {
-                width: 40px;
-                height: 3px;
-            }
-        }
-        
-        /* MOBILE LAYOUT ADJUSTMENTS */
-        @media (max-width: 480px) {
-            .club-sign {
-                font-size: 1.8rem;
-                top: 8%;
-            }
-            
-            .door-container {
-                width: 180px;
-                height: 240px;
-                bottom: 40%;
-            }
-            
-            .pin-pad {
-                right: -80px;
-                width: 75px;
-                height: 110px;
-                padding: 6px;
-            }
-            
-            .pin-display {
-                height: 18px;
-                font-size: 0.8rem;
-                margin-bottom: 6px;
-            }
-            
-            .pin-buttons {
-                height: 70px;
-                gap: 3px;
-            }
-            
-            .pin-btn {
-                font-size: 0.7rem;
-                min-height: 18px;
-                border-radius: 3px;
-            }
-            
-            .pin-btn:hover {
-                transform: scale(1.4);
-                font-size: 0.9rem;
-                border: 2px solid var(--keith-gold-light);
-            }
-            
-            .message-display {
-                top: 78%;
-                font-size: 0.8rem;
-                padding: 12px 16px;
-            }
-            
-            .instructions {
-                bottom: 12%;
-                font-size: 0.7rem;
+                font-size: 1rem;
+                padding: 20px 25px;
             }
         }
     </style>
@@ -512,9 +416,6 @@
     <div class="audio-status">
         <span>🎵</span>
         <span>Club Music</span>
-        <div class="volume-indicator">
-            <div class="volume-bar" id="volumeBar"></div>
-        </div>
     </div>
     
     <div class="entrance-container">
@@ -528,110 +429,154 @@
                 <div class="door-handle"></div>
             </div>
             
-            <!-- PIN HOTSPOT - Invisible clickable area where PIN box appears in background -->
-            <div class="pin-hotspot" onclick="showPinPad()" title="Access PIN pad"></div>
+            <!-- PIN HOTSPOT -->
+            <div class="pin-hotspot" onclick="showPinPad()"></div>
         </div>
-        
-        <!-- PIN PAD OVERLAY - Shows on click -->
-        <div class="pin-pad-overlay" id="pinPadOverlay">
-            <div class="pin-pad">
-                <button class="pin-close" onclick="hidePinPad()">×</button>
-                <div class="pin-display" id="pinDisplay">***</div>
-                <div class="pin-buttons">
-                    <button class="pin-btn" onclick="enterPin('1')">1</button>
-                    <button class="pin-btn" onclick="enterPin('2')">2</button>
-                    <button class="pin-btn" onclick="enterPin('3')">3</button>
-                    <button class="pin-btn" onclick="enterPin('4')">4</button>
-                    <button class="pin-btn" onclick="enterPin('5')">5</button>
-                    <button class="pin-btn" onclick="enterPin('6')">6</button>
-                    <button class="pin-btn" onclick="enterPin('7')">7</button>
-                    <button class="pin-btn" onclick="enterPin('8')">8</button>
-                    <button class="pin-btn" onclick="enterPin('9')">9</button>
-                    <button class="pin-btn" onclick="clearPin()">C</button>
-                    <button class="pin-btn" onclick="enterPin('0')">0</button>
-                    <button class="pin-btn" onclick="submitPin()">✓</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- MESSAGE DISPLAY -->
-        <div class="message-display" id="messageDisplay"></div>
         
         <!-- INSTRUCTIONS -->
         <div class="instructions">
             Look for the PIN pad on the wall next to the door
         </div>
-        
-        <div class="pin-hotspot-hint">
-            (Hover over the right side of the door to find the PIN entry)
+    </div>
+    
+    <!-- PIN PAD OVERLAY -->
+    <div class="pin-overlay" id="pinOverlay">
+        <div class="pin-pad">
+            <button class="pin-close" onclick="hidePinPad()">×</button>
+            <div class="pin-display" id="pinDisplay">***</div>
+            <div class="pin-buttons">
+                <button class="pin-btn" onclick="enterPin('1')">1</button>
+                <button class="pin-btn" onclick="enterPin('2')">2</button>
+                <button class="pin-btn" onclick="enterPin('3')">3</button>
+                <button class="pin-btn" onclick="enterPin('4')">4</button>
+                <button class="pin-btn" onclick="enterPin('5')">5</button>
+                <button class="pin-btn" onclick="enterPin('6')">6</button>
+                <button class="pin-btn" onclick="enterPin('7')">7</button>
+                <button class="pin-btn" onclick="enterPin('8')">8</button>
+                <button class="pin-btn" onclick="enterPin('9')">9</button>
+                <button class="pin-btn" onclick="clearPin()">C</button>
+                <button class="pin-btn" onclick="enterPin('0')">0</button>
+                <button class="pin-btn" onclick="submitPin()">✓</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MESSAGE BOX -->
+    <div class="message-box" id="messageBox"></div>
+    
+    <!-- LOCKOUT SCREEN -->
+    <div class="lockout-screen" id="lockoutScreen">
+        <div class="lockout-content">
+            <div class="lockout-title">ACCESS DENIED</div>
+            <div class="lockout-subtitle" id="lockoutSubtitle">COME BACK IN 15 MINUTES</div>
+            <div class="lockout-message" id="lockoutMessage">
+                You failed too many PIN attempts.<br>
+                Listen to this track while you wait:
+            </div>
+            <div class="track-embed">
+                <p style="color: var(--keith-gold); font-weight: bold;">🎵 Now Playing: "Critical Beatdown" - Ultramagnetic MCs</p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">(Track will play here in real version)</p>
+            </div>
+            <button class="unlock-btn" onclick="emergencyUnlock()">Emergency Unlock (Testing)</button>
+            <button class="unlock-btn" onclick="location.href='../home.html'">Return Home</button>
         </div>
     </div>
 
     <script>
+        // GAME STATE
         let currentPin = '';
         let attempts = 0;
-        let musicVolume = 30; // Starting volume
         
-        // PIN SYSTEM - Expandable for future features
+        // LOCKOUT TIMEOUTS
+        const LOCKOUT_TIMES = {
+            pin_failure: 15 * 60 * 1000, // 15 minutes
+            drunk_ejection: 12 * 60 * 60 * 1000 // 12 hours
+        };
+        
+        // PIN DATABASE
         const pinDatabase = {
             '223': {
                 type: 'club_entry',
-                action: 'openClubDoor',
                 message: 'Welcome to The Players Club!',
                 hint: "Dr. Doom's apartment number"
-            },
-            '100': {
-                type: 'livestream',
-                action: 'openLivestream',
-                message: 'Keith is live! Connecting...',
-                hint: "Keith's studio number"
-            },
-            '777': {
-                type: 'vault',
-                action: 'openVault',
-                message: 'Ultra Vault unlocked!',
-                hint: "Lucky number sequence"
-            },
-            '084': {
-                type: 'ultramagnetic',
-                action: 'openUltramagnetic',
-                message: 'Ultramagnetic MCs archive accessed!',
-                hint: "Year Ultramagnetic started backwards"
             }
         };
         
+        // MESSAGES
         const messages = {
             attempt1: "Come on, player... you should know this.",
             attempt2: "Keith's not gonna like this... think harder.",
             attempt3: "Alright, I'll help you out - ",
+            success: "Welcome to The Players Club!",
             doorOpen: "Door sliding open... music getting louder..."
         };
         
+        // CHECK LOCKOUT ON LOAD
+        function checkLockout() {
+            const lockoutData = localStorage.getItem('clubLockout');
+            if (!lockoutData) return false;
+            
+            const lockout = JSON.parse(lockoutData);
+            const now = Date.now();
+            
+            if (now < lockout.expires) {
+                const minutesLeft = Math.ceil((lockout.expires - now) / (1000 * 60));
+                showLockoutScreen(lockout.type, minutesLeft);
+                return true;
+            } else {
+                localStorage.removeItem('clubLockout');
+                return false;
+            }
+        }
+        
+        // SHOW LOCKOUT SCREEN
+        function showLockoutScreen(type, minutesLeft) {
+            const screen = document.getElementById('lockoutScreen');
+            const subtitle = document.getElementById('lockoutSubtitle');
+            const message = document.getElementById('lockoutMessage');
+            
+            if (type === 'pin_failure') {
+                subtitle.textContent = `COME BACK IN ${minutesLeft} MINUTES`;
+                message.innerHTML = `
+                    You failed too many PIN attempts.<br>
+                    Listen to this track while you wait:<br>
+                    <strong>Time remaining: ${minutesLeft} minutes</strong>
+                `;
+            } else if (type === 'drunk_ejection') {
+                subtitle.textContent = `COME BACK IN ${Math.ceil(minutesLeft/60)} HOURS`;
+                message.innerHTML = `
+                    You were ejected for drinking too much.<br>
+                    Maybe take this sobriety course while you wait:<br>
+                    <strong>Time remaining: ${Math.ceil(minutesLeft/60)} hours</strong>
+                `;
+                document.querySelector('.track-embed p').textContent = '📚 Sobriety Course: "How to Handle Your Liquor" - Keith Style';
+            }
+            
+            screen.style.display = 'flex';
+        }
+        
+        // PIN PAD FUNCTIONS
         function showPinPad() {
-            document.getElementById('pinPadOverlay').style.display = 'flex';
-            playSound('pinPadOpen');
+            document.getElementById('pinOverlay').style.display = 'flex';
         }
         
         function hidePinPad() {
-            document.getElementById('pinPadOverlay').style.display = 'none';
-            playSound('pinPadClose');
+            document.getElementById('pinOverlay').style.display = 'none';
         }
         
         function enterPin(digit) {
             if (currentPin.length < 3) {
                 currentPin += digit;
-                updatePinDisplay();
-                playSound('beep');
+                updateDisplay();
             }
         }
         
         function clearPin() {
             currentPin = '';
-            updatePinDisplay();
-            playSound('clear');
+            updateDisplay();
         }
         
-        function updatePinDisplay() {
+        function updateDisplay() {
             const display = document.getElementById('pinDisplay');
             if (currentPin.length === 0) {
                 display.textContent = '***';
@@ -644,324 +589,104 @@
             if (currentPin.length !== 3) return;
             
             attempts++;
-            console.log(`🔍 Attempt ${attempts}: PIN entered = ${currentPin}`);
+            console.log(`Attempt ${attempts}: PIN = ${currentPin}`);
             
-            // Check if PIN exists in database
-            const pinData = pinDatabase[currentPin];
-            
-            if (pinData) {
-                console.log('✅ PIN found in database:', pinData);
-                executeAction(pinData);
+            // Check if PIN is correct
+            if (pinDatabase[currentPin]) {
+                showSuccess();
             } else {
-                console.log('❌ PIN not found, showing error for attempt:', attempts);
                 showError();
             }
         }
         
-        function executeAction(pinData) {
-            const messageEl = document.getElementById('messageDisplay');
-            messageEl.className = 'message-display show success';
-            messageEl.textContent = pinData.message;
-            
-            // Hide the PIN pad overlay
-            hidePinPad();
-            
-            playSound('success');
-            
-            // Execute the specific action
-            setTimeout(() => {
-                switch(pinData.action) {
-                    case 'openClubDoor':
-                        messageEl.textContent = messages.doorOpen;
-                        openDoor();
-                        break;
-                    case 'openLivestream':
-                        openLivestream();
-                        break;
-                    case 'openVault':
-                        openVault();
-                        break;
-                    case 'openUltramagnetic':
-                        openUltramagnetic();
-                        break;
-                    default:
-                        console.log('Unknown action:', pinData.action);
-                }
-            }, 1500);
-        }
-        
         function showError() {
-            const messageEl = document.getElementById('messageDisplay');
-            console.log(`🚨 showError called for attempt ${attempts}`);
+            const messageBox = document.getElementById('messageBox');
             
             if (attempts === 1) {
-                messageEl.className = 'message-display show error';
-                messageEl.textContent = messages.attempt1;
-                console.log('📝 Showing attempt 1 message:', messages.attempt1);
+                showMessage(messages.attempt1, 'error');
             } else if (attempts === 2) {
-                messageEl.className = 'message-display show error';
-                messageEl.textContent = messages.attempt2;
-                console.log('📝 Showing attempt 2 message:', messages.attempt2);
+                showMessage(messages.attempt2, 'error');
             } else if (attempts === 3) {
-                // Show Dr. Doom hint with special styling
-                messageEl.className = 'message-display show hint';
-                const clubPin = pinDatabase['223'];
-                const fullHint = messages.attempt3 + clubPin.hint;
-                messageEl.textContent = fullHint;
-                console.log('🔍 SHOWING HINT:', fullHint);
-                console.log('💡 Hint should be visible for 5 seconds with gold styling');
+                // SHOW HINT
+                const hintText = messages.attempt3 + pinDatabase['223'].hint;
+                showMessage(hintText, 'hint');
+                console.log('HINT SHOWN:', hintText);
             } else {
-                // Kick them out after 4th failed attempt
-                console.log('🚨 Attempt 4 - calling kickOut()');
-                kickOut();
+                // LOCKOUT
+                createLockout('pin_failure');
                 return;
             }
             
-            playSound('error');
             clearPin();
-            
-            // Longer display time for hint (attempt 3)
-            const displayTime = attempts === 3 ? 5000 : 3000;
-            console.log(`⏰ Message will display for ${displayTime}ms`);
-            setTimeout(() => {
-                messageEl.classList.remove('show');
-                console.log('📤 Message hidden');
-            }, displayTime);
         }
         
-        function kickOut() {
-            const messageEl = document.getElementById('messageDisplay');
-            messageEl.className = 'message-display show error';
-            messageEl.textContent = "ACCESS DENIED";
+        function showMessage(text, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = text;
+            messageBox.className = `message-box show ${type}`;
             
-            // Hide PIN pad
-            hidePinPad();
-            
-            playSound('security');
-            
-            // Show dramatic red effect
+            const duration = type === 'hint' ? 6000 : 3000;
             setTimeout(() => {
-                messageEl.textContent = "COME BACK TOMORROW";
-                messageEl.style.fontSize = '1.5rem';
-                messageEl.style.fontWeight = '900';
-                messageEl.style.color = '#ff073a';
-                messageEl.style.borderColor = '#ff073a';
-                messageEl.style.textShadow = '0 0 10px #ff073a';
-                
-                // Add red flash effect to screen
-                document.body.style.background = 'linear-gradient(135deg, #ff073a 0%, #8B0000 50%, #000000 100%)';
-                document.body.style.filter = 'blur(2px)';
-                document.body.style.opacity = '0.7';
-                
-                setTimeout(() => {
-                    // Store lockout in localStorage (24 hour lockout)
-                    const lockoutTime = Date.now() + (24 * 60 * 60 * 1000); // 24 hours from now
-                    localStorage.setItem('clubLockout', lockoutTime.toString());
-                    
-                    alert('🚨 ACCESS DENIED!\n\nSecurity has banned you from the club.\nYou cannot return for 24 hours.\n\n(For demo: clearing lockout in 5 seconds...)');
-                    
-                    // Demo mode - clear lockout after 5 seconds
-                    setTimeout(() => {
-                        localStorage.removeItem('clubLockout');
-                        location.reload();
-                    }, 5000);
-                }, 3000);
-            }, 1000);
+                messageBox.classList.remove('show');
+            }, duration);
+        }
+        
+        function showSuccess() {
+            hidePinPad();
+            showMessage(messages.success, 'success');
+            
+            setTimeout(() => {
+                showMessage(messages.doorOpen, 'success');
+                openDoor();
+            }, 2000);
         }
         
         function openDoor() {
-            const door = document.getElementById('clubDoor');
-            door.classList.add('sliding');
-            
-            // Increase music volume
-            increaseMusicVolume();
-            
-            playSound('doorSlide');
+            document.getElementById('clubDoor').classList.add('sliding');
             
             setTimeout(() => {
-                // Transition to cashier/club interior
-                alert('🎰 Transitioning to cashier... (Next page would load here)');
-                
-                // Reset for demo
-                setTimeout(() => {
-                    resetDemo();
-                }, 2000);
-            }, 1000);
+                alert('🎰 Entering club... (Next page would load here)');
+                resetForDemo();
+            }, 1500);
         }
         
-        function increaseMusicVolume() {
-            const volumeBar = document.getElementById('volumeBar');
-            musicVolume = 80;
-            volumeBar.style.width = musicVolume + '%';
+        function createLockout(type) {
+            const lockoutData = {
+                type: type,
+                expires: Date.now() + LOCKOUT_TIMES[type]
+            };
+            
+            localStorage.setItem('clubLockout', JSON.stringify(lockoutData));
+            
+            const minutes = type === 'pin_failure' ? 15 : (12 * 60);
+            showLockoutScreen(type, minutes);
         }
         
-        // Check lockout status on page load
-        function checkLockoutStatus() {
-            const lockoutTime = localStorage.getItem('clubLockout');
-            if (lockoutTime) {
-                const now = Date.now();
-                const lockout = parseInt(lockoutTime);
-                
-                if (now < lockout) {
-                    // Still locked out
-                    const hoursLeft = Math.ceil((lockout - now) / (1000 * 60 * 60));
-                    showLockoutScreen(hoursLeft);
-                    return true;
-                } else {
-                    // Lockout expired
-                    localStorage.removeItem('clubLockout');
-                    return false;
-                }
-            }
-            return false;
-        }
-        
-        // EMERGENCY UNLOCK FUNCTION - for testing
         function emergencyUnlock() {
             localStorage.removeItem('clubLockout');
             location.reload();
-            console.log('🔓 EMERGENCY UNLOCK: Lockout cleared!');
         }
         
-        function showLockoutScreen(hoursLeft) {
-            const entranceContainer = document.querySelector('.entrance-container');
-            entranceContainer.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: center; height: 100vh; flex-direction: column;">
-                    <div style="
-                        background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-                        border: 3px solid #ff073a;
-                        border-radius: 20px;
-                        padding: 40px;
-                        text-align: center;
-                        box-shadow: 0 20px 60px rgba(255, 7, 58, 0.3);
-                    ">
-                        <h1 style="
-                            font-family: 'Orbitron', monospace;
-                            font-size: 2.5rem;
-                            color: #ff073a;
-                            margin-bottom: 20px;
-                            text-shadow: 0 0 10px #ff073a;
-                            font-weight: 900;
-                        ">ACCESS DENIED</h1>
-                        
-                        <p style="
-                            font-size: 1.2rem;
-                            color: #ff073a;
-                            margin-bottom: 30px;
-                            font-weight: bold;
-                        ">COME BACK TOMORROW</p>
-                        
-                        <p style="
-                            font-size: 1rem;
-                            color: var(--keith-white);
-                            opacity: 0.8;
-                            line-height: 1.6;
-                        ">You have been banned from The Players Club.<br>
-                        Security lockout: ${hoursLeft} hours remaining.</p>
-                        
-                        <button onclick="location.href='../home.html'" style="
-                            margin-top: 30px;
-                            background: linear-gradient(145deg, var(--keith-gold), #b8941f);
-                            color: var(--keith-black);
-                            border: none;
-                            padding: 15px 30px;
-                            border-radius: 25px;
-                            font-family: 'Orbitron', monospace;
-                            font-weight: bold;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                            margin-right: 15px;
-                        ">Return to Homepage</button>
-                        
-                        <button onclick="emergencyUnlock()" style="
-                            background: #ff073a;
-                            color: white;
-                            border: none;
-                            padding: 15px 30px;
-                            border-radius: 25px;
-                            font-family: 'Orbitron', monospace;
-                            font-weight: bold;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        ">Emergency Unlock (Testing)</button>
-                    </div>
-                </div>
-            `;
-        }
-        function openLivestream() {
-            alert('🔴 LIVE: Keith is streaming! (Future feature)\n\nThis could open:\n- Live video feed\n- Chat with Keith\n- Exclusive live content');
-            setTimeout(() => resetDemo(), 2000);
+        function resetForDemo() {
+            setTimeout(() => {
+                document.getElementById('clubDoor').classList.remove('sliding');
+                currentPin = '';
+                attempts = 0;
+                updateDisplay();
+                document.getElementById('messageBox').classList.remove('show');
+            }, 2000);
         }
         
-        function openVault() {
-            alert('🏛️ ULTRA VAULT: Secret archive unlocked! (Future feature)\n\nThis could open:\n- Unreleased tracks\n- Rare recordings\n- Hidden content');
-            setTimeout(() => resetDemo(), 2000);
-        }
-        
-        function openUltramagnetic() {
-            alert('🎤 ULTRAMAGNETIC MCs: Archive accessed! (Future feature)\n\nThis could open:\n- Classic tracks\n- Historical content\n- Band history');
-            setTimeout(() => resetDemo(), 2000);
-        }
-        
-        function resetDemo() {
-            const door = document.getElementById('clubDoor');
-            const messageEl = document.getElementById('messageDisplay');
-            const volumeBar = document.getElementById('volumeBar');
-            
-            door.classList.remove('sliding');
-            messageEl.classList.remove('show');
-            document.body.style.filter = 'none'; // Reset blur
-            document.body.style.opacity = '1'; // Reset opacity
-            currentPin = '';
-            attempts = 0;
-            musicVolume = 30;
-            volumeBar.style.width = musicVolume + '%';
-            updatePinDisplay();
-        }
-        
-        function playSound(type) {
-            // Simulate sound effects
-            console.log(`🔊 Playing sound: ${type}`);
-            
-            // In real implementation, you'd play actual audio files:
-            // const audio = new Audio(`sounds/${type}.mp3`);
-            // audio.play();
-            
-            // Special sound for security kick-out
-            if (type === 'security') {
-                console.log('🚨 SECURITY ALERT: Player being escorted out!');
-            }
-        }
-        
-        // Initialize
+        // INITIALIZE
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is locked out first
-            if (checkLockoutStatus()) {
-                return; // Don't initialize if locked out
-            }
+            if (checkLockout()) return;
             
-            updatePinDisplay();
-            console.log('🔓 EMERGENCY UNLOCK: Type emergencyUnlock() in console to clear ban');
-            console.log('🚪 Players Club Entry System Loaded');
-            console.log('💡 Hint: The main club PIN is 223 (Dr. Doom\'s apartment)');
-            console.log('🎯 Try wrong PINs first to see the progression!');
-            console.log('⚠️  WARNING: After 4 failed attempts, security kicks you out!');
-            console.log('🚨 LOCKOUT: Failed security = 24 hour ban!');
-            console.log('🔮 Secret PINs to try:');
-            console.log('   - 100 (Keith\'s studio)');
-            console.log('   - 777 (Lucky vault)');
-            console.log('   - 084 (Ultramagnetic year backwards)');
-        });
-        
-        // Keyboard support
-        document.addEventListener('keydown', function(e) {
-            if (e.key >= '0' && e.key <= '9') {
-                enterPin(e.key);
-            } else if (e.key === 'Enter') {
-                submitPin();
-            } else if (e.key === 'Escape' || e.key === 'Backspace') {
-                clearPin();
-            }
+            updateDisplay();
+            console.log('🚪 Players Club Entry System Ready');
+            console.log('💡 Correct PIN: 223 (Dr. Doom\'s apartment)');
+            console.log('🎯 Try wrong PINs to see hint progression!');
+            console.log('⚠️  4 failures = 15 minute lockout + Keith track');
+            console.log('🍷 Drunk ejection = 12 hour lockout + sobriety course');
         });
     </script>
 </body>
