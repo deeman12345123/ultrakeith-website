@@ -214,7 +214,7 @@
             transform: scale(1.05);
         }
         
-        /* SIMPLE MESSAGE DISPLAY */
+        /* MESSAGE DISPLAY WITH PROGRESSIVE COLORS */
         .message-display {
             position: fixed;
             top: 50%;
@@ -230,24 +230,67 @@
             max-width: 500px;
             z-index: 2000;
             display: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
         
-        .message-display.error {
+        .message-display.warning1 {
+            border-color: #00ff41;
+            color: #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+        }
+        
+        .message-display.warning2 {
+            border-color: #ffa500;
+            color: #ffa500;
+            background: rgba(255, 165, 0, 0.05);
+            text-shadow: 0 0 8px rgba(255, 165, 0, 0.6);
+            animation: warningPulse 1s ease-in-out 2;
+        }
+        
+        .message-display.warning3 {
             border-color: #ff073a;
             color: #ff073a;
+            background: rgba(255, 7, 58, 0.05);
+            text-shadow: 0 0 8px rgba(255, 7, 58, 0.6);
+            animation: urgentPulse 0.5s ease-in-out 3;
         }
         
         .message-display.hint {
             border-color: var(--keith-gold-light);
             color: var(--keith-gold-light);
-            background: rgba(218, 181, 71, 0.1);
+            background: rgba(218, 181, 71, 0.15);
             font-weight: bold;
-            text-shadow: 0 0 10px var(--keith-gold-light);
+            text-shadow: 0 0 12px var(--keith-gold-light);
+            animation: hintGlow 2s ease-in-out infinite alternate;
         }
         
         .message-display.success {
             border-color: #00ff41;
             color: #00ff41;
+            background: rgba(0, 255, 65, 0.1);
+            animation: successFlash 0.3s ease-in-out 3;
+        }
+        
+        @keyframes warningPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.02); }
+        }
+        
+        @keyframes urgentPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        
+        @keyframes hintGlow {
+            0% { text-shadow: 0 0 12px var(--keith-gold-light), 0 0 20px var(--keith-gold-light); }
+            100% { text-shadow: 0 0 20px var(--keith-gold-light), 0 0 30px var(--keith-gold-light); }
+        }
+        
+        @keyframes successFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         .message-display.show {
@@ -475,19 +518,25 @@
         
         function showError() {
             let message = '';
-            let type = 'error';
+            let type = '';
             
             if (attempts === 1) {
                 message = 'Come on, player... you should know this.';
+                type = 'warning1'; // Green - friendly warning
             } else if (attempts === 2) {
                 message = 'Keith\'s not gonna like this... think harder.';
+                type = 'warning2'; // Orange - getting serious
             } else if (attempts === 3) {
                 message = 'Alright, I\'ll help you out - Dr. Doom\'s apartment number';
-                type = 'hint';
+                type = 'hint'; // Gold - helpful hint
                 console.log('SHOWING HINT!');
             } else {
-                createLockout('pin_failure');
-                return;
+                message = 'FINAL WARNING - One more attempt!';
+                type = 'warning3'; // Red - urgent
+                if (attempts >= 4) {
+                    createLockout('pin_failure');
+                    return;
+                }
             }
             
             showMessage(message, type);
