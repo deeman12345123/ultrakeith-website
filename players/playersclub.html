@@ -816,6 +816,13 @@
             return false;
         }
         
+        // EMERGENCY UNLOCK FUNCTION - for testing
+        function emergencyUnlock() {
+            localStorage.removeItem('clubLockout');
+            location.reload();
+            console.log('🔓 EMERGENCY UNLOCK: Lockout cleared!');
+        }
+        
         function showLockoutScreen(hoursLeft) {
             const entranceContainer = document.querySelector('.entrance-container');
             entranceContainer.innerHTML = `
@@ -863,7 +870,20 @@
                             font-weight: bold;
                             cursor: pointer;
                             transition: all 0.3s ease;
+                            margin-right: 15px;
                         ">Return to Homepage</button>
+                        
+                        <button onclick="emergencyUnlock()" style="
+                            background: #ff073a;
+                            color: white;
+                            border: none;
+                            padding: 15px 30px;
+                            border-radius: 25px;
+                            font-family: 'Orbitron', monospace;
+                            font-weight: bold;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        ">Emergency Unlock (Testing)</button>
                     </div>
                 </div>
             `;
@@ -921,6 +941,7 @@
             }
             
             updatePinDisplay();
+            console.log('🔓 EMERGENCY UNLOCK: Type emergencyUnlock() in console to clear ban');
             console.log('🚪 Players Club Entry System Loaded');
             console.log('💡 Hint: The main club PIN is 223 (Dr. Doom\'s apartment)');
             console.log('🎯 Try wrong PINs first to see the progression!');
