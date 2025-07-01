@@ -706,27 +706,41 @@
         function kickOut() {
             const messageEl = document.getElementById('messageDisplay');
             messageEl.className = 'message-display show error';
-            messageEl.textContent = "SECURITY! You're locked out. Come back later when you can handle the access code!";
+            messageEl.textContent = "ACCESS DENIED";
             
             // Hide PIN pad
             hidePinPad();
             
             playSound('security');
             
-            // Fade out everything
+            // Show dramatic red effect
             setTimeout(() => {
-                document.body.style.filter = 'blur(5px)';
-                document.body.style.opacity = '0.3';
+                messageEl.textContent = "COME BACK TOMORROW";
+                messageEl.style.fontSize = '1.5rem';
+                messageEl.style.fontWeight = '900';
+                messageEl.style.color = '#ff073a';
+                messageEl.style.borderColor = '#ff073a';
+                messageEl.style.textShadow = '0 0 10px #ff073a';
+                
+                // Add red flash effect to screen
+                document.body.style.background = 'linear-gradient(135deg, #ff073a 0%, #8B0000 50%, #000000 100%)';
+                document.body.style.filter = 'blur(2px)';
+                document.body.style.opacity = '0.7';
                 
                 setTimeout(() => {
-                    alert('🚨 KICKED OUT!\n\nYou failed too many PIN attempts.\nSecurity has escorted you away from the club.\n\n(Reloading for demo...)');
+                    // Store lockout in localStorage (24 hour lockout)
+                    const lockoutTime = Date.now() + (24 * 60 * 60 * 1000); // 24 hours from now
+                    localStorage.setItem('clubLockout', lockoutTime.toString());
                     
-                    // Reset for demo
+                    alert('🚨 ACCESS DENIED!\n\nSecurity has banned you from the club.\nYou cannot return for 24 hours.\n\n(For demo: clearing lockout in 5 seconds...)');
+                    
+                    // Demo mode - clear lockout after 5 seconds
                     setTimeout(() => {
+                        localStorage.removeItem('clubLockout');
                         location.reload();
-                    }, 1000);
-                }, 2000);
-            }, 2000);
+                    }, 5000);
+                }, 3000);
+            }, 1000);
         }
         
         function openDoor() {
@@ -755,7 +769,79 @@
             volumeBar.style.width = musicVolume + '%';
         }
         
-        // FUTURE ACTION FUNCTIONS
+        // Check lockout status on page load
+        function checkLockoutStatus() {
+            const lockoutTime = localStorage.getItem('clubLockout');
+            if (lockoutTime) {
+                const now = Date.now();
+                const lockout = parseInt(lockoutTime);
+                
+                if (now < lockout) {
+                    // Still locked out
+                    const hoursLeft = Math.ceil((lockout - now) / (1000 * 60 * 60));
+                    showLockoutScreen(hoursLeft);
+                    return true;
+                } else {
+                    // Lockout expired
+                    localStorage.removeItem('clubLockout');
+                    return false;
+                }
+            }
+            return false;
+        }
+        
+        function showLockoutScreen(hoursLeft) {
+            const entranceContainer = document.querySelector('.entrance-container');
+            entranceContainer.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100vh; flex-direction: column;">
+                    <div style="
+                        background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+                        border: 3px solid #ff073a;
+                        border-radius: 20px;
+                        padding: 40px;
+                        text-align: center;
+                        box-shadow: 0 20px 60px rgba(255, 7, 58, 0.3);
+                    ">
+                        <h1 style="
+                            font-family: 'Orbitron', monospace;
+                            font-size: 2.5rem;
+                            color: #ff073a;
+                            margin-bottom: 20px;
+                            text-shadow: 0 0 10px #ff073a;
+                            font-weight: 900;
+                        ">ACCESS DENIED</h1>
+                        
+                        <p style="
+                            font-size: 1.2rem;
+                            color: #ff073a;
+                            margin-bottom: 30px;
+                            font-weight: bold;
+                        ">COME BACK TOMORROW</p>
+                        
+                        <p style="
+                            font-size: 1rem;
+                            color: var(--keith-white);
+                            opacity: 0.8;
+                            line-height: 1.6;
+                        ">You have been banned from The Players Club.<br>
+                        Security lockout: ${hoursLeft} hours remaining.</p>
+                        
+                        <button onclick="location.href='../home.html'" style="
+                            margin-top: 30px;
+                            background: linear-gradient(145deg, var(--keith-gold), #b8941f);
+                            color: var(--keith-black);
+                            border: none;
+                            padding: 15px 30px;
+                            border-radius: 25px;
+                            font-family: 'Orbitron', monospace;
+                            font-weight: bold;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        ">Return to Homepage</button>
+                    </div>
+                </div>
+            `;
+        }
         function openLivestream() {
             alert('🔴 LIVE: Keith is streaming! (Future feature)\n\nThis could open:\n- Live video feed\n- Chat with Keith\n- Exclusive live content');
             setTimeout(() => resetDemo(), 2000);
@@ -803,11 +889,17 @@
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is locked out first
+            if (checkLockoutStatus()) {
+                return; // Don't initialize if locked out
+            }
+            
             updatePinDisplay();
             console.log('🚪 Players Club Entry System Loaded');
             console.log('💡 Hint: The main club PIN is 223 (Dr. Doom\'s apartment)');
             console.log('🎯 Try wrong PINs first to see the progression!');
             console.log('⚠️  WARNING: After 4 failed attempts, security kicks you out!');
+            console.log('🚨 LOCKOUT: Failed security = 24 hour ban!');
             console.log('🔮 Secret PINs to try:');
             console.log('   - 100 (Keith\'s studio)');
             console.log('   - 777 (Lucky vault)');
