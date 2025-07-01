@@ -685,10 +685,14 @@
                 messageEl.textContent = messages.attempt1;
             } else if (attempts === 2) {
                 messageEl.textContent = messages.attempt2;
-            } else {
-                // Get hint for the main club entry (223)
+            } else if (attempts === 3) {
+                // Show Dr. Doom hint
                 const clubPin = pinDatabase['223'];
                 messageEl.textContent = messages.attempt3 + clubPin.hint;
+            } else {
+                // Kick them out after 4th failed attempt
+                kickOut();
+                return;
             }
             
             playSound('error');
@@ -697,6 +701,32 @@
             setTimeout(() => {
                 messageEl.classList.remove('show');
             }, 3000);
+        }
+        
+        function kickOut() {
+            const messageEl = document.getElementById('messageDisplay');
+            messageEl.className = 'message-display show error';
+            messageEl.textContent = "SECURITY! You're locked out. Come back later when you can handle the access code!";
+            
+            // Hide PIN pad
+            hidePinPad();
+            
+            playSound('security');
+            
+            // Fade out everything
+            setTimeout(() => {
+                document.body.style.filter = 'blur(5px)';
+                document.body.style.opacity = '0.3';
+                
+                setTimeout(() => {
+                    alert('🚨 KICKED OUT!\n\nYou failed too many PIN attempts.\nSecurity has escorted you away from the club.\n\n(Reloading for demo...)');
+                    
+                    // Reset for demo
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }, 2000);
+            }, 2000);
         }
         
         function openDoor() {
@@ -748,6 +778,8 @@
             
             door.classList.remove('sliding');
             messageEl.classList.remove('show');
+            document.body.style.filter = 'none'; // Reset blur
+            document.body.style.opacity = '1'; // Reset opacity
             currentPin = '';
             attempts = 0;
             musicVolume = 30;
@@ -762,6 +794,11 @@
             // In real implementation, you'd play actual audio files:
             // const audio = new Audio(`sounds/${type}.mp3`);
             // audio.play();
+            
+            // Special sound for security kick-out
+            if (type === 'security') {
+                console.log('🚨 SECURITY ALERT: Player being escorted out!');
+            }
         }
         
         // Initialize
@@ -770,6 +807,7 @@
             console.log('🚪 Players Club Entry System Loaded');
             console.log('💡 Hint: The main club PIN is 223 (Dr. Doom\'s apartment)');
             console.log('🎯 Try wrong PINs first to see the progression!');
+            console.log('⚠️  WARNING: After 4 failed attempts, security kicks you out!');
             console.log('🔮 Secret PINs to try:');
             console.log('   - 100 (Keith\'s studio)');
             console.log('   - 777 (Lucky vault)');
