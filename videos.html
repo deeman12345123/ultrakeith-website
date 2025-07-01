@@ -1,1 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos - Music Videos & Performances | Ultra Keith</title>
+    <meta name="description" content="Watch Kool Keith's latest music videos, live performances, and exclusive content from hip-hop's most innovative artist.">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+        
+        :root {
+            --gold: #ffd700;
+            --gold-light: #ffed4e;
+            --dark-red: #1a0000;
+            --black: #000000;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 16px;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-red) 40%, var(--black) 100%);
+            color: var(--white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            z-index: 100;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .nav-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo img {
+            height: 50px;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Main Content */
+        .main {
+            padding-top: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0 0;
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+        }
+        
+        .tagline {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin: 0;
+            opacity: 0.9;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Video Sections */
+        .video-section {
+            margin: 80px 0;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            letter-spacing: 3px;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        
+        /* Featured Video */
+        .featured-video {
+            margin: 60px 0 100px;
+            text-align: center;
+        }
+        
+        .featured-container {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(26, 0, 0, 0.8));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            max-width: 900px;
+            margin: 0 auto;
+            transition: all 0.4s ease;
+        }
+        
+        .featured-container:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+        
+        .video-frame {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            margin-bottom: 25px;
+        }
+        
+        .video-frame iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+        
+        .video-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .video-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .video-card {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(26, 0, 0, 0.7));
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .video-card:hover::before {
+            left: 100%;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.2);
+        }
+        
+        .video-card .video-frame {
+            margin-bottom: 20px;
+            padding-bottom: 56.25%;
+        }
+        
+        .video-card .video-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .video-card .video-description {
+            font-size: 0.9rem;
+        }
+        
+        /* Video Categories */
+        .video-filter {
+            text-align: center;
+            margin: 40px 0 60px;
+        }
+        
+        .filter-btn {
+            background: rgba(255, 215, 0, 0.1);
+            color: rgba(255, 215, 0, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 12px 25px;
+            margin: 0 10px 10px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 1px;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            color: var(--black);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .featured-container {
+                padding: 25px;
+            }
+            
+            .video-card {
+                padding: 20px;
+            }
+            
+            .filter-btn {
+                margin: 0 5px 10px;
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Desktop Responsive */
+        @media (min-width: 769px) {
+            .nav-menu {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+            }
+            
+            .main {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            
+            .hero {
+                padding: 100px 0 0;
+            }
+            
+            .hero-title {
+                font-size: 4.8rem;
+                letter-spacing: 5px;
+            }
+            
+            .tagline {
+                font-size: 1.6rem;
+                letter-spacing: 4px;
+            }
+            
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            }
+        }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.98);
+                backdrop-filter: blur(15px);
+                border-top: 1px solid rgba(255, 215, 0, 0.3);
+                flex-direction: column;
+                padding: 20px;
+                display: none;
+            }
+            
+            .nav-menu.show {
+                display: flex;
+            }
+            
+            .nav-menu a {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="koolkeithmainlogo.png" alt="Ultra Keith">
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="music.html">Music</a></li>
+                <li><a href="personas.html">Personas</a></li>
+                <li><a href="bio.html">Bio</a></li>
+                <li><a href="tour.html">Tour</a></li>
+                <li><a href="shop.html">Shop</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">VIDEOS</h1>
+            <div class="tagline">visual experiences</div>
+        </section>
+
+        <!-- Featured Video -->
+        <section class="featured-video">
+            <div class="featured-container">
+                <div class="video-frame">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="Featured Video" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <h3 class="video-title">LATEST RELEASE</h3>
+                <p class="video-description">
+                    Experience the latest visual masterpiece from Kool Keith. 
+                    A journey through sonic landscapes and artistic expression.
+                </p>
+            </div>
+        </section>
+
+        <!-- Video Filter -->
+        <section class="video-filter">
+            <button class="filter-btn active" data-filter="all">ALL VIDEOS</button>
+            <button class="filter-btn" data-filter="music-videos">MUSIC VIDEOS</button>
+            <button class="filter-btn" data-filter="live">LIVE PERFORMANCES</button>
+            <button class="filter-btn" data-filter="interviews">INTERVIEWS</button>
+        </section>
+
+        <!-- Video Grid -->
+        <section class="video-section">
+            <h2 class="section-title">ALL VIDEOS</h2>
+            <div class="video-grid" id="videoGrid">
+                <!-- Videos will be generated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="music.html">Music</a>
+            <a href="personas.html">Personas</a>
+            <a href="bio.html">Bio</a>
+            <a href="tour.html">Tour</a>
+            <a href="shop.html">Shop</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copyright">
+            © 2025 Ultra Keith. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // VIDEO DATA - Easy to update!
+        const videos = [
+            {
+                id: "dQw4w9WgXcQ", // YouTube video ID
+                title: "Space Cadets",
+                description: "Classic Kool Keith with futuristic visuals and cosmic storytelling.",
+                category: "music-videos"
+            },
+            {
+                id: "dQw4w9WgXcQ",
+                title: "Live at The Observatory",
+                description: "High-energy live performance showcasing Keith's stage presence.",
+                category: "live"
+            },
+            {
+                id: "dQw4w9WgXcQ", 
+                title: "Dr. Octagon Returns",
+                description: "The legendary alter ego makes his visual comeback.",
+                category: "music-videos"
+            },
+            {
+                id: "dQw4w9WgXcQ",
+                title: "Hip-Hop Evolution Interview", 
+                description: "Deep dive into Keith's influence on underground hip-hop.",
+                category: "interviews"
+            },
+            {
+                id: "dQw4w9WgXcQ",
+                title: "Ultra Magnetic MC's Reunion",
+                description: "Rare footage from the legendary group's reunion show.",
+                category: "live"
+            },
+            {
+                id: "dQw4w9WgXcQ",
+                title: "Black Elvis",
+                description: "Surreal visuals meet innovative hip-hop in this artistic piece.",
+                category: "music-videos"
+            }
+        ];
+
+        // Function to generate video HTML
+        function generateVideo(video) {
+            return `
+                <div class="video-card" data-category="${video.category}">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/${video.id}" 
+                                title="${video.title}" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">${video.title}</h3>
+                    <p class="video-description">${video.description}</p>
+                </div>
+            `;
+        }
+
+        // Filter functionality
+        function filterVideos(category) {
+            const videoCards = document.querySelectorAll('.video-card');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-filter="${category}"]`).classList.add('active');
+            
+            // Show/hide videos
+            videoCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update section title
+            const sectionTitle = document.querySelector('.section-title');
+            const titles = {
+                'all': 'ALL VIDEOS',
+                'music-videos': 'MUSIC VIDEOS',
+                'live': 'LIVE PERFORMANCES', 
+                'interviews': 'INTERVIEWS'
+            };
+            sectionTitle.textContent = titles[category];
+        }
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('show');
+            });
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate video grid
+            const videoGrid = document.getElementById('videoGrid');
+            const videosHTML = videos.map(generateVideo).join('');
+            videoGrid.innerHTML = videosHTML;
+
+            // Add filter event listeners
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterVideos(this.dataset.filter);
+                });
+            });
+
+            // Add hover effects to video cards
+            const videoCards = document.querySelectorAll('.video-card');
+            videoCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-12px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
