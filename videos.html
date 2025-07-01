@@ -414,19 +414,16 @@
         <section class="featured-video">
             <div class="featured-container">
                 <div class="video-frame">
-                    <iframe width="100%" height="100%" 
-                            src="https://www.youtube.com/embed/47UvTL2f-dg?si=Bjdih4EPyqv0EAgL" 
-                            title="Morgan State - Latest Release" 
+                    <iframe src="" 
+                            title="Featured Video" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                             referrerpolicy="strict-origin-when-cross-origin" 
                             allowfullscreen>
                     </iframe>
                 </div>
-                <h3 class="video-title">MORGAN STATE - LATEST RELEASE</h3>
-                <p class="video-description">
-                    Kool Keith's newest visual from Morgan State - fresh innovation from the legend.
-                </p>
+                <h3 class="video-title">LOADING...</h3>
+                <p class="video-description">Loading latest video...</p>
             </div>
         </section>
 
@@ -434,84 +431,7 @@
         <section class="video-section">
             <h2 class="section-title">ALL VIDEOS</h2>
             <div class="video-grid">
-                
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/uaiIqb4_Hjg" 
-                                title="Super Hits" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">Super Hits</h3>
-                    <p class="video-description">From Karpenters (2025) - Wayne Campbell directed official music video.</p>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/FSH6H1-HpTE" 
-                                title="Helicopter" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">Helicopter (Lyric Video)</h3>
-                    <p class="video-description">CZARFACE collaboration (2024) featuring Godfather Don & Kool Keith.</p>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/2HVobMRKxZg" 
-                                title="Stars Align" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">Stars Align</h3>
-                    <p class="video-description">2024 single featuring Tha God Fahim & Lord Apex.</p>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/deV3Cyh9SDc" 
-                                title="Fire & Ice" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">Fire & Ice</h3>
-                    <p class="video-description">Serpent album (2023) featuring Ice-T & Slug from Atmosphere.</p>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/jXsHmWiQZxQ" 
-                                title="Black Elvis 2" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">Black Elvis 2</h3>
-                    <p class="video-description">2023 album promotional video - the legendary persona returns.</p>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/Il4Z64Y9XT8" 
-                                title="Live Performance" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">Black Elvis 2 Tour Highlights</h3>
-                    <p class="video-description">Live performance footage from Keith's 2023-2024 tour.</p>
-                </div>
-
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/mfSAHFtG3FE" 
-                                title="Interview" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">40 Years of Innovation Interview</h3>
-                    <p class="video-description">Deep dive into Keith's four-decade journey in hip-hop.</p>
-                </div>
-
+                <!-- Videos automatically generated by JavaScript -->
             </div>
         </section>
     </main>
@@ -533,21 +453,119 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
+        // ===== BULLETPROOF VIDEO SYSTEM =====
+        // TO ADD NEW VIDEO: Just add it at the TOP of this array!
+        // Everything automatically shifts down!
         
-        mobileMenuBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('show');
-        });
-        
-        // Close mobile menu when clicking nav links
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('show');
+        const videos = [
+            // === ADD NEW VIDEOS HERE (newest first) ===
+            {
+                id: "47UvTL2f-dg?si=Bjdih4EPyqv0EAgL",
+                title: "Morgan State",
+                description: "Kool Keith's newest visual from Morgan State - fresh innovation from the legend.",
+                featured: true // This becomes the big video
+            },
+            {
+                id: "uaiIqb4_Hjg",
+                title: "Super Hits",
+                description: "From Karpenters (2025) - Wayne Campbell directed official music video."
+            },
+            {
+                id: "FSH6H1-HpTE",
+                title: "Helicopter (Lyric Video)",
+                description: "CZARFACE collaboration (2024) featuring Godfather Don & Kool Keith."
+            },
+            {
+                id: "2HVobMRKxZg",
+                title: "Stars Align",
+                description: "2024 single featuring Tha God Fahim & Lord Apex."
+            },
+            {
+                id: "deV3Cyh9SDc",
+                title: "Fire & Ice",
+                description: "Serpent album (2023) featuring Ice-T & Slug from Atmosphere."
+            },
+            {
+                id: "jXsHmWiQZxQ?si=Vg9yxcx2epm_IzOE",
+                title: "Black Elvis 2",
+                description: "2023 album promotional video - the legendary persona returns."
+            },
+            {
+                id: "Il4Z64Y9XT8",
+                title: "Black Elvis 2 Tour Highlights",
+                description: "Live performance footage from Keith's 2023-2024 tour."
+            },
+            {
+                id: "mfSAHFtG3FE?si=zz08YwuBTYp_r4V9",
+                title: "40 Years of Innovation Interview",
+                description: "Deep dive into Keith's four-decade journey in hip-hop."
+            }
+        ];
+
+        // Auto-update featured video and grid
+        document.addEventListener('DOMContentLoaded', function() {
+            const featuredVideo = videos.find(v => v.featured) || videos[0];
+            const gridVideos = videos.filter(v => !v.featured);
+
+            // Update featured video
+            const featuredFrame = document.querySelector('.featured-video iframe');
+            const featuredTitle = document.querySelector('.featured-video .video-title');
+            const featuredDesc = document.querySelector('.featured-video .video-description');
+            
+            featuredFrame.src = `https://www.youtube.com/embed/${featuredVideo.id}`;
+            featuredTitle.textContent = `${featuredVideo.title.toUpperCase()} - LATEST RELEASE`;
+            featuredDesc.textContent = featuredVideo.description;
+
+            // Update grid
+            const videoGrid = document.querySelector('.video-grid');
+            videoGrid.innerHTML = gridVideos.map(video => `
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/${video.id}" 
+                                title="${video.title}" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">${video.title}</h3>
+                    <p class="video-description">${video.description}</p>
+                </div>
+            `).join('');
+
+            // Mobile menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('show');
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('show');
+                });
             });
         });
+
+        // ===== INSTRUCTIONS FOR FUTURE UPDATES =====
+        /*
+        TO ADD A NEW LATEST VIDEO:
+        
+        1. Add this at the TOP of the videos array:
+        {
+            id: "NEW_YOUTUBE_ID",
+            title: "New Video Title",
+            description: "Description here.",
+            featured: true
+        },
+        
+        2. Remove "featured: true" from the old video
+        
+        3. Everything else automatically updates:
+        - New video becomes big featured video
+        - All others shift down in grid
+        - Perfect order maintained
+        */
     </script>
 </body>
 </html>
