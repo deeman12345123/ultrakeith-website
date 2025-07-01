@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Players Club - Entry</title>
+    <title>The Players Club</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -29,19 +29,70 @@
             color: var(--keith-white);
             height: 100vh;
             overflow: hidden;
+            transition: filter 0.5s ease, transform 0.3s ease;
         }
         
-        /* CLUB ENTRANCE */
-        .entrance-container {
-            position: relative;
+        /* DRUNK EFFECTS */
+        .drunk-1, .drunk-2 { filter: blur(0.5px); }
+        .drunk-3, .drunk-4 { filter: blur(1px); animation: subtleSway 4s ease-in-out infinite; }
+        .drunk-5, .drunk-6 { filter: blur(2px); animation: moderateSway 3s ease-in-out infinite; }
+        .drunk-7, .drunk-8 { filter: blur(3px); animation: heavySway 2s ease-in-out infinite; }
+        .drunk-9 { filter: blur(4px); animation: extremeSway 1.5s ease-in-out infinite; }
+        .drunk-10 { filter: blur(5px) saturate(1.3); animation: maxSway 1s ease-in-out infinite; }
+        
+        @keyframes subtleSway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(1px) translateY(0.5px); }
+        }
+        
+        @keyframes moderateSway {
+            0%, 100% { transform: translateX(0px); }
+            25% { transform: translateX(2px); }
+            75% { transform: translateX(-1px); }
+        }
+        
+        @keyframes heavySway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(3px) translateY(2px); }
+            75% { transform: translateX(-2px) translateY(-1px); }
+        }
+        
+        @keyframes extremeSway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            33% { transform: translateX(4px) translateY(3px); }
+            66% { transform: translateX(-3px) translateY(2px); }
+        }
+        
+        @keyframes maxSway {
+            0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+            25% { transform: translateX(5px) translateY(3px) rotate(0.5deg); }
+            75% { transform: translateX(-4px) translateY(-2px) rotate(-0.3deg); }
+        }
+        
+        /* SCENE SYSTEM */
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s ease;
+        }
+        
+        .scene.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* ENTRANCE SCENE */
+        .entrance-scene {
             background: 
                 radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
                 linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 50%, var(--keith-black) 100%);
         }
         
-        /* NEON SIGN */
         .club-sign {
             position: absolute;
             top: 15%;
@@ -51,21 +102,17 @@
             font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 900;
             color: var(--neon-pink);
-            text-shadow: 
-                0 0 10px var(--pink-glow),
-                0 0 20px var(--pink-glow),
-                0 0 40px var(--pink-glow);
+            text-shadow: 0 0 10px var(--pink-glow), 0 0 20px var(--pink-glow);
             animation: neonFlicker 3s ease-in-out infinite alternate;
             text-transform: lowercase;
             font-style: italic;
         }
         
         @keyframes neonFlicker {
-            0%, 100% { text-shadow: 0 0 10px var(--pink-glow), 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow); }
-            50% { text-shadow: 0 0 15px var(--pink-glow), 0 0 30px var(--pink-glow), 0 0 60px var(--pink-glow); }
+            0%, 100% { text-shadow: 0 0 10px var(--pink-glow), 0 0 20px var(--pink-glow); }
+            50% { text-shadow: 0 0 15px var(--pink-glow), 0 0 30px var(--pink-glow); }
         }
         
-        /* DOOR */
         .door-container {
             position: absolute;
             bottom: 20%;
@@ -76,7 +123,6 @@
         }
         
         .door {
-            position: relative;
             width: 100%;
             height: 100%;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
@@ -115,7 +161,6 @@
             border-radius: 8px;
         }
         
-        /* PIN HOTSPOT */
         .pin-hotspot {
             position: absolute;
             right: -80px;
@@ -135,6 +180,136 @@
             border-color: var(--keith-gold);
             background: rgba(218, 181, 71, 0.2);
             box-shadow: 0 0 15px rgba(218, 181, 71, 0.4);
+        }
+        
+        /* CASHIER SCENE */
+        .cashier-scene {
+            background: linear-gradient(135deg, #2a2a1a 0%, #1a1a0a 50%, var(--keith-black) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .cashier-window {
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .cashier-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .name-input {
+            background: rgba(218, 181, 71, 0.1);
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: var(--keith-white);
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        /* BOOTH SCENE */
+        .booth-scene {
+            background: 
+                radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
+                linear-gradient(135deg, #2a1a1a 0%, #1a0a0a 50%, var(--keith-black) 100%);
+        }
+        
+        .booth-table {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 25%;
+            background: 
+                radial-gradient(ellipse at center bottom, rgba(139, 69, 19, 0.4) 0%, transparent 60%),
+                linear-gradient(to top, rgba(26, 26, 26, 0.95) 0%, transparent 70%);
+        }
+        
+        .champagne-glass {
+            position: absolute;
+            bottom: 22%;
+            left: 35%;
+            width: 60px;
+            height: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .champagne-glass:hover {
+            transform: scale(1.1);
+        }
+        
+        .phone {
+            position: absolute;
+            bottom: 22%;
+            right: 35%;
+            width: 60px;
+            height: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .phone:hover {
+            transform: scale(1.1);
+        }
+        
+        /* DRUNK ITEMS */
+        .drunk-item {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+        
+        .drunk-item.visible {
+            opacity: 1;
+        }
+        
+        .earring-item {
+            bottom: 25%;
+            left: 40%;
+            font-size: 1rem;
+        }
+        
+        .bra-item {
+            bottom: 30%;
+            right: 15%;
+            font-size: 2rem;
+        }
+        
+        .panties-item {
+            bottom: 15%;
+            left: 25%;
+            font-size: 1.5rem;
+        }
+        
+        .heels-item {
+            bottom: 22%;
+            left: 50%;
+            font-size: 2rem;
         }
         
         /* PIN PAD OVERLAY */
@@ -214,7 +389,7 @@
             transform: scale(1.05);
         }
         
-        /* MESSAGE DISPLAY WITH PROGRESSIVE COLORS */
+        /* MESSAGE DISPLAY */
         .message-display {
             position: fixed;
             top: 50%;
@@ -230,31 +405,23 @@
             max-width: 500px;
             z-index: 2000;
             display: none;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
+        
+        .message-display.show { display: block; }
         
         .message-display.warning1 {
             border-color: #00ff41;
             color: #00ff41;
-            background: rgba(0, 255, 65, 0.05);
-            text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
         }
         
         .message-display.warning2 {
             border-color: #ffa500;
             color: #ffa500;
-            background: rgba(255, 165, 0, 0.05);
-            text-shadow: 0 0 8px rgba(255, 165, 0, 0.6);
-            animation: warningPulse 1s ease-in-out 2;
         }
         
         .message-display.warning3 {
             border-color: #ff073a;
             color: #ff073a;
-            background: rgba(255, 7, 58, 0.05);
-            text-shadow: 0 0 8px rgba(255, 7, 58, 0.6);
-            animation: urgentPulse 0.5s ease-in-out 3;
         }
         
         .message-display.hint {
@@ -262,39 +429,56 @@
             color: var(--keith-gold-light);
             background: rgba(218, 181, 71, 0.15);
             font-weight: bold;
-            text-shadow: 0 0 12px var(--keith-gold-light);
-            animation: hintGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px var(--keith-gold-light);
         }
         
         .message-display.success {
             border-color: #00ff41;
             color: #00ff41;
-            background: rgba(0, 255, 65, 0.1);
-            animation: successFlash 0.3s ease-in-out 3;
         }
         
-        @keyframes warningPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.02); }
+        /* UI ELEMENTS */
+        .ui-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 15px;
+            font-family: 'Orbitron', monospace;
+            display: none;
         }
         
-        @keyframes urgentPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.05); }
+        .ui-panel.show { display: block; }
+        
+        .chip-display {
+            color: var(--keith-gold);
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         
-        @keyframes hintGlow {
-            0% { text-shadow: 0 0 12px var(--keith-gold-light), 0 0 20px var(--keith-gold-light); }
-            100% { text-shadow: 0 0 20px var(--keith-gold-light), 0 0 30px var(--keith-gold-light); }
+        .drink-counter {
+            color: var(--keith-white);
+            font-size: 0.9rem;
         }
         
-        @keyframes successFlash {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .btn {
+            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
+            color: var(--keith-black);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
         }
         
-        .message-display.show {
-            display: block;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.4);
         }
         
         /* LOCKOUT SCREEN */
@@ -328,57 +512,19 @@
             font-weight: 900;
         }
         
-        .lockout-subtitle {
-            font-size: 1.2rem;
-            color: #ff073a;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        
-        .track-info {
-            background: rgba(218, 181, 71, 0.1);
-            border: 1px solid var(--keith-gold);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        
-        .unlock-btn {
-            background: var(--keith-gold);
-            color: var(--keith-black);
-            border: none;
-            padding: 15px 25px;
-            border-radius: 25px;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 10px;
-        }
-        
-        .instructions {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: var(--keith-white);
-            opacity: 0.7;
-        }
-        
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .door-container { width: 250px; height: 320px; }
             .pin-pad { width: 250px; padding: 25px; }
             .message-display { max-width: 90%; padding: 25px 30px; font-size: 1rem; }
+            .champagne-glass, .phone { width: 50px; height: 80px; font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <div class="entrance-container">
-        <!-- NEON SIGN -->
+    <!-- ENTRANCE SCENE -->
+    <div class="scene entrance-scene active" id="entranceScene">
         <div class="club-sign">the players club</div>
-        
-        <!-- DOOR -->
         <div class="door-container">
             <div class="door" id="clubDoor">
                 <div class="door-window"></div>
@@ -386,10 +532,44 @@
             </div>
             <div class="pin-hotspot" onclick="showPinPad()"></div>
         </div>
+    </div>
+    
+    <!-- CASHIER SCENE -->
+    <div class="scene cashier-scene" id="cashierScene">
+        <div class="cashier-window">
+            <h2 class="cashier-title">Welcome to The Players Club</h2>
+            <p style="margin-bottom: 20px;">Keith was expecting you! What's your name?</p>
+            <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
+            <p style="margin: 20px 0; font-size: 0.9rem; opacity: 0.8;">
+                Keith's left you 500 chips and his personal phone. Don't drink too much champagne!
+            </p>
+            <button class="btn" onclick="enterClub()">Enter VIP Booth</button>
+        </div>
+    </div>
+    
+    <!-- BOOTH SCENE -->
+    <div class="scene booth-scene" id="boothScene">
+        <div class="club-sign">the players club</div>
         
-        <!-- INSTRUCTIONS -->
-        <div class="instructions">
-            Look for the PIN pad on the wall next to the door
+        <!-- VIP Table -->
+        <div class="booth-table">
+            <div class="champagne-glass" onclick="drinkChampagne()" title="Champagne">🥂</div>
+            <div class="phone" onclick="openPhone()" title="Keith's Phone">📱</div>
+        </div>
+        
+        <!-- Drunk Items -->
+        <div class="drunk-item earring-item">💎</div>
+        <div class="drunk-item bra-item">👙</div>
+        <div class="drunk-item panties-item">🩲</div>
+        <div class="drunk-item heels-item">👠</div>
+    </div>
+    
+    <!-- UI PANEL -->
+    <div class="ui-panel" id="uiPanel">
+        <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
+        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
+        <div style="margin-top: 10px; font-size: 0.8rem;">
+            <div>Player: <span id="playerDisplay">Guest</span></div>
         </div>
     </div>
     
@@ -422,60 +602,30 @@
     <div class="lockout-screen" id="lockoutScreen">
         <div class="lockout-content">
             <div class="lockout-title">ACCESS DENIED</div>
-            <div class="lockout-subtitle" id="lockoutSubtitle">COME BACK IN 15 MINUTES</div>
-            <div class="track-info">
-                <h3 style="color: var(--keith-gold); margin-bottom: 10px;">🎵 Listen While You Wait</h3>
-                <p id="trackName">"Critical Beatdown" - Ultramagnetic MCs</p>
-                <p style="font-size: 0.9rem; margin-top: 10px;">(Track would play here in real version)</p>
-            </div>
-            <button class="unlock-btn" onclick="emergencyUnlock()">Emergency Unlock (Test)</button>
-            <button class="unlock-btn" onclick="window.location.href='../home.html'">Return Home</button>
+            <div id="lockoutMessage">You've been ejected from the club.</div>
+            <button class="btn" onclick="resetClub()">Start Over (Testing)</button>
         </div>
     </div>
 
     <script>
+        // GAME STATE
         let currentPin = '';
-        let attempts = 0;
+        let pinAttempts = 0;
+        let playerName = '';
+        let chipCount = 500;
+        let drinkCount = 0;
+        let currentScene = 'entrance';
         
-        const LOCKOUT_TIMES = {
-            pin_failure: 15 * 60 * 1000, // 15 minutes
-            drunk_ejection: 12 * 60 * 60 * 1000 // 12 hours
-        };
-        
-        // CHECK LOCKOUT ON LOAD
-        function checkLockout() {
-            const lockoutData = localStorage.getItem('clubLockout');
-            if (!lockoutData) return false;
-            
-            const lockout = JSON.parse(lockoutData);
-            const now = Date.now();
-            
-            if (now < lockout.expires) {
-                const minutesLeft = Math.ceil((lockout.expires - now) / (1000 * 60));
-                showLockoutScreen(lockout.type, minutesLeft);
-                return true;
-            } else {
-                localStorage.removeItem('clubLockout');
-                return false;
-            }
+        // SCENE MANAGEMENT
+        function showScene(sceneName) {
+            document.querySelectorAll('.scene').forEach(scene => {
+                scene.classList.remove('active');
+            });
+            document.getElementById(sceneName + 'Scene').classList.add('active');
+            currentScene = sceneName;
         }
         
-        function showLockoutScreen(type, minutesLeft) {
-            const screen = document.getElementById('lockoutScreen');
-            const subtitle = document.getElementById('lockoutSubtitle');
-            const trackName = document.getElementById('trackName');
-            
-            if (type === 'pin_failure') {
-                subtitle.textContent = `COME BACK IN ${minutesLeft} MINUTES`;
-                trackName.textContent = '"Critical Beatdown" - Ultramagnetic MCs';
-            } else if (type === 'drunk_ejection') {
-                subtitle.textContent = `COME BACK IN ${Math.ceil(minutesLeft/60)} HOURS`;
-                trackName.textContent = '"How to Handle Your Liquor - Keith Style" (Sobriety Course)';
-            }
-            
-            screen.style.display = 'flex';
-        }
-        
+        // PIN SYSTEM
         function showPinPad() {
             document.getElementById('pinOverlay').style.display = 'flex';
         }
@@ -487,16 +637,16 @@
         function enterPin(digit) {
             if (currentPin.length < 3) {
                 currentPin += digit;
-                updateDisplay();
+                updatePinDisplay();
             }
         }
         
         function clearPin() {
             currentPin = '';
-            updateDisplay();
+            updatePinDisplay();
         }
         
-        function updateDisplay() {
+        function updatePinDisplay() {
             const display = document.getElementById('pinDisplay');
             display.textContent = currentPin.length === 0 ? '***' : currentPin.padEnd(3, '*');
         }
@@ -504,44 +654,138 @@
         function submitPin() {
             if (currentPin.length !== 3) return;
             
-            attempts++;
-            console.log(`Attempt ${attempts}: PIN = ${currentPin}`);
+            pinAttempts++;
             
             if (currentPin === '223') {
-                showSuccess();
+                showPinSuccess();
             } else {
-                showError();
+                showPinError();
             }
             
             clearPin();
         }
         
-        function showError() {
+        function showPinError() {
             let message = '';
             let type = '';
             
-            if (attempts === 1) {
+            if (pinAttempts === 1) {
                 message = 'Come on, player... you should know this.';
-                type = 'warning1'; // Green - friendly warning
-            } else if (attempts === 2) {
+                type = 'warning1';
+            } else if (pinAttempts === 2) {
                 message = 'Keith\'s not gonna like this... think harder.';
-                type = 'warning2'; // Orange - getting serious
-            } else if (attempts === 3) {
+                type = 'warning2';
+            } else if (pinAttempts === 3) {
                 message = 'Alright, I\'ll help you out - Dr. Doom\'s apartment number';
-                type = 'hint'; // Gold - helpful hint
-                console.log('SHOWING HINT!');
+                type = 'hint';
             } else {
-                message = 'FINAL WARNING - One more attempt!';
-                type = 'warning3'; // Red - urgent
-                if (attempts >= 4) {
-                    createLockout('pin_failure');
-                    return;
-                }
+                createLockout('pin_failure');
+                return;
             }
             
             showMessage(message, type);
         }
         
+        function showPinSuccess() {
+            hidePinPad();
+            showMessage('Welcome to The Players Club!', 'success');
+            
+            // Animate door opening
+            setTimeout(() => {
+                document.getElementById('clubDoor').classList.add('sliding');
+                setTimeout(() => {
+                    showScene('cashier');
+                }, 1000);
+            }, 1500);
+        }
+        
+        // CASHIER SYSTEM
+        function enterClub() {
+            const nameInput = document.getElementById('playerNameInput');
+            if (nameInput.value.trim()) {
+                playerName = nameInput.value.trim();
+                document.getElementById('playerDisplay').textContent = playerName;
+                showScene('booth');
+                document.getElementById('uiPanel').classList.add('show');
+                showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
+            } else {
+                showMessage('Please enter your name first!', 'warning2');
+            }
+        }
+        
+        // DRUNK SYSTEM
+        function drinkChampagne() {
+            if (drinkCount >= 10) return;
+            
+            drinkCount++;
+            document.getElementById('drinkCount').textContent = drinkCount;
+            updateDrunkEffects();
+            
+            // Show drunk items based on drink count
+            if (drinkCount >= 3) showDrunkItem('earring-item');
+            if (drinkCount >= 5) showDrunkItem('bra-item');
+            if (drinkCount >= 7) showDrunkItem('panties-item');
+            if (drinkCount >= 9) showDrunkItem('heels-item');
+            
+            // Messages
+            if (drinkCount === 3) {
+                showMessage('Nice champagne... wait, what\'s that?', 'warning1');
+            } else if (drinkCount === 5) {
+                showMessage('Things are getting interesting...', 'warning2');
+            } else if (drinkCount === 7) {
+                showMessage('This is getting out of hand...', 'warning3');
+            } else if (drinkCount === 9) {
+                showMessage('Seriously? Heels on the table?!', 'warning3');
+            } else if (drinkCount === 10) {
+                setTimeout(() => {
+                    createLockout('drunk_ejection');
+                }, 1000);
+            }
+        }
+        
+        function updateDrunkEffects() {
+            document.body.className = drinkCount > 0 ? `drunk-${drinkCount}` : '';
+        }
+        
+        function showDrunkItem(className) {
+            document.querySelector('.' + className).classList.add('visible');
+        }
+        
+        // PHONE SYSTEM
+        function openPhone() {
+            if (!playerName) {
+                showMessage('Register at the cashier first!', 'warning2');
+                return;
+            }
+            
+            const responses = [
+                `Yo ${playerName}, you reached Keith directly. What's good?`,
+                `${playerName}! Hope you're enjoying the VIP treatment.`,
+                `What's up ${playerName}? Don't go too crazy with that champagne.`
+            ];
+            
+            const message = responses[Math.floor(Math.random() * responses.length)];
+            showMessage(message, 'success');
+        }
+        
+        // LOCKOUT SYSTEM
+        function createLockout(type) {
+            const lockout = {
+                type: type,
+                expires: Date.now() + (type === 'pin_failure' ? 15 * 60 * 1000 : 12 * 60 * 60 * 1000)
+            };
+            
+            localStorage.setItem('clubLockout', JSON.stringify(lockout));
+            
+            const message = type === 'pin_failure' 
+                ? 'Too many failed PIN attempts. Come back in 15 minutes and listen to this Keith track.'
+                : 'Security says you\'ve had enough. Come back in 12 hours after this sobriety course.';
+            
+            document.getElementById('lockoutMessage').textContent = message;
+            document.getElementById('lockoutScreen').style.display = 'flex';
+        }
+        
+        // MESSAGE SYSTEM
         function showMessage(text, type) {
             const messageEl = document.getElementById('messageDisplay');
             messageEl.textContent = text;
@@ -553,60 +797,25 @@
             }, duration);
         }
         
-        function showSuccess() {
-            hidePinPad();
-            showMessage('Welcome to The Players Club!', 'success');
-            
-            setTimeout(() => {
-                showMessage('Door sliding open... music getting louder...', 'success');
-                openDoor();
-            }, 2000);
-        }
-        
-        function openDoor() {
-            document.getElementById('clubDoor').classList.add('sliding');
-            
-            setTimeout(() => {
-                alert('🎰 Entering club... (Next page would load here)');
-                resetDemo();
-            }, 1500);
-        }
-        
-        function createLockout(type) {
-            const lockoutData = {
-                type: type,
-                expires: Date.now() + LOCKOUT_TIMES[type]
-            };
-            
-            localStorage.setItem('clubLockout', JSON.stringify(lockoutData));
-            
-            const minutes = type === 'pin_failure' ? 15 : (12 * 60);
-            showLockoutScreen(type, minutes);
-        }
-        
-        function emergencyUnlock() {
+        // RESET SYSTEM
+        function resetClub() {
             localStorage.removeItem('clubLockout');
-            location.reload();
+            currentPin = '';
+            pinAttempts = 0;
+            playerName = '';
+            chipCount = 500;
+            drinkCount = 0;
+            document.body.className = '';
+            document.getElementById('lockoutScreen').style.display = 'none';
+            document.getElementById('uiPanel').classList.remove('show');
+            document.querySelectorAll('.drunk-item').forEach(item => {
+                item.classList.remove('visible');
+            });
+            document.getElementById('clubDoor').classList.remove('sliding');
+            showScene('entrance');
+            updatePinDisplay();
         }
         
-        function resetDemo() {
-            setTimeout(() => {
-                document.getElementById('clubDoor').classList.remove('sliding');
-                currentPin = '';
-                attempts = 0;
-                updateDisplay();
-            }, 2000);
-        }
-        
-        // INITIALIZE
-        document.addEventListener('DOMContentLoaded', function() {
-            if (checkLockout()) return;
-            
-            updateDisplay();
-            console.log('🚪 Players Club Entry Ready');
-            console.log('💡 Correct PIN: 223');
-            console.log('🎯 Try 111, 222, 333 to see hint!');
-        });
-    </script>
-</body>
-</html>
+        // CHECK LOCKOUT ON LOAD
+        function checkLockout() {
+            const lockoutData = localStorage.getItem('clubLockout');
