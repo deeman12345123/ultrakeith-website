@@ -104,8 +104,7 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 60px 0 60px;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            padding: 80px 0 60px;
         }
         
         .hero-title {
@@ -116,7 +115,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             line-height: 1.1;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -124,138 +123,43 @@
             filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
         }
         
-        .hero-tagline {
+        .tagline {
             font-family: 'Roboto', sans-serif;
-            font-size: 1.5rem;
-            color: #ffffff;
-            background: #ff0000;
+            font-size: 1.1rem;
+            color: var(--gold);
             font-style: italic;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin: 30px 0;
-            padding: 20px;
-            border: 3px solid #00ff00;
-            display: block;
-            text-align: center;
-            z-index: 999;
-            position: relative;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.95);
-            line-height: 1.5;
-            max-width: 600px;
-            margin: 0 auto 40px;
             font-weight: 300;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            opacity: 0.8;
         }
         
-        /* Tour Image Section */
+        /* Tour Image */
         .tour-image-section {
-            margin: 40px 0 120px;
+            margin: 0 0 80px;
             text-align: center;
-            position: relative;
-        }
-        
-        .tour-image-section::after {
-            content: '';
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
         }
         
         .tour-image-container {
-            position: relative;
             display: inline-block;
             border-radius: 25px;
             overflow: hidden;
-            box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.8),
-                0 0 60px rgba(255, 215, 0, 0.1),
-                inset 0 0 0 1px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.2);
             max-width: 900px;
             width: 100%;
-            backdrop-filter: blur(20px);
         }
         
         .tour-image {
             width: 100%;
             height: auto;
             display: block;
-            filter: contrast(1.15) saturate(1.3) brightness(1.05);
+            filter: contrast(1.15) saturate(1.3);
         }
         
-        /* Featured Tour Section */
-        .featured-tour {
-            margin: 80px 0;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 20px;
-            padding: 60px 40px;
-            backdrop-filter: blur(15px);
-            text-align: center;
-        }
-        
-        .featured-tour-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-            letter-spacing: 3px;
-            font-weight: 700;
-        }
-        
-        .featured-tour-subtitle {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-        
-        .tour-description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.7;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-        
-        .tour-highlights {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .highlight {
-            text-align: center;
-        }
-        
-        .highlight-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            color: var(--gold);
-            font-weight: 700;
-            display: block;
-        }
-        
-        .highlight-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* Tour Dates Section */
+        /* Tour Dates */
         .tour-dates {
-            margin: 100px 0;
+            margin: 80px 0;
         }
         
         .section-title {
@@ -286,6 +190,8 @@
             display: grid;
             gap: 25px;
             grid-template-columns: 1fr;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .date-card {
@@ -321,9 +227,7 @@
         .date-card:hover {
             transform: translateY(-8px) translateX(5px);
             border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 
-                0 25px 60px rgba(0, 0, 0, 0.7),
-                0 0 40px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.2);
         }
         
         .date-info {
@@ -370,45 +274,6 @@
             color: rgba(255, 255, 255, 0.6);
         }
         
-        .ticket-action {
-            text-align: center;
-        }
-        
-        .ticket-btn {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: var(--black);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .ticket-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
-        }
-        
-        .ticket-btn.sold-out {
-            background: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.6);
-            cursor: not-allowed;
-        }
-        
-        .ticket-btn.sold-out:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-
-        
         /* Footer */
         .footer {
             border-top: 1px solid rgba(255, 215, 0, 0.3);
@@ -447,17 +312,8 @@
                 letter-spacing: 2px;
             }
             
-            .tour-image-container {
-                margin: 0 10px;
-            }
-            
-            .featured-tour-title {
-                font-size: 1.8rem;
-                letter-spacing: 2px;
-            }
-            
-            .tour-highlights {
-                gap: 25px;
+            .tagline {
+                font-size: 1rem;
             }
             
             .date-card {
@@ -473,8 +329,6 @@
             .venue-info {
                 order: 2;
             }
-            
-
         }
         
         /* Desktop Responsive */
@@ -493,33 +347,16 @@
             }
             
             .hero {
-                padding: 80px 0 60px;
+                padding: 100px 0 80px;
             }
             
             .hero-title {
                 font-size: 4.8rem;
                 letter-spacing: 5px;
-                margin-bottom: 20px;
             }
             
-            .hero-tagline {
-                font-size: 1.4rem;
-                letter-spacing: 3px;
-            }
-            
-            .featured-tour {
-                padding: 80px 60px;
-            }
-            
-            .featured-tour-title {
-                font-size: 3.5rem;
-                letter-spacing: 4px;
-            }
-            
-            .dates-grid {
-                grid-template-columns: 1fr;
-                max-width: 800px;
-                margin: 0 auto;
+            .tagline {
+                font-size: 1.2rem;
             }
         }
         
@@ -573,14 +410,13 @@
         <!-- Hero Section -->
         <section class="hero">
             <h1 class="hero-title">TOUR DATES</h1>
-
+            <div class="tagline">always on tour</div>
         </section>
 
-        <!-- Tour Image Section -->
+        <!-- Tour Image -->
         <section class="tour-image-section">
             <div class="tour-image-container">
                 <img src="tour.jpg" alt="Kool Keith Live Tour" class="tour-image">
-                <div class="tour-image-overlay"></div>
             </div>
         </section>
 
@@ -661,8 +497,6 @@
                 </div>
             </div>
         </section>
-
-
     </main>
 
     <!-- Footer -->
@@ -697,29 +531,15 @@
             });
         });
         
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-        
         // Add hover effects to date cards
         const dateCards = document.querySelectorAll('.date-card');
         dateCards.forEach(card => {
             card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px)';
+                this.style.transform = 'translateY(-12px) translateX(8px)';
             });
             
             card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-5px)';
+                this.style.transform = 'translateY(-8px) translateX(5px)';
             });
         });
     </script>
