@@ -15,7 +15,6 @@
             --keith-white: #FFFFFF;
             --neon-pink: #FF1493;
             --pink-glow: rgba(255, 20, 147, 0.6);
-            --dark-bg: #0a0a0a;
             --card-bg: rgba(26, 26, 26, 0.95);
         }
         
@@ -25,15 +24,19 @@
             box-sizing: border-box;
         }
         
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        
         body {
             font-family: 'Inter', Arial, sans-serif;
             background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
             color: var(--keith-white);
-            min-height: 100vh;
             transition: filter 0.5s ease, transform 0.3s ease;
         }
 
-        /* HEADER MATCHING HOMEPAGE */
+        /* HEADER */
         .header {
             position: fixed;
             top: 0;
@@ -82,8 +85,8 @@
 
         /* MAIN CONTENT */
         .main-content {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
+            height: 100vh;
+            padding-top: 80px;
             position: relative;
         }
         
@@ -144,35 +147,14 @@
         /* ENTRANCE SCENE - SECRET VIP */
         .entrance-scene {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: calc(100vh - 80px);
+            height: 100%;
             background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
-            position: relative;
-            padding: 20px;
         }
 
-        .club-entrance-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: auto;
-            max-width: 800px;
-            gap: 60px;
-        }
-
-        /* CLUB SIGN - SUBTLE */
-        .club-sign-overlay {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 10;
-        }
-        
+        /* CLUB SIGN */
         .club-sign {
             font-family: 'Orbitron', monospace;
             font-size: clamp(2rem, 8vw, 4rem);
@@ -182,16 +164,8 @@
             animation: neonFlicker 3s ease-in-out infinite alternate;
             text-transform: lowercase;
             font-style: italic;
-            margin-bottom: 15px;
-        }
-
-        .club-description {
-            color: var(--keith-white);
-            font-size: clamp(0.9rem, 2vw, 1.2rem);
-            max-width: 600px;
+            margin-bottom: 60px;
             text-align: center;
-            opacity: 0.9;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
         
         @keyframes neonFlicker {
@@ -199,11 +173,35 @@
             50% { text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--pink-glow); }
         }
 
-        /* LIFE-SIZE DOOR */
+        /* ENTRANCE CONTAINER */
+        .entrance-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+        }
+
+        /* SECURITY KEYPAD - LEFT */
+        .security-keypad {
+            width: auto;
+            height: 15vh;
+            max-height: 150px;
+            min-height: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+        }
+        
+        .security-keypad:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
+        }
+
+        /* CLUB DOOR - RIGHT */
         .club-door {
             width: auto;
-            height: 75vh; /* Life-size height */
-            max-height: 600px;
+            height: 70vh;
+            max-height: 500px;
             object-fit: contain;
             transition: transform 1s ease-in-out;
             transform-origin: left center;
@@ -215,39 +213,10 @@
             opacity: 0;
         }
 
-        /* SECURITY KEYPAD - POSITIONED LEFT OF DOOR */
-        .security-keypad {
-            width: auto;
-            height: 12vh;
-            max-height: 120px;
-            min-height: 80px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
-            order: 1;
-        }
-        
-        .security-keypad:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
-        }
-
-        /* DOOR ORDER */
-        .club-door {
-            width: auto;
-            height: 75vh;
-            max-height: 600px;
-            object-fit: contain;
-            transition: transform 1s ease-in-out;
-            transform-origin: left center;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-            order: 2;
-        }
-
-        /* FALLBACK STYLING IF NO PHOTOS */
+        /* FALLBACK STYLING */
         .door-fallback {
-            width: 300px;
-            height: 400px;
+            width: 250px;
+            height: 350px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid var(--keith-gold);
             border-radius: 15px;
@@ -256,8 +225,8 @@
         }
 
         .keypad-fallback {
-            width: 80px;
-            height: 100px;
+            width: 100px;
+            height: 130px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid var(--keith-gold);
             border-radius: 12px;
@@ -267,14 +236,21 @@
             justify-content: center;
             color: var(--keith-gold);
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .keypad-fallback::before {
             content: '🔢';
-            font-size: 2rem;
-            margin-bottom: 5px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .keypad-fallback:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(218, 181, 71, 0.4);
         }
         
         /* CASHIER SCENE */
@@ -282,7 +258,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: calc(100vh - 80px);
+            height: 100%;
             background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
         }
         
@@ -317,17 +293,16 @@
             font-family: 'Orbitron', monospace;
         }
         
-        /* BOOTH SCENE - LIFE-SIZE PHOTO BACKGROUND */
+        /* BOOTH SCENE */
         .booth-scene {
-            min-height: calc(100vh - 80px);
-            background-image: url('photos/vip-booth.jpg'); /* YOUR PHOTO HERE */
+            height: 100%;
+            background-image: url('photos/vip-booth.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
         }
 
-        /* FALLBACK IF NO BOOTH PHOTO */
         .booth-scene:not([style*="background-image"]) {
             background: 
                 radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
@@ -343,29 +318,28 @@
             z-index: 5;
         }
         
-        /* VIP TABLE ITEMS - POSITIONED ON REAL PHOTO */
+        /* TABLE ITEMS */
         .table-items-container {
             position: absolute;
             bottom: 20%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 150px;
+            gap: 120px;
             align-items: center;
             z-index: 10;
         }
         
         .champagne-glass, .phone {
             width: auto;
-            height: 8vh;
-            min-height: 60px;
-            max-height: 100px;
+            height: 10vh;
+            min-height: 80px;
+            max-height: 120px;
             cursor: pointer;
             transition: all 0.3s ease;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
         }
 
-        /* FALLBACK STYLING IF NO ITEM PHOTOS */
         .champagne-fallback, .phone-fallback {
             width: 80px;
             height: 80px;
@@ -376,6 +350,8 @@
             background: rgba(218, 181, 71, 0.1);
             border: 2px solid var(--keith-gold);
             border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
         .champagne-glass:hover, .phone:hover,
@@ -398,29 +374,10 @@
             opacity: 1;
         }
         
-        .earring-item {
-            bottom: 35%;
-            left: 40%;
-            font-size: 1rem;
-        }
-        
-        .bra-item {
-            bottom: 40%;
-            right: 15%;
-            font-size: 2rem;
-        }
-        
-        .panties-item {
-            bottom: 25%;
-            left: 25%;
-            font-size: 1.5rem;
-        }
-        
-        .heels-item {
-            bottom: 32%;
-            left: 50%;
-            font-size: 2rem;
-        }
+        .earring-item { bottom: 35%; left: 40%; font-size: 1rem; }
+        .bra-item { bottom: 40%; right: 15%; font-size: 2rem; }
+        .panties-item { bottom: 25%; left: 25%; font-size: 1.5rem; }
+        .heels-item { bottom: 32%; left: 50%; font-size: 2rem; }
         
         /* PIN PAD OVERLAY */
         .pin-overlay {
@@ -521,20 +478,9 @@
         
         .message-display.show { display: block; }
         
-        .message-display.warning1 {
-            border-color: #00ff41;
-            color: #00ff41;
-        }
-        
-        .message-display.warning2 {
-            border-color: #ffa500;
-            color: #ffa500;
-        }
-        
-        .message-display.warning3 {
-            border-color: #ff073a;
-            color: #ff073a;
-        }
+        .message-display.warning1 { border-color: #00ff41; color: #00ff41; }
+        .message-display.warning2 { border-color: #ffa500; color: #ffa500; }
+        .message-display.warning3 { border-color: #ff073a; color: #ff073a; }
         
         .message-display.hint {
             border-color: var(--keith-gold-light);
@@ -560,7 +506,7 @@
             text-shadow: 0 0 10px var(--pink-glow);
         }
         
-        /* UI ELEMENTS */
+        /* UI PANEL */
         .ui-panel {
             position: fixed;
             top: 100px;
@@ -668,22 +614,11 @@
         /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
             .nav-menu { display: none; }
-            .main-content { margin-top: 70px; }
             
-            .entrance-scene {
-                padding: 15px;
-            }
-            
-            .club-entrance-container {
+            .entrance-container {
                 flex-direction: column;
-                gap: 20px;
+                gap: 40px;
                 align-items: center;
-            }
-            
-            .security-keypad {
-                height: 8vh;
-                min-height: 60px;
-                order: 2;
             }
             
             .club-door {
@@ -692,8 +627,15 @@
                 order: 1;
             }
             
-            .security-keypad:hover {
-                transform: scale(1.05);
+            .security-keypad {
+                height: 12vh;
+                min-height: 80px;
+                order: 2;
+            }
+            
+            .club-sign {
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
+                margin-bottom: 40px;
             }
             
             .table-items-container {
@@ -702,8 +644,8 @@
             }
             
             .champagne-glass, .phone {
-                height: 6vh;
-                min-height: 50px;
+                height: 8vh;
+                min-height: 60px;
             }
             
             .pin-pad { 
@@ -721,19 +663,11 @@
                 right: 15px; 
                 min-width: 180px; 
             }
-
-            .club-sign {
-                font-size: clamp(1.5rem, 6vw, 2.5rem);
-            }
         }
 
         @media (max-width: 480px) {
-            .entrance-scene {
-                padding: 10px;
-            }
-            
-            .club-entrance-container {
-                gap: 15px;
+            .entrance-container {
+                gap: 30px;
             }
             
             .club-door {
@@ -742,8 +676,8 @@
             }
             
             .security-keypad {
-                height: 6vh;
-                min-height: 50px;
+                height: 10vh;
+                min-height: 70px;
             }
             
             .table-items-container {
@@ -752,53 +686,14 @@
             }
 
             .club-sign {
-                font-size: clamp(1.2rem, 5vw, 2rem);
-                margin-bottom: 10px;
-            }
-        }
-
-        /* LANDSCAPE MOBILE */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .entrance-scene {
-                flex-direction: row;
-                justify-content: space-around;
-                align-items: center;
-                padding: 10px;
-            }
-            
-            .club-sign-overlay {
-                margin-bottom: 0;
-                flex: 1;
-                max-width: 200px;
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-            }
-            
-            .club-entrance-container {
-                flex-direction: row;
-                gap: 20px;
-                flex: 1;
-                max-width: 400px;
-            }
-            
-            .security-keypad {
-                order: 1;
-                height: 15vh;
-                max-height: 80px;
-            }
-            
-            .club-door {
-                order: 2;
-                height: 60vh;
-                max-height: 300px;
+                font-size: clamp(1.2rem, 6vw, 2rem);
+                margin-bottom: 30px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER MATCHING HOMEPAGE -->
+    <!-- HEADER -->
     <header class="header">
         <nav class="nav-container">
             <a href="/home.html" class="logo">ULTRA KEITH</a>
@@ -813,28 +708,26 @@
     </header>
 
     <div class="main-content">
-        <!-- ENTRANCE SCENE - LIFE-SIZE PHOTO -->
+        <!-- ENTRANCE SCENE - SECRET VIP -->
         <div class="scene entrance-scene active" id="entranceScene">
-            <div class="club-sign-overlay">
-                <div class="club-sign">the players club</div>
-            </div>
+            <div class="club-sign">the players club</div>
 
-            <div class="club-entrance-container">
-                <!-- SECURITY KEYPAD - LEFT SIDE -->
+            <div class="entrance-container">
+                <!-- SECURITY KEYPAD - LEFT -->
                 <img src="photos/security-keypad.png" 
                      alt="Security Keypad" 
                      class="security-keypad" 
                      onclick="showPinPad()"
                      onerror="this.style.display='none'; document.getElementById('keypadFallback').style.display='flex';">
                 
-                <div class="keypad-fallback security-keypad" 
+                <div class="keypad-fallback" 
                      id="keypadFallback" 
                      style="display:none;" 
                      onclick="showPinPad()">
                     PIN
                 </div>
 
-                <!-- LIFE-SIZE CLUB DOOR - RIGHT SIDE -->
+                <!-- CLUB DOOR - RIGHT -->
                 <img src="photos/club-door.jpg" 
                      alt="Club Entrance Door" 
                      class="club-door" 
@@ -843,7 +736,7 @@
                 
                 <div class="door-fallback" id="doorFallback" style="display:none;">
                     <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
-                    <div style="position:absolute; right:8px; top:50%; transform:translateY(-50%); width:8px; height:20px; background:var(--keith-gold); border-radius:4px;"></div>
+                    <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
                 </div>
             </div>
         </div>
@@ -861,15 +754,14 @@
             </div>
         </div>
         
-        <!-- BOOTH SCENE - LIFE-SIZE PHOTO BACKGROUND -->
+        <!-- BOOTH SCENE -->
         <div class="scene booth-scene" id="boothScene">
             <div class="booth-header">
                 <div class="club-sign">the players club</div>
             </div>
             
-            <!-- VIP TABLE ITEMS ON REAL PHOTO -->
+            <!-- VIP TABLE ITEMS -->
             <div class="table-items-container">
-                <!-- CHAMPAGNE GLASS -->
                 <img src="photos/table-items/champagne-glass.png" 
                      alt="Champagne Glass" 
                      class="champagne-glass" 
@@ -883,7 +775,6 @@
                      onclick="drinkChampagne()" 
                      title="Champagne">🥂</div>
 
-                <!-- KEITH'S PHONE -->
                 <img src="photos/table-items/keith-phone.png" 
                      alt="Keith's Phone" 
                      class="phone" 
@@ -898,6 +789,9 @@
                      title="Keith's Phone">📱</div>
             </div>
             
+            <!-- DRUNK ITEMS -->
+            <div class="drunk-item earring-item">💎</div>
+            <div class="drunk-item bra-item">👙</div>
             <div class="drunk-item panties-item">🩲</div>
             <div class="drunk-item heels-item">👠</div>
         </div>
@@ -918,8 +812,6 @@
             <button class="pin-close" onclick="hidePinPad()">×</button>
             <div class="pin-display" id="pinDisplay">***</div>
             <div class="pin-buttons">
-                <button class="pin-btn" onclick="enterPin('1')">1</button>
-                <button class="pin-btn" onclick="enterPin('2')">2</button>
                 <button class="pin-btn" onclick="enterPin('3')">3</button>
                 <button class="pin-btn" onclick="enterPin('4')">4</button>
                 <button class="pin-btn" onclick="enterPin('5')">5</button>
@@ -954,7 +846,6 @@
     <!-- HIDDEN AUDIO ELEMENT -->
     <audio id="apartment223Audio" preload="none">
         <source src="photos/apartment223.mp3" type="audio/mpeg">
-        <!-- Add your actual audio file path -->
     </audio>
 
     <script>
@@ -976,14 +867,13 @@
             currentScene = sceneName;
         }
         
-        // PIN SYSTEM WITH ENHANCED HINTS
+        // PIN SYSTEM
         function showPinPad() {
             document.getElementById('pinOverlay').style.display = 'flex';
         }
         
         function hidePinPad() {
             document.getElementById('pinOverlay').style.display = 'none';
-            // Stop music if playing
             if (songPlaying) {
                 stopApartment223();
             }
@@ -1049,12 +939,9 @@
             const audio = document.getElementById('apartment223Audio');
             const controls = document.getElementById('audioControls');
             
-            // In a real implementation, you'd have the actual audio file
-            // For now, we'll simulate the audio experience
             songPlaying = true;
             controls.classList.add('show');
             
-            // Simulate song playing for 30 seconds (or until user closes)
             setTimeout(() => {
                 if (songPlaying) {
                     showMessage('Did you catch that apartment number in the song? 🎵', 'hint');
@@ -1062,7 +949,6 @@
                 }
             }, 30000);
             
-            // You can uncomment this when you have the actual audio file:
             // audio.play().catch(e => console.log('Audio play failed:', e));
         }
 
@@ -1073,7 +959,6 @@
             songPlaying = false;
             controls.classList.remove('show');
             
-            // You can uncomment this when you have the actual audio file:
             // audio.pause();
             // audio.currentTime = 0;
         }
@@ -1082,7 +967,6 @@
             hidePinPad();
             showMessage('Welcome to The Players Club!', 'success');
             
-            // Animate door opening
             setTimeout(() => {
                 document.getElementById('clubDoor').classList.add('sliding');
                 setTimeout(() => {
@@ -1113,13 +997,11 @@
             document.getElementById('drinkCount').textContent = drinkCount;
             updateDrunkEffects();
             
-            // Show drunk items based on drink count
             if (drinkCount >= 3) showDrunkItem('earring-item');
             if (drinkCount >= 5) showDrunkItem('bra-item');
             if (drinkCount >= 7) showDrunkItem('panties-item');
             if (drinkCount >= 9) showDrunkItem('heels-item');
             
-            // Messages
             if (drinkCount === 3) {
                 showMessage('Nice champagne... wait, what\'s that?', 'warning1');
             } else if (drinkCount === 5) {
@@ -1177,7 +1059,6 @@
             document.getElementById('lockoutMessage').textContent = message;
             document.getElementById('lockoutScreen').style.display = 'flex';
             
-            // Stop any playing audio
             if (songPlaying) {
                 stopApartment223();
             }
@@ -1238,7 +1119,7 @@
             }
         }
         
-        // KEYBOARD SUPPORT FOR PIN PAD
+        // KEYBOARD SUPPORT
         document.addEventListener('keydown', function(e) {
             if (document.getElementById('pinOverlay').style.display === 'flex') {
                 if (e.key >= '0' && e.key <= '9') {
@@ -1259,4 +1140,6 @@
         });
     </script>
 </body>
-</html>
+</html>('1')">1</button>
+                <button class="pin-btn" onclick="enterPin('2')">2</button>
+                <button class="pin-btn" onclick="enterPin
