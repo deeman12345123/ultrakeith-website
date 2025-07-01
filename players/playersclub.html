@@ -436,6 +436,14 @@
             border-color: #00ff41;
             color: #00ff41;
         }
+
+        .message-display.song-hint {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            background: rgba(255, 20, 147, 0.15);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--pink-glow);
+        }
         
         /* UI ELEMENTS */
         .ui-panel {
@@ -511,6 +519,23 @@
             margin-bottom: 20px;
             font-weight: 900;
         }
+
+        /* AUDIO CONTROLS */
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--keith-gold);
+            border-radius: 10px;
+            padding: 10px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--keith-gold);
+            display: none;
+        }
+
+        .audio-controls.show { display: block; }
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -607,6 +632,17 @@
         </div>
     </div>
 
+    <!-- AUDIO CONTROLS -->
+    <div class="audio-controls" id="audioControls">
+        <div>♪ Now Playing: <span id="currentTrack">Apartment 223</span></div>
+    </div>
+
+    <!-- HIDDEN AUDIO ELEMENT -->
+    <audio id="apartment223Audio" preload="none">
+        <source src="https://example.com/apartment223.mp3" type="audio/mpeg">
+        <!-- You'll need to add the actual audio file URL -->
+    </audio>
+
     <script>
         // GAME STATE
         let currentPin = '';
@@ -615,6 +651,7 @@
         let chipCount = 500;
         let drinkCount = 0;
         let currentScene = 'entrance';
+        let songPlaying = false;
         
         // SCENE MANAGEMENT
         function showScene(sceneName) {
@@ -625,13 +662,17 @@
             currentScene = sceneName;
         }
         
-        // PIN SYSTEM
+        // PIN SYSTEM WITH ENHANCED HINTS
         function showPinPad() {
             document.getElementById('pinOverlay').style.display = 'flex';
         }
         
         function hidePinPad() {
             document.getElementById('pinOverlay').style.display = 'none';
+            // Stop music if playing
+            if (songPlaying) {
+                stopApartment223();
+            }
         }
         
         function enterPin(digit) {
@@ -670,20 +711,57 @@
             let type = '';
             
             if (pinAttempts === 1) {
-                message = 'Come on, player... you should know this.';
+                message = 'Come on, player... you should know this one.';
                 type = 'warning1';
             } else if (pinAttempts === 2) {
-                message = 'Keith\'s not gonna like this... think harder.';
+                message = 'Keith\'s not gonna like this... think harder, kid.';
                 type = 'warning2';
             } else if (pinAttempts === 3) {
-                message = 'Alright, I\'ll help you out - Dr. Doom\'s apartment number';
+                message = 'Alright, here\'s your hint: Dr. Doom\'s apartment number';
                 type = 'hint';
+            } else if (pinAttempts === 4) {
+                message = 'Still don\'t get it? Listen to this...';
+                type = 'song-hint';
+                playApartment223();
             } else {
                 createLockout('pin_failure');
                 return;
             }
             
             showMessage(message, type);
+        }
+
+        function playApartment223() {
+            const audio = document.getElementById('apartment223Audio');
+            const controls = document.getElementById('audioControls');
+            
+            // In a real implementation, you'd have the actual audio file
+            // For now, we'll simulate the audio experience
+            songPlaying = true;
+            controls.classList.add('show');
+            
+            // Simulate song playing for 30 seconds (or until user closes)
+            setTimeout(() => {
+                if (songPlaying) {
+                    showMessage('Did you catch that apartment number in the song? 🎵', 'hint');
+                    stopApartment223();
+                }
+            }, 30000);
+            
+            // You can uncomment this when you have the actual audio file:
+            // audio.play().catch(e => console.log('Audio play failed:', e));
+        }
+
+        function stopApartment223() {
+            const audio = document.getElementById('apartment223Audio');
+            const controls = document.getElementById('audioControls');
+            
+            songPlaying = false;
+            controls.classList.remove('show');
+            
+            // You can uncomment this when you have the actual audio file:
+            // audio.pause();
+            // audio.currentTime = 0;
         }
         
         function showPinSuccess() {
@@ -761,7 +839,8 @@
             const responses = [
                 `Yo ${playerName}, you reached Keith directly. What's good?`,
                 `${playerName}! Hope you're enjoying the VIP treatment.`,
-                `What's up ${playerName}? Don't go too crazy with that champagne.`
+                `What's up ${playerName}? Don't go too crazy with that champagne.`,
+                `${playerName}, if you need that apartment number, it's 223... Dr. Doom style!`
             ];
             
             const message = responses[Math.floor(Math.random() * responses.length)];
@@ -778,11 +857,16 @@
             localStorage.setItem('clubLockout', JSON.stringify(lockout));
             
             const message = type === 'pin_failure' 
-                ? 'Too many failed PIN attempts. Come back in 15 minutes and listen to this Keith track.'
+                ? 'Too many failed PIN attempts. Come back in 15 minutes and maybe listen to some Keith tracks about apartments...'
                 : 'Security says you\'ve had enough. Come back in 12 hours after this sobriety course.';
             
             document.getElementById('lockoutMessage').textContent = message;
             document.getElementById('lockoutScreen').style.display = 'flex';
+            
+            // Stop any playing audio
+            if (songPlaying) {
+                stopApartment223();
+            }
         }
         
         // MESSAGE SYSTEM
@@ -791,7 +875,7 @@
             messageEl.textContent = text;
             messageEl.className = `message-display show ${type}`;
             
-            const duration = type === 'hint' ? 6000 : 3000;
+            const duration = type === 'hint' || type === 'song-hint' ? 6000 : 3000;
             setTimeout(() => {
                 messageEl.classList.remove('show');
             }, duration);
@@ -805,17 +889,60 @@
             playerName = '';
             chipCount = 500;
             drinkCount = 0;
+            songPlaying = false;
             document.body.className = '';
             document.getElementById('lockoutScreen').style.display = 'none';
             document.getElementById('uiPanel').classList.remove('show');
+            document.getElementById('audioControls').classList.remove('show');
             document.querySelectorAll('.drunk-item').forEach(item => {
                 item.classList.remove('visible');
             });
             document.getElementById('clubDoor').classList.remove('sliding');
+            document.getElementById('chipCount').textContent = '500';
+            document.getElementById('drinkCount').textContent = '0';
+            document.getElementById('playerDisplay').textContent = 'Guest';
+            document.getElementById('playerNameInput').value = '';
             showScene('entrance');
             updatePinDisplay();
+            stopApartment223();
         }
         
         // CHECK LOCKOUT ON LOAD
         function checkLockout() {
             const lockoutData = localStorage.getItem('clubLockout');
+            if (lockoutData) {
+                const lockout = JSON.parse(lockoutData);
+                if (Date.now() < lockout.expires) {
+                    const message = lockout.type === 'pin_failure' 
+                        ? 'You\'re still locked out. Try listening to some Kool Keith tracks while you wait...'
+                        : 'Still in timeout for drinking too much. Come back later!';
+                    document.getElementById('lockoutMessage').textContent = message;
+                    document.getElementById('lockoutScreen').style.display = 'flex';
+                } else {
+                    localStorage.removeItem('clubLockout');
+                }
+            }
+        }
+        
+        // KEYBOARD SUPPORT FOR PIN PAD
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('pinOverlay').style.display === 'flex') {
+                if (e.key >= '0' && e.key <= '9') {
+                    enterPin(e.key);
+                } else if (e.key === 'Enter') {
+                    submitPin();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    clearPin();
+                } else if (e.key === 'Escape') {
+                    hidePinPad();
+                }
+            }
+        });
+        
+        // INITIALIZE
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLockout();
+        });
+    </script>
+</body>
+</html>
