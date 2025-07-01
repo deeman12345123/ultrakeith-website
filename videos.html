@@ -135,35 +135,6 @@
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
         
-        /* Video Sections */
-        .video-section {
-            margin: 80px 0;
-        }
-        
-        .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 60px;
-            text-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
-            letter-spacing: 3px;
-            font-weight: 700;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-        }
-        
         /* Featured Video */
         .featured-video {
             margin: 60px 0 100px;
@@ -178,12 +149,6 @@
             backdrop-filter: blur(20px);
             max-width: 900px;
             margin: 0 auto;
-            transition: all 0.4s ease;
-        }
-        
-        .featured-container:hover {
-            border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
         
         .video-frame {
@@ -223,6 +188,34 @@
         }
         
         /* Video Grid */
+        .video-section {
+            margin: 80px 0;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            letter-spacing: 3px;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        
         .video-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -277,35 +270,6 @@
             font-size: 0.9rem;
         }
         
-        /* Video Categories */
-        .video-filter {
-            text-align: center;
-            margin: 40px 0 60px;
-        }
-        
-        .filter-btn {
-            background: rgba(255, 215, 0, 0.1);
-            color: rgba(255, 215, 0, 0.8);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 12px 25px;
-            margin: 0 10px 10px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', monospace;
-            letter-spacing: 1px;
-        }
-        
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: var(--black);
-            border-color: var(--gold);
-            transform: translateY(-2px);
-        }
-        
         /* Footer */
         .footer {
             border-top: 1px solid rgba(255, 215, 0, 0.3);
@@ -355,12 +319,6 @@
             
             .video-card {
                 padding: 20px;
-            }
-            
-            .filter-btn {
-                margin: 0 5px 10px;
-                padding: 10px 20px;
-                font-size: 0.8rem;
             }
         }
         
@@ -456,11 +414,8 @@
         <section class="featured-video">
             <div class="featured-container">
                 <div class="video-frame">
-                    <iframe width="100%" height="100%" 
-                            src="https://www.youtube.com/embed/47UvTL2f-dg" 
+                    <iframe src="https://www.youtube.com/embed/47UvTL2f-dg" 
                             title="Morgan State - Latest Release" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                             allowfullscreen>
                     </iframe>
                 </div>
@@ -471,19 +426,88 @@
             </div>
         </section>
 
-        <!-- Video Filter -->
-        <section class="video-filter">
-            <button class="filter-btn active" data-filter="all">ALL VIDEOS</button>
-            <button class="filter-btn" data-filter="music-videos">MUSIC VIDEOS</button>
-            <button class="filter-btn" data-filter="live">LIVE PERFORMANCES</button>
-            <button class="filter-btn" data-filter="interviews">INTERVIEWS</button>
-        </section>
-
         <!-- Video Grid -->
         <section class="video-section">
             <h2 class="section-title">ALL VIDEOS</h2>
-            <div class="video-grid" id="videoGrid">
-                <!-- Videos will be generated by JavaScript -->
+            <div class="video-grid">
+                
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/uaiIqb4_Hjg" 
+                                title="Super Hits" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Super Hits</h3>
+                    <p class="video-description">From Karpenters (2025) - Wayne Campbell directed official music video.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/FSH6H1-HpTE" 
+                                title="Helicopter" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Helicopter (Lyric Video)</h3>
+                    <p class="video-description">CZARFACE collaboration (2024) featuring Godfather Don & Kool Keith.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/2HVobMRKxZg" 
+                                title="Stars Align" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Stars Align</h3>
+                    <p class="video-description">2024 single featuring Tha God Fahim & Lord Apex.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/deV3Cyh9SDc" 
+                                title="Fire & Ice" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Fire & Ice</h3>
+                    <p class="video-description">Serpent album (2023) featuring Ice-T & Slug from Atmosphere.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/jXsHmWiQZxQ" 
+                                title="Black Elvis 2" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Black Elvis 2</h3>
+                    <p class="video-description">2023 album promotional video - the legendary persona returns.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/Il4Z64Y9XT8" 
+                                title="Live Performance" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Black Elvis 2 Tour Highlights</h3>
+                    <p class="video-description">Live performance footage from Keith's 2023-2024 tour.</p>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-frame">
+                        <iframe src="https://www.youtube.com/embed/mfSAHFtG3FE" 
+                                title="Interview" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">40 Years of Innovation Interview</h3>
+                    <p class="video-description">Deep dive into Keith's four-decade journey in hip-hop.</p>
+                </div>
+
             </div>
         </section>
     </main>
@@ -505,94 +529,6 @@
     </footer>
 
     <script>
-        // VIDEO DATA - Easy to update with REAL Kool Keith videos!
-        const videos = [
-            {
-                id: "47UvTL2f-dg", // Keith's latest Morgan State video
-                title: "Morgan State - Latest Release",
-                description: "Kool Keith's newest visual from Morgan State - fresh innovation from the legend.",
-                category: "music-videos"
-            },
-            {
-                id: "PLACEHOLDER2", // Replace with 2nd latest video
-                title: "Second Latest Release",
-                description: "Another recent Kool Keith visual masterpiece.",
-                category: "music-videos"
-            },
-            {
-                id: "PLACEHOLDER3", // Replace with 3rd latest video
-                title: "Third Latest Release", 
-                description: "Continuing Keith's legendary visual catalog.",
-                category: "music-videos"
-            },
-            {
-                id: "PLACEHOLDER4", // Replace with Keith interview
-                title: "40 Years of Innovation Interview", 
-                description: "Deep dive into Keith's four-decade journey in hip-hop.",
-                category: "interviews"
-            },
-            {
-                id: "PLACEHOLDER5", // Replace with Ultramagnetic MC's video
-                title: "Critical Beatdown Legacy",
-                description: "Celebrating the album that changed underground hip-hop forever.",
-                category: "live"
-            },
-            {
-                id: "PLACEHOLDER6", // Replace with Dr. Octagon video
-                title: "Dr. Octagon Chronicles",
-                description: "The surreal world of Keith's most famous persona.",
-                category: "music-videos"
-            }
-        ];
-
-        // Function to generate video HTML (skips featured video)
-        function generateVideo(video, index) {
-            // Skip the first video (it's featured at top)
-            if (index === 0) return '';
-            
-            return `
-                <div class="video-card" data-category="${video.category}">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/${video.id}" 
-                                title="${video.title}" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">${video.title}</h3>
-                    <p class="video-description">${video.description}</p>
-                </div>
-            `;
-        }
-
-        // Filter functionality
-        function filterVideos(category) {
-            const videoCards = document.querySelectorAll('.video-card');
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            
-            // Update active button
-            filterBtns.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-filter="${category}"]`).classList.add('active');
-            
-            // Show/hide videos
-            videoCards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            
-            // Update section title
-            const sectionTitle = document.querySelector('.section-title');
-            const titles = {
-                'all': 'ALL VIDEOS',
-                'music-videos': 'MUSIC VIDEOS',
-                'live': 'LIVE PERFORMANCES', 
-                'interviews': 'INTERVIEWS'
-            };
-            sectionTitle.textContent = titles[category];
-        }
-
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
@@ -606,34 +542,6 @@
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
                 navMenu.classList.remove('show');
-            });
-        });
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Generate video grid (skip first video - it's featured)
-            const videoGrid = document.getElementById('videoGrid');
-            const videosHTML = videos.map((video, index) => generateVideo(video, index)).join('');
-            videoGrid.innerHTML = videosHTML;
-
-            // Add filter event listeners
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    filterVideos(this.dataset.filter);
-                });
-            });
-
-            // Add hover effects to video cards
-            const videoCards = document.querySelectorAll('.video-card');
-            videoCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-12px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(-8px)';
-                });
             });
         });
     </script>
