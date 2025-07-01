@@ -104,7 +104,7 @@
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 60px 0 80px;
+            padding: 60px 0 40px;
             background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
         }
         
@@ -132,18 +132,55 @@
             letter-spacing: 1px;
         }
         
-        .current-tour-badge {
+        /* Tour Image Section */
+        .tour-image-section {
+            margin: 40px 0 80px;
+            text-align: center;
+        }
+        
+        .tour-image-container {
+            position: relative;
             display: inline-block;
-            background: linear-gradient(45deg, var(--gold), var(--gold-light));
-            color: var(--black);
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.4s ease;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .tour-image-container:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+        }
+        
+        .tour-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.1) saturate(1.2);
+            transition: all 0.4s ease;
+        }
+        
+        .tour-image-container:hover .tour-image {
+            filter: contrast(1.2) saturate(1.3) brightness(1.1);
+        }
+        
+        .tour-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .tour-image-container:hover .tour-image-overlay {
+            opacity: 1;
         }
         
         /* Featured Tour Section */
@@ -330,58 +367,7 @@
             box-shadow: none;
         }
         
-        /* Past Tours Section */
-        .past-tours {
-            margin: 100px 0;
-            background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(26, 0, 0, 0.6));
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 20px;
-            padding: 60px 40px;
-            backdrop-filter: blur(15px);
-        }
-        
-        .past-tours-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .past-tour-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .past-tour-card:hover {
-            border-color: rgba(255, 215, 0, 0.5);
-            transform: translateY(-3px);
-        }
-        
-        .past-tour-year {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.1rem;
-            color: var(--gold);
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .past-tour-name {
-            font-size: 1.2rem;
-            color: var(--white);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        
-        .past-tour-details {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        /* Booking Section */
+        /* Booking Info */
         .booking-info {
             margin: 100px 0;
             text-align: center;
@@ -471,6 +457,10 @@
                 letter-spacing: 2px;
             }
             
+            .tour-image-container {
+                margin: 0 10px;
+            }
+            
             .featured-tour-title {
                 font-size: 1.8rem;
                 letter-spacing: 2px;
@@ -494,10 +484,6 @@
                 order: 2;
             }
             
-            .past-tours {
-                padding: 40px 20px;
-            }
-            
             .booking-card {
                 padding: 40px 25px;
             }
@@ -519,7 +505,7 @@
             }
             
             .hero {
-                padding: 80px 0 100px;
+                padding: 80px 0 60px;
             }
             
             .hero-title {
@@ -540,10 +526,6 @@
                 grid-template-columns: 1fr;
                 max-width: 800px;
                 margin: 0 auto;
-            }
-            
-            .past-tours-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
         
@@ -597,9 +579,15 @@
         <!-- Hero Section -->
         <section class="hero">
             <h1 class="hero-title">TOUR DATES</h1>
-            <p class="hero-subtitle">
-                Upcoming live performances across North America
-            </p>
+
+        </section>
+
+        <!-- Tour Image Section -->
+        <section class="tour-image-section">
+            <div class="tour-image-container">
+                <img src="tour.jpg" alt="Kool Keith Live Tour" class="tour-image">
+                <div class="tour-image-overlay"></div>
+            </div>
         </section>
 
         <!-- Tour Dates -->
