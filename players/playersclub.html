@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Players Club</title>
+    <title>The Players Club - Kool Keith</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -15,6 +15,8 @@
             --keith-white: #FFFFFF;
             --neon-pink: #FF1493;
             --pink-glow: rgba(255, 20, 147, 0.6);
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(26, 26, 26, 0.95);
         }
         
         * {
@@ -27,9 +29,64 @@
             font-family: 'Inter', Arial, sans-serif;
             background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
             color: var(--keith-white);
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
             transition: filter 0.5s ease, transform 0.3s ease;
+        }
+
+        /* HEADER MATCHING HOMEPAGE */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--keith-gold);
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--keith-gold);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--keith-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--keith-gold);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-top: 80px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         /* DRUNK EFFECTS */
@@ -71,14 +128,10 @@
         
         /* SCENE SYSTEM */
         .scene {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             opacity: 0;
             visibility: hidden;
             transition: all 0.8s ease;
+            padding: 40px 0;
         }
         
         .scene.active {
@@ -86,51 +139,73 @@
             visibility: visible;
         }
         
-        /* ENTRANCE SCENE */
+        /* ENTRANCE SCENE - CARD STYLE */
         .entrance-scene {
-            background: 
-                radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
-                linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 50%, var(--keith-black) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .club-card {
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .club-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 80px rgba(218, 181, 71, 0.3);
         }
         
         .club-sign {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
             font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 6vw, 4rem);
+            font-size: clamp(2rem, 6vw, 3rem);
             font-weight: 900;
             color: var(--neon-pink);
             text-shadow: 0 0 10px var(--pink-glow), 0 0 20px var(--pink-glow);
             animation: neonFlicker 3s ease-in-out infinite alternate;
             text-transform: lowercase;
             font-style: italic;
+            margin-bottom: 20px;
         }
         
         @keyframes neonFlicker {
             0%, 100% { text-shadow: 0 0 10px var(--pink-glow), 0 0 20px var(--pink-glow); }
             50% { text-shadow: 0 0 15px var(--pink-glow), 0 0 30px var(--pink-glow); }
         }
-        
+
+        .club-description {
+            color: var(--keith-white);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
         .door-container {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
         }
         
         .door {
-            width: 100%;
-            height: 100%;
+            width: 120px;
+            height: 160px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid var(--keith-gold);
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: transform 1s ease-in-out;
             transform-origin: left center;
+            position: relative;
         }
         
         .door.sliding {
@@ -152,63 +227,52 @@
         
         .door-handle {
             position: absolute;
-            right: 15px;
+            right: 8px;
             top: 50%;
             transform: translateY(-50%);
-            width: 15px;
-            height: 40px;
+            width: 8px;
+            height: 20px;
             background: var(--keith-gold);
-            border-radius: 8px;
+            border-radius: 4px;
         }
         
-        .pin-hotspot {
-            position: absolute;
-            right: -80px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 60px;
-            height: 80px;
+        .pin-button {
+            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
+            color: var(--keith-black);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
             cursor: pointer;
-            border: 2px solid var(--keith-gold);
-            border-radius: 8px;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            opacity: 0.3;
-            background: rgba(218, 181, 71, 0.1);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            gap: 10px;
         }
         
-        .pin-hotspot:hover {
-            opacity: 1;
-            border-color: var(--keith-gold);
-            background: rgba(218, 181, 71, 0.3);
-            box-shadow: 0 0 15px rgba(218, 181, 71, 0.4);
-            transform: translateY(-50%) scale(1.05);
-        }
-        
-        .pin-hotspot::after {
-            content: '🔢';
-            color: var(--keith-gold);
+        .pin-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.4);
         }
         
         /* CASHIER SCENE */
         .cashier-scene {
-            background: linear-gradient(135deg, #2a2a1a 0%, #1a1a0a 50%, var(--keith-black) 100%);
             display: flex;
-            align-items: center;
             justify-content: center;
-            flex-direction: column;
+            align-items: center;
+            min-height: 80vh;
         }
         
         .cashier-window {
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            background: var(--card-bg);
             border: 3px solid var(--keith-gold);
             border-radius: 20px;
             padding: 40px;
             text-align: center;
             max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
         
         .cashier-title {
@@ -234,9 +298,16 @@
         
         /* BOOTH SCENE */
         .booth-scene {
+            min-height: 80vh;
             background: 
                 radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
                 linear-gradient(135deg, #2a1a1a 0%, #1a0a0a 50%, var(--keith-black) 100%);
+            position: relative;
+        }
+
+        .booth-header {
+            text-align: center;
+            padding: 40px 0;
         }
         
         .booth-table {
@@ -250,40 +321,33 @@
                 linear-gradient(to top, rgba(26, 26, 26, 0.95) 0%, transparent 70%);
         }
         
-        .champagne-glass {
+        .table-items {
             position: absolute;
-            bottom: 22%;
-            left: 35%;
-            width: 60px;
-            height: 100px;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 100px;
+            align-items: center;
+        }
+        
+        .champagne-glass, .phone {
+            width: 80px;
+            height: 80px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(218, 181, 71, 0.1);
+            border: 2px solid var(--keith-gold);
+            border-radius: 50%;
         }
         
-        .champagne-glass:hover {
+        .champagne-glass:hover, .phone:hover {
             transform: scale(1.1);
-        }
-        
-        .phone {
-            position: absolute;
-            bottom: 22%;
-            right: 35%;
-            width: 60px;
-            height: 100px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .phone:hover {
-            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--keith-gold);
         }
         
         /* DRUNK ITEMS */
@@ -330,7 +394,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: none;
             align-items: center;
             justify-content: center;
@@ -338,12 +402,13 @@
         }
         
         .pin-pad {
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            background: var(--card-bg);
             border: 3px solid var(--keith-gold);
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 30px;
-            width: 280px;
+            width: 320px;
             position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
         
         .pin-close {
@@ -362,35 +427,35 @@
         
         .pin-display {
             width: 100%;
-            height: 50px;
+            height: 60px;
             background: #000;
             border: 2px solid var(--keith-gold);
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--keith-gold);
         }
         
         .pin-buttons {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 10px;
         }
         
         .pin-btn {
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 2px solid var(--keith-gold);
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--keith-gold);
             font-family: 'Orbitron', monospace;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
-            padding: 15px;
+            padding: 20px;
             transition: all 0.3s ease;
         }
         
@@ -406,7 +471,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.95);
+            background: var(--card-bg);
             border: 3px solid var(--keith-gold);
             border-radius: 15px;
             padding: 30px 40px;
@@ -416,6 +481,7 @@
             max-width: 500px;
             z-index: 2000;
             display: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
         
         .message-display.show { display: block; }
@@ -459,14 +525,15 @@
         /* UI ELEMENTS */
         .ui-panel {
             position: fixed;
-            top: 20px;
+            top: 100px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--keith-gold);
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
             border-radius: 15px;
-            padding: 15px;
+            padding: 20px;
             font-family: 'Orbitron', monospace;
             display: none;
+            min-width: 200px;
         }
         
         .ui-panel.show { display: block; }
@@ -475,11 +542,19 @@
             color: var(--keith-gold);
             font-weight: bold;
             margin-bottom: 10px;
+            font-size: 1.1rem;
         }
         
         .drink-counter {
             color: var(--keith-white);
             font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .player-info {
+            color: var(--keith-white);
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
         
         .btn {
@@ -487,12 +562,13 @@
             color: var(--keith-black);
             border: none;
             padding: 15px 25px;
-            border-radius: 25px;
+            border-radius: 10px;
             font-family: 'Orbitron', monospace;
             font-weight: bold;
             cursor: pointer;
-            margin: 10px;
+            margin: 10px 0;
             transition: all 0.3s ease;
+            font-size: 1rem;
         }
         
         .btn:hover {
@@ -515,12 +591,13 @@
         }
         
         .lockout-content {
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            background: var(--card-bg);
             border: 3px solid #ff073a;
             border-radius: 20px;
             padding: 40px;
             text-align: center;
             max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
         }
         
         .lockout-title {
@@ -536,12 +613,12 @@
             position: fixed;
             bottom: 20px;
             left: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--keith-gold);
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
             border-radius: 10px;
-            padding: 10px;
+            padding: 15px;
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--keith-gold);
             display: none;
         }
@@ -550,62 +627,94 @@
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .door-container { width: 250px; height: 320px; }
-            .pin-pad { width: 250px; padding: 25px; }
-            .message-display { max-width: 90%; padding: 25px 30px; font-size: 1rem; }
-            .champagne-glass, .phone { width: 50px; height: 80px; font-size: 2rem; }
+            .nav-menu { display: none; }
+            .main-content { padding: 20px 15px; }
+            .club-card { margin: 20px; padding: 30px 20px; }
+            .pin-pad { width: 280px; padding: 25px; }
+            .message-display { max-width: 90%; padding: 25px 20px; font-size: 1rem; }
+            .table-items { gap: 60px; }
+            .champagne-glass, .phone { width: 60px; height: 60px; font-size: 2rem; }
+            .ui-panel { right: 15px; min-width: 180px; }
         }
     </style>
 </head>
 <body>
-    <!-- ENTRANCE SCENE -->
-    <div class="scene entrance-scene active" id="entranceScene">
-        <div class="club-sign">the players club</div>
-        <div class="door-container">
-            <div class="door" id="clubDoor">
-                <div class="door-window"></div>
-                <div class="door-handle"></div>
+    <!-- HEADER MATCHING HOMEPAGE -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/home.html" class="logo">ULTRA KEITH</a>
+            <ul class="nav-menu">
+                <li><a href="/home.html" class="nav-link">Home</a></li>
+                <li><a href="#personas" class="nav-link">Personas</a></li>
+                <li><a href="#music" class="nav-link">Music</a></li>
+                <li><a href="#videos" class="nav-link">Videos</a></li>
+                <li><a href="/players/" class="nav-link">Players Club</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- ENTRANCE SCENE -->
+        <div class="scene entrance-scene active" id="entranceScene">
+            <div class="club-card">
+                <div class="club-sign">the players club</div>
+                <p class="club-description">
+                    Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high and the game never stops. Where real players separate from pretenders.
+                </p>
+                <div class="door-container">
+                    <div class="door" id="clubDoor">
+                        <div class="door-window"></div>
+                        <div class="door-handle"></div>
+                    </div>
+                </div>
+                <button class="pin-button" onclick="showPinPad()">
+                    <span>🔢</span>
+                    Enter PIN
+                </button>
             </div>
-            <div class="pin-hotspot" onclick="showPinPad()"></div>
-        </div>
-    </div>
-    
-    <!-- CASHIER SCENE -->
-    <div class="scene cashier-scene" id="cashierScene">
-        <div class="cashier-window">
-            <h2 class="cashier-title">Welcome to The Players Club</h2>
-            <p style="margin-bottom: 20px;">Keith was expecting you! What's your name?</p>
-            <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
-            <p style="margin: 20px 0; font-size: 0.9rem; opacity: 0.8;">
-                Keith's left you 500 chips and his personal phone. Don't drink too much champagne!
-            </p>
-            <button class="btn" onclick="enterClub()">Enter VIP Booth</button>
-        </div>
-    </div>
-    
-    <!-- BOOTH SCENE -->
-    <div class="scene booth-scene" id="boothScene">
-        <div class="club-sign">the players club</div>
-        
-        <!-- VIP Table -->
-        <div class="booth-table">
-            <div class="champagne-glass" onclick="drinkChampagne()" title="Champagne">🥂</div>
-            <div class="phone" onclick="openPhone()" title="Keith's Phone">📱</div>
         </div>
         
-        <!-- Drunk Items -->
-        <div class="drunk-item earring-item">💎</div>
-        <div class="drunk-item bra-item">👙</div>
-        <div class="drunk-item panties-item">🩲</div>
-        <div class="drunk-item heels-item">👠</div>
+        <!-- CASHIER SCENE -->
+        <div class="scene cashier-scene" id="cashierScene">
+            <div class="cashier-window">
+                <h2 class="cashier-title">Welcome to The Players Club</h2>
+                <p style="margin-bottom: 20px;">Keith was expecting you! What's your name?</p>
+                <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
+                <p style="margin: 20px 0; font-size: 0.9rem; opacity: 0.8;">
+                    Keith's left you 500 chips and his personal phone. Don't drink too much champagne!
+                </p>
+                <button class="btn" onclick="enterClub()">Enter VIP Booth</button>
+            </div>
+        </div>
+        
+        <!-- BOOTH SCENE -->
+        <div class="scene booth-scene" id="boothScene">
+            <div class="booth-header">
+                <div class="club-sign">the players club</div>
+            </div>
+            
+            <!-- VIP Table -->
+            <div class="booth-table">
+                <div class="table-items">
+                    <div class="champagne-glass" onclick="drinkChampagne()" title="Champagne">🥂</div>
+                    <div class="phone" onclick="openPhone()" title="Keith's Phone">📱</div>
+                </div>
+            </div>
+            
+            <!-- Drunk Items -->
+            <div class="drunk-item earring-item">💎</div>
+            <div class="drunk-item bra-item">👙</div>
+            <div class="drunk-item panties-item">🩲</div>
+            <div class="drunk-item heels-item">👠</div>
+        </div>
     </div>
     
     <!-- UI PANEL -->
     <div class="ui-panel" id="uiPanel">
         <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
         <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
-        <div style="margin-top: 10px; font-size: 0.8rem;">
-            <div>Player: <span id="playerDisplay">Guest</span></div>
+        <div class="player-info">
+            Player: <span id="playerDisplay">Guest</span>
         </div>
     </div>
     
@@ -650,8 +759,8 @@
 
     <!-- HIDDEN AUDIO ELEMENT -->
     <audio id="apartment223Audio" preload="none">
-        <source src="https://example.com/apartment223.mp3" type="audio/mpeg">
-        <!-- You'll need to add the actual audio file URL -->
+        <source src="apartment223.mp3" type="audio/mpeg">
+        <!-- Add your actual audio file path -->
     </audio>
 
     <script>
