@@ -126,15 +126,13 @@
         
         .hero-tagline {
             font-family: 'Roboto', sans-serif;
-            font-size: 2rem;
-            color: red;
-            background: yellow;
+            font-size: 1.2rem;
+            color: #ffd700;
             font-style: italic;
-            font-weight: 700;
+            font-weight: 300;
             letter-spacing: 2px;
-            margin: 20px 0;
-            padding: 10px;
-            border: 2px solid blue;
+            margin-bottom: 0;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
         
         .hero-subtitle {
@@ -403,56 +401,7 @@
             box-shadow: none;
         }
         
-        /* Booking Bar */
-        .booking-bar {
-            margin: 80px 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .booking-bar::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-        }
-        
-        .booking-bar::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-        }
-        
-        .booking-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 2px;
-            font-weight: 400;
-        }
-        
-        .booking-email {
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .booking-email:hover {
-            color: var(--gold-light);
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-        }
+
         
         /* Footer */
         .footer {
@@ -519,9 +468,7 @@
                 order: 2;
             }
             
-            .booking-bar {
-                padding: 0 10px;
-            }
+
         }
         
         /* Desktop Responsive */
@@ -709,12 +656,7 @@
             </div>
         </section>
 
-        <!-- Booking Bar -->
-        <section class="booking-bar">
-            <p class="booking-text">
-                BOOKING INQUIRIES: <a href="mailto:KoolKeithMusic@Gmail.com" class="booking-email">KoolKeithMusic@Gmail.com</a>
-            </p>
-        </section>
+
     </main>
 
     <!-- Footer -->
