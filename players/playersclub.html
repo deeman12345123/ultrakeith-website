@@ -141,10 +141,9 @@
             visibility: visible;
         }
         
-        /* ENTRANCE SCENE - LIFE-SIZE PHOTO */
+        /* ENTRANCE SCENE - SECRET VIP */
         .entrance-scene {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: calc(100vh - 80px);
@@ -160,16 +159,18 @@
             align-items: center;
             width: 100%;
             height: auto;
-            max-width: 1000px;
-            gap: 40px;
-            margin-top: 20px;
+            max-width: 800px;
+            gap: 60px;
         }
 
-        /* CLUB SIGN OVERLAY */
+        /* CLUB SIGN - SUBTLE */
         .club-sign-overlay {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
             text-align: center;
             z-index: 10;
-            margin-bottom: 30px;
         }
         
         .club-sign {
@@ -214,7 +215,7 @@
             opacity: 0;
         }
 
-        /* SECURITY KEYPAD - POSITIONED RIGHT OF DOOR */
+        /* SECURITY KEYPAD - POSITIONED LEFT OF DOOR */
         .security-keypad {
             width: auto;
             height: 12vh;
@@ -223,11 +224,24 @@
             cursor: pointer;
             transition: all 0.3s ease;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+            order: 1;
         }
         
         .security-keypad:hover {
             transform: scale(1.05);
             filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
+        }
+
+        /* DOOR ORDER */
+        .club-door {
+            width: auto;
+            height: 75vh;
+            max-height: 600px;
+            object-fit: contain;
+            transition: transform 1s ease-in-out;
+            transform-origin: left center;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+            order: 2;
         }
 
         /* FALLBACK STYLING IF NO PHOTOS */
@@ -666,16 +680,16 @@
                 align-items: center;
             }
             
-            .club-door {
-                height: 50vh;
-                max-height: 350px;
-            }
-            
             .security-keypad {
                 height: 8vh;
                 min-height: 60px;
-                position: relative;
-                transform: none;
+                order: 2;
+            }
+            
+            .club-door {
+                height: 50vh;
+                max-height: 350px;
+                order: 1;
             }
             
             .security-keypad:hover {
@@ -711,11 +725,6 @@
             .club-sign {
                 font-size: clamp(1.5rem, 6vw, 2.5rem);
             }
-
-            .club-description {
-                font-size: clamp(0.8rem, 1.5vw, 1rem);
-                padding: 0 20px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -746,10 +755,6 @@
                 font-size: clamp(1.2rem, 5vw, 2rem);
                 margin-bottom: 10px;
             }
-
-            .club-description {
-                font-size: clamp(0.7rem, 1.2vw, 0.9rem);
-            }
         }
 
         /* LANDSCAPE MOBILE */
@@ -764,7 +769,11 @@
             .club-sign-overlay {
                 margin-bottom: 0;
                 flex: 1;
-                max-width: 300px;
+                max-width: 200px;
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
             }
             
             .club-entrance-container {
@@ -774,14 +783,16 @@
                 max-width: 400px;
             }
             
-            .club-door {
-                height: 60vh;
-                max-height: 300px;
-            }
-            
             .security-keypad {
+                order: 1;
                 height: 15vh;
                 max-height: 80px;
+            }
+            
+            .club-door {
+                order: 2;
+                height: 60vh;
+                max-height: 300px;
             }
         }
     </style>
@@ -806,38 +817,33 @@
         <div class="scene entrance-scene active" id="entranceScene">
             <div class="club-sign-overlay">
                 <div class="club-sign">the players club</div>
-                <p class="club-description">
-                    Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high and the game never stops. Where real players separate from pretenders.
-                </p>
             </div>
 
             <div class="club-entrance-container">
-                <!-- LIFE-SIZE CLUB DOOR -->
-                <img src="photos/club-door.jpg" 
-                     alt="Club Entrance Door" 
-                     class="club-door" 
-                     id="clubDoor"
-                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
-                
-                <!-- FALLBACK IF NO DOOR PHOTO -->
-                <div class="door-fallback" id="doorFallback" style="display:none;">
-                    <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
-                    <div style="position:absolute; right:8px; top:50%; transform:translateY(-50%); width:8px; height:20px; background:var(--keith-gold); border-radius:4px;"></div>
-                </div>
-
-                <!-- SECURITY KEYPAD -->
+                <!-- SECURITY KEYPAD - LEFT SIDE -->
                 <img src="photos/security-keypad.png" 
                      alt="Security Keypad" 
                      class="security-keypad" 
                      onclick="showPinPad()"
                      onerror="this.style.display='none'; document.getElementById('keypadFallback').style.display='flex';">
                 
-                <!-- FALLBACK IF NO KEYPAD PHOTO -->
                 <div class="keypad-fallback security-keypad" 
                      id="keypadFallback" 
                      style="display:none;" 
                      onclick="showPinPad()">
                     PIN
+                </div>
+
+                <!-- LIFE-SIZE CLUB DOOR - RIGHT SIDE -->
+                <img src="photos/club-door.jpg" 
+                     alt="Club Entrance Door" 
+                     class="club-door" 
+                     id="clubDoor"
+                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
+                
+                <div class="door-fallback" id="doorFallback" style="display:none;">
+                    <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
+                    <div style="position:absolute; right:8px; top:50%; transform:translateY(-50%); width:8px; height:20px; background:var(--keith-gold); border-radius:4px;"></div>
                 </div>
             </div>
         </div>
