@@ -644,13 +644,16 @@
             if (currentPin.length !== 3) return;
             
             attempts++;
+            console.log(`🔍 Attempt ${attempts}: PIN entered = ${currentPin}`);
             
             // Check if PIN exists in database
             const pinData = pinDatabase[currentPin];
             
             if (pinData) {
+                console.log('✅ PIN found in database:', pinData);
                 executeAction(pinData);
             } else {
+                console.log('❌ PIN not found, showing error for attempt:', attempts);
                 showError();
             }
         }
@@ -689,21 +692,27 @@
         
         function showError() {
             const messageEl = document.getElementById('messageDisplay');
+            console.log(`🚨 showError called for attempt ${attempts}`);
             
             if (attempts === 1) {
                 messageEl.className = 'message-display show error';
                 messageEl.textContent = messages.attempt1;
+                console.log('📝 Showing attempt 1 message:', messages.attempt1);
             } else if (attempts === 2) {
                 messageEl.className = 'message-display show error';
                 messageEl.textContent = messages.attempt2;
+                console.log('📝 Showing attempt 2 message:', messages.attempt2);
             } else if (attempts === 3) {
                 // Show Dr. Doom hint with special styling
                 messageEl.className = 'message-display show hint';
                 const clubPin = pinDatabase['223'];
-                messageEl.textContent = messages.attempt3 + clubPin.hint;
-                console.log('🔍 HINT DISPLAYED: ' + messages.attempt3 + clubPin.hint);
+                const fullHint = messages.attempt3 + clubPin.hint;
+                messageEl.textContent = fullHint;
+                console.log('🔍 SHOWING HINT:', fullHint);
+                console.log('💡 Hint should be visible for 5 seconds with gold styling');
             } else {
                 // Kick them out after 4th failed attempt
+                console.log('🚨 Attempt 4 - calling kickOut()');
                 kickOut();
                 return;
             }
@@ -713,8 +722,10 @@
             
             // Longer display time for hint (attempt 3)
             const displayTime = attempts === 3 ? 5000 : 3000;
+            console.log(`⏰ Message will display for ${displayTime}ms`);
             setTimeout(() => {
                 messageEl.classList.remove('show');
+                console.log('📤 Message hidden');
             }, displayTime);
         }
         
