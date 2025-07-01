@@ -83,10 +83,8 @@
         /* MAIN CONTENT */
         .main-content {
             margin-top: 80px;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            min-height: calc(100vh - 80px);
+            position: relative;
         }
         
         /* DRUNK EFFECTS */
@@ -128,10 +126,14 @@
         
         /* SCENE SYSTEM */
         .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             opacity: 0;
             visibility: hidden;
             transition: all 0.8s ease;
-            padding: 40px 0;
         }
         
         .scene.active {
@@ -139,137 +141,129 @@
             visibility: visible;
         }
         
-        /* ENTRANCE SCENE - CARD STYLE */
+        /* ENTRANCE SCENE - LIFE-SIZE PHOTO */
         .entrance-scene {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 80vh;
+            min-height: calc(100vh - 80px);
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            position: relative;
         }
 
-        .club-card {
-            background: var(--card-bg);
-            border: 2px solid var(--keith-gold);
-            border-radius: 20px;
-            padding: 40px;
+        .club-entrance-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            max-width: 1200px;
+        }
+
+        /* CLUB SIGN OVERLAY */
+        .club-sign-overlay {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
             text-align: center;
-            max-width: 500px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .club-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 80px rgba(218, 181, 71, 0.3);
         }
         
         .club-sign {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 6vw, 3rem);
+            font-size: clamp(2rem, 8vw, 4rem);
             font-weight: 900;
             color: var(--neon-pink);
-            text-shadow: 0 0 10px var(--pink-glow), 0 0 20px var(--pink-glow);
+            text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow);
             animation: neonFlicker 3s ease-in-out infinite alternate;
             text-transform: lowercase;
             font-style: italic;
-            margin-bottom: 20px;
-        }
-        
-        @keyframes neonFlicker {
-            0%, 100% { text-shadow: 0 0 10px var(--pink-glow), 0 0 20px var(--pink-glow); }
-            50% { text-shadow: 0 0 15px var(--pink-glow), 0 0 30px var(--pink-glow); }
+            margin-bottom: 15px;
         }
 
         .club-description {
             color: var(--keith-white);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            max-width: 600px;
+            text-align: center;
             opacity: 0.9;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        @keyframes neonFlicker {
+            0%, 100% { text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow); }
+            50% { text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--pink-glow); }
         }
 
-        .door-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            margin: 30px 0;
-        }
-        
-        .door {
-            width: 120px;
-            height: 160px;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 3px solid var(--keith-gold);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        /* LIFE-SIZE DOOR */
+        .club-door {
+            width: auto;
+            height: 75vh; /* Life-size height */
+            max-height: 600px;
+            object-fit: contain;
             transition: transform 1s ease-in-out;
             transform-origin: left center;
-            position: relative;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
         }
         
-        .door.sliding {
+        .club-door.sliding {
             transform: translateX(-100%) rotateY(-90deg);
             opacity: 0;
         }
-        
-        .door-window {
+
+        /* SECURITY KEYPAD - POSITIONED RIGHT OF DOOR */
+        .security-keypad {
             position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 25%;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid var(--keith-gold);
-            border-radius: 8px;
-        }
-        
-        .door-handle {
-            position: absolute;
-            right: 8px;
+            right: 20%;
             top: 50%;
             transform: translateY(-50%);
-            width: 8px;
-            height: 20px;
-            background: var(--keith-gold);
-            border-radius: 4px;
+            width: auto;
+            height: 12vh;
+            max-height: 120px;
+            min-height: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
         }
         
-        .pin-keypad {
+        .security-keypad:hover {
+            transform: translateY(-50%) scale(1.05);
+            filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
+        }
+
+        /* FALLBACK STYLING IF NO PHOTOS */
+        .door-fallback {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .keypad-fallback {
             width: 80px;
             height: 100px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid var(--keith-gold);
             border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            color: var(--keith-gold);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
-        
-        .pin-keypad:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(218, 181, 71, 0.4);
-            border-color: var(--keith-gold-light);
-        }
-        
-        .pin-keypad-icon {
+
+        .keypad-fallback::before {
+            content: '🔢';
             font-size: 2rem;
             margin-bottom: 5px;
-            color: var(--keith-gold);
-        }
-        
-        .pin-keypad-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.7rem;
-            color: var(--keith-gold);
-            font-weight: bold;
-            text-align: center;
         }
         
         /* CASHIER SCENE */
@@ -277,7 +271,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 80vh;
+            min-height: calc(100vh - 80px);
+            background: linear-gradient(135deg, #2a2a1a 0%, #1a1a0a 50%, var(--keith-black) 100%);
         }
         
         .cashier-window {
@@ -311,46 +306,58 @@
             font-family: 'Orbitron', monospace;
         }
         
-        /* BOOTH SCENE */
+        /* BOOTH SCENE - LIFE-SIZE PHOTO BACKGROUND */
         .booth-scene {
-            min-height: 80vh;
-            background: 
-                radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
-                linear-gradient(135deg, #2a1a1a 0%, #1a0a0a 50%, var(--keith-black) 100%);
+            min-height: calc(100vh - 80px);
+            background-image: url('photos/vip-booth.jpg'); /* YOUR PHOTO HERE */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             position: relative;
         }
 
-        .booth-header {
-            text-align: center;
-            padding: 40px 0;
-        }
-        
-        .booth-table {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 25%;
+        /* FALLBACK IF NO BOOTH PHOTO */
+        .booth-scene:not([style*="background-image"]) {
             background: 
-                radial-gradient(ellipse at center bottom, rgba(139, 69, 19, 0.4) 0%, transparent 60%),
-                linear-gradient(to top, rgba(26, 26, 26, 0.95) 0%, transparent 70%);
+                radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
+                linear-gradient(135deg, #2a1a1a 0%, #1a0a0a 50%, var(--keith-black) 100%);
+        }
+
+        .booth-header {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 5;
         }
         
-        .table-items {
+        /* VIP TABLE ITEMS - POSITIONED ON REAL PHOTO */
+        .table-items-container {
             position: absolute;
             bottom: 20%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 100px;
+            gap: 150px;
             align-items: center;
+            z-index: 10;
         }
         
         .champagne-glass, .phone {
-            width: 80px;
-            height: 80px;
+            width: auto;
+            height: 8vh;
+            min-height: 60px;
+            max-height: 100px;
             cursor: pointer;
             transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+        }
+
+        /* FALLBACK STYLING IF NO ITEM PHOTOS */
+        .champagne-fallback, .phone-fallback {
+            width: 80px;
+            height: 80px;
             font-size: 3rem;
             display: flex;
             align-items: center;
@@ -360,9 +367,10 @@
             border-radius: 50%;
         }
         
-        .champagne-glass:hover, .phone:hover {
+        .champagne-glass:hover, .phone:hover,
+        .champagne-fallback:hover, .phone-fallback:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 20px var(--keith-gold);
+            filter: drop-shadow(0 8px 16px var(--keith-gold));
         }
         
         /* DRUNK ITEMS */
@@ -371,7 +379,8 @@
             opacity: 0;
             transition: opacity 0.5s ease;
             font-size: 1.5rem;
-            z-index: 10;
+            z-index: 15;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8));
         }
         
         .drunk-item.visible {
@@ -379,25 +388,25 @@
         }
         
         .earring-item {
-            bottom: 25%;
+            bottom: 35%;
             left: 40%;
             font-size: 1rem;
         }
         
         .bra-item {
-            bottom: 30%;
+            bottom: 40%;
             right: 15%;
             font-size: 2rem;
         }
         
         .panties-item {
-            bottom: 15%;
+            bottom: 25%;
             left: 25%;
             font-size: 1.5rem;
         }
         
         .heels-item {
-            bottom: 22%;
+            bottom: 32%;
             left: 50%;
             font-size: 2rem;
         }
@@ -549,6 +558,7 @@
             font-family: 'Orbitron', monospace;
             display: none;
             min-width: 200px;
+            backdrop-filter: blur(10px);
         }
         
         .ui-panel.show { display: block; }
@@ -636,20 +646,79 @@
             font-size: 0.9rem;
             color: var(--keith-gold);
             display: none;
+            backdrop-filter: blur(10px);
         }
 
         .audio-controls.show { display: block; }
         
-        /* RESPONSIVE */
+        /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
             .nav-menu { display: none; }
-            .main-content { padding: 20px 15px; }
-            .club-card { margin: 20px; padding: 30px 20px; }
-            .pin-pad { width: 280px; padding: 25px; }
-            .message-display { max-width: 90%; padding: 25px 20px; font-size: 1rem; }
-            .table-items { gap: 60px; }
-            .champagne-glass, .phone { width: 60px; height: 60px; font-size: 2rem; }
-            .ui-panel { right: 15px; min-width: 180px; }
+            .main-content { margin-top: 70px; }
+            
+            .club-door {
+                height: 60vh;
+                max-height: 400px;
+            }
+            
+            .security-keypad {
+                height: 8vh;
+                min-height: 60px;
+                right: 15%;
+            }
+            
+            .table-items-container {
+                gap: 80px;
+                bottom: 15%;
+            }
+            
+            .champagne-glass, .phone {
+                height: 6vh;
+                min-height: 50px;
+            }
+            
+            .pin-pad { 
+                width: 280px; 
+                padding: 25px; 
+            }
+            
+            .message-display { 
+                max-width: 90%; 
+                padding: 25px 20px; 
+                font-size: 1rem; 
+            }
+            
+            .ui-panel { 
+                right: 15px; 
+                min-width: 180px; 
+            }
+
+            .club-sign {
+                font-size: clamp(1.5rem, 6vw, 2.5rem);
+            }
+
+            .club-description {
+                font-size: clamp(0.8rem, 1.5vw, 1rem);
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .club-door {
+                height: 50vh;
+                max-height: 300px;
+            }
+            
+            .security-keypad {
+                height: 6vh;
+                min-height: 50px;
+                right: 10%;
+            }
+            
+            .table-items-container {
+                gap: 60px;
+                bottom: 12%;
+            }
         }
     </style>
 </head>
@@ -669,22 +738,42 @@
     </header>
 
     <div class="main-content">
-        <!-- ENTRANCE SCENE -->
+        <!-- ENTRANCE SCENE - LIFE-SIZE PHOTO -->
         <div class="scene entrance-scene active" id="entranceScene">
-            <div class="club-card">
+            <div class="club-sign-overlay">
                 <div class="club-sign">the players club</div>
                 <p class="club-description">
                     Step into Willie Biggs' exclusive high-stakes world where the chips are stacked high and the game never stops. Where real players separate from pretenders.
                 </p>
-                <div class="door-container">
-                    <div class="door" id="clubDoor">
-                        <div class="door-window"></div>
-                        <div class="door-handle"></div>
-                    </div>
-                    <div class="pin-keypad" onclick="showPinPad()">
-                        <div class="pin-keypad-icon">🔢</div>
-                        <div class="pin-keypad-text">PIN</div>
-                    </div>
+            </div>
+
+            <div class="club-entrance-container">
+                <!-- LIFE-SIZE CLUB DOOR -->
+                <img src="photos/club-door.jpg" 
+                     alt="Club Entrance Door" 
+                     class="club-door" 
+                     id="clubDoor"
+                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
+                
+                <!-- FALLBACK IF NO DOOR PHOTO -->
+                <div class="door-fallback" id="doorFallback" style="display:none;">
+                    <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
+                    <div style="position:absolute; right:8px; top:50%; transform:translateY(-50%); width:8px; height:20px; background:var(--keith-gold); border-radius:4px;"></div>
+                </div>
+
+                <!-- SECURITY KEYPAD -->
+                <img src="photos/security-keypad.png" 
+                     alt="Security Keypad" 
+                     class="security-keypad" 
+                     onclick="showPinPad()"
+                     onerror="this.style.display='none'; document.getElementById('keypadFallback').style.display='flex';">
+                
+                <!-- FALLBACK IF NO KEYPAD PHOTO -->
+                <div class="keypad-fallback security-keypad" 
+                     id="keypadFallback" 
+                     style="display:none;" 
+                     onclick="showPinPad()">
+                    PIN
                 </div>
             </div>
         </div>
@@ -702,23 +791,43 @@
             </div>
         </div>
         
-        <!-- BOOTH SCENE -->
+        <!-- BOOTH SCENE - LIFE-SIZE PHOTO BACKGROUND -->
         <div class="scene booth-scene" id="boothScene">
             <div class="booth-header">
                 <div class="club-sign">the players club</div>
             </div>
             
-            <!-- VIP Table -->
-            <div class="booth-table">
-                <div class="table-items">
-                    <div class="champagne-glass" onclick="drinkChampagne()" title="Champagne">🥂</div>
-                    <div class="phone" onclick="openPhone()" title="Keith's Phone">📱</div>
-                </div>
+            <!-- VIP TABLE ITEMS ON REAL PHOTO -->
+            <div class="table-items-container">
+                <!-- CHAMPAGNE GLASS -->
+                <img src="photos/table-items/champagne-glass.png" 
+                     alt="Champagne Glass" 
+                     class="champagne-glass" 
+                     onclick="drinkChampagne()" 
+                     title="Champagne"
+                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
+                
+                <div class="champagne-fallback" 
+                     id="champagneFallback" 
+                     style="display:none;" 
+                     onclick="drinkChampagne()" 
+                     title="Champagne">🥂</div>
+
+                <!-- KEITH'S PHONE -->
+                <img src="photos/table-items/keith-phone.png" 
+                     alt="Keith's Phone" 
+                     class="phone" 
+                     onclick="openPhone()" 
+                     title="Keith's Phone"
+                     onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
+                
+                <div class="phone-fallback" 
+                     id="phoneFallback" 
+                     style="display:none;" 
+                     onclick="openPhone()" 
+                     title="Keith's Phone">📱</div>
             </div>
             
-            <!-- Drunk Items -->
-            <div class="drunk-item earring-item">💎</div>
-            <div class="drunk-item bra-item">👙</div>
             <div class="drunk-item panties-item">🩲</div>
             <div class="drunk-item heels-item">👠</div>
         </div>
@@ -774,7 +883,7 @@
 
     <!-- HIDDEN AUDIO ELEMENT -->
     <audio id="apartment223Audio" preload="none">
-        <source src="apartment223.mp3" type="audio/mpeg">
+        <source src="photos/apartment223.mp3" type="audio/mpeg">
         <!-- Add your actual audio file path -->
     </audio>
 
