@@ -166,11 +166,12 @@ body {
     gap: 80px;
 }
 
-/* KEYPAD CONTAINER AND STYLING */
+/* KEYPAD CONTAINER AND STYLING - FIXED POSITIONING */
 .keypad-container {
     position: relative;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 10;
 }
 
 .keypad-container:hover {
@@ -205,9 +206,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
+    z-index: 15;
 }
 
 .keypad-fallback:hover {
