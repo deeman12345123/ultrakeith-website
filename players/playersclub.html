@@ -26,15 +26,19 @@
         <div class="scene entrance-scene active" id="entranceScene">
             <div class="club-sign">the players club</div>
             <div class="entrance-container">
+                <!-- CLUB DOOR -->
                 <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
                      onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
                 <div class="door-fallback" id="doorFallback" style="display:none;">
                     <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
                     <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
                 </div>
-                <img src="photos/security-keypad.png" alt="Keypad" class="security-keypad" onclick="showPinPad()"
-                     onerror="this.style.display='none'; document.getElementById('keypadFallback').style.display='flex';">
-                <div class="keypad-fallback" id="keypadFallback" style="display:none;" onclick="showPinPad()">PIN</div>
+                
+                <!-- SECURITY KEYPAD - SIMPLE AND ALWAYS CLICKABLE -->
+                <div class="keypad-fallback" onclick="showPinPad()">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🔢</div>
+                    <div>PIN</div>
+                </div>
             </div>
         </div>
         
