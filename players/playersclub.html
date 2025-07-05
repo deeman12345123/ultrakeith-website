@@ -370,9 +370,9 @@
             font-weight: bold;
         }
         
-        /* VIP BOOTH SCENE - REAL CASINO ROOM */
+        /* VIP BOOTH SCENE - REAL CASINO ROOM WITH BG.PNG */
         .booth-scene {
-            background-image: url('photos/vip-booth.jpg');
+            background-image: url('bg.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -380,9 +380,10 @@
         }
 
         .booth-scene:not([style*="background-image"]) {
-            background: 
-                radial-gradient(ellipse at 50% 20%, var(--pink-glow) 0%, transparent 40%),
-                linear-gradient(135deg, #2a1a1a 0%, #1a0a0a 50%, var(--keith-black) 100%);
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .booth-header {
