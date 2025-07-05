@@ -1227,19 +1227,19 @@
 
             <!-- CASINO ROOM LAYOUT - REAL CASINO ASSETS -->
             <div class="casino-room">
-                <!-- BLACKJACK TABLE - MIDDLE LEFT (Round table) -->
-                <div class="room-blackjack" onclick="showScene('blackjack')" title="Blackjack Table">
-                    <img src="bj.png" alt="Blackjack Table">
-                </div>
-
                 <!-- SLOTS MACHINE - UP BACK CENTER (3 slot machines) -->
-                <div class="room-slots" onclick="showScene('slots')" title="Slot Machines">
+                <div class="room-slots" onclick="showGameScene('slots')" title="Professional RTP 92% Slots">
                     <img src="slots.png" alt="Slot Machines">
                 </div>
 
                 <!-- DICE TABLE - MIDDLE RIGHT (Oval craps table) -->
-                <div class="room-dice" onclick="showScene('dice')" title="Dice Game">
+                <div class="room-dice" onclick="showGameScene('ceelo')" title="Real Cee-Lo Dice Game">
                     <img src="456.png" alt="Dice Table">
+                </div>
+
+                <!-- BLACKJACK TABLE - MIDDLE LEFT (Round table) -->
+                <div class="room-blackjack" onclick="showGameScene('blackjack')" title="Casino-Grade Blackjack">
+                    <img src="bj.png" alt="Blackjack Table">
                 </div>
 
                 <!-- CASHIER BOOTH - TO THE RIGHT (Cashier window) -->
@@ -1409,6 +1409,62 @@
     <audio id="apartment223Audio" preload="none">
         <source src="photos/apartment223.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- MAIN CORE SCRIPT -->
+    <script src="js/main.js"></script>
+    
+    <!-- GAME ENGINE SCRIPTS - LOADED DYNAMICALLY -->
+    <script>
+        // CORE GAME STATE AND MODULE LOADER
+        let gameEngines = {
+            slots: null,
+            blackjack: null,
+            ceelo: null
+        };
+
+        // DYNAMIC SCRIPT LOADER
+        function loadGameEngine(gameName) {
+            return new Promise((resolve, reject) => {
+                if (gameEngines[gameName]) {
+                    resolve(gameEngines[gameName]);
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = `js/${gameName}-engine.js`;
+                script.onload = () => {
+                    console.log(`${gameName} engine loaded`);
+                    resolve(window[`${gameName}Engine`]);
+                };
+                script.onerror = () => {
+                    console.error(`Failed to load ${gameName} engine`);
+                    reject(new Error(`Failed to load ${gameName} engine`));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        // ENHANCED SCENE MANAGEMENT WITH GAME LOADING
+        async function showGameScene(gameName) {
+            showMessage('Loading casino-grade engine...', 'hint');
+            
+            try {
+                const engine = await loadGameEngine(gameName);
+                gameEngines[gameName] = engine;
+                showScene(gameName);
+                
+                // Initialize the game engine
+                if (engine && engine.init) {
+                    engine.init();
+                }
+                
+                showMessage(`Welcome to professional ${gameName}!`, 'success');
+            } catch (error) {
+                showMessage('Failed to load game engine', 'warning3');
+                console.error(error);
+            }
+        }
+    </script>
 
     <script>
         // GAME STATE
