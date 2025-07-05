@@ -370,7 +370,7 @@
             font-weight: bold;
         }
         
-        /* VIP BOOTH SCENE */
+        /* VIP BOOTH SCENE - REAL CASINO ROOM */
         .booth-scene {
             background-image: url('photos/vip-booth.jpg');
             background-size: cover;
@@ -387,70 +387,154 @@
 
         .booth-header {
             position: absolute;
-            top: 10%;
+            top: 5%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             z-index: 5;
         }
 
-        .booth-menu {
+        /* CASINO ROOM LAYOUT */
+        .casino-room {
             position: absolute;
-            top: 15%;
-            right: 5%;
-            background: var(--card-bg);
-            border: 2px solid var(--keith-gold);
-            border-radius: 15px;
-            padding: 20px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 10;
-            min-width: 200px;
         }
 
-        .menu-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            color: var(--keith-gold);
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px;
-            margin: 8px 0;
-            background: rgba(218, 181, 71, 0.1);
-            border: 1px solid var(--keith-gold);
-            border-radius: 8px;
+        /* BLACKJACK TABLE - MIDDLE LEFT */
+        .room-blackjack {
+            position: absolute;
+            top: 35%;
+            left: 15%;
+            width: 120px;
+            height: 80px;
+            background: #0a5d0a;
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         }
 
-        .menu-item:hover {
-            background: rgba(218, 181, 71, 0.2);
-            transform: translateX(5px);
+        .room-blackjack:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px var(--keith-gold);
         }
 
-        .menu-icon {
-            width: 30px;
-            height: 30px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            flex-shrink: 0;
+        .room-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
         }
 
-        .menu-icon.fallback {
+        .room-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            color: var(--keith-gold);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* SLOTS MACHINE - UP BACK CENTER */
+        .room-slots {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 120px;
             background: linear-gradient(145deg, #333, #555);
-            border: 1px solid var(--keith-gold);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .room-slots:hover {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 12px 35px var(--keith-gold);
+        }
+
+        .room-slots .room-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* DICE TABLE - OPPOSITE BJ (MIDDLE RIGHT) */
+        .room-dice {
+            position: absolute;
+            top: 35%;
+            right: 15%;
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .room-dice:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px var(--keith-gold);
+        }
+
+        /* CASHIER BOOTH - TO THE RIGHT */
+        .room-cashier {
+            position: absolute;
+            top: 60%;
+            right: 10%;
+            width: 140px;
+            height: 100px;
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .room-cashier:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px var(--keith-gold);
+        }
+
+        .room-cashier .room-icon {
+            width: 45px;
+            height: 45px;
+        }
+
+        /* FALLBACK ICONS FOR ROOM ITEMS */
+        .room-icon.fallback {
+            background: linear-gradient(145deg, #333, #555);
+            border: 2px solid var(--keith-gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            color: var(--keith-gold);
         }
         
         /* TABLE ITEMS */
@@ -906,9 +990,35 @@
             }
             
             .booth-menu {
-                right: 2%;
-                min-width: 160px;
-                padding: 15px;
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px auto;
+                width: 90%;
+            }
+
+            .casino-room {
+                position: relative;
+                height: auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                padding: 20px;
+                margin-top: 60px;
+            }
+
+            .room-blackjack, .room-dice, .room-slots, .room-cashier {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+                margin: 0 auto;
+            }
+
+            .room-slots {
+                grid-column: 1 / -1;
+                justify-self: center;
             }
 
             .gift-items {
@@ -1079,54 +1189,56 @@
             </div>
         </div>
         
-        <!-- VIP BOOTH SCENE -->
+        <!-- VIP BOOTH SCENE - REAL CASINO ROOM -->
         <div class="scene booth-scene" id="boothScene">
             <div class="booth-header">
                 <div class="club-sign">the players club</div>
             </div>
 
-            <!-- VIP MENU -->
-            <div class="booth-menu">
-                <div class="menu-title">VIP Options</div>
-                
-                <div class="menu-item" onclick="openPhone()">
-                    <img src="phone.png" 
-                         alt="Phone" 
-                         class="menu-icon"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="menu-icon fallback" style="display:none;">📱</div>
-                    <span>Keith's AI Chat</span>
-                </div>
-                
-                <div class="menu-item" onclick="showScene('dice')">
-                    <img src="456.png" 
-                         alt="Dice" 
-                         class="menu-icon"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="menu-icon fallback" style="display:none;">🎲</div>
-                    <span>Dice Game</span>
-                </div>
-                
-                <div class="menu-item" onclick="showScene('slots')">
-                    <img src="slots.png" 
-                         alt="Slots" 
-                         class="menu-icon"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="menu-icon fallback" style="display:none;">🎰</div>
-                    <span>Slot Machine</span>
-                </div>
-                
-                <div class="menu-item" onclick="showScene('blackjack')">
+            <!-- CASINO ROOM LAYOUT -->
+            <div class="casino-room">
+                <!-- BLACKJACK TABLE - MIDDLE LEFT -->
+                <div class="room-blackjack" onclick="showScene('blackjack')" title="Blackjack Table">
                     <img src="bj.png" 
                          alt="Blackjack" 
-                         class="menu-icon"
+                         class="room-icon"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="menu-icon fallback" style="display:none;">🃏</div>
-                    <span>Blackjack</span>
+                    <div class="room-icon fallback" style="display:none;">🃏</div>
+                    <div class="room-label">Blackjack</div>
+                </div>
+
+                <!-- SLOTS MACHINE - UP BACK CENTER -->
+                <div class="room-slots" onclick="showScene('slots')" title="Slot Machine">
+                    <img src="slots.png" 
+                         alt="Slots" 
+                         class="room-icon"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="room-icon fallback" style="display:none;">🎰</div>
+                    <div class="room-label">Slots</div>
+                </div>
+
+                <!-- DICE TABLE - MIDDLE RIGHT (OPPOSITE BJ) -->
+                <div class="room-dice" onclick="showScene('dice')" title="Dice Game">
+                    <img src="456.png" 
+                         alt="Dice" 
+                         class="room-icon"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="room-icon fallback" style="display:none;">🎲</div>
+                    <div class="room-label">Dice Game</div>
+                </div>
+
+                <!-- CASHIER BOOTH - TO THE RIGHT -->
+                <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
+                    <img src="cashier.png" 
+                         alt="Cashier" 
+                         class="room-icon"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="room-icon fallback" style="display:none;">👩‍💼</div>
+                    <div class="room-label">Cashier</div>
                 </div>
             </div>
             
-            <!-- VIP TABLE ITEMS -->
+            <!-- VIP TABLE ITEMS - BOTTOM CENTER -->
             <div class="table-items-container">
                 <img src="photos/table-items/champagne-glass.png" 
                      alt="Champagne Glass" 
