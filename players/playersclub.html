@@ -379,11 +379,21 @@
             position: relative;
         }
 
-        .booth-scene:not([style*="background-image"]) {
-            background-image: url('bg.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        /* Fallback if bg.png doesn't load */
+        .booth-scene::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #2a1a1a 0%, #1a0a0a 50%, var(--keith-black) 100%);
+            z-index: -1;
+        }
+
+        /* If bg.png loads, hide fallback */
+        .booth-scene[style*="background-image"]::before {
+            display: none;
         }
 
         .booth-header {
