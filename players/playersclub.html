@@ -131,7 +131,700 @@
             height: calc(100vh - 80px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.8s ease;
+            transition: all 0.3s ease;
+        }
+        
+        .pin-btn:hover {
+            background: var(--keith-gold);
+            color: var(--keith-black);
+            transform: scale(1.05);
+        }
+        
+        /* MESSAGE DISPLAY */
+        .message-display {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 30px 40px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 500px;
+            z-index: 2000;
+            display: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+        
+        .message-display.show { display: block; }
+        
+        .message-display.warning1 { border-color: #00ff41; color: #00ff41; }
+        .message-display.warning2 { border-color: #ffa500; color: #ffa500; }
+        .message-display.warning3 { border-color: #ff073a; color: #ff073a; }
+        
+        .message-display.hint {
+            border-color: var(--keith-gold-light);
+            color: var(--keith-gold-light);
+            background: rgba(218, 181, 71, 0.15);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--keith-gold-light);
+        }
+        
+        .message-display.success {
+            border-color: var(--keith-gold);
+            color: var(--keith-gold);
+            background: rgba(218, 181, 71, 0.15);
+            text-shadow: 0 0 10px var(--keith-gold);
+            font-weight: bold;
+        }
+
+        .message-display.song-hint {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            background: rgba(255, 20, 147, 0.15);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--pink-glow);
+        }
+        
+        /* UI PANEL */
+        .ui-panel {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 20px;
+            font-family: 'Orbitron', monospace;
+            display: none;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .ui-panel.show { display: block; }
+        
+        .chip-display {
+            color: var(--keith-gold);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .drink-counter {
+            color: var(--keith-white);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .player-info {
+            color: var(--keith-white);
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
+            color: var(--keith-black);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #444, #666);
+            color: var(--keith-white);
+        }
+        
+        /* LOCKOUT SCREEN */
+        .lockout-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+        
+        .lockout-content {
+            background: var(--card-bg);
+            border: 3px solid #ff073a;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+        
+        .lockout-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: #ff073a;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        /* AUDIO CONTROLS */
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--keith-gold);
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .audio-controls.show { display: block; }
+        
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            
+            .entrance-container {
+                flex-direction: row;
+                gap: 30px;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .club-door {
+                height: 50vh;
+                max-height: 350px;
+                order: 1;
+            }
+            
+            .security-keypad {
+                height: 12vh;
+                min-height: 80px;
+                order: 2;
+            }
+            
+            .club-sign {
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
+                margin-bottom: 40px;
+            }
+            
+            .table-items-container {
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin-top: 20px;
+            }
+            
+            .gift-items {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .pin-pad { 
+                width: 280px; 
+                padding: 25px; 
+            }
+            
+            .message-display { 
+                max-width: 90%; 
+                padding: 25px 20px; 
+                font-size: 1rem; 
+            }
+            
+            .ui-panel { 
+                right: 15px; 
+                min-width: 180px; 
+            }
+
+            .game-interface {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .casino-room {
+                position: relative;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 20px;
+                margin-top: 60px;
+            }
+
+            .room-blackjack, .room-dice, .room-slots, .room-cashier, .room-phone {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+                margin: 0 auto;
+            }
+
+            .room-blackjack img, .room-dice img {
+                height: 18vh;
+                min-height: 100px;
+                max-height: 140px;
+            }
+
+            .room-slots img {
+                height: 25vh;
+                min-height: 140px;
+                max-height: 180px;
+            }
+
+            .room-cashier img {
+                height: 20vh;
+                min-height: 120px;
+                max-height: 160px;
+            }
+
+            .room-phone img {
+                height: 6vh;
+                min-height: 40px;
+                max-height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .entrance-container {
+                gap: 20px;
+            }
+            
+            .club-door {
+                height: 45vh;
+                max-height: 280px;
+            }
+            
+            .security-keypad {
+                height: 10vh;
+                min-height: 70px;
+            }
+
+            .club-sign {
+                font-size: clamp(1.2rem, 6vw, 2rem);
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/home.html" class="logo">ULTRA KEITH</a>
+            <ul class="nav-menu">
+                <li><a href="/home.html" class="nav-link">Home</a></li>
+                <li><a href="#personas" class="nav-link">Personas</a></li>
+                <li><a href="#music" class="nav-link">Music</a></li>
+                <li><a href="#videos" class="nav-link">Videos</a></li>
+                <li><a href="/players/" class="nav-link">Players Club</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <!-- ENTRANCE SCENE -->
+        <div class="scene entrance-scene active" id="entranceScene">
+            <div class="club-sign">the players club</div>
+
+            <div class="entrance-container">
+                <!-- CLUB DOOR -->
+                <img src="photos/club-door.jpg" 
+                     alt="Club Entrance Door" 
+                     class="club-door" 
+                     id="clubDoor"
+                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
+                
+                <div class="door-fallback" id="doorFallback" style="display:none;">
+                    <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
+                    <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
+                </div>
+
+                <!-- SECURITY KEYPAD -->
+                <img src="photos/security-keypad.png" 
+                     alt="Security Keypad" 
+                     class="security-keypad" 
+                     onclick="showPinPad()"
+                     onerror="this.style.display='none'; document.getElementById('keypadFallback').style.display='flex';">
+                
+                <div class="keypad-fallback" 
+                     id="keypadFallback" 
+                     style="display:none;" 
+                     onclick="showPinPad()">
+                    PIN
+                </div>
+            </div>
+        </div>
+        
+        <!-- BOUNCER SCENE -->
+        <div class="scene bouncer-scene" id="bouncerScene">
+            <div class="bouncer-container">
+                <img src="photos/bouncer.jpg" 
+                     alt="Club Bouncer" 
+                     class="bouncer-avatar"
+                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
+                
+                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">
+                    👨‍💼
+                </div>
+                
+                <h2 class="bouncer-title">Hey there</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
+                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
+                <button class="btn" onclick="goToCashier()">Continue →</button>
+            </div>
+        </div>
+
+        <!-- CASHIER SCENE -->
+        <div class="scene cashier-scene" id="cashierScene">
+            <div class="cashier-window">
+                <img src="cashier.png" 
+                     alt="Cashier" 
+                     class="cashier-avatar"
+                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
+                
+                <div class="cashier-avatar" id="cashierFallback" style="display:none;">
+                    👩‍💼
+                </div>
+                
+                <h2 class="cashier-title">Welcome!</h2>
+                <p style="margin-bottom: 20px;">What's your name?</p>
+                <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
+                
+                <div class="gift-items">
+                    <div class="gift-item">
+                        <div class="gift-icon">💰</div>
+                        <div class="gift-label">500 Chips</div>
+                    </div>
+                    <div class="gift-item">
+                        <img src="phone.png" 
+                             alt="Keith's Phone" 
+                             class="gift-icon"
+                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
+                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
+                        <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
+                    </div>
+                </div>
+                
+                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;">
+                    Keith left these for you. Enjoy your VIP experience!
+                </p>
+                <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
+            </div>
+        </div>
+        
+        <!-- VIP BOOTH SCENE - REAL CASINO ROOM -->
+        <div class="scene booth-scene" id="boothScene">
+            <div class="booth-header">
+                <div class="club-sign">the players club</div>
+            </div>
+
+            <!-- CASINO ROOM LAYOUT - REAL CASINO ASSETS -->
+            <div class="casino-room">
+                <!-- SLOTS MACHINE - UP BACK CENTER (3 slot machines) -->
+                <div class="room-slots" onclick="showGameScene('slots')" title="Professional RTP 92% Slots">
+                    <img src="slots.png" alt="Slot Machines">
+                </div>
+
+                <!-- DICE TABLE - MIDDLE RIGHT (Oval craps table) -->
+                <div class="room-dice" onclick="showGameScene('ceelo')" title="Real Cee-Lo Dice Game">
+                    <img src="456.png" alt="Dice Table">
+                </div>
+
+                <!-- BLACKJACK TABLE - MIDDLE LEFT (Round table) -->
+                <div class="room-blackjack" onclick="showGameScene('blackjack')" title="Casino-Grade Blackjack">
+                    <img src="bj.png" alt="Blackjack Table">
+                </div>
+
+                <!-- CASHIER BOOTH - TO THE RIGHT -->
+                <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
+                    <img src="cashier.png" alt="Cashier Booth">
+                </div>
+
+                <!-- PHONE ON TABLE - BOTTOM CENTER -->
+                <div class="room-phone" onclick="openPhone()" title="Keith's Phone">
+                    <img src="phone.png" alt="Keith's Phone">
+                </div>
+            </div>
+            
+            <!-- VIP TABLE ITEMS - CHAMPAGNE ONLY -->
+            <div class="table-items-container">
+                <img src="photos/table-items/champagne-glass.png" 
+                     alt="Champagne Glass" 
+                     class="champagne-glass" 
+                     onclick="drinkChampagne()" 
+                     title="Champagne"
+                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
+                
+                <div class="champagne-fallback" 
+                     id="champagneFallback" 
+                     style="display:none;" 
+                     onclick="drinkChampagne()" 
+                     title="Champagne">🥂</div>
+            </div>
+            
+            <!-- DRUNK ITEMS -->
+            <div class="drunk-item earring-item">💎</div>
+            <div class="drunk-item bra-item">👙</div>
+            <div class="drunk-item panties-item">🩲</div>
+            <div class="drunk-item heels-item">👠</div>
+        </div>
+
+        <!-- PROFESSIONAL SLOTS GAME SCENE -->
+        <div class="scene casino-scene" id="slotsScene">
+            <div class="game-interface">
+                <h2 class="game-title">Keith's Professional Slots</h2>
+                <p style="margin-bottom: 15px; color: var(--keith-gold);">
+                    <strong>RTP: 92% | 3x3 Reels | 5 Paylines | Keith-Themed Symbols</strong>
+                </p>
+                
+                <!-- SLOTS MACHINE DISPLAY -->
+                <div id="slotsContainer" class="slots-machine-container">
+                    <!-- Reel grid will be populated by JavaScript -->
+                </div>
+                
+                <!-- GAME CONTROLS -->
+                <div class="slots-controls">
+                    <div class="bet-controls">
+                        <label>Bet Amount:</label>
+                        <button onclick="setSlotsbet(1)" class="bet-btn">1</button>
+                        <button onclick="setSlotsbet(5)" class="bet-btn">5</button>
+                        <button onclick="setSlotsbet(10)" class="bet-btn active">10</button>
+                        <button onclick="setSlotsbet(25)" class="bet-btn">25</button>
+                        <button onclick="setSlotsbet(50)" class="bet-btn">50</button>
+                        <button onclick="setSlotsbet(100)" class="bet-btn">100</button>
+                    </div>
+                    
+                    <button class="btn spin-btn" onclick="spinSlots()" id="spinButton">
+                        🎰 SPIN REELS 🎰
+                    </button>
+                </div>
+                
+                <!-- GAME STATISTICS -->
+                <div class="slots-stats">
+                    <div class="stat-row">
+                        <span>Balance: <strong id="slotsBalance">500</strong> chips</span>
+                        <span>Bet: <strong id="slotsBet">10</strong> chips</span>
+                        <span>Last Win: <strong id="slotsLastWin">0</strong> chips</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Spins: <strong id="slotsSpins">0</strong></span>
+                        <span>Current RTP: <strong id="slotsRTP">0.0%</strong></span>
+                        <span>Target RTP: <strong>92.0%</strong></span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
+                
+                <!-- PAYTABLE -->
+                <div class="paytable">
+                    <h3>Keith's Symbol Paytable</h3>
+                    <div class="paytable-grid">
+                        <div class="paytable-row">
+                            <span>K K K</span><span>KEITH JACKPOT</span><span>1000x</span>
+                        </div>
+                        <div class="paytable-row">
+                            <span>U U U</span><span>ULTRA</span><span>500x</span>
+                        </div>
+                        <div class="paytable-row">
+                            <span>🎭 🎭 🎭</span><span>DR. OCTAGON</span><span>250x</span>
+                        </div>
+                        <div class="paytable-row">
+                            <span>👹 👹 👹</span><span>DR. DOOM</span><span>100x</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DICE GAME SCENE -->
+        <div class="scene casino-scene" id="ceeloScene">
+            <div class="game-interface">
+                <h2 class="game-title">Keith's Cee-Lo</h2>
+                <p style="margin-bottom: 20px;">Real street dice! Roll 4-5-6 to win big!</p>
+                
+                <div class="dice-container">
+                    <div class="dice" id="dice1">?</div>
+                    <div class="dice" id="dice2">?</div>
+                    <div class="dice" id="dice3">?</div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
+                    <input type="number" id="ceelobBet" min="10" max="500" value="50" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
+                </div>
+                
+                <button class="btn" onclick="rollCeelo()">Roll Dice</button>
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
+                
+                <div id="ceeloResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
+            </div>
+        </div>
+
+        <!-- BLACKJACK GAME SCENE -->
+        <div class="scene casino-scene" id="blackjackScene">
+            <div class="game-interface">
+                <h2 class="game-title">Keith's Blackjack</h2>
+                <p style="margin-bottom: 20px;">Beat the dealer! Get close to 21 without going over.</p>
+                
+                <div class="blackjack-table">
+                    <div style="margin-bottom: 20px;">
+                        <p style="color: white; margin-bottom: 10px;">Dealer's Hand (<span id="dealerScore">?</span>):</p>
+                        <div class="card-hand" id="dealerHand"></div>
+                    </div>
+                    
+                    <div>
+                        <p style="color: white; margin-bottom: 10px;">Your Hand (<span id="playerScore">0</span>):</p>
+                        <div class="card-hand" id="playerHand"></div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
+                    <input type="number" id="blackjackBet" min="50" max="500" value="100" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
+                </div>
+                
+                <div id="blackjackControls">
+                    <button class="btn" onclick="dealCards()">Deal Cards</button>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
+                
+                <div id="blackjackResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- UI PANEL -->
+    <div class="ui-panel" id="uiPanel">
+        <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
+        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
+        <div class="player-info">
+            Player: <span id="playerDisplay">Guest</span>
+        </div>
+    </div>
+    
+    <!-- PIN PAD OVERLAY -->
+    <div class="pin-overlay" id="pinOverlay">
+        <div class="pin-pad">
+            <button class="pin-close" onclick="hidePinPad()">×</button>
+            <div class="pin-display" id="pinDisplay">***</div>
+            <div class="pin-buttons">
+                <button class="pin-btn" onclick="enterPin('1')">1</button>
+                <button class="pin-btn" onclick="enterPin('2')">2</button>
+                <button class="pin-btn" onclick="enterPin('3')">3</button>
+                <button class="pin-btn" onclick="enterPin('4')">4</button>
+                <button class="pin-btn" onclick="enterPin('5')">5</button>
+                <button class="pin-btn" onclick="enterPin('6')">6</button>
+                <button class="pin-btn" onclick="enterPin('7')">7</button>
+                <button class="pin-btn" onclick="enterPin('8')">8</button>
+                <button class="pin-btn" onclick="enterPin('9')">9</button>
+                <button class="pin-btn" onclick="clearPin()">C</button>
+                <button class="pin-btn" onclick="enterPin('0')">0</button>
+                <button class="pin-btn" onclick="submitPin()">✓</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MESSAGE DISPLAY -->
+    <div class="message-display" id="messageDisplay"></div>
+    
+    <!-- LOCKOUT SCREEN -->
+    <div class="lockout-screen" id="lockoutScreen">
+        <div class="lockout-content">
+            <div class="lockout-title">ACCESS DENIED</div>
+            <div id="lockoutMessage">You've been ejected from the club.</div>
+            <button class="btn" onclick="resetClub()">Start Over (Testing)</button>
+        </div>
+    </div>
+
+    <!-- AUDIO CONTROLS -->
+    <div class="audio-controls" id="audioControls">
+        <div>♪ Now Playing: <span id="currentTrack">Apartment 223</span></div>
+    </div>
+
+    <!-- HIDDEN AUDIO ELEMENT -->
+    <audio id="apartment223Audio" preload="none">
+        <source src="photos/apartment223.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MAIN CORE SCRIPT -->
+    <script src="js/main.js"></script>
+    
+    <!-- GAME ENGINE SCRIPTS - LOADED DYNAMICALLY -->
+    <script>
+        // CORE GAME STATE AND MODULE LOADER
+        let gameEngines = {
+            slots: null,
+            blackjack: null,
+            ceelo: null
+        };
+
+        // DYNAMIC SCRIPT LOADER
+        function loadGameEngine(gameName) {
+            return new Promise((resolve, reject) => {
+                if (gameEngines[gameName]) {
+                    resolve(gameEngines[gameName]);
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = `js/${gameName}-engine.js`;
+                script.onload = () => {
+                    console.log(`${gameName} engine loaded`);
+                    resolve(window[`${gameName}Engine`]);
+                };
+                script.onerror = () => {
+                    console.error(`Failed to load ${gameName} engine`);
+                    reject(new Error(`Failed to load ${gameName} engine`));
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        // ENHANCED SCENE MANAGEMENT WITH GAME LOADING
+        async function showGameScene(gameName) {
+            showMessage('Loading casino-grade engine...', 'hint');
+            
+            try {
+                const engine = await loadGameEngine(gameName);
+                gameEngines[gameName] = engine;
+                showScene(gameName);
+                
+                // Initialize the game engine
+                if (engine && engine.init) {
+                    engine.init();
+                }
+                
+                showMessage(`Welcome to professional ${gameName}!`, 'success');
+            } catch (error) {
+                showMessage('Failed to load game engine', 'warning3');
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>8s ease;
         }
         
         .scene.active {
@@ -369,7 +1062,7 @@
             color: var(--keith-gold);
             font-weight: bold;
         }
-        
+
         /* VIP BOOTH SCENE - REAL CASINO ROOM WITH BG.PNG */
         .booth-scene {
             background-image: url('bg.png');
@@ -422,7 +1115,7 @@
             z-index: 10;
         }
 
-        /* BLACKJACK TABLE - LIFE-SIZE (Image 3 - Round table) */
+        /* BLACKJACK TABLE - LIFE-SIZE */
         .room-blackjack {
             position: absolute;
             top: 45%;
@@ -446,7 +1139,7 @@
             object-fit: contain;
         }
 
-        /* SLOTS MACHINE - LIFE-SIZE (Image 6 - 3 slot machines) */
+        /* SLOTS MACHINE - LIFE-SIZE */
         .room-slots {
             position: absolute;
             top: 5%;
@@ -471,7 +1164,7 @@
             object-fit: contain;
         }
 
-        /* DICE TABLE - LIFE-SIZE (Image 1 - Oval craps table) */
+        /* DICE TABLE - LIFE-SIZE */
         .room-dice {
             position: absolute;
             top: 45%;
@@ -495,7 +1188,7 @@
             object-fit: contain;
         }
 
-        /* CASHIER BOOTH - LIFE-SIZE (Image 4 - Cashier window) */
+        /* CASHIER BOOTH - LIFE-SIZE */
         .room-cashier {
             position: absolute;
             top: 65%;
@@ -519,7 +1212,7 @@
             object-fit: contain;
         }
 
-        /* PHONE ON TABLE - LIFE-SIZE (Image 5 - Phone) */
+        /* PHONE ON TABLE - LIFE-SIZE */
         .room-phone {
             position: absolute;
             bottom: 20%;
@@ -542,7 +1235,7 @@
             max-height: 80px;
             object-fit: contain;
         }
-        
+
         /* TABLE ITEMS - LIFE-SIZE */
         .table-items-container {
             position: absolute;
@@ -575,8 +1268,7 @@
             transition: all 0.3s ease;
         }
         
-        .champagne-glass:hover, .phone:hover,
-        .champagne-fallback:hover, .phone-fallback:hover {
+        .champagne-glass:hover, .champagne-fallback:hover {
             transform: scale(1.1);
             filter: drop-shadow(0 8px 16px var(--keith-gold));
         }
@@ -629,6 +1321,172 @@
             text-transform: uppercase;
         }
 
+        /* PROFESSIONAL SLOTS MACHINE STYLING */
+        .slots-machine-container {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .slots-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        .slot-symbol {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #333, #444);
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .slot-symbol.winning-symbol {
+            background: linear-gradient(145deg, var(--keith-gold), #ffd700);
+            color: var(--keith-black);
+            animation: winPulse 1s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px var(--keith-gold);
+        }
+
+        @keyframes winPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .symbol-emoji {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .symbol-name {
+            font-size: 0.6rem;
+            font-weight: bold;
+            text-align: center;
+            color: var(--keith-gold);
+        }
+
+        .winning-symbol .symbol-name {
+            color: var(--keith-black);
+        }
+
+        /* SLOTS CONTROLS */
+        .slots-controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .bet-controls {
+            margin-bottom: 20px;
+        }
+
+        .bet-controls label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--keith-gold);
+            font-weight: bold;
+        }
+
+        .bet-btn {
+            background: linear-gradient(145deg, #333, #555);
+            border: 2px solid var(--keith-gold);
+            color: var(--keith-white);
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .bet-btn:hover, .bet-btn.active {
+            background: var(--keith-gold);
+            color: var(--keith-black);
+        }
+
+        .spin-btn {
+            font-size: 1.3rem;
+            padding: 15px 30px;
+            margin: 20px 0;
+        }
+
+        /* SLOTS STATISTICS */
+        .slots-stats {
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid var(--keith-gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .stat-row span {
+            color: var(--keith-white);
+        }
+
+        .stat-row strong {
+            color: var(--keith-gold);
+        }
+
+        /* PAYTABLE */
+        .paytable {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--keith-gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .paytable h3 {
+            color: var(--keith-gold);
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .paytable-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .paytable-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            padding: 8px;
+            background: rgba(218, 181, 71, 0.1);
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        .paytable-row span:first-child {
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .paytable-row span:last-child {
+            text-align: right;
+            color: var(--keith-gold);
+            font-weight: bold;
+        }
+
         /* DICE GAME */
         .dice-container {
             display: flex;
@@ -649,39 +1507,6 @@
             font-size: 2rem;
             color: var(--keith-black);
             font-weight: bold;
-        }
-
-        /* SLOTS MACHINE */
-        .slots-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 30px 0;
-        }
-
-        .slot-reel {
-            width: 100px;
-            height: 120px;
-            background: #222;
-            border: 3px solid var(--keith-gold);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--keith-gold);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slot-reel.spinning {
-            animation: slotSpin 2s ease-out;
-        }
-
-        @keyframes slotSpin {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-300px); }
-            100% { transform: translateY(0); }
         }
 
         /* BLACKJACK */
@@ -785,1362 +1610,4 @@
             font-weight: bold;
             cursor: pointer;
             padding: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .pin-btn:hover {
-            background: var(--keith-gold);
-            color: var(--keith-black);
-            transform: scale(1.05);
-        }
-        
-        /* MESSAGE DISPLAY */
-        .message-display {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--card-bg);
-            border: 3px solid var(--keith-gold);
-            border-radius: 15px;
-            padding: 30px 40px;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            text-align: center;
-            max-width: 500px;
-            z-index: 2000;
-            display: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-        }
-        
-        .message-display.show { display: block; }
-        
-        .message-display.warning1 { border-color: #00ff41; color: #00ff41; }
-        .message-display.warning2 { border-color: #ffa500; color: #ffa500; }
-        .message-display.warning3 { border-color: #ff073a; color: #ff073a; }
-        
-        .message-display.hint {
-            border-color: var(--keith-gold-light);
-            color: var(--keith-gold-light);
-            background: rgba(218, 181, 71, 0.15);
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--keith-gold-light);
-        }
-        
-        .message-display.success {
-            border-color: var(--keith-gold);
-            color: var(--keith-gold);
-            background: rgba(218, 181, 71, 0.15);
-            text-shadow: 0 0 10px var(--keith-gold);
-            font-weight: bold;
-        }
-
-        .message-display.song-hint {
-            border-color: var(--neon-pink);
-            color: var(--neon-pink);
-            background: rgba(255, 20, 147, 0.15);
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--pink-glow);
-        }
-        
-        /* UI PANEL */
-        .ui-panel {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: var(--card-bg);
-            border: 2px solid var(--keith-gold);
-            border-radius: 15px;
-            padding: 20px;
-            font-family: 'Orbitron', monospace;
-            display: none;
-            min-width: 200px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .ui-panel.show { display: block; }
-        
-        .chip-display {
-            color: var(--keith-gold);
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .drink-counter {
-            color: var(--keith-white);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .player-info {
-            color: var(--keith-white);
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
-            color: var(--keith-black);
-            border: none;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 10px 0;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #444, #666);
-            color: var(--keith-white);
-        }
-        
-        /* LOCKOUT SCREEN */
-        .lockout-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-        }
-        
-        .lockout-content {
-            background: var(--card-bg);
-            border: 3px solid #ff073a;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            max-width: 600px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-        }
-        
-        .lockout-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            color: #ff073a;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-
-        /* AUDIO CONTROLS */
-        .audio-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: var(--card-bg);
-            border: 2px solid var(--keith-gold);
-            border-radius: 10px;
-            padding: 15px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            color: var(--keith-gold);
-            display: none;
-            backdrop-filter: blur(10px);
-        }
-
-        .audio-controls.show { display: block; }
-        
-        /* RESPONSIVE DESIGN */
-        @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            
-            .entrance-container {
-                flex-direction: row;
-                gap: 30px;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .club-door {
-                height: 50vh;
-                max-height: 350px;
-                order: 1;
-            }
-            
-            .security-keypad {
-                height: 12vh;
-                min-height: 80px;
-                order: 2;
-            }
-            
-            .club-sign {
-                font-size: clamp(1.5rem, 8vw, 2.5rem);
-                margin-bottom: 40px;
-            }
-            
-            .table-items-container {
-                gap: 80px;
-                bottom: 15%;
-            }
-            
-            .champagne-glass, .phone {
-                height: 8vh;
-                min-height: 60px;
-            }
-            
-            .booth-menu {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin: 20px auto;
-                width: 90%;
-            }
-
-            .casino-room {
-                position: relative;
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                padding: 20px;
-                margin-top: 60px;
-            }
-
-            .room-blackjack, .room-dice, .room-slots, .room-cashier, .room-phone {
-                position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                transform: none;
-                margin: 0 auto;
-            }
-
-            .room-blackjack img, .room-dice img {
-                height: 18vh;
-                min-height: 100px;
-                max-height: 140px;
-            }
-
-            .room-slots img {
-                height: 25vh;
-                min-height: 140px;
-                max-height: 180px;
-            }
-
-            .room-cashier img {
-                height: 20vh;
-                min-height: 120px;
-                max-height: 160px;
-            }
-
-            .room-phone img {
-                height: 6vh;
-                min-height: 40px;
-                max-height: 60px;
-            }
-
-            .table-items-container {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                transform: none;
-                margin-top: 20px;
-            }
-
-            .gift-items {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .pin-pad { 
-                width: 280px; 
-                padding: 25px; 
-            }
-            
-            .message-display { 
-                max-width: 90%; 
-                padding: 25px 20px; 
-                font-size: 1rem; 
-            }
-            
-            .ui-panel { 
-                right: 15px; 
-                min-width: 180px; 
-            }
-
-            .game-interface {
-                padding: 25px;
-                margin: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .entrance-container {
-                gap: 20px;
-            }
-            
-            .club-door {
-                height: 45vh;
-                max-height: 280px;
-            }
-            
-            .security-keypad {
-                height: 10vh;
-                min-height: 70px;
-            }
-            
-            .table-items-container {
-                gap: 60px;
-                bottom: 12%;
-            }
-
-            .club-sign {
-                font-size: clamp(1.2rem, 6vw, 2rem);
-                margin-bottom: 30px;
-            }
-
-            .booth-menu {
-                position: relative;
-                top: auto;
-                right: auto;
-                margin: 20px auto;
-                width: 90%;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- HEADER -->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="/home.html" class="logo">ULTRA KEITH</a>
-            <ul class="nav-menu">
-                <li><a href="/home.html" class="nav-link">Home</a></li>
-                <li><a href="#personas" class="nav-link">Personas</a></li>
-                <li><a href="#music" class="nav-link">Music</a></li>
-                <li><a href="#videos" class="nav-link">Videos</a></li>
-                <li><a href="/players/" class="nav-link">Players Club</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="main-content">
-        <!-- ENTRANCE SCENE -->
-        <div class="scene entrance-scene active" id="entranceScene">
-            <div class="club-sign">the players club</div>
-
-            <div class="entrance-container">
-                <!-- CLUB DOOR -->
-                <img src="photos/club-door.jpg" 
-                     alt="Club Entrance Door" 
-                     class="club-door" 
-                     id="clubDoor"
-                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
-                
-                <div class="door-fallback" id="doorFallback" style="display:none;">
-                    <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
-                    <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
-                </div>
-
-                <!-- SECURITY KEYPAD -->
-                <img src="photos/security-keypad.png" 
-                     alt="Security Keypad" 
-                     class="security-keypad" 
-                     onclick="showPinPad()"
-                     onerror="this.style.display='none'; document.getElementById('keypadFallback').style.display='flex';">
-                
-                <div class="keypad-fallback" 
-                     id="keypadFallback" 
-                     style="display:none;" 
-                     onclick="showPinPad()">
-                    PIN
-                </div>
-            </div>
-        </div>
-        
-        <!-- BOUNCER SCENE -->
-        <div class="scene bouncer-scene" id="bouncerScene">
-            <div class="bouncer-container">
-                <img src="photos/bouncer.jpg" 
-                     alt="Club Bouncer" 
-                     class="bouncer-avatar"
-                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
-                
-                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">
-                    👨‍💼
-                </div>
-                
-                <h2 class="bouncer-title">Hey there</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
-                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
-                <button class="btn" onclick="goToCashier()">Continue →</button>
-            </div>
-        </div>
-
-        <!-- CASHIER SCENE -->
-        <div class="scene cashier-scene" id="cashierScene">
-            <div class="cashier-window">
-                <img src="cashier.png" 
-                     alt="Cashier" 
-                     class="cashier-avatar"
-                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
-                
-                <div class="cashier-avatar" id="cashierFallback" style="display:none;">
-                    👩‍💼
-                </div>
-                
-                <h2 class="cashier-title">Welcome!</h2>
-                <p style="margin-bottom: 20px;">What's your name?</p>
-                <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
-                
-                <div class="gift-items">
-                    <div class="gift-item">
-                        <div class="gift-icon">💰</div>
-                        <div class="gift-label">500 Chips</div>
-                    </div>
-                    <div class="gift-item">
-                        <img src="phone.png" 
-                             alt="Keith's Phone" 
-                             class="gift-icon"
-                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
-                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
-                        <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
-                    </div>
-                </div>
-                
-                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;">
-                    Keith left these for you. Enjoy your VIP experience!
-                </p>
-                <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
-            </div>
-        </div>
-        
-        <!-- VIP BOOTH SCENE - REAL CASINO ROOM -->
-        <div class="scene booth-scene" id="boothScene">
-            <div class="booth-header">
-                <div class="club-sign">the players club</div>
-            </div>
-
-            <!-- CASINO ROOM LAYOUT - REAL CASINO ASSETS -->
-            <div class="casino-room">
-                <!-- SLOTS MACHINE - UP BACK CENTER (3 slot machines) -->
-                <div class="room-slots" onclick="showGameScene('slots')" title="Professional RTP 92% Slots">
-                    <img src="slots.png" alt="Slot Machines">
-                </div>
-
-                <!-- DICE TABLE - MIDDLE RIGHT (Oval craps table) -->
-                <div class="room-dice" onclick="showGameScene('ceelo')" title="Real Cee-Lo Dice Game">
-                    <img src="456.png" alt="Dice Table">
-                </div>
-
-                <!-- BLACKJACK TABLE - MIDDLE LEFT (Round table) -->
-                <div class="room-blackjack" onclick="showGameScene('blackjack')" title="Casino-Grade Blackjack">
-                    <img src="bj.png" alt="Blackjack Table">
-                </div>
-
-                <!-- CASHIER BOOTH - TO THE RIGHT (Cashier window) -->
-                <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
-                    <img src="cashier.png" alt="Cashier Booth">
-                </div>
-
-                <!-- PHONE ON TABLE - BOTTOM CENTER -->
-                <div class="room-phone" onclick="openPhone()" title="Keith's Phone">
-                    <img src="phone.png" alt="Keith's Phone">
-                </div>
-            </div>
-            
-            <!-- VIP TABLE ITEMS - CHAMPAGNE ONLY -->
-            <div class="table-items-container">
-                <img src="photos/table-items/champagne-glass.png" 
-                     alt="Champagne Glass" 
-                     class="champagne-glass" 
-                     onclick="drinkChampagne()" 
-                     title="Champagne"
-                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
-                
-                <div class="champagne-fallback" 
-                     id="champagneFallback" 
-                     style="display:none;" 
-                     onclick="drinkChampagne()" 
-                     title="Champagne">🥂</div>
-            </div>
-            
-            <!-- DRUNK ITEMS -->
-            <div class="drunk-item earring-item">💎</div>
-            <div class="drunk-item bra-item">👙</div>
-            <div class="drunk-item panties-item">🩲</div>
-            <div class="drunk-item heels-item">👠</div>
-        </div>
-
-        <!-- DICE GAME SCENE -->
-        <div class="scene casino-scene" id="diceScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Dice Game</h2>
-                <p style="margin-bottom: 20px;">Roll the dice! Doubles win big, totals 7 or 11 win small.</p>
-                
-                <div class="dice-container">
-                    <div class="dice" id="dice1">?</div>
-                    <div class="dice" id="dice2">?</div>
-                </div>
-                
-                <div style="margin: 20px 0;">
-                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
-                    <input type="number" id="diceBet" min="10" max="500" value="50" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
-                </div>
-                
-                <button class="btn" onclick="rollDice()">Roll Dice</button>
-                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
-                
-                <div id="diceResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
-            </div>
-        </div>
-
-        <!-- SLOTS GAME SCENE -->
-        <div class="scene casino-scene" id="slotsScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Slots</h2>
-                <p style="margin-bottom: 20px;">Match Keith symbols to win! 3 Keiths = JACKPOT!</p>
-                
-                <div class="slots-container">
-                    <div class="slot-reel" id="slot1">🎭</div>
-                    <div class="slot-reel" id="slot2">🎪</div>
-                    <div class="slot-reel" id="slot3">🎨</div>
-                </div>
-                
-                <div style="margin: 20px 0;">
-                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
-                    <input type="number" id="slotsBet" min="25" max="500" value="100" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
-                </div>
-                
-                <button class="btn" onclick="spinSlots()" id="spinButton">Spin Slots</button>
-                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
-                
-                <div id="slotsResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
-            </div>
-        </div>
-
-        <!-- BLACKJACK GAME SCENE -->
-        <div class="scene casino-scene" id="blackjackScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Blackjack</h2>
-                <p style="margin-bottom: 20px;">Beat the dealer! Get close to 21 without going over.</p>
-                
-                <div class="blackjack-table">
-                    <div style="margin-bottom: 20px;">
-                        <p style="color: white; margin-bottom: 10px;">Dealer's Hand (<span id="dealerScore">?</span>):</p>
-                        <div class="card-hand" id="dealerHand"></div>
-                    </div>
-                    
-                    <div>
-                        <p style="color: white; margin-bottom: 10px;">Your Hand (<span id="playerScore">0</span>):</p>
-                        <div class="card-hand" id="playerHand"></div>
-                    </div>
-                </div>
-                
-                <div style="margin: 20px 0;">
-                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
-                    <input type="number" id="blackjackBet" min="50" max="500" value="100" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
-                </div>
-                
-                <div id="blackjackControls">
-                    <button class="btn" onclick="dealCards()">Deal Cards</button>
-                </div>
-                
-                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
-                
-                <div id="blackjackResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- UI PANEL -->
-    <div class="ui-panel" id="uiPanel">
-        <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
-        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
-        <div class="player-info">
-            Player: <span id="playerDisplay">Guest</span>
-        </div>
-    </div>
-    
-    <!-- PIN PAD OVERLAY -->
-    <div class="pin-overlay" id="pinOverlay">
-        <div class="pin-pad">
-            <button class="pin-close" onclick="hidePinPad()">×</button>
-            <div class="pin-display" id="pinDisplay">***</div>
-            <div class="pin-buttons">
-                <button class="pin-btn" onclick="enterPin('1')">1</button>
-                <button class="pin-btn" onclick="enterPin('2')">2</button>
-                <button class="pin-btn" onclick="enterPin('3')">3</button>
-                <button class="pin-btn" onclick="enterPin('4')">4</button>
-                <button class="pin-btn" onclick="enterPin('5')">5</button>
-                <button class="pin-btn" onclick="enterPin('6')">6</button>
-                <button class="pin-btn" onclick="enterPin('7')">7</button>
-                <button class="pin-btn" onclick="enterPin('8')">8</button>
-                <button class="pin-btn" onclick="enterPin('9')">9</button>
-                <button class="pin-btn" onclick="clearPin()">C</button>
-                <button class="pin-btn" onclick="enterPin('0')">0</button>
-                <button class="pin-btn" onclick="submitPin()">✓</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- MESSAGE DISPLAY -->
-    <div class="message-display" id="messageDisplay"></div>
-    
-    <!-- LOCKOUT SCREEN -->
-    <div class="lockout-screen" id="lockoutScreen">
-        <div class="lockout-content">
-            <div class="lockout-title">ACCESS DENIED</div>
-            <div id="lockoutMessage">You've been ejected from the club.</div>
-            <button class="btn" onclick="resetClub()">Start Over (Testing)</button>
-        </div>
-    </div>
-
-    <!-- AUDIO CONTROLS -->
-    <div class="audio-controls" id="audioControls">
-        <div>♪ Now Playing: <span id="currentTrack">Apartment 223</span></div>
-    </div>
-
-    <!-- HIDDEN AUDIO ELEMENT -->
-    <audio id="apartment223Audio" preload="none">
-        <source src="photos/apartment223.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- MAIN CORE SCRIPT -->
-    <script src="js/main.js"></script>
-    
-    <!-- GAME ENGINE SCRIPTS - LOADED DYNAMICALLY -->
-    <script>
-        // CORE GAME STATE AND MODULE LOADER
-        let gameEngines = {
-            slots: null,
-            blackjack: null,
-            ceelo: null
-        };
-
-        // DYNAMIC SCRIPT LOADER
-        function loadGameEngine(gameName) {
-            return new Promise((resolve, reject) => {
-                if (gameEngines[gameName]) {
-                    resolve(gameEngines[gameName]);
-                    return;
-                }
-                
-                const script = document.createElement('script');
-                script.src = `js/${gameName}-engine.js`;
-                script.onload = () => {
-                    console.log(`${gameName} engine loaded`);
-                    resolve(window[`${gameName}Engine`]);
-                };
-                script.onerror = () => {
-                    console.error(`Failed to load ${gameName} engine`);
-                    reject(new Error(`Failed to load ${gameName} engine`));
-                };
-                document.head.appendChild(script);
-            });
-        }
-
-        // ENHANCED SCENE MANAGEMENT WITH GAME LOADING
-        async function showGameScene(gameName) {
-            showMessage('Loading casino-grade engine...', 'hint');
-            
-            try {
-                const engine = await loadGameEngine(gameName);
-                gameEngines[gameName] = engine;
-                showScene(gameName);
-                
-                // Initialize the game engine
-                if (engine && engine.init) {
-                    engine.init();
-                }
-                
-                showMessage(`Welcome to professional ${gameName}!`, 'success');
-            } catch (error) {
-                showMessage('Failed to load game engine', 'warning3');
-                console.error(error);
-            }
-        }
-    </script>
-
-    <script>
-        // GAME STATE
-        let currentPin = '';
-        let pinAttempts = 0;
-        let playerName = '';
-        let chipCount = 500;
-        let drinkCount = 0;
-        let currentScene = 'entrance';
-        let songPlaying = false;
-        
-        // BLACKJACK GAME STATE
-        let deck = [];
-        let playerHand = [];
-        let dealerHand = [];
-        let gameInProgress = false;
-        
-        // SCENE MANAGEMENT
-        function showScene(sceneName) {
-            document.querySelectorAll('.scene').forEach(scene => {
-                scene.classList.remove('active');
-            });
-            document.getElementById(sceneName + 'Scene').classList.add('active');
-            currentScene = sceneName;
-            
-            // Initialize games when entering
-            if (sceneName === 'blackjack') {
-                initializeBlackjack();
-            }
-        }
-
-        function goToCashier() {
-            showScene('cashier');
-        }
-
-        function enterVIPBooth() {
-            const nameInput = document.getElementById('playerNameInput');
-            if (!nameInput.value.trim()) {
-                showMessage('Please enter your name first!', 'warning2');
-                return;
-            }
-            
-            playerName = nameInput.value.trim();
-            document.getElementById('playerDisplay').textContent = playerName;
-            document.getElementById('uiPanel').classList.add('show');
-            showScene('booth');
-            showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
-        }
-
-        function backToBooth() {
-            showScene('booth');
-        }
-        
-        // PIN SYSTEM
-        function showPinPad() {
-            document.getElementById('pinOverlay').style.display = 'flex';
-        }
-        
-        function hidePinPad() {
-            document.getElementById('pinOverlay').style.display = 'none';
-            if (songPlaying) {
-                stopApartment223();
-            }
-        }
-        
-        function enterPin(digit) {
-            if (currentPin.length < 3) {
-                currentPin += digit;
-                updatePinDisplay();
-            }
-        }
-        
-        function clearPin() {
-            currentPin = '';
-            updatePinDisplay();
-        }
-        
-        function updatePinDisplay() {
-            const display = document.getElementById('pinDisplay');
-            display.textContent = currentPin.length === 0 ? '***' : currentPin.padEnd(3, '*');
-        }
-        
-        function submitPin() {
-            if (currentPin.length !== 3) return;
-            
-            pinAttempts++;
-            
-            if (currentPin === '223') {
-                showPinSuccess();
-            } else {
-                showPinError();
-            }
-            
-            clearPin();
-        }
-        
-        function showPinError() {
-            let message = '';
-            let type = '';
-            
-            if (pinAttempts === 1) {
-                message = 'Come on, player... you should know this one.';
-                type = 'warning1';
-            } else if (pinAttempts === 2) {
-                message = 'Keith\'s not gonna like this... think harder, kid.';
-                type = 'warning2';
-            } else if (pinAttempts === 3) {
-                message = 'Alright, here\'s your hint: Dr. Doom\'s apartment number';
-                type = 'hint';
-            } else if (pinAttempts === 4) {
-                message = 'Still don\'t get it? Listen to this...';
-                type = 'song-hint';
-                playApartment223();
-            } else {
-                createLockout('pin_failure');
-                return;
-            }
-            
-            showMessage(message, type);
-        }
-
-        function playApartment223() {
-            const audio = document.getElementById('apartment223Audio');
-            const controls = document.getElementById('audioControls');
-            
-            songPlaying = true;
-            controls.classList.add('show');
-            
-            setTimeout(() => {
-                if (songPlaying) {
-                    showMessage('Did you catch that apartment number in the song? 🎵', 'hint');
-                    stopApartment223();
-                }
-            }, 30000);
-        }
-
-        function stopApartment223() {
-            const audio = document.getElementById('apartment223Audio');
-            const controls = document.getElementById('audioControls');
-            
-            songPlaying = false;
-            controls.classList.remove('show');
-        }
-        
-        function showPinSuccess() {
-            hidePinPad();
-            showMessage('Welcome to The Players Club!', 'success');
-            
-            setTimeout(() => {
-                document.getElementById('clubDoor').classList.add('sliding');
-                setTimeout(() => {
-                    showScene('bouncer');
-                }, 1000);
-            }, 1500);
-        }
-        
-        // DRUNK SYSTEM (VIP BOOTH)
-        function drinkChampagne() {
-            if (drinkCount >= 10) {
-                showMessage('You\'ve had enough!', 'warning3');
-                return;
-            }
-            
-            drinkCount++;
-            document.getElementById('drinkCount').textContent = drinkCount;
-            updateDrunkEffects();
-            
-            if (drinkCount >= 3) showDrunkItem('earring-item');
-            if (drinkCount >= 5) showDrunkItem('bra-item');
-            if (drinkCount >= 7) showDrunkItem('panties-item');
-            if (drinkCount >= 9) showDrunkItem('heels-item');
-            
-            if (drinkCount === 1) {
-                showMessage('Nice champagne...', 'success');
-            } else if (drinkCount === 3) {
-                showMessage('Nice champagne... wait, what\'s that?', 'warning1');
-            } else if (drinkCount === 5) {
-                showMessage('Things are getting interesting...', 'warning2');
-            } else if (drinkCount === 7) {
-                showMessage('This is getting out of hand...', 'warning3');
-            } else if (drinkCount === 9) {
-                showMessage('Seriously? Heels on the table?!', 'warning3');
-            } else if (drinkCount === 10) {
-                showMessage('SECURITY! You\'re outta here!', 'warning3');
-                setTimeout(() => {
-                    createLockout('drunk_ejection');
-                }, 2000);
-            }
-        }
-        
-        function updateDrunkEffects() {
-            document.body.className = document.body.className.replace(/drunk-\d+/g, '');
-            if (drinkCount > 0) {
-                document.body.classList.add(`drunk-${drinkCount}`);
-            }
-        }
-        
-        function showDrunkItem(className) {
-            const item = document.querySelector('.' + className);
-            if (item) {
-                item.classList.add('visible');
-            }
-        }
-        
-        // PHONE SYSTEM
-        function openPhone() {
-            if (!playerName) {
-                showMessage('Get setup at the cashier first!', 'warning2');
-                return;
-            }
-            
-            const responses = [
-                `Yo ${playerName}, you reached Keith directly. What's good?`,
-                `${playerName}! Hope you're enjoying the VIP treatment.`,
-                `What's up ${playerName}? Don't go too crazy with that champagne.`,
-                `${playerName}, if you need that apartment number, it's 223... Dr. Doom style!`,
-                `Keith here. You feeling that VIP status yet, ${playerName}?`,
-                `${playerName}, remember - this phone is connected to my brain. Wild, right?`
-            ];
-            
-            const message = responses[Math.floor(Math.random() * responses.length)];
-            showMessage(message, 'success');
-        }
-
-        // DICE GAME
-        function rollDice() {
-            const betAmount = parseInt(document.getElementById('diceBet').value);
-            if (betAmount > chipCount) {
-                showMessage('Not enough chips!', 'warning3');
-                return;
-            }
-            
-            const dice1 = Math.floor(Math.random() * 6) + 1;
-            const dice2 = Math.floor(Math.random() * 6) + 1;
-            const total = dice1 + dice2;
-            
-            document.getElementById('dice1').textContent = dice1;
-            document.getElementById('dice2').textContent = dice2;
-            
-            let winnings = 0;
-            let message = '';
-            
-            if (dice1 === dice2) {
-                winnings = betAmount * 3;
-                message = `DOUBLES! You win ${winnings} chips!`;
-                updateChips(winnings);
-                showMessage(message, 'success');
-            } else if (total === 7 || total === 11) {
-                winnings = betAmount;
-                message = `Lucky ${total}! You win ${winnings} chips!`;
-                updateChips(winnings);
-                showMessage(message, 'success');
-            } else {
-                updateChips(-betAmount);
-                message = `Total: ${total}. You lose ${betAmount} chips.`;
-                showMessage(message, 'warning2');
-            }
-            
-            document.getElementById('diceResult').innerHTML = `<strong>Roll: ${dice1}, ${dice2} (Total: ${total})</strong><br>${message}`;
-        }
-
-        // SLOTS GAME
-        function spinSlots() {
-            const betAmount = parseInt(document.getElementById('slotsBet').value);
-            if (betAmount > chipCount) {
-                showMessage('Not enough chips!', 'warning3');
-                return;
-            }
-            
-            const symbols = ['🎭', '🎪', '🎨', '🎯', '🎸', '👑', 'K', 'E', 'I'];
-            const spinButton = document.getElementById('spinButton');
-            spinButton.disabled = true;
-            spinButton.textContent = 'Spinning...';
-            
-            // Animate slots
-            document.querySelectorAll('.slot-reel').forEach(reel => {
-                reel.classList.add('spinning');
-            });
-            
-            setTimeout(() => {
-                const result1 = symbols[Math.floor(Math.random() * symbols.length)];
-                const result2 = symbols[Math.floor(Math.random() * symbols.length)];
-                const result3 = symbols[Math.floor(Math.random() * symbols.length)];
-                
-                document.getElementById('slot1').textContent = result1;
-                document.getElementById('slot2').textContent = result2;
-                document.getElementById('slot3').textContent = result3;
-                
-                document.querySelectorAll('.slot-reel').forEach(reel => {
-                    reel.classList.remove('spinning');
-                });
-                
-                let winnings = 0;
-                let message = '';
-                
-                if (result1 === result2 && result2 === result3) {
-                    if (result1 === 'K' || result1 === 'E' || result1 === 'I') {
-                        winnings = betAmount * 10;
-                        message = `KEITH JACKPOT! You win ${winnings} chips!`;
-                    } else {
-                        winnings = betAmount * 5;
-                        message = `THREE OF A KIND! You win ${winnings} chips!`;
-                    }
-                    updateChips(winnings);
-                    showMessage(message, 'success');
-                } else if (result1 === result2 || result2 === result3 || result1 === result3) {
-                    winnings = betAmount;
-                    message = `Two matching! You win ${winnings} chips!`;
-                    updateChips(winnings);
-                    showMessage(message, 'success');
-                } else {
-                    updateChips(-betAmount);
-                    message = `No match. You lose ${betAmount} chips.`;
-                    showMessage(message, 'warning2');
-                }
-                
-                document.getElementById('slotsResult').innerHTML = `<strong>Result: ${result1} ${result2} ${result3}</strong><br>${message}`;
-                
-                spinButton.disabled = false;
-                spinButton.textContent = 'Spin Slots';
-            }, 2000);
-        }
-
-        // BLACKJACK GAME
-        function initializeBlackjack() {
-            createDeck();
-            shuffleDeck();
-        }
-
-        function createDeck() {
-            const suits = ['♠', '♥', '♦', '♣'];
-            const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-            deck = [];
-            
-            for (let suit of suits) {
-                for (let value of values) {
-                    deck.push({value: value, suit: suit});
-                }
-            }
-        }
-
-        function shuffleDeck() {
-            for (let i = deck.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [deck[i], deck[j]] = [deck[j], deck[i]];
-            }
-        }
-
-        function dealCards() {
-            const betAmount = parseInt(document.getElementById('blackjackBet').value);
-            if (betAmount > chipCount) {
-                showMessage('Not enough chips!', 'warning3');
-                return;
-            }
-            
-            if (deck.length < 10) {
-                createDeck();
-                shuffleDeck();
-            }
-            
-            playerHand = [];
-            dealerHand = [];
-            gameInProgress = true;
-            
-            // Deal initial cards
-            playerHand.push(deck.pop());
-            dealerHand.push(deck.pop());
-            playerHand.push(deck.pop());
-            dealerHand.push(deck.pop());
-            
-            updateBlackjackDisplay();
-            
-            const playerScore = calculateScore(playerHand);
-            if (playerScore === 21) {
-                endBlackjackGame('blackjack');
-            } else {
-                document.getElementById('blackjackControls').innerHTML = `
-                    <button class="btn" onclick="hit()">Hit</button>
-                    <button class="btn" onclick="stand()">Stand</button>
-                `;
-            }
-        }
-
-        function hit() {
-            if (!gameInProgress) return;
-            
-            playerHand.push(deck.pop());
-            updateBlackjackDisplay();
-            
-            const playerScore = calculateScore(playerHand);
-            if (playerScore > 21) {
-                endBlackjackGame('bust');
-            } else if (playerScore === 21) {
-                stand();
-            }
-        }
-
-        function stand() {
-            if (!gameInProgress) return;
-            
-            // Dealer hits until 17 or higher
-            while (calculateScore(dealerHand) < 17) {
-                dealerHand.push(deck.pop());
-            }
-            
-            updateBlackjackDisplay(true);
-            
-            const playerScore = calculateScore(playerHand);
-            const dealerScore = calculateScore(dealerHand);
-            
-            if (dealerScore > 21) {
-                endBlackjackGame('dealer_bust');
-            } else if (playerScore > dealerScore) {
-                endBlackjackGame('win');
-            } else if (playerScore < dealerScore) {
-                endBlackjackGame('lose');
-            } else {
-                endBlackjackGame('push');
-            }
-        }
-
-        function calculateScore(hand) {
-            let score = 0;
-            let aces = 0;
-            
-            for (let card of hand) {
-                if (card.value === 'A') {
-                    aces++;
-                    score += 11;
-                } else if (['J', 'Q', 'K'].includes(card.value)) {
-                    score += 10;
-                } else {
-                    score += parseInt(card.value);
-                }
-            }
-            
-            while (score > 21 && aces > 0) {
-                score -= 10;
-                aces--;
-            }
-            
-            return score;
-        }
-
-        function updateBlackjackDisplay(showDealerCards = false) {
-            const playerHandEl = document.getElementById('playerHand');
-            const dealerHandEl = document.getElementById('dealerHand');
-            
-            playerHandEl.innerHTML = '';
-            dealerHandEl.innerHTML = '';
-            
-            // Show player cards
-            for (let card of playerHand) {
-                const cardEl = document.createElement('div');
-                cardEl.className = `playing-card ${(['♥', '♦'].includes(card.suit)) ? 'red' : ''}`;
-                cardEl.innerHTML = `<div>${card.value}</div><div>${card.suit}</div>`;
-                playerHandEl.appendChild(cardEl);
-            }
-            
-            // Show dealer cards
-            for (let i = 0; i < dealerHand.length; i++) {
-                const cardEl = document.createElement('div');
-                if (i === 1 && !showDealerCards && gameInProgress) {
-                    // Hide second card until game ends
-                    cardEl.className = 'playing-card';
-                    cardEl.innerHTML = '<div>?</div><div>?</div>';
-                    cardEl.style.background = '#333';
-                } else {
-                    const card = dealerHand[i];
-                    cardEl.className = `playing-card ${(['♥', '♦'].includes(card.suit)) ? 'red' : ''}`;
-                    cardEl.innerHTML = `<div>${card.value}</div><div>${card.suit}</div>`;
-                }
-                dealerHandEl.appendChild(cardEl);
-            }
-            
-            // Update scores
-            document.getElementById('playerScore').textContent = calculateScore(playerHand);
-            if (showDealerCards || !gameInProgress) {
-                document.getElementById('dealerScore').textContent = calculateScore(dealerHand);
-            } else {
-                document.getElementById('dealerScore').textContent = '?';
-            }
-        }
-
-        function endBlackjackGame(result) {
-            gameInProgress = false;
-            const betAmount = parseInt(document.getElementById('blackjackBet').value);
-            let winnings = 0;
-            let message = '';
-            
-            switch(result) {
-                case 'blackjack':
-                    winnings = Math.floor(betAmount * 1.5);
-                    message = `BLACKJACK! You win ${winnings} chips!`;
-                    updateChips(winnings);
-                    showMessage(message, 'success');
-                    break;
-                case 'win':
-                    winnings = betAmount;
-                    message = `You win! +${winnings} chips!`;
-                    updateChips(winnings);
-                    showMessage(message, 'success');
-                    break;
-                case 'dealer_bust':
-                    winnings = betAmount;
-                    message = `Dealer bust! You win ${winnings} chips!`;
-                    updateChips(winnings);
-                    showMessage(message, 'success');
-                    break;
-                case 'lose':
-                    updateChips(-betAmount);
-                    message = `You lose ${betAmount} chips.`;
-                    showMessage(message, 'warning2');
-                    break;
-                case 'bust':
-                    updateChips(-betAmount);
-                    message = `Bust! You lose ${betAmount} chips.`;
-                    showMessage(message, 'warning3');
-                    break;
-                case 'push':
-                    message = 'Push! It\'s a tie.';
-                    showMessage(message, 'hint');
-                    break;
-            }
-            
-            document.getElementById('blackjackResult').innerHTML = `<strong>${message}</strong>`;
-            document.getElementById('blackjackControls').innerHTML = `
-                <button class="btn" onclick="dealCards()">Deal New Hand</button>
-            `;
-        }
-
-        // CHIP MANAGEMENT
-        function updateChips(amount) {
-            chipCount += amount;
-            document.getElementById('chipCount').textContent = chipCount;
-            
-            if (chipCount <= 0) {
-                chipCount = 0;
-                document.getElementById('chipCount').textContent = '0';
-                showMessage('You\'re out of chips! Game over.', 'warning3');
-                setTimeout(() => {
-                    createLockout('broke');
-                }, 2000);
-            }
-        }
-        
-        // LOCKOUT SYSTEM
-        function createLockout(type) {
-            const lockout = {
-                type: type,
-                expires: Date.now() + (type === 'pin_failure' ? 15 * 60 * 1000 : 12 * 60 * 60 * 1000)
-            };
-            
-            localStorage.setItem('clubLockout', JSON.stringify(lockout));
-            
-            let message = '';
-            if (type === 'pin_failure') {
-                message = 'Too many failed PIN attempts. Come back in 15 minutes and maybe listen to some Keith tracks about apartments...';
-            } else if (type === 'drunk_ejection') {
-                message = 'Security says you\'ve had enough. Come back in 12 hours after this sobriety course.';
-            } else if (type === 'broke') {
-                message = 'You\'re broke! Keith says come back in 12 hours with a better gambling strategy.';
-            }
-            
-            document.getElementById('lockoutMessage').textContent = message;
-            document.getElementById('lockoutScreen').style.display = 'flex';
-            
-            if (songPlaying) {
-                stopApartment223();
-            }
-        }
-        
-        // MESSAGE SYSTEM
-        function showMessage(text, type) {
-            const messageEl = document.getElementById('messageDisplay');
-            messageEl.textContent = text;
-            messageEl.className = `message-display show ${type}`;
-            
-            const duration = type === 'hint' || type === 'song-hint' ? 6000 : 3000;
-            setTimeout(() => {
-                messageEl.classList.remove('show');
-            }, duration);
-        }
-        
-        // RESET SYSTEM
-        function resetClub() {
-            localStorage.removeItem('clubLockout');
-            currentPin = '';
-            pinAttempts = 0;
-            playerName = '';
-            chipCount = 500;
-            drinkCount = 0;
-            songPlaying = false;
-            gameInProgress = false;
-            playerHand = [];
-            dealerHand = [];
-            
-            document.body.className = '';
-            document.getElementById('lockoutScreen').style.display = 'none';
-            document.getElementById('uiPanel').classList.remove('show');
-            document.getElementById('audioControls').classList.remove('show');
-            
-            document.querySelectorAll('.drunk-item').forEach(item => {
-                item.classList.remove('visible');
-            });
-            
-            document.getElementById('clubDoor').classList.remove('sliding');
-            document.getElementById('chipCount').textContent = '500';
-            document.getElementById('drinkCount').textContent = '0';
-            document.getElementById('playerDisplay').textContent = 'Guest';
-            document.getElementById('playerNameInput').value = '';
-            
-            // Reset game displays
-            document.getElementById('diceResult').innerHTML = '';
-            document.getElementById('slotsResult').innerHTML = '';
-            document.getElementById('blackjackResult').innerHTML = '';
-            document.getElementById('dice1').textContent = '?';
-            document.getElementById('dice2').textContent = '?';
-            document.getElementById('slot1').textContent = '🎭';
-            document.getElementById('slot2').textContent = '🎪';
-            document.getElementById('slot3').textContent = '🎨';
-            document.getElementById('playerHand').innerHTML = '';
-            document.getElementById('dealerHand').innerHTML = '';
-            document.getElementById('playerScore').textContent = '0';
-            document.getElementById('dealerScore').textContent = '?';
-            document.getElementById('blackjackControls').innerHTML = `
-                <button class="btn" onclick="dealCards()">Deal Cards</button>
-            `;
-            
-            showScene('entrance');
-            updatePinDisplay();
-            stopApartment223();
-        }
-        
-        // CHECK LOCKOUT ON LOAD
-        function checkLockout() {
-            const lockoutData = localStorage.getItem('clubLockout');
-            if (lockoutData) {
-                const lockout = JSON.parse(lockoutData);
-                if (Date.now() < lockout.expires) {
-                    let message = '';
-                    if (lockout.type === 'pin_failure') {
-                        message = 'You\'re still locked out. Try listening to some Kool Keith tracks while you wait...';
-                    } else if (lockout.type === 'drunk_ejection') {
-                        message = 'Still in timeout for drinking too much. Come back later!';
-                    } else if (lockout.type === 'broke') {
-                        message = 'Still broke! Keith says practice your gambling skills and come back later.';
-                    }
-                    document.getElementById('lockoutMessage').textContent = message;
-                    document.getElementById('lockoutScreen').style.display = 'flex';
-                } else {
-                    localStorage.removeItem('clubLockout');
-                }
-            }
-        }
-        
-        // KEYBOARD SUPPORT
-        document.addEventListener('keydown', function(e) {
-            if (document.getElementById('pinOverlay').style.display === 'flex') {
-                if (e.key >= '0' && e.key <= '9') {
-                    enterPin(e.key);
-                } else if (e.key === 'Enter') {
-                    submitPin();
-                } else if (e.key === 'Backspace' || e.key === 'Delete') {
-                    clearPin();
-                } else if (e.key === 'Escape') {
-                    hidePinPad();
-                }
-            }
-        });
-        
-        // INITIALIZE
-        document.addEventListener('DOMContentLoaded', function() {
-            checkLockout();
-            initializeBlackjack();
-        });
-    </script>
-</body>
-</html>
+            transition: all 0.
