@@ -23,7 +23,6 @@ function showScene(sceneName) {
     });
     document.getElementById(sceneName + 'Scene').classList.add('active');
     currentScene = sceneName;
-    
     console.log(`Switched to scene: ${sceneName}`);
 }
 
