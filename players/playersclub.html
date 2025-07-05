@@ -4,19 +4,584 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Players Club - Kool Keith</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --keith-gold: #DAB547;
+            --keith-gold-light: #E8C547;
+            --keith-black: #000000;
+            --keith-burgundy: #0F0505;
+            --keith-white: #FFFFFF;
+            --neon-pink: #FF1493;
+            --pink-glow: rgba(255, 20, 147, 0.6);
+            --card-bg: rgba(26, 26, 26, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            color: var(--keith-white);
+            transition: filter 0.5s ease, transform 0.3s ease;
+        }
+
+        /* HEADER */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--keith-gold);
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--keith-gold);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--keith-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--keith-gold);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            min-height: 100vh;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        /* SCENE SYSTEM */
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: calc(100vh - 80px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s ease;
+        }
+
+        .scene.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ENTRANCE SCENE */
+        .entrance-scene {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+        }
+
+        .club-sign {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 900;
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow);
+            animation: neonFlicker 3s ease-in-out infinite alternate;
+            text-transform: lowercase;
+            font-style: italic;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        @keyframes neonFlicker {
+            0%, 100% { text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow); }
+            50% { text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--pink-glow); }
+        }
+
+        .entrance-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+        }
+
+        /* KEYPAD */
+        .keypad-fallback {
+            width: 100px;
+            height: 130px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--keith-gold);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .keypad-fallback::before {
+            content: '🔢';
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .keypad-fallback:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(218, 181, 71, 0.4);
+        }
+
+        /* DOOR */
+        .door-fallback {
+            width: 250px;
+            height: 350px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transition: transform 1s ease-in-out;
+            transform-origin: left center;
+        }
+
+        .door-fallback.sliding {
+            transform: translateX(-100%) rotateY(-90deg);
+            opacity: 0;
+        }
+
+        /* BOUNCER SCENE */
+        .bouncer-scene {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            text-align: center;
+        }
+
+        .bouncer-container {
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .bouncer-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .bouncer-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* CASHIER SCENE */
+        .cashier-scene {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+        }
+
+        .cashier-window {
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .cashier-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .cashier-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .name-input {
+            background: rgba(218, 181, 71, 0.1);
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: var(--keith-white);
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .gift-items {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            align-items: center;
+        }
+
+        .gift-item {
+            text-align: center;
+        }
+
+        .gift-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .gift-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--keith-gold);
+            font-weight: bold;
+        }
+
+        /* VIP BOOTH SCENE */
+        .booth-scene {
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .booth-content {
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .casino-games {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .game-button {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 30px 20px;
+            color: var(--keith-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .game-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(218, 181, 71, 0.4);
+            color: var(--keith-gold);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .game-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .game-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* PIN PAD OVERLAY */
+        .pin-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .pin-pad {
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 30px;
+            width: 320px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .pin-close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: var(--keith-gold);
+            color: var(--keith-black);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .pin-display {
+            width: 100%;
+            height: 60px;
+            background: #000;
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+        }
+
+        .pin-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .pin-btn {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            color: var(--keith-gold);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .pin-btn:hover {
+            background: var(--keith-gold);
+            color: var(--keith-black);
+            transform: scale(1.05);
+        }
+
+        /* MESSAGE DISPLAY */
+        .message-display {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 30px 40px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 500px;
+            z-index: 2000;
+            display: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .message-display.show { display: block; }
+
+        .message-display.warning1 { border-color: #00ff41; color: #00ff41; }
+        .message-display.warning2 { border-color: #ffa500; color: #ffa500; }
+        .message-display.warning3 { border-color: #ff073a; color: #ff073a; }
+
+        .message-display.hint {
+            border-color: var(--keith-gold-light);
+            color: var(--keith-gold-light);
+            background: rgba(218, 181, 71, 0.15);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--keith-gold-light);
+        }
+
+        .message-display.success {
+            border-color: var(--keith-gold);
+            color: var(--keith-gold);
+            background: rgba(218, 181, 71, 0.15);
+            text-shadow: 0 0 10px var(--keith-gold);
+            font-weight: bold;
+        }
+
+        /* UI PANEL */
+        .ui-panel {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 20px;
+            font-family: 'Orbitron', monospace;
+            display: none;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+        }
+
+        .ui-panel.show { display: block; }
+
+        .chip-display {
+            color: var(--keith-gold);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .player-info {
+            color: var(--keith-white);
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
+            color: var(--keith-black);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #444, #666);
+            color: var(--keith-white);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            
+            .entrance-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .club-sign {
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
+                margin-bottom: 40px;
+            }
+            
+            .gift-items {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .casino-games {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- HEADER -->
     <header class="header">
         <nav class="nav-container">
-            <a href="/home.html" class="logo">ULTRA KEITH</a>
+            <a href="../home.html" class="logo">ULTRA KEITH</a>
             <ul class="nav-menu">
-                <li><a href="/home.html" class="nav-link">Home</a></li>
+                <li><a href="../home.html" class="nav-link">Home</a></li>
                 <li><a href="#personas" class="nav-link">Personas</a></li>
                 <li><a href="#music" class="nav-link">Music</a></li>
                 <li><a href="#videos" class="nav-link">Videos</a></li>
-                <li><a href="/players/" class="nav-link">Players Club</a></li>
+                <li><a href="#" class="nav-link">Players Club</a></li>
             </ul>
         </nav>
     </header>
@@ -27,16 +592,13 @@
             <div class="club-sign">the players club</div>
             <div class="entrance-container">
                 <!-- CLUB DOOR -->
-                <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
-                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
-                <div class="door-fallback" id="doorFallback" style="display:none;">
+                <div class="door-fallback" id="clubDoor">
                     <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
                     <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
                 </div>
                 
-                <!-- SECURITY KEYPAD - SIMPLE AND ALWAYS CLICKABLE -->
+                <!-- SECURITY KEYPAD -->
                 <div class="keypad-fallback" onclick="showPinPad()">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🔢</div>
                     <div>PIN</div>
                 </div>
             </div>
@@ -45,9 +607,7 @@
         <!-- BOUNCER SCENE -->
         <div class="scene bouncer-scene" id="bouncerScene">
             <div class="bouncer-container">
-                <img src="photos/bouncer.jpg" alt="Bouncer" class="bouncer-avatar"
-                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
-                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">👨‍💼</div>
+                <div class="bouncer-avatar">👨‍💼</div>
                 <h2 class="bouncer-title">Hey there</h2>
                 <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
                 <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
@@ -58,9 +618,7 @@
         <!-- CASHIER SCENE -->
         <div class="scene cashier-scene" id="cashierScene">
             <div class="cashier-window">
-                <img src="cashier.png" alt="Cashier" class="cashier-avatar"
-                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
-                <div class="cashier-avatar" id="cashierFallback" style="display:none;">👩‍💼</div>
+                <div class="cashier-avatar">👩‍💼</div>
                 <h2 class="cashier-title">Welcome!</h2>
                 <p style="margin-bottom: 20px;">What's your name?</p>
                 <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
@@ -70,9 +628,7 @@
                         <div class="gift-label">500 Chips</div>
                     </div>
                     <div class="gift-item">
-                        <img src="phone.png" alt="Phone" class="gift-icon"
-                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
-                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
+                        <div class="gift-icon">📱</div>
                         <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
                     </div>
                 </div>
@@ -83,124 +639,43 @@
         
         <!-- VIP BOOTH SCENE -->
         <div class="scene booth-scene" id="boothScene">
-            <div class="booth-header">
-                <div class="club-sign">the players club</div>
-            </div>
-            <div class="casino-room">
-                <div class="room-slots" onclick="showGameScene('slots')" title="Professional RTP 92% Slots">
-                    <img src="slots.png" alt="Slot Machines">
-                </div>
-                <div class="room-dice" onclick="showGameScene('ceelo')" title="Real Cee-Lo Dice Game">
-                    <img src="456.png" alt="Dice Table">
-                </div>
-                <div class="room-blackjack" onclick="showGameScene('blackjack')" title="Casino-Grade Blackjack">
-                    <img src="bj.png" alt="Blackjack Table">
-                </div>
-                <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
-                    <img src="cashier.png" alt="Cashier Booth">
-                </div>
-                <div class="room-phone" onclick="openPhone()" title="Keith's Phone">
-                    <img src="phone.png" alt="Keith's Phone">
-                </div>
-            </div>
-            <div class="table-items-container">
-                <img src="photos/table-items/champagne-glass.png" alt="Champagne" class="champagne-glass" onclick="drinkChampagne()" title="Champagne"
-                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
-                <div class="champagne-fallback" id="champagneFallback" style="display:none;" onclick="drinkChampagne()" title="Champagne">🥂</div>
-            </div>
-            <div class="drunk-item earring-item">💎</div>
-            <div class="drunk-item bra-item">👙</div>
-            <div class="drunk-item panties-item">🩲</div>
-            <div class="drunk-item heels-item">👠</div>
-        </div>
-
-        <!-- SLOTS GAME SCENE -->
-        <div class="scene casino-scene" id="slotsScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Professional Slots</h2>
-                <p style="margin-bottom: 15px; color: var(--keith-gold);"><strong>RTP: 92% | 3x3 Reels | 5 Paylines | Keith-Themed Symbols</strong></p>
-                <div id="slotsContainer" class="slots-machine-container"></div>
-                <div class="slots-controls">
-                    <div class="bet-controls">
-                        <label>Bet Amount:</label>
-                        <button onclick="setSlotsbet(1)" class="bet-btn">1</button>
-                        <button onclick="setSlotsbet(5)" class="bet-btn">5</button>
-                        <button onclick="setSlotsbet(10)" class="bet-btn active">10</button>
-                        <button onclick="setSlotsbet(25)" class="bet-btn">25</button>
-                        <button onclick="setSlotsbet(50)" class="bet-btn">50</button>
-                        <button onclick="setSlotsbet(100)" class="bet-btn">100</button>
+            <div class="booth-content">
+                <div class="club-sign" style="margin-bottom: 40px;">the players club</div>
+                <h2 style="color: var(--keith-gold); margin-bottom: 30px;">Welcome to your VIP booth!</h2>
+                
+                <div class="casino-games">
+                    <div class="game-button" onclick="showMessage('Slots coming soon!', 'hint')">
+                        <span class="game-icon">🎰</span>
+                        <div class="game-name">KEITH'S SLOTS</div>
+                        <div class="game-desc">Professional RTP 92%</div>
                     </div>
-                    <button class="btn spin-btn" onclick="spinSlots()" id="spinButton">🎰 SPIN REELS 🎰</button>
-                </div>
-                <div class="slots-stats">
-                    <div class="stat-row">
-                        <span>Balance: <strong id="slotsBalance">500</strong> chips</span>
-                        <span>Bet: <strong id="slotsBet">10</strong> chips</span>
-                        <span>Last Win: <strong id="slotsLastWin">0</strong> chips</span>
+                    
+                    <div class="game-button" onclick="showMessage('Cee-Lo dice coming soon!', 'hint')">
+                        <span class="game-icon">🎲</span>
+                        <div class="game-name">CEE-LO</div>
+                        <div class="game-desc">Real street dice game</div>
                     </div>
-                    <div class="stat-row">
-                        <span>Spins: <strong id="slotsSpins">0</strong></span>
-                        <span>Current RTP: <strong id="slotsRTP">0.0%</strong></span>
-                        <span>Target RTP: <strong>92.0%</strong></span>
+                    
+                    <div class="game-button" onclick="showMessage('Blackjack coming soon!', 'hint')">
+                        <span class="game-icon">🃏</span>
+                        <div class="game-name">BLACKJACK</div>
+                        <div class="game-desc">Beat the dealer</div>
+                    </div>
+                    
+                    <div class="game-button" onclick="openPhone()">
+                        <span class="game-icon">📱</span>
+                        <div class="game-name">KEITH'S PHONE</div>
+                        <div class="game-desc">AI Chat Direct Line</div>
                     </div>
                 </div>
-                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
-                <div class="paytable">
-                    <h3>Keith's Symbol Paytable</h3>
-                    <div class="paytable-grid">
-                        <div class="paytable-row"><span>K K K</span><span>KEITH JACKPOT</span><span>1000x</span></div>
-                        <div class="paytable-row"><span>U U U</span><span>ULTRA</span><span>500x</span></div>
-                        <div class="paytable-row"><span>🎭 🎭 🎭</span><span>DR. OCTAGON</span><span>250x</span></div>
-                        <div class="paytable-row"><span>👹 👹 👹</span><span>DR. DOOM</span><span>100x</span></div>
-                    </div>
+                
+                <div style="margin-top: 30px;">
+                    <button class="game-button" onclick="drinkChampagne()" style="display: inline-block; width: auto; padding: 20px 40px;">
+                        <span class="game-icon">🥂</span>
+                        <div class="game-name">CHAMPAGNE</div>
+                        <div class="game-desc">VIP drinks on the house</div>
+                    </button>
                 </div>
-            </div>
-        </div>
-
-        <!-- CEE-LO DICE SCENE -->
-        <div class="scene casino-scene" id="ceeloScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Cee-Lo</h2>
-                <p style="margin-bottom: 20px;">Real street dice! Roll 4-5-6 to win big!</p>
-                <div class="dice-container">
-                    <div class="dice" id="dice1">?</div>
-                    <div class="dice" id="dice2">?</div>
-                    <div class="dice" id="dice3">?</div>
-                </div>
-                <div style="margin: 20px 0;">
-                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
-                    <input type="number" id="ceelobBet" min="10" max="500" value="50" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
-                </div>
-                <button class="btn" onclick="rollCeelo()">Roll Dice</button>
-                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
-                <div id="ceeloResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
-            </div>
-        </div>
-
-        <!-- BLACKJACK SCENE -->
-        <div class="scene casino-scene" id="blackjackScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Blackjack</h2>
-                <p style="margin-bottom: 20px;">Beat the dealer! Get close to 21 without going over.</p>
-                <div class="blackjack-table">
-                    <div style="margin-bottom: 20px;">
-                        <p style="color: white; margin-bottom: 10px;">Dealer's Hand (<span id="dealerScore">?</span>):</p>
-                        <div class="card-hand" id="dealerHand"></div>
-                    </div>
-                    <div>
-                        <p style="color: white; margin-bottom: 10px;">Your Hand (<span id="playerScore">0</span>):</p>
-                        <div class="card-hand" id="playerHand"></div>
-                    </div>
-                </div>
-                <div style="margin: 20px 0;">
-                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
-                    <input type="number" id="blackjackBet" min="50" max="500" value="100" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
-                </div>
-                <div id="blackjackControls">
-                    <button class="btn" onclick="dealCards()">Deal Cards</button>
-                </div>
-                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
-                <div id="blackjackResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
             </div>
         </div>
     </div>
@@ -208,7 +683,6 @@
     <!-- UI PANEL -->
     <div class="ui-panel" id="uiPanel">
         <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
-        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
         <div class="player-info">Player: <span id="playerDisplay">Guest</span></div>
     </div>
     
@@ -236,62 +710,189 @@
     
     <!-- MESSAGE DISPLAY -->
     <div class="message-display" id="messageDisplay"></div>
-    
-    <!-- LOCKOUT SCREEN -->
-    <div class="lockout-screen" id="lockoutScreen">
-        <div class="lockout-content">
-            <div class="lockout-title">ACCESS DENIED</div>
-            <div id="lockoutMessage">You've been ejected from the club.</div>
-            <button class="btn" onclick="resetClub()">Start Over (Testing)</button>
-        </div>
-    </div>
 
-    <!-- AUDIO CONTROLS -->
-    <div class="audio-controls" id="audioControls">
-        <div>♪ Now Playing: <span id="currentTrack">Apartment 223</span></div>
-    </div>
-
-    <!-- HIDDEN AUDIO ELEMENT -->
-    <audio id="apartment223Audio" preload="none">
-        <source src="photos/apartment223.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- SCRIPTS -->
-    <script src="js/main.js"></script>
+    <!-- JAVASCRIPT -->
     <script>
-        // DYNAMIC GAME ENGINE LOADER
-        let gameEngines = { slots: null, blackjack: null, ceelo: null };
+        // GLOBAL GAME STATE
+        let currentPin = '';
+        let pinAttempts = 0;
+        let playerName = '';
+        let chipCount = 500;
+        let currentScene = 'entrance';
 
-        function loadGameEngine(gameName) {
-            return new Promise((resolve, reject) => {
-                if (gameEngines[gameName]) {
-                    resolve(gameEngines[gameName]);
-                    return;
-                }
-                const script = document.createElement('script');
-                script.src = `js/${gameName}-engine.js`;
-                script.onload = () => {
-                    console.log(`${gameName} engine loaded`);
-                    resolve(window[`${gameName}Engine`]);
-                };
-                script.onerror = () => reject(new Error(`Failed to load ${gameName} engine`));
-                document.head.appendChild(script);
+        // SCENE MANAGEMENT SYSTEM
+        function showScene(sceneName) {
+            document.querySelectorAll('.scene').forEach(scene => {
+                scene.classList.remove('active');
             });
+            document.getElementById(sceneName + 'Scene').classList.add('active');
+            currentScene = sceneName;
+            console.log(`Switched to scene: ${sceneName}`);
         }
 
-        async function showGameScene(gameName) {
-            showMessage('Loading casino-grade engine...', 'hint');
-            try {
-                const engine = await loadGameEngine(gameName);
-                gameEngines[gameName] = engine;
-                showScene(gameName);
-                if (engine && engine.init) engine.init();
-                showMessage(`Welcome to professional ${gameName}!`, 'success');
-            } catch (error) {
-                showMessage('Failed to load game engine', 'warning3');
-                console.error(error);
+        // NAVIGATION FUNCTIONS
+        function goToCashier() {
+            showScene('cashier');
+        }
+
+        function enterVIPBooth() {
+            const nameInput = document.getElementById('playerNameInput');
+            if (!nameInput.value.trim()) {
+                showMessage('Please enter your name first!', 'warning2');
+                return;
+            }
+            
+            playerName = nameInput.value.trim();
+            document.getElementById('playerDisplay').textContent = playerName;
+            document.getElementById('uiPanel').classList.add('show');
+            showScene('booth');
+            showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
+        }
+
+        // PIN ENTRY SYSTEM
+        function showPinPad() {
+            console.log('PIN pad opening...');
+            document.getElementById('pinOverlay').style.display = 'flex';
+        }
+
+        function hidePinPad() {
+            document.getElementById('pinOverlay').style.display = 'none';
+        }
+
+        function enterPin(digit) {
+            if (currentPin.length < 3) {
+                currentPin += digit;
+                updatePinDisplay();
             }
         }
+
+        function clearPin() {
+            currentPin = '';
+            updatePinDisplay();
+        }
+
+        function updatePinDisplay() {
+            const display = document.getElementById('pinDisplay');
+            display.textContent = currentPin.length === 0 ? '***' : currentPin.padEnd(3, '*');
+        }
+
+        function submitPin() {
+            if (currentPin.length !== 3) return;
+            
+            pinAttempts++;
+            
+            if (currentPin === '223') {
+                showPinSuccess();
+            } else {
+                showPinError();
+            }
+            
+            clearPin();
+        }
+
+        function showPinError() {
+            let message = '';
+            let type = '';
+            
+            if (pinAttempts === 1) {
+                message = 'Come on, player... you should know this one.';
+                type = 'warning1';
+            } else if (pinAttempts === 2) {
+                message = 'Keith\'s not gonna like this... think harder, kid.';
+                type = 'warning2';
+            } else if (pinAttempts === 3) {
+                message = 'Alright, here\'s your hint: Dr. Doom\'s apartment number';
+                type = 'hint';
+            } else {
+                message = 'Too many attempts! The answer is 223 - Dr. Doom\'s apartment!';
+                type = 'warning3';
+            }
+            
+            showMessage(message, type);
+        }
+
+        function showPinSuccess() {
+            hidePinPad();
+            showMessage('Welcome to The Players Club!', 'success');
+            
+            setTimeout(() => {
+                document.getElementById('clubDoor').classList.add('sliding');
+                setTimeout(() => {
+                    showScene('bouncer');
+                }, 1000);
+            }, 1500);
+        }
+
+        // CHAMPAGNE SYSTEM
+        function drinkChampagne() {
+            showMessage('Nice champagne! VIP treatment all the way.', 'success');
+        }
+
+        // KEITH'S AI PHONE SYSTEM
+        function openPhone() {
+            if (!playerName) {
+                showMessage('Get setup at the cashier first!', 'warning2');
+                return;
+            }
+            
+            const responses = [
+                `Yo ${playerName}, you reached Keith directly. What's good?`,
+                `${playerName}! Hope you're enjoying the VIP treatment.`,
+                `What's up ${playerName}? This is the exclusive line.`,
+                `Keith here. You feeling that VIP status yet, ${playerName}?`,
+                `${playerName}, remember - this phone is connected to my brain. Wild, right?`,
+                `Ultra Keith speaking. ${playerName}, you're in the real Players Club now.`
+            ];
+            
+            const message = responses[Math.floor(Math.random() * responses.length)];
+            showMessage(message, 'success');
+        }
+
+        // MESSAGE SYSTEM
+        function showMessage(text, type) {
+            const messageEl = document.getElementById('messageDisplay');
+            messageEl.textContent = text;
+            messageEl.className = `message-display show ${type}`;
+            
+            const duration = type === 'hint' ? 6000 : 3000;
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+            }, duration);
+        }
+
+        // KEYBOARD SUPPORT
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('pinOverlay').style.display === 'flex') {
+                if (e.key >= '0' && e.key <= '9') {
+                    enterPin(e.key);
+                } else if (e.key === 'Enter') {
+                    submitPin();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    clearPin();
+                } else if (e.key === 'Escape') {
+                    hidePinPad();
+                }
+            }
+        });
+
+        // INITIALIZE SYSTEM
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Ultra Keith Players Club - System Loaded');
+            updatePinDisplay();
+        });
+
+        // MAKE FUNCTIONS GLOBAL
+        window.showScene = showScene;
+        window.goToCashier = goToCashier;
+        window.enterVIPBooth = enterVIPBooth;
+        window.showPinPad = showPinPad;
+        window.hidePinPad = hidePinPad;
+        window.enterPin = enterPin;
+        window.clearPin = clearPin;
+        window.submitPin = submitPin;
+        window.drinkChampagne = drinkChampagne;
+        window.openPhone = openPhone;
+        window.showMessage = showMessage;
     </script>
 </body>
 </html>
