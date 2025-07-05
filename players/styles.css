@@ -166,19 +166,7 @@ body {
     gap: 80px;
 }
 
-/* KEYPAD CONTAINER AND STYLING - FIXED POSITIONING */
-.keypad-container {
-    position: relative;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-}
-
-.keypad-container:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
-}
-
+/* SECURITY KEYPAD - BACK TO ORIGINAL WORKING VERSION */
 .security-keypad {
     width: auto;
     height: 15vh;
@@ -187,7 +175,11 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
-    display: block;
+}
+
+.security-keypad:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
 }
 
 .keypad-fallback {
@@ -206,7 +198,12 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 15;
+}
+
+.keypad-fallback::before {
+    content: '🔢';
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
 .keypad-fallback:hover {
