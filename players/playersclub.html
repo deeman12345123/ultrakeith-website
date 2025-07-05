@@ -376,24 +376,31 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed;
             position: relative;
+            min-height: 100vh;
         }
 
-        /* Fallback if bg.png doesn't load */
-        .booth-scene::before {
+        /* Force background to show */
+        .booth-scene::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, #2a1a1a 0%, #1a0a0a 50%, var(--keith-black) 100%);
-            z-index: -1;
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        /* If bg.png loads, hide fallback */
-        .booth-scene[style*="background-image"]::before {
-            display: none;
+        /* Make sure content appears over background */
+        .booth-header, .casino-room, .table-items-container, .drunk-item {
+            position: relative;
+            z-index: 5;
         }
 
         .booth-header {
