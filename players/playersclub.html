@@ -78,7 +78,7 @@
             color: var(--keith-gold);
         }
 
-        /* MAIN CONTENT - EXACT VIEWPORT HEIGHT */
+        /* MAIN CONTENT */
         .main-content {
             height: 100vh;
             padding-top: 80px;
@@ -139,7 +139,7 @@
             visibility: visible;
         }
         
-        /* ENTRANCE SCENE - SECRET VIP */
+        /* ENTRANCE SCENE */
         .entrance-scene {
             display: flex;
             flex-direction: column;
@@ -148,7 +148,6 @@
             background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
         }
 
-        /* CLUB SIGN */
         .club-sign {
             font-family: 'Orbitron', monospace;
             font-size: clamp(2rem, 8vw, 4rem);
@@ -167,7 +166,6 @@
             50% { text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--pink-glow); }
         }
 
-        /* ENTRANCE CONTAINER */
         .entrance-container {
             display: flex;
             justify-content: center;
@@ -175,7 +173,6 @@
             gap: 80px;
         }
 
-        /* SECURITY KEYPAD - LEFT */
         .security-keypad {
             width: auto;
             height: 15vh;
@@ -191,7 +188,6 @@
             filter: drop-shadow(0 12px 24px rgba(218, 181, 71, 0.6));
         }
 
-        /* CLUB DOOR - RIGHT */
         .club-door {
             width: auto;
             height: 70vh;
@@ -246,8 +242,49 @@
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(218, 181, 71, 0.4);
         }
-        
-        /* CASHIER SCENE - ENHANCED WITH CASINO */
+
+        /* BOUNCER SCENE */
+        .bouncer-scene {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            text-align: center;
+        }
+
+        .bouncer-container {
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .bouncer-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .bouncer-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* CASHIER SCENE */
         .cashier-scene {
             display: flex;
             justify-content: center;
@@ -263,6 +300,20 @@
             text-align: center;
             max-width: 600px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .cashier-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         }
         
         .cashier-title {
@@ -286,47 +337,40 @@
             font-family: 'Orbitron', monospace;
         }
 
-        /* CASINO GAME SELECTION */
-        .casino-games {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
+        .gift-items {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
             margin: 30px 0;
+            align-items: center;
         }
 
-        .game-option {
-            background: rgba(218, 181, 71, 0.1);
-            border: 2px solid var(--keith-gold);
-            border-radius: 15px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .gift-item {
             text-align: center;
         }
 
-        .game-option:hover {
-            background: rgba(218, 181, 71, 0.2);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(218, 181, 71, 0.3);
+        .gift-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         }
 
-        .game-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 10px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .game-name {
+        .gift-label {
             font-family: 'Orbitron', monospace;
             font-size: 0.9rem;
             color: var(--keith-gold);
             font-weight: bold;
         }
         
-        /* BOOTH SCENE */
+        /* VIP BOOTH SCENE */
         .booth-scene {
             background-image: url('photos/vip-booth.jpg');
             background-size: cover;
@@ -348,6 +392,65 @@
             transform: translateX(-50%);
             text-align: center;
             z-index: 5;
+        }
+
+        .booth-menu {
+            position: absolute;
+            top: 15%;
+            right: 5%;
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 20px;
+            z-index: 10;
+            min-width: 200px;
+        }
+
+        .menu-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--keith-gold);
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid var(--keith-gold);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .menu-item:hover {
+            background: rgba(218, 181, 71, 0.2);
+            transform: translateX(5px);
+        }
+
+        .menu-icon {
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .menu-icon.fallback {
+            background: linear-gradient(145deg, #333, #555);
+            border: 1px solid var(--keith-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
         }
         
         /* TABLE ITEMS */
@@ -802,6 +905,17 @@
                 min-height: 60px;
             }
             
+            .booth-menu {
+                right: 2%;
+                min-width: 160px;
+                padding: 15px;
+            }
+
+            .gift-items {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
             .pin-pad { 
                 width: 280px; 
                 padding: 25px; 
@@ -816,11 +930,6 @@
             .ui-panel { 
                 right: 15px; 
                 min-width: 180px; 
-            }
-
-            .casino-games {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
             }
 
             .game-interface {
@@ -854,8 +963,12 @@
                 margin-bottom: 30px;
             }
 
-            .casino-games {
-                grid-template-columns: 1fr;
+            .booth-menu {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px auto;
+                width: 90%;
             }
         }
     </style>
@@ -876,12 +989,12 @@
     </header>
 
     <div class="main-content">
-        <!-- ENTRANCE SCENE - SECRET VIP -->
+        <!-- ENTRANCE SCENE -->
         <div class="scene entrance-scene active" id="entranceScene">
             <div class="club-sign">the players club</div>
 
             <div class="entrance-container">
-                <!-- CLUB DOOR - LEFT -->
+                <!-- CLUB DOOR -->
                 <img src="photos/club-door.jpg" 
                      alt="Club Entrance Door" 
                      class="club-door" 
@@ -893,8 +1006,8 @@
                     <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
                 </div>
 
-                <!-- SECURITY KEYPAD - RIGHT -->
-                <img src="photos/security-keypad.png" 
+                <!-- SECURITY KEYPAD -->
+                <img src="security-keypad.png" 
                      alt="Security Keypad" 
                      class="security-keypad" 
                      onclick="showPinPad()"
@@ -909,39 +1022,60 @@
             </div>
         </div>
         
-        <!-- CASHIER SCENE WITH CASINO SELECTION -->
+        <!-- BOUNCER SCENE -->
+        <div class="scene bouncer-scene" id="bouncerScene">
+            <div class="bouncer-container">
+                <img src="bouncer.png" 
+                     alt="Club Bouncer" 
+                     class="bouncer-avatar"
+                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
+                
+                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">
+                    👨‍💼
+                </div>
+                
+                <h2 class="bouncer-title">Hey there</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
+                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
+                <button class="btn" onclick="goToCashier()">Continue →</button>
+            </div>
+        </div>
+
+        <!-- CASHIER SCENE -->
         <div class="scene cashier-scene" id="cashierScene">
             <div class="cashier-window">
-                <img src="cashier.png" alt="Cashier" style="width: 80px; height: 80px; margin: 0 auto 20px; display: block; border-radius: 50%;" onerror="this.style.display='none';">
-                <h2 class="cashier-title">Welcome to The Players Club</h2>
-                <p style="margin-bottom: 20px;">Keith was expecting you! What's your name?</p>
+                <img src="cashier.png" 
+                     alt="Cashier" 
+                     class="cashier-avatar"
+                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
+                
+                <div class="cashier-avatar" id="cashierFallback" style="display:none;">
+                    👩‍💼
+                </div>
+                
+                <h2 class="cashier-title">Welcome!</h2>
+                <p style="margin-bottom: 20px;">What's your name?</p>
                 <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
                 
-                <div style="margin: 25px 0;">
-                    <p style="font-size: 1.1rem; color: var(--keith-gold); margin-bottom: 15px;">Choose Your Game:</p>
-                    <div class="casino-games">
-                        <div class="game-option" onclick="selectGame('vip')">
-                            <div class="game-icon" style="background-image: url('phone.png');"></div>
-                            <div class="game-name">VIP Booth</div>
-                        </div>
-                        <div class="game-option" onclick="selectGame('dice')">
-                            <div class="game-icon" style="background-image: url('456.png');"></div>
-                            <div class="game-name">Dice Game</div>
-                        </div>
-                        <div class="game-option" onclick="selectGame('slots')">
-                            <div class="game-icon" style="background-image: url('slots.png');"></div>
-                            <div class="game-name">Slots</div>
-                        </div>
-                        <div class="game-option" onclick="selectGame('blackjack')">
-                            <div class="game-icon" style="background-image: url('bj.png');"></div>
-                            <div class="game-name">Blackjack</div>
-                        </div>
+                <div class="gift-items">
+                    <div class="gift-item">
+                        <div class="gift-icon">💰</div>
+                        <div class="gift-label">500 Chips</div>
+                    </div>
+                    <div class="gift-item">
+                        <img src="phone.png" 
+                             alt="Keith's Phone" 
+                             class="gift-icon"
+                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
+                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
+                        <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
                     </div>
                 </div>
                 
-                <p style="margin: 20px 0; font-size: 0.9rem; opacity: 0.8;">
-                    Keith's left you 500 chips. Choose wisely!
+                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;">
+                    Keith left these for you. Enjoy your VIP experience!
                 </p>
+                <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
             </div>
         </div>
         
@@ -949,6 +1083,47 @@
         <div class="scene booth-scene" id="boothScene">
             <div class="booth-header">
                 <div class="club-sign">the players club</div>
+            </div>
+
+            <!-- VIP MENU -->
+            <div class="booth-menu">
+                <div class="menu-title">VIP Options</div>
+                
+                <div class="menu-item" onclick="openPhone()">
+                    <img src="phone.png" 
+                         alt="Phone" 
+                         class="menu-icon"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="menu-icon fallback" style="display:none;">📱</div>
+                    <span>Keith's AI Chat</span>
+                </div>
+                
+                <div class="menu-item" onclick="showScene('dice')">
+                    <img src="456.png" 
+                         alt="Dice" 
+                         class="menu-icon"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="menu-icon fallback" style="display:none;">🎲</div>
+                    <span>Dice Game</span>
+                </div>
+                
+                <div class="menu-item" onclick="showScene('slots')">
+                    <img src="slots.png" 
+                         alt="Slots" 
+                         class="menu-icon"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="menu-icon fallback" style="display:none;">🎰</div>
+                    <span>Slot Machine</span>
+                </div>
+                
+                <div class="menu-item" onclick="showScene('blackjack')">
+                    <img src="bj.png" 
+                         alt="Blackjack" 
+                         class="menu-icon"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="menu-icon fallback" style="display:none;">🃏</div>
+                    <span>Blackjack</span>
+                </div>
             </div>
             
             <!-- VIP TABLE ITEMS -->
@@ -971,10 +1146,10 @@
                      class="phone" 
                      onclick="openPhone()" 
                      title="Keith's Phone"
-                     onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
+                     onerror="this.style.display='none'; document.getElementById('phoneTableFallback').style.display='flex';">
                 
                 <div class="phone-fallback" 
-                     id="phoneFallback" 
+                     id="phoneTableFallback" 
                      style="display:none;" 
                      onclick="openPhone()" 
                      title="Keith's Phone">📱</div>
@@ -985,8 +1160,6 @@
             <div class="drunk-item bra-item">👙</div>
             <div class="drunk-item panties-item">🩲</div>
             <div class="drunk-item heels-item">👠</div>
-
-            <button class="btn btn-secondary" onclick="backToCashier()" style="position: absolute; bottom: 20px; left: 20px;">← Back to Games</button>
         </div>
 
         <!-- DICE GAME SCENE -->
@@ -1006,7 +1179,7 @@
                 </div>
                 
                 <button class="btn" onclick="rollDice()">Roll Dice</button>
-                <button class="btn btn-secondary" onclick="backToCashier()">← Back to Games</button>
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
                 
                 <div id="diceResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
             </div>
@@ -1030,7 +1203,7 @@
                 </div>
                 
                 <button class="btn" onclick="spinSlots()" id="spinButton">Spin Slots</button>
-                <button class="btn btn-secondary" onclick="backToCashier()">← Back to Games</button>
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
                 
                 <div id="slotsResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
             </div>
@@ -1063,7 +1236,7 @@
                     <button class="btn" onclick="dealCards()">Deal Cards</button>
                 </div>
                 
-                <button class="btn btn-secondary" onclick="backToCashier()">← Back to Games</button>
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
                 
                 <div id="blackjackResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
             </div>
@@ -1132,7 +1305,6 @@
         let drinkCount = 0;
         let currentScene = 'entrance';
         let songPlaying = false;
-        let selectedGame = 'vip';
         
         // BLACKJACK GAME STATE
         let deck = [];
@@ -1147,39 +1319,33 @@
             });
             document.getElementById(sceneName + 'Scene').classList.add('active');
             currentScene = sceneName;
+            
+            // Initialize games when entering
+            if (sceneName === 'blackjack') {
+                initializeBlackjack();
+            }
         }
 
-        // GAME SELECTION
-        function selectGame(gameType) {
+        function goToCashier() {
+            showScene('cashier');
+        }
+
+        function enterVIPBooth() {
             const nameInput = document.getElementById('playerNameInput');
             if (!nameInput.value.trim()) {
                 showMessage('Please enter your name first!', 'warning2');
                 return;
             }
             
-            selectedGame = gameType;
             playerName = nameInput.value.trim();
             document.getElementById('playerDisplay').textContent = playerName;
             document.getElementById('uiPanel').classList.add('show');
-            
-            if (gameType === 'vip') {
-                showScene('booth');
-                showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
-            } else if (gameType === 'dice') {
-                showScene('dice');
-                showMessage(`Welcome to the dice table, ${playerName}!`, 'success');
-            } else if (gameType === 'slots') {
-                showScene('slots');
-                showMessage(`Try your luck at the slots, ${playerName}!`, 'success');
-            } else if (gameType === 'blackjack') {
-                showScene('blackjack');
-                showMessage(`Welcome to blackjack, ${playerName}!`, 'success');
-                initializeBlackjack();
-            }
+            showScene('booth');
+            showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
         }
 
-        function backToCashier() {
-            showScene('cashier');
+        function backToBooth() {
+            showScene('booth');
         }
         
         // PIN SYSTEM
@@ -1280,7 +1446,7 @@
             setTimeout(() => {
                 document.getElementById('clubDoor').classList.add('sliding');
                 setTimeout(() => {
-                    showScene('cashier');
+                    showScene('bouncer');
                 }, 1000);
             }, 1500);
         }
@@ -1336,7 +1502,7 @@
         // PHONE SYSTEM
         function openPhone() {
             if (!playerName) {
-                showMessage('Register at the cashier first!', 'warning2');
+                showMessage('Get setup at the cashier first!', 'warning2');
                 return;
             }
             
@@ -1344,7 +1510,9 @@
                 `Yo ${playerName}, you reached Keith directly. What's good?`,
                 `${playerName}! Hope you're enjoying the VIP treatment.`,
                 `What's up ${playerName}? Don't go too crazy with that champagne.`,
-                `${playerName}, if you need that apartment number, it's 223... Dr. Doom style!`
+                `${playerName}, if you need that apartment number, it's 223... Dr. Doom style!`,
+                `Keith here. You feeling that VIP status yet, ${playerName}?`,
+                `${playerName}, remember - this phone is connected to my brain. Wild, right?`
             ];
             
             const message = responses[Math.floor(Math.random() * responses.length)];
@@ -1720,7 +1888,6 @@
             chipCount = 500;
             drinkCount = 0;
             songPlaying = false;
-            selectedGame = 'vip';
             gameInProgress = false;
             playerHand = [];
             dealerHand = [];
