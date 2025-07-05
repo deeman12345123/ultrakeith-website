@@ -407,12 +407,12 @@
         /* BLACKJACK TABLE - MIDDLE LEFT */
         .room-blackjack {
             position: absolute;
-            top: 35%;
-            left: 15%;
-            width: 120px;
-            height: 80px;
+            top: 30%;
+            left: 10%;
+            width: 200px;
+            height: 140px;
             background: #0a5d0a;
-            border: 3px solid var(--keith-gold);
+            border: none;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -425,33 +425,34 @@
 
         .room-blackjack:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 35px var(--keith-gold);
+            box-shadow: 0 12px 35px rgba(10, 93, 10, 0.8);
         }
 
         .room-icon {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 5px;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
         }
 
         .room-label {
             font-family: 'Orbitron', monospace;
-            font-size: 0.7rem;
-            color: var(--keith-gold);
+            font-size: 1rem;
+            color: var(--keith-white);
             font-weight: bold;
             text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         /* SLOTS MACHINE - UP BACK CENTER */
         .room-slots {
             position: absolute;
-            top: 20%;
+            top: 15%;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 120px;
-            background: linear-gradient(145deg, #333, #555);
-            border: 3px solid var(--keith-gold);
+            width: 160px;
+            height: 200px;
+            background: linear-gradient(145deg, #444, #666);
+            border: none;
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -464,23 +465,23 @@
 
         .room-slots:hover {
             transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 12px 35px var(--keith-gold);
+            box-shadow: 0 12px 35px rgba(68, 68, 68, 0.8);
         }
 
         .room-slots .room-icon {
-            width: 50px;
-            height: 50px;
+            width: 100px;
+            height: 100px;
         }
 
         /* DICE TABLE - OPPOSITE BJ (MIDDLE RIGHT) */
         .room-dice {
             position: absolute;
-            top: 35%;
-            right: 15%;
-            width: 120px;
-            height: 80px;
+            top: 30%;
+            right: 10%;
+            width: 200px;
+            height: 140px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 3px solid var(--keith-gold);
+            border: none;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -493,18 +494,18 @@
 
         .room-dice:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 35px var(--keith-gold);
+            box-shadow: 0 12px 35px rgba(42, 42, 42, 0.8);
         }
 
         /* CASHIER BOOTH - TO THE RIGHT */
         .room-cashier {
             position: absolute;
             top: 60%;
-            right: 10%;
-            width: 140px;
-            height: 100px;
+            right: 8%;
+            width: 220px;
+            height: 160px;
             background: var(--card-bg);
-            border: 3px solid var(--keith-gold);
+            border: none;
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -517,30 +518,31 @@
 
         .room-cashier:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 35px var(--keith-gold);
+            box-shadow: 0 12px 35px rgba(26, 26, 26, 0.8);
         }
 
         .room-cashier .room-icon {
-            width: 45px;
-            height: 45px;
+            width: 90px;
+            height: 90px;
         }
 
         /* FALLBACK ICONS FOR ROOM ITEMS */
         .room-icon.fallback {
-            background: linear-gradient(145deg, #333, #555);
-            border: 2px solid var(--keith-gold);
-            border-radius: 50%;
+            background: linear-gradient(145deg, #555, #777);
+            border: none;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--keith-gold);
+            font-size: 3rem;
+            color: var(--keith-white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
         
         /* TABLE ITEMS */
         .table-items-container {
             position: absolute;
-            bottom: 20%;
+            bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -551,24 +553,24 @@
         
         .champagne-glass, .phone {
             width: auto;
-            height: 10vh;
-            min-height: 80px;
-            max-height: 120px;
+            height: 12vh;
+            min-height: 100px;
+            max-height: 140px;
             cursor: pointer;
             transition: all 0.3s ease;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
         }
 
         .champagne-fallback, .phone-fallback {
-            width: 80px;
-            height: 80px;
-            font-size: 3rem;
+            width: 100px;
+            height: 100px;
+            font-size: 4rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(218, 181, 71, 0.1);
-            border: 2px solid var(--keith-gold);
-            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.8);
+            border: none;
+            border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -1002,23 +1004,57 @@
                 height: auto;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 20px;
-                padding: 20px;
-                margin-top: 60px;
+                gap: 30px;
+                padding: 30px;
+                margin-top: 80px;
             }
 
-            .room-blackjack, .room-dice, .room-slots, .room-cashier {
+            .room-blackjack, .room-dice {
                 position: relative;
                 top: auto;
                 left: auto;
                 right: auto;
                 transform: none;
                 margin: 0 auto;
+                width: 160px;
+                height: 120px;
             }
 
             .room-slots {
                 grid-column: 1 / -1;
                 justify-self: center;
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 140px;
+                height: 180px;
+            }
+
+            .room-cashier {
+                grid-column: 1 / -1;
+                justify-self: center;
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                width: 180px;
+                height: 140px;
+            }
+
+            .room-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .room-slots .room-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .room-cashier .room-icon {
+                width: 70px;
+                height: 70px;
             }
 
             .gift-items {
