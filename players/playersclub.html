@@ -34,7 +34,7 @@
                     <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
                 </div>
                 
-                <!-- SECURITY KEYPAD - ALWAYS CLICKABLE -->
+                <!-- SECURITY KEYPAD - FIXED -->
                 <div class="keypad-fallback" onclick="showPinPad()">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">🔢</div>
                     <div>PIN</div>
@@ -87,17 +87,17 @@
                 <div class="club-sign">the players club</div>
             </div>
             <div class="casino-room">
-                <div class="room-slots" onclick="showGameScene('slots')" title="Professional RTP 92% Slots">
+                <div class="room-slots" onclick="loadGame('slots')" title="Professional RTP 92% Slots">
                     <img src="slots.png" alt="Slot Machines"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showGameScene(\'slots\')&quot; title=&quot;Professional RTP 92% Slots&quot;>🎰</div>';">
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;loadGame(\'slots\')&quot; title=&quot;Professional RTP 92% Slots&quot;>🎰</div>';">
                 </div>
-                <div class="room-dice" onclick="showGameScene('ceelo')" title="Real Cee-Lo Dice Game">
+                <div class="room-dice" onclick="loadGame('ceelo')" title="Real Cee-Lo Dice Game">
                     <img src="456.png" alt="Dice Table"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showGameScene(\'ceelo\')&quot; title=&quot;Real Cee-Lo Dice Game&quot;>🎲</div>';">
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;loadGame(\'ceelo\')&quot; title=&quot;Real Cee-Lo Dice Game&quot;>🎲</div>';">
                 </div>
-                <div class="room-blackjack" onclick="showGameScene('blackjack')" title="Casino-Grade Blackjack">
+                <div class="room-blackjack" onclick="loadGame('blackjack')" title="Casino-Grade Blackjack">
                     <img src="bj.png" alt="Blackjack Table"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showGameScene(\'blackjack\')&quot; title=&quot;Casino-Grade Blackjack&quot;>🃏</div>';">
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;loadGame(\'blackjack\')&quot; title=&quot;Casino-Grade Blackjack&quot;>🃏</div>';">
                 </div>
                 <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
                     <img src="cashier.png" alt="Cashier Booth"
@@ -264,53 +264,64 @@
     <!-- SCRIPTS -->
     <script src="js/main.js"></script>
     <script>
-        console.log('Players Club HTML loaded - checking for main.js...');
+        console.log('HTML loaded - checking for main.js...');
         
-        // DYNAMIC GAME ENGINE LOADER
-        let gameEngines = { slots: null, blackjack: null, ceelo: null };
-
-        function loadGameEngine(gameName) {
-            return new Promise((resolve, reject) => {
-                if (gameEngines[gameName]) {
-                    resolve(gameEngines[gameName]);
-                    return;
-                }
-                console.log(`Loading ${gameName} engine...`);
-                const script = document.createElement('script');
-                script.src = `js/${gameName}-engine.js`;
-                script.onload = () => {
-                    console.log(`${gameName} engine loaded successfully!`);
-                    gameEngines[gameName] = window[`${gameName}Engine`];
-                    resolve(gameEngines[gameName]);
-                };
-                script.onerror = () => {
-                    console.error(`Failed to load ${gameName} engine`);
-                    reject(new Error(`Failed to load ${gameName} engine`));
-                };
-                document.head.appendChild(script);
-            });
-        }
-
-        async function showGameScene(gameName) {
-            console.log(`Attempting to load ${gameName} game...`);
-            showMessage('Loading casino-grade engine...', 'hint');
-            try {
-                const engine = await loadGameEngine(gameName);
-                if (engine && engine.init) {
-                    engine.init();
-                }
-                showScene(gameName);
-                showMessage(`Welcome to professional ${gameName}!`, 'success');
-            } catch (error) {
-                console.error('Game engine loading failed:', error);
-                showMessage(`Failed to load ${gameName} engine. Check console for details.`, 'warning3');
+        // FALLBACK FUNCTIONS IN CASE MAIN.JS FAILS TO LOAD
+        if (typeof showPinPad === 'undefined') {
+            console.error('main.js failed to load! Using fallback functions...');
+            
+            // Basic PIN functionality
+            let currentPin = '';
+            
+            function showPinPad() {
+                document.getElementById('pinOverlay').style.display = 'flex';
             }
+            
+            function hidePinPad() {
+                document.getElementById('pinOverlay').style.display = 'none';
+            }
+            
+            function enterPin(digit) {
+                if (currentPin.length < 3) {
+                    currentPin += digit;
+                    document.getElementById('pinDisplay').textContent = currentPin + '*'.repeat(3 - currentPin.length);
+                }
+            }
+            
+            function clearPin() {
+                currentPin = '';
+                document.getElementById('pinDisplay').textContent = '***';
+            }
+            
+            function submitPin() {
+                if (currentPin === '223') {
+                    alert('Success! PIN 223 correct!');
+                    hidePinPad();
+                } else {
+                    alert('Wrong PIN! Try 223');
+                    clearPin();
+                }
+            }
+            
+            function showMessage(text, type) {
+                alert(text);
+            }
+            
+            function loadGame(gameName) {
+                alert(`${gameName} game would load here!`);
+            }
+            
+            // Make functions global
+            window.showPinPad = showPinPad;
+            window.hidePinPad = hidePinPad;
+            window.enterPin = enterPin;
+            window.clearPin = clearPin;
+            window.submitPin = submitPin;
+            window.showMessage = showMessage;
+            window.loadGame = loadGame;
+            
+            console.log('Fallback functions loaded!');
         }
-
-        // Make showGameScene global
-        window.showGameScene = showGameScene;
-        
-        console.log('Game loader system ready!');
     </script>
 </body>
 </html>
