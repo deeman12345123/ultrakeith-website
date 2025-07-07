@@ -34,7 +34,7 @@
                     <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
                 </div>
                 
-                <!-- SECURITY KEYPAD - FIXED -->
+                <!-- SECURITY KEYPAD -->
                 <div class="keypad-fallback" onclick="showPinPad()">
                     <div style="font-size: 2.5rem; margin-bottom: 10px;">🔢</div>
                     <div>PIN</div>
@@ -266,15 +266,17 @@
     <script>
         console.log('HTML loaded - checking for main.js...');
         
-        // FALLBACK FUNCTIONS IN CASE MAIN.JS FAILS TO LOAD
+        // COMPLETE FALLBACK SYSTEM
         if (typeof showPinPad === 'undefined') {
-            console.error('main.js failed to load! Using fallback functions...');
+            console.error('main.js failed to load! Using complete fallback functions...');
             
-            // Basic PIN functionality
             let currentPin = '';
+            let pinAttempts = 0;
+            let playerName = '';
             
             function showPinPad() {
                 document.getElementById('pinOverlay').style.display = 'flex';
+                updatePinDisplay();
             }
             
             function hidePinPad() {
@@ -284,32 +286,150 @@
             function enterPin(digit) {
                 if (currentPin.length < 3) {
                     currentPin += digit;
-                    document.getElementById('pinDisplay').textContent = currentPin + '*'.repeat(3 - currentPin.length);
+                    updatePinDisplay();
                 }
             }
             
             function clearPin() {
                 currentPin = '';
-                document.getElementById('pinDisplay').textContent = '***';
+                updatePinDisplay();
             }
             
-            function submitPin() {
-                if (currentPin === '223') {
-                    alert('Success! PIN 223 correct!');
-                    hidePinPad();
-                } else {
-                    alert('Wrong PIN! Try 223');
-                    clearPin();
+            function updatePinDisplay() {
+                const display = document.getElementById('pinDisplay');
+                if (display) {
+                    if (currentPin.length === 0) {
+                        display.textContent = '***';
+                    } else {
+                        display.textContent = currentPin + '*'.repeat(3 - currentPin.length);
+                    }
                 }
             }
             
-            function showMessage(text, type) {
-                alert(text);
+            function submitPin() {
+                if (currentPin.length !== 3) {
+                    showMessage('Enter 3 digits!', 'warning');
+                    return;
+                }
+                
+                pinAttempts++;
+                
+                if (currentPin === '223') {
+                    hidePinPad();
+                    showMessage('Welcome to The Players Club!', 'success');
+                    
+                    setTimeout(() => {
+                        const clubDoor = document.getElementById('clubDoor') || document.getElementById('doorFallback');
+                        if (clubDoor) {
+                            clubDoor.classList.add('sliding');
+                        }
+                        setTimeout(() => {
+                            showScene('bouncer');
+                        }, 1000);
+                    }, 1500);
+                } else {
+                    let message = '';
+                    if (pinAttempts === 1) {
+                        message = 'Come on, player... you should know this one.';
+                    } else if (pinAttempts === 2) {
+                        message = 'Keith\'s not gonna like this... think harder, kid.';
+                    } else if (pinAttempts === 3) {
+                        message = 'Alright, here\'s your hint: Dr. Doom\'s apartment number';
+                    } else {
+                        message = 'Too many attempts! The answer is 223 - Dr. Doom\'s apartment!';
+                    }
+                    showMessage(message, 'warning');
+                }
+                
+                clearPin();
+            }
+            
+            function showScene(sceneName) {
+                document.querySelectorAll('.scene').forEach(scene => {
+                    scene.classList.remove('active');
+                });
+                const targetScene = document.getElementById(sceneName + 'Scene');
+                if (targetScene) {
+                    targetScene.classList.add('active');
+                }
+            }
+            
+            function goToCashier() {
+                showScene('cashier');
+            }
+            
+            function enterVIPBooth() {
+                const nameInput = document.getElementById('playerNameInput');
+                if (!nameInput || !nameInput.value.trim()) {
+                    showMessage('Please enter your name first!', 'warning');
+                    return;
+                }
+                
+                playerName = nameInput.value.trim();
+                const playerDisplay = document.getElementById('playerDisplay');
+                if (playerDisplay) {
+                    playerDisplay.textContent = playerName;
+                }
+                
+                const uiPanel = document.getElementById('uiPanel');
+                if (uiPanel) {
+                    uiPanel.classList.add('show');
+                }
+                
+                showScene('booth');
+                showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
             }
             
             function loadGame(gameName) {
-                alert(`${gameName} game would load here!`);
+                showMessage(`${gameName} game coming soon! Professional engine loading...`, 'hint');
             }
+            
+            function openPhone() {
+                if (!playerName) {
+                    showMessage('Get setup at the cashier first!', 'warning');
+                    return;
+                }
+                showMessage(`Keith says: "Yo ${playerName}, you reached me directly!"`, 'success');
+            }
+            
+            function drinkChampagne() {
+                showMessage('Nice champagne! VIP treatment all the way.', 'success');
+            }
+            
+            function showMessage(text, type) {
+                const messageEl = document.getElementById('messageDisplay');
+                if (messageEl) {
+                    messageEl.textContent = text;
+                    messageEl.className = `message-display show ${type || 'success'}`;
+                    setTimeout(() => {
+                        messageEl.classList.remove('show');
+                    }, 3000);
+                }
+            }
+            
+            function resetClub() {
+                currentPin = '';
+                pinAttempts = 0;
+                playerName = '';
+                showScene('entrance');
+                updatePinDisplay();
+            }
+            
+            // Keyboard support
+            document.addEventListener('keydown', function(e) {
+                const pinOverlay = document.getElementById('pinOverlay');
+                if (pinOverlay && pinOverlay.style.display === 'flex') {
+                    if (e.key >= '0' && e.key <= '9') {
+                        enterPin(e.key);
+                    } else if (e.key === 'Enter') {
+                        submitPin();
+                    } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                        clearPin();
+                    } else if (e.key === 'Escape') {
+                        hidePinPad();
+                    }
+                }
+            });
             
             // Make functions global
             window.showPinPad = showPinPad;
@@ -317,10 +437,17 @@
             window.enterPin = enterPin;
             window.clearPin = clearPin;
             window.submitPin = submitPin;
-            window.showMessage = showMessage;
+            window.showScene = showScene;
+            window.goToCashier = goToCashier;
+            window.enterVIPBooth = enterVIPBooth;
             window.loadGame = loadGame;
+            window.openPhone = openPhone;
+            window.drinkChampagne = drinkChampagne;
+            window.showMessage = showMessage;
+            window.resetClub = resetClub;
             
-            console.log('Fallback functions loaded!');
+            console.log('Complete fallback functions loaded!');
+            updatePinDisplay();
         }
     </script>
 </body>
