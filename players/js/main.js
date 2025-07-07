@@ -189,6 +189,8 @@ function drinkChampagne() {
         drinkCountEl.textContent = drinkCount;
     }
     
+    updateDrunkEffects();
+    
     if (drinkCount >= 3) showDrunkItem('earring-item');
     if (drinkCount >= 5) showDrunkItem('bra-item');
     if (drinkCount >= 7) showDrunkItem('panties-item');
@@ -206,6 +208,16 @@ function drinkChampagne() {
         showMessage('Seriously? Heels on the table?!', 'warning3');
     } else if (drinkCount === 10) {
         showMessage('SECURITY! You\'re outta here!', 'warning3');
+        setTimeout(() => {
+            createLockout('drunk_ejection');
+        }, 2000);
+    }
+}
+
+function updateDrunkEffects() {
+    document.body.className = document.body.className.replace(/drunk-\d+/g, '');
+    if (drinkCount > 0) {
+        document.body.classList.add(`drunk-${drinkCount}`);
     }
 }
 
@@ -249,6 +261,33 @@ function updateChips(amount) {
     if (chipCountEl) {
         chipCountEl.textContent = chipCount;
     }
+    
+    if (chipCount <= 0) {
+        chipCount = 0;
+        showMessage('You\'re out of chips! Game over.', 'warning3');
+    }
+}
+
+// LOCKOUT SYSTEM
+function createLockout(type) {
+    const lockout = {
+        type: type,
+        expires: Date.now() + (type === 'pin_failure' ? 15 * 60 * 1000 : 12 * 60 * 60 * 1000)
+    };
+    
+    localStorage.setItem('clubLockout', JSON.stringify(lockout));
+    
+    let message = '';
+    if (type === 'pin_failure') {
+        message = 'Too many failed PIN attempts. Come back in 15 minutes and maybe listen to some Keith tracks about apartments...';
+    } else if (type === 'drunk_ejection') {
+        message = 'Security says you\'ve had enough. Come back in 12 hours after this sobriety course.';
+    } else if (type === 'broke') {
+        message = 'You\'re broke! Keith says come back in 12 hours with a better gambling strategy.';
+    }
+    
+    document.getElementById('lockoutMessage').textContent = message;
+    document.getElementById('lockoutScreen').style.display = 'flex';
 }
 
 // MESSAGE SYSTEM
@@ -281,4 +320,79 @@ function resetClub() {
         lockoutScreen.style.display = 'none';
     }
     
-    const ui
+    const uiPanel = document.getElementById('uiPanel');
+    if (uiPanel) {
+        uiPanel.classList.remove('show');
+    }
+    
+    document.querySelectorAll('.drunk-item').forEach(item => {
+        item.classList.remove('visible');
+    });
+    
+    const clubDoor = document.getElementById('clubDoor');
+    if (clubDoor) {
+        clubDoor.classList.remove('sliding');
+    }
+    
+    const chipCountEl = document.getElementById('chipCount');
+    if (chipCountEl) chipCountEl.textContent = '500';
+    
+    const drinkCountEl = document.getElementById('drinkCount');
+    if (drinkCountEl) drinkCountEl.textContent = '0';
+    
+    const playerDisplay = document.getElementById('playerDisplay');
+    if (playerDisplay) playerDisplay.textContent = 'Guest';
+    
+    const playerNameInput = document.getElementById('playerNameInput');
+    if (playerNameInput) playerNameInput.value = '';
+    
+    showScene('entrance');
+    updatePinDisplay();
+}
+
+// KEYBOARD SUPPORT
+document.addEventListener('keydown', function(e) {
+    const pinOverlay = document.getElementById('pinOverlay');
+    if (pinOverlay && pinOverlay.style.display === 'flex') {
+        if (e.key >= '0' && e.key <= '9') {
+            enterPin(e.key);
+        } else if (e.key === 'Enter') {
+            submitPin();
+        } else if (e.key === 'Backspace' || e.key === 'Delete') {
+            clearPin();
+        } else if (e.key === 'Escape') {
+            hidePinPad();
+        }
+    }
+});
+
+// INITIALIZE SYSTEM
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Ultra Keith Players Club - Core System Loaded');
+    updatePinDisplay();
+});
+
+// MAKE FUNCTIONS GLOBAL FOR HTML ONCLICK
+window.showPinPad = showPinPad;
+window.hidePinPad = hidePinPad;
+window.enterPin = enterPin;
+window.clearPin = clearPin;
+window.submitPin = submitPin;
+window.showScene = showScene;
+window.goToCashier = goToCashier;
+window.enterVIPBooth = enterVIPBooth;
+window.backToBooth = backToBooth;
+window.loadGame = loadGame;
+window.openPhone = openPhone;
+window.drinkChampagne = drinkChampagne;
+window.rollCeelo = rollCeelo;
+window.dealCards = dealCards;
+window.hit = hit;
+window.stand = stand;
+window.spinSlots = spinSlots;
+window.setSlotsbet = setSlotsbet;
+window.updateChips = updateChips;
+window.showMessage = showMessage;
+window.resetClub = resetClub;
+
+console.log('main.js loaded successfully - all functions available!');
