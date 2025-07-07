@@ -1,27 +1,24 @@
-// ULTRA KEITH PLAYERS CLUB - SIMPLE TEST VERSION
-console.log('Simple main.js loaded successfully!');
+// ULTRA KEITH PLAYERS CLUB - MAIN CORE JAVASCRIPT
+console.log('main.js loading...');
 
-// GLOBAL VARIABLES
+// GLOBAL GAME STATE
 let currentPin = '';
 let pinAttempts = 0;
 let playerName = '';
+let chipCount = 500;
+let drinkCount = 0;
+let currentScene = 'entrance';
 
-// PIN FUNCTIONS
+// PIN ENTRY SYSTEM
 function showPinPad() {
-    console.log('showPinPad called!');
-    const pinOverlay = document.getElementById('pinOverlay');
-    if (pinOverlay) {
-        pinOverlay.style.display = 'flex';
-        updatePinDisplay(); // Make sure display is correct when opened
-    }
+    console.log('showPinPad called');
+    document.getElementById('pinOverlay').style.display = 'flex';
+    updatePinDisplay();
 }
 
 function hidePinPad() {
-    console.log('hidePinPad called!');
-    const pinOverlay = document.getElementById('pinOverlay');
-    if (pinOverlay) {
-        pinOverlay.style.display = 'none';
-    }
+    console.log('hidePinPad called');
+    document.getElementById('pinOverlay').style.display = 'none';
 }
 
 function enterPin(digit) {
@@ -33,7 +30,7 @@ function enterPin(digit) {
 }
 
 function clearPin() {
-    console.log('clearPin called!');
+    console.log('clearPin called');
     currentPin = '';
     updatePinDisplay();
 }
@@ -44,7 +41,6 @@ function updatePinDisplay() {
         if (currentPin.length === 0) {
             display.textContent = '***';
         } else {
-            // Show entered digits and pad with asterisks
             display.textContent = currentPin + '*'.repeat(3 - currentPin.length);
         }
     }
@@ -63,7 +59,6 @@ function submitPin() {
         hidePinPad();
         showMessage('Welcome to The Players Club!', 'success');
         
-        // Animate door and go to bouncer scene
         setTimeout(() => {
             const clubDoor = document.getElementById('clubDoor');
             if (clubDoor) {
@@ -90,7 +85,7 @@ function submitPin() {
     clearPin();
 }
 
-// NAVIGATION FUNCTIONS
+// SCENE MANAGEMENT
 function showScene(sceneName) {
     console.log('showScene called:', sceneName);
     document.querySelectorAll('.scene').forEach(scene => {
@@ -99,16 +94,18 @@ function showScene(sceneName) {
     const targetScene = document.getElementById(sceneName + 'Scene');
     if (targetScene) {
         targetScene.classList.add('active');
+        currentScene = sceneName;
     }
 }
 
+// NAVIGATION FUNCTIONS
 function goToCashier() {
-    console.log('goToCashier called!');
+    console.log('goToCashier called');
     showScene('cashier');
 }
 
 function enterVIPBooth() {
-    console.log('enterVIPBooth called!');
+    console.log('enterVIPBooth called');
     const nameInput = document.getElementById('playerNameInput');
     if (!nameInput || !nameInput.value.trim()) {
         showMessage('Please enter your name first!', 'warning2');
@@ -131,12 +128,35 @@ function enterVIPBooth() {
 }
 
 function backToBooth() {
-    console.log('backToBooth called!');
+    console.log('backToBooth called');
     showScene('booth');
 }
 
+// GAME LOADING SYSTEM
+function loadGame(gameName) {
+    console.log(`Loading ${gameName} game...`);
+    showMessage('Loading casino-grade engine...', 'hint');
+    
+    const script = document.createElement('script');
+    script.src = `js/${gameName}-engine.js`;
+    script.onload = () => {
+        console.log(`${gameName} engine loaded successfully!`);
+        showScene(gameName);
+        if (window[`${gameName}Engine`] && window[`${gameName}Engine`].init) {
+            window[`${gameName}Engine`].init();
+        }
+        showMessage(`Welcome to professional ${gameName}!`, 'success');
+    };
+    script.onerror = () => {
+        console.error(`Failed to load ${gameName} engine`);
+        showMessage(`${gameName} coming soon! Engine not found.`, 'hint');
+    };
+    document.head.appendChild(script);
+}
+
+// KEITH'S AI PHONE SYSTEM
 function openPhone() {
-    console.log('openPhone called!');
+    console.log('openPhone called');
     if (!playerName) {
         showMessage('Get setup at the cashier first!', 'warning2');
         return;
@@ -146,22 +166,89 @@ function openPhone() {
         `Yo ${playerName}, you reached Keith directly. What's good?`,
         `${playerName}! Hope you're enjoying the VIP treatment.`,
         `What's up ${playerName}? This is the exclusive line.`,
-        `Keith here. You feeling that VIP status yet, ${playerName}?`
+        `Keith here. You feeling that VIP status yet, ${playerName}?`,
+        `${playerName}, remember - this phone is connected to my brain. Wild, right?`,
+        `Ultra Keith speaking. ${playerName}, you're in the real Players Club now.`
     ];
     
     const message = responses[Math.floor(Math.random() * responses.length)];
     showMessage(message, 'success');
 }
 
+// CHAMPAGNE DRINKING SYSTEM
 function drinkChampagne() {
-    console.log('drinkChampagne called!');
-    showMessage('Nice champagne! VIP treatment all the way.', 'success');
+    console.log('drinkChampagne called');
+    if (drinkCount >= 10) {
+        showMessage('You\'ve had enough!', 'warning3');
+        return;
+    }
+    
+    drinkCount++;
+    const drinkCountEl = document.getElementById('drinkCount');
+    if (drinkCountEl) {
+        drinkCountEl.textContent = drinkCount;
+    }
+    
+    if (drinkCount >= 3) showDrunkItem('earring-item');
+    if (drinkCount >= 5) showDrunkItem('bra-item');
+    if (drinkCount >= 7) showDrunkItem('panties-item');
+    if (drinkCount >= 9) showDrunkItem('heels-item');
+    
+    if (drinkCount === 1) {
+        showMessage('Nice champagne...', 'success');
+    } else if (drinkCount === 3) {
+        showMessage('Nice champagne... wait, what\'s that?', 'warning1');
+    } else if (drinkCount === 5) {
+        showMessage('Things are getting interesting...', 'warning2');
+    } else if (drinkCount === 7) {
+        showMessage('This is getting out of hand...', 'warning3');
+    } else if (drinkCount === 9) {
+        showMessage('Seriously? Heels on the table?!', 'warning3');
+    } else if (drinkCount === 10) {
+        showMessage('SECURITY! You\'re outta here!', 'warning3');
+    }
 }
 
-// PLACEHOLDER GAME FUNCTIONS
-function testGameLoad(gameName) {
-    console.log(`Testing ${gameName} game...`);
-    showMessage(`${gameName} game would load here! Coming soon.`, 'hint');
+function showDrunkItem(className) {
+    const item = document.querySelector('.' + className);
+    if (item) {
+        item.classList.add('visible');
+    }
+}
+
+// LEGACY GAME FUNCTIONS (for backward compatibility)
+function rollCeelo() {
+    const betAmount = parseInt(document.getElementById('ceelobBet')?.value) || 50;
+    showMessage(`Rolling dice with ${betAmount} chip bet... (Game engine needed)`, 'hint');
+}
+
+function dealCards() {
+    showMessage('Dealing cards... (Blackjack engine needed)', 'hint');
+}
+
+function hit() {
+    showMessage('Hit! (Blackjack engine needed)', 'hint');
+}
+
+function stand() {
+    showMessage('Stand! (Blackjack engine needed)', 'hint');
+}
+
+function spinSlots() {
+    showMessage('Spinning reels... (Slots engine needed)', 'hint');
+}
+
+function setSlotsbet(amount) {
+    console.log(`Setting slots bet to ${amount}`);
+}
+
+// CHIP MANAGEMENT
+function updateChips(amount) {
+    chipCount += amount;
+    const chipCountEl = document.getElementById('chipCount');
+    if (chipCountEl) {
+        chipCountEl.textContent = chipCount;
+    }
 }
 
 // MESSAGE SYSTEM
@@ -172,47 +259,26 @@ function showMessage(text, type) {
         messageEl.textContent = text;
         messageEl.className = `message-display show ${type || 'success'}`;
         
+        const duration = type === 'hint' ? 4000 : 3000;
         setTimeout(() => {
             messageEl.classList.remove('show');
-        }, 3000);
+        }, duration);
     }
 }
 
-// KEYBOARD SUPPORT
-document.addEventListener('keydown', function(e) {
-    const pinOverlay = document.getElementById('pinOverlay');
-    if (pinOverlay && pinOverlay.style.display === 'flex') {
-        if (e.key >= '0' && e.key <= '9') {
-            enterPin(e.key);
-        } else if (e.key === 'Enter') {
-            submitPin();
-        } else if (e.key === 'Backspace' || e.key === 'Delete') {
-            clearPin();
-        } else if (e.key === 'Escape') {
-            hidePinPad();
-        }
+// RESET SYSTEM
+function resetClub() {
+    console.log('resetClub called');
+    currentPin = '';
+    pinAttempts = 0;
+    playerName = '';
+    chipCount = 500;
+    drinkCount = 0;
+    
+    document.body.className = '';
+    const lockoutScreen = document.getElementById('lockoutScreen');
+    if (lockoutScreen) {
+        lockoutScreen.style.display = 'none';
     }
-});
-
-// MAKE ALL FUNCTIONS GLOBAL
-window.showPinPad = showPinPad;
-window.hidePinPad = hidePinPad;
-window.enterPin = enterPin;
-window.clearPin = clearPin;
-window.submitPin = submitPin;
-window.showScene = showScene;
-window.goToCashier = goToCashier;
-window.enterVIPBooth = enterVIPBooth;
-window.backToBooth = backToBooth;
-window.openPhone = openPhone;
-window.drinkChampagne = drinkChampagne;
-window.showMessage = showMessage;
-window.testGameLoad = testGameLoad;
-
-// INITIALIZE
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Simple Players Club loaded - PIN pad should work!');
-    updatePinDisplay();
-});
-
-console.log('Simple main.js finished loading - all functions should be available!');
+    
+    const ui
