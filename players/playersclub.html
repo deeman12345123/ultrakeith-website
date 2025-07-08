@@ -14,6 +14,190 @@
     
     <!-- Players Club specific CSS with navigation fixes -->
     <style>
+        /* EMBED CRITICAL NAVIGATION CSS FOR LOCAL FILES */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid #DAB547;
+            z-index: 100;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .nav-logo img {
+            height: 42px;
+            transition: all 0.25s ease;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        
+        .nav-menu a:hover {
+            color: #DAB547;
+        }
+        
+        .audio-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: all 0.25s ease;
+            background: rgba(218, 181, 71, 0.1);
+            border: 1px solid #DAB547;
+            color: #DAB547;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: #DAB547;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        /* FORCE DESKTOP NAVIGATION - CRITICAL FOR LOCAL FILES */
+        @media (min-width: 769px) {
+            .nav {
+                height: 80px !important;
+            }
+            
+            .nav-menu {
+                display: flex !important;
+                flex-direction: row !important;
+                position: static !important;
+                background: none !important;
+                backdrop-filter: none !important;
+                border: none !important;
+                padding: 0 !important;
+                gap: 2rem !important;
+                box-shadow: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+            }
+            
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            .nav-logo img {
+                height: 48px;
+            }
+        }
+        
+        /* FOOTER STYLES */
+        .footer {
+            border-top: 1px solid #DAB547;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            background: rgba(10, 10, 10, 0.95);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            list-style: none;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links a:hover {
+            color: #DAB547;
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-social a {
+            color: #DAB547;
+            transition: all 0.25s ease;
+            padding: 0.875rem;
+            border: 2px solid rgba(218, 181, 71, 0.4);
+            border-radius: 0.75rem;
+            background: rgba(218, 181, 71, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.75rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        @media (min-width: 769px) {
+            .footer-links {
+                flex-direction: row;
+                gap: 2rem;
+            }
+        }
+        
         /* PLAYERS CLUB NAVIGATION FIXES */
         .main {
             padding-top: 0 !important;
@@ -760,11 +944,25 @@
 
     <!-- Footer inserted automatically by shared/navigation.js -->
 
-    <!-- UPDATED NAVIGATION SCRIPT FOR SUBFOLDER -->
+    <!-- UNIVERSAL NAVIGATION SCRIPT - WORKS LOCAL AND WEB -->
     <script>
-        // DETECT SUBFOLDER AND ADJUST NAVIGATION PATHS
-        const isInSubfolder = window.location.pathname.includes('/players/');
-        const basePath = isInSubfolder ? '../' : '/';
+        // UNIVERSAL PATH DETECTION - Works for both file:// and web servers
+        function getBasePath() {
+            const isLocal = window.location.protocol === 'file:';
+            const currentPath = window.location.pathname;
+            const isInSubfolder = currentPath.includes('/players/') || currentPath.includes('\\players\\');
+            
+            if (isLocal) {
+                // Local file system - use relative paths
+                return isInSubfolder ? '../' : './';
+            } else {
+                // Web server (GitHub Pages) - use absolute/relative paths
+                return isInSubfolder ? '../' : '/';
+            }
+        }
+
+        const basePath = getBasePath();
+        console.log('Players Club - Base path detected:', basePath);
 
         // CUSTOM NAVIGATION GENERATOR FOR PLAYERS CLUB
         function generateNavigation() {
@@ -782,7 +980,7 @@
                             <li><a href="${basePath}tour.html">Tour</a></li>
                             <li><a href="https://ultrakeithdotcom.blogspot.com/" target="_blank">News</a></li>
                             <li><a href="${basePath}shop.html">Store</a></li>
-                            <li><a href="${basePath}players/playersclub.html">Players Club</a></li>
+                            <li><a href="playersclub.html">Players Club</a></li>
                         </ul>
                         
                         <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
