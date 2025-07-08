@@ -7,41 +7,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="../home.html" class="logo">ULTRA KEITH</a>
-            <ul class="nav-menu">
-                <li><a href="../home.html" class="nav-link">Home</a></li>
-                <li><a href="../personas.html" class="nav-link">Personas</a></li>
-                <li><a href="../discography.html" class="nav-link">Music</a></li>
-                <li><a href="../videos.html" class="nav-link">Videos</a></li>
-                <li><a href="../bio.html" class="nav-link">Bio</a></li>
-                <li><a href="#" class="nav-link active">Players Club</a></li>
-            </ul>
+    <!-- Navigation matching home.html structure -->
+    <nav class="nav" role="navigation">
+        <div class="nav-container">
+            <a href="../home.html" class="nav-logo">
+                <img src="../koolkeithmainlogo.png" alt="Kool Keith Home" onerror="this.style.display='none'">
+            </a>
             
-            <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </nav>
-        
-        <!-- Mobile Menu Overlay -->
-        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
-            <div class="mobile-menu-content">
-                <a href="../home.html" class="mobile-nav-link">Home</a>
-                <a href="../personas.html" class="mobile-nav-link">Personas</a>
-                <a href="../discography.html" class="mobile-nav-link">Music</a>
-                <a href="../videos.html" class="mobile-nav-link">Videos</a>
-                <a href="../bio.html" class="mobile-nav-link">Bio</a>
-                <a href="#" class="mobile-nav-link active">Players Club</a>
+            <div class="nav-right">
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="../music/music.html">Music</a></li>
+                    <li><a href="../bio.html">Biography</a></li>
+                    <li><a href="../tour.html">Tour</a></li>
+                    <li><a href="https://ultrakeithdotcom.blogspot.com/">News</a></li>
+                    <li><a href="../shop.html">Store</a></li>
+                    <li><a href="#" style="color: var(--keith-gold); font-weight: bold;">Players Club</a></li>
+                </ul>
+                
+                <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
+                    <span class="audio-icon" id="audioIcon">🔊</span>
+                    <span class="audio-text" id="audioText">Audio On</span>
+                </button>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu">☰</button>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <div class="main-content">
+    <div class="main-content" id="mainContent">
         <!-- ENTRANCE SCENE -->
         <div class="scene entrance-scene active" id="entranceScene">
             <div class="club-sign">the players club</div>
@@ -134,9 +127,9 @@
                 <div class="champagne-fallback" id="champagneFallback" style="display:none;" onclick="drinkChampagne()" title="Champagne">🥂</div>
             </div>
             
-            <!-- DRINKING ANIMATION AT BOTTOM OF SCREEN -->
-            <div class="drinking-overlay" id="drinkingOverlay" style="display: none;">
-                <img src="drinking.png" alt="Drinking" class="drinking-animation" id="drinkingAnimation">
+            <!-- DRINKING ANIMATION AT MIDDLE-BOTTOM FULL SIZE -->
+            <div class="drinking-overlay" id="drinkingOverlay" style="display: none; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 2000; width: 100%; max-width: 600px; height: auto;">
+                <img src="drinking.png" alt="Drinking Animation" class="drinking-animation" style="width: 100%; height: auto; object-fit: contain;">
             </div>
             
             <div class="drunk-item earring-item">💎</div>
