@@ -4,149 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Players Club - Kool Keith</title>
-    <meta name="description" content="Join Keith's exclusive VIP Players Club - High stakes gaming and VIP experiences.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     
     <!-- Shared CSS -->
     <link rel="stylesheet" href="../shared/styles.css">
     
     <style>
-        /* Professional approach - simple min-height solution */
+        /* FULLSCREEN BACKGROUND THAT SCROLLS */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('entrtyby.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            min-height: 100vh;
+        }
+        
+        /* MAIN CONTAINER */
         .main {
-            min-height: 100vh !important;
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
         }
         
-        /* Fullscreen entrance background */
-        .entrance-content {
-            position: relative !important;
-            width: 100% !important;
-            height: 100vh !important;
-            background-image: url('entrtyby.png') !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            margin: 0 !important;
-            padding: 0 !important;
+        /* ENTRANCE SCENE */
+        .entrance-scene {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: transparent;
         }
         
+        /* TITLE */
         .club-title {
-            position: absolute !important;
-            top: 100px !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            font-family: 'Orbitron', monospace !important;
-            font-size: clamp(2rem, 6vw, 4rem) !important;
-            font-weight: 900 !important;
-            color: #FF1493 !important;
-            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6) !important;
-            text-transform: lowercase !important;
-            font-style: italic !important;
-            z-index: 10 !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #FF1493;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+            text-transform: lowercase;
+            font-style: italic;
+            z-index: 100;
         }
         
-        /* Door positioned over the existing door in background - force positioning */
+        /* DOOR - MADE MUCH BIGGER */
         .door {
-            position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            width: 180px !important;
-            height: 280px !important;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
-            border: 3px solid #DAB547 !important;
-            border-radius: 15px !important;
-            cursor: pointer !important;
-            transition: all 1s ease-in-out !important;
-            transform-origin: left center !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
-            z-index: 20 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        
-        .door:hover {
-            box-shadow: 0 15px 40px rgba(218, 181, 71, 0.4) !important;
-        }
-        
-        .door.sliding {
-            transform: translate(-150%, -50%) rotateY(-90deg) !important;
-            opacity: 0 !important;
-        }
-        
-        /* PIN box positioned to the right of the door - force positioning */
-        .pin-box {
-            position: absolute !important;
-            top: 50% !important;
-            left: 65% !important;
-            transform: translateY(-50%) !important;
-            width: 90px !important;
-            height: 120px !important;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
-            border: 3px solid #DAB547 !important;
-            border-radius: 12px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            color: #DAB547 !important;
-            font-family: 'Orbitron', monospace !important;
-            font-weight: bold !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.8) !important;
-            z-index: 20 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        
-        .pin-box:hover {
-            transform: translateY(-50%) scale(1.05) !important;
-            box-shadow: 0 12px 30px rgba(218, 181, 71, 0.4) !important;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px; /* Increased from 160px */
+            height: 420px; /* Increased from 240px */
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 4px solid #DAB547; /* Slightly thicker border */
+            border-radius: 20px; /* Slightly larger radius */
+            cursor: pointer;
+            z-index: 200;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8); /* Bigger shadow */
+            transition: transform 1s ease-in-out;
         }
         
         .door-window {
-            position: absolute !important;
-            top: 20% !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 60% !important;
-            height: 30% !important;
-            background: rgba(0,0,0,0.8) !important;
-            border: 2px solid #DAB547 !important;
-            border-radius: 8px !important;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 65%; /* Slightly bigger percentage */
+            height: 32%; /* Slightly bigger percentage */
+            background: rgba(0,0,0,0.8);
+            border: 3px solid #DAB547; /* Thicker border */
+            border-radius: 12px; /* Larger radius */
         }
         
         .door-handle {
-            position: absolute !important;
-            right: 15px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            width: 15px !important;
-            height: 40px !important;
-            background: #DAB547 !important;
-            border-radius: 8px !important;
+            position: absolute;
+            right: 20px; /* More space from edge */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px; /* Bigger handle */
+            height: 60px; /* Bigger handle */
+            background: #DAB547;
+            border-radius: 12px; /* Larger radius */
+        }
+        
+        /* PIN BOX - ADJUSTED POSITION AND MADE BIGGER */
+        .pin-box {
+            position: absolute;
+            top: 50%;
+            left: calc(50% + 180px); /* Adjusted for bigger door */
+            transform: translateY(-50%);
+            width: 100px; /* Increased from 80px */
+            height: 140px; /* Increased from 110px */
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 4px solid #DAB547; /* Thicker border */
+            border-radius: 15px; /* Larger radius */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #DAB547;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 200;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8); /* Bigger shadow */
         }
         
         .pin-icon {
-            font-size: 2.2rem !important;
-            margin-bottom: 8px !important;
+            font-size: 2.5rem; /* Bigger icon */
+            margin-bottom: 8px;
         }
         
         .pin-text {
-            font-size: 0.8rem !important;
-            letter-spacing: 2px !important;
+            font-size: 0.8rem; /* Slightly bigger text */
+            letter-spacing: 2px;
         }
         
-        /* Other scenes */
+        /* SCENES */
         .scene {
             display: none;
         }
@@ -155,65 +134,7 @@
             display: block;
         }
         
-        .other-scenes {
-            min-height: calc(100vh - 200px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #000000 100%);
-            padding: 40px;
-        }
-        
-        .scene-box {
-            background: rgba(26, 26, 26, 0.95);
-            border: 3px solid #DAB547;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            max-width: 600px;
-            color: #DAB547;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .scene-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        
-        .name-input {
-            background: rgba(218, 181, 71, 0.1);
-            border: 2px solid #DAB547;
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 1.2rem;
-            color: white;
-            width: 100%;
-            margin: 20px 0;
-            text-align: center;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, #DAB547, #E8C547);
-            color: #000000;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Orbitron', monospace;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.4);
-        }
-        
-        /* PIN overlay */
+        /* PIN OVERLAY */
         .pin-overlay {
             position: fixed;
             top: 0;
@@ -288,57 +209,39 @@
             background: #DAB547;
             color: #000;
         }
-        
-        .message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.95);
-            border: 3px solid #DAB547;
-            border-radius: 15px;
-            padding: 30px;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            text-align: center;
-            max-width: 500px;
-            z-index: 2000;
-            display: none;
-            color: #DAB547;
-        }
-        
-        .message.show { display: block; }
-        .message.warning { border-color: #ffa500; color: #ffa500; }
-        .message.success { 
-            border-color: #DAB547; 
-            color: #DAB547; 
-            background: rgba(218, 181, 71, 0.15);
-        }
-        
-        /* Mobile */
+
+        /* RESPONSIVE ADJUSTMENTS */
         @media (max-width: 768px) {
-            .club-title {
-                top: 60px;
-                font-size: clamp(1.5rem, 8vw, 2.5rem);
-            }
-            
             .door {
-                width: 140px;
-                height: 220px;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-            
-            .door.sliding {
-                transform: translate(-150%, -50%) rotateY(-90deg);
+                width: 220px;
+                height: 340px;
             }
             
             .pin-box {
+                left: calc(50% + 140px);
+                width: 80px;
+                height: 120px;
+            }
+            
+            .pin-icon {
+                font-size: 2rem;
+            }
+            
+            .club-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .door {
+                width: 180px;
+                height: 280px;
+            }
+            
+            .pin-box {
+                left: calc(50% + 110px);
                 width: 70px;
-                height: 90px;
-                left: 50%;
-                top: 70%;
-                transform: translate(-50%, -50%);
+                height: 100px;
             }
             
             .pin-icon {
@@ -346,81 +249,35 @@
             }
             
             .pin-text {
-                font-size: 0.6rem;
+                font-size: 0.7rem;
+            }
+            
+            .club-title {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation inserted automatically by shared/navigation.js -->
+    <!-- Shared Navigation System -->
+    <script src="../shared/navigation.js"></script>
 
-    <!-- Main Content -->
     <main class="main">
-        <!-- ENTRANCE SCENE -->
-        <div class="scene active" id="entranceScene">
+        <div class="scene entrance-scene active" id="entranceScene">
             <div class="club-title">the players club</div>
-            <div class="entrance-content">
-                <!-- Door -->
-                <div class="door" id="clubDoor">
-                    <div class="door-window"></div>
-                    <div class="door-handle"></div>
-                </div>
-                
-                <!-- PIN Box -->
-                <div class="pin-box" onclick="showPinPad()">
-                    <div class="pin-icon">🔢</div>
-                    <div class="pin-text">PIN</div>
-                </div>
+            
+            <div class="door" id="clubDoor">
+                <div class="door-window"></div>
+                <div class="door-handle"></div>
             </div>
-        </div>
-        
-        <!-- BOUNCER SCENE -->
-        <div class="scene" id="bouncerScene">
-            <div class="other-scenes">
-                <div class="scene-box">
-                    <h2 class="scene-title">Welcome!</h2>
-                    <p style="margin-bottom: 20px;">What's your name?</p>
-                    <input type="text" class="name-input" id="bouncerNameInput" placeholder="Enter your name" maxlength="20">
-                    <button class="btn" onclick="submitBouncerName()">Continue →</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- CASHIER SCENE -->
-        <div class="scene" id="cashierScene">
-            <div class="other-scenes">
-                <div class="scene-box">
-                    <h2 class="scene-title" id="cashierGreeting">Hey there</h2>
-                    <p style="margin-bottom: 25px;">Keith was expecting you. Head to the cashier for your setup.</p>
-                    <div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
-                        <div style="text-align: center;">
-                            <div style="width: 60px; height: 60px; background: #DAB547; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 10px;">💰</div>
-                            <div style="font-size: 0.9rem;">500 Chips</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <div style="width: 60px; height: 60px; background: #DAB547; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 10px;">📱</div>
-                            <div style="font-size: 0.9rem;">Keith's Phone</div>
-                        </div>
-                    </div>
-                    <p style="margin: 25px 0; font-size: 0.9rem;" id="cashierMessage">Keith left these for you. Enjoy your VIP experience!</p>
-                    <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- VIP BOOTH SCENE -->
-        <div class="scene" id="boothScene">
-            <div class="other-scenes">
-                <div class="scene-box">
-                    <h2 class="scene-title">VIP Booth</h2>
-                    <p>Welcome to Keith's exclusive Players Club! You're now in the VIP area.</p>
-                    <p style="margin-top: 20px;">Games and features coming soon...</p>
-                </div>
+            
+            <div class="pin-box" onclick="showPinPad()">
+                <div class="pin-icon">🔢</div>
+                <div class="pin-text">PIN</div>
             </div>
         </div>
     </main>
     
-    <!-- PIN PAD OVERLAY -->
     <div class="pin-overlay" id="pinOverlay">
         <div class="pin-pad">
             <button class="pin-close" onclick="hidePinPad()">×</button>
@@ -441,25 +298,10 @@
             </div>
         </div>
     </div>
-    
-    <!-- MESSAGE -->
-    <div class="message" id="messageDisplay"></div>
 
-    <!-- AUDIO -->
-    <audio id="apartment223Audio" preload="none">
-        <source src="photos/apartment223.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Shared Navigation System -->
-    <script src="../shared/navigation.js"></script>
-    
-    <!-- JavaScript -->
     <script>
         let currentPin = '';
         let pinAttempts = 0;
-        let playerName = '';
 
         function showPinPad() {
             document.getElementById('pinOverlay').style.display = 'flex';
@@ -495,7 +337,7 @@
 
         function submitPin() {
             if (currentPin.length !== 3) {
-                showMessage('Enter 3 digits!', 'warning');
+                alert('Enter 3 digits!');
                 return;
             }
             
@@ -503,22 +345,15 @@
             
             if (currentPin === '223') {
                 hidePinPad();
-                showMessage('Welcome to The Players Club!', 'success');
-                
-                const audio = document.getElementById('apartment223Audio');
-                if (audio) {
-                    audio.play().catch(e => console.log('Audio blocked'));
-                }
+                alert('Welcome to The Players Club!');
                 
                 setTimeout(() => {
                     const door = document.getElementById('clubDoor');
                     if (door) {
-                        door.classList.add('sliding');
+                        door.style.transform = 'translate(-150%, -50%) rotateY(-90deg)';
+                        door.style.opacity = '0';
                     }
-                    setTimeout(() => {
-                        showScene('bouncer');
-                    }, 1000);
-                }, 1500);
+                }, 1000);
             } else {
                 let message = '';
                 if (pinAttempts === 1) {
@@ -530,81 +365,11 @@
                 } else {
                     message = 'Too many attempts! The answer is 223 - Dr. Doom\'s apartment!';
                 }
-                showMessage(message, 'warning');
+                alert(message);
             }
             
             clearPin();
         }
-
-        function showScene(sceneName) {
-            document.querySelectorAll('.scene').forEach(scene => {
-                scene.classList.remove('active');
-            });
-            const targetScene = document.getElementById(sceneName + 'Scene');
-            if (targetScene) {
-                targetScene.classList.add('active');
-            }
-        }
-
-        function submitBouncerName() {
-            const nameInput = document.getElementById('bouncerNameInput');
-            if (!nameInput || !nameInput.value.trim()) {
-                showMessage('Please enter your name first!', 'warning');
-                return;
-            }
-            
-            playerName = nameInput.value.trim();
-            
-            const cashierGreeting = document.getElementById('cashierGreeting');
-            const cashierMessage = document.getElementById('cashierMessage');
-            
-            if (cashierGreeting) {
-                cashierGreeting.textContent = `Hey ${playerName}`;
-            }
-            if (cashierMessage) {
-                cashierMessage.textContent = `${playerName}, Keith left these for you. Enjoy your VIP experience!`;
-            }
-            
-            showScene('cashier');
-        }
-
-        function enterVIPBooth() {
-            if (!playerName) {
-                showMessage('Something went wrong - please start over!', 'warning');
-                return;
-            }
-            
-            showScene('booth');
-            showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
-        }
-
-        function showMessage(text, type) {
-            const messageEl = document.getElementById('messageDisplay');
-            if (messageEl) {
-                messageEl.textContent = text;
-                messageEl.className = `message show ${type || 'success'}`;
-                
-                setTimeout(() => {
-                    messageEl.classList.remove('show');
-                }, 3000);
-            }
-        }
-
-        // Keyboard support
-        document.addEventListener('keydown', function(e) {
-            const pinOverlay = document.getElementById('pinOverlay');
-            if (pinOverlay && pinOverlay.style.display === 'flex') {
-                if (e.key >= '0' && e.key <= '9') {
-                    enterPin(e.key);
-                } else if (e.key === 'Enter') {
-                    submitPin();
-                } else if (e.key === 'Backspace') {
-                    clearPin();
-                } else if (e.key === 'Escape') {
-                    hidePinPad();
-                }
-            }
-        });
 
         updatePinDisplay();
     </script>
