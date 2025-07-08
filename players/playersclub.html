@@ -118,6 +118,7 @@
             <div class="drinking-overlay" id="drinkingOverlay" style="display: none;">
                 <img src="drinking.png" alt="Drinking" class="drinking-animation" id="drinkingAnimation">
             </div>
+            
             <div class="drunk-item earring-item">💎</div>
             <div class="drunk-item bra-item">👙</div>
             <div class="drunk-item panties-item">🩲</div>
@@ -271,13 +272,32 @@
     <script>
         console.log('HTML loaded - checking for main.js...');
         
-        // COMPLETE FALLBACK SYSTEM
+        // COMPLETE FALLBACK SYSTEM WITH FULL DRINKING ANIMATION
         if (typeof showPinPad === 'undefined') {
             console.error('main.js failed to load! Using complete fallback functions...');
             
             let currentPin = '';
             let pinAttempts = 0;
             let playerName = '';
+            let drinkCount = 0;
+            let chips = 500;
+            
+            // BASIC GAME STATE
+            let slotsData = {
+                balance: 500,
+                bet: 10,
+                spins: 0,
+                totalWagered: 0,
+                totalWon: 0,
+                lastWin: 0
+            };
+            
+            let blackjackData = {
+                deck: [],
+                playerHand: [],
+                dealerHand: [],
+                gameActive: false
+            };
             
             function showPinPad() {
                 document.getElementById('pinOverlay').style.display = 'flex';
@@ -313,7 +333,7 @@
             
             function submitPin() {
                 if (currentPin.length !== 3) {
-                    showMessage('Enter 3 digits!', 'warning');
+                    showMessage('Enter 3 digits!', 'warning1');
                     return;
                 }
                 
@@ -322,6 +342,16 @@
                 if (currentPin === '223') {
                     hidePinPad();
                     showMessage('Welcome to The Players Club!', 'success');
+                    
+                    // Play Apartment 223 audio
+                    const audio = document.getElementById('apartment223Audio');
+                    if (audio) {
+                        audio.play().catch(e => console.log('Audio play failed:', e));
+                        const audioControls = document.getElementById('audioControls');
+                        if (audioControls) {
+                            audioControls.classList.add('show');
+                        }
+                    }
                     
                     setTimeout(() => {
                         const clubDoor = document.getElementById('clubDoor') || document.getElementById('doorFallback');
@@ -334,16 +364,26 @@
                     }, 1500);
                 } else {
                     let message = '';
+                    let messageType = 'warning1';
+                    
                     if (pinAttempts === 1) {
                         message = 'Come on, player... you should know this one.';
                     } else if (pinAttempts === 2) {
                         message = 'Keith\'s not gonna like this... think harder, kid.';
+                        messageType = 'warning2';
                     } else if (pinAttempts === 3) {
                         message = 'Alright, here\'s your hint: Dr. Doom\'s apartment number';
+                        messageType = 'hint';
                     } else {
-                        message = 'Too many attempts! The answer is 223 - Dr. Doom\'s apartment!';
+                        message = 'Too many attempts! Security is coming...';
+                        messageType = 'warning3';
+                        
+                        setTimeout(() => {
+                            document.getElementById('lockoutScreen').style.display = 'flex';
+                            document.getElementById('lockoutMessage').textContent = 'You\'ve been ejected from the club. Security doesn\'t play games.';
+                        }, 2000);
                     }
-                    showMessage(message, 'warning');
+                    showMessage(message, messageType);
                 }
                 
                 clearPin();
@@ -366,7 +406,7 @@
             function enterVIPBooth() {
                 const nameInput = document.getElementById('playerNameInput');
                 if (!nameInput || !nameInput.value.trim()) {
-                    showMessage('Please enter your name first!', 'warning');
+                    showMessage('Please enter your name first!', 'warning1');
                     return;
                 }
                 
@@ -385,74 +425,533 @@
                 showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
             }
             
-            function loadGame(gameName) {
-                showMessage(`${gameName} game coming soon! Professional engine loading...`, 'hint');
+            function drinkChampagne() {
+                drinkCount++;
+                const drinkDisplay = document.getElementById('drinkCount');
+                if (drinkDisplay) {
+                    drinkDisplay.textContent = drinkCount;
+                }
+                
+                // Show drinking animation
+                const overlay = document.getElementById('drinkingOverlay');
+                if (overlay) {
+                    overlay.style.display = 'block';
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                    }, 1500);
+                }
+                
+                // Apply drunk effects
+                document.body.className = document.body.className.replace(/drunk-\d+/g, '');
+                document.body.classList.add(`drunk-${drinkCount}`);
+                
+                // Show drunk items progressively
+                const drunkItems = document.querySelectorAll('.drunk-item');
+                if (drinkCount >= 3 && drunkItems[0]) drunkItems[0].classList.add('visible');
+                if (drinkCount >= 5 && drunkItems[1]) drunkItems[1].classList.add('visible');
+                if (drinkCount >= 7 && drunkItems[2]) drunkItems[2].classList.add('visible');
+                if (drinkCount >= 9 && drunkItems[3]) drunkItems[3].classList.add('visible');
+                
+                // Messages
+                if (drinkCount === 1) {
+                    showMessage('That champagne hits different... 🥂', 'hint');
+                } else if (drinkCount === 3) {
+                    showMessage('Things are getting interesting... 👙', 'hint');
+                } else if (drinkCount === 5) {
+                    showMessage('The room is spinning a bit... 🩲', 'hint');
+                } else if (drinkCount === 7) {
+                    showMessage('Keith\'s champagne is STRONG... 👠', 'hint');
+                } else if (drinkCount === 10) {
+                    showMessage('SECURITY! You\'re too drunk!', 'warning3');
+                    setTimeout(() => {
+                        document.getElementById('lockoutScreen').style.display = 'flex';
+                        document.getElementById('lockoutMessage').textContent = 'You drank too much champagne! Security had to escort you out.';
+                    }, 2000);
+                }
+            }
+            
+            function loadGame(gameType) {
+                if (gameType === 'slots') {
+                    showScene('slots');
+                    initSlots();
+                } else if (gameType === 'ceelo') {
+                    showScene('ceelo');
+                } else if (gameType === 'blackjack') {
+                    showScene('blackjack');
+                    initBlackjack();
+                }
+            }
+            
+            function backToBooth() {
+                showScene('booth');
             }
             
             function openPhone() {
-                if (!playerName) {
-                    showMessage('Get setup at the cashier first!', 'warning');
-                    return;
-                }
-                showMessage(`Keith says: "Yo ${playerName}, you reached me directly!"`, 'success');
+                showMessage('Keith\'s phone is ringing... "Yo, this is Keith\'s AI. What\'s good?"', 'hint');
             }
             
-            function drinkChampagne() {
-                showMessage('Nice champagne! VIP treatment all the way.', 'success');
-            }
-            
-            function showMessage(text, type) {
-                const messageEl = document.getElementById('messageDisplay');
-                if (messageEl) {
-                    messageEl.textContent = text;
-                    messageEl.className = `message-display show ${type || 'success'}`;
+            function showMessage(text, type = 'hint') {
+                const messageDisplay = document.getElementById('messageDisplay');
+                if (messageDisplay) {
+                    messageDisplay.textContent = text;
+                    messageDisplay.className = `message-display show ${type}`;
+                    
                     setTimeout(() => {
-                        messageEl.classList.remove('show');
-                    }, 3000);
+                        messageDisplay.classList.remove('show');
+                    }, 4000);
                 }
             }
             
             function resetClub() {
-                currentPin = '';
-                pinAttempts = 0;
-                playerName = '';
-                showScene('entrance');
-                updatePinDisplay();
+                location.reload();
             }
             
-            // Keyboard support
-            document.addEventListener('keydown', function(e) {
-                const pinOverlay = document.getElementById('pinOverlay');
-                if (pinOverlay && pinOverlay.style.display === 'flex') {
-                    if (e.key >= '0' && e.key <= '9') {
-                        enterPin(e.key);
-                    } else if (e.key === 'Enter') {
-                        submitPin();
-                    } else if (e.key === 'Backspace' || e.key === 'Delete') {
-                        clearPin();
-                    } else if (e.key === 'Escape') {
-                        hidePinPad();
+            // SLOTS GAME FUNCTIONS
+            function initSlots() {
+                createSlotsGrid();
+                updateSlotsDisplay();
+            }
+            
+            function createSlotsGrid() {
+                const container = document.getElementById('slotsContainer');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                for (let row = 0; row < 3; row++) {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'slots-row';
+                    
+                    for (let col = 0; col < 3; col++) {
+                        const symbol = document.createElement('div');
+                        symbol.className = 'slot-symbol';
+                        symbol.id = `slot-${row}-${col}`;
+                        
+                        const emoji = document.createElement('div');
+                        emoji.className = 'symbol-emoji';
+                        emoji.textContent = '?';
+                        
+                        const name = document.createElement('div');
+                        name.className = 'symbol-name';
+                        name.textContent = 'SPIN';
+                        
+                        symbol.appendChild(emoji);
+                        symbol.appendChild(name);
+                        rowDiv.appendChild(symbol);
+                    }
+                    
+                    container.appendChild(rowDiv);
+                }
+            }
+            
+            function setSlotsbet(amount) {
+                slotsData.bet = amount;
+                document.querySelectorAll('.bet-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                updateSlotsDisplay();
+            }
+            
+            function spinSlots() {
+                if (slotsData.balance < slotsData.bet) {
+                    showMessage('Not enough chips!', 'warning1');
+                    return;
+                }
+                
+                slotsData.balance -= slotsData.bet;
+                slotsData.spins++;
+                slotsData.totalWagered += slotsData.bet;
+                
+                const symbols = [
+                    {emoji: 'K', name: 'KEITH', payout: 1000},
+                    {emoji: 'U', name: 'ULTRA', payout: 500},
+                    {emoji: '🎭', name: 'OCTAGON', payout: 250},
+                    {emoji: '👹', name: 'DOOM', payout: 100},
+                    {emoji: '💎', name: 'DIAMOND', payout: 50},
+                    {emoji: '🎤', name: 'MIC', payout: 25},
+                    {emoji: '🔥', name: 'FIRE', payout: 10},
+                    {emoji: '⭐', name: 'STAR', payout: 5}
+                ];
+                
+                const grid = [];
+                for (let i = 0; i < 9; i++) {
+                    grid.push(symbols[Math.floor(Math.random() * symbols.length)]);
+                }
+                
+                // Update display
+                for (let i = 0; i < 9; i++) {
+                    const row = Math.floor(i / 3);
+                    const col = i % 3;
+                    const element = document.getElementById(`slot-${row}-${col}`);
+                    if (element) {
+                        const emoji = element.querySelector('.symbol-emoji');
+                        const name = element.querySelector('.symbol-name');
+                        emoji.textContent = grid[i].emoji;
+                        name.textContent = grid[i].name;
+                        element.classList.remove('winning-symbol');
                     }
                 }
-            });
+                
+                // Check for wins
+                const paylines = [
+                    [0, 1, 2], // Top row
+                    [3, 4, 5], // Middle row
+                    [6, 7, 8], // Bottom row
+                    [0, 4, 8], // Diagonal
+                    [2, 4, 6]  // Anti-diagonal
+                ];
+                
+                let totalWin = 0;
+                
+                paylines.forEach(line => {
+                    const [a, b, c] = line;
+                    if (grid[a].emoji === grid[b].emoji && grid[b].emoji === grid[c].emoji) {
+                        const payout = grid[a].payout * slotsData.bet / 100;
+                        totalWin += payout;
+                        
+                        // Highlight winning symbols
+                        line.forEach(pos => {
+                            const row = Math.floor(pos / 3);
+                            const col = pos % 3;
+                            const element = document.getElementById(`slot-${row}-${col}`);
+                            if (element) {
+                                element.classList.add('winning-symbol');
+                            }
+                        });
+                    }
+                });
+                
+                if (totalWin > 0) {
+                    slotsData.balance += totalWin;
+                    slotsData.totalWon += totalWin;
+                    slotsData.lastWin = totalWin;
+                    showMessage(`Big win! +${totalWin} chips!`, 'success');
+                } else {
+                    slotsData.lastWin = 0;
+                }
+                
+                updateSlotsDisplay();
+                updateChipDisplay();
+            }
             
-            // Make functions global
-            window.showPinPad = showPinPad;
-            window.hidePinPad = hidePinPad;
-            window.enterPin = enterPin;
-            window.clearPin = clearPin;
-            window.submitPin = submitPin;
-            window.showScene = showScene;
-            window.goToCashier = goToCashier;
-            window.enterVIPBooth = enterVIPBooth;
-            window.loadGame = loadGame;
-            window.openPhone = openPhone;
-            window.drinkChampagne = drinkChampagne;
-            window.showMessage = showMessage;
-            window.resetClub = resetClub;
+            function updateSlotsDisplay() {
+                const elements = {
+                    balance: document.getElementById('slotsBalance'),
+                    bet: document.getElementById('slotsBet'),
+                    lastWin: document.getElementById('slotsLastWin'),
+                    spins: document.getElementById('slotsSpins'),
+                    rtp: document.getElementById('slotsRTP')
+                };
+                
+                if (elements.balance) elements.balance.textContent = slotsData.balance;
+                if (elements.bet) elements.bet.textContent = slotsData.bet;
+                if (elements.lastWin) elements.lastWin.textContent = slotsData.lastWin;
+                if (elements.spins) elements.spins.textContent = slotsData.spins;
+                
+                if (elements.rtp && slotsData.totalWagered > 0) {
+                    const rtp = (slotsData.totalWon / slotsData.totalWagered * 100).toFixed(1);
+                    elements.rtp.textContent = rtp + '%';
+                }
+            }
             
-            console.log('Complete fallback functions loaded!');
-            updatePinDisplay();
+            // CEE-LO DICE GAME
+            function rollCeelo() {
+                const betInput = document.getElementById('ceelobBet');
+                const bet = parseInt(betInput.value) || 50;
+                
+                if (chips < bet) {
+                    showMessage('Not enough chips!', 'warning1');
+                    return;
+                }
+                
+                chips -= bet;
+                updateChipDisplay();
+                
+                // Roll three dice
+                const dice = [
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1,
+                    Math.floor(Math.random() * 6) + 1
+                ];
+                
+                // Update dice display with animation
+                const diceElements = [
+                    document.getElementById('dice1'),
+                    document.getElementById('dice2'),
+                    document.getElementById('dice3')
+                ];
+                
+                diceElements.forEach(die => die.classList.add('rolling'));
+                
+                setTimeout(() => {
+                    diceElements.forEach((die, i) => {
+                        die.textContent = dice[i];
+                        die.classList.remove('rolling');
+                    });
+                    
+                    // Calculate result
+                    const result = calculateCeeloResult(dice, bet);
+                    const resultDiv = document.getElementById('ceeloResult');
+                    if (resultDiv) {
+                        resultDiv.innerHTML = result.message;
+                    }
+                    
+                    if (result.winnings > 0) {
+                        chips += result.winnings;
+                        updateChipDisplay();
+                        showMessage(`You won ${result.winnings} chips!`, 'success');
+                    }
+                }, 1000);
+            }
+            
+            function calculateCeeloResult(dice, bet) {
+                const sorted = [...dice].sort((a, b) => b - a);
+                
+                // Check for special combinations
+                if (dice.includes(4) && dice.includes(5) && dice.includes(6)) {
+                    return {
+                        winnings: bet * 3,
+                        message: '<p style="color: gold; font-weight: bold;">🎉 4-5-6! AUTOMATIC WIN! 🎉</p><p>Triple payout!</p>'
+                    };
+                }
+                
+                if (dice.includes(1) && dice.includes(2) && dice.includes(3)) {
+                    return {
+                        winnings: 0,
+                        message: '<p style="color: red; font-weight: bold;">💀 1-2-3! AUTOMATIC LOSS! 💀</p><p>Better luck next time!</p>'
+                    };
+                }
+                
+                // Check for trips (three of a kind)
+                if (dice[0] === dice[1] && dice[1] === dice[2]) {
+                    return {
+                        winnings: bet * 2,
+                        message: `<p style="color: gold; font-weight: bold;">🔥 TRIPS ${dice[0]}s! 🔥</p><p>Double payout!</p>`
+                    };
+                }
+                
+                // Check for pair (point game)
+                const counts = {};
+                dice.forEach(d => counts[d] = (counts[d] || 0) + 1);
+                
+                for (let num in counts) {
+                    if (counts[num] === 2) {
+                        const point = dice.find(d => d != num);
+                        if (point >= 4) {
+                            return {
+                                winnings: bet * 1.5,
+                                message: `<p style="color: lightgreen;">Point: ${point} (High point wins!)</p><p>1.5x payout!</p>`
+                            };
+                        } else {
+                            return {
+                                winnings: 0,
+                                message: `<p style="color: orange;">Point: ${point} (Low point loses)</p><p>Try again!</p>`
+                            };
+                        }
+                    }
+                }
+                
+                return {
+                    winnings: 0,
+                    message: '<p style="color: gray;">No winning combination. Roll again!</p>'
+                };
+            }
+            
+            // BLACKJACK GAME
+            function initBlackjack() {
+                blackjackData.deck = createDeck();
+                blackjackData.playerHand = [];
+                blackjackData.dealerHand = [];
+                blackjackData.gameActive = false;
+                
+                document.getElementById('dealerHand').innerHTML = '';
+                document.getElementById('playerHand').innerHTML = '';
+                document.getElementById('dealerScore').textContent = '?';
+                document.getElementById('playerScore').textContent = '0';
+                document.getElementById('blackjackResult').innerHTML = '';
+                document.getElementById('blackjackControls').innerHTML = '<button class="btn" onclick="dealCards()">Deal Cards</button>';
+            }
+            
+            function createDeck() {
+                const suits = ['♠', '♥', '♦', '♣'];
+                const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+                const deck = [];
+                
+                suits.forEach(suit => {
+                    ranks.forEach(rank => {
+                        deck.push({
+                            suit: suit,
+                            rank: rank,
+                            value: rank === 'A' ? 11 : (rank === 'J' || rank === 'Q' || rank === 'K') ? 10 : parseInt(rank)
+                        });
+                    });
+                });
+                
+                // Shuffle deck
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
+                
+                return deck;
+            }
+            
+            function dealCards() {
+                const betInput = document.getElementById('blackjackBet');
+                const bet = parseInt(betInput.value) || 100;
+                
+                if (chips < bet) {
+                    showMessage('Not enough chips!', 'warning1');
+                    return;
+                }
+                
+                chips -= bet;
+                updateChipDisplay();
+                
+                blackjackData.gameActive = true;
+                blackjackData.playerHand = [blackjackData.deck.pop(), blackjackData.deck.pop()];
+                blackjackData.dealerHand = [blackjackData.deck.pop(), blackjackData.deck.pop()];
+                
+                updateBlackjackDisplay();
+                
+                document.getElementById('blackjackControls').innerHTML = `
+                    <button class="btn" onclick="hit()">Hit</button>
+                    <button class="btn btn-secondary" onclick="stand()">Stand</button>
+                `;
+                
+                // Check for blackjack
+                if (calculateBlackjackScore(blackjackData.playerHand) === 21) {
+                    endBlackjackGame('Blackjack! You win!', bet * 2.5);
+                }
+            }
+            
+            function hit() {
+                if (!blackjackData.gameActive) return;
+                
+                blackjackData.playerHand.push(blackjackData.deck.pop());
+                updateBlackjackDisplay();
+                
+                const score = calculateBlackjackScore(blackjackData.playerHand);
+                if (score > 21) {
+                    endBlackjackGame('Bust! You lose!', 0);
+                } else if (score === 21) {
+                    stand();
+                }
+            }
+            
+            function stand() {
+                if (!blackjackData.gameActive) return;
+                
+                // Dealer plays
+                while (calculateBlackjackScore(blackjackData.dealerHand) < 17) {
+                    blackjackData.dealerHand.push(blackjackData.deck.pop());
+                }
+                
+                updateBlackjackDisplay(true);
+                
+                const playerScore = calculateBlackjackScore(blackjackData.playerHand);
+                const dealerScore = calculateBlackjackScore(blackjackData.dealerHand);
+                const bet = parseInt(document.getElementById('blackjackBet').value) || 100;
+                
+                if (dealerScore > 21) {
+                    endBlackjackGame('Dealer busts! You win!', bet * 2);
+                } else if (playerScore > dealerScore) {
+                    endBlackjackGame('You win!', bet * 2);
+                } else if (playerScore < dealerScore) {
+                    endBlackjackGame('Dealer wins!', 0);
+                } else {
+                    endBlackjackGame('Push! Tie game!', bet);
+                }
+            }
+            
+            function calculateBlackjackScore(hand) {
+                let score = 0;
+                let aces = 0;
+                
+                hand.forEach(card => {
+                    if (card.rank === 'A') {
+                        aces++;
+                        score += 11;
+                    } else {
+                        score += card.value;
+                    }
+                });
+                
+                while (score > 21 && aces > 0) {
+                    score -= 10;
+                    aces--;
+                }
+                
+                return score;
+            }
+            
+            function updateBlackjackDisplay(showDealerCards = false) {
+                const dealerHand = document.getElementById('dealerHand');
+                const playerHand = document.getElementById('playerHand');
+                
+                // Update dealer hand
+                dealerHand.innerHTML = '';
+                blackjackData.dealerHand.forEach((card, index) => {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = `playing-card ${card.suit === '♥' || card.suit === '♦' ? 'red' : ''}`;
+                    
+                    if (index === 1 && !showDealerCards && blackjackData.gameActive) {
+                        cardDiv.innerHTML = '<div style="font-size: 1.5rem;">?</div>';
+                    } else {
+                        cardDiv.innerHTML = `<div>${card.rank}</div><div>${card.suit}</div>`;
+                    }
+                    
+                    dealerHand.appendChild(cardDiv);
+                });
+                
+                // Update player hand
+                playerHand.innerHTML = '';
+                blackjackData.playerHand.forEach(card => {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = `playing-card ${card.suit === '♥' || card.suit === '♦' ? 'red' : ''}`;
+                    cardDiv.innerHTML = `<div>${card.rank}</div><div>${card.suit}</div>`;
+                    playerHand.appendChild(cardDiv);
+                });
+                
+                // Update scores
+                document.getElementById('playerScore').textContent = calculateBlackjackScore(blackjackData.playerHand);
+                
+                if (showDealerCards) {
+                    document.getElementById('dealerScore').textContent = calculateBlackjackScore(blackjackData.dealerHand);
+                } else {
+                    document.getElementById('dealerScore').textContent = '?';
+                }
+            }
+            
+            function endBlackjackGame(message, winnings) {
+                blackjackData.gameActive = false;
+                chips += winnings;
+                updateChipDisplay();
+                
+                document.getElementById('blackjackResult').innerHTML = `<p style="color: ${winnings > 0 ? 'gold' : 'red'}; font-weight: bold;">${message}</p>`;
+                document.getElementById('blackjackControls').innerHTML = '<button class="btn" onclick="dealCards()">Deal New Hand</button>';
+                
+                if (winnings > 0) {
+                    showMessage(`Won ${winnings} chips!`, 'success');
+                }
+            }
+            
+            function updateChipDisplay() {
+                const chipDisplay = document.getElementById('chipCount');
+                if (chipDisplay) {
+                    chipDisplay.textContent = chips;
+                }
+                
+                // Update slots balance if in slots
+                slotsData.balance = chips;
+                const slotsBalance = document.getElementById('slotsBalance');
+                if (slotsBalance) {
+                    slotsBalance.textContent = chips;
+                }
+            }
+            
+            console.log('Fallback functions loaded successfully!');
+        } else {
+            console.log('main.js loaded successfully!');
         }
     </script>
 </body>
