@@ -15,121 +15,135 @@
     <link rel="stylesheet" href="../shared/styles.css">
     
     <style>
-        /* Simple entrance - background photo with positioned elements */
+        /* Professional approach - simple min-height solution */
+        .main {
+            min-height: 100vh !important;
+        }
+        
+        /* Fullscreen entrance background */
         .entrance-content {
-            position: relative;
-            min-height: calc(100vh - 200px);
-            background-image: url('entrtyby.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative !important;
+            width: 100% !important;
+            height: 100vh !important;
+            background-image: url('entrtyby.png') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
         .club-title {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 6vw, 4rem);
-            font-weight: 900;
-            color: #FF1493;
-            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
-            text-transform: lowercase;
-            font-style: italic;
-            z-index: 10;
+            position: absolute !important;
+            top: 100px !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            font-family: 'Orbitron', monospace !important;
+            font-size: clamp(2rem, 6vw, 4rem) !important;
+            font-weight: 900 !important;
+            color: #FF1493 !important;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6) !important;
+            text-transform: lowercase !important;
+            font-style: italic !important;
+            z-index: 10 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
-        /* Door positioned over the existing door in background */
+        /* Door positioned over the existing door in background - force positioning */
         .door {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 180px;
-            height: 280px;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 3px solid #DAB547;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 1s ease-in-out;
-            transform-origin: left center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            z-index: 20;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: 180px !important;
+            height: 280px !important;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
+            border: 3px solid #DAB547 !important;
+            border-radius: 15px !important;
+            cursor: pointer !important;
+            transition: all 1s ease-in-out !important;
+            transform-origin: left center !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
+            z-index: 20 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
         .door:hover {
-            box-shadow: 0 15px 40px rgba(218, 181, 71, 0.4);
+            box-shadow: 0 15px 40px rgba(218, 181, 71, 0.4) !important;
         }
         
         .door.sliding {
-            transform: translate(-150%, -50%) rotateY(-90deg);
-            opacity: 0;
+            transform: translate(-150%, -50%) rotateY(-90deg) !important;
+            opacity: 0 !important;
         }
         
-        .door-window {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 30%;
-            background: rgba(0,0,0,0.8);
-            border: 2px solid #DAB547;
-            border-radius: 8px;
-        }
-        
-        .door-handle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 15px;
-            height: 40px;
-            background: #DAB547;
-            border-radius: 8px;
-        }
-        
-        /* PIN box positioned to the right of the door */
+        /* PIN box positioned to the right of the door - force positioning */
         .pin-box {
-            position: absolute;
-            top: 50%;
-            left: 65%;
-            transform: translateY(-50%);
-            width: 90px;
-            height: 120px;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 3px solid #DAB547;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #DAB547;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
-            z-index: 20;
+            position: absolute !important;
+            top: 50% !important;
+            left: 65% !important;
+            transform: translateY(-50%) !important;
+            width: 90px !important;
+            height: 120px !important;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
+            border: 3px solid #DAB547 !important;
+            border-radius: 12px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: #DAB547 !important;
+            font-family: 'Orbitron', monospace !important;
+            font-weight: bold !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8) !important;
+            z-index: 20 !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         
         .pin-box:hover {
-            transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 12px 30px rgba(218, 181, 71, 0.4);
+            transform: translateY(-50%) scale(1.05) !important;
+            box-shadow: 0 12px 30px rgba(218, 181, 71, 0.4) !important;
+        }
+        
+        .door-window {
+            position: absolute !important;
+            top: 20% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 60% !important;
+            height: 30% !important;
+            background: rgba(0,0,0,0.8) !important;
+            border: 2px solid #DAB547 !important;
+            border-radius: 8px !important;
+        }
+        
+        .door-handle {
+            position: absolute !important;
+            right: 15px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 15px !important;
+            height: 40px !important;
+            background: #DAB547 !important;
+            border-radius: 8px !important;
         }
         
         .pin-icon {
-            font-size: 2.2rem;
-            margin-bottom: 8px;
+            font-size: 2.2rem !important;
+            margin-bottom: 8px !important;
         }
         
         .pin-text {
-            font-size: 0.8rem;
-            letter-spacing: 2px;
+            font-size: 0.8rem !important;
+            letter-spacing: 2px !important;
         }
         
         /* Other scenes */
@@ -303,6 +317,11 @@
         
         /* Mobile */
         @media (max-width: 768px) {
+            .club-title {
+                top: 60px;
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
+            }
+            
             .door {
                 width: 140px;
                 height: 220px;
@@ -318,7 +337,7 @@
                 width: 70px;
                 height: 90px;
                 left: 50%;
-                top: 75%;
+                top: 70%;
                 transform: translate(-50%, -50%);
             }
             
@@ -328,11 +347,6 @@
             
             .pin-text {
                 font-size: 0.6rem;
-            }
-            
-            .club-title {
-                top: 30px;
-                font-size: clamp(1.5rem, 8vw, 2.5rem);
             }
         }
     </style>
