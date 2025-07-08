@@ -15,17 +15,36 @@
     <link rel="stylesheet" href="shared/styles.css">
     
     <style>
-        /* Players Club specific styles that work with shared navigation */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        /* Players Club Variables */
+        :root {
+            --neon-pink: #FF1493;
+            --pink-glow: rgba(255, 20, 147, 0.6);
+            --card-bg: rgba(26, 26, 26, 0.95);
+        }
         
-        /* Entrance scene styling */
-        .entrance-scene {
-            min-height: calc(100vh - 160px); /* Account for nav + footer */
+        /* Scene Management System */
+        .scene {
+            position: relative;
+            min-height: 100vh;
+            display: none;
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+        
+        .scene.active {
             display: flex;
+            opacity: 1;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+        
+        /* Entrance Scene */
+        .entrance-scene {
             background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 25%, #1A0A0A 50%, var(--keith-black) 100%);
-            padding: 4rem 2rem;
+            padding: 2rem;
             position: relative;
             overflow: hidden;
         }
@@ -47,8 +66,8 @@
             font-family: 'Orbitron', monospace;
             font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 900;
-            color: #FF1493;
-            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6), 0 0 40px rgba(255, 20, 147, 0.6);
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow);
             animation: neonFlicker 3s ease-in-out infinite alternate;
             text-transform: lowercase;
             font-style: italic;
@@ -59,8 +78,8 @@
         }
         
         @keyframes neonFlicker {
-            0%, 100% { text-shadow: 0 0 20px rgba(255, 20, 147, 0.6), 0 0 40px rgba(255, 20, 147, 0.6); }
-            50% { text-shadow: 0 0 30px rgba(255, 20, 147, 0.8), 0 0 60px rgba(255, 20, 147, 0.8); }
+            0%, 100% { text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow); }
+            50% { text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--pink-glow); }
         }
         
         .entrance-container {
@@ -77,9 +96,9 @@
         /* Life-size club door */
         .club-door {
             width: auto;
-            height: 60vh;
-            max-height: 500px;
-            min-height: 350px;
+            height: 70vh;
+            max-height: 600px;
+            min-height: 400px;
             object-fit: contain;
             transition: transform 1s ease-in-out;
             transform-origin: left center;
@@ -98,10 +117,10 @@
         
         /* Fallback door design */
         .door-fallback {
-            width: 250px;
-            height: 60vh;
-            max-height: 500px;
-            min-height: 350px;
+            width: 300px;
+            height: 70vh;
+            max-height: 600px;
+            min-height: 400px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid var(--keith-gold);
             border-radius: 15px;
@@ -122,7 +141,6 @@
             opacity: 0;
         }
         
-        /* Door details */
         .door-window {
             position: absolute;
             top: 15%;
@@ -148,8 +166,8 @@
         
         /* Security keypad */
         .security-keypad {
-            width: 100px;
-            height: 140px;
+            width: 120px;
+            height: 160px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid var(--keith-gold);
             border-radius: 12px;
@@ -159,7 +177,7 @@
             justify-content: center;
             color: var(--keith-gold);
             font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -173,8 +191,352 @@
         }
         
         .keypad-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Bouncer Scene */
+        .bouncer-scene {
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .bouncer-container {
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .bouncer-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+        
+        .bouncer-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        /* Cashier Scene */
+        .cashier-scene {
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .cashier-window {
+            background: var(--card-bg);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .cashier-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+        
+        .cashier-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .name-input {
+            background: rgba(218, 181, 71, 0.1);
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: var(--keith-white);
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .gift-items {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .gift-item {
+            text-align: center;
+        }
+        
+        .gift-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background: linear-gradient(145deg, #333, #555);
+            border: 3px solid var(--keith-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+        
+        .gift-label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--keith-gold);
+            font-weight: bold;
+        }
+        
+        /* VIP Booth Scene */
+        .booth-scene {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .booth-header {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 5;
+        }
+        
+        .casino-room {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+        
+        .room-slots, .room-dice, .room-blackjack, .room-cashier, .room-phone {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+        }
+        
+        .room-slots { top: 5%; left: 50%; transform: translateX(-50%); }
+        .room-dice { top: 45%; right: 5%; }
+        .room-blackjack { top: 45%; left: 5%; }
+        .room-cashier { top: 65%; right: 2%; }
+        .room-phone { bottom: 20%; left: 40%; }
+        
+        .room-slots:hover, .room-dice:hover, .room-blackjack:hover, .room-cashier:hover, .room-phone:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+        
+        .room-slots img { height: 35vh; min-height: 200px; max-height: 280px; width: auto; object-fit: contain; }
+        .room-dice img, .room-blackjack img { height: 25vh; min-height: 150px; max-height: 200px; width: auto; object-fit: contain; }
+        .room-cashier img { height: 30vh; min-height: 180px; max-height: 240px; width: auto; object-fit: contain; }
+        .room-phone img { height: 8vh; min-height: 60px; max-height: 80px; width: auto; object-fit: contain; }
+        
+        .table-items-container {
+            position: absolute;
+            bottom: 10%;
+            left: 60%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .champagne-glass {
+            width: auto;
+            height: 12vh;
+            min-height: 80px;
+            max-height: 120px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+        }
+        
+        .champagne-fallback {
+            width: 80px;
+            height: 80px;
+            font-size: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .champagne-glass:hover, .champagne-fallback:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 8px 16px var(--keith-gold));
+        }
+        
+        /* Drunk items */
+        .drunk-item {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-size: 1.5rem;
+            z-index: 15;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8));
+        }
+        
+        .drunk-item.visible {
+            opacity: 1;
+        }
+        
+        .earring-item { bottom: 35%; left: 40%; font-size: 1rem; }
+        .bra-item { bottom: 40%; right: 15%; font-size: 2rem; }
+        .panties-item { bottom: 25%; left: 25%; font-size: 1.5rem; }
+        .heels-item { bottom: 32%; left: 50%; font-size: 2rem; }
+        
+        /* Drunk effects */
+        .drunk-1, .drunk-2 { filter: blur(0.5px); }
+        .drunk-3, .drunk-4 { filter: blur(1px); animation: subtleSway 4s ease-in-out infinite; }
+        .drunk-5, .drunk-6 { filter: blur(2px); animation: moderateSway 3s ease-in-out infinite; }
+        .drunk-7, .drunk-8 { filter: blur(3px); animation: heavySway 2s ease-in-out infinite; }
+        .drunk-9 { filter: blur(4px); animation: extremeSway 1.5s ease-in-out infinite; }
+        .drunk-10 { filter: blur(5px) saturate(1.3); animation: maxSway 1s ease-in-out infinite; }
+        
+        @keyframes subtleSway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(1px) translateY(0.5px); }
+        }
+        
+        @keyframes moderateSway {
+            0%, 100% { transform: translateX(0px); }
+            25% { transform: translateX(2px); }
+            75% { transform: translateX(-1px); }
+        }
+        
+        @keyframes heavySway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(3px) translateY(2px); }
+            75% { transform: translateX(-2px) translateY(-1px); }
+        }
+        
+        @keyframes extremeSway {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            33% { transform: translateX(4px) translateY(3px); }
+            66% { transform: translateX(-3px) translateY(2px); }
+        }
+        
+        @keyframes maxSway {
+            0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+            25% { transform: translateX(5px) translateY(3px) rotate(0.5deg); }
+            75% { transform: translateX(-4px) translateY(-2px) rotate(-0.3deg); }
+        }
+        
+        /* Button System */
+        .btn {
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
+            color: var(--keith-black);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+        }
+        
+        .btn-secondary {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--keith-gold);
+            border: 1px solid var(--keith-gold-light);
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            border-color: var(--keith-gold);
+            transform: translateY(-1px);
+            color: var(--keith-gold-light);
+        }
+        
+        /* UI Panel */
+        .ui-panel {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 20px;
+            font-family: 'Orbitron', monospace;
+            display: none;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+            z-index: 50;
+        }
+        
+        .ui-panel.show { display: block; }
+        
+        .chip-display {
+            color: var(--keith-gold);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .drink-counter {
+            color: var(--keith-white);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .player-info {
+            color: var(--keith-white);
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
         
         /* PIN overlay system */
@@ -192,7 +554,7 @@
         }
         
         .pin-pad {
-            background: rgba(26, 26, 26, 0.95);
+            background: var(--card-bg);
             border: 3px solid var(--keith-gold);
             border-radius: 20px;
             padding: 30px;
@@ -214,7 +576,6 @@
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.2rem;
         }
         
         .pin-display {
@@ -263,7 +624,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.95);
+            background: var(--card-bg);
             border: 3px solid var(--keith-gold);
             border-radius: 15px;
             padding: 30px 40px;
@@ -281,72 +642,23 @@
         .message-display.warning1 { border-color: #00ff41; color: #00ff41; }
         .message-display.warning2 { border-color: #ffa500; color: #ffa500; }
         .message-display.warning3 { border-color: #ff073a; color: #ff073a; }
-        .message-display.success { 
-            border-color: var(--keith-gold); 
-            color: var(--keith-gold); 
+        .message-display.hint {
+            border-color: var(--keith-gold-light);
+            color: var(--keith-gold-light);
+            background: rgba(218, 181, 71, 0.15);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--keith-gold-light);
+        }
+        .message-display.success {
+            border-color: var(--keith-gold);
+            color: var(--keith-gold);
             background: rgba(218, 181, 71, 0.15);
             text-shadow: 0 0 10px var(--keith-gold);
             font-weight: bold;
         }
         
-        /* Success screen after PIN entry */
-        .success-screen {
-            min-height: calc(100vh - 160px);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-        
-        .success-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            color: var(--keith-gold);
-            margin-bottom: 2rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-        
-        .success-message {
-            font-size: 1.3rem;
-            color: var(--keith-white);
-            line-height: 1.6;
-            max-width: 600px;
-            margin-bottom: 3rem;
-        }
-        
-        .success-btn {
-            background: linear-gradient(45deg, var(--keith-gold), var(--keith-gold-light));
-            color: var(--keith-black);
-            border: none;
-            padding: 20px 40px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.4s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .success-btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(218, 181, 71, 0.5);
-        }
-        
         /* Mobile responsive */
         @media (max-width: 768px) {
-            .entrance-scene {
-                padding: 2rem 1rem;
-            }
-            
             .entrance-container {
                 gap: 2rem;
                 flex-direction: row;
@@ -355,27 +667,105 @@
             }
             
             .club-door {
-                height: 45vh;
-                max-height: 300px;
-                min-height: 250px;
+                height: 50vh;
+                max-height: 350px;
+                min-height: 280px;
             }
             
             .door-fallback {
-                width: 180px;
-                height: 45vh;
-                max-height: 300px;
-                min-height: 250px;
+                width: 200px;
+                height: 50vh;
+                max-height: 350px;
+                min-height: 280px;
             }
             
             .security-keypad {
-                width: 70px;
-                height: 100px;
-                font-size: 0.7rem;
+                width: 80px;
+                height: 110px;
+                font-size: 0.8rem;
             }
             
             .keypad-icon {
-                font-size: 1.5rem;
-                margin-bottom: 5px;
+                font-size: 2rem;
+            }
+            
+            .bouncer-container, .cashier-window {
+                padding: 20px;
+                margin: 0 1rem;
+            }
+            
+            .bouncer-avatar, .cashier-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
+            .bouncer-title, .cashier-title {
+                font-size: 1.3rem;
+            }
+            
+            .gift-items {
+                gap: 20px;
+                flex-direction: column;
+            }
+            
+            .casino-room {
+                position: relative;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 20px;
+                margin-top: 60px;
+            }
+
+            .room-blackjack, .room-dice, .room-slots, .room-cashier, .room-phone {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+                margin: 0 auto;
+            }
+
+            .room-blackjack img, .room-dice img {
+                height: 18vh;
+                min-height: 100px;
+                max-height: 140px;
+            }
+
+            .room-slots img {
+                height: 25vh;
+                min-height: 140px;
+                max-height: 180px;
+            }
+
+            .room-cashier img {
+                height: 20vh;
+                min-height: 120px;
+                max-height: 160px;
+            }
+
+            .room-phone img {
+                height: 6vh;
+                min-height: 40px;
+                max-height: 60px;
+            }
+
+            .table-items-container {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin-top: 20px;
+            }
+            
+            .ui-panel {
+                top: 80px;
+                right: 10px;
+                padding: 15px;
+                min-width: 160px;
             }
             
             .pin-pad {
@@ -388,51 +778,131 @@
                 font-size: 1rem;
             }
             
-            .success-title {
-                font-size: 2rem;
+            .message-display {
+                max-width: 90vw;
+                padding: 20px;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation inserted automatically by shared/navigation.js -->
+    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
 
     <!-- Main Content -->
     <main class="main">
-        <!-- Entrance Scene -->
-        <section class="entrance-scene" id="entranceScene">
+        <!-- ENTRANCE SCENE -->
+        <div class="scene entrance-scene active" id="entranceScene">
             <div class="club-sign">the players club</div>
             <div class="entrance-container">
-                <!-- Club Door -->
+                <!-- CLUB DOOR -->
                 <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
                      onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
-                
-                <!-- Fallback Door Design -->
                 <div class="door-fallback" id="doorFallback">
                     <div class="door-window"></div>
                     <div class="door-handle"></div>
                 </div>
                 
-                <!-- Security Keypad -->
+                <!-- SECURITY KEYPAD -->
                 <div class="security-keypad" onclick="showPinPad()">
                     <div class="keypad-icon">🔢</div>
                     <div>PIN</div>
                 </div>
             </div>
-        </section>
+        </div>
         
-        <!-- Success Screen (Hidden initially) -->
-        <section class="success-screen" id="successScreen">
-            <div class="success-title">ACCESS GRANTED</div>
-            <div class="success-message">
-                Welcome to The Players Club! You've successfully entered Keith's exclusive VIP lounge. 
-                The door is now open and your VIP experience awaits. Time to play at Keith's level.
+        <!-- BOUNCER SCENE -->
+        <div class="scene bouncer-scene" id="bouncerScene">
+            <div class="bouncer-container">
+                <img src="photos/bouncer.jpg" alt="Bouncer" class="bouncer-avatar"
+                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
+                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">👨‍💼</div>
+                <h2 class="bouncer-title">Hey there</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
+                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
+                <button class="btn" onclick="goToCashier()">Continue →</button>
             </div>
-            <a href="vault.html" class="success-btn">Enter VIP Lounge</a>
-        </section>
+        </div>
+
+        <!-- CASHIER SCENE -->
+        <div class="scene cashier-scene" id="cashierScene">
+            <div class="cashier-window">
+                <img src="cashier.png" alt="Cashier" class="cashier-avatar"
+                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
+                <div class="cashier-avatar" id="cashierFallback" style="display:none;">👩‍💼</div>
+                <h2 class="cashier-title">Welcome!</h2>
+                <p style="margin-bottom: 20px;">What's your name?</p>
+                <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
+                <div class="gift-items">
+                    <div class="gift-item">
+                        <div class="gift-icon">💰</div>
+                        <div class="gift-label">500 Chips</div>
+                    </div>
+                    <div class="gift-item">
+                        <img src="phone.png" alt="Phone" class="gift-icon"
+                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
+                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
+                        <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
+                    </div>
+                </div>
+                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;">Keith left these for you. Enjoy your VIP experience!</p>
+                <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
+            </div>
+        </div>
+        
+        <!-- VIP BOOTH SCENE -->
+        <div class="scene booth-scene" id="boothScene">
+            <div class="booth-header">
+                <div class="club-sign">the players club</div>
+            </div>
+            <div class="casino-room">
+                <div class="room-slots" onclick="showMessage('Professional RTP 92% Slots coming soon!', 'hint')" title="Professional RTP 92% Slots">
+                    <img src="slots.png" alt="Slot Machines"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'Professional RTP 92% Slots coming soon!\', \'hint\')&quot; title=&quot;Professional RTP 92% Slots&quot;>🎰</div>';">
+                </div>
+                <div class="room-dice" onclick="showMessage('Real Cee-Lo Dice Game coming soon!', 'hint')" title="Real Cee-Lo Dice Game">
+                    <img src="456.png" alt="Dice Table"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'Real Cee-Lo Dice Game coming soon!\', \'hint\')&quot; title=&quot;Real Cee-Lo Dice Game&quot;>🎲</div>';">
+                </div>
+                <div class="room-blackjack" onclick="showMessage('Casino-Grade Blackjack coming soon!', 'hint')" title="Casino-Grade Blackjack">
+                    <img src="bj.png" alt="Blackjack Table"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'Casino-Grade Blackjack coming soon!\', \'hint\')&quot; title=&quot;Casino-Grade Blackjack&quot;>🃏</div>';">
+                </div>
+                <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
+                    <img src="cashier.png" alt="Cashier Booth"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'You already got your chips from the cashier!\', \'hint\')&quot; title=&quot;Cashier Booth&quot;>👩‍💼</div>';">
+                </div>
+                <div class="room-phone" onclick="openPhone()" title="Keith's Phone">
+                    <img src="phone.png" alt="Keith's Phone"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:2rem; cursor:pointer;&quot; onclick=&quot;openPhone()&quot; title=&quot;Keith\'s Phone&quot;>📱</div>';">
+                </div>
+            </div>
+            <div class="table-items-container">
+                <img src="glassfull.png" alt="Champagne" class="champagne-glass" id="champagneGlass" onclick="drinkChampagne()" title="Champagne"
+                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
+                <div class="champagne-fallback" id="champagneFallback" style="display:none;" onclick="drinkChampagne()" title="Champagne">🥂</div>
+            </div>
+            
+            <!-- DRINKING ANIMATION AT MIDDLE-BOTTOM FULL SIZE -->
+            <div class="drinking-overlay" id="drinkingOverlay" style="display: none; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 2000; width: 100%; max-width: 600px; height: auto;">
+                <img src="drinking.png" alt="Drinking Animation" class="drinking-animation" style="width: 100%; height: auto; object-fit: contain;">
+            </div>
+            
+            <div class="drunk-item earring-item">💎</div>
+            <div class="drunk-item bra-item">👙</div>
+            <div class="drunk-item panties-item">🩲</div>
+            <div class="drunk-item heels-item">👠</div>
+        </div>
     </main>
     
-    <!-- PIN Pad Overlay -->
+    <!-- UI PANEL -->
+    <div class="ui-panel" id="uiPanel">
+        <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
+        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
+        <div class="player-info">Player: <span id="playerDisplay">Guest</span></div>
+    </div>
+    
+    <!-- PIN PAD OVERLAY -->
     <div class="pin-overlay" id="pinOverlay">
         <div class="pin-pad">
             <button class="pin-close" onclick="hidePinPad()">×</button>
@@ -454,38 +924,43 @@
         </div>
     </div>
     
-    <!-- Message Display -->
+    <!-- MESSAGE DISPLAY -->
     <div class="message-display" id="messageDisplay"></div>
+
+    <!-- HIDDEN AUDIO ELEMENT -->
+    <audio id="apartment223Audio" preload="none">
+        <source src="photos/apartment223.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Footer inserted automatically by shared/navigation.js -->
 
     <!-- Shared Navigation System -->
     <script src="shared/navigation.js"></script>
     
-    <!-- Hidden audio for Apartment 223 -->
-    <audio id="apartment223Audio" preload="none">
-        <source src="photos/apartment223.mp3" type="audio/mpeg">
-    </audio>
-    
     <!-- Players Club JavaScript -->
     <script>
-        // PIN entry system
+        // GLOBAL GAME STATE
         let currentPin = '';
         let pinAttempts = 0;
+        let playerName = '';
+        let chipCount = 500;
+        let drinkCount = 0;
+        let currentScene = 'entrance';
 
+        // PIN ENTRY SYSTEM
         function showPinPad() {
-            console.log('PIN pad opened');
+            console.log('showPinPad called');
             document.getElementById('pinOverlay').style.display = 'flex';
             updatePinDisplay();
         }
 
         function hidePinPad() {
-            console.log('PIN pad closed');
+            console.log('hidePinPad called');
             document.getElementById('pinOverlay').style.display = 'none';
         }
 
         function enterPin(digit) {
-            console.log('PIN digit entered:', digit);
+            console.log('enterPin called with:', digit);
             if (currentPin.length < 3) {
                 currentPin += digit;
                 updatePinDisplay();
@@ -493,7 +968,7 @@
         }
 
         function clearPin() {
-            console.log('PIN cleared');
+            console.log('clearPin called');
             currentPin = '';
             updatePinDisplay();
         }
@@ -510,7 +985,7 @@
         }
 
         function submitPin() {
-            console.log('PIN submitted:', currentPin);
+            console.log('submitPin called with pin:', currentPin);
             if (currentPin.length !== 3) {
                 showMessage('Enter 3 digits!', 'warning2');
                 return;
@@ -519,37 +994,29 @@
             pinAttempts++;
             
             if (currentPin === '223') {
-                // Correct PIN - Apartment 223!
                 hidePinPad();
                 showMessage('Welcome to The Players Club!', 'success');
                 
-                // Play Apartment 223 audio if available
+                // Play Apartment 223 audio
                 const audio = document.getElementById('apartment223Audio');
                 if (audio) {
                     audio.play().catch(e => console.log('Audio autoplay blocked'));
                 }
                 
-                // Door sliding animation
                 setTimeout(() => {
                     const clubDoor = document.getElementById('clubDoor');
                     const doorFallback = document.getElementById('doorFallback');
-                    
-                    if (clubDoor && clubDoor.style.display !== 'none') {
+                    if (clubDoor) {
                         clubDoor.classList.add('sliding');
                     }
                     if (doorFallback && doorFallback.style.display !== 'none') {
                         doorFallback.classList.add('sliding');
                     }
-                    
-                    // Show success screen after door animation
                     setTimeout(() => {
-                        document.getElementById('entranceScene').style.display = 'none';
-                        document.getElementById('successScreen').style.display = 'flex';
+                        showScene('bouncer');
                     }, 1000);
                 }, 1500);
-                
             } else {
-                // Wrong PIN - Progressive hints
                 let message = '';
                 if (pinAttempts === 1) {
                     message = 'Come on, player... you should know this one.';
@@ -566,8 +1033,167 @@
             clearPin();
         }
 
+        // SCENE MANAGEMENT
+        function showScene(sceneName) {
+            console.log('showScene called:', sceneName);
+            document.querySelectorAll('.scene').forEach(scene => {
+                scene.classList.remove('active');
+            });
+            const targetScene = document.getElementById(sceneName + 'Scene');
+            if (targetScene) {
+                targetScene.classList.add('active');
+                currentScene = sceneName;
+            }
+        }
+
+        // NAVIGATION FUNCTIONS
+        function goToCashier() {
+            console.log('goToCashier called');
+            showScene('cashier');
+        }
+
+        function enterVIPBooth() {
+            console.log('enterVIPBooth called');
+            const nameInput = document.getElementById('playerNameInput');
+            if (!nameInput || !nameInput.value.trim()) {
+                showMessage('Please enter your name first!', 'warning2');
+                return;
+            }
+            
+            playerName = nameInput.value.trim();
+            const playerDisplay = document.getElementById('playerDisplay');
+            if (playerDisplay) {
+                playerDisplay.textContent = playerName;
+            }
+            
+            const uiPanel = document.getElementById('uiPanel');
+            if (uiPanel) {
+                uiPanel.classList.add('show');
+            }
+            
+            showScene('booth');
+            showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
+        }
+
+        // KEITH'S AI PHONE SYSTEM
+        function openPhone() {
+            console.log('openPhone called');
+            if (!playerName) {
+                showMessage('Get setup at the cashier first!', 'warning2');
+                return;
+            }
+            
+            const responses = [
+                `Yo ${playerName}, you reached Keith directly. What's good?`,
+                `${playerName}! Hope you're enjoying the VIP treatment.`,
+                `What's up ${playerName}? This is the exclusive line.`,
+                `Keith here. You feeling that VIP status yet, ${playerName}?`,
+                `${playerName}, remember - this phone is connected to my brain. Wild, right?`,
+                `Ultra Keith speaking. ${playerName}, you're in the real Players Club now.`
+            ];
+            
+            const message = responses[Math.floor(Math.random() * responses.length)];
+            showMessage(message, 'success');
+        }
+
+        // CHAMPAGNE DRINKING SYSTEM WITH 3-STAGE ANIMATION
+        function drinkChampagne() {
+            console.log('drinkChampagne called');
+            if (drinkCount >= 10) {
+                showMessage('You\'ve had enough!', 'warning3');
+                return;
+            }
+            
+            drinkCount++;
+            const drinkCountEl = document.getElementById('drinkCount');
+            if (drinkCountEl) {
+                drinkCountEl.textContent = drinkCount;
+            }
+            
+            // 3-STAGE DRINKING ANIMATION
+            const champagneGlass = document.getElementById('champagneGlass');
+            const drinkingOverlay = document.getElementById('drinkingOverlay');
+            const champagneFallback = document.getElementById('champagneFallback');
+            
+            if (champagneGlass && champagneGlass.style.display !== 'none') {
+                // STAGE 1: Show drinking.png at bottom of screen
+                if (drinkingOverlay) {
+                    drinkingOverlay.style.display = 'block';
+                }
+                
+                // STAGE 2: After drinking animation, show empty glass on table
+                setTimeout(() => {
+                    if (drinkingOverlay) {
+                        drinkingOverlay.style.display = 'none';
+                    }
+                    
+                    // Check if we're drinking from full or empty glass
+                    if (champagneGlass.src.includes('glassfull.png')) {
+                        // Full → Empty
+                        champagneGlass.src = 'glassfempty.png';
+                        champagneGlass.alt = 'Empty Glass';
+                        champagneGlass.title = 'Empty Glass - Click to finish';
+                    } else {
+                        // Empty → Full (STAGE 3: Refill)
+                        champagneGlass.src = 'glassfull.png';
+                        champagneGlass.alt = 'Champagne';
+                        champagneGlass.title = 'Champagne';
+                    }
+                }, 2000); // Show drinking.png for 2 seconds
+                
+            } else if (champagneFallback && champagneFallback.style.display !== 'none') {
+                // Fallback emoji animation
+                if (champagneFallback.textContent === '🥂') {
+                    champagneFallback.textContent = '🥃'; // Empty glass emoji
+                    champagneFallback.title = 'Empty Glass - Click to finish';
+                } else {
+                    champagneFallback.textContent = '🥂'; // Full glass emoji
+                    champagneFallback.title = 'Champagne';
+                }
+            }
+            
+            updateDrunkEffects();
+            
+            if (drinkCount >= 3) showDrunkItem('earring-item');
+            if (drinkCount >= 5) showDrunkItem('bra-item');
+            if (drinkCount >= 7) showDrunkItem('panties-item');
+            if (drinkCount >= 9) showDrunkItem('heels-item');
+            
+            if (drinkCount === 1) {
+                showMessage('Nice champagne...', 'success');
+            } else if (drinkCount === 3) {
+                showMessage('Nice champagne... wait, what\'s that?', 'warning1');
+            } else if (drinkCount === 5) {
+                showMessage('Things are getting interesting...', 'warning2');
+            } else if (drinkCount === 7) {
+                showMessage('This is getting out of hand...', 'warning3');
+            } else if (drinkCount === 9) {
+                showMessage('Seriously? Heels on the table?!', 'warning3');
+            } else if (drinkCount === 10) {
+                showMessage('SECURITY! You\'re outta here!', 'warning3');
+                setTimeout(() => {
+                    showMessage('You\'ve been ejected from the club!', 'warning3');
+                }, 2000);
+            }
+        }
+
+        function updateDrunkEffects() {
+            document.body.className = document.body.className.replace(/drunk-\d+/g, '');
+            if (drinkCount > 0) {
+                document.body.classList.add(`drunk-${drinkCount}`);
+            }
+        }
+
+        function showDrunkItem(className) {
+            const item = document.querySelector('.' + className);
+            if (item) {
+                item.classList.add('visible');
+            }
+        }
+
+        // MESSAGE SYSTEM
         function showMessage(text, type) {
-            console.log('Message:', text, type);
+            console.log('showMessage called:', text, type);
             const messageEl = document.getElementById('messageDisplay');
             if (messageEl) {
                 messageEl.textContent = text;
@@ -580,7 +1206,7 @@
             }
         }
 
-        // Keyboard support for PIN entry
+        // KEYBOARD SUPPORT
         document.addEventListener('keydown', function(e) {
             const pinOverlay = document.getElementById('pinOverlay');
             if (pinOverlay && pinOverlay.style.display === 'flex') {
@@ -596,9 +1222,9 @@
             }
         });
 
-        // Initialize
+        // INITIALIZE SYSTEM
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Players Club loaded - Ready for PIN entry');
+            console.log('Ultra Keith Players Club - Core System Loaded');
             updatePinDisplay();
         });
     </script>
