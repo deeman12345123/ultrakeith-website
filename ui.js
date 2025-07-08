@@ -1,12 +1,12 @@
 /**
- * BULLETPROOF UI MANAGER
- * Enhanced with comprehensive error handling and fallbacks
+ * HOMEPAGE NEWS LOADER
+ * Handles news loading for homepage only
+ * Other UI functions handled by shared/navigation.js
  */
 
-class UIManager {
+class NewsManager {
     constructor() {
         try {
-            this.soundEnabled = true;
             this.isInitialized = false;
             this.retryAttempts = {
                 news: 0,
@@ -14,176 +14,26 @@ class UIManager {
             };
             
             this.init();
-            console.log('🎛️ UI Manager: Initialization complete');
+            console.log('📰 News Manager: Initialization complete');
             
         } catch (error) {
-            console.error('🚨 UI Manager: Initialization failed:', error);
+            console.error('🚨 News Manager: Initialization failed:', error);
             this.handleError('INIT_ERROR', error);
         }
     }
     
     /**
-     * Initialize all UI components with error boundaries
+     * Initialize news loading
      */
     init() {
         try {
-            this.setupDesktopBanner();
-            this.setupMobileMenu();
-            this.setupAudioToggle();
             this.loadNews();
-            
             this.isInitialized = true;
-            console.log('🎛️ UI Manager: All components initialized');
+            console.log('📰 News Manager: Ready');
             
         } catch (error) {
-            console.error('🚨 UI Manager: Component initialization error:', error);
+            console.error('🚨 News Manager: Init error:', error);
             this.handleError('SETUP_ERROR', error);
-        }
-    }
-    
-    /**
-     * Setup desktop recommendation banner
-     */
-    setupDesktopBanner() {
-        try {
-            // Only show on mobile and if not previously dismissed
-            if (window.innerWidth <= 768 && !this.getLocalStorage('desktopBannerDismissed')) {
-                const banner = this.safeGetElement('desktopBanner');
-                const closeBtn = this.safeGetElement('closeBanner');
-                const mainContent = this.safeGetElement('mainContent');
-                
-                if (banner && closeBtn && mainContent) {
-                    // Show banner with animation
-                    setTimeout(() => {
-                        banner.classList.add('show');
-                        mainContent.classList.add('with-banner');
-                    }, 500);
-                    
-                    // Close banner functionality
-                    closeBtn.addEventListener('click', () => {
-                        try {
-                            banner.classList.remove('show');
-                            mainContent.classList.remove('with-banner');
-                            this.setLocalStorage('desktopBannerDismissed', 'true');
-                            console.log('🎛️ UI Manager: Desktop banner dismissed');
-                        } catch (error) {
-                            console.error('🚨 UI Manager: Banner close error:', error);
-                        }
-                    });
-                    
-                    console.log('🎛️ UI Manager: Desktop banner setup complete');
-                }
-            }
-        } catch (error) {
-            console.error('🚨 UI Manager: Desktop banner setup error:', error);
-        }
-    }
-    
-    /**
-     * Setup mobile menu with error handling
-     */
-    setupMobileMenu() {
-        try {
-            const mobileMenuBtn = this.safeGetElement('mobileMenuBtn');
-            const navMenu = this.safeGetElement('navMenu');
-            
-            if (mobileMenuBtn && navMenu) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    try {
-                        navMenu.classList.toggle('show');
-                        const isOpen = navMenu.classList.contains('show');
-                        
-                        // Update ARIA attributes for accessibility
-                        mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-                        
-                        console.log('🎛️ UI Manager: Mobile menu toggled:', isOpen ? 'open' : 'closed');
-                        
-                    } catch (error) {
-                        console.error('🚨 UI Manager: Mobile menu toggle error:', error);
-                    }
-                });
-                
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    try {
-                        if (!mobileMenuBtn.contains(e.target) && !navMenu.contains(e.target)) {
-                            navMenu.classList.remove('show');
-                            mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                        }
-                    } catch (error) {
-                        console.error('🚨 UI Manager: Outside click handler error:', error);
-                    }
-                });
-                
-                console.log('🎛️ UI Manager: Mobile menu setup complete');
-            }
-        } catch (error) {
-            console.error('🚨 UI Manager: Mobile menu setup error:', error);
-        }
-    }
-    
-    /**
-     * Setup audio toggle with error handling
-     */
-    setupAudioToggle() {
-        try {
-            const audioToggle = this.safeGetElement('audioToggle');
-            const audioIcon = this.safeGetElement('audioIcon');
-            const audioText = this.safeGetElement('audioText');
-            
-            if (audioToggle && audioIcon && audioText) {
-                // Load saved preference
-                const savedState = this.getLocalStorage('audioEnabled');
-                if (savedState !== null) {
-                    this.soundEnabled = savedState === 'true';
-                    this.updateAudioUI(audioToggle, audioIcon, audioText);
-                }
-                
-                audioToggle.addEventListener('click', () => {
-                    try {
-                        this.soundEnabled = !this.soundEnabled;
-                        this.updateAudioUI(audioToggle, audioIcon, audioText);
-                        
-                        // Save preference
-                        this.setLocalStorage('audioEnabled', this.soundEnabled.toString());
-                        
-                        // Dispatch custom event for other components
-                        window.dispatchEvent(new CustomEvent('audioToggle', {
-                            detail: { enabled: this.soundEnabled }
-                        }));
-                        
-                        console.log('🎛️ UI Manager: Audio toggled:', this.soundEnabled ? 'on' : 'off');
-                        
-                    } catch (error) {
-                        console.error('🚨 UI Manager: Audio toggle error:', error);
-                    }
-                });
-                
-                console.log('🎛️ UI Manager: Audio toggle setup complete');
-            }
-        } catch (error) {
-            console.error('🚨 UI Manager: Audio toggle setup error:', error);
-        }
-    }
-    
-    /**
-     * Update audio UI elements
-     */
-    updateAudioUI(toggle, icon, text) {
-        try {
-            if (this.soundEnabled) {
-                toggle.classList.remove('disabled');
-                icon.textContent = '🔊';
-                text.textContent = 'Audio On';
-                toggle.setAttribute('aria-pressed', 'true');
-            } else {
-                toggle.classList.add('disabled');
-                icon.textContent = '🔇';
-                text.textContent = 'Audio Off';
-                toggle.setAttribute('aria-pressed', 'false');
-            }
-        } catch (error) {
-            console.error('🚨 UI Manager: Audio UI update error:', error);
         }
     }
     
@@ -193,7 +43,7 @@ class UIManager {
     async loadNews() {
         const latestPost = this.safeGetElement('latestPost');
         if (!latestPost) {
-            console.warn('🎛️ UI Manager: Latest post element not found');
+            console.warn('📰 News: Latest post element not found');
             return;
         }
         
@@ -273,7 +123,7 @@ class UIManager {
             this.showNewsFallback(latestPost);
             
         } catch (error) {
-            console.error('🚨 UI Manager: News loading error:', error);
+            console.error('🚨 News Manager: News loading error:', error);
             this.showNewsFallback(latestPost);
         }
     }
@@ -307,7 +157,7 @@ class UIManager {
                 console.log('📰 News: Max retries reached, showing final fallback');
             }
         } catch (error) {
-            console.error('🚨 UI Manager: Fallback display error:', error);
+            console.error('🚨 News Manager: Fallback display error:', error);
         }
     }
     
@@ -318,39 +168,13 @@ class UIManager {
         try {
             const element = document.getElementById(id);
             if (!element) {
-                console.warn(`🎛️ UI Manager: Element #${id} not found`);
+                console.warn(`📰 News Manager: Element #${id} not found`);
             }
             return element;
         } catch (error) {
-            console.error(`🚨 UI Manager: Failed to get element #${id}:`, error);
+            console.error(`🚨 News Manager: Failed to get element #${id}:`, error);
             return null;
         }
-    }
-    
-    /**
-     * Safe localStorage operations
-     */
-    getLocalStorage(key) {
-        try {
-            if (typeof Storage !== 'undefined') {
-                return localStorage.getItem(key);
-            }
-        } catch (error) {
-            console.warn('🎛️ UI Manager: localStorage get error:', error);
-        }
-        return null;
-    }
-    
-    setLocalStorage(key, value) {
-        try {
-            if (typeof Storage !== 'undefined') {
-                localStorage.setItem(key, value);
-                return true;
-            }
-        } catch (error) {
-            console.warn('🎛️ UI Manager: localStorage set error:', error);
-        }
-        return false;
     }
     
     /**
@@ -362,7 +186,7 @@ class UIManager {
             temp.textContent = str;
             return temp.innerHTML;
         } catch (error) {
-            console.error('🚨 UI Manager: HTML sanitization error:', error);
+            console.error('🚨 News Manager: HTML sanitization error:', error);
             return 'Content unavailable';
         }
     }
@@ -383,7 +207,7 @@ class UIManager {
                 year: 'numeric'
             });
         } catch (error) {
-            console.error('🚨 UI Manager: Date formatting error:', error);
+            console.error('🚨 News Manager: Date formatting error:', error);
             return 'Recent';
         }
     }
@@ -392,38 +216,14 @@ class UIManager {
      * Handle errors gracefully
      */
     handleError(type, error) {
-        console.error(`🚨 UI Manager Error [${type}]:`, error);
+        console.error(`🚨 News Manager Error [${type}]:`, error);
         
-        // Attempt recovery based on error type
-        switch (type) {
-            case 'INIT_ERROR':
-                // Try to initialize critical components only
-                try {
-                    this.setupMobileMenu();
-                    this.setupAudioToggle();
-                } catch (recoveryError) {
-                    console.error('🚨 UI Manager: Recovery failed:', recoveryError);
-                }
-                break;
-            case 'NEWS_ERROR':
-                const latestPost = this.safeGetElement('latestPost');
-                if (latestPost) {
-                    this.showNewsFallback(latestPost);
-                }
-                break;
+        if (type === 'NEWS_ERROR') {
+            const latestPost = this.safeGetElement('latestPost');
+            if (latestPost) {
+                this.showNewsFallback(latestPost);
+            }
         }
-    }
-    
-    /**
-     * Get UI status for debugging
-     */
-    getStatus() {
-        return {
-            initialized: this.isInitialized,
-            soundEnabled: this.soundEnabled,
-            newsRetries: this.retryAttempts.news,
-            timestamp: new Date().toISOString()
-        };
     }
     
     /**
@@ -439,23 +239,34 @@ class UIManager {
             this.loadNews();
             console.log('📰 News: Manual refresh triggered');
         } catch (error) {
-            console.error('🚨 UI Manager: News refresh error:', error);
+            console.error('🚨 News Manager: News refresh error:', error);
         }
+    }
+    
+    /**
+     * Get status for debugging
+     */
+    getStatus() {
+        return {
+            initialized: this.isInitialized,
+            newsRetries: this.retryAttempts.news,
+            timestamp: new Date().toISOString()
+        };
     }
 }
 
-// Initialize UI when DOM is ready
-let uiManager;
+// Initialize news manager when DOM is ready
+let newsManager;
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        uiManager = new UIManager();
-        console.log('🎛️ UI Manager: Initialization triggered');
+        newsManager = new NewsManager();
+        console.log('📰 News Manager: Initialization triggered');
         
         // Global access for debugging
-        window.uiManager = uiManager;
+        window.newsManager = newsManager;
         
-        // Add global refresh button for news (for debugging)
+        // Add debug refresh button if in debug mode
         if (window.location.search.includes('debug=true')) {
             const refreshBtn = document.createElement('button');
             refreshBtn.textContent = '🔄 Refresh News';
@@ -467,37 +278,22 @@ document.addEventListener('DOMContentLoaded', () => {
             refreshBtn.style.background = '#DAB547';
             refreshBtn.style.border = 'none';
             refreshBtn.style.borderRadius = '5px';
-            refreshBtn.onclick = () => uiManager.refreshNews();
+            refreshBtn.onclick = () => newsManager.refreshNews();
             document.body.appendChild(refreshBtn);
         }
         
     } catch (error) {
-        console.error('🚨 UI Manager: Failed to create instance:', error);
+        console.error('🚨 News Manager: Failed to create instance:', error);
         
-        // Minimal fallback functionality
-        try {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navMenu = document.getElementById('navMenu');
-            if (mobileMenuBtn && navMenu) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navMenu.classList.toggle('show');
-                });
-                console.log('🎛️ UI Manager: Fallback mobile menu enabled');
-            }
-        } catch (fallbackError) {
-            console.error('🚨 UI Manager: Even fallback failed:', fallbackError);
-        }
-    }
-});
-
-// Global error handler for UI
-window.addEventListener('error', (event) => {
-    if (event.filename && event.filename.includes('ui.js')) {
-        console.error('🚨 Global UI Error:', event.error);
-        
-        // Try to maintain basic functionality
-        if (uiManager && typeof uiManager.handleError === 'function') {
-            uiManager.handleError('GLOBAL_ERROR', event.error);
+        // Minimal fallback
+        const latestPost = document.getElementById('latestPost');
+        if (latestPost) {
+            latestPost.innerHTML = `
+                <div class="post-error">
+                    News unavailable. 
+                    <a href="https://ultrakeithdotcom.blogspot.com/" target="_blank">Visit blog</a>
+                </div>
+            `;
         }
     }
 });
@@ -505,9 +301,9 @@ window.addEventListener('error', (event) => {
 // Handle network status changes
 window.addEventListener('online', () => {
     console.log('🌐 Network: Back online');
-    if (uiManager && typeof uiManager.refreshNews === 'function') {
+    if (newsManager && typeof newsManager.refreshNews === 'function') {
         setTimeout(() => {
-            uiManager.refreshNews();
+            newsManager.refreshNews();
         }, 1000);
     }
 });
