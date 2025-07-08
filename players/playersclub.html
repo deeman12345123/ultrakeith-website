@@ -101,12 +101,11 @@
             border-radius: 8px !important;
         }
         
-        /* PIN BOX - RIGHT SIDE MIDDLE - COMPLETELY ISOLATED */
+        /* PIN BOX - RIGHT OF DOOR HANDLE */
         .fresh-pinbox {
-            position: fixed !important;
-            top: 50% !important;
-            right: 10% !important;
-            transform: translateY(-50%) !important;
+            position: absolute !important;
+            top: 35% !important;  /* Align with door handle area */
+            left: 58% !important;  /* Just right of the door */
             width: 80px !important;
             height: 100px !important;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
@@ -118,48 +117,53 @@
             justify-content: center !important;
             color: #DAB547 !important;
             font-family: 'Orbitron', monospace !important;
-            font-size: 0.8rem !important;
+            font-size: 0.9rem !important;
             font-weight: bold !important;
             cursor: pointer !important;
-            z-index: 9999 !important;
+            z-index: 500 !important;
             box-shadow: 0 8px 25px rgba(0,0,0,0.6) !important;
             transition: all 0.3s ease !important;
         }
         
         .fresh-pinbox:hover {
-            transform: translateY(-50%) scale(1.05) !important;
+            transform: scale(1.05) !important;
             box-shadow: 0 12px 35px rgba(218, 181, 71, 0.5) !important;
             border-color: #E8C547 !important;
         }
         
         .pinbox-icon {
-            font-size: 2rem !important;
+            font-size: 2.2rem !important;
             margin-bottom: 5px !important;
             display: block !important;
         }
         
         .pinbox-text {
-            font-size: 0.7rem !important;
+            font-size: 0.8rem !important;
             display: block !important;
+            letter-spacing: 1px !important;
         }
         
         /* Mobile adjustments */
         @media (max-width: 768px) {
             .fresh-pinbox {
-                right: 5% !important;
+                left: 52% !important;  /* Closer to door on mobile */
                 width: 60px !important;
                 height: 80px !important;
-                font-size: 0.6rem !important;
+                font-size: 0.7rem !important;
             }
             
             .pinbox-icon {
-                font-size: 1.5rem !important;
+                font-size: 1.8rem !important;
+            }
+            
+            .pinbox-text {
+                font-size: 0.6rem !important;
             }
             
             .fresh-door {
-                left: 20% !important;
-                width: 150px !important;
-                height: 220px !important;
+                left: 15% !important;  /* Move door more left on mobile */
+                width: 120px !important;
+                height: 180px !important;
             }
         }
         
