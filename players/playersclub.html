@@ -8,369 +8,267 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     
-    <!-- Shared CSS - Use the same system as other pages -->
-    <link rel="stylesheet" href="../shared/styles.css">
-    
-    <!-- Players Club specific CSS - Minimal and professional -->
-    <style>
-        /* PLAYERS CLUB SPECIFIC STYLES - PROFESSIONAL DESIGN */
-        .main {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: var(--space-2xl) var(--space-lg);
-            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 25%, #1A0A0A 50%, var(--keith-black) 100%);
-        }
-        
-        .players-club-hero {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .club-logo {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: var(--space-lg);
-            text-shadow: 0 0 30px rgba(218, 181, 71, 0.3);
-        }
-        
-        .club-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--keith-white-75);
-            margin-bottom: var(--space-xl);
-            font-weight: 300;
-            line-height: 1.4;
-        }
-        
-        .club-description {
-            font-size: 1.1rem;
-            color: var(--keith-white-75);
-            line-height: 1.6;
-            margin-bottom: var(--space-2xl);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .club-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-xl);
-            margin-bottom: var(--space-2xl);
-        }
-        
-        .feature-card {
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid rgba(218, 181, 71, 0.2);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-xl);
-            backdrop-filter: blur(20px);
-            transition: all var(--transition-slow);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(218, 181, 71, 0.4);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: var(--space-md);
-            color: var(--keith-gold);
-        }
-        
-        .feature-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--keith-gold);
-            margin-bottom: var(--space-sm);
-            text-transform: uppercase;
-        }
-        
-        .feature-description {
-            color: var(--keith-white-75);
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-        
-        .entry-section {
-            background: rgba(26, 26, 26, 0.9);
-            border: 2px solid var(--keith-gold);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-2xl);
-            backdrop-filter: blur(20px);
-            margin-top: var(--space-xl);
-            max-width: 500px;
-        }
-        
-        .pin-form {
-            margin-top: var(--space-lg);
-        }
-        
-        .pin-input {
-            width: 200px;
-            padding: var(--space-md);
-            background: rgba(42, 42, 42, 0.8);
-            border: 2px solid var(--keith-gold);
-            border-radius: var(--radius-lg);
-            color: var(--keith-white);
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            text-align: center;
-            letter-spacing: 0.5rem;
-            margin-bottom: var(--space-lg);
-        }
-        
-        .pin-input:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(218, 181, 71, 0.3);
-        }
-        
-        .pin-hint {
-            font-size: 0.9rem;
-            color: var(--keith-white-55);
-            margin-top: var(--space-sm);
-            font-style: italic;
-        }
-        
-        .access-message {
-            margin-top: var(--space-lg);
-            padding: var(--space-md);
-            border-radius: var(--radius-lg);
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
-            display: none;
-        }
-        
-        .access-message.success {
-            background: rgba(34, 197, 94, 0.2);
-            border: 2px solid #22c55e;
-            color: #22c55e;
-        }
-        
-        .access-message.error {
-            background: rgba(239, 68, 68, 0.2);
-            border: 2px solid #ef4444;
-            color: #ef4444;
-        }
-        
-        .club-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--space-lg);
-            margin-top: var(--space-2xl);
-            padding: var(--space-xl);
-            background: rgba(26, 26, 26, 0.6);
-            border-radius: var(--radius-2xl);
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--keith-gold);
-            display: block;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--keith-white-75);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 768px) {
-            .main {
-                padding: var(--space-lg) var(--space-md);
-            }
-            
-            .club-features {
-                grid-template-columns: 1fr;
-                gap: var(--space-lg);
-            }
-            
-            .feature-card {
-                padding: var(--space-lg);
-            }
-            
-            .entry-section {
-                padding: var(--space-lg);
-                margin-left: var(--space-sm);
-                margin-right: var(--space-sm);
-            }
-            
-            .club-stats {
-                grid-template-columns: repeat(2, 1fr);
-                padding: var(--space-lg);
-            }
-        }
-    </style>
+    <!-- Players Club specific CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Navigation and footer inserted automatically by shared/navigation.js -->
 
-    <main class="main" id="mainContent">
-        <div class="players-club-hero">
-            <h1 class="club-logo">The Players Club</h1>
-            <p class="club-subtitle">Exclusive VIP Experience</p>
-            
-            <p class="club-description">
-                Welcome to Keith's exclusive Players Club - a private VIP experience featuring high-stakes gaming, 
-                exclusive content, and direct access to the Keith universe. Members only.
-            </p>
-            
-            <div class="club-features">
-                <div class="feature-card">
-                    <div class="feature-icon">🎰</div>
-                    <h3 class="feature-title">Casino Games</h3>
-                    <p class="feature-description">
-                        Professional slots, blackjack, and Cee-Lo with Keith-themed symbols and real casino odds.
-                    </p>
+    <div class="main-content" id="mainContent">
+        <!-- ENTRANCE SCENE -->
+        <div class="scene entrance-scene active" id="entranceScene">
+            <div class="club-sign">the players club</div>
+            <div class="entrance-container">
+                <!-- CLUB DOOR -->
+                <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
+                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
+                <div class="door-fallback" id="doorFallback" style="display:none;">
+                    <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
+                    <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">🎵</div>
-                    <h3 class="feature-title">Exclusive Tracks</h3>
-                    <p class="feature-description">
-                        Access unreleased music, rare demos, and Keith's personal vault of never-before-heard content.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">💬</div>
-                    <h3 class="feature-title">Keith's Phone</h3>
-                    <p class="feature-description">
-                        Direct AI chat connection to Keith's mind - ask questions, get insights, discuss music and life.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🏆</div>
-                    <h3 class="feature-title">VIP Status</h3>
-                    <p class="feature-description">
-                        Members-only content, early access to releases, and exclusive merchandise not available anywhere else.
-                    </p>
-                </div>
-            </div>
-            
-            <div class="entry-section">
-                <h2 style="font-family: 'Orbitron', monospace; color: var(--keith-gold); margin-bottom: var(--space-lg); text-transform: uppercase;">Club Entry</h2>
-                
-                <p style="color: var(--keith-white-75); margin-bottom: var(--space-lg);">
-                    Enter the 3-digit access code to join the Players Club
-                </p>
-                
-                <div class="pin-form">
-                    <input type="text" id="pinInput" class="pin-input" placeholder="***" maxlength="3" autocomplete="off">
-                    <br>
-                    <button class="btn btn-primary" onclick="checkAccess()">Enter Club</button>
-                    
-                    <div id="accessMessage" class="access-message"></div>
-                    
-                    <p class="pin-hint">
-                        Hint: Think about where Dr. Doom lives... 🏠
-                    </p>
-                </div>
-            </div>
-            
-            <div class="club-stats">
-                <div class="stat-item">
-                    <span class="stat-number">500</span>
-                    <span class="stat-label">Starting Chips</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">92%</span>
-                    <span class="stat-label">Slots RTP</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">VIP Access</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">150+</span>
-                    <span class="stat-label">Exclusive Tracks</span>
+                <!-- SECURITY KEYPAD -->
+                <div class="keypad-fallback" onclick="showPinPad()">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🔢</div>
+                    <div>PIN</div>
                 </div>
             </div>
         </div>
-    </main>
+        
+        <!-- BOUNCER SCENE -->
+        <div class="scene bouncer-scene" id="bouncerScene">
+            <div class="bouncer-container">
+                <img src="photos/bouncer.jpg" alt="Bouncer" class="bouncer-avatar"
+                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
+                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">👨‍💼</div>
+                <h2 class="bouncer-title">Hey there</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
+                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
+                <button class="btn" onclick="goToCashier()">Continue →</button>
+            </div>
+        </div>
+
+        <!-- CASHIER SCENE -->
+        <div class="scene cashier-scene" id="cashierScene">
+            <div class="cashier-window">
+                <img src="cashier.png" alt="Cashier" class="cashier-avatar"
+                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
+                <div class="cashier-avatar" id="cashierFallback" style="display:none;">👩‍💼</div>
+                <h2 class="cashier-title">Welcome!</h2>
+                <p style="margin-bottom: 20px;">What's your name?</p>
+                <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
+                <div class="gift-items">
+                    <div class="gift-item">
+                        <div class="gift-icon">💰</div>
+                        <div class="gift-label">500 Chips</div>
+                    </div>
+                    <div class="gift-item">
+                        <img src="phone.png" alt="Phone" class="gift-icon"
+                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
+                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
+                        <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
+                    </div>
+                </div>
+                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;">Keith left these for you. Enjoy your VIP experience!</p>
+                <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
+            </div>
+        </div>
+        
+        <!-- VIP BOOTH SCENE -->
+        <div class="scene booth-scene" id="boothScene">
+            <div class="booth-header">
+                <div class="club-sign">the players club</div>
+            </div>
+            <div class="casino-room">
+                <div class="room-slots" onclick="loadGame('slots')" title="Professional RTP 92% Slots">
+                    <img src="slots.png" alt="Slot Machines"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;loadGame(\'slots\')&quot; title=&quot;Professional RTP 92% Slots&quot;>🎰</div>';">
+                </div>
+                <div class="room-dice" onclick="loadGame('ceelo')" title="Real Cee-Lo Dice Game">
+                    <img src="456.png" alt="Dice Table"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;loadGame(\'ceelo\')&quot; title=&quot;Real Cee-Lo Dice Game&quot;>🎲</div>';">
+                </div>
+                <div class="room-blackjack" onclick="loadGame('blackjack')" title="Casino-Grade Blackjack">
+                    <img src="bj.png" alt="Blackjack Table"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;loadGame(\'blackjack\')&quot; title=&quot;Casino-Grade Blackjack&quot;>🃏</div>';">
+                </div>
+                <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
+                    <img src="cashier.png" alt="Cashier Booth"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'You already got your chips from the cashier!\', \'hint\')&quot; title=&quot;Cashier Booth&quot;>👩‍💼</div>';">
+                </div>
+                <div class="room-phone" onclick="openPhone()" title="Keith's Phone">
+                    <img src="phone.png" alt="Keith's Phone"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:2rem; cursor:pointer;&quot; onclick=&quot;openPhone()&quot; title=&quot;Keith\'s Phone&quot;>📱</div>';">
+                </div>
+            </div>
+            <div class="table-items-container">
+                <img src="glassfull.png" alt="Champagne" class="champagne-glass" id="champagneGlass" onclick="drinkChampagne()" title="Champagne"
+                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
+                <div class="champagne-fallback" id="champagneFallback" style="display:none;" onclick="drinkChampagne()" title="Champagne">🥂</div>
+            </div>
+            
+            <!-- DRINKING ANIMATION AT MIDDLE-BOTTOM FULL SIZE -->
+            <div class="drinking-overlay" id="drinkingOverlay" style="display: none; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 2000; width: 100%; max-width: 600px; height: auto;">
+                <img src="drinking.png" alt="Drinking Animation" class="drinking-animation" style="width: 100%; height: auto; object-fit: contain;">
+            </div>
+            
+            <div class="drunk-item earring-item">💎</div>
+            <div class="drunk-item bra-item">👙</div>
+            <div class="drunk-item panties-item">🩲</div>
+            <div class="drunk-item heels-item">👠</div>
+        </div>
+
+        <!-- SLOTS GAME SCENE -->
+        <div class="scene casino-scene" id="slotsScene">
+            <div class="game-interface">
+                <h2 class="game-title">Keith's Professional Slots</h2>
+                <p style="margin-bottom: 15px; color: var(--keith-gold);"><strong>RTP: 92% | 3x3 Reels | 5 Paylines | Keith-Themed Symbols</strong></p>
+                <div id="slotsContainer" class="slots-machine-container"></div>
+                <div class="slots-controls">
+                    <div class="bet-controls">
+                        <label>Bet Amount:</label>
+                        <button onclick="setSlotsbet(1)" class="bet-btn">1</button>
+                        <button onclick="setSlotsbet(5)" class="bet-btn">5</button>
+                        <button onclick="setSlotsbet(10)" class="bet-btn active">10</button>
+                        <button onclick="setSlotsbet(25)" class="bet-btn">25</button>
+                        <button onclick="setSlotsbet(50)" class="bet-btn">50</button>
+                        <button onclick="setSlotsbet(100)" class="bet-btn">100</button>
+                    </div>
+                    <button class="btn spin-btn" onclick="spinSlots()" id="spinButton">🎰 SPIN REELS 🎰</button>
+                </div>
+                <div class="slots-stats">
+                    <div class="stat-row">
+                        <span>Balance: <strong id="slotsBalance">500</strong> chips</span>
+                        <span>Bet: <strong id="slotsBet">10</strong> chips</span>
+                        <span>Last Win: <strong id="slotsLastWin">0</strong> chips</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Spins: <strong id="slotsSpins">0</strong></span>
+                        <span>Current RTP: <strong id="slotsRTP">0.0%</strong></span>
+                        <span>Target RTP: <strong>92.0%</strong></span>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
+                <div class="paytable">
+                    <h3>Keith's Symbol Paytable</h3>
+                    <div class="paytable-grid">
+                        <div class="paytable-row"><span>K K K</span><span>KEITH JACKPOT</span><span>1000x</span></div>
+                        <div class="paytable-row"><span>U U U</span><span>ULTRA</span><span>500x</span></div>
+                        <div class="paytable-row"><span>🎭 🎭 🎭</span><span>DR. OCTAGON</span><span>250x</span></div>
+                        <div class="paytable-row"><span>👹 👹 👹</span><span>DR. DOOM</span><span>100x</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CEE-LO DICE SCENE -->
+        <div class="scene casino-scene" id="ceeloScene">
+            <div class="game-interface">
+                <h2 class="game-title">Keith's Cee-Lo</h2>
+                <p style="margin-bottom: 20px;">Real street dice! Roll 4-5-6 to win big!</p>
+                <div class="dice-container">
+                    <div class="dice" id="dice1">?</div>
+                    <div class="dice" id="dice2">?</div>
+                    <div class="dice" id="dice3">?</div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
+                    <input type="number" id="ceelobBet" min="10" max="500" value="50" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
+                </div>
+                <button class="btn" onclick="rollCeelo()">Roll Dice</button>
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
+                <div id="ceeloResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
+            </div>
+        </div>
+
+        <!-- BLACKJACK SCENE -->
+        <div class="scene casino-scene" id="blackjackScene">
+            <div class="game-interface">
+                <h2 class="game-title">Keith's Blackjack</h2>
+                <p style="margin-bottom: 20px;">Beat the dealer! Get close to 21 without going over.</p>
+                <div class="blackjack-table">
+                    <div style="margin-bottom: 20px;">
+                        <p style="color: white; margin-bottom: 10px;">Dealer's Hand (<span id="dealerScore">?</span>):</p>
+                        <div class="card-hand" id="dealerHand"></div>
+                    </div>
+                    <div>
+                        <p style="color: white; margin-bottom: 10px;">Your Hand (<span id="playerScore">0</span>):</p>
+                        <div class="card-hand" id="playerHand"></div>
+                    </div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
+                    <input type="number" id="blackjackBet" min="50" max="500" value="100" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
+                </div>
+                <div id="blackjackControls">
+                    <button class="btn" onclick="dealCards()">Deal Cards</button>
+                </div>
+                <button class="btn btn-secondary" onclick="backToBooth()">← Back to VIP Booth</button>
+                <div id="blackjackResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- UI PANEL -->
+    <div class="ui-panel" id="uiPanel">
+        <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
+        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
+        <div class="player-info">Player: <span id="playerDisplay">Guest</span></div>
+    </div>
+    
+    <!-- PIN PAD OVERLAY -->
+    <div class="pin-overlay" id="pinOverlay">
+        <div class="pin-pad">
+            <button class="pin-close" onclick="hidePinPad()">×</button>
+            <div class="pin-display" id="pinDisplay">***</div>
+            <div class="pin-buttons">
+                <button class="pin-btn" onclick="enterPin('1')">1</button>
+                <button class="pin-btn" onclick="enterPin('2')">2</button>
+                <button class="pin-btn" onclick="enterPin('3')">3</button>
+                <button class="pin-btn" onclick="enterPin('4')">4</button>
+                <button class="pin-btn" onclick="enterPin('5')">5</button>
+                <button class="pin-btn" onclick="enterPin('6')">6</button>
+                <button class="pin-btn" onclick="enterPin('7')">7</button>
+                <button class="pin-btn" onclick="enterPin('8')">8</button>
+                <button class="pin-btn" onclick="enterPin('9')">9</button>
+                <button class="pin-btn" onclick="clearPin()">C</button>
+                <button class="pin-btn" onclick="enterPin('0')">0</button>
+                <button class="pin-btn" onclick="submitPin()">✓</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MESSAGE DISPLAY -->
+    <div class="message-display" id="messageDisplay"></div>
+    
+    <!-- LOCKOUT SCREEN -->
+    <div class="lockout-screen" id="lockoutScreen">
+        <div class="lockout-content">
+            <div class="lockout-title">ACCESS DENIED</div>
+            <div id="lockoutMessage">You've been ejected from the club.</div>
+            <button class="btn" onclick="resetClub()">Start Over (Testing)</button>
+        </div>
+    </div>
+
+    <!-- AUDIO CONTROLS -->
+    <div class="audio-controls" id="audioControls">
+        <div>♪ Now Playing: <span id="currentTrack">Apartment 223</span></div>
+    </div>
+
+    <!-- HIDDEN AUDIO ELEMENT -->
+    <audio id="apartment223Audio" preload="none">
+        <source src="photos/apartment223.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- Footer inserted automatically by shared/navigation.js -->
 
     <!-- Shared Navigation System -->
     <script src="../shared/navigation.js"></script>
     
-    <!-- Players Club JavaScript -->
-    <script>
-        let pinAttempts = 0;
-        
-        function checkAccess() {
-            const pinInput = document.getElementById('pinInput');
-            const accessMessage = document.getElementById('accessMessage');
-            const pin = pinInput.value.trim();
-            
-            pinAttempts++;
-            
-            if (pin === '223') {
-                // Correct PIN - Apartment 223
-                accessMessage.className = 'access-message success';
-                accessMessage.style.display = 'block';
-                accessMessage.textContent = 'Welcome to The Players Club! Loading VIP experience...';
-                
-                // Redirect to full club experience after delay
-                setTimeout(() => {
-                    // For now, show success message
-                    accessMessage.textContent = 'VIP Casino experience coming soon! You entered the correct code: 223 (Dr. Doom\'s apartment)';
-                }, 2000);
-                
-            } else {
-                // Wrong PIN
-                accessMessage.className = 'access-message error';
-                accessMessage.style.display = 'block';
-                
-                if (pinAttempts === 1) {
-                    accessMessage.textContent = 'Access denied. Think about Keith\'s personas...';
-                } else if (pinAttempts === 2) {
-                    accessMessage.textContent = 'Still wrong. Where does Dr. Doom live?';
-                } else if (pinAttempts === 3) {
-                    accessMessage.textContent = 'Last chance: What\'s Dr. Doom\'s apartment number?';
-                } else {
-                    accessMessage.textContent = 'The answer is 223 - Dr. Doom\'s apartment number!';
-                }
-            }
-            
-            // Clear input
-            pinInput.value = '';
-        }
-        
-        // Allow Enter key to submit
-        document.getElementById('pinInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAccess();
-            }
-        });
-        
-        // Only allow numbers
-        document.getElementById('pinInput').addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-        });
-    </script>
+    <!-- Players Club specific JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
