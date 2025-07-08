@@ -15,20 +15,22 @@
     <link rel="stylesheet" href="../shared/styles.css">
     
     <style>
-        /* Simple entrance - just door and PIN box side by side */
+        /* Simple entrance - background photo with positioned elements */
         .entrance-content {
+            position: relative;
+            min-height: calc(100vh - 200px);
+            background-image: url('entrtyby.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 40px;
-            min-height: calc(100vh - 200px);
-            padding: 40px;
-            background: linear-gradient(135deg, #000000 0%, #0F0505 25%, #1A0A0A 50%, #000000 100%);
         }
         
         .club-title {
             position: absolute;
-            top: 120px;
+            top: 50px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Orbitron', monospace;
@@ -41,17 +43,22 @@
             z-index: 10;
         }
         
-        /* Simple door */
+        /* Door positioned over the existing door in background */
         .door {
-            width: 200px;
-            height: 300px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 280px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid #DAB547;
             border-radius: 15px;
-            position: relative;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: all 1s ease-in-out;
+            transform-origin: left center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 20;
         }
         
         .door:hover {
@@ -59,9 +66,8 @@
         }
         
         .door.sliding {
-            transform: translateX(-100%) rotateY(-90deg);
+            transform: translate(-150%, -50%) rotateY(-90deg);
             opacity: 0;
-            transition: transform 1s ease-in-out;
         }
         
         .door-window {
@@ -87,10 +93,14 @@
             border-radius: 8px;
         }
         
-        /* Simple PIN box */
+        /* PIN box positioned to the right of the door */
         .pin-box {
-            width: 100px;
-            height: 130px;
+            position: absolute;
+            top: 50%;
+            left: 65%;
+            transform: translateY(-50%);
+            width: 90px;
+            height: 120px;
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
             border: 3px solid #DAB547;
             border-radius: 12px;
@@ -103,21 +113,22 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+            z-index: 20;
         }
         
         .pin-box:hover {
-            transform: scale(1.05);
+            transform: translateY(-50%) scale(1.05);
             box-shadow: 0 12px 30px rgba(218, 181, 71, 0.4);
         }
         
         .pin-icon {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 8px;
         }
         
         .pin-text {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             letter-spacing: 2px;
         }
         
@@ -292,27 +303,36 @@
         
         /* Mobile */
         @media (max-width: 768px) {
-            .entrance-content {
-                flex-direction: column;
-                gap: 30px;
+            .door {
+                width: 140px;
+                height: 220px;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
             
-            .door {
-                width: 150px;
-                height: 220px;
+            .door.sliding {
+                transform: translate(-150%, -50%) rotateY(-90deg);
             }
             
             .pin-box {
-                width: 80px;
-                height: 100px;
+                width: 70px;
+                height: 90px;
+                left: 50%;
+                top: 75%;
+                transform: translate(-50%, -50%);
             }
             
             .pin-icon {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .pin-text {
-                font-size: 0.7rem;
+                font-size: 0.6rem;
+            }
+            
+            .club-title {
+                top: 30px;
+                font-size: clamp(1.5rem, 8vw, 2.5rem);
             }
         }
     </style>
