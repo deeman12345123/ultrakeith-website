@@ -794,20 +794,21 @@
         <!-- ENTRANCE SCENE -->
         <div class="scene entrance-scene active" id="entranceScene">
             <div class="club-sign">the players club</div>
-            <div class="entrance-container">
-                <!-- CLUB DOOR -->
-                <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
-                     onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
-                <div class="door-fallback" id="doorFallback">
-                    <div class="door-window"></div>
-                    <div class="door-handle"></div>
-                </div>
-                
-                <!-- SECURITY KEYPAD -->
-                <div class="security-keypad" onclick="showPinPad()">
-                    <div class="keypad-icon">🔢</div>
-                    <div>PIN</div>
-                </div>
+            
+            <!-- CLUB DOOR - positioned absolutely based on background photo -->
+            <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
+                 onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
+            
+            <!-- Fallback Door Design -->
+            <div class="door-fallback" id="doorFallback">
+                <div class="door-window"></div>
+                <div class="door-handle"></div>
+            </div>
+            
+            <!-- SECURITY KEYPAD - positioned to right of door -->
+            <div class="security-keypad" onclick="showPinPad()">
+                <div class="keypad-icon">🔢</div>
+                <div>PIN</div>
             </div>
         </div>
         
