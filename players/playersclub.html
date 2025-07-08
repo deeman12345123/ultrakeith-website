@@ -271,8 +271,8 @@
         }
     </script>
     
-    <!-- Try to load shared navigation -->
-    <script src="../shared/navigation.js" onerror="console.warn('Shared navigation not available, continuing with standalone mode');"></script>
+    <!-- Try to load shared navigation with correct path -->
+    <script src="../shared/navigation.js" onerror="console.warn('Shared navigation not available, trying alternative path'); this.remove(); var altScript = document.createElement('script'); altScript.src = '/shared/navigation.js'; altScript.onerror = function() { console.warn('Shared navigation completely unavailable'); }; document.head.appendChild(altScript);"></script>
     
     <!-- Players Club specific JavaScript - Load after navigation attempt -->
     <script src="js/main.js"></script>
