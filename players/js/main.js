@@ -175,7 +175,7 @@ function openPhone() {
     showMessage(message, 'success');
 }
 
-// CHAMPAGNE DRINKING SYSTEM WITH GLASS ANIMATION
+// CHAMPAGNE DRINKING SYSTEM WITH 3-STAGE ANIMATION
 function drinkChampagne() {
     console.log('drinkChampagne called');
     if (drinkCount >= 10) {
@@ -189,31 +189,46 @@ function drinkChampagne() {
         drinkCountEl.textContent = drinkCount;
     }
     
-    // GLASS ANIMATION - Switch between full and empty
+    // 3-STAGE DRINKING ANIMATION
     const champagneGlass = document.getElementById('champagneGlass');
+    const drinkingOverlay = document.getElementById('drinkingOverlay');
     const champagneFallback = document.getElementById('champagneFallback');
     
     if (champagneGlass && champagneGlass.style.display !== 'none') {
-        // Switch to empty glass
-        champagneGlass.src = 'glassfempty.png';
-        champagneGlass.alt = 'Empty Glass';
-        champagneGlass.title = 'Empty Glass - Click for refill';
+        // STAGE 1: Show drinking.png at bottom of screen
+        if (drinkingOverlay) {
+            drinkingOverlay.style.display = 'block';
+        }
         
-        // Switch back to full glass after 2 seconds
+        // STAGE 2: After drinking animation, show empty glass on table
         setTimeout(() => {
-            champagneGlass.src = 'glassfull.png';
-            champagneGlass.alt = 'Champagne';
-            champagneGlass.title = 'Champagne';
-        }, 2000);
+            if (drinkingOverlay) {
+                drinkingOverlay.style.display = 'none';
+            }
+            
+            // Check if we're drinking from full or empty glass
+            if (champagneGlass.src.includes('glassfull.png')) {
+                // Full → Empty
+                champagneGlass.src = 'glassfempty.png';
+                champagneGlass.alt = 'Empty Glass';
+                champagneGlass.title = 'Empty Glass - Click to finish';
+            } else {
+                // Empty → Full (STAGE 3: Refill)
+                champagneGlass.src = 'glassfull.png';
+                champagneGlass.alt = 'Champagne';
+                champagneGlass.title = 'Champagne';
+            }
+        }, 2000); // Show drinking.png for 2 seconds
+        
     } else if (champagneFallback && champagneFallback.style.display !== 'none') {
         // Fallback emoji animation
-        champagneFallback.textContent = '🥃'; // Empty glass emoji
-        champagneFallback.title = 'Empty Glass - Click for refill';
-        
-        setTimeout(() => {
+        if (champagneFallback.textContent === '🥂') {
+            champagneFallback.textContent = '🥃'; // Empty glass emoji
+            champagneFallback.title = 'Empty Glass - Click to finish';
+        } else {
             champagneFallback.textContent = '🥂'; // Full glass emoji
             champagneFallback.title = 'Champagne';
-        }, 2000);
+        }
     }
     
     updateDrunkEffects();
