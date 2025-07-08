@@ -3,6 +3,170 @@
 
 console.log('Loading Ultra Keith shared navigation system...');
 
+// AUDIO SYSTEM - NEW ADDITION
+class UltraKeithAudio {
+    constructor() {
+        this.audioContext = null;
+        this.tracks = {};
+        this.currentTrack = null;
+        this.audioSource = null;
+        this.gainNode = null;
+        this.filterNode = null;
+        this.isPlaying = false;
+        this.isMuted = false;
+        this.pageMusic = {};
+        this.keithVoices = {};
+        this.currentPageTrack = null;
+        
+        this.init();
+    }
+    
+    async init() {
+        // Initialize Web Audio API
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        this.gainNode = this.audioContext.createGain();
+        this.filterNode = this.audioContext.createBiquadFilter();
+        
+        this.filterNode.type = 'lowpass';
+        this.filterNode.frequency.setValueAtTime(800, this.audioContext.currentTime);
+        
+        this.filterNode.connect(this.gainNode);
+        this.gainNode.connect(this.audioContext.destination);
+    }
+    
+    async loadTrack(url, trackName) {
+        try {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
+            
+            this.tracks[trackName] = audioBuffer;
+            return audioBuffer;
+        } catch (error) {
+            console.error(`Error loading ${trackName}:`, error);
+            return null;
+        }
+    }
+    
+    async loadPageMusic(pageName, audioUrl) {
+        const trackName = `${pageName}_music`;
+        await this.loadTrack(audioUrl, trackName);
+        this.pageMusic[pageName] = trackName;
+    }
+    
+    async loadKeithVoice(voiceName, audioUrl) {
+        const trackName = `keith_${voiceName}`;
+        await this.loadTrack(audioUrl, trackName);
+        this.keithVoices[voiceName] = trackName;
+    }
+    
+    playTrack(trackName, options = {}) {
+        const track = this.tracks[trackName];
+        if (!track) return;
+        
+        // Stop current track unless overlay
+        if (!options.overlay) {
+            this.stopTrack();
+        }
+        
+        try {
+            const audioSource = this.audioContext.createBufferSource();
+            audioSource.buffer = track;
+            audioSource.loop = options.loop !== false;
+            
+            if (options.muffled) {
+                this.setMuffled(true);
+                audioSource.connect(this.filterNode);
+            } else {
+                audioSource.connect(this.gainNode);
+            }
+            
+            audioSource.start(0);
+            
+            if (!options.overlay) {
+                this.audioSource = audioSource;
+                this.currentTrack = trackName;
+                this.isPlaying = true;
+            }
+            
+        } catch (error) {
+            console.error('Error playing audio:', error);
+        }
+    }
+    
+    stopTrack() {
+        if (this.audioSource) {
+            try {
+                this.audioSource.stop();
+            } catch (error) {}
+            this.audioSource = null;
+        }
+        this.isPlaying = false;
+    }
+    
+    playKeithVoice(voiceName) {
+        const trackName = this.keithVoices[voiceName];
+        if (trackName) {
+            this.playTrack(trackName, { loop: false, overlay: true });
+        }
+    }
+    
+    startPageMusic(pageName) {
+        const trackName = this.pageMusic[pageName];
+        if (trackName && !this.isMuted) {
+            const options = { loop: true };
+            if (pageName === 'playersclub') {
+                options.muffled = true;
+            }
+            this.currentPageTrack = pageName;
+            this.playTrack(trackName, options);
+        }
+    }
+    
+    toggleMute() {
+        this.isMuted = !this.isMuted;
+        
+        if (this.isMuted) {
+            this.stopTrack();
+        } else {
+            // Restart current page music
+            if (this.currentPageTrack) {
+                this.startPageMusic(this.currentPageTrack);
+            }
+        }
+        
+        this.updateAudioButton();
+    }
+    
+    updateAudioButton() {
+        const audioIcon = document.getElementById('audioIcon');
+        const audioText = document.getElementById('audioText');
+        
+        if (audioIcon && audioText) {
+            if (this.isMuted || !this.isPlaying) {
+                audioIcon.textContent = '🔇';
+                audioText.textContent = 'Audio Off';
+            } else {
+                audioIcon.textContent = '🔊';
+                audioText.textContent = 'Audio On';
+            }
+        }
+    }
+    
+    setMuffled(muffled) {
+        if (!this.filterNode) return;
+        const frequency = muffled ? 400 : 20000;
+        this.filterNode.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+    }
+    
+    clearMuffled() {
+        this.setMuffled(false);
+    }
+}
+
+// Initialize audio system
+const ultraAudio = new UltraKeithAudio();
+
 // NAVIGATION GENERATOR
 function generateNavigation() {
     return `
@@ -97,36 +261,46 @@ function initializeMobileNavigation() {
     }
 }
 
-// AUDIO TOGGLE FUNCTIONALITY  
+// ENHANCED AUDIO TOGGLE FUNCTIONALITY  
 function initializeAudioToggle() {
     const audioToggle = document.getElementById('audioToggle');
-    const audioIcon = document.getElementById('audioIcon');
-    const audioText = document.getElementById('audioText');
     
     if (audioToggle) {
         audioToggle.addEventListener('click', function() {
-            // Look for any audio element on the page
+            // Check for old-style audio elements first
             const audio = document.querySelector('audio') || 
                          document.getElementById('backgroundAudio') || 
                          document.getElementById('apartment223Audio');
             
             if (audio) {
+                // Handle old-style audio elements
                 if (audio.paused) {
                     audio.play().catch(e => console.log('Audio play failed:', e));
-                    audioIcon.textContent = '🔊';
-                    audioText.textContent = 'Audio On';
+                    updateAudioButtonDisplay(false);
                 } else {
                     audio.pause();
-                    audioIcon.textContent = '🔇';
-                    audioText.textContent = 'Audio Off';
+                    updateAudioButtonDisplay(true);
                 }
             } else {
-                // No audio found - show message
-                console.log('No audio element found on this page');
-                audioIcon.textContent = '🔇';
-                audioText.textContent = 'No Audio';
+                // Handle new Web Audio API
+                ultraAudio.toggleMute();
             }
         });
+    }
+}
+
+function updateAudioButtonDisplay(muted) {
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+    
+    if (audioIcon && audioText) {
+        if (muted) {
+            audioIcon.textContent = '🔇';
+            audioText.textContent = 'Audio Off';
+        } else {
+            audioIcon.textContent = '🔊';
+            audioText.textContent = 'Audio On';
+        }
     }
 }
 
@@ -152,6 +326,14 @@ function setActiveNavLink() {
     });
 }
 
+// HELPER FUNCTIONS
+function getCurrentPageName() {
+    const path = window.location.pathname;
+    const filename = path.split('/').pop().replace('.html', '');
+    if (path.includes('players')) return 'playersclub';
+    return filename || 'home';
+}
+
 // INITIALIZE EVERYTHING
 function initializeSharedComponents() {
     console.log('Initializing Ultra Keith shared components...');
@@ -167,6 +349,15 @@ function initializeSharedComponents() {
     initializeAudioToggle();
     setActiveNavLink();
     
+    // Auto-start page music and set current page after a short delay
+    setTimeout(() => {
+        const currentPage = getCurrentPageName();
+        ultraAudio.currentPageTrack = currentPage;
+        if (ultraAudio.pageMusic[currentPage] && !ultraAudio.isMuted) {
+            ultraAudio.startPageMusic(currentPage);
+        }
+    }, 1000);
+    
     console.log('✅ Ultra Keith navigation and footer loaded successfully!');
 }
 
@@ -178,11 +369,18 @@ if (document.readyState === 'loading') {
     initializeSharedComponents();
 }
 
+// GLOBAL FUNCTIONS FOR EASY USE
+window.loadPageMusic = (pageName, audioUrl) => ultraAudio.loadPageMusic(pageName, audioUrl);
+window.loadKeithVoice = (voiceName, audioUrl) => ultraAudio.loadKeithVoice(voiceName, audioUrl);
+window.playKeithVoice = (voiceName) => ultraAudio.playKeithVoice(voiceName);
+window.clearMuffled = () => ultraAudio.clearMuffled();
+
 // GLOBAL FUNCTIONS FOR MANUAL CONTROL
 window.UltraKeith = {
     navigation: generateNavigation,
     footer: generateFooter,
     initMobileNav: initializeMobileNavigation,
     initAudio: initializeAudioToggle,
-    setActivePage: setActiveNavLink
+    setActivePage: setActiveNavLink,
+    audio: ultraAudio
 };
