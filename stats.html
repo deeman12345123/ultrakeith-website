@@ -78,6 +78,21 @@
             position: relative;
             z-index: 10;
         }
+        
+        .stats-grid::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: url('Basketball.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.15;
+            z-index: 1;
+            pointer-events: none;
+        }
 
         .stats-stat-box {
             text-align: center;
