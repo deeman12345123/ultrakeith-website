@@ -52,34 +52,56 @@
             z-index: 100;
         }
         
-        /* DOOR - MADE MUCH BIGGER */
+        /* DOOR - MADE MUCH BIGGER WITH VERY DARK BROWN COLOR */
         .door {
             position: absolute;
             top: 67%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 280px; /* Increased from 160px */
-            height: 480px; /* Made taller */
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            height: 520px; /* Made a bit taller */
+            background: 
+                linear-gradient(90deg, transparent 0%, rgba(18, 14, 5, 0.4) 25%, transparent 50%, rgba(18, 14, 5, 0.4) 75%, transparent 100%),
+                linear-gradient(0deg, #120e05 0%, #1a1408 15%, #22190a 30%, #120e05 45%, #161107 60%, #1e160c 75%, #0f0b04 100%);
             border: 1px solid #DAB547; /* Made even thinner */
             border-radius: 20px; /* Slightly larger radius */
             cursor: pointer;
             z-index: 200;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8); /* Bigger shadow */
+            box-shadow: 
+                0 15px 40px rgba(0,0,0,0.95),
+                inset 0 0 30px rgba(0, 0, 0, 0.7); /* Very dark shadow */
             transition: transform 1s ease-in-out;
+            position: relative;
         }
         
-        .door-window {
+        /* Very dark brown wood grain texture overlay */
+        .door::before {
+            content: '';
             position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 65%; /* Slightly bigger percentage */
-            height: 32%; /* Slightly bigger percentage */
-            background: rgba(0,0,0,0.8);
-            border: 3px solid #DAB547; /* Thicker border */
-            border-radius: 12px; /* Larger radius */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 8px,
+                    rgba(26, 20, 8, 0.3) 10px,
+                    rgba(26, 20, 8, 0.3) 12px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(15, 11, 4, 0.4) 42px,
+                    rgba(15, 11, 4, 0.4) 44px
+                );
+            border-radius: 19px;
+            pointer-events: none;
         }
+        
+        /* DOOR HANDLE ONLY - WINDOW REMOVED */
         
         .door-handle {
             position: absolute;
@@ -88,8 +110,10 @@
             transform: translateY(-50%);
             width: 20px; /* Bigger handle */
             height: 60px; /* Bigger handle */
-            background: #DAB547;
+            background: linear-gradient(90deg, #DAB547, #FFD700, #DAB547);
             border-radius: 12px; /* Larger radius */
+            z-index: 1;
+            box-shadow: 2px 0 8px rgba(218, 181, 71, 0.3);
         }
         
         /* PIN BOX - ADJUSTED POSITION AND MADE BIGGER */
@@ -267,7 +291,6 @@
             <div class="club-title">the players club</div>
             
             <div class="door" id="clubDoor">
-                <div class="door-window"></div>
                 <div class="door-handle"></div>
             </div>
             
