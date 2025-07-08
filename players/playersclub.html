@@ -817,10 +817,10 @@
                 <img src="photos/bouncer.jpg" alt="Bouncer" class="bouncer-avatar"
                      onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
                 <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">👨‍💼</div>
-                <h2 class="bouncer-title">Hey there</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
-                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
-                <button class="btn" onclick="goToCashier()">Continue →</button>
+                <h2 class="bouncer-title">Welcome!</h2>
+                <p style="margin-bottom: 20px;">What's your name?</p>
+                <input type="text" class="name-input" id="bouncerNameInput" placeholder="Enter your name" maxlength="20">
+                <button class="btn" onclick="submitBouncerName()">Continue →</button>
             </div>
         </div>
 
@@ -830,9 +830,9 @@
                 <img src="cashier.png" alt="Cashier" class="cashier-avatar"
                      onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
                 <div class="cashier-avatar" id="cashierFallback" style="display:none;">👩‍💼</div>
-                <h2 class="cashier-title">Welcome!</h2>
-                <p style="margin-bottom: 20px;">What's your name?</p>
-                <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
+                <h2 class="cashier-title" id="cashierGreeting">Hey there</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
+                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
                 <div class="gift-items">
                     <div class="gift-item">
                         <div class="gift-icon">💰</div>
@@ -845,7 +845,7 @@
                         <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
                     </div>
                 </div>
-                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;">Keith left these for you. Enjoy your VIP experience!</p>
+                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;" id="cashierMessage">Keith left these for you. Enjoy your VIP experience!</p>
                 <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
             </div>
         </div>
@@ -1047,6 +1047,30 @@
         }
 
         // NAVIGATION FUNCTIONS
+        function submitBouncerName() {
+            console.log('submitBouncerName called');
+            const nameInput = document.getElementById('bouncerNameInput');
+            if (!nameInput || !nameInput.value.trim()) {
+                showMessage('Please enter your name first!', 'warning2');
+                return;
+            }
+            
+            playerName = nameInput.value.trim();
+            
+            // Update cashier greeting and message with player name
+            const cashierGreeting = document.getElementById('cashierGreeting');
+            const cashierMessage = document.getElementById('cashierMessage');
+            
+            if (cashierGreeting) {
+                cashierGreeting.textContent = `Hey ${playerName}`;
+            }
+            if (cashierMessage) {
+                cashierMessage.textContent = `${playerName}, Keith left these for you. Enjoy your VIP experience!`;
+            }
+            
+            goToCashier();
+        }
+
         function goToCashier() {
             console.log('goToCashier called');
             showScene('cashier');
@@ -1054,13 +1078,11 @@
 
         function enterVIPBooth() {
             console.log('enterVIPBooth called');
-            const nameInput = document.getElementById('playerNameInput');
-            if (!nameInput || !nameInput.value.trim()) {
-                showMessage('Please enter your name first!', 'warning2');
+            if (!playerName) {
+                showMessage('Something went wrong - please start over!', 'warning2');
                 return;
             }
             
-            playerName = nameInput.value.trim();
             const playerDisplay = document.getElementById('playerDisplay');
             if (playerDisplay) {
                 playerDisplay.textContent = playerName;
