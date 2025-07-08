@@ -284,5 +284,134 @@
     <!-- Homepage-specific scripts -->
     <script src="carousel.js"></script>
     <script src="ui.js"></script> <!-- Now only handles news loading -->
+
+    <!-- KEITH'S WELCOME POPUP -->
+    <div id="keithWelcome" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; backdrop-filter: blur(10px);">
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 20px;">
+            <div style="background: linear-gradient(145deg, #1a1a1a, #2a2a2a); border: 2px solid #DAB547; border-radius: 20px; padding: 30px; text-align: center; max-width: 90vw; max-height: 90vh;">
+                
+                <!-- Big Image -->
+                <div style="margin-bottom: 30px;">
+                    <img src="entry.png" alt="Kool Keith" style="max-width: 100%; max-height: 60vh; border-radius: 15px; box-shadow: 0 10px 20px rgba(218, 181, 71, 0.3);">
+                </div>
+                
+                <!-- Simple Buttons -->
+                <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+                    <button id="audioOnBtn" style="background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important; border: 2px solid #DAB547 !important; border-radius: 15px !important; padding: 20px 30px !important; color: #fff !important; font-family: Arial !important; cursor: pointer !important; transition: all 0.3s !important; min-width: 140px !important;" onmouseover="this.style.background='linear-gradient(145deg, #DAB547, #FFD700)'; this.style.color='#000';" onmouseout="this.style.background='linear-gradient(145deg, #2a2a2a, #1a1a1a)'; this.style.color='#fff';">
+                        <div style="font-size: 2rem; pointer-events: none;">🔊</div>
+                        <div style="font-weight: bold; text-transform: uppercase; pointer-events: none;">Audio On</div>
+                    </button>
+                    
+                    <button id="audioOffBtn" style="background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important; border: 2px solid #DAB547 !important; border-radius: 15px !important; padding: 20px 30px !important; color: #fff !important; font-family: Arial !important; cursor: pointer !important; transition: all 0.3s !important; min-width: 140px !important;" onmouseover="this.style.background='linear-gradient(145deg, #DAB547, #FFD700)'; this.style.color='#000';" onmouseout="this.style.background='linear-gradient(145deg, #2a2a2a, #1a1a1a)'; this.style.color='#fff';">
+                        <div style="font-size: 2rem; pointer-events: none;">🔇</div>
+                        <div style="font-weight: bold; text-transform: uppercase; pointer-events: none;">Audio Off</div>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Keith's Welcome Popup - Simple and Bulletproof
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, checking for popup...');
+        
+        // Check if user has visited before
+        const hasVisited = localStorage.getItem('keith_visited');
+        console.log('Has visited before:', hasVisited);
+        
+        if (!hasVisited) {
+            console.log('First time visitor - showing popup');
+            showKeithPopup();
+        } else {
+            console.log('Returning visitor - no popup');
+        }
+    });
+    
+    function showKeithPopup() {
+        const popup = document.getElementById('keithWelcome');
+        console.log('Popup element found:', popup);
+        
+        if (popup) {
+            // Show popup immediately
+            popup.style.display = 'block';
+            console.log('Popup should be visible now');
+            
+            // Set up button clicks
+            setupPopupButtons();
+            
+            // Try to play Keith's voice
+            setTimeout(function() {
+                console.log('Attempting to play Keith voice...');
+                playKeithVoice();
+            }, 2000);
+        } else {
+            console.error('Popup element not found!');
+        }
+    }
+    
+    function setupPopupButtons() {
+        const audioOnBtn = document.getElementById('audioOnBtn');
+        const audioOffBtn = document.getElementById('audioOffBtn');
+        
+        console.log('Setting up buttons:', audioOnBtn, audioOffBtn);
+        
+        if (audioOnBtn) {
+            audioOnBtn.onclick = function() {
+                console.log('Audio ON clicked');
+                localStorage.setItem('keith_visited', 'true');
+                localStorage.setItem('keith_audio', 'on');
+                hidePopup();
+            };
+        }
+        
+        if (audioOffBtn) {
+            audioOffBtn.onclick = function() {
+                console.log('Audio OFF clicked');
+                localStorage.setItem('keith_visited', 'true');
+                localStorage.setItem('keith_audio', 'off');
+                hidePopup();
+            };
+        }
+    }
+    
+    function hidePopup() {
+        const popup = document.getElementById('keithWelcome');
+        if (popup) {
+            popup.style.opacity = '0';
+            popup.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(function() {
+                popup.style.display = 'none';
+                console.log('Popup hidden');
+            }, 500);
+        }
+    }
+    
+    function playKeithVoice() {
+        try {
+            if (window.ultraAudio && window.ultraAudio.loadTrack) {
+                window.ultraAudio.loadTrack('audio/keith-welcome.mp3', 'welcome')
+                    .then(() => {
+                        window.ultraAudio.playTrack('welcome', {loop: false});
+                        console.log('Keith voice playing');
+                    })
+                    .catch(() => console.log('Keith voice file not found'));
+            } else {
+                console.log('ultraAudio not available');
+            }
+        } catch (error) {
+            console.log('Error playing voice:', error);
+        }
+    }
+    
+    // Debug function - run in console to test popup
+    window.testPopup = function() {
+        localStorage.removeItem('keith_visited');
+        location.reload();
+    };
+    </script>
+
 </body>
 </html>
