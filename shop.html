@@ -9,106 +9,11 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
+    <!-- Shared CSS - RELATIVE PATH -->
+    <link rel="stylesheet" href="shared/styles.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-        
-        :root {
-            --gold: #DAB547;
-            --gold-light: #E8C547;
-            --black: #000000;
-            --burgundy: #0F0505;
-            --white: #FFFFFF;
-            --white-75: rgba(255, 255, 255, 0.75);
-            --white-55: rgba(255, 255, 255, 0.55);
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 4rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            --radius-2xl: 1.5rem;
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
-            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: linear-gradient(135deg, var(--black) 0%, var(--burgundy) 25%, #1A0A0A 50%, var(--black) 100%);
-            color: var(--white);
-            overflow-x: hidden;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        /* NAVIGATION - Matches homepage exactly */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(25px);
-            border-bottom: 1px solid rgba(218, 181, 71, 0.2);
-            z-index: 100;
-            height: 72px;
-            display: flex;
-            align-items: center;
-            padding: 0 var(--space-lg);
-        }
-        
-        .nav-container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo img {
-            height: 42px;
-            transition: all var(--transition);
-        }
-        
-        .nav-logo:hover img {
-            transform: scale(1.05);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: var(--space-lg);
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: var(--white-75);
-            text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all var(--transition);
-            text-transform: uppercase;
-        }
-        
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-        
-        /* MAIN LAYOUT */
-        .main {
-            padding-top: 72px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-left: var(--space-lg);
-            padding-right: var(--space-lg);
-            position: relative;
-            z-index: 1;
-        }
+        /* SHOP-SPECIFIC STYLES */
         
         /* PAGE HEADER */
         .page-header {
@@ -372,20 +277,19 @@
             margin-bottom: var(--space-md);
         }
         
-        /* DISCOGS AFFILIATE BUTTONS - Professional styling */
-        .discogs-buttons {
+        /* AMAZON & DISCOGS BUTTONS */
+        .amazon-buttons, .discogs-buttons {
             display: flex;
             flex-direction: column;
             gap: var(--space-sm);
         }
         
-        .discogs-btn {
+        .amazon-btn, .discogs-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
             padding: 0.75rem 1rem;
-            background: linear-gradient(135deg, #FF6600, #FF8533);
             color: var(--white);
             text-decoration: none;
             font-weight: bold;
@@ -393,6 +297,20 @@
             transition: all var(--transition);
             font-size: 0.85rem;
             font-family: 'Inter', sans-serif;
+        }
+        
+        .amazon-btn {
+            background: linear-gradient(135deg, #FF9900, #FFB84D);
+        }
+        
+        .amazon-btn:hover {
+            background: linear-gradient(135deg, #FFB84D, #FFC966);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.3);
+        }
+        
+        .discogs-btn {
+            background: linear-gradient(135deg, #FF6600, #FF8533);
         }
         
         .discogs-btn:hover {
@@ -447,31 +365,8 @@
             transform: none;
         }
         
-        /* FOOTER - Match homepage */
-        .footer {
-            border-top: 1px solid rgba(218, 181, 71, 0.2);
-            padding: var(--space-xl) 0;
-            text-align: center;
-            margin-top: var(--space-2xl);
-            background: rgba(10, 10, 10, 0.95);
-        }
-        
-        .footer-copyright {
-            color: var(--white-55);
-            font-size: 0.875rem;
-        }
-        
         /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .main {
-                padding-left: var(--space-md);
-                padding-right: var(--space-md);
-            }
-            
             .product-grid {
                 grid-template-columns: 1fr;
             }
@@ -496,21 +391,6 @@
         }
         
         @media (min-width: 769px) {
-            .nav {
-                height: 80px;
-                padding: 0 var(--space-xl);
-            }
-            
-            .nav-logo img {
-                height: 48px;
-            }
-            
-            .main {
-                padding-top: 80px;
-                padding-left: var(--space-xl);
-                padding-right: var(--space-xl);
-            }
-            
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
@@ -542,23 +422,9 @@
     </style>
 </head>
 <body>
-    <nav class="nav" role="navigation">
-        <div class="nav-container">
-            <a href="home.html" class="nav-logo">
-                <img src="koolkeithmainlogo.png" alt="Kool Keith Home">
-            </a>
-            
-            <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="music/music.html">Music</a></li>
-                <li><a href="bio.html">Biography</a></li>
-                <li><a href="tour.html">Tour</a></li>
-                <li><a href="shop.html">Store</a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Navigation and footer inserted automatically by shared/navigation.js -->
     
-    <main class="main">
+    <main class="main" id="mainContent">
         <section class="page-header">
             <h1 class="page-title">Official Store</h1>
             <p class="page-subtitle">Complete Catalog • Discogs Affiliate • Worldwide Shipping</p>
@@ -602,201 +468,8 @@
                     </div>
                     <div class="product-price">From $29.99</div>
                     <div class="discogs-buttons">
-                        <a href="https://www.discogs.com/search/?q=kool+keith+karpenters&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="featured vinyl cd digital recent" data-keywords="everybody eats stress eater czarface">
-                    <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats!" class="product-image">
-                    <h3 class="product-name">Everybody Eats!</h3>
-                    <p class="product-artist">Stress Eater (CZARFACE & Kool Keith)</p>
-                    <p class="product-year">2024</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Vinyl</span>
-                        <span class="format-tag">CD</span>
-                        <span class="format-tag">Digital</span>
-                    </div>
-                    <div class="product-price">From $32.99</div>
-                    <div class="discogs-buttons">
-                        <a href="https://www.discogs.com/search/?q=everybody+eats+czarface+kool+keith&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="featured vinyl digital recent" data-keywords="aponia awol one collaboration">
-                    <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia" class="product-image">
-                    <h3 class="product-name">Aponia</h3>
-                    <p class="product-artist">Awol One & Kool Keith</p>
-                    <p class="product-year">2024</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Vinyl</span>
-                        <span class="format-tag">Digital</span>
-                    </div>
-                    <div class="product-price">From $28.99</div>
-                    <div class="discogs-buttons">
-                        <a href="https://www.discogs.com/search/?q=aponia+awol+one+kool+keith&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="featured vinyl cd recent" data-keywords="bandoleros lynx collaboration">
-                    <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros" class="product-image">
-                    <h3 class="product-name">Bandoleros</h3>
-                    <p class="product-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
-                    <p class="product-year">2024</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Vinyl</span>
-                        <span class="format-tag">CD</span>
-                    </div>
-                    <div class="product-price">From $31.99</div>
-                    <div class="discogs-buttons">
-                        <a href="https://www.discogs.com/search/?q=bandoleros+lynx+kool+keith&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- CLASSIC ALBUMS -->
-        <section class="shop-section">
-            <div class="section-header">
-                <div class="section-icon">💿</div>
-                <div class="section-content">
-                    <h2 class="section-title">Essential Classics</h2>
-                    <p class="section-subtitle">Legendary albums that defined hip-hop innovation</p>
-                </div>
-            </div>
-            
-            <div class="product-grid" id="classicsGrid">
-                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="critical beatdown ultramagnetic mcs 1988">
-                    <img src="https://via.placeholder.com/180x180/F39C12/000?text=Critical+Beatdown" alt="Critical Beatdown" class="product-image">
-                    <h3 class="product-name">Critical Beatdown</h3>
-                    <p class="product-artist">Ultramagnetic MCs</p>
-                    <p class="product-year">1988</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Vinyl</span>
-                        <span class="format-tag">CD</span>
-                        <span class="format-tag">Digital</span>
-                    </div>
-                    <div class="product-price">From $34.99</div>
-                    <div class="amazon-buttons">
-                        <!-- DIRECT LINKS - Real ASIN for Dr. Octagonecologyst -->
-                        <a href="https://www.amazon.com.au/dp/B000005AM7?tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
-                        <a href="https://www.amazon.com/dp/B000005AM7?tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
-                        <a href="https://www.amazon.co.uk/dp/B000005AM7?tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="dr octagonecologyst octagon 1996">
-                    <img src="https://via.placeholder.com/180x180/27AE60/fff?text=Dr+Octagon" alt="Dr. Octagonecologyst" class="product-image">
-                    <h3 class="product-name">Dr. Octagonecologyst</h3>
-                    <p class="product-artist">Dr. Octagon</p>
-                    <p class="product-year">1996</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Vinyl</span>
-                        <span class="format-tag">CD</span>
-                        <span class="format-tag">Digital</span>
-                    </div>
-                    <div class="product-price">From $29.99</div>
-                    <div class="amazon-buttons">
-                        <!-- DIRECT LINKS - Real ASIN B000005AM7 for Dr. Octagonecologyst -->
-                        <a href="https://www.amazon.com.au/dp/B000005AM7?tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
-                        <a href="https://www.amazon.com/dp/B000005AM7?tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
-                        <a href="https://www.amazon.co.uk/dp/B000005AM7?tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="sex style 1997">
-                    <img src="https://via.placeholder.com/180x180/8E44AD/fff?text=Sex+Style" alt="Sex Style" class="product-image">
-                    <h3 class="product-name">Sex Style</h3>
-                    <p class="product-artist">Kool Keith</p>
-                    <p class="product-year">1997</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Vinyl</span>
-                        <span class="format-tag">CD</span>
-                        <span class="format-tag">Digital</span>
-                    </div>
-                    <div class="product-price">From $24.99</div>
-                    <div class="amazon-buttons">
-                        <!-- DIRECT LINKS - Replace ASIN-HERE with actual product IDs -->
-                        <a href="https://www.amazon.com.au/dp/ASIN-HERE?tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
-                        <a href="https://www.amazon.com/dp/ASIN-HERE?tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
-                        <a href="https://www.amazon.co.uk/dp/ASIN-HERE?tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="black elvis lost space 1999">
-                    <img src="https://via.placeholder.com/180x180/E74C3C/fff?text=Black+Elvis" alt="Black Elvis/Lost in Space" class="product-image">
-                    <h3 class="product-name">Black Elvis/Lost in Space</h3>
-                    <p class="product-artist">Black Elvis</p>
-                    <p class="product-year">1999</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Vinyl</span>
-                        <span class="format-tag">CD</span>
-                        <span class="format-tag">Digital</span>
-                    </div>
-                    <div class="product-price">From $26.99</div>
-                    <div class="amazon-buttons">
-                        <!-- DIRECT LINKS - Replace ASIN-HERE with actual product IDs -->
-                        <a href="https://www.amazon.com.au/dp/ASIN-HERE?tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
-                        <a href="https://www.amazon.com/dp/ASIN-HERE?tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
-                        <a href="https://www.amazon.co.uk/dp/ASIN-HERE?tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- MERCHANDISE -->
-        <section class="shop-section">
-            <div class="section-header">
-                <div class="section-icon">👕</div>
-                <div class="section-content">
-                    <h2 class="section-title">Official Merchandise</h2>
-                    <p class="section-subtitle">Exclusive apparel and collectibles</p>
-                </div>
-            </div>
-            
-            <div class="product-grid" id="merchGrid">
-                <div class="product-card" data-category="merch apparel" data-keywords="keith tshirt ultra">
-                    <img src="https://via.placeholder.com/180x180/000000/DAB547?text=Keith+Tee" alt="Keith T-Shirt" class="product-image">
-                    <h3 class="product-name">Ultra Keith T-Shirt</h3>
-                    <p class="product-artist">Official Merchandise</p>
-                    <p class="product-year">Limited Edition</p>
-                    <div class="product-formats">
-                        <span class="format-tag">S-XXL</span>
-                        <span class="format-tag">Premium Cotton</span>
-                    </div>
-                    <div class="product-price">From $24.99</div>
-                    <div class="discogs-buttons">
-                        <a href="https://www.discogs.com/search/?q=kool+keith+shirt&type=all" class="discogs-btn">🎵 Find on Discogs</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="merch apparel" data-keywords="dr octagon hoodie">
-                    <img src="https://via.placeholder.com/180x180/8E44AD/fff?text=Dr+Octagon" alt="Dr Octagon Hoodie" class="product-image">
-                    <h3 class="product-name">Dr. Octagon Hoodie</h3>
-                    <p class="product-artist">Official Merchandise</p>
-                    <p class="product-year">Persona Collection</p>
-                    <div class="product-formats">
-                        <span class="format-tag">S-XXL</span>
-                        <span class="format-tag">Heavyweight</span>
-                    </div>
-                    <div class="product-price">From $59.99</div>
-                    <div class="discogs-buttons">
-                        <a href="https://www.discogs.com/search/?q=dr+octagon+merchandise&type=all" class="discogs-btn">🎵 Find on Discogs</a>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-category="merch accessories" data-keywords="diamond logo cap keith">
-                    <img src="https://via.placeholder.com/180x180/DAB547/000?text=Keith+Hat" alt="Keith Cap" class="product-image">
-                    <h3 class="product-name">Diamond Logo Cap</h3>
-                    <p class="product-artist">Official Merchandise</p>
-                    <p class="product-year">Signature Collection</p>
-                    <div class="product-formats">
-                        <span class="format-tag">Adjustable</span>
-                        <span class="format-tag">Embroidered</span>
-                    </div>
-                    <div class="product-price">From $34.99</div>
-                    <div class="discogs-buttons">
                         <a href="https://www.discogs.com/search/?q=kool+keith+cap&type=all" class="discogs-btn">🎵 Find on Discogs</a>
-                    </div></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -824,9 +497,10 @@
         </section>
     </main>
     
-    <footer class="footer">
-        <p class="footer-copyright">© 2025 Ultra Keith. All rights reserved. Amazon Associate Program.</p>
-    </footer>
+    <!-- Footer inserted automatically by shared/navigation.js -->
+
+    <!-- Shared Navigation System (handles mobile menu, audio, banner) - RELATIVE PATH -->
+    <script src="shared/navigation.js"></script>
 
     <script>
         // PROFESSIONAL SHOP MANAGER - Scalable for 60+ albums with real affiliate links
@@ -1030,7 +704,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const shop = new ShopManager();
             console.log('Ultra Keith Shop initialized with Amazon affiliate integration');
-            console.log('Affiliate IDs: AU=ultrakeith-22, US=ultrakeith-20, UK=ultrakeith-21');('Affiliate IDs: US=ultrakeith-20, UK=ultrakeith-21, AU=YOUR-AU-ID');
+            console.log('Affiliate IDs: AU=ultrakeith-22, US=ultrakeith-20, UK=ultrakeith-21');
         });
         
         // Test affiliate links function
@@ -1048,4 +722,193 @@
         });
     </script>
 </body>
-</html>
+</html>www.discogs.com/search/?q=kool+keith+karpenters&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="featured vinyl cd digital recent" data-keywords="everybody eats stress eater czarface">
+                    <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats!" class="product-image">
+                    <h3 class="product-name">Everybody Eats!</h3>
+                    <p class="product-artist">Stress Eater (CZARFACE & Kool Keith)</p>
+                    <p class="product-year">2024</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $32.99</div>
+                    <div class="discogs-buttons">
+                        <a href="https://www.discogs.com/search/?q=everybody+eats+czarface+kool+keith&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="featured vinyl digital recent" data-keywords="aponia awol one collaboration">
+                    <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia" class="product-image">
+                    <h3 class="product-name">Aponia</h3>
+                    <p class="product-artist">Awol One & Kool Keith</p>
+                    <p class="product-year">2024</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $28.99</div>
+                    <div class="discogs-buttons">
+                        <a href="https://www.discogs.com/search/?q=aponia+awol+one+kool+keith&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="featured vinyl cd recent" data-keywords="bandoleros lynx collaboration">
+                    <img src="https://ultrakeith.com/music/album-covers/bandoleros.jpg" alt="Bandoleros" class="product-image">
+                    <h3 class="product-name">Bandoleros</h3>
+                    <p class="product-artist">Lynx 196.9, Arturo Banbini, Kool Keith</p>
+                    <p class="product-year">2024</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                    </div>
+                    <div class="product-price">From $31.99</div>
+                    <div class="discogs-buttons">
+                        <a href="https://www.discogs.com/search/?q=bandoleros+lynx+kool+keith&type=all" class="discogs-btn primary">🎵 Find on Discogs</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CLASSIC ALBUMS -->
+        <section class="shop-section">
+            <div class="section-header">
+                <div class="section-icon">💿</div>
+                <div class="section-content">
+                    <h2 class="section-title">Essential Classics</h2>
+                    <p class="section-subtitle">Legendary albums that defined hip-hop innovation</p>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="classicsGrid">
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="critical beatdown ultramagnetic mcs 1988">
+                    <img src="https://via.placeholder.com/180x180/F39C12/000?text=Critical+Beatdown" alt="Critical Beatdown" class="product-image">
+                    <h3 class="product-name">Critical Beatdown</h3>
+                    <p class="product-artist">Ultramagnetic MCs</p>
+                    <p class="product-year">1988</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $34.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/dp/B000005AM7?tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/dp/B000005AM7?tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/dp/B000005AM7?tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="dr octagonecologyst octagon 1996">
+                    <img src="https://via.placeholder.com/180x180/27AE60/fff?text=Dr+Octagon" alt="Dr. Octagonecologyst" class="product-image">
+                    <h3 class="product-name">Dr. Octagonecologyst</h3>
+                    <p class="product-artist">Dr. Octagon</p>
+                    <p class="product-year">1996</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $29.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/dp/B000005AM7?tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/dp/B000005AM7?tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/dp/B000005AM7?tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="sex style 1997">
+                    <img src="https://via.placeholder.com/180x180/8E44AD/fff?text=Sex+Style" alt="Sex Style" class="product-image">
+                    <h3 class="product-name">Sex Style</h3>
+                    <p class="product-artist">Kool Keith</p>
+                    <p class="product-year">1997</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $24.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=kool+keith+sex+style&tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=kool+keith+sex+style&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=kool+keith+sex+style&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="classics vinyl cd digital" data-keywords="black elvis lost space 1999">
+                    <img src="https://via.placeholder.com/180x180/E74C3C/fff?text=Black+Elvis" alt="Black Elvis/Lost in Space" class="product-image">
+                    <h3 class="product-name">Black Elvis/Lost in Space</h3>
+                    <p class="product-artist">Black Elvis</p>
+                    <p class="product-year">1999</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Vinyl</span>
+                        <span class="format-tag">CD</span>
+                        <span class="format-tag">Digital</span>
+                    </div>
+                    <div class="product-price">From $26.99</div>
+                    <div class="amazon-buttons">
+                        <a href="https://www.amazon.com.au/s?k=black+elvis+lost+space&tag=ultrakeith-22" class="amazon-btn">🇦🇺 Amazon AU</a>
+                        <a href="https://www.amazon.com/s?k=black+elvis+lost+space&tag=ultrakeith-20" class="amazon-btn">🇺🇸 Amazon US</a>
+                        <a href="https://www.amazon.co.uk/s?k=black+elvis+lost+space&tag=ultrakeith-21" class="amazon-btn">🇬🇧 Amazon UK</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- MERCHANDISE -->
+        <section class="shop-section">
+            <div class="section-header">
+                <div class="section-icon">👕</div>
+                <div class="section-content">
+                    <h2 class="section-title">Official Merchandise</h2>
+                    <p class="section-subtitle">Exclusive apparel and collectibles</p>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="merchGrid">
+                <div class="product-card" data-category="merch apparel" data-keywords="keith tshirt ultra">
+                    <img src="https://via.placeholder.com/180x180/000000/DAB547?text=Keith+Tee" alt="Keith T-Shirt" class="product-image">
+                    <h3 class="product-name">Ultra Keith T-Shirt</h3>
+                    <p class="product-artist">Official Merchandise</p>
+                    <p class="product-year">Limited Edition</p>
+                    <div class="product-formats">
+                        <span class="format-tag">S-XXL</span>
+                        <span class="format-tag">Premium Cotton</span>
+                    </div>
+                    <div class="product-price">From $24.99</div>
+                    <div class="discogs-buttons">
+                        <a href="https://www.discogs.com/search/?q=kool+keith+shirt&type=all" class="discogs-btn">🎵 Find on Discogs</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="merch apparel" data-keywords="dr octagon hoodie">
+                    <img src="https://via.placeholder.com/180x180/8E44AD/fff?text=Dr+Octagon" alt="Dr Octagon Hoodie" class="product-image">
+                    <h3 class="product-name">Dr. Octagon Hoodie</h3>
+                    <p class="product-artist">Official Merchandise</p>
+                    <p class="product-year">Persona Collection</p>
+                    <div class="product-formats">
+                        <span class="format-tag">S-XXL</span>
+                        <span class="format-tag">Heavyweight</span>
+                    </div>
+                    <div class="product-price">From $59.99</div>
+                    <div class="discogs-buttons">
+                        <a href="https://www.discogs.com/search/?q=dr+octagon+merchandise&type=all" class="discogs-btn">🎵 Find on Discogs</a>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="merch accessories" data-keywords="diamond logo cap keith">
+                    <img src="https://via.placeholder.com/180x180/DAB547/000?text=Keith+Hat" alt="Keith Cap" class="product-image">
+                    <h3 class="product-name">Diamond Logo Cap</h3>
+                    <p class="product-artist">Official Merchandise</p>
+                    <p class="product-year">Signature Collection</p>
+                    <div class="product-formats">
+                        <span class="format-tag">Adjustable</span>
+                        <span class="format-tag">Embroidered</span>
+                    </div>
+                    <div class="product-price">From $34.99</div>
+                    <div class="discogs-buttons">
+                        <a href="https://
