@@ -7,274 +7,600 @@
     <meta name="description" content="Join Keith's exclusive VIP Players Club - High stakes gaming and VIP experiences.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     
-    <!-- Players Club specific CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/styles.css">
+    
+    <style>
+        /* Players Club specific styles that work with shared navigation */
+        
+        /* Entrance scene styling */
+        .entrance-scene {
+            min-height: calc(100vh - 160px); /* Account for nav + footer */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 25%, #1A0A0A 50%, var(--keith-black) 100%);
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .entrance-scene::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(218, 181, 71, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(218, 181, 71, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .club-sign {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            color: #FF1493;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6), 0 0 40px rgba(255, 20, 147, 0.6);
+            animation: neonFlicker 3s ease-in-out infinite alternate;
+            text-transform: lowercase;
+            font-style: italic;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        @keyframes neonFlicker {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 20, 147, 0.6), 0 0 40px rgba(255, 20, 147, 0.6); }
+            50% { text-shadow: 0 0 30px rgba(255, 20, 147, 0.8), 0 0 60px rgba(255, 20, 147, 0.8); }
+        }
+        
+        .entrance-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Life-size club door */
+        .club-door {
+            width: auto;
+            height: 60vh;
+            max-height: 500px;
+            min-height: 350px;
+            object-fit: contain;
+            transition: transform 1s ease-in-out;
+            transform-origin: left center;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+            cursor: pointer;
+        }
+        
+        .club-door:hover {
+            filter: drop-shadow(0 25px 50px rgba(218, 181, 71, 0.3));
+        }
+        
+        .club-door.sliding {
+            transform: translateX(-100%) rotateY(-90deg);
+            opacity: 0;
+        }
+        
+        /* Fallback door design */
+        .door-fallback {
+            width: 250px;
+            height: 60vh;
+            max-height: 500px;
+            min-height: 350px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transition: transform 1s ease-in-out;
+            transform-origin: left center;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .door-fallback:hover {
+            box-shadow: 0 25px 50px rgba(218, 181, 71, 0.3);
+        }
+        
+        .door-fallback.sliding {
+            transform: translateX(-100%) rotateY(-90deg);
+            opacity: 0;
+        }
+        
+        /* Door details */
+        .door-window {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 25%;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid var(--keith-gold);
+            border-radius: 8px;
+        }
+        
+        .door-handle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 30px;
+            background: var(--keith-gold);
+            border-radius: 6px;
+        }
+        
+        /* Security keypad */
+        .security-keypad {
+            width: 100px;
+            height: 140px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 3px solid var(--keith-gold);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--keith-gold);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        .security-keypad:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(218, 181, 71, 0.4);
+            border-color: var(--keith-gold-light);
+        }
+        
+        .keypad-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        /* PIN overlay system */
+        .pin-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .pin-pad {
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid var(--keith-gold);
+            border-radius: 20px;
+            padding: 30px;
+            width: 320px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .pin-close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: var(--keith-gold);
+            color: var(--keith-black);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .pin-display {
+            width: 100%;
+            height: 60px;
+            background: #000;
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: var(--keith-gold);
+        }
+        
+        .pin-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .pin-btn {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 2px solid var(--keith-gold);
+            border-radius: 10px;
+            color: var(--keith-gold);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .pin-btn:hover {
+            background: var(--keith-gold);
+            color: var(--keith-black);
+            transform: scale(1.05);
+        }
+        
+        /* Message display system */
+        .message-display {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid var(--keith-gold);
+            border-radius: 15px;
+            padding: 30px 40px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 500px;
+            z-index: 2000;
+            display: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .message-display.show { display: block; }
+        .message-display.warning1 { border-color: #00ff41; color: #00ff41; }
+        .message-display.warning2 { border-color: #ffa500; color: #ffa500; }
+        .message-display.warning3 { border-color: #ff073a; color: #ff073a; }
+        .message-display.success { 
+            border-color: var(--keith-gold); 
+            color: var(--keith-gold); 
+            background: rgba(218, 181, 71, 0.15);
+            text-shadow: 0 0 10px var(--keith-gold);
+            font-weight: bold;
+        }
+        
+        /* Success screen after PIN entry */
+        .success-screen {
+            min-height: calc(100vh - 160px);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .success-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            color: var(--keith-gold);
+            margin-bottom: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .success-message {
+            font-size: 1.3rem;
+            color: var(--keith-white);
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+        
+        .success-btn {
+            background: linear-gradient(45deg, var(--keith-gold), var(--keith-gold-light));
+            color: var(--keith-black);
+            border: none;
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .success-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(218, 181, 71, 0.5);
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .entrance-scene {
+                padding: 2rem 1rem;
+            }
+            
+            .entrance-container {
+                gap: 2rem;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .club-door {
+                height: 45vh;
+                max-height: 300px;
+                min-height: 250px;
+            }
+            
+            .door-fallback {
+                width: 180px;
+                height: 45vh;
+                max-height: 300px;
+                min-height: 250px;
+            }
+            
+            .security-keypad {
+                width: 70px;
+                height: 100px;
+                font-size: 0.7rem;
+            }
+            
+            .keypad-icon {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+            
+            .pin-pad {
+                width: 280px;
+                padding: 20px;
+            }
+            
+            .pin-btn {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .success-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation will be inserted here by shared/navigation.js -->
+    <!-- Navigation inserted automatically by shared/navigation.js -->
 
-    <div class="main-content" id="mainContent">
-        <!-- ENTRANCE SCENE -->
-        <div class="scene entrance-scene active" id="entranceScene">
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Entrance Scene -->
+        <section class="entrance-scene" id="entranceScene">
             <div class="club-sign">the players club</div>
             <div class="entrance-container">
-                <!-- CLUB DOOR -->
+                <!-- Club Door -->
                 <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
                      onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
-                <div class="door-fallback" id="doorFallback" style="display:none;">
-                    <div style="position:absolute; top:15%; left:50%; transform:translateX(-50%); width:60%; height:25%; background:rgba(0,0,0,0.8); border:2px solid var(--keith-gold); border-radius:8px;"></div>
-                    <div style="position:absolute; right:15px; top:50%; transform:translateY(-50%); width:12px; height:30px; background:var(--keith-gold); border-radius:6px;"></div>
+                
+                <!-- Fallback Door Design -->
+                <div class="door-fallback" id="doorFallback">
+                    <div class="door-window"></div>
+                    <div class="door-handle"></div>
                 </div>
                 
-                <!-- SECURITY KEYPAD -->
-                <div class="keypad-fallback" onclick="PlayersClub.showPinPad()">
-                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🔢</div>
+                <!-- Security Keypad -->
+                <div class="security-keypad" onclick="showPinPad()">
+                    <div class="keypad-icon">🔢</div>
                     <div>PIN</div>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <!-- BOUNCER SCENE -->
-        <div class="scene bouncer-scene" id="bouncerScene">
-            <div class="bouncer-container">
-                <img src="photos/bouncer.jpg" alt="Bouncer" class="bouncer-avatar"
-                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
-                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">👨‍💼</div>
-                <h2 class="bouncer-title">Hey there</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
-                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
-                <button class="btn" onclick="PlayersClub.goToCashier()">Continue →</button>
+        <!-- Success Screen (Hidden initially) -->
+        <section class="success-screen" id="successScreen">
+            <div class="success-title">ACCESS GRANTED</div>
+            <div class="success-message">
+                Welcome to The Players Club! You've successfully entered Keith's exclusive VIP lounge. 
+                The door is now open and your VIP experience awaits. Time to play at Keith's level.
             </div>
-        </div>
-
-        <!-- CASHIER SCENE -->
-        <div class="scene cashier-scene" id="cashierScene">
-            <div class="cashier-window">
-                <img src="cashier.png" alt="Cashier" class="cashier-avatar"
-                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
-                <div class="cashier-avatar" id="cashierFallback" style="display:none;">👩‍💼</div>
-                <h2 class="cashier-title">Welcome!</h2>
-                <p style="margin-bottom: 20px;">What's your name?</p>
-                <input type="text" class="name-input" id="playerNameInput" placeholder="Enter your name" maxlength="20">
-                <div class="gift-items">
-                    <div class="gift-item">
-                        <div class="gift-icon">💰</div>
-                        <div class="gift-label">500 Chips</div>
-                    </div>
-                    <div class="gift-item">
-                        <img src="phone.png" alt="Phone" class="gift-icon"
-                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
-                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
-                        <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
-                    </div>
-                </div>
-                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;">Keith left these for you. Enjoy your VIP experience!</p>
-                <button class="btn" onclick="PlayersClub.enterVIPBooth()">Enter VIP Booth</button>
-            </div>
-        </div>
-        
-        <!-- VIP BOOTH SCENE -->
-        <div class="scene booth-scene" id="boothScene">
-            <div class="booth-header">
-                <div class="club-sign">the players club</div>
-            </div>
-            <div class="casino-room">
-                <div class="room-slots" onclick="PlayersClub.loadGame('slots')" title="Professional RTP 92% Slots">
-                    <img src="slots.png" alt="Slot Machines"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;PlayersClub.loadGame(\'slots\')&quot; title=&quot;Professional RTP 92% Slots&quot;>🎰</div>';">
-                </div>
-                <div class="room-dice" onclick="PlayersClub.loadGame('ceelo')" title="Real Cee-Lo Dice Game">
-                    <img src="456.png" alt="Dice Table"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;PlayersClub.loadGame(\'ceelo\')&quot; title=&quot;Real Cee-Lo Dice Game&quot;>🎲</div>';">
-                </div>
-                <div class="room-blackjack" onclick="PlayersClub.loadGame('blackjack')" title="Casino-Grade Blackjack">
-                    <img src="bj.png" alt="Blackjack Table"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;PlayersClub.loadGame(\'blackjack\')&quot; title=&quot;Casino-Grade Blackjack&quot;>🃏</div>';">
-                </div>
-                <div class="room-cashier" onclick="PlayersClub.showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
-                    <img src="cashier.png" alt="Cashier Booth"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;PlayersClub.showMessage(\'You already got your chips from the cashier!\', \'hint\')&quot; title=&quot;Cashier Booth&quot;>👩‍💼</div>';">
-                </div>
-                <div class="room-phone" onclick="PlayersClub.openPhone()" title="Keith's Phone">
-                    <img src="phone.png" alt="Keith's Phone"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:2rem; cursor:pointer;&quot; onclick=&quot;PlayersClub.openPhone()&quot; title=&quot;Keith\'s Phone&quot;>📱</div>';">
-                </div>
-            </div>
-            <div class="table-items-container">
-                <img src="glassfull.png" alt="Champagne" class="champagne-glass" id="champagneGlass" onclick="PlayersClub.drinkChampagne()" title="Champagne"
-                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
-                <div class="champagne-fallback" id="champagneFallback" style="display:none;" onclick="PlayersClub.drinkChampagne()" title="Champagne">🥂</div>
-            </div>
-            
-            <!-- DRINKING ANIMATION AT MIDDLE-BOTTOM FULL SIZE -->
-            <div class="drinking-overlay" id="drinkingOverlay" style="display: none; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 2000; width: 100%; max-width: 600px; height: auto;">
-                <img src="drinking.png" alt="Drinking Animation" class="drinking-animation" style="width: 100%; height: auto; object-fit: contain;">
-            </div>
-            
-            <div class="drunk-item earring-item">💎</div>
-            <div class="drunk-item bra-item">👙</div>
-            <div class="drunk-item panties-item">🩲</div>
-            <div class="drunk-item heels-item">👠</div>
-        </div>
-
-        <!-- SLOTS GAME SCENE -->
-        <div class="scene casino-scene" id="slotsScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Professional Slots</h2>
-                <p style="margin-bottom: 15px; color: var(--keith-gold);"><strong>RTP: 92% | 3x3 Reels | 5 Paylines | Keith-Themed Symbols</strong></p>
-                <div id="slotsContainer" class="slots-machine-container"></div>
-                <div class="slots-controls">
-                    <div class="bet-controls">
-                        <label>Bet Amount:</label>
-                        <button onclick="PlayersClub.setSlotsbet(1)" class="bet-btn">1</button>
-                        <button onclick="PlayersClub.setSlotsbet(5)" class="bet-btn">5</button>
-                        <button onclick="PlayersClub.setSlotsbet(10)" class="bet-btn active">10</button>
-                        <button onclick="PlayersClub.setSlotsbet(25)" class="bet-btn">25</button>
-                        <button onclick="PlayersClub.setSlotsbet(50)" class="bet-btn">50</button>
-                        <button onclick="PlayersClub.setSlotsbet(100)" class="bet-btn">100</button>
-                    </div>
-                    <button class="btn spin-btn" onclick="PlayersClub.spinSlots()" id="spinButton">🎰 SPIN REELS 🎰</button>
-                </div>
-                <div class="slots-stats">
-                    <div class="stat-row">
-                        <span>Balance: <strong id="slotsBalance">500</strong> chips</span>
-                        <span>Bet: <strong id="slotsBet">10</strong> chips</span>
-                        <span>Last Win: <strong id="slotsLastWin">0</strong> chips</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Spins: <strong id="slotsSpins">0</strong></span>
-                        <span>Current RTP: <strong id="slotsRTP">0.0%</strong></span>
-                        <span>Target RTP: <strong>92.0%</strong></span>
-                    </div>
-                </div>
-                <button class="btn btn-secondary" onclick="PlayersClub.backToBooth()">← Back to VIP Booth</button>
-                <div class="paytable">
-                    <h3>Keith's Symbol Paytable</h3>
-                    <div class="paytable-grid">
-                        <div class="paytable-row"><span>K K K</span><span>KEITH JACKPOT</span><span>1000x</span></div>
-                        <div class="paytable-row"><span>U U U</span><span>ULTRA</span><span>500x</span></div>
-                        <div class="paytable-row"><span>🎭 🎭 🎭</span><span>DR. OCTAGON</span><span>250x</span></div>
-                        <div class="paytable-row"><span>👹 👹 👹</span><span>DR. DOOM</span><span>100x</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CEE-LO DICE SCENE -->
-        <div class="scene casino-scene" id="ceeloScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Cee-Lo</h2>
-                <p style="margin-bottom: 20px;">Real street dice! Roll 4-5-6 to win big!</p>
-                <div class="dice-container">
-                    <div class="dice" id="dice1">?</div>
-                    <div class="dice" id="dice2">?</div>
-                    <div class="dice" id="dice3">?</div>
-                </div>
-                <div style="margin: 20px 0;">
-                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
-                    <input type="number" id="ceelobBet" min="10" max="500" value="50" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
-                </div>
-                <button class="btn" onclick="PlayersClub.rollCeelo()">Roll Dice</button>
-                <button class="btn btn-secondary" onclick="PlayersClub.backToBooth()">← Back to VIP Booth</button>
-                <div id="ceeloResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
-            </div>
-        </div>
-
-        <!-- BLACKJACK SCENE -->
-        <div class="scene casino-scene" id="blackjackScene">
-            <div class="game-interface">
-                <h2 class="game-title">Keith's Blackjack</h2>
-                <p style="margin-bottom: 20px;">Beat the dealer! Get close to 21 without going over.</p>
-                <div class="blackjack-table">
-                    <div style="margin-bottom: 20px;">
-                        <p style="color: white; margin-bottom: 10px;">Dealer's Hand (<span id="dealerScore">?</span>):</p>
-                        <div class="card-hand" id="dealerHand"></div>
-                    </div>
-                    <div>
-                        <p style="color: white; margin-bottom: 10px;">Your Hand (<span id="playerScore">0</span>):</p>
-                        <div class="card-hand" id="playerHand"></div>
-                    </div>
-                </div>
-                <div style="margin: 20px 0;">
-                    <p style="font-size: 1.2rem; color: var(--keith-gold);">Bet Amount:</p>
-                    <input type="number" id="blackjackBet" min="50" max="500" value="100" style="background: #333; color: white; border: 2px solid var(--keith-gold); border-radius: 5px; padding: 10px; margin: 10px; text-align: center;">
-                </div>
-                <div id="blackjackControls">
-                    <button class="btn" onclick="PlayersClub.dealCards()">Deal Cards</button>
-                </div>
-                <button class="btn btn-secondary" onclick="PlayersClub.backToBooth()">← Back to VIP Booth</button>
-                <div id="blackjackResult" style="margin-top: 20px; font-size: 1.1rem;"></div>
-            </div>
-        </div>
-    </div>
+            <a href="vault.html" class="success-btn">Enter VIP Lounge</a>
+        </section>
+    </main>
     
-    <!-- UI PANEL -->
-    <div class="ui-panel" id="uiPanel">
-        <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
-        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
-        <div class="player-info">Player: <span id="playerDisplay">Guest</span></div>
-    </div>
-    
-    <!-- PIN PAD OVERLAY -->
+    <!-- PIN Pad Overlay -->
     <div class="pin-overlay" id="pinOverlay">
         <div class="pin-pad">
-            <button class="pin-close" onclick="PlayersClub.hidePinPad()">×</button>
+            <button class="pin-close" onclick="hidePinPad()">×</button>
             <div class="pin-display" id="pinDisplay">***</div>
             <div class="pin-buttons">
-                <button class="pin-btn" onclick="PlayersClub.enterPin('1')">1</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('2')">2</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('3')">3</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('4')">4</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('5')">5</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('6')">6</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('7')">7</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('8')">8</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('9')">9</button>
-                <button class="pin-btn" onclick="PlayersClub.clearPin()">C</button>
-                <button class="pin-btn" onclick="PlayersClub.enterPin('0')">0</button>
-                <button class="pin-btn" onclick="PlayersClub.submitPin()">✓</button>
+                <button class="pin-btn" onclick="enterPin('1')">1</button>
+                <button class="pin-btn" onclick="enterPin('2')">2</button>
+                <button class="pin-btn" onclick="enterPin('3')">3</button>
+                <button class="pin-btn" onclick="enterPin('4')">4</button>
+                <button class="pin-btn" onclick="enterPin('5')">5</button>
+                <button class="pin-btn" onclick="enterPin('6')">6</button>
+                <button class="pin-btn" onclick="enterPin('7')">7</button>
+                <button class="pin-btn" onclick="enterPin('8')">8</button>
+                <button class="pin-btn" onclick="enterPin('9')">9</button>
+                <button class="pin-btn" onclick="clearPin()">C</button>
+                <button class="pin-btn" onclick="enterPin('0')">0</button>
+                <button class="pin-btn" onclick="submitPin()">✓</button>
             </div>
         </div>
     </div>
     
-    <!-- MESSAGE DISPLAY -->
+    <!-- Message Display -->
     <div class="message-display" id="messageDisplay"></div>
+
+    <!-- Footer inserted automatically by shared/navigation.js -->
+
+    <!-- Shared Navigation System -->
+    <script src="shared/navigation.js"></script>
     
-    <!-- LOCKOUT SCREEN -->
-    <div class="lockout-screen" id="lockoutScreen">
-        <div class="lockout-content">
-            <div class="lockout-title">ACCESS DENIED</div>
-            <div id="lockoutMessage">You've been ejected from the club.</div>
-            <button class="btn" onclick="PlayersClub.resetClub()">Start Over (Testing)</button>
-        </div>
-    </div>
-
-    <!-- AUDIO CONTROLS -->
-    <div class="audio-controls" id="audioControls">
-        <div>♪ Now Playing: <span id="currentTrack">Apartment 223</span></div>
-    </div>
-
-    <!-- HIDDEN AUDIO ELEMENT -->
+    <!-- Hidden audio for Apartment 223 -->
     <audio id="apartment223Audio" preload="none">
         <source src="photos/apartment223.mp3" type="audio/mpeg">
     </audio>
-
-    <!-- LOAD SHARED NAVIGATION FIRST -->
+    
+    <!-- Players Club JavaScript -->
     <script>
-        // Initialize empty navigation container if shared navigation fails
-        if (!document.querySelector('nav')) {
-            document.body.insertAdjacentHTML('afterbegin', '<nav id="navigation-placeholder" style="display:none;"></nav>');
+        // PIN entry system
+        let currentPin = '';
+        let pinAttempts = 0;
+
+        function showPinPad() {
+            console.log('PIN pad opened');
+            document.getElementById('pinOverlay').style.display = 'flex';
+            updatePinDisplay();
         }
+
+        function hidePinPad() {
+            console.log('PIN pad closed');
+            document.getElementById('pinOverlay').style.display = 'none';
+        }
+
+        function enterPin(digit) {
+            console.log('PIN digit entered:', digit);
+            if (currentPin.length < 3) {
+                currentPin += digit;
+                updatePinDisplay();
+            }
+        }
+
+        function clearPin() {
+            console.log('PIN cleared');
+            currentPin = '';
+            updatePinDisplay();
+        }
+
+        function updatePinDisplay() {
+            const display = document.getElementById('pinDisplay');
+            if (display) {
+                if (currentPin.length === 0) {
+                    display.textContent = '***';
+                } else {
+                    display.textContent = currentPin + '*'.repeat(3 - currentPin.length);
+                }
+            }
+        }
+
+        function submitPin() {
+            console.log('PIN submitted:', currentPin);
+            if (currentPin.length !== 3) {
+                showMessage('Enter 3 digits!', 'warning2');
+                return;
+            }
+            
+            pinAttempts++;
+            
+            if (currentPin === '223') {
+                // Correct PIN - Apartment 223!
+                hidePinPad();
+                showMessage('Welcome to The Players Club!', 'success');
+                
+                // Play Apartment 223 audio if available
+                const audio = document.getElementById('apartment223Audio');
+                if (audio) {
+                    audio.play().catch(e => console.log('Audio autoplay blocked'));
+                }
+                
+                // Door sliding animation
+                setTimeout(() => {
+                    const clubDoor = document.getElementById('clubDoor');
+                    const doorFallback = document.getElementById('doorFallback');
+                    
+                    if (clubDoor && clubDoor.style.display !== 'none') {
+                        clubDoor.classList.add('sliding');
+                    }
+                    if (doorFallback && doorFallback.style.display !== 'none') {
+                        doorFallback.classList.add('sliding');
+                    }
+                    
+                    // Show success screen after door animation
+                    setTimeout(() => {
+                        document.getElementById('entranceScene').style.display = 'none';
+                        document.getElementById('successScreen').style.display = 'flex';
+                    }, 1000);
+                }, 1500);
+                
+            } else {
+                // Wrong PIN - Progressive hints
+                let message = '';
+                if (pinAttempts === 1) {
+                    message = 'Come on, player... you should know this one.';
+                } else if (pinAttempts === 2) {
+                    message = 'Keith\'s not gonna like this... think harder, kid.';
+                } else if (pinAttempts === 3) {
+                    message = 'Alright, here\'s your hint: Dr. Doom\'s apartment number';
+                } else {
+                    message = 'Too many attempts! The answer is 223 - Dr. Doom\'s apartment!';
+                }
+                showMessage(message, 'warning2');
+            }
+            
+            clearPin();
+        }
+
+        function showMessage(text, type) {
+            console.log('Message:', text, type);
+            const messageEl = document.getElementById('messageDisplay');
+            if (messageEl) {
+                messageEl.textContent = text;
+                messageEl.className = `message-display show ${type || 'success'}`;
+                
+                const duration = type === 'hint' ? 4000 : 3000;
+                setTimeout(() => {
+                    messageEl.classList.remove('show');
+                }, duration);
+            }
+        }
+
+        // Keyboard support for PIN entry
+        document.addEventListener('keydown', function(e) {
+            const pinOverlay = document.getElementById('pinOverlay');
+            if (pinOverlay && pinOverlay.style.display === 'flex') {
+                if (e.key >= '0' && e.key <= '9') {
+                    enterPin(e.key);
+                } else if (e.key === 'Enter') {
+                    submitPin();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    clearPin();
+                } else if (e.key === 'Escape') {
+                    hidePinPad();
+                }
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Players Club loaded - Ready for PIN entry');
+            updatePinDisplay();
+        });
     </script>
-    
-    <!-- Try to load shared navigation with correct path -->
-    <script src="../shared/navigation.js" onerror="console.warn('Shared navigation not available, trying alternative path'); this.remove(); var altScript = document.createElement('script'); altScript.src = '/shared/navigation.js'; altScript.onerror = function() { console.warn('Shared navigation completely unavailable'); }; document.head.appendChild(altScript);"></script>
-    
-    <!-- Players Club specific JavaScript - Load after navigation attempt -->
-    <script src="js/main.js"></script>
 </body>
 </html>
