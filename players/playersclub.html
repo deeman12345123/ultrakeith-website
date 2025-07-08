@@ -7,539 +7,233 @@
     <meta name="description" content="Join Keith's exclusive VIP Players Club - High stakes gaming and VIP experiences.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     
     <!-- Shared CSS -->
     <link rel="stylesheet" href="../shared/styles.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-
-        /* Players Club Variables */
-        :root {
-            --neon-pink: #FF1493;
-            --pink-glow: rgba(255, 20, 147, 0.6);
-            --card-bg: rgba(26, 26, 26, 0.95);
+        /* FRESH START - Override everything to ensure clean positioning */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        /* Scene Management System */
-        .scene {
-            position: relative;
-            min-height: 100vh;
-            display: none;
-            opacity: 0;
-            transition: all 0.8s ease;
+        /* Force override any shared styles for our entrance */
+        .players-entrance-override {
+            all: unset !important;
+            display: block !important;
+            position: relative !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: linear-gradient(135deg, #000000 0%, #0F0505 25%, #1A0A0A 50%, #000000 100%) !important;
+            overflow: hidden !important;
         }
         
-        .scene.active {
-            display: flex;
-            opacity: 1;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* Club sign */
+        .fresh-club-sign {
+            position: absolute !important;
+            top: 10% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            font-family: 'Orbitron', monospace !important;
+            font-size: clamp(2rem, 6vw, 4rem) !important;
+            font-weight: 900 !important;
+            color: #FF1493 !important;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.6) !important;
+            text-transform: lowercase !important;
+            font-style: italic !important;
+            z-index: 100 !important;
+            text-align: center !important;
+            white-space: nowrap !important;
         }
         
-        /* Entrance Scene */
-        .entrance-scene {
-            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 25%, #1A0A0A 50%, var(--keith-black) 100%);
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
+        /* Door - left side */
+        .fresh-door {
+            position: absolute !important;
+            top: 30% !important;
+            left: 30% !important;
+            width: 200px !important;
+            height: 300px !important;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
+            border: 3px solid #DAB547 !important;
+            border-radius: 15px !important;
+            cursor: pointer !important;
+            z-index: 200 !important;
+            transition: transform 1s ease-in-out !important;
+            transform-origin: left center !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
         }
         
-        .entrance-scene::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(218, 181, 71, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(218, 181, 71, 0.05) 0%, transparent 50%);
-            pointer-events: none;
+        .fresh-door:hover {
+            box-shadow: 0 15px 40px rgba(218, 181, 71, 0.4) !important;
         }
         
-        .club-sign {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            color: var(--neon-pink);
-            text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow);
-            animation: neonFlicker 3s ease-in-out infinite alternate;
-            text-transform: lowercase;
-            font-style: italic;
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-            z-index: 2;
+        .fresh-door.sliding {
+            transform: translateX(-100%) rotateY(-90deg) !important;
+            opacity: 0 !important;
         }
         
-        @keyframes neonFlicker {
-            0%, 100% { text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--pink-glow); }
-            50% { text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--pink-glow); }
-        }
-        
-        .entrance-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 4rem;
-            max-width: 1200px;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* Life-size club door */
-        .club-door {
-            width: auto;
-            height: 70vh;
-            max-height: 600px;
-            min-height: 400px;
-            object-fit: contain;
-            transition: transform 1s ease-in-out;
-            transform-origin: left center;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-            cursor: pointer;
-        }
-        
-        .club-door:hover {
-            filter: drop-shadow(0 25px 50px rgba(218, 181, 71, 0.3));
-        }
-        
-        .club-door.sliding {
-            transform: translateX(-100%) rotateY(-90deg);
-            opacity: 0;
-        }
-        
-        /* Fallback door design */
-        .door-fallback {
-            width: 300px;
-            height: 70vh;
-            max-height: 600px;
-            min-height: 400px;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 3px solid var(--keith-gold);
-            border-radius: 15px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            transition: transform 1s ease-in-out;
-            transform-origin: left center;
-            cursor: pointer;
-            display: none;
-        }
-        
-        .door-fallback:hover {
-            box-shadow: 0 25px 50px rgba(218, 181, 71, 0.3);
-        }
-        
-        .door-fallback.sliding {
-            transform: translateX(-100%) rotateY(-90deg);
-            opacity: 0;
-        }
-        
-        .door-window {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 25%;
-            background: rgba(0,0,0,0.8);
-            border: 2px solid var(--keith-gold);
-            border-radius: 8px;
+        /* Door details */
+        .door-details {
+            position: absolute !important;
+            top: 20% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 60% !important;
+            height: 30% !important;
+            background: rgba(0,0,0,0.8) !important;
+            border: 2px solid #DAB547 !important;
+            border-radius: 8px !important;
         }
         
         .door-handle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 12px;
-            height: 30px;
-            background: var(--keith-gold);
-            border-radius: 6px;
+            position: absolute !important;
+            right: 10px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 15px !important;
+            height: 40px !important;
+            background: #DAB547 !important;
+            border-radius: 8px !important;
         }
         
-        /* Security keypad */
-        .security-keypad {
-            width: 120px;
-            height: 160px;
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 3px solid var(--keith-gold);
-            border-radius: 12px;
+        /* PIN BOX - RIGHT SIDE MIDDLE - COMPLETELY ISOLATED */
+        .fresh-pinbox {
+            position: fixed !important;
+            top: 50% !important;
+            right: 10% !important;
+            transform: translateY(-50%) !important;
+            width: 80px !important;
+            height: 100px !important;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
+            border: 3px solid #DAB547 !important;
+            border-radius: 12px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: #DAB547 !important;
+            font-family: 'Orbitron', monospace !important;
+            font-size: 0.8rem !important;
+            font-weight: bold !important;
+            cursor: pointer !important;
+            z-index: 9999 !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6) !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .fresh-pinbox:hover {
+            transform: translateY(-50%) scale(1.05) !important;
+            box-shadow: 0 12px 35px rgba(218, 181, 71, 0.5) !important;
+            border-color: #E8C547 !important;
+        }
+        
+        .pinbox-icon {
+            font-size: 2rem !important;
+            margin-bottom: 5px !important;
+            display: block !important;
+        }
+        
+        .pinbox-text {
+            font-size: 0.7rem !important;
+            display: block !important;
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .fresh-pinbox {
+                right: 5% !important;
+                width: 60px !important;
+                height: 80px !important;
+                font-size: 0.6rem !important;
+            }
+            
+            .pinbox-icon {
+                font-size: 1.5rem !important;
+            }
+            
+            .fresh-door {
+                left: 20% !important;
+                width: 150px !important;
+                height: 220px !important;
+            }
+        }
+        
+        /* Scene system */
+        .scene {
+            display: none;
+        }
+        
+        .scene.active {
+            display: block;
+        }
+        
+        /* Other scenes - simplified */
+        .other-scene {
+            width: 100vw;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--keith-gold);
+            background: linear-gradient(135deg, #000000 0%, #0F0505 50%, #000000 100%);
+            color: #DAB547;
             font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-        
-        .security-keypad:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(218, 181, 71, 0.4);
-            border-color: var(--keith-gold-light);
-        }
-        
-        .keypad-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        /* Bouncer Scene */
-        .bouncer-scene {
-            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
             text-align: center;
             padding: 2rem;
         }
         
-        .bouncer-container {
-            background: var(--card-bg);
-            border: 3px solid var(--keith-gold);
+        .scene-container {
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid #DAB547;
             border-radius: 20px;
             padding: 40px;
             max-width: 600px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
         }
         
-        .bouncer-avatar {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #333, #555);
-            border: 3px solid var(--keith-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-        }
-        
-        .bouncer-title {
-            font-family: 'Orbitron', monospace;
+        .scene-title {
             font-size: 1.8rem;
-            color: var(--keith-gold);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        
-        /* Cashier Scene */
-        .cashier-scene {
-            background: linear-gradient(135deg, var(--keith-black) 0%, var(--keith-burgundy) 50%, #1A0A0A 100%);
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .cashier-window {
-            background: var(--card-bg);
-            border: 3px solid var(--keith-gold);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-        }
-        
-        .cashier-avatar {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #333, #555);
-            border: 3px solid var(--keith-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-        }
-        
-        .cashier-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            color: var(--keith-gold);
             margin-bottom: 20px;
             text-transform: uppercase;
         }
         
         .name-input {
             background: rgba(218, 181, 71, 0.1);
-            border: 2px solid var(--keith-gold);
+            border: 2px solid #DAB547;
             border-radius: 10px;
             padding: 15px;
             font-size: 1.2rem;
-            color: var(--keith-white);
+            color: white;
             width: 100%;
             margin: 20px 0;
             text-align: center;
             font-family: 'Orbitron', monospace;
         }
         
-        .gift-items {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .gift-item {
-            text-align: center;
-        }
-        
-        .gift-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
-            background: linear-gradient(145deg, #333, #555);
-            border: 3px solid var(--keith-gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-        }
-        
-        .gift-label {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            color: var(--keith-gold);
-            font-weight: bold;
-        }
-        
-        /* VIP Booth Scene */
-        .booth-scene {
-            background-image: url('bg.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            min-height: 100vh;
-        }
-        
-        .booth-header {
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 5;
-        }
-        
-        .casino-room {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-        }
-        
-        .room-slots, .room-dice, .room-blackjack, .room-cashier, .room-phone {
-            position: absolute;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: none;
-            border: none;
-        }
-        
-        .room-slots { top: 5%; left: 50%; transform: translateX(-50%); }
-        .room-dice { top: 45%; right: 5%; }
-        .room-blackjack { top: 45%; left: 5%; }
-        .room-cashier { top: 65%; right: 2%; }
-        .room-phone { bottom: 20%; left: 40%; }
-        
-        .room-slots:hover, .room-dice:hover, .room-blackjack:hover, .room-cashier:hover, .room-phone:hover {
-            transform: scale(1.02);
-            filter: brightness(1.1);
-        }
-        
-        .room-slots img { height: 35vh; min-height: 200px; max-height: 280px; width: auto; object-fit: contain; }
-        .room-dice img, .room-blackjack img { height: 25vh; min-height: 150px; max-height: 200px; width: auto; object-fit: contain; }
-        .room-cashier img { height: 30vh; min-height: 180px; max-height: 240px; width: auto; object-fit: contain; }
-        .room-phone img { height: 8vh; min-height: 60px; max-height: 80px; width: auto; object-fit: contain; }
-        
-        .table-items-container {
-            position: absolute;
-            bottom: 10%;
-            left: 60%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-        
-        .champagne-glass {
-            width: auto;
-            height: 12vh;
-            min-height: 80px;
-            max-height: 120px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
-        }
-        
-        .champagne-fallback {
-            width: 80px;
-            height: 80px;
-            font-size: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .champagne-glass:hover, .champagne-fallback:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0 8px 16px var(--keith-gold));
-        }
-        
-        /* Drunk items */
-        .drunk-item {
-            position: absolute;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            font-size: 1.5rem;
-            z-index: 15;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8));
-        }
-        
-        .drunk-item.visible {
-            opacity: 1;
-        }
-        
-        .earring-item { bottom: 35%; left: 40%; font-size: 1rem; }
-        .bra-item { bottom: 40%; right: 15%; font-size: 2rem; }
-        .panties-item { bottom: 25%; left: 25%; font-size: 1.5rem; }
-        .heels-item { bottom: 32%; left: 50%; font-size: 2rem; }
-        
-        /* Drunk effects */
-        .drunk-1, .drunk-2 { filter: blur(0.5px); }
-        .drunk-3, .drunk-4 { filter: blur(1px); animation: subtleSway 4s ease-in-out infinite; }
-        .drunk-5, .drunk-6 { filter: blur(2px); animation: moderateSway 3s ease-in-out infinite; }
-        .drunk-7, .drunk-8 { filter: blur(3px); animation: heavySway 2s ease-in-out infinite; }
-        .drunk-9 { filter: blur(4px); animation: extremeSway 1.5s ease-in-out infinite; }
-        .drunk-10 { filter: blur(5px) saturate(1.3); animation: maxSway 1s ease-in-out infinite; }
-        
-        @keyframes subtleSway {
-            0%, 100% { transform: translateX(0px) translateY(0px); }
-            50% { transform: translateX(1px) translateY(0.5px); }
-        }
-        
-        @keyframes moderateSway {
-            0%, 100% { transform: translateX(0px); }
-            25% { transform: translateX(2px); }
-            75% { transform: translateX(-1px); }
-        }
-        
-        @keyframes heavySway {
-            0%, 100% { transform: translateX(0px) translateY(0px); }
-            25% { transform: translateX(3px) translateY(2px); }
-            75% { transform: translateX(-2px) translateY(-1px); }
-        }
-        
-        @keyframes extremeSway {
-            0%, 100% { transform: translateX(0px) translateY(0px); }
-            33% { transform: translateX(4px) translateY(3px); }
-            66% { transform: translateX(-3px) translateY(2px); }
-        }
-        
-        @keyframes maxSway {
-            0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-            25% { transform: translateX(5px) translateY(3px) rotate(0.5deg); }
-            75% { transform: translateX(-4px) translateY(-2px) rotate(-0.3deg); }
-        }
-        
-        /* Button System */
         .btn {
+            background: linear-gradient(135deg, #DAB547, #E8C547);
+            color: #000000;
             border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             font-family: 'Orbitron', monospace;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--keith-gold), var(--keith-gold-light));
-            color: var(--keith-black);
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
         
-        .btn:hover:not(:disabled) {
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 25px rgba(218, 181, 71, 0.4);
         }
         
-        .btn-secondary {
-            background: rgba(212, 175, 55, 0.12);
-            color: var(--keith-gold);
-            border: 1px solid var(--keith-gold-light);
-        }
-        
-        .btn-secondary:hover:not(:disabled) {
-            border-color: var(--keith-gold);
-            transform: translateY(-1px);
-            color: var(--keith-gold-light);
-        }
-        
-        /* UI Panel */
-        .ui-panel {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: var(--card-bg);
-            border: 2px solid var(--keith-gold);
-            border-radius: 15px;
-            padding: 20px;
-            font-family: 'Orbitron', monospace;
-            display: none;
-            min-width: 200px;
-            backdrop-filter: blur(10px);
-            z-index: 50;
-        }
-        
-        .ui-panel.show { display: block; }
-        
-        .chip-display {
-            color: var(--keith-gold);
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .drink-counter {
-            color: var(--keith-white);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .player-info {
-            color: var(--keith-white);
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-        
-        /* PIN overlay system */
+        /* PIN overlay */
         .pin-overlay {
             position: fixed;
             top: 0;
@@ -550,39 +244,22 @@
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 10000;
         }
         
         .pin-pad {
-            background: var(--card-bg);
-            border: 3px solid var(--keith-gold);
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid #DAB547;
             border-radius: 20px;
             padding: 30px;
-            width: 320px;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-        }
-        
-        .pin-close {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 30px;
-            height: 30px;
-            background: var(--keith-gold);
-            color: var(--keith-black);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
+            width: 300px;
         }
         
         .pin-display {
             width: 100%;
             height: 60px;
             background: #000;
-            border: 2px solid var(--keith-gold);
+            border: 2px solid #DAB547;
             border-radius: 10px;
             margin-bottom: 20px;
             display: flex;
@@ -590,7 +267,7 @@
             justify-content: center;
             font-family: 'Orbitron', monospace;
             font-size: 1.8rem;
-            color: var(--keith-gold);
+            color: #DAB547;
         }
         
         .pin-buttons {
@@ -601,9 +278,9 @@
         
         .pin-btn {
             background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: 2px solid var(--keith-gold);
+            border: 2px solid #DAB547;
             border-radius: 10px;
-            color: var(--keith-gold);
+            color: #DAB547;
             font-family: 'Orbitron', monospace;
             font-size: 1.2rem;
             font-weight: bold;
@@ -613,295 +290,115 @@
         }
         
         .pin-btn:hover {
-            background: var(--keith-gold);
-            color: var(--keith-black);
-            transform: scale(1.05);
+            background: #DAB547;
+            color: #000;
         }
         
-        /* Message display system */
+        .pin-close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: #DAB547;
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
         .message-display {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--card-bg);
-            border: 3px solid var(--keith-gold);
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid #DAB547;
             border-radius: 15px;
-            padding: 30px 40px;
+            padding: 30px;
             font-family: 'Orbitron', monospace;
             font-size: 1.2rem;
             text-align: center;
             max-width: 500px;
-            z-index: 2000;
+            z-index: 15000;
             display: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            color: #DAB547;
         }
         
         .message-display.show { display: block; }
-        .message-display.warning1 { border-color: #00ff41; color: #00ff41; }
         .message-display.warning2 { border-color: #ffa500; color: #ffa500; }
-        .message-display.warning3 { border-color: #ff073a; color: #ff073a; }
-        .message-display.hint {
-            border-color: var(--keith-gold-light);
-            color: var(--keith-gold-light);
+        .message-display.success { 
+            border-color: #DAB547; 
+            color: #DAB547; 
             background: rgba(218, 181, 71, 0.15);
-            font-weight: bold;
-            text-shadow: 0 0 10px var(--keith-gold-light);
-        }
-        .message-display.success {
-            border-color: var(--keith-gold);
-            color: var(--keith-gold);
-            background: rgba(218, 181, 71, 0.15);
-            text-shadow: 0 0 10px var(--keith-gold);
-            font-weight: bold;
-        }
-        
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            .entrance-container {
-                gap: 2rem;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .club-door {
-                height: 50vh;
-                max-height: 350px;
-                min-height: 280px;
-            }
-            
-            .door-fallback {
-                width: 200px;
-                height: 50vh;
-                max-height: 350px;
-                min-height: 280px;
-            }
-            
-            .security-keypad {
-                width: 80px;
-                height: 110px;
-                font-size: 0.8rem;
-            }
-            
-            .keypad-icon {
-                font-size: 2rem;
-            }
-            
-            .bouncer-container, .cashier-window {
-                padding: 20px;
-                margin: 0 1rem;
-            }
-            
-            .bouncer-avatar, .cashier-avatar {
-                width: 80px;
-                height: 80px;
-                font-size: 2.5rem;
-            }
-            
-            .bouncer-title, .cashier-title {
-                font-size: 1.3rem;
-            }
-            
-            .gift-items {
-                gap: 20px;
-                flex-direction: column;
-            }
-            
-            .casino-room {
-                position: relative;
-                height: auto;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                padding: 20px;
-                margin-top: 60px;
-            }
-
-            .room-blackjack, .room-dice, .room-slots, .room-cashier, .room-phone {
-                position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                transform: none;
-                margin: 0 auto;
-            }
-
-            .room-blackjack img, .room-dice img {
-                height: 18vh;
-                min-height: 100px;
-                max-height: 140px;
-            }
-
-            .room-slots img {
-                height: 25vh;
-                min-height: 140px;
-                max-height: 180px;
-            }
-
-            .room-cashier img {
-                height: 20vh;
-                min-height: 120px;
-                max-height: 160px;
-            }
-
-            .room-phone img {
-                height: 6vh;
-                min-height: 40px;
-                max-height: 60px;
-            }
-
-            .table-items-container {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                transform: none;
-                margin-top: 20px;
-            }
-            
-            .ui-panel {
-                top: 80px;
-                right: 10px;
-                padding: 15px;
-                min-width: 160px;
-            }
-            
-            .pin-pad {
-                width: 280px;
-                padding: 20px;
-            }
-            
-            .pin-btn {
-                padding: 15px;
-                font-size: 1rem;
-            }
-            
-            .message-display {
-                max-width: 90vw;
-                padding: 20px;
-                font-size: 1rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
+    <!-- Navigation inserted automatically by shared/navigation.js -->
 
     <!-- Main Content -->
     <main class="main">
-        <!-- ENTRANCE SCENE -->
-        <div class="scene entrance-scene active" id="entranceScene">
-            <div class="club-sign">the players club</div>
-            
-            <!-- CLUB DOOR - positioned absolutely based on background photo -->
-            <img src="photos/club-door.jpg" alt="Club Door" class="club-door" id="clubDoor"
-                 onerror="this.style.display='none'; document.getElementById('doorFallback').style.display='block';">
-            
-            <!-- Fallback Door Design -->
-            <div class="door-fallback" id="doorFallback">
-                <div class="door-window"></div>
-                <div class="door-handle"></div>
-            </div>
-            
-            <!-- SECURITY KEYPAD - positioned to right of door -->
-            <div class="security-keypad" onclick="showPinPad()">
-                <div class="keypad-icon">🔢</div>
-                <div>PIN</div>
+        <!-- ENTRANCE SCENE - COMPLETELY ISOLATED -->
+        <div class="scene active" id="entranceScene">
+            <div class="players-entrance-override">
+                <!-- Club Sign -->
+                <div class="fresh-club-sign">the players club</div>
+                
+                <!-- Door -->
+                <div class="fresh-door" id="clubDoor">
+                    <div class="door-details"></div>
+                    <div class="door-handle"></div>
+                </div>
+                
+                <!-- PIN BOX - FIXED POSITION RIGHT SIDE -->
+                <div class="fresh-pinbox" onclick="showPinPad()">
+                    <span class="pinbox-icon">🔢</span>
+                    <span class="pinbox-text">PIN</span>
+                </div>
             </div>
         </div>
         
         <!-- BOUNCER SCENE -->
-        <div class="scene bouncer-scene" id="bouncerScene">
-            <div class="bouncer-container">
-                <img src="photos/bouncer.jpg" alt="Bouncer" class="bouncer-avatar"
-                     onerror="this.style.display='none'; document.getElementById('bouncerFallback').style.display='flex';">
-                <div class="bouncer-avatar" id="bouncerFallback" style="display:none;">👨‍💼</div>
-                <h2 class="bouncer-title">Welcome!</h2>
+        <div class="scene other-scene" id="bouncerScene">
+            <div class="scene-container">
+                <h2 class="scene-title">Welcome!</h2>
                 <p style="margin-bottom: 20px;">What's your name?</p>
                 <input type="text" class="name-input" id="bouncerNameInput" placeholder="Enter your name" maxlength="20">
                 <button class="btn" onclick="submitBouncerName()">Continue →</button>
             </div>
         </div>
-
+        
         <!-- CASHIER SCENE -->
-        <div class="scene cashier-scene" id="cashierScene">
-            <div class="cashier-window">
-                <img src="cashier.png" alt="Cashier" class="cashier-avatar"
-                     onerror="this.style.display='none'; document.getElementById('cashierFallback').style.display='flex';">
-                <div class="cashier-avatar" id="cashierFallback" style="display:none;">👩‍💼</div>
-                <h2 class="cashier-title" id="cashierGreeting">Hey there</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 25px;">Keith was expecting you.</p>
-                <p style="margin-bottom: 25px; opacity: 0.8;">Head over to the cashier to get your setup.</p>
-                <div class="gift-items">
-                    <div class="gift-item">
-                        <div class="gift-icon">💰</div>
-                        <div class="gift-label">500 Chips</div>
+        <div class="scene other-scene" id="cashierScene">
+            <div class="scene-container">
+                <h2 class="scene-title" id="cashierGreeting">Hey there</h2>
+                <p style="margin-bottom: 25px;">Keith was expecting you. Head to the cashier for your setup.</p>
+                <div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #DAB547; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 10px;">💰</div>
+                        <div style="font-size: 0.9rem;">500 Chips</div>
                     </div>
-                    <div class="gift-item">
-                        <img src="phone.png" alt="Phone" class="gift-icon"
-                             onerror="this.style.display='none'; document.getElementById('phoneFallback').style.display='flex';">
-                        <div class="gift-icon" id="phoneFallback" style="display:none;">📱</div>
-                        <div class="gift-label">Keith's Phone<br>(AI Chat)</div>
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #DAB547; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 10px;">📱</div>
+                        <div style="font-size: 0.9rem;">Keith's Phone</div>
                     </div>
                 </div>
-                <p style="margin: 25px 0; font-size: 0.9rem; opacity: 0.8;" id="cashierMessage">Keith left these for you. Enjoy your VIP experience!</p>
+                <p style="margin: 25px 0; font-size: 0.9rem;" id="cashierMessage">Keith left these for you. Enjoy your VIP experience!</p>
                 <button class="btn" onclick="enterVIPBooth()">Enter VIP Booth</button>
             </div>
         </div>
         
         <!-- VIP BOOTH SCENE -->
-        <div class="scene booth-scene" id="boothScene">
-            <div class="booth-header">
-                <div class="club-sign">the players club</div>
+        <div class="scene other-scene" id="boothScene">
+            <div class="scene-container">
+                <h2 class="scene-title">VIP Booth</h2>
+                <p>Welcome to Keith's exclusive Players Club! You're now in the VIP area.</p>
+                <p style="margin-top: 20px;">Games and features coming soon...</p>
             </div>
-            <div class="casino-room">
-                <div class="room-slots" onclick="showMessage('Professional RTP 92% Slots coming soon!', 'hint')" title="Professional RTP 92% Slots">
-                    <img src="slots.png" alt="Slot Machines"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'Professional RTP 92% Slots coming soon!\', \'hint\')&quot; title=&quot;Professional RTP 92% Slots&quot;>🎰</div>';">
-                </div>
-                <div class="room-dice" onclick="showMessage('Real Cee-Lo Dice Game coming soon!', 'hint')" title="Real Cee-Lo Dice Game">
-                    <img src="456.png" alt="Dice Table"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'Real Cee-Lo Dice Game coming soon!\', \'hint\')&quot; title=&quot;Real Cee-Lo Dice Game&quot;>🎲</div>';">
-                </div>
-                <div class="room-blackjack" onclick="showMessage('Casino-Grade Blackjack coming soon!', 'hint')" title="Casino-Grade Blackjack">
-                    <img src="bj.png" alt="Blackjack Table"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'Casino-Grade Blackjack coming soon!\', \'hint\')&quot; title=&quot;Casino-Grade Blackjack&quot;>🃏</div>';">
-                </div>
-                <div class="room-cashier" onclick="showMessage('You already got your chips from the cashier!', 'hint')" title="Cashier Booth">
-                    <img src="cashier.png" alt="Cashier Booth"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:4rem; cursor:pointer;&quot; onclick=&quot;showMessage(\'You already got your chips from the cashier!\', \'hint\')&quot; title=&quot;Cashier Booth&quot;>👩‍💼</div>';">
-                </div>
-                <div class="room-phone" onclick="openPhone()" title="Keith's Phone">
-                    <img src="phone.png" alt="Keith's Phone"
-                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=&quot;font-size:2rem; cursor:pointer;&quot; onclick=&quot;openPhone()&quot; title=&quot;Keith\'s Phone&quot;>📱</div>';">
-                </div>
-            </div>
-            <div class="table-items-container">
-                <img src="glassfull.png" alt="Champagne" class="champagne-glass" id="champagneGlass" onclick="drinkChampagne()" title="Champagne"
-                     onerror="this.style.display='none'; document.getElementById('champagneFallback').style.display='flex';">
-                <div class="champagne-fallback" id="champagneFallback" style="display:none;" onclick="drinkChampagne()" title="Champagne">🥂</div>
-            </div>
-            
-            <!-- DRINKING ANIMATION AT MIDDLE-BOTTOM FULL SIZE -->
-            <div class="drinking-overlay" id="drinkingOverlay" style="display: none; position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 2000; width: 100%; max-width: 600px; height: auto;">
-                <img src="drinking.png" alt="Drinking Animation" class="drinking-animation" style="width: 100%; height: auto; object-fit: contain;">
-            </div>
-            
-            <div class="drunk-item earring-item">💎</div>
-            <div class="drunk-item bra-item">👙</div>
-            <div class="drunk-item panties-item">🩲</div>
-            <div class="drunk-item heels-item">👠</div>
         </div>
     </main>
-    
-    <!-- UI PANEL -->
-    <div class="ui-panel" id="uiPanel">
-        <div class="chip-display">💰 Chips: <span id="chipCount">500</span></div>
-        <div class="drink-counter">🍷 Drinks: <span id="drinkCount">0</span>/10</div>
-        <div class="player-info">Player: <span id="playerDisplay">Guest</span></div>
-    </div>
     
     <!-- PIN PAD OVERLAY -->
     <div class="pin-overlay" id="pinOverlay">
@@ -928,7 +425,7 @@
     <!-- MESSAGE DISPLAY -->
     <div class="message-display" id="messageDisplay"></div>
 
-    <!-- HIDDEN AUDIO ELEMENT -->
+    <!-- HIDDEN AUDIO -->
     <audio id="apartment223Audio" preload="none">
         <source src="photos/apartment223.mp3" type="audio/mpeg">
     </audio>
@@ -938,30 +435,22 @@
     <!-- Shared Navigation System -->
     <script src="../shared/navigation.js"></script>
     
-    <!-- Players Club JavaScript -->
+    <!-- JavaScript -->
     <script>
-        // GLOBAL GAME STATE
         let currentPin = '';
         let pinAttempts = 0;
         let playerName = '';
-        let chipCount = 500;
-        let drinkCount = 0;
-        let currentScene = 'entrance';
 
-        // PIN ENTRY SYSTEM
         function showPinPad() {
-            console.log('showPinPad called');
             document.getElementById('pinOverlay').style.display = 'flex';
             updatePinDisplay();
         }
 
         function hidePinPad() {
-            console.log('hidePinPad called');
             document.getElementById('pinOverlay').style.display = 'none';
         }
 
         function enterPin(digit) {
-            console.log('enterPin called with:', digit);
             if (currentPin.length < 3) {
                 currentPin += digit;
                 updatePinDisplay();
@@ -969,7 +458,6 @@
         }
 
         function clearPin() {
-            console.log('clearPin called');
             currentPin = '';
             updatePinDisplay();
         }
@@ -986,7 +474,6 @@
         }
 
         function submitPin() {
-            console.log('submitPin called with pin:', currentPin);
             if (currentPin.length !== 3) {
                 showMessage('Enter 3 digits!', 'warning2');
                 return;
@@ -998,20 +485,17 @@
                 hidePinPad();
                 showMessage('Welcome to The Players Club!', 'success');
                 
-                // Play Apartment 223 audio
+                // Play audio
                 const audio = document.getElementById('apartment223Audio');
                 if (audio) {
-                    audio.play().catch(e => console.log('Audio autoplay blocked'));
+                    audio.play().catch(e => console.log('Audio blocked'));
                 }
                 
+                // Door animation
                 setTimeout(() => {
-                    const clubDoor = document.getElementById('clubDoor');
-                    const doorFallback = document.getElementById('doorFallback');
-                    if (clubDoor) {
-                        clubDoor.classList.add('sliding');
-                    }
-                    if (doorFallback && doorFallback.style.display !== 'none') {
-                        doorFallback.classList.add('sliding');
+                    const door = document.getElementById('clubDoor');
+                    if (door) {
+                        door.classList.add('sliding');
                     }
                     setTimeout(() => {
                         showScene('bouncer');
@@ -1034,22 +518,17 @@
             clearPin();
         }
 
-        // SCENE MANAGEMENT
         function showScene(sceneName) {
-            console.log('showScene called:', sceneName);
             document.querySelectorAll('.scene').forEach(scene => {
                 scene.classList.remove('active');
             });
             const targetScene = document.getElementById(sceneName + 'Scene');
             if (targetScene) {
                 targetScene.classList.add('active');
-                currentScene = sceneName;
             }
         }
 
-        // NAVIGATION FUNCTIONS
         function submitBouncerName() {
-            console.log('submitBouncerName called');
             const nameInput = document.getElementById('bouncerNameInput');
             if (!nameInput || !nameInput.value.trim()) {
                 showMessage('Please enter your name first!', 'warning2');
@@ -1058,7 +537,7 @@
             
             playerName = nameInput.value.trim();
             
-            // Update cashier greeting and message with player name
+            // Update cashier greeting
             const cashierGreeting = document.getElementById('cashierGreeting');
             const cashierMessage = document.getElementById('cashierMessage');
             
@@ -1069,167 +548,32 @@
                 cashierMessage.textContent = `${playerName}, Keith left these for you. Enjoy your VIP experience!`;
             }
             
-            goToCashier();
-        }
-
-        function goToCashier() {
-            console.log('goToCashier called');
             showScene('cashier');
         }
 
         function enterVIPBooth() {
-            console.log('enterVIPBooth called');
             if (!playerName) {
                 showMessage('Something went wrong - please start over!', 'warning2');
                 return;
-            }
-            
-            const playerDisplay = document.getElementById('playerDisplay');
-            if (playerDisplay) {
-                playerDisplay.textContent = playerName;
-            }
-            
-            const uiPanel = document.getElementById('uiPanel');
-            if (uiPanel) {
-                uiPanel.classList.add('show');
             }
             
             showScene('booth');
             showMessage(`Welcome to your VIP booth, ${playerName}!`, 'success');
         }
 
-        // KEITH'S AI PHONE SYSTEM
-        function openPhone() {
-            console.log('openPhone called');
-            if (!playerName) {
-                showMessage('Get setup at the cashier first!', 'warning2');
-                return;
-            }
-            
-            const responses = [
-                `Yo ${playerName}, you reached Keith directly. What's good?`,
-                `${playerName}! Hope you're enjoying the VIP treatment.`,
-                `What's up ${playerName}? This is the exclusive line.`,
-                `Keith here. You feeling that VIP status yet, ${playerName}?`,
-                `${playerName}, remember - this phone is connected to my brain. Wild, right?`,
-                `Ultra Keith speaking. ${playerName}, you're in the real Players Club now.`
-            ];
-            
-            const message = responses[Math.floor(Math.random() * responses.length)];
-            showMessage(message, 'success');
-        }
-
-        // CHAMPAGNE DRINKING SYSTEM WITH 3-STAGE ANIMATION
-        function drinkChampagne() {
-            console.log('drinkChampagne called');
-            if (drinkCount >= 10) {
-                showMessage('You\'ve had enough!', 'warning3');
-                return;
-            }
-            
-            drinkCount++;
-            const drinkCountEl = document.getElementById('drinkCount');
-            if (drinkCountEl) {
-                drinkCountEl.textContent = drinkCount;
-            }
-            
-            // 3-STAGE DRINKING ANIMATION
-            const champagneGlass = document.getElementById('champagneGlass');
-            const drinkingOverlay = document.getElementById('drinkingOverlay');
-            const champagneFallback = document.getElementById('champagneFallback');
-            
-            if (champagneGlass && champagneGlass.style.display !== 'none') {
-                // STAGE 1: Show drinking.png at bottom of screen
-                if (drinkingOverlay) {
-                    drinkingOverlay.style.display = 'block';
-                }
-                
-                // STAGE 2: After drinking animation, show empty glass on table
-                setTimeout(() => {
-                    if (drinkingOverlay) {
-                        drinkingOverlay.style.display = 'none';
-                    }
-                    
-                    // Check if we're drinking from full or empty glass
-                    if (champagneGlass.src.includes('glassfull.png')) {
-                        // Full → Empty
-                        champagneGlass.src = 'glassfempty.png';
-                        champagneGlass.alt = 'Empty Glass';
-                        champagneGlass.title = 'Empty Glass - Click to finish';
-                    } else {
-                        // Empty → Full (STAGE 3: Refill)
-                        champagneGlass.src = 'glassfull.png';
-                        champagneGlass.alt = 'Champagne';
-                        champagneGlass.title = 'Champagne';
-                    }
-                }, 2000); // Show drinking.png for 2 seconds
-                
-            } else if (champagneFallback && champagneFallback.style.display !== 'none') {
-                // Fallback emoji animation
-                if (champagneFallback.textContent === '🥂') {
-                    champagneFallback.textContent = '🥃'; // Empty glass emoji
-                    champagneFallback.title = 'Empty Glass - Click to finish';
-                } else {
-                    champagneFallback.textContent = '🥂'; // Full glass emoji
-                    champagneFallback.title = 'Champagne';
-                }
-            }
-            
-            updateDrunkEffects();
-            
-            if (drinkCount >= 3) showDrunkItem('earring-item');
-            if (drinkCount >= 5) showDrunkItem('bra-item');
-            if (drinkCount >= 7) showDrunkItem('panties-item');
-            if (drinkCount >= 9) showDrunkItem('heels-item');
-            
-            if (drinkCount === 1) {
-                showMessage('Nice champagne...', 'success');
-            } else if (drinkCount === 3) {
-                showMessage('Nice champagne... wait, what\'s that?', 'warning1');
-            } else if (drinkCount === 5) {
-                showMessage('Things are getting interesting...', 'warning2');
-            } else if (drinkCount === 7) {
-                showMessage('This is getting out of hand...', 'warning3');
-            } else if (drinkCount === 9) {
-                showMessage('Seriously? Heels on the table?!', 'warning3');
-            } else if (drinkCount === 10) {
-                showMessage('SECURITY! You\'re outta here!', 'warning3');
-                setTimeout(() => {
-                    showMessage('You\'ve been ejected from the club!', 'warning3');
-                }, 2000);
-            }
-        }
-
-        function updateDrunkEffects() {
-            document.body.className = document.body.className.replace(/drunk-\d+/g, '');
-            if (drinkCount > 0) {
-                document.body.classList.add(`drunk-${drinkCount}`);
-            }
-        }
-
-        function showDrunkItem(className) {
-            const item = document.querySelector('.' + className);
-            if (item) {
-                item.classList.add('visible');
-            }
-        }
-
-        // MESSAGE SYSTEM
         function showMessage(text, type) {
-            console.log('showMessage called:', text, type);
             const messageEl = document.getElementById('messageDisplay');
             if (messageEl) {
                 messageEl.textContent = text;
                 messageEl.className = `message-display show ${type || 'success'}`;
                 
-                const duration = type === 'hint' ? 4000 : 3000;
                 setTimeout(() => {
                     messageEl.classList.remove('show');
-                }, duration);
+                }, 3000);
             }
         }
 
-        // KEYBOARD SUPPORT
+        // Keyboard support
         document.addEventListener('keydown', function(e) {
             const pinOverlay = document.getElementById('pinOverlay');
             if (pinOverlay && pinOverlay.style.display === 'flex') {
@@ -1237,7 +581,7 @@
                     enterPin(e.key);
                 } else if (e.key === 'Enter') {
                     submitPin();
-                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                } else if (e.key === 'Backspace') {
                     clearPin();
                 } else if (e.key === 'Escape') {
                     hidePinPad();
@@ -1245,11 +589,8 @@
             }
         });
 
-        // INITIALIZE SYSTEM
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Ultra Keith Players Club - Core System Loaded');
-            updatePinDisplay();
-        });
+        // Initialize
+        updatePinDisplay();
     </script>
 </body>
 </html>
