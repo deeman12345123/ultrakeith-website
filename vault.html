@@ -102,7 +102,7 @@
         }
         
         /* Two Column Layout */
-        .three-columns {
+        .two-columns {
             display: flex;
             justify-content: center;
             gap: 60px;
@@ -260,7 +260,7 @@
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .three-columns {
+            .two-columns {
                 flex-direction: column;
                 gap: 20px;
             }
@@ -298,9 +298,9 @@
             </div>
         </section>
 
-        <!-- Media Collection - 3 Columns -->
+        <!-- Media Collection - 2 Columns -->
         <section class="media-collection">
-            <div class="three-columns">
+            <div class="two-columns">
                 
                 <!-- Left Column: Music Tapes -->
                 <div class="media-column">
@@ -330,7 +330,7 @@
                     </div>
                 </div>
 
-                <!-- Middle Column: VHS Videos -->
+                <!-- Right Column: VHS Videos -->
                 <div class="media-column">
                     <div class="column-header">
                         <div class="column-icon">📼</div>
@@ -358,34 +358,6 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Polaroid Pics -->
-                <div class="media-column">
-                    <div class="column-header">
-                        <div class="column-icon">📸</div>
-                        <div class="column-title">Pics</div>
-                        <div class="column-count">3 Polaroids</div>
-                    </div>
-                    <div class="column-items">
-                        <div class="polaroid" data-pic="backstage-1988">
-                            <img src="vault/backstage-1988.png" alt="Backstage 1988" 
-                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Backstage<br>1988</div>';">
-                            <div class="polaroid-caption">Backstage 1988</div>
-                        </div>
-                        
-                        <div class="polaroid" data-pic="studio-1996">
-                            <img src="vault/studio-1996.png" alt="Studio 1996" 
-                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Studio<br>1996</div>';">
-                            <div class="polaroid-caption">Studio 1996</div>
-                        </div>
-                        
-                        <div class="polaroid" data-pic="tour-2000">
-                            <img src="vault/tour-2000.png" alt="Tour 2000" 
-                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Tour<br>2000</div>';">
-                            <div class="polaroid-caption">Tour 2000</div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
     </main>
@@ -396,7 +368,7 @@
     <script src="shared/navigation.js"></script>
     
     <script>
-        console.log('Vault page loaded with Music and Videos columns');
+        console.log('Vault page loaded with Music and Videos columns only');
         
         // Click handlers for different media types
         document.addEventListener('click', function(e) {
