@@ -247,6 +247,17 @@
             text-align: center;
         }
         
+        /* Placeholder styling */
+        .placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--keith-white-50);
+            font-size: 0.9rem;
+            text-align: center;
+            font-style: italic;
+        }
+        
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .three-columns {
@@ -385,7 +396,7 @@
     <script src="shared/navigation.js"></script>
     
     <script>
-        console.log('Vault page loaded with Music, Videos, and Pics rows');
+        console.log('Vault page loaded with Music and Videos columns');
         
         // Click handlers for different media types
         document.addEventListener('click', function(e) {
@@ -401,13 +412,6 @@
                 const vhs = e.target.closest('.vhs-tape');
                 const video = vhs.dataset.video;
                 alert('Playing video: ' + video);
-            }
-            
-            // Polaroids
-            if (e.target.closest('.polaroid')) {
-                const pic = e.target.closest('.polaroid');
-                const photo = pic.dataset.pic;
-                alert('Viewing photo: ' + photo);
             }
         });
         
