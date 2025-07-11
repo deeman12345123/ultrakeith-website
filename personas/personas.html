@@ -354,7 +354,7 @@
         
         .front-container {
             position: absolute;
-            top: 15px; left: 15px; right: 15px; bottom: 70px;
+            top: 12px; left: 12px; right: 12px; bottom: 60px;
             display: flex;
             flex-direction: column;
         }
@@ -363,13 +363,13 @@
             background: linear-gradient(145deg, #0F0505 0%, #1a1a1a 100%);
             border: 1px solid var(--keith-gold);
             border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 8px;
+            margin-bottom: 12px;
         }
         
         .persona-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 900;
             color: var(--keith-gold);
             text-transform: uppercase;
@@ -378,15 +378,15 @@
         }
         
         .persona-title.long-title {
-            font-size: 0.75rem;
-            letter-spacing: 0.4px;
+            font-size: 0.7rem;
+            letter-spacing: 0.3px;
             line-height: 1.0;
         }
         
         .image-container {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 10px auto;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 8px auto;
             border: 1px solid var(--keith-white-75);
             border-radius: 8px;
             background: #0F0505;
@@ -396,6 +396,32 @@
             color: var(--keith-white-75);
             font-size: 0.8rem;
             overflow: hidden;
+        }
+        
+        @media (min-width: 769px) {
+            .front-container {
+                top: 15px; left: 15px; right: 15px; bottom: 70px;
+            }
+            
+            .card-header {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .persona-title {
+                font-size: 1rem;
+            }
+            
+            .persona-title.long-title {
+                font-size: 0.75rem;
+                letter-spacing: 0.4px;
+            }
+            
+            .image-container {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto 10px auto;
+            }
         }
         
         .image-container img {
