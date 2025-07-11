@@ -278,8 +278,7 @@ function setupSortControls() {
                 addClassSafely(oldestBtn, 'active');
                 
                 if (deckOpened) {
-                    generateCards();
-                    animateCardsFromDeck();
+                    generateCards(); // NO animation for sorting - just instant swap
                 }
             }
         });
@@ -524,7 +523,7 @@ function setupDeck() {
                 
                 setTimeout(function() {
                     generateCards();
-                    animateCardsFromDeck();
+                    animateCardsFromDeck(); // ONLY on deck opening
                 }, 200);
                 
                 logSafely('🎮 Card interaction system activated!');
