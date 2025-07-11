@@ -459,10 +459,11 @@ function createCardBurst(container, count) {
     }
 }
 
-// Card flight animation - ONLY CALLED ON DECK OPENING
+// Card flight animation - DESKTOP gets spin, MOBILE gets scale only
 function animateCardsFromDeck() {
     console.log('🎆 Animating cards flying from deck...');
     var cards = document.querySelectorAll('.trading-card');
+    var isMobile = window.innerWidth <= 768;
     
     for (var i = 0; i < cards.length; i++) {
         var card = cards[i];
@@ -471,15 +472,26 @@ function animateCardsFromDeck() {
             return function() {
                 var personaName = cardElement.querySelector('.persona-title').textContent;
                 console.log('🃏 Launching card ' + (index + 1) + ': ' + personaName);
-                addClassSafely(cardElement, 'card-flying');
+                
+                if (isMobile) {
+                    // MOBILE: Only scale, no rotation, shorter duration
+                    addClassSafely(cardElement, 'card-flying-mobile');
+                } else {
+                    // DESKTOP: Full spin animation
+                    addClassSafely(cardElement, 'card-flying');
+                }
                 
                 setTimeout(function() {
-                    removeClassSafely(cardElement, 'card-flying');
+                    if (isMobile) {
+                        removeClassSafely(cardElement, 'card-flying-mobile');
+                    } else {
+                        removeClassSafely(cardElement, 'card-flying');
+                    }
                     addClassSafely(cardElement, 'card-landed');
                     console.log('✅ Card ' + (index + 1) + ' landed!');
-                }, CONFIG.ANIMATION_SPEEDS.CARD_FLIGHT);
+                }, isMobile ? 600 : CONFIG.ANIMATION_SPEEDS.CARD_FLIGHT);
             };
-        }(i, card), i * CONFIG.ANIMATION_SPEEDS.CARD_LAUNCH_INTERVAL);
+        }(i, card), i * (isMobile ? 50 : CONFIG.ANIMATION_SPEEDS.CARD_LAUNCH_INTERVAL));
     }
 }
 
