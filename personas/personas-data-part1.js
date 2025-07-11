@@ -1,5 +1,5 @@
-// ULTRA KEITH PERSONAS DATABASE - PART 1
-// 1984-1995 (Personas 1-25)
+// ULTRA KEITH PERSONAS DATABASE - PART 1 (CORRECTED)
+// 1984-1996 (Personas 1-21)
 
 var PERSONAS_DATABASE = [
     // 1984
@@ -101,9 +101,42 @@ var PERSONAS_DATABASE = [
         image: "exotron-gamma.jpg"
     },
     
-    // 1992
+    // 1995 (Early 1990s section)
     {
         number: "007", 
+        name: "Big Willie Smith", 
+        year: "1995", 
+        era: "old", 
+        age: "22", 
+        origin: "Uptown",
+        likes: "Blondes, Cold Duck, big status, Beat Terrorists", 
+        dislikes: "Landlords, Antennas",
+        quote: "Keep it real, represent what? My nuts!...",
+        biography: "Keith's street credibility persona from his Beat Terrorists EP era, representing raw uptown attitude and early independent releases before major label success.",
+        debut: "Big Willie Smith EP (1995) with Beat Terrorists", 
+        themes: "Street credibility, representing, early EP work, independent releases",
+        image: "bigwilliesmith.jpg"
+    },
+    
+    {
+        number: "008", 
+        name: "X-74", 
+        year: "1995", 
+        era: "old", 
+        age: "74 (the number in his name)", 
+        origin: "Cenobite dimension",
+        likes: "Dope verses, mathematical equations, X-variables", 
+        dislikes: "Wack rhymes, solved equations",
+        quote: "X marks the spot where the dope verse drops...",
+        biography: "Keith's Cenobites collaboration persona, exploring abstract rhyming and philosophical concepts within the underground collective's experimental approach.",
+        debut: "Cenobites EP - Kick a Dope Verse (1995)", 
+        themes: "Abstract rhyming, cenobite philosophy, underground collaboration",
+        image: "x74.jpg"
+    },
+    
+    // 1992
+    {
+        number: "009", 
         name: "Poppa Large", 
         year: "1992", 
         era: "old", 
@@ -119,7 +152,7 @@ var PERSONAS_DATABASE = [
     },
     
     {
-        number: "008", 
+        number: "010", 
         name: "Rhythm X", 
         year: "1992", 
         era: "old", 
@@ -135,7 +168,7 @@ var PERSONAS_DATABASE = [
     },
     
     {
-        number: "009", 
+        number: "011", 
         name: "The X", 
         year: "1992", 
         era: "mid", 
@@ -151,7 +184,7 @@ var PERSONAS_DATABASE = [
     },
     
     {
-        number: "010", 
+        number: "012", 
         name: "X-Caliber", 
         year: "1992", 
         era: "mid", 
@@ -167,7 +200,7 @@ var PERSONAS_DATABASE = [
     },
     
     {
-        number: "011", 
+        number: "013", 
         name: "The Fourth Horseman", 
         year: "1992", 
         era: "mid",
@@ -183,7 +216,7 @@ var PERSONAS_DATABASE = [
     },
     
     {
-        number: "012", 
+        number: "014", 
         name: "Funk Igniter Plus", 
         year: "1992", 
         era: "mid",
@@ -200,7 +233,7 @@ var PERSONAS_DATABASE = [
     
     // 1993
     {
-        number: "013", 
+        number: "015", 
         name: "Dr. Octagon", 
         year: "1993", 
         era: "classic",
@@ -217,7 +250,7 @@ var PERSONAS_DATABASE = [
     
     // 1995
     {
-        number: "014", 
+        number: "016", 
         name: "Professor Planetory", 
         year: "1995", 
         era: "mid",
@@ -232,37 +265,86 @@ var PERSONAS_DATABASE = [
         image: "professorplanetory.jpg"
     },
     
+    // 1996
     {
-        number: "015", 
-        name: "Big Willie Smith", 
-        year: "1995", 
-        era: "old", 
-        age: "22", 
-        origin: "Uptown",
-        likes: "Blondes, Cold Duck, big status, Beat Terrorists", 
-        dislikes: "Landlords, Antennas",
-        quote: "Keep it real, represent what? My nuts!...",
-        biography: "Keith's street credibility persona from his Beat Terrorists EP era, representing raw uptown attitude and early independent releases before major label success.",
-        debut: "Big Willie Smith EP (1995) with Beat Terrorists", 
-        themes: "Street credibility, representing, early EP work, independent releases",
-        image: "bigwilliesmith.jpg"
+        number: "017", 
+        name: "Mr. Gerbik", 
+        year: "1996", 
+        era: "classic",
+        age: "208", 
+        origin: "Jupiter",
+        likes: "Fishing, Swimming", 
+        dislikes: "Wolfmen, Flossing",
+        quote: "Skin like alligator, carrying a dead walrus.",
+        biography: "Keith's half-shark/half-man hybrid persona from the Dr. Octagon universe. A 208-year-old genetic mutation that became a fan favorite and is featured in the 2025 CZARFACE graphic novel.",
+        debut: "Dr. Octagonecologyst (1996) - Halfsharkalligatorhalfman", 
+        themes: "Half-shark/half-man hybrid, genetic mutation, oceanic predator, Dr. Octagon universe",
+        image: "mrgerbik.jpg"
     },
     
     {
-        number: "016", 
-        name: "X-74", 
-        year: "1995", 
-        era: "old", 
-        age: "74 (the number in his name)", 
-        origin: "Cenobite dimension",
-        likes: "Dope verses, mathematical equations, X-variables", 
-        dislikes: "Wack rhymes, solved equations",
-        quote: "X marks the spot where the dope verse drops...",
-        biography: "Keith's Cenobites collaboration persona, exploring abstract rhyming and philosophical concepts within the underground collective's experimental approach.",
-        debut: "Cenobites EP - Kick a Dope Verse (1995)", 
-        themes: "Abstract rhyming, cenobite philosophy, underground collaboration",
-        image: "x74.jpg"
+        number: "018", 
+        name: "Shark Man", 
+        year: "1996", 
+        era: "classic",
+        age: "208", 
+        origin: "Jupiter",
+        likes: "Shark behavior, oceanic hunting, blood in water", 
+        dislikes: "Land creatures, swimming pools",
+        quote: "Half shark, half man, all predator...",
+        biography: "Alternate identity for Mr. Gerbik emphasizing pure shark characteristics and oceanic predator instincts within the Dr. Octagon multiverse.",
+        debut: "Dr. Octagonecologyst (1996) - alternate name for Mr. Gerbik", 
+        themes: "Pure shark identity, oceanic predator, Dr. Octagon universe",
+        image: "sharkman.jpg"
+    },
+    
+    {
+        number: "019", 
+        name: "Mr. Green", 
+        year: "1996", 
+        era: "classic",
+        age: "259", 
+        origin: "Zzyzx",
+        likes: "Big money strip clubs, Wells Fargo, Bank Of America", 
+        dislikes: "Purple",
+        quote: "Being green is easy for me.",
+        biography: "Keith's money-focused persona with banking themes and green aesthetic, representing financial success and monetary obsessions.",
+        debut: "Ultra - Big Time album back cover (1996)", 
+        themes: "Money, banking, green aesthetic, financial success",
+        image: "mrgreen.jpg"
+    },
+    
+    {
+        number: "020", 
+        name: "Reverend Tom", 
+        year: "1996", 
+        era: "classic",
+        age: "67", 
+        origin: "L.A.",
+        likes: "Lingerie, Politics", 
+        dislikes: "People who don't put money in church baskets",
+        quote: "You best to kneel and let the Reverend heal you.",
+        biography: "Keith's corrupt preacher persona combining religious themes with horror elements, later featured prominently in Thee Undatakerz project.",
+        debut: "Ultra - Big Time Fat Lady track (1996), Thee Undatakerz (2004)", 
+        themes: "Horror sermons, death, morgues, corrupt religion",
+        image: "reverendtom.jpg"
+    },
+    
+    {
+        number: "021", 
+        name: "Elephant Man", 
+        year: "1996", 
+        era: "classic",
+        age: "27 (Joseph Merrick's age when he died)", 
+        origin: "Victorian London (freak show circuit)",
+        likes: "Planned album releases, David Lynch films", 
+        dislikes: "Delays, unreleased projects",
+        quote: "slash fan, half of y'all think I'm the Elephant Man",
+        biography: "Keith's unreleased project persona with David Lynch film reference, representing planned but never realized album concepts from the late 1990s.",
+        debut: "Planned project (1996-1998) never released", 
+        themes: "Elephant imagery, David Lynch reference, unreleased projects, planned concepts",
+        image: "elephantman.jpg"
     }
 ];
 
-console.log('📋 Part 1 loaded: ' + PERSONAS_DATABASE.length + ' personas (1984-1995)');
+console.log('📋 Part 1 loaded: ' + PERSONAS_DATABASE.length + ' personas (1984-1996)');
