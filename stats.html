@@ -444,8 +444,53 @@
             }
             
             .stats-table td, .stats-table th {
-                padding: 8px 10px;
-                font-size: 0.8rem;
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+            
+            .stats-table th {
+                font-size: 0.6rem;
+            }
+            
+            .table-header .table-title {
+                font-size: 0.75rem;
+                line-height: 1.1;
+            }
+            
+            .table-subtitle {
+                font-size: 0.55rem;
+            }
+            
+            /* Make tables scroll horizontally on mobile */
+            .table-section {
+                overflow-x: auto;
+            }
+            
+            .stats-table {
+                min-width: 100%;
+                font-size: 0.7rem;
+            }
+            
+            .stats-table td:first-child,
+            .stats-table th:first-child {
+                min-width: 30px;
+            }
+            
+            .stats-table td:nth-child(2),
+            .stats-table th:nth-child(2) {
+                min-width: 100px;
+            }
+            
+            .stats-table td:nth-child(3),
+            .stats-table th:nth-child(3) {
+                min-width: 60px;
+                text-align: center;
+            }
+            
+            .stats-table td:nth-child(4),
+            .stats-table th:nth-child(4) {
+                min-width: 50px;
+                text-align: center;
             }
             
             .category-item {
