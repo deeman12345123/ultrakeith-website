@@ -513,6 +513,13 @@ function setupDeck() {
                 logSafely('✨ Phase 6: Portal opened - cards flying out!');
                 addClassSafely(deckContainer, 'hidden');
                 addClassSafely(cardsContainer, 'show');
+                
+                // Show controls after deck opens
+                var controlsSection = document.getElementById('controlsSection');
+                if (controlsSection) {
+                    addClassSafely(controlsSection, 'show');
+                }
+                
                 addClassSafely(paginationContainer, 'show');
                 
                 setTimeout(function() {
