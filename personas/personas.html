@@ -668,8 +668,8 @@
             <p class="personas-subtitle">Official Collection</p>
         </div>
 
-        <!-- Controls Section -->
-        <div class="controls-section">
+        <!-- Controls Section - HIDDEN INITIALLY -->
+        <div class="controls-section" id="controlsSection">
             <div class="sort-controls">
                 <button class="sort-btn active" id="oldestFirstBtn">Oldest First</button>
                 <button class="sort-btn" id="newestFirstBtn">Newest First</button>
@@ -705,13 +705,13 @@
 
     <!-- Footer inserted automatically by shared/navigation.js -->
 
+    <!-- Load personas data FIRST -->
+    <script src="personas-data.js"></script>
+    
     <!-- Shared Navigation System -->
     <script src="../shared/navigation.js"></script>
     
-    <!-- Load personas data -->
-    <script src="personas-data.js"></script>
-    
-    <!-- Load personas system -->
+    <!-- Load personas system LAST -->
     <script src="personas-system.js"></script>
 </body>
 </html>
