@@ -1,88 +1,8 @@
-// ULTRA KEITH PERSONAS DATABASE - PART 2
-// 1996-1999 (Personas 17-42)
+// ULTRA KEITH PERSONAS DATABASE - PART 2 (CORRECTED)
+// 1996-1999 (Personas 22-42)
 
 PERSONAS_DATABASE = PERSONAS_DATABASE.concat([
-    // 1996
-    {
-        number: "017", 
-        name: "Mr. Gerbik", 
-        year: "1996", 
-        era: "classic",
-        age: "208", 
-        origin: "Jupiter",
-        likes: "Fishing, Swimming", 
-        dislikes: "Wolfmen, Flossing",
-        quote: "Skin like alligator, carrying a dead walrus.",
-        biography: "Keith's half-shark/half-man hybrid persona from the Dr. Octagon universe. A 208-year-old genetic mutation that became a fan favorite and is featured in the 2025 CZARFACE graphic novel.",
-        debut: "Dr. Octagonecologyst (1996) - Halfsharkalligatorhalfman", 
-        themes: "Half-shark/half-man hybrid, genetic mutation, oceanic predator, Dr. Octagon universe",
-        image: "mrgerbik.jpg"
-    },
-    
-    {
-        number: "018", 
-        name: "Shark Man", 
-        year: "1996", 
-        era: "classic",
-        age: "208", 
-        origin: "Jupiter",
-        likes: "Shark behavior, oceanic hunting, blood in water", 
-        dislikes: "Land creatures, swimming pools",
-        quote: "Half shark, half man, all predator...",
-        biography: "Alternate identity for Mr. Gerbik emphasizing pure shark characteristics and oceanic predator instincts within the Dr. Octagon multiverse.",
-        debut: "Dr. Octagonecologyst (1996) - alternate name for Mr. Gerbik", 
-        themes: "Pure shark identity, oceanic predator, Dr. Octagon universe",
-        image: "sharkman.jpg"
-    },
-    
-    {
-        number: "019", 
-        name: "Mr. Green", 
-        year: "1996", 
-        era: "classic",
-        age: "259", 
-        origin: "Zzyzx",
-        likes: "Big money strip clubs, Wells Fargo, Bank Of America", 
-        dislikes: "Purple",
-        quote: "Being green is easy for me.",
-        biography: "Keith's money-focused persona with banking themes and green aesthetic, representing financial success and monetary obsessions.",
-        debut: "Ultra - Big Time album back cover (1996)", 
-        themes: "Money, banking, green aesthetic, financial success",
-        image: "mrgreen.jpg"
-    },
-    
-    {
-        number: "020", 
-        name: "Reverend Tom", 
-        year: "1996", 
-        era: "classic",
-        age: "67", 
-        origin: "L.A.",
-        likes: "Lingerie, Politics", 
-        dislikes: "People who don't put money in church baskets",
-        quote: "You best to kneel and let the Reverend heal you.",
-        biography: "Keith's corrupt preacher persona combining religious themes with horror elements, later featured prominently in Thee Undatakerz project.",
-        debut: "Ultra - Big Time Fat Lady track (1996), Thee Undatakerz (2004)", 
-        themes: "Horror sermons, death, morgues, corrupt religion",
-        image: "reverendtom.jpg"
-    },
-    
-    {
-        number: "021", 
-        name: "Elephant Man", 
-        year: "1996", 
-        era: "classic",
-        age: "27 (Joseph Merrick's age when he died)", 
-        origin: "Victorian London (freak show circuit)",
-        likes: "Planned album releases, David Lynch films", 
-        dislikes: "Delays, unreleased projects",
-        quote: "slash fan, half of y'all think I'm the Elephant Man",
-        biography: "Keith's unreleased project persona with David Lynch film reference, representing planned but never realized album concepts from the late 1990s.",
-        debut: "Planned project (1996-1998) never released", 
-        themes: "Elephant imagery, David Lynch reference, unreleased projects, planned concepts",
-        image: "elephantman.jpg"
-    },
-    
+    // 1996 continued
     {
         number: "022", 
         name: "MC Baldylocks", 
@@ -293,7 +213,7 @@ PERSONAS_DATABASE = PERSONAS_DATABASE.concat([
         image: "bestmcintheworld.jpg"
     },
     
-    // 1999 - MASSIVE YEAR FOR PERSONAS!
+    // 1999
     {
         number: "035", 
         name: "Dr. Dooom", 
@@ -423,4 +343,4 @@ PERSONAS_DATABASE = PERSONAS_DATABASE.concat([
     }
 ]);
 
-console.log('📋 Part 2 loaded: ' + (PERSONAS_DATABASE.length - 16) + ' more personas (1996-1999)');
+console.log('📋 Part 2 loaded: ' + (PERSONAS_DATABASE.length - 21) + ' more personas (1996-1999)');
