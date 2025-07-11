@@ -37,8 +37,8 @@
             z-index: -1;
         }
         
-        /* Stacked Media Collection */
-        .stacked-collection {
+        /* Media Collection */
+        .media-collection {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
@@ -101,18 +101,24 @@
             transform: translateY(-1px);
         }
         
-        .stack-section {
+        /* Media Row Sections */
+        .media-row {
             margin-bottom: 80px;
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.9) 0%, rgba(16, 16, 16, 0.9) 100%);
+            border: 1px solid rgba(218, 181, 71, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
         }
         
-        .section-header {
+        .row-header {
             display: flex;
             align-items: center;
             margin-bottom: 30px;
-            padding-left: 20px;
+            padding-left: 10px;
         }
         
-        .section-icon {
+        .row-icon {
             width: 40px;
             height: 40px;
             background: linear-gradient(45deg, var(--keith-gold), var(--keith-gold-light));
@@ -125,7 +131,7 @@
             margin-right: 15px;
         }
         
-        .section-title {
+        .row-title {
             font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
             color: var(--keith-gold);
@@ -134,7 +140,7 @@
             margin-right: 20px;
         }
         
-        .section-count {
+        .row-count {
             font-size: 0.9rem;
             color: var(--keith-white-75);
             background: rgba(218, 181, 71, 0.1);
@@ -143,104 +149,168 @@
             border: 1px solid rgba(218, 181, 71, 0.3);
         }
         
-        /* Media Stack Container */
-        .media-stack {
-            background: linear-gradient(180deg, rgba(26, 26, 26, 0.9) 0%, rgba(16, 16, 16, 0.9) 100%);
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            position: relative;
-            perspective: 1000px;
+        /* Media Items Container */
+        .media-items {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 500px;
-            margin: 0 auto;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
-        /* Individual Spine Image */
-        .spine-image {
-            max-width: 400px;
-            max-height: 80px;
-            width: auto;
-            height: auto;
-            margin-bottom: 2px;
+        /* Music Tapes */
+        .music-tape {
+            width: 200px;
+            height: 120px;
+            background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 2px;
-            box-shadow: 
-                0 2px 4px rgba(0,0,0,0.3),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-            transform-style: preserve-3d;
-            display: block;
-            object-fit: contain;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .spine-image:hover {
-            transform: translateX(20px) scale(1.02);
-            z-index: 10;
-            box-shadow: 
-                0 8px 16px rgba(0,0,0,0.4),
-                0 0 20px rgba(218, 181, 71, 0.3);
+        .music-tape:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(218, 181, 71, 0.4);
+            border-color: var(--keith-gold);
         }
         
-        /* Upload Instructions */
-        .upload-instructions {
-            background: rgba(218, 181, 71, 0.1);
-            border: 1px solid rgba(218, 181, 71, 0.3);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 60px auto 40px;
-            max-width: 800px;
+        .music-tape img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
+        .music-tape-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: var(--keith-gold);
+            padding: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-align: center;
         }
         
-        .upload-instructions h3 {
-            color: var(--keith-gold);
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
+        /* VHS Tapes */
+        .vhs-tape {
+            width: 150px;
+            height: 200px;
+            background: linear-gradient(45deg, #1a1a1a, #0a0a0a);
+            border: 2px solid rgba(218, 181, 71, 0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .upload-instructions p {
-            color: var(--keith-white-75);
-            line-height: 1.6;
-            margin-bottom: 10px;
+        .vhs-tape:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(218, 181, 71, 0.4);
+            border-color: var(--keith-gold);
         }
         
-        .upload-instructions code {
-            background: rgba(0,0,0,0.5);
-            padding: 2px 6px;
-            border-radius: 3px;
+        .vhs-tape img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+        
+        .vhs-tape-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
             color: var(--keith-gold);
-            font-family: monospace;
+            padding: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        /* Polaroid Pictures */
+        .polaroid {
+            width: 160px;
+            height: 200px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            padding: 10px 10px 40px 10px;
+        }
+        
+        .polaroid:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(218, 181, 71, 0.3);
+        }
+        
+        .polaroid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+        
+        .polaroid-caption {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Placeholder styling */
+        .placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--keith-white-50);
+            font-size: 0.9rem;
+            text-align: center;
+            font-style: italic;
         }
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .media-stack {
-                padding: 20px;
-            }
-            
-            .upload-instructions {
-                margin: 20px;
-                padding: 15px;
-            }
-            
-            .sort-controls {
-                gap: 10px;
-                margin-bottom: 40px;
-            }
-            
-            .sort-buttons {
+            .media-items {
                 flex-direction: column;
-                width: 100%;
-                gap: 8px;
+                align-items: center;
+                gap: 20px;
             }
             
-            .sort-btn {
-                width: 100%;
-                text-align: center;
+            .music-tape,
+            .vhs-tape,
+            .polaroid {
+                width: 200px;
+            }
+            
+            .vhs-tape {
+                height: 150px;
+            }
+            
+            .polaroid {
+                height: 180px;
+                padding: 10px 10px 30px 10px;
+            }
+            
+            .polaroid img {
+                height: 130px;
             }
         }
     </style>
@@ -259,29 +329,93 @@
             </div>
         </section>
 
-        <!-- Stacked Media Collection -->
-        <section class="stacked-collection">
-            <div class="stack-section">
-                <div class="media-stack">
-                    <img src="vault/blackelvisoutakes.png" 
-                         alt="Black Elvis - Outtakes" 
-                         class="spine-image" 
-                         data-track="blackelvisoutakes"
-                         onerror="console.log('Failed to load:', this.src); this.style.display='none';">
+        <!-- Media Collection -->
+        <section class="media-collection">
+            
+            <!-- Music Row -->
+            <div class="media-row">
+                <div class="row-header">
+                    <div class="row-icon">🎵</div>
+                    <div class="row-title">Music</div>
+                    <div class="row-count">3 Tapes</div>
+                </div>
+                <div class="media-items">
+                    <div class="music-tape" data-track="blackelvis-outtakes">
+                        <img src="vault/blackelvis-tape.png" alt="Black Elvis Outtakes" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Black Elvis<br>Outtakes 1998</div>';">
+                        <div class="music-tape-label">Black Elvis Outtakes</div>
+                    </div>
                     
-                    <img src="vault/blackelvisoutakes.png" 
-                         alt="Black Elvis - Outtakes" 
-                         class="spine-image" 
-                         data-track="blackelvisoutakes"
-                         onerror="console.log('Failed to load:', this.src); this.style.display='none';">
+                    <div class="music-tape" data-track="ultramagnetic-demos">
+                        <img src="vault/ultramagnetic-tape.png" alt="Ultramagnetic Demos" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Ultramagnetic<br>Demos 1986</div>';">
+                        <div class="music-tape-label">Ultramagnetic Demos</div>
+                    </div>
                     
-                    <img src="vault/blackelvisoutakes.png" 
-                         alt="Black Elvis - Outtakes" 
-                         class="spine-image" 
-                         data-track="blackelvisoutakes"
-                         onerror="console.log('Failed to load:', this.src); this.style.display='none';">
+                    <div class="music-tape" data-track="doctagon-sessions">
+                        <img src="vault/doctagon-tape.png" alt="Dr. Octagon Sessions" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Dr. Octagon<br>Sessions 1996</div>';">
+                        <div class="music-tape-label">Dr. Octagon Sessions</div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Videos Row -->
+            <div class="media-row">
+                <div class="row-header">
+                    <div class="row-icon">📼</div>
+                    <div class="row-title">Videos</div>
+                    <div class="row-count">3 VHS</div>
+                </div>
+                <div class="media-items">
+                    <div class="vhs-tape" data-video="live-cbgb">
+                        <img src="vault/cbgb-vhs.png" alt="Live at CBGB" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Live at CBGB<br>1987</div>';">
+                        <div class="vhs-tape-label">Live at CBGB 1987</div>
+                    </div>
+                    
+                    <div class="vhs-tape" data-video="studio-sessions">
+                        <img src="vault/studio-vhs.png" alt="Studio Sessions" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Studio Sessions<br>1995</div>';">
+                        <div class="vhs-tape-label">Studio Sessions 1995</div>
+                    </div>
+                    
+                    <div class="vhs-tape" data-video="tour-footage">
+                        <img src="vault/tour-vhs.png" alt="Tour Footage" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Tour Footage<br>1999</div>';">
+                        <div class="vhs-tape-label">Tour Footage 1999</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pics Row -->
+            <div class="media-row">
+                <div class="row-header">
+                    <div class="row-icon">📸</div>
+                    <div class="row-title">Pics</div>
+                    <div class="row-count">3 Polaroids</div>
+                </div>
+                <div class="media-items">
+                    <div class="polaroid" data-pic="backstage-1988">
+                        <img src="vault/backstage-1988.png" alt="Backstage 1988" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Backstage<br>1988</div>';">
+                        <div class="polaroid-caption">Backstage 1988</div>
+                    </div>
+                    
+                    <div class="polaroid" data-pic="studio-1996">
+                        <img src="vault/studio-1996.png" alt="Studio 1996" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Studio<br>1996</div>';">
+                        <div class="polaroid-caption">Studio 1996</div>
+                    </div>
+                    
+                    <div class="polaroid" data-pic="tour-2000">
+                        <img src="vault/tour-2000.png" alt="Tour 2000" 
+                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Tour<br>2000</div>';">
+                        <div class="polaroid-caption">Tour 2000</div>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -291,16 +425,33 @@
     <script src="shared/navigation.js"></script>
     
     <script>
-        console.log('Page loaded, looking for spine image at: vault/blackelvisoutakes.png');
+        console.log('Vault page loaded with Music, Videos, and Pics rows');
         
-        // Simple click handler for the spine
+        // Click handlers for different media types
         document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('spine-image')) {
-                alert('Clicked: Black Elvis Outtakes 1998');
+            // Music tapes
+            if (e.target.closest('.music-tape')) {
+                const tape = e.target.closest('.music-tape');
+                const track = tape.dataset.track;
+                alert('Playing: ' + track);
+            }
+            
+            // VHS tapes
+            if (e.target.closest('.vhs-tape')) {
+                const vhs = e.target.closest('.vhs-tape');
+                const video = vhs.dataset.video;
+                alert('Playing video: ' + video);
+            }
+            
+            // Polaroids
+            if (e.target.closest('.polaroid')) {
+                const pic = e.target.closest('.polaroid');
+                const photo = pic.dataset.pic;
+                alert('Viewing photo: ' + photo);
             }
         });
         
-        // Sort functionality (placeholder for now)
+        // Sort functionality
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('sort-btn')) {
                 document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
