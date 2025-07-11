@@ -352,24 +352,33 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
                 padding: 15px;
+                gap: 15px;
+            }
+            
+            .stats-grid::before {
+                width: 40px;
+                height: 40px;
             }
 
             .categories {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
 
             .stats-bg-mc {
-                width: 150px;
-                height: 150px;
+                width: 120px;
+                height: 120px;
                 left: 4%;
-                top: 70%;
+                top: 75%;
+                opacity: 0.06;
             }
 
             .stats-bg-basketball {
-                width: 200px;
-                height: 200px;
-                right: 2%;
-                top: 10%;
+                width: 150px;
+                height: 150px;
+                right: 4%;
+                top: 8%;
+                opacity: 0.05;
             }
 
             .category-header {
@@ -380,27 +389,85 @@
             }
 
             .basketball-icon {
-                width: 24px;
-                height: 24px;
+                width: 22px;
+                height: 22px;
             }
 
             .category-info {
                 flex: 1;
-                margin: 0 10px;
+                margin: 0 8px;
             }
 
             .category-title {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 margin-bottom: 2px;
             }
 
             .category-subtitle {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
             }
 
             .mc-logo-small {
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
+            }
+            
+            .table-header {
+                padding: 10px 12px;
+            }
+            
+            .table-header .basketball-icon {
+                width: 22px;
+                height: 22px;
+                margin-right: 10px;
+            }
+            
+            .table-header .mc-logo-small {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .table-header .table-title {
+                font-size: 0.85rem;
+            }
+            
+            .table-subtitle {
+                font-size: 0.6rem;
+            }
+            
+            .stats-stat-number {
+                font-size: 1.6rem;
+            }
+            
+            .stats-stat-label {
+                font-size: 0.7rem;
+            }
+            
+            .stats-table td, .stats-table th {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .category-item {
+                padding: 10px 15px;
+            }
+            
+            .category-item.keith {
+                margin: 0 8px;
+            }
+            
+            .rank {
+                min-width: 20px;
+                font-size: 0.8rem;
+            }
+            
+            .artist {
+                margin: 0 10px;
+                font-size: 0.8rem;
+            }
+            
+            .value {
+                font-size: 0.75rem;
             }
         }
     </style>
