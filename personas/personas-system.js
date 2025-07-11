@@ -225,7 +225,7 @@ function buildCardHTML(persona, isLongTitle) {
     '</div>';
 }
 
-// Generate cards for current page
+// Generate cards - NO ANIMATION (instant swap)
 function generateCards() {
     logSafely('📋 Generating cards for page ' + currentPage + '...');
     var container = document.getElementById('cardsGrid');
@@ -240,7 +240,7 @@ function generateCards() {
         var isLongTitle = persona.name.length > CONFIG.CARD_LIMITS.LONG_TITLE_THRESHOLD;
         var card = document.createElement('div');
         
-        card.className = 'trading-card';
+        card.className = 'trading-card card-landed'; // Start in landed state (no animation)
         card.innerHTML = buildCardHTML(persona, isLongTitle);
         
         // Add flip functionality
@@ -257,6 +257,45 @@ function generateCards() {
     updatePaginationControls();
     
     logSafely('✅ Generated ' + currentPersonas.length + ' cards for page ' + currentPage);
+}
+
+// Generate cards with animation - ONLY FOR DECK OPENING
+function generateCardsWithAnimation() {
+    logSafely('📋 Generating cards WITH ANIMATION for page ' + currentPage + '...');
+    var container = document.getElementById('cardsGrid');
+    
+    // Clear existing cards
+    container.innerHTML = '';
+    
+    currentPersonas = getCurrentPagePersonas();
+    
+    for (var i = 0; i < currentPersonas.length; i++) {
+        var persona = currentPersonas[i];
+        var isLongTitle = persona.name.length > CONFIG.CARD_LIMITS.LONG_TITLE_THRESHOLD;
+        var card = document.createElement('div');
+        
+        card.className = 'trading-card'; // Start hidden for animation
+        card.innerHTML = buildCardHTML(persona, isLongTitle);
+        
+        // Add flip functionality
+        card.addEventListener('click', function() {
+            var personaName = this.querySelector('.persona-title').textContent;
+            logSafely('🃏 Flipping card: ' + personaName);
+            this.classList.toggle('flipped');
+        });
+        
+        container.appendChild(card);
+    }
+    
+    updatePersonaCounter();
+    updatePaginationControls();
+    
+    // Trigger animation
+    setTimeout(function() {
+        animateCardsFromDeck();
+    }, 100);
+    
+    logSafely('✅ Generated ' + currentPersonas.length + ' cards WITH ANIMATION for page ' + currentPage);
 }
 
 // ============================================================================
@@ -278,7 +317,7 @@ function setupSortControls() {
                 addClassSafely(oldestBtn, 'active');
                 
                 if (deckOpened) {
-                    generateCards(); // NO animation for sorting - just instant swap
+                    generateCards(); // NO ANIMATION - instant swap
                 }
             }
         });
@@ -294,8 +333,7 @@ function setupSortControls() {
                 addClassSafely(newestBtn, 'active');
                 
                 if (deckOpened) {
-                    generateCards();
-                    animateCardsFromDeck();
+                    generateCards(); // NO ANIMATION - instant swap
                 }
             }
         });
@@ -311,8 +349,7 @@ function setupPaginationControls() {
         prevBtn.addEventListener('click', function() {
             if (currentPage > 1) {
                 currentPage--;
-                generateCards();
-                animateCardsFromDeck();
+                generateCards(); // NO ANIMATION - instant swap
             }
         });
     }
@@ -321,15 +358,14 @@ function setupPaginationControls() {
         nextBtn.addEventListener('click', function() {
             if (currentPage < totalPages) {
                 currentPage++;
-                generateCards();
-                animateCardsFromDeck();
+                generateCards(); // NO ANIMATION - instant swap
             }
         });
     }
 }
 
 // ============================================================================
-// MYSTICAL ANIMATIONS (Preserved from original)
+// MYSTICAL ANIMATIONS (ONLY FOR DECK OPENING)
 // ============================================================================
 
 function createMysticalParticles(container, count) {
@@ -423,7 +459,7 @@ function createCardBurst(container, count) {
     }
 }
 
-// Card flight animation
+// Card flight animation - ONLY CALLED ON DECK OPENING
 function animateCardsFromDeck() {
     console.log('🎆 Animating cards flying from deck...');
     var cards = document.querySelectorAll('.trading-card');
@@ -522,8 +558,7 @@ function setupDeck() {
                 addClassSafely(paginationContainer, 'show');
                 
                 setTimeout(function() {
-                    generateCards();
-                    animateCardsFromDeck(); // ONLY on deck opening
+                    generateCardsWithAnimation(); // ONLY time we use animation
                 }, 200);
                 
                 logSafely('🎮 Card interaction system activated!');
