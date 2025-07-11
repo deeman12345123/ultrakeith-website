@@ -78,7 +78,7 @@ var PERSONAS_DATABASE = [
         debut: "Where they first appeared", 
         themes: "Main themes and concepts",
         image: "newpersonaname.jpg"
-    },
+    }
     */
 ];
 
