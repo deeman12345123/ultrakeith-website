@@ -101,24 +101,33 @@
             transform: translateY(-1px);
         }
         
-        /* Media Row Sections */
-        .media-row {
-            margin-bottom: 80px;
+        /* Three Column Layout */
+        .three-columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .media-column {
+            flex: 1;
             background: linear-gradient(180deg, rgba(26, 26, 26, 0.9) 0%, rgba(16, 16, 16, 0.9) 100%);
             border: 1px solid rgba(218, 181, 71, 0.2);
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             position: relative;
         }
         
-        .row-header {
+        .column-header {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 30px;
-            padding-left: 10px;
+            margin-bottom: 25px;
+            text-align: center;
         }
         
-        .row-icon {
+        .column-icon {
             width: 40px;
             height: 40px;
             background: linear-gradient(45deg, var(--keith-gold), var(--keith-gold-light));
@@ -128,34 +137,33 @@
             justify-content: center;
             font-size: 1.2rem;
             color: var(--keith-black);
-            margin-right: 15px;
+            margin-bottom: 10px;
         }
         
-        .row-title {
+        .column-title {
             font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--keith-gold);
             font-weight: 700;
             letter-spacing: 2px;
-            margin-right: 20px;
+            margin-bottom: 8px;
         }
         
-        .row-count {
-            font-size: 0.9rem;
+        .column-count {
+            font-size: 0.85rem;
             color: var(--keith-white-75);
             background: rgba(218, 181, 71, 0.1);
-            padding: 5px 12px;
+            padding: 4px 12px;
             border-radius: 15px;
             border: 1px solid rgba(218, 181, 71, 0.3);
         }
         
-        /* Media Items Container */
-        .media-items {
+        /* Column Items - Stacked Vertically */
+        .column-items {
             display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            gap: 30px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
         }
         
         /* Music Tapes */
@@ -288,29 +296,36 @@
         
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .media-items {
+            .three-columns {
                 flex-direction: column;
-                align-items: center;
                 gap: 20px;
+            }
+            
+            .media-column {
+                padding: 20px;
+            }
+            
+            .column-items {
+                gap: 15px;
             }
             
             .music-tape,
             .vhs-tape,
             .polaroid {
-                width: 200px;
+                width: 180px;
             }
             
             .vhs-tape {
-                height: 150px;
+                height: 140px;
             }
             
             .polaroid {
-                height: 180px;
-                padding: 10px 10px 30px 10px;
+                height: 160px;
+                padding: 8px 8px 25px 8px;
             }
             
             .polaroid img {
-                height: 130px;
+                height: 110px;
             }
         }
     </style>
@@ -329,93 +344,95 @@
             </div>
         </section>
 
-        <!-- Media Collection -->
+        <!-- Media Collection - 3 Columns -->
         <section class="media-collection">
-            
-            <!-- Music Row -->
-            <div class="media-row">
-                <div class="row-header">
-                    <div class="row-icon">🎵</div>
-                    <div class="row-title">Music</div>
-                    <div class="row-count">3 Tapes</div>
+            <div class="three-columns">
+                
+                <!-- Left Column: Music Tapes -->
+                <div class="media-column">
+                    <div class="column-header">
+                        <div class="column-icon">🎵</div>
+                        <div class="column-title">Music</div>
+                        <div class="column-count">3 Tapes</div>
+                    </div>
+                    <div class="column-items">
+                        <div class="music-tape" data-track="blackelvis-outtakes">
+                            <img src="vault/blackelvisoutakes.png" alt="Black Elvis Outtakes" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Black Elvis<br>Outtakes</div>';">
+                            <div class="music-tape-label">Black Elvis Outtakes</div>
+                        </div>
+                        
+                        <div class="music-tape" data-track="ultramagnetic-demos">
+                            <img src="vault/ultramagnetic-tape.png" alt="Ultramagnetic Demos" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Ultramagnetic<br>Demos</div>';">
+                            <div class="music-tape-label">Ultramagnetic Demos</div>
+                        </div>
+                        
+                        <div class="music-tape" data-track="doctagon-sessions">
+                            <img src="vault/doctagon-tape.png" alt="Dr. Octagon Sessions" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Dr. Octagon<br>Sessions</div>';">
+                            <div class="music-tape-label">Dr. Octagon Sessions</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="media-items">
-                    <div class="music-tape" data-track="blackelvis-outtakes">
-                        <img src="vault/blackelvis-tape.png" alt="Black Elvis Outtakes" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Black Elvis<br>Outtakes 1998</div>';">
-                        <div class="music-tape-label">Black Elvis Outtakes</div>
-                    </div>
-                    
-                    <div class="music-tape" data-track="ultramagnetic-demos">
-                        <img src="vault/ultramagnetic-tape.png" alt="Ultramagnetic Demos" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Ultramagnetic<br>Demos 1986</div>';">
-                        <div class="music-tape-label">Ultramagnetic Demos</div>
-                    </div>
-                    
-                    <div class="music-tape" data-track="doctagon-sessions">
-                        <img src="vault/doctagon-tape.png" alt="Dr. Octagon Sessions" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Dr. Octagon<br>Sessions 1996</div>';">
-                        <div class="music-tape-label">Dr. Octagon Sessions</div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Videos Row -->
-            <div class="media-row">
-                <div class="row-header">
-                    <div class="row-icon">📼</div>
-                    <div class="row-title">Videos</div>
-                    <div class="row-count">3 VHS</div>
+                <!-- Middle Column: VHS Videos -->
+                <div class="media-column">
+                    <div class="column-header">
+                        <div class="column-icon">📼</div>
+                        <div class="column-title">Videos</div>
+                        <div class="column-count">3 VHS</div>
+                    </div>
+                    <div class="column-items">
+                        <div class="vhs-tape" data-video="live-cbgb">
+                            <img src="vault/cbgb-vhs.png" alt="Live at CBGB" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Live at<br>CBGB 1987</div>';">
+                            <div class="vhs-tape-label">Live at CBGB</div>
+                        </div>
+                        
+                        <div class="vhs-tape" data-video="studio-sessions">
+                            <img src="vault/studio-vhs.png" alt="Studio Sessions" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Studio<br>Sessions</div>';">
+                            <div class="vhs-tape-label">Studio Sessions</div>
+                        </div>
+                        
+                        <div class="vhs-tape" data-video="tour-footage">
+                            <img src="vault/tour-vhs.png" alt="Tour Footage" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Tour<br>Footage</div>';">
+                            <div class="vhs-tape-label">Tour Footage</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="media-items">
-                    <div class="vhs-tape" data-video="live-cbgb">
-                        <img src="vault/cbgb-vhs.png" alt="Live at CBGB" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Live at CBGB<br>1987</div>';">
-                        <div class="vhs-tape-label">Live at CBGB 1987</div>
-                    </div>
-                    
-                    <div class="vhs-tape" data-video="studio-sessions">
-                        <img src="vault/studio-vhs.png" alt="Studio Sessions" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Studio Sessions<br>1995</div>';">
-                        <div class="vhs-tape-label">Studio Sessions 1995</div>
-                    </div>
-                    
-                    <div class="vhs-tape" data-video="tour-footage">
-                        <img src="vault/tour-vhs.png" alt="Tour Footage" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Tour Footage<br>1999</div>';">
-                        <div class="vhs-tape-label">Tour Footage 1999</div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Pics Row -->
-            <div class="media-row">
-                <div class="row-header">
-                    <div class="row-icon">📸</div>
-                    <div class="row-title">Pics</div>
-                    <div class="row-count">3 Polaroids</div>
+                <!-- Right Column: Polaroid Pics -->
+                <div class="media-column">
+                    <div class="column-header">
+                        <div class="column-icon">📸</div>
+                        <div class="column-title">Pics</div>
+                        <div class="column-count">3 Polaroids</div>
+                    </div>
+                    <div class="column-items">
+                        <div class="polaroid" data-pic="backstage-1988">
+                            <img src="vault/backstage-1988.png" alt="Backstage 1988" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Backstage<br>1988</div>';">
+                            <div class="polaroid-caption">Backstage 1988</div>
+                        </div>
+                        
+                        <div class="polaroid" data-pic="studio-1996">
+                            <img src="vault/studio-1996.png" alt="Studio 1996" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Studio<br>1996</div>';">
+                            <div class="polaroid-caption">Studio 1996</div>
+                        </div>
+                        
+                        <div class="polaroid" data-pic="tour-2000">
+                            <img src="vault/tour-2000.png" alt="Tour 2000" 
+                                 onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Tour<br>2000</div>';">
+                            <div class="polaroid-caption">Tour 2000</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="media-items">
-                    <div class="polaroid" data-pic="backstage-1988">
-                        <img src="vault/backstage-1988.png" alt="Backstage 1988" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Backstage<br>1988</div>';">
-                        <div class="polaroid-caption">Backstage 1988</div>
-                    </div>
-                    
-                    <div class="polaroid" data-pic="studio-1996">
-                        <img src="vault/studio-1996.png" alt="Studio 1996" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Studio<br>1996</div>';">
-                        <div class="polaroid-caption">Studio 1996</div>
-                    </div>
-                    
-                    <div class="polaroid" data-pic="tour-2000">
-                        <img src="vault/tour-2000.png" alt="Tour 2000" 
-                             onerror="this.style.display='none'; this.parentElement.classList.add('placeholder'); this.parentElement.innerHTML='<div>Tour<br>2000</div>';">
-                        <div class="polaroid-caption">Tour 2000</div>
-                    </div>
-                </div>
-            </div>
 
+            </div>
         </section>
     </main>
 
