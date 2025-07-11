@@ -46,16 +46,20 @@
             margin-bottom: 20px;
         }
 
-        /* CONTROLS */
+        /* CONTROLS - HIDDEN INITIALLY */
         .controls-section {
             max-width: 1200px;
             margin: 0 auto 30px auto;
             padding: 0 20px;
-            display: flex;
+            display: none; /* HIDDEN until deck opens */
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
+        }
+
+        .controls-section.show {
+            display: flex;
         }
 
         .sort-controls {
