@@ -1,5 +1,5 @@
-// ULTRA KEITH PERSONAS DATABASE - PART 3
-// 1999-2009 (Personas 43-68)
+// ULTRA KEITH PERSONAS DATABASE - PART 3 (CORRECTED)
+// 1999-2007 (Personas 43-63)
 
 PERSONAS_DATABASE = PERSONAS_DATABASE.concat([
     // 1999 continued
@@ -341,89 +341,7 @@ PERSONAS_DATABASE = PERSONAS_DATABASE.concat([
         debut: "Promotional house track with Heather Hunter (2004)", 
         themes: "Lecherous character, house music, adult entertainment crossover",
         image: "larrylopez.jpg"
-    },
-    
-    {
-        number: "064", 
-        name: "Mike Stanley", 
-        year: "2004", 
-        era: "classic",
-        age: "31 (Caribbean music collaboration age)", 
-        origin: "Kingston (riddim capital)",
-        likes: "Riddim warfare, DJ collaborations, sound systems", 
-        dislikes: "Digital riddims, quiet systems",
-        quote: "Mike Stanley riddim commander, sound system expander...",
-        biography: "Keith's reggae/riddim collaboration persona working with DJ Sooky, representing his exploration of Caribbean music influences.",
-        debut: "DJ Sooky's Riddim Warfare LP (2004)", 
-        themes: "Riddim/reggae influences, DJ collaborations, Caribbean music",
-        image: "mikestanley.jpg"
-    },
-    
-    // 2006
-    {
-        number: "065", 
-        name: "Mr. Nogatco", 
-        year: "2006", 
-        era: "modern",
-        age: "51 (government retirement age)", 
-        origin: "Area 51 (Government facility)",
-        likes: "GPS technology, astrology, UFO research, classified files", 
-        dislikes: "Government oversight, mundane reality",
-        quote: "Im GPS automatic with astrology...",
-        biography: "Keith's UFO conspiracy persona representing government agent themes, alien autopsies, and conspiracy theories within hip-hop.",
-        debut: "Nogatco Rd. (2006)", 
-        themes: "UFO conspiracies, alien autopsies, government agent, GPS technology",
-        image: "mrnogatco.jpg"
-    },
-    
-    // 2007
-    {
-        number: "066", 
-        name: "Underwear Pissy", 
-        year: "2007", 
-        era: "modern",
-        age: "44 (mid-life crisis rapper)", 
-        origin: "His underwear drawer",
-        likes: "Criticizing rap, grandiose ego imagery, wiping ass with rap, golden showers", 
-        dislikes: "Current rap scene, crap rap",
-        quote: "I'm wipin my ass with rap right now, cause it's crap right now...",
-        biography: "Keith's ego-driven rap critic persona representing his frustration with contemporary rap and grandiose self-image.",
-        debut: "The Best Kept Secret (2007) - Ultramagnetic MCs", 
-        themes: "Ego trippin', rap criticism, underwear imagery, industry frustration",
-        image: "underwearpissy.jpg"
-    },
-    
-    {
-        number: "067", 
-        name: "Naquan", 
-        year: "2007", 
-        era: "modern",
-        age: "44 (producer maturity)", 
-        origin: "Behind the boards (studio birthplace)",
-        likes: "Producer credits, Ultramagnetic work, mixing boards", 
-        dislikes: "Ghost production, uncredited work",
-        quote: "Naquan on the track, bringing Ultra back...",
-        biography: "Keith's producer identity representing his behind-the-scenes work and alternative naming for production credits.",
-        debut: "The Best Kept Secret (2007) - Ultramagnetic MCs (producer credit)", 
-        themes: "Producer identity, alternative name, behind-the-scenes work",
-        image: "naquan.jpg"
-    },
-    
-    {
-        number: "068", 
-        name: "Bobby Grime", 
-        year: "2007", 
-        era: "modern",
-        age: "41 (cleaning veteran age)", 
-        origin: "The sewers (where grime lives)",
-        likes: "Cleaning up the game, industrial cleaners", 
-        dislikes: "Shit stains in rap, dirty MCs",
-        quote: "Im getting the shit stains out the game...",
-        biography: "Keith's game cleanup persona representing his mission to clean up rap music and remove inferior elements from hip-hop culture.",
-        debut: "Commissioner 2 - Cornfields (2007)", 
-        themes: "Game cleanup, grime removal, rap purification, industry cleaning",
-        image: "bobbygrime.jpg"
     }
 ]);
 
-console.log('📋 Part 3 loaded: ' + (PERSONAS_DATABASE.length - 42) + ' more personas (1999-2007)');
+console.log('📋 Part 3 loaded: ' + (PERSONAS_DATABASE.length - 42) + ' more personas (1999-2004)');
