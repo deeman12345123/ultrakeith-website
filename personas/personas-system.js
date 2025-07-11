@@ -544,25 +544,30 @@ function setupDeck() {
 function initializePersonasSystem() {
     console.log('🎬 Initializing Personas System...');
     
-    try {
-        // Check if data is loaded
-        if (typeof PERSONAS_DATABASE === 'undefined') {
-            console.error('❌ PERSONAS_DATABASE not found! Make sure personas-data.js is loaded.');
-            return;
+    // Wait a bit for data to load
+    setTimeout(function() {
+        try {
+            // Check if data is loaded
+            if (typeof PERSONAS_DATABASE === 'undefined') {
+                console.error('❌ PERSONAS_DATABASE not found! Make sure personas-data.js is loaded.');
+                console.log('🔄 Retrying in 1 second...');
+                setTimeout(initializePersonasSystem, 1000);
+                return;
+            }
+            
+            setupSortControls();
+            setupPaginationControls();
+            setupDeck();
+            updatePersonaCounter();
+            updatePaginationControls();
+            
+            console.log('🎉 System ready! Click the mystical deck to begin!');
+            console.log('📊 Loaded ' + PERSONAS_DATABASE.length + ' personas total');
+            
+        } catch (error) {
+            console.error('❌ Initialization failed:', error);
         }
-        
-        setupSortControls();
-        setupPaginationControls();
-        setupDeck();
-        updatePersonaCounter();
-        updatePaginationControls();
-        
-        console.log('🎉 System ready! Click the mystical deck to begin!');
-        console.log('📊 Loaded ' + PERSONAS_DATABASE.length + ' personas total');
-        
-    } catch (error) {
-        console.error('❌ Initialization failed:', error);
-    }
+    }, 100);
 }
 
 // Auto-initialize when DOM is ready
