@@ -170,7 +170,7 @@ function buildCardHTML(persona, isLongTitle) {
                     '<h1 class="persona-title ' + (isLongTitle ? 'long-title' : '') + '">' + persona.name + '</h1>' +
                 '</div>' +
                 '<div class="image-container">' +
-                    '<img src="images/' + persona.image + '" alt="' + persona.name + '" onerror="this.parentNode.innerHTML=\'IMG\'">' +
+                    '<img src="' + persona.image + '" alt="' + persona.name + '" onerror="this.parentNode.innerHTML=\'IMG\'">' +
                 '</div>' +
                 '<div class="stats-section">' +
                     '<div class="stat-item">' +
