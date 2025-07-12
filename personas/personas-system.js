@@ -263,6 +263,9 @@ class PersonasSystem {
                         <div class="quote-section">"${persona.quote}"</div>
                     </div>
                     <div class="card-number">#${persona.number}</div>
+                    <div class="mc-logo">
+                        <img src="mc-logo.png" alt="MC" class="mc-logo-img" onerror="this.style.display='none';">
+                    </div>
                     <div class="flip-hint">Click to flip</div>
                 </div>
                 <div class="card-back">
