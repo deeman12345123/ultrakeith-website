@@ -59,7 +59,7 @@ class PersonasSystem {
                 this.cardsPerPage = newCardsPerPage;
                 this.currentPage = 1;
                 this.updatePagination();
-                this.renderCurrentPage();
+                this.renderCurrentPage(); // No animation for resize
             }
         });
     }
@@ -89,7 +89,7 @@ class PersonasSystem {
         
         this.sortPersonas();
         this.updatePagination();
-        this.renderCurrentPage();
+        this.renderCurrentPage(); // No animation for sorting
         
         // Scroll to top after sorting
         this.scrollToTop();
@@ -104,7 +104,7 @@ class PersonasSystem {
         
         this.currentPage = newPage;
         this.updatePagination();
-        this.renderCurrentPage();
+        this.renderCurrentPage(); // No animation for pagination
         
         // Scroll to top after changing page
         this.scrollToTop();
@@ -181,14 +181,14 @@ class PersonasSystem {
         if (controlsSection) controlsSection.classList.add('show');
         if (paginationContainer) paginationContainer.classList.add('show');
         
-        // Render current page
-        await this.renderCurrentPage();
+        // Render current page WITH animation for deck opening
+        await this.renderCurrentPage(true);
         
         this.isAnimating = false;
         console.log('✨ Deck opened successfully!');
     }
     
-    async renderCurrentPage() {
+    async renderCurrentPage(withAnimation = false) {
         const cardsGrid = document.getElementById('cardsGrid');
         if (!cardsGrid) return;
         
@@ -202,21 +202,26 @@ class PersonasSystem {
         
         console.log(`📄 Rendering page ${this.currentPage}: showing personas ${startIndex + 1}-${Math.min(endIndex, this.sortedPersonas.length)}`);
         
-        // Create and animate cards
+        // Create cards
         for (let i = 0; i < personasToShow.length; i++) {
             const persona = personasToShow[i];
             const card = this.createCard(persona);
             cardsGrid.appendChild(card);
             
-            // Animate card appearance
-            await this.delay(100);
-            card.classList.add('card-flying');
-            
-            // After animation completes, set final state
-            setTimeout(() => {
-                card.classList.remove('card-flying');
+            if (withAnimation) {
+                // Animate card appearance only when opening deck
+                await this.delay(100);
+                card.classList.add('card-flying');
+                
+                // After animation completes, set final state
+                setTimeout(() => {
+                    card.classList.remove('card-flying');
+                    card.classList.add('card-landed');
+                }, 1200);
+            } else {
+                // Just show cards instantly for pagination
                 card.classList.add('card-landed');
-            }, 1200);
+            }
         }
     }
     
