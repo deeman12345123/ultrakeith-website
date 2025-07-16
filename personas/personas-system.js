@@ -289,7 +289,7 @@ class PersonasSystem {
                     </div>
                     <div class="card-number">#${persona.number}</div>
                     <div class="mc-logo">
-                        <img src="mc.png" alt="MC" class="mc-logo-img" onerror="this.parentElement.innerHTML='MC';">
+                        <img src="mc.png" alt="MC" class="mc-logo-img" onerror="this.style.display='none';">
                     </div>
                 </div>
             </div>
