@@ -1,4 +1,4 @@
-// ULTRA KEITH PERSONAS SYSTEM - ENHANCED WITH SCROLL-TO-TOP
+// ULTRA KEITH PERSONAS SYSTEM - CLEAN VERSION
 // Trading card animation and interaction system
 
 class PersonasSystem {
@@ -59,7 +59,7 @@ class PersonasSystem {
                 this.cardsPerPage = newCardsPerPage;
                 this.currentPage = 1;
                 this.updatePagination();
-                this.renderCurrentPage(); // No animation for resize
+                this.renderCurrentPage();
             }
         });
     }
@@ -89,7 +89,7 @@ class PersonasSystem {
         
         this.sortPersonas();
         this.updatePagination();
-        this.renderCurrentPage(); // No animation for sorting
+        this.renderCurrentPage();
         
         // Scroll to top after sorting
         this.scrollToTop();
@@ -104,7 +104,7 @@ class PersonasSystem {
         
         this.currentPage = newPage;
         this.updatePagination();
-        this.renderCurrentPage(); // No animation for pagination
+        this.renderCurrentPage();
         
         // Scroll to top after changing page
         this.scrollToTop();
@@ -263,8 +263,8 @@ class PersonasSystem {
                         <div class="quote-section">"${persona.quote}"</div>
                     </div>
                     <div class="card-number">#${persona.number}</div>
-                    <div class="mc-logo">
-                        <img src="mc.png" alt="" style="background:transparent;border:0;margin:0;padding:0;">
+                    <div class="mc-logo-small">
+                        <img src="mc.png" alt="">
                     </div>
                     <div class="flip-hint">Click to flip</div>
                 </div>
@@ -288,8 +288,8 @@ class PersonasSystem {
                         <img src="logoback.png" alt="Ultra Keith" class="back-logo" onerror="this.style.display='none';">
                     </div>
                     <div class="card-number">#${persona.number}</div>
-                    <div class="mc-logo">
-                        <img src="mc.png" alt="" style="background:transparent;border:0;margin:0;padding:0;">
+                    <div class="mc-logo-small">
+                        <img src="mc.png" alt="">
                     </div>
                 </div>
             </div>
