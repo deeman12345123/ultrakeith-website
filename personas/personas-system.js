@@ -298,7 +298,7 @@ class PersonasSystem {
         // Add flip functionality
         card.addEventListener('click', () => {
             card.classList.toggle('flipped');
-            this.createCardBurst(card);
+            // Removed createCardBurst - no more yellow particles on flip
         });
         
         return card;
