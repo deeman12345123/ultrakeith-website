@@ -1,770 +1,410 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kool Keith Personas - Trading Cards</title>
+// ULTRA KEITH PERSONAS SYSTEM - ENHANCED WITH SCROLL-TO-TOP
+// Trading card animation and interaction system
+
+class PersonasSystem {
+    constructor() {
+        this.currentPage = 1;
+        this.cardsPerPage = window.innerWidth <= 768 ? 6 : 9;
+        this.sortOrder = 'oldest'; // 'oldest' or 'newest'
+        this.sortedPersonas = [...PERSONAS_DATABASE];
+        this.isAnimating = false;
+        
+        this.init();
+        this.setupEventListeners();
+        this.updatePersonaCounter();
+        
+        console.log('🎭 Personas System initialized with', this.sortedPersonas.length, 'personas');
+    }
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
+    init() {
+        this.sortPersonas();
+        this.updatePagination();
+    }
     
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="../shared/styles.css">
+    setupEventListeners() {
+        // Deck click handler
+        const deckBox = document.getElementById('deckBox');
+        if (deckBox) {
+            deckBox.addEventListener('click', () => this.openDeck());
+        }
+        
+        // Sort button handlers
+        const oldestFirstBtn = document.getElementById('oldestFirstBtn');
+        const newestFirstBtn = document.getElementById('newestFirstBtn');
+        
+        if (oldestFirstBtn) {
+            oldestFirstBtn.addEventListener('click', () => this.changeSortOrder('oldest'));
+        }
+        
+        if (newestFirstBtn) {
+            newestFirstBtn.addEventListener('click', () => this.changeSortOrder('newest'));
+        }
+        
+        // Pagination handlers
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => this.changePage(this.currentPage - 1));
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => this.changePage(this.currentPage + 1));
+        }
+        
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            const newCardsPerPage = window.innerWidth <= 768 ? 6 : 9;
+            if (newCardsPerPage !== this.cardsPerPage) {
+                this.cardsPerPage = newCardsPerPage;
+                this.currentPage = 1;
+                this.updatePagination();
+                this.renderCurrentPage(); // No animation for resize
+            }
+        });
+    }
     
-    <!-- Persona Styles -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
-        
-        :root {
-            --mystical-blue: #00BFFF;
-            --energy-purple: #8A2BE2;
-            --plasma-pink: #FF1493;
-        }
-        
-        .personas-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: var(--space-lg) 0;
-        }
-        
-        .personas-main-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            color: var(--keith-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(218, 181, 71, 0.6);
-        }
-        
-        .personas-subtitle {
-            font-size: 1.2rem;
-            color: var(--keith-white-75);
-            margin-bottom: 20px;
-        }
-
-        /* CONTROLS - HIDDEN INITIALLY */
-        .controls-section {
-            max-width: 1200px;
-            margin: 0 auto 30px auto;
-            padding: 0 20px;
-            display: none; /* HIDDEN until deck opens */
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .controls-section.show {
-            display: flex;
-        }
-
-        .sort-controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        .sort-btn {
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            padding: 10px 20px;
-            border: 2px solid var(--keith-gold);
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            color: var(--keith-gold);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .sort-btn:hover {
-            background: linear-gradient(145deg, var(--keith-gold) 0%, var(--keith-gold-light) 100%);
-            color: var(--keith-black);
-            transform: translateY(-1px);
-        }
-
-        .sort-btn.active {
-            background: var(--keith-gold);
-            color: var(--keith-black);
-        }
-
-        .persona-counter {
-            font-family: 'Orbitron', monospace;
-            color: var(--keith-white-75);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .controls-section {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-        
-        /* DECK */
-        .deck-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 60vh;
-            margin: 40px 0;
-            position: relative;
-        }
-        
-        .deck-container.hidden {
-            display: none;
-        }
-        
-        .deck-box {
-            width: 350px;
-            height: 550px;
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            border: 1px solid var(--keith-gold);
-            border-radius: var(--radius-xl);
-            cursor: pointer;
-            position: relative;
-            transition: all var(--transition);
-        }
-        
-        .deck-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(218, 181, 71, 0.5);
-        }
-        
-        .deck-box.mystical-hover {
-            animation: mystical-pulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes mystical-pulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 15px rgba(0, 191, 255, 0.4));
-                transform: scale(1.05);
-            }
-            50% { 
-                filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.7));
-                transform: scale(1.08);
-            }
-        }
-        
-        .deck-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: var(--keith-gold);
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .deck-logo {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 30px;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.5s ease;
-            overflow: hidden;
-        }
-        
-        .deck-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: brightness(0.9);
-        }
-        
-        .deck-box.energy-building .deck-logo {
-            animation: logo-energy 1s ease-in-out infinite alternate;
-        }
-        
-        @keyframes logo-energy {
-            0% { 
-                filter: brightness(1.2) drop-shadow(0 0 15px var(--mystical-blue));
-                transform: scale(1);
-            }
-            100% { 
-                filter: brightness(2) drop-shadow(0 0 25px var(--energy-purple));
-                transform: scale(1.05);
-            }
-        }
-        
-        .click-hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            animation: mystical-pulse-text 2s infinite;
-            text-align: center;
-            white-space: nowrap;
-            color: var(--keith-gold);
-            font-family: 'Orbitron', monospace;
-        }
-        
-        @keyframes mystical-pulse-text {
-            0%, 100% { 
-                opacity: 0.6; 
-                text-shadow: 0 0 8px currentColor;
-                transform: translateX(-50%) scale(1);
-            }
-            50% { 
-                opacity: 1; 
-                text-shadow: 0 0 20px currentColor, 0 0 30px var(--mystical-blue);
-                transform: translateX(-50%) scale(1.02);
-            }
-        }
-        
-        /* CARDS */
-        .cards-container {
-            display: none;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .cards-container.show {
-            display: block;
-        }
-        
-        .cards-grid {
-            display: grid;
-            gap: 30px;
-            justify-content: center;
-            padding: 20px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-                max-width: 370px;
-                margin: 0 auto;
-            }
-        }
-        
-        @media (min-width: 769px) and (max-width: 1200px) {
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (min-width: 1201px) {
-            .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .trading-card {
-            width: 350px;
-            height: 550px;
-            perspective: 1000px;
-            cursor: pointer;
-            justify-self: center;
-            opacity: 0;
-            transform: scale(0.1);
-            transition: all var(--transition);
-        }
-        
-        /* Card animations */
-        @media (max-width: 768px) {
-            .trading-card:not(:first-child).card-flying {
-                animation: card-scale-only 0.8s ease-out both;
-            }
-            
-            .trading-card:first-child.card-flying {
-                animation: 
-                    card-scale 1.2s ease-out both,
-                    card-smooth-spin 1.2s linear both;
-                transform-origin: center center;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .trading-card.card-flying {
-                animation: 
-                    card-scale 1.2s ease-out both,
-                    card-smooth-spin 1.2s linear both;
-                transform-origin: center center;
-                will-change: transform;
-            }
-        }
-        
-        @keyframes card-scale-only {
-            0% { opacity: 1; transform: scale(0.1); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes card-scale {
-            0% { opacity: 1; transform: scale(0.1); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes card-smooth-spin {
-            0% { transform: rotateZ(0turn); }
-            100% { transform: rotateZ(1turn); }
-        }
-        
-        .trading-card.card-landed {
-            opacity: 1;
-            transform: scale(1) rotateZ(0deg);
-            animation: none;
-        }
-        
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s ease;
-            transform-style: preserve-3d;
-        }
-        
-        .trading-card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--keith-gold);
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .card-front { transform: rotateY(0deg); }
-        .card-back { transform: rotateY(180deg); }
-        
-        .card-front::before, .card-back::before {
-            content: '';
-            position: absolute;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-            border: 1px solid var(--keith-white-75);
-            border-radius: 6px;
-            opacity: 0.8;
-        }
-        
-        .front-container {
-            position: absolute;
-            top: 12px; left: 12px; right: 12px; bottom: 60px;
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-        }
-        
-        .card-header {
-            background: linear-gradient(145deg, #0F0505 0%, #1a1a1a 100%);
-            border: 1px solid var(--keith-gold);
-            border-radius: 6px;
-            padding: 10px 8px;
-            margin-bottom: 12px;
-        }
-        
-        .persona-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.95rem;
-            font-weight: 900;
-            color: var(--keith-gold);
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 1.1;
-        }
-        
-        .persona-title.long-title {
-            font-size: 0.7rem;
-            letter-spacing: 0.3px;
-            line-height: 1.0;
-        }
-        
-        .image-container {
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 8px auto;
-            border: 1px solid var(--keith-white-75);
-            border-radius: 8px;
-            background: #0F0505;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--keith-white-75);
-            font-size: 0.8rem;
-            overflow: hidden;
-        }
-        
-        @media (min-width: 769px) {
-            .front-container {
-                top: 15px; left: 15px; right: 15px; bottom: 70px;
-                padding: 5px;
-            }
-            
-            .card-header {
-                padding: 10px 8px;
-                margin-bottom: 15px;
-            }
-            
-            .persona-title {
-                font-size: 1rem;
-            }
-            
-            .persona-title.long-title {
-                font-size: 0.75rem;
-                letter-spacing: 0.4px;
-            }
-            
-            .image-container {
-                width: 200px;
-                height: 200px;
-                margin: 0 auto 10px auto;
-            }
-        }
-        
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 6px;
-        }
-        
-        .stats-section {
-            flex: 1;
-            margin-bottom: 8px;
-            padding: 0 3px;
-        }
-        
-        .stat-item {
-            display: flex;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-        }
-        
-        .stat-label {
-            font-weight: 700;
-            color: var(--keith-white-75);
-            width: 70px;
-            flex-shrink: 0;
-            font-size: 0.8rem;
-        }
-        
-        .stat-value {
-            color: var(--keith-white);
-            flex: 1;
-            font-size: 0.8rem;
-            line-height: 1.2;
-        }
-        
-        .quote-section {
-            padding: 12px 8px;
-            border-top: 1px solid var(--keith-white-75);
-            font-style: italic;
-            color: var(--keith-white-75);
-            font-size: 0.75rem;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 6px;
-            line-height: 1.3;
-            margin: 0 3px;
-        }
-        
-        .back-container {
-            position: absolute;
-            top: 15px; left: 15px; right: 15px; bottom: 120px;
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-        }
-        
-        .back-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            font-weight: 900;
-            color: var(--keith-gold);
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-        
-        .back-title.long-title {
-            font-size: 0.75rem;
-            letter-spacing: 0.4px;
-            line-height: 1.0;
-        }
-        
-        .info-section {
-            margin-bottom: 12px;
-            padding: 0 3px;
-        }
-        
-        .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--keith-white-75);
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        
-        .section-content {
-            font-size: 0.75rem;
-            line-height: 1.4;
-            color: var(--keith-white-75);
-            padding: 2px 0;
-        }
-        
-        .logo-space {
-            position: absolute;
-            bottom: 50px; left: 15px; right: 15px;
-            height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .back-logo {
-            width: 320px;
-            height: auto;
-            opacity: 0.8;
-            max-height: 180px;
-            object-fit: contain;
-        }
-        
-        .mc-logo {
-            position: absolute;
-            bottom: 15px; right: 15px;
-            width: 40px; height: 40px;
-            z-index: 20;
-            background: var(--keith-gold);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 0.7rem;
-            color: var(--keith-black);
-        }
-        
-        .mc-logo-img {
-            width: 100%; height: 100%;
-            object-fit: contain;
-        }
-        
-        /* Fallback text when image fails */
-        .mc-logo::after {
-            content: 'MC';
-            display: none;
-        }
-        
-        .mc-logo img[style*="display: none"] + .mc-logo::after,
-        .mc-logo:not(:has(img))::after {
-            display: block;
-        }
-        
-        .card-number {
-            position: absolute;
-            bottom: 15px; left: 15px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--keith-white-75);
-            background: rgba(0, 0, 0, 0.8);
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid var(--keith-white-75);
-        }
-        
-        .flip-hint {
-            position: absolute;
-            bottom: 15px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            color: var(--keith-white-55);
-            font-family: 'Orbitron', monospace;
-        }
-        
-        /* PAGINATION */
-        .pagination-container {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            margin: 40px 0;
-            gap: 20px;
-        }
-        
-        .pagination-container.show {
-            display: flex;
-        }
-        
-        .pagination-btn {
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            padding: 12px 25px;
-            border: 2px solid var(--keith-gold);
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            color: var(--keith-gold);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        .pagination-btn:hover:not(.disabled) {
-            background: linear-gradient(145deg, var(--keith-gold) 0%, var(--keith-gold-light) 100%);
-            color: var(--keith-black);
-            transform: translateY(-2px);
-        }
-
-        .pagination-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .page-info {
-            font-family: 'Orbitron', monospace;
-            color: var(--keith-white-75);
-            font-size: 1rem;
-            margin: 0 15px;
-        }
-
-        @media (max-width: 768px) {
-            .pagination-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        /* PARTICLE EFFECTS */
-        .mystical-particle, .energy-wave, .screen-flash, .card-burst {
-            position: absolute;
-            pointer-events: none;
-        }
-
-        .mystical-particle {
-            width: 4px; height: 4px;
-            background: var(--mystical-blue);
-            border-radius: 50%;
-            z-index: 1001;
-            opacity: 0;
-            box-shadow: 0 0 6px currentColor;
-        }
-
-        .energy-wave {
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 0; height: 0;
-            border: 3px solid var(--energy-purple);
-            border-radius: 50%;
-            opacity: 0;
-            z-index: 1000;
-        }
-
-        .screen-flash {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(0, 191, 255, 0.6) 30%, 
-                rgba(138, 43, 226, 0.3) 60%, 
-                transparent 100%);
-            opacity: 0;
-            z-index: 9999;
-        }
-
-        .card-burst {
-            width: 20px; height: 30px;
-            background: linear-gradient(145deg, var(--keith-gold), var(--keith-gold-light));
-            border-radius: 3px;
-            opacity: 0;
-            z-index: 1002;
-            box-shadow: 0 0 8px var(--keith-gold);
-        }
-
-        /* ANIMATIONS */
-        @keyframes particle-burst {
-            0% { opacity: 1; transform: scale(0) rotate(0deg); }
-            20% { opacity: 1; transform: scale(1.5) rotate(90deg); }
-            80% { opacity: 0.8; transform: scale(1) rotate(270deg); }
-            100% { opacity: 0; transform: scale(0) rotate(360deg); }
-        }
-
-        @keyframes energy-wave-expand {
-            0% { width: 0; height: 0; opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { width: 600px; height: 600px; opacity: 0; }
-        }
-
-        @keyframes screen-flash-effect {
-            0% { opacity: 0; }
-            15% { opacity: 1; }
-            35% { opacity: 0.8; }
-            100% { opacity: 0; }
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
+    sortPersonas() {
+        if (this.sortOrder === 'oldest') {
+            this.sortedPersonas.sort((a, b) => parseInt(a.year) - parseInt(b.year));
+        } else {
+            this.sortedPersonas.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+        }
+    }
     
-    <main class="main">
-        <div class="personas-header">
-            <h1 class="personas-main-title">Personas</h1>
-            <p class="personas-subtitle">Official Collection</p>
-        </div>
-
-        <!-- Controls Section - HIDDEN INITIALLY -->
-        <div class="controls-section" id="controlsSection">
-            <div class="sort-controls">
-                <button class="sort-btn active" id="oldestFirstBtn">Oldest First</button>
-                <button class="sort-btn" id="newestFirstBtn">Newest First</button>
-            </div>
-            <div class="persona-counter" id="personaCounter">
-                Loading personas...
-            </div>
-        </div>
+    changeSortOrder(newOrder) {
+        if (this.sortOrder === newOrder) return;
         
-        <div class="deck-container" id="deckContainer">
-            <div class="deck-box" id="deckBox">
-                <div class="deck-content">
-                    <div class="deck-logo">
-                        <img src="logoback.png" alt="Ultra Keith Logo" onerror="this.style.display='none'">
+        this.sortOrder = newOrder;
+        this.currentPage = 1;
+        
+        // Update button states
+        const oldestFirstBtn = document.getElementById('oldestFirstBtn');
+        const newestFirstBtn = document.getElementById('newestFirstBtn');
+        
+        if (oldestFirstBtn && newestFirstBtn) {
+            oldestFirstBtn.classList.toggle('active', newOrder === 'oldest');
+            newestFirstBtn.classList.toggle('active', newOrder === 'newest');
+        }
+        
+        this.sortPersonas();
+        this.updatePagination();
+        this.renderCurrentPage(); // No animation for sorting
+        
+        // Scroll to top after sorting
+        this.scrollToTop();
+    }
+    
+    changePage(newPage) {
+        const totalPages = Math.ceil(this.sortedPersonas.length / this.cardsPerPage);
+        
+        if (newPage < 1 || newPage > totalPages || newPage === this.currentPage) {
+            return;
+        }
+        
+        this.currentPage = newPage;
+        this.updatePagination();
+        this.renderCurrentPage(); // No animation for pagination
+        
+        // Scroll to top after changing page
+        this.scrollToTop();
+    }
+    
+    scrollToTop() {
+        // Smooth scroll to top of page
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    
+    updatePersonaCounter() {
+        const counter = document.getElementById('personaCounter');
+        if (counter) {
+            counter.textContent = `${this.sortedPersonas.length} Personas Total`;
+        }
+    }
+    
+    updatePagination() {
+        const totalPages = Math.ceil(this.sortedPersonas.length / this.cardsPerPage);
+        
+        const pageInfo = document.getElementById('pageInfo');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        if (pageInfo) {
+            pageInfo.textContent = `Page ${this.currentPage} of ${totalPages}`;
+        }
+        
+        if (prevBtn) {
+            prevBtn.classList.toggle('disabled', this.currentPage === 1);
+        }
+        
+        if (nextBtn) {
+            nextBtn.classList.toggle('disabled', this.currentPage === totalPages);
+        }
+    }
+    
+    async openDeck() {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        
+        console.log('🎴 Opening the deck...');
+        
+        const deckContainer = document.getElementById('deckContainer');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const controlsSection = document.getElementById('controlsSection');
+        const paginationContainer = document.getElementById('paginationContainer');
+        const deckBox = document.getElementById('deckBox');
+        
+        // Add mystical effects to deck
+        if (deckBox) {
+            deckBox.classList.add('mystical-hover');
+            deckBox.classList.add('energy-building');
+        }
+        
+        // Create particle effects
+        this.createParticleEffects();
+        
+        // Wait for effects
+        await this.delay(1500);
+        
+        // Create screen flash
+        this.createScreenFlash();
+        
+        // Wait for flash
+        await this.delay(500);
+        
+        // Hide deck, show cards and controls
+        if (deckContainer) deckContainer.classList.add('hidden');
+        if (cardsContainer) cardsContainer.classList.add('show');
+        if (controlsSection) controlsSection.classList.add('show');
+        if (paginationContainer) paginationContainer.classList.add('show');
+        
+        // Render current page WITH animation for deck opening
+        await this.renderCurrentPage(true);
+        
+        this.isAnimating = false;
+        console.log('✨ Deck opened successfully!');
+    }
+    
+    async renderCurrentPage(withAnimation = false) {
+        const cardsGrid = document.getElementById('cardsGrid');
+        if (!cardsGrid) return;
+        
+        // Clear existing cards
+        cardsGrid.innerHTML = '';
+        
+        // Calculate which personas to show
+        const startIndex = (this.currentPage - 1) * this.cardsPerPage;
+        const endIndex = startIndex + this.cardsPerPage;
+        const personasToShow = this.sortedPersonas.slice(startIndex, endIndex);
+        
+        console.log(`📄 Rendering page ${this.currentPage}: showing personas ${startIndex + 1}-${Math.min(endIndex, this.sortedPersonas.length)}`);
+        
+        // Create cards
+        for (let i = 0; i < personasToShow.length; i++) {
+            const persona = personasToShow[i];
+            const card = this.createCard(persona);
+            cardsGrid.appendChild(card);
+            
+            if (withAnimation) {
+                // Animate card appearance only when opening deck
+                await this.delay(100);
+                card.classList.add('card-flying');
+                
+                // After animation completes, set final state
+                setTimeout(() => {
+                    card.classList.remove('card-flying');
+                    card.classList.add('card-landed');
+                }, 1200);
+            } else {
+                // Just show cards instantly for pagination
+                card.classList.add('card-landed');
+            }
+        }
+    }
+    
+    createCard(persona) {
+        const card = document.createElement('div');
+        card.className = 'trading-card';
+        card.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="front-container">
+                        <div class="card-header">
+                            <div class="persona-title ${persona.name.length > 15 ? 'long-title' : ''}">${persona.name}</div>
+                        </div>
+                        <div class="image-container">
+                            <img src="${persona.image}" alt="${persona.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='${persona.name}';">
+                        </div>
+                        <div class="stats-section">
+                            <div class="stat-item">
+                                <span class="stat-label">Year:</span>
+                                <span class="stat-value">${persona.year}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Age:</span>
+                                <span class="stat-value">${persona.age}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Origin:</span>
+                                <span class="stat-value">${persona.origin}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Likes:</span>
+                                <span class="stat-value">${persona.likes}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Dislikes:</span>
+                                <span class="stat-value">${persona.dislikes}</span>
+                            </div>
+                        </div>
+                        <div class="quote-section">"${persona.quote}"</div>
+                    </div>
+                    <div class="card-number">#${persona.number}</div>
+                    <div class="mc-logo">
+                        <img src="mc.png" alt="MC" class="mc-logo-img" onerror="this.style.display='none';">
+                    </div>
+                    <div class="flip-hint">Click to flip</div>
+                </div>
+                <div class="card-back">
+                    <div class="back-container">
+                        <div class="back-title ${persona.name.length > 15 ? 'long-title' : ''}">${persona.name}</div>
+                        <div class="info-section">
+                            <div class="section-title">Biography</div>
+                            <div class="section-content">${persona.biography}</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="section-title">Debut</div>
+                            <div class="section-content">${persona.debut}</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="section-title">Themes</div>
+                            <div class="section-content">${persona.themes}</div>
+                        </div>
+                    </div>
+                    <div class="logo-space">
+                        <img src="logoback.png" alt="Ultra Keith" class="back-logo" onerror="this.style.display='none';">
+                    </div>
+                    <div class="card-number">#${persona.number}</div>
+                    <div class="mc-logo">
+                        <img src="mc.png" alt="MC" class="mc-logo-img" onerror="this.parentElement.innerHTML='MC';">
                     </div>
                 </div>
-                <div class="click-hint">Click to Open the Deck</div>
             </div>
-        </div>
+        `;
         
-        <div class="cards-container" id="cardsContainer">
-            <div class="cards-grid" id="cardsGrid">
-                <!-- Cards inserted here by JavaScript -->
-            </div>
-        </div>
+        // Add flip functionality
+        card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+            this.createCardBurst(card);
+        });
         
-        <div class="pagination-container" id="paginationContainer">
-            <button class="pagination-btn" id="prevBtn">← Previous</button>
-            <div class="page-info" id="pageInfo">Page 1 of 1</div>
-            <button class="pagination-btn" id="nextBtn">Next →</button>
-        </div>
-    </main>
-
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Load personas data FIRST - SINGLE FILE -->
-    <script src="personas-data.js"></script>
+        return card;
+    }
     
-    <!-- Shared Navigation System -->
-    <script src="../shared/navigation.js"></script>
+    createParticleEffects() {
+        const deckBox = document.getElementById('deckBox');
+        if (!deckBox) return;
+        
+        const rect = deckBox.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Create mystical particles
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+                const particle = document.createElement('div');
+                particle.className = 'mystical-particle';
+                
+                const angle = (i / 20) * Math.PI * 2;
+                const radius = 50 + Math.random() * 100;
+                const endX = centerX + Math.cos(angle) * radius;
+                const endY = centerY + Math.sin(angle) * radius;
+                
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+                
+                document.body.appendChild(particle);
+                
+                particle.style.animation = 'particle-burst 1.5s ease-out forwards';
+                particle.style.transform = `translate(${endX - centerX}px, ${endY - centerY}px)`;
+                
+                setTimeout(() => particle.remove(), 1500);
+            }, i * 50);
+        }
+        
+        // Create energy waves
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                const wave = document.createElement('div');
+                wave.className = 'energy-wave';
+                wave.style.left = centerX + 'px';
+                wave.style.top = centerY + 'px';
+                
+                document.body.appendChild(wave);
+                
+                wave.style.animation = 'energy-wave-expand 1s ease-out forwards';
+                
+                setTimeout(() => wave.remove(), 1000);
+            }, i * 300);
+        }
+    }
     
-    <!-- Load personas system LAST -->
-    <script src="personas-system.js"></script>
-</body>
-</html>
+    createScreenFlash() {
+        const flash = document.createElement('div');
+        flash.className = 'screen-flash';
+        document.body.appendChild(flash);
+        
+        flash.style.animation = 'screen-flash-effect 0.8s ease-out forwards';
+        
+        setTimeout(() => flash.remove(), 800);
+    }
+    
+    createCardBurst(card) {
+        const rect = card.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => {
+                const burst = document.createElement('div');
+                burst.className = 'card-burst';
+                
+                const angle = (i / 8) * Math.PI * 2;
+                const distance = 30 + Math.random() * 20;
+                const endX = centerX + Math.cos(angle) * distance;
+                const endY = centerY + Math.sin(angle) * distance;
+                
+                burst.style.left = centerX + 'px';
+                burst.style.top = centerY + 'px';
+                
+                document.body.appendChild(burst);
+                
+                burst.style.animation = 'particle-burst 0.8s ease-out forwards';
+                burst.style.transform = `translate(${endX - centerX}px, ${endY - centerY}px)`;
+                
+                setTimeout(() => burst.remove(), 800);
+            }, i * 20);
+        }
+    }
+    
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎭 Initializing Personas System...');
+    window.personasSystem = new PersonasSystem();
+});
+
+// Initialize immediately if DOM already loaded
+if (document.readyState === 'loading') {
+    // Do nothing, wait for DOMContentLoaded
+} else {
+    console.log('🎭 DOM already loaded, initializing Personas System...');
+    window.personasSystem = new PersonasSystem();
+}
