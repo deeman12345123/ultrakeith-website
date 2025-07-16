@@ -385,18 +385,17 @@
         }
         
         .image-container {
-            width: 160px;
-            height: 160px;
+            width: 160px !important;
+            height: 160px !important;
             margin: 0 auto 8px auto;
             border: 1px solid var(--keith-white-75);
             border-radius: 8px;
             background: #0F0505;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block !important;
             color: var(--keith-white-75);
             font-size: 0.8rem;
-            overflow: hidden;
+            overflow: hidden !important;
+            position: relative;
         }
         
         @media (min-width: 769px) {
@@ -420,13 +419,16 @@
             }
             
             .image-container {
-                width: 200px;
-                height: 200px;
+                width: 200px !important;
+                height: 200px !important;
                 margin: 0 auto 10px auto;
             }
         }
         
         .image-container img {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
             width: 160px !important;
             height: 160px !important;
             object-fit: cover !important;
