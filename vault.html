@@ -3,164 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE KEITH VAULT</title>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 40px 20px;
-            line-height: 1.6;
-        }
-
-        .vault-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .vault-title {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .vault-subtitle {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-bottom: 30px;
-        }
-
-        .vault-container {
-            display: flex;
-            gap: 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-            align-items: flex-start;
-        }
-
-        .media-section {
-            flex: 1;
-            text-align: center;
-            background-color: #111;
-            padding: 30px;
-            border-radius: 8px;
-        }
-
-        .media-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .media-label {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .media-description {
-            font-size: 1rem;
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .stats-section {
-            text-align: center;
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 1px solid #333;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            max-width: 800px;
-            margin: 40px auto 0;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: #999;
-            text-transform: uppercase;
-        }
-
-        @media (max-width: 800px) {
-            .vault-container {
-                flex-direction: column;
-                gap: 40px;
-            }
-            
-            .vault-title {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <title>The Keith Vault</title>
+    <meta name="description" content="Unreleased tracks, rare recordings, and exclusive content for true fans.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
+    
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/styles.css">
 </head>
 <body>
-    <div class="vault-header">
-        <div class="vault-title">🔐 THE KEITH VAULT</div>
-        <div class="vault-subtitle">Unreleased tracks, rare recordings, and exclusive content for true fans.<br>Access the hidden treasures of hip-hop's most prolific artist.</div>
-    </div>
+    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
     
-    <div class="vault-container">
-        <div class="media-section">
-            <img src="vault/tape.png" alt="Keith Vault Cassette" class="media-image">
-            <div class="media-label">Cassette Archives</div>
-            <div class="media-description">
-                Unreleased tracks, rare recordings, and exclusive content for true fans. 
-                Deep cuts from the archives - songs that never made it to official releases, 
-                experimental recordings, and tracks deemed "too advanced" for their time.
+    <main class="main" id="mainContent">
+        <section class="hero">
+            <img src="vaulticon.png" alt="Vault Icon" class="hero-logo" onerror="this.style.display='none'">
+            <h1 class="hero-title" style="margin-bottom: 1rem;">The Keith Vault</h1>
+            <p class="hero-description">Unreleased tracks, rare recordings, and exclusive content for true fans.<br>Access the hidden treasures of hip-hop's most prolific artist.</p>
+        </section>
+        
+        <section class="features">
+            <article class="feature-card" style="min-height: auto;">
+                <div class="feature-icon"><img src="vault/tape.png" alt="Cassette Archives" style="max-width: 100%; height: auto; border-radius: 8px;"></div>
+                <h3 class="feature-title">Cassette Archives</h3>
+                <p class="feature-description">Unreleased tracks, rare recordings, and exclusive content for true fans. Deep cuts from the archives - songs that never made it to official releases, experimental recordings, and tracks deemed "too advanced" for their time.</p>
+                <a href="#" class="btn btn-secondary">Stream Collection</a>
+            </article>
+            
+            <article class="feature-card" style="min-height: auto;">
+                <div class="feature-icon"><img src="vault/vhs.jpg" alt="VHS Collection" style="max-width: 100%; height: auto; border-radius: 8px;"></div>
+                <h3 class="feature-title">VHS Collection</h3>
+                <p class="feature-description">Behind-the-scenes footage, persona creation stories, and intimate glimpses into the creative process of hip-hop's most innovative mind. Music videos, live performances, interviews, and behind-the-scenes content from Keith's extensive multimedia archive.</p>
+                <a href="#" class="btn btn-secondary">Watch Collection</a>
+            </article>
+        </section>
+        
+        <section class="vault-stats" style="text-align: center; padding: 4rem 2rem; background: #1a1a1a; margin-top: 3rem;">
+            <h2 style="color: #DAB547; font-size: 2rem; margin-bottom: 2rem;">Vault Statistics</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto;">
+                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">150+</div>
+                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Unreleased Tracks</div>
+                </div>
+                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">40+</div>
+                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Rare Sessions</div>
+                </div>
+                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">25+</div>
+                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Hours of Video</div>
+                </div>
+                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
+                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">∞</div>
+                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Innovation</div>
+                </div>
             </div>
-        </div>
+        </section>
+        
+        <section class="vault-access" style="text-align: center; padding: 3rem 2rem;">
+            <h2 style="color: #DAB547; font-size: 1.8rem; margin-bottom: 1rem;">Vault Access Granted</h2>
+            <p style="color: #ccc; max-width: 600px; margin: 0 auto 2rem; line-height: 1.6;">Welcome to the inner sanctum of Kool Keith's creative universe. This exclusive collection represents decades of unreleased material, rare gems, and behind-the-scenes content available nowhere else.</p>
+            <a href="contact.html" class="btn btn-primary">Request Full Access</a>
+        </section>
+    </main>
 
-        <div class="media-section">
-            <img src="vault/vhs.jpg" alt="Keith Vault VHS" class="media-image">
-            <div class="media-label">VHS Collection</div>
-            <div class="media-description">
-                Behind-the-scenes footage, persona creation stories, and intimate glimpses into 
-                the creative process of hip-hop's most innovative mind. Music videos, live performances, 
-                interviews, and behind-the-scenes content from Keith's extensive multimedia archive.
-            </div>
-        </div>
-    </div>
+    <!-- Footer inserted automatically by shared/navigation.js -->
 
-    <div class="stats-section">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">150+</div>
-                <div class="stat-label">Unreleased Tracks</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">40+</div>
-                <div class="stat-label">Rare Sessions</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">25+</div>
-                <div class="stat-label">Hours of Video</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Innovation</div>
-            </div>
-        </div>
-    </div>
+    <!-- Shared Navigation System -->
+    <script src="shared/navigation.js"></script>
 </body>
 </html>
