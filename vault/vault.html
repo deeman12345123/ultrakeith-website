@@ -3,107 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE KEITH VAULT</title>
+    <title>The Keith Vault</title>
     <style>
         body {
-            background: #000;
-            color: #00ffff;
-            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #fff;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
+            min-height: 100vh;
         }
 
         .vault-title {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #00ffff;
+            font-size: 3rem;
+            margin-bottom: 50px;
+            color: #DAB547;
+            text-shadow: 0 0 20px rgba(218, 181, 71, 0.5);
+            font-weight: bold;
+            letter-spacing: 2px;
         }
 
-        .tapes-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            max-width: 1000px;
+        .vault-container {
+            display: flex;
+            gap: 80px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .tape-box {
-            border: 2px solid #00ffff;
-            padding: 15px;
-            background: #111;
+        .collection-section {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #DAB547;
             text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .tape-image {
-            width: 100%;
-            height: 150px;
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            perspective: 1000px;
+        }
+
+        .media-item {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            padding: 20px;
+            border-radius: 12px;
             border: 1px solid #333;
-            margin-bottom: 10px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
 
-        .tape-title {
-            font-size: 0.9rem;
-            color: #ffff00;
+        .media-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .media-item:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 15px 40px rgba(218, 181, 71, 0.2);
+            border-color: #DAB547;
+        }
+
+        .media-item:hover::before {
+            left: 100%;
+        }
+
+        .media-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        .media-item:hover .media-image {
+            transform: scale(1.05);
+            filter: drop-shadow(0 8px 25px rgba(218, 181, 71, 0.3)) brightness(1.1);
+        }
+
+        .media-label {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #DAB547;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(218, 181, 71, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .media-item:hover .media-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .cassette-item {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+        }
+
+        .cassette-item:hover {
+            border-color: #00ffff;
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.15);
+        }
+
+        .cassette-item .media-label {
+            color: #00ffff;
+            border-color: rgba(0, 255, 255, 0.3);
+        }
+
+        .vhs-item {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+        }
+
+        .vhs-item:hover {
+            border-color: #ff6b35;
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.15);
+        }
+
+        .vhs-item .media-label {
+            color: #ff6b35;
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+
+        .collection-stats {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #DAB547;
             margin-bottom: 5px;
         }
 
-        .tape-artist {
-            font-size: 0.8rem;
-            color: #ff0080;
+        .stat-label {
+            font-size: 0.9rem;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        .vault-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1000px) {
+            .vault-container {
+                flex-direction: column;
+                gap: 50px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .media-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .vault-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <h1 class="vault-title">🔐 THE KEITH VAULT</h1>
     
-    <div class="tapes-container">
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 1" class="tape-image">
-            <div class="tape-title">Space Traveling Demo</div>
-            <div class="tape-artist">Dr. Octagon</div>
+    <div class="vault-description">
+        Elite archive containing decades of unreleased material, rare recordings, and exclusive visual content from hip-hop's most prolific innovator.
+    </div>
+    
+    <div class="vault-container">
+        <div class="collection-section">
+            <h2 class="section-title">🎵 Cassette Archives</h2>
+            <div class="media-grid">
+                <div class="media-item cassette-item">
+                    <img src="vault/tape.png" alt="Rare Demo Tape" class="media-image">
+                    <div class="media-label">Rare Demo</div>
+                </div>
+                <div class="media-item cassette-item">
+                    <img src="vault/tape.png" alt="Studio Sessions" class="media-image">
+                    <div class="media-label">Studio Sessions</div>
+                </div>
+                <div class="media-item cassette-item">
+                    <img src="vault/tape.png" alt="Freestyle Collection" class="media-image">
+                    <div class="media-label">Freestyles</div>
+                </div>
+                <div class="media-item cassette-item">
+                    <img src="vault/tape.png" alt="Unreleased Tracks" class="media-image">
+                    <div class="media-label">Unreleased</div>
+                </div>
+                <div class="media-item cassette-item">
+                    <img src="vault/tape.png" alt="Collaboration Tapes" class="media-image">
+                    <div class="media-label">Collaborations</div>
+                </div>
+                <div class="media-item cassette-item">
+                    <img src="vault/tape.png" alt="Archive Masters" class="media-image">
+                    <div class="media-label">Masters</div>
+                </div>
+            </div>
+            
+            <div class="collection-stats">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Unreleased Tracks</div>
+            </div>
         </div>
 
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 2" class="tape-image">
-            <div class="tape-title">Alien Autopsy Flow</div>
-            <div class="tape-artist">Keith x DOOM</div>
-        </div>
-
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 3" class="tape-image">
-            <div class="tape-title">Black Elvis Sessions</div>
-            <div class="tape-artist">Black Elvis</div>
-        </div>
-
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 4" class="tape-image">
-            <div class="tape-title">WBLS Freestyles</div>
-            <div class="tape-artist">Ultramagnetic</div>
-        </div>
-
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 5" class="tape-image">
-            <div class="tape-title">Ced Gee Demos</div>
-            <div class="tape-artist">Ced Gee x Keith</div>
-        </div>
-
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 6" class="tape-image">
-            <div class="tape-title">Tim Dog Rarities</div>
-            <div class="tape-artist">Keith x Tim Dog</div>
-        </div>
-
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 7" class="tape-image">
-            <div class="tape-title">Late Night Sessions</div>
-            <div class="tape-artist">Kool Keith</div>
-        </div>
-
-        <div class="tape-box">
-            <img src="vault/tape.png" alt="Tape 8" class="tape-image">
-            <div class="tape-title">Lost Personas</div>
-            <div class="tape-artist">Various Keith</div>
+        <div class="collection-section">
+            <h2 class="section-title">📼 VHS Collection</h2>
+            <div class="media-grid">
+                <div class="media-item vhs-item">
+                    <img src="vault/vhs.jpg" alt="Behind the Scenes" class="media-image">
+                    <div class="media-label">Behind Scenes</div>
+                </div>
+                <div class="media-item vhs-item">
+                    <img src="vault/vhs.jpg" alt="Music Videos" class="media-image">
+                    <div class="media-label">Music Videos</div>
+                </div>
+                <div class="media-item vhs-item">
+                    <img src="vault/vhs.jpg" alt="Live Performances" class="media-image">
+                    <div class="media-label">Live Shows</div>
+                </div>
+                <div class="media-item vhs-item">
+                    <img src="vault/vhs.jpg" alt="Interviews" class="media-image">
+                    <div class="media-label">Interviews</div>
+                </div>
+                <div class="media-item vhs-item">
+                    <img src="vault/vhs.jpg" alt="Studio Footage" class="media-image">
+                    <div class="media-label">Studio Footage</div>
+                </div>
+                <div class="media-item vhs-item">
+                    <img src="vault/vhs.jpg" alt="Rare Footage" class="media-image">
+                    <div class="media-label">Rare Footage</div>
+                </div>
+            </div>
+            
+            <div class="collection-stats">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Hours of Video</div>
+            </div>
         </div>
     </div>
 </body>
