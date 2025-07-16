@@ -1,19 +1,21 @@
-// PERSONAS SYSTEM - Complete Interactive Trading Card System
+// PERSONAS SYSTEM - Complete Working Version
 // File: personas-system.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Personas system loading...');
+    console.log('🎯 Personas system starting...');
     
     // Check if personas data is available
     if (typeof window.personasData === 'undefined') {
-        console.error('Personas data not loaded! Make sure personas-data.js loads first.');
+        console.error('❌ Personas data not loaded! Make sure personas-data.js loads first.');
         return;
     }
     
+    console.log('✅ Personas data found:', window.personasData.length, 'personas');
+    
     // GLOBAL VARIABLES
     let currentPage = 1;
-    let cardsPerPage = 9; // 3x3 grid on desktop, 9 cards on mobile
-    let currentSort = 'oldest'; // 'oldest' or 'newest'
+    let cardsPerPage = 9;
+    let currentSort = 'oldest';
     let deckOpened = false;
     
     // ELEMENTS
@@ -30,36 +32,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const oldestFirstBtn = document.getElementById('oldestFirstBtn');
     const newestFirstBtn = document.getElementById('newestFirstBtn');
     
+    // VERIFY ELEMENTS
+    if (!deckBox) {
+        console.error('❌ Deck box not found!');
+        return;
+    }
+    
+    console.log('✅ All elements found');
+    
     // INITIALIZE
     updatePersonaCounter();
     setupEventListeners();
+    handleResize();
     
     // EVENT LISTENERS
     function setupEventListeners() {
+        console.log('🔧 Setting up event listeners...');
+        
         // Deck click
         deckBox.addEventListener('click', handleDeckClick);
+        console.log('✅ Deck click listener added');
         
         // Sort buttons
-        oldestFirstBtn.addEventListener('click', () => setSortOrder('oldest'));
-        newestFirstBtn.addEventListener('click', () => setSortOrder('newest'));
+        if (oldestFirstBtn) oldestFirstBtn.addEventListener('click', () => setSortOrder('oldest'));
+        if (newestFirstBtn) newestFirstBtn.addEventListener('click', () => setSortOrder('newest'));
         
         // Pagination
-        prevBtn.addEventListener('click', () => changePage(-1));
-        nextBtn.addEventListener('click', () => changePage(1));
+        if (prevBtn) prevBtn.addEventListener('click', () => changePage(-1));
+        if (nextBtn) nextBtn.addEventListener('click', () => changePage(1));
         
-        // Responsive card count
+        // Responsive
         window.addEventListener('resize', handleResize);
-        handleResize(); // Set initial cards per page
     }
     
-    // RESPONSIVE CARD COUNT
+    // RESPONSIVE CARDS PER PAGE
     function handleResize() {
         if (window.innerWidth <= 768) {
-            cardsPerPage = 6; // Mobile: 1 column, 6 cards
+            cardsPerPage = 6; // Mobile: 1 column
         } else if (window.innerWidth <= 1200) {
-            cardsPerPage = 8; // Tablet: 2 columns, 8 cards
+            cardsPerPage = 8; // Tablet: 2 columns
         } else {
-            cardsPerPage = 9; // Desktop: 3 columns, 9 cards
+            cardsPerPage = 9; // Desktop: 3 columns
         }
         
         if (deckOpened) {
@@ -70,23 +83,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // UPDATE PERSONA COUNTER
     function updatePersonaCounter() {
         const totalCount = window.personasData.length;
-        personaCounter.textContent = `${totalCount} Personas Available`;
+        if (personaCounter) {
+            personaCounter.textContent = `${totalCount} Personas Available`;
+        }
     }
     
     // DECK CLICK HANDLER
-    async function handleDeckClick() {
+    function handleDeckClick() {
         if (deckOpened) return;
         
-        console.log('Deck clicked! Opening...');
+        console.log('🎉 Deck clicked! Opening deck...');
         deckOpened = true;
         
-        // Add mystical hover effect
+        // Add effects
         deckBox.classList.add('mystical-hover');
         
-        // Create mystical particles
+        // Create particles
         createMysticalParticles();
         
-        // Energy building effect
+        // Energy building
         setTimeout(() => {
             deckBox.classList.add('energy-building');
         }, 500);
@@ -96,14 +111,13 @@ document.addEventListener('DOMContentLoaded', function() {
             createScreenFlash();
         }, 1500);
         
-        // Hide deck and show cards
+        // Show cards
         setTimeout(() => {
             deckContainer.classList.add('hidden');
-            controlsSection.classList.add('show');
-            cardsContainer.classList.add('show');
-            paginationContainer.classList.add('show');
+            if (controlsSection) controlsSection.classList.add('show');
+            if (cardsContainer) cardsContainer.classList.add('show');
+            if (paginationContainer) paginationContainer.classList.add('show');
             
-            // Start card animation
             renderCurrentPage();
         }, 2000);
     }
@@ -118,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 particle.className = 'mystical-particle';
                 particle.style.background = colors[Math.floor(Math.random() * colors.length)];
                 
-                // Position around deck
                 const deckRect = deckBox.getBoundingClientRect();
                 const centerX = deckRect.left + deckRect.width / 2;
                 const centerY = deckRect.top + deckRect.height / 2;
@@ -133,10 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 document.body.appendChild(particle);
                 
-                // Animate particle burst
                 particle.style.animation = 'particle-burst 1.5s ease-out forwards';
                 
-                // Random end position
                 const endX = startX + (Math.random() - 0.5) * 300;
                 const endY = startY + (Math.random() - 0.5) * 300;
                 
@@ -144,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     particle.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(0)`;
                 }, 100);
                 
-                // Remove particle
                 setTimeout(() => {
                     if (particle.parentNode) {
                         particle.parentNode.removeChild(particle);
@@ -174,9 +184,10 @@ document.addEventListener('DOMContentLoaded', function() {
         currentSort = order;
         currentPage = 1;
         
-        // Update button states
-        oldestFirstBtn.classList.toggle('active', order === 'oldest');
-        newestFirstBtn.classList.toggle('active', order === 'newest');
+        if (oldestFirstBtn && newestFirstBtn) {
+            oldestFirstBtn.classList.toggle('active', order === 'oldest');
+            newestFirstBtn.classList.toggle('active', order === 'newest');
+        }
         
         renderCurrentPage();
     }
@@ -189,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return sorted.reverse();
         }
         
-        return sorted; // Default: oldest first
+        return sorted;
     }
     
     // PAGINATION
@@ -205,6 +216,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // RENDER CURRENT PAGE
     function renderCurrentPage() {
+        console.log('🎨 Rendering page', currentPage);
+        
         const sortedPersonas = getSortedPersonas();
         const totalPages = Math.ceil(sortedPersonas.length / cardsPerPage);
         const startIndex = (currentPage - 1) * cardsPerPage;
@@ -212,29 +225,29 @@ document.addEventListener('DOMContentLoaded', function() {
         const pagePersonas = sortedPersonas.slice(startIndex, endIndex);
         
         // Clear existing cards
-        cardsGrid.innerHTML = '';
+        if (cardsGrid) {
+            cardsGrid.innerHTML = '';
         
-        // Create cards
-        pagePersonas.forEach((persona, index) => {
-            const card = createTradingCard(persona, startIndex + index + 1);
-            cardsGrid.appendChild(card);
-            
-            // Animate card appearance
-            setTimeout(() => {
-                if (window.innerWidth <= 768 && index > 0) {
-                    // Mobile: only first card spins
-                    card.classList.add('card-flying');
-                } else {
-                    // Desktop: all cards spin
-                    card.classList.add('card-flying');
-                }
+            // Create cards
+            pagePersonas.forEach((persona, index) => {
+                const card = createTradingCard(persona, startIndex + index + 1);
+                cardsGrid.appendChild(card);
                 
+                // Animate card appearance
                 setTimeout(() => {
-                    card.classList.remove('card-flying');
-                    card.classList.add('card-landed');
-                }, 1200);
-            }, index * 150);
-        });
+                    if (window.innerWidth <= 768 && index > 0) {
+                        card.classList.add('card-flying');
+                    } else {
+                        card.classList.add('card-flying');
+                    }
+                    
+                    setTimeout(() => {
+                        card.classList.remove('card-flying');
+                        card.classList.add('card-landed');
+                    }, 1200);
+                }, index * 150);
+            });
+        }
         
         // Update pagination
         updatePagination(totalPages);
@@ -242,10 +255,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // UPDATE PAGINATION
     function updatePagination(totalPages) {
-        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        if (pageInfo) {
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        }
         
-        prevBtn.classList.toggle('disabled', currentPage === 1);
-        nextBtn.classList.toggle('disabled', currentPage === totalPages);
+        if (prevBtn) {
+            prevBtn.classList.toggle('disabled', currentPage === 1);
+        }
+        if (nextBtn) {
+            nextBtn.classList.toggle('disabled', currentPage === totalPages);
+        }
     }
     
     // CREATE TRADING CARD
@@ -253,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const card = document.createElement('div');
         card.className = 'trading-card';
         
-        // Determine if title is long (X-Caliber gets small font too)
+        // X-CALIBER FIX: Force smaller font for X-Caliber specifically
         const isLongTitle = persona.name.length > 12 || persona.name === "X-Caliber";
         const titleClass = isLongTitle ? 'persona-title long-title' : 'persona-title';
         const backTitleClass = isLongTitle ? 'back-title long-title' : 'back-title';
@@ -339,5 +358,5 @@ document.addEventListener('DOMContentLoaded', function() {
         return card;
     }
     
-    console.log('Personas system loaded successfully!');
+    console.log('🎉 Personas system loaded successfully!');
 });
