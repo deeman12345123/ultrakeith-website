@@ -362,34 +362,6 @@ class PersonasSystem {
         setTimeout(() => flash.remove(), 800);
     }
     
-    createCardBurst(card) {
-        const rect = card.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        for (let i = 0; i < 8; i++) {
-            setTimeout(() => {
-                const burst = document.createElement('div');
-                burst.className = 'card-burst';
-                
-                const angle = (i / 8) * Math.PI * 2;
-                const distance = 30 + Math.random() * 20;
-                const endX = centerX + Math.cos(angle) * distance;
-                const endY = centerY + Math.sin(angle) * distance;
-                
-                burst.style.left = centerX + 'px';
-                burst.style.top = centerY + 'px';
-                
-                document.body.appendChild(burst);
-                
-                burst.style.animation = 'particle-burst 0.8s ease-out forwards';
-                burst.style.transform = `translate(${endX - centerX}px, ${endY - centerY}px)`;
-                
-                setTimeout(() => burst.remove(), 800);
-            }, i * 20);
-        }
-    }
-    
     delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
