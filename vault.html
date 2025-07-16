@@ -3,413 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE KEITH VAULT • ELITE ARCHIVE</title>
+    <title>THE KEITH VAULT</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background: radial-gradient(circle at 20% 80%, #120458 0%, #000000 50%, #1a1a2e 100%);
-            color: #00ffff;
-            font-family: 'Courier New', monospace;
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            animation: ethereal 20s ease-in-out infinite alternate;
-        }
-
-        @keyframes ethereal {
-            0% { opacity: 0.3; transform: scale(1) rotate(0deg); }
-            100% { opacity: 0.7; transform: scale(1.1) rotate(2deg); }
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
 
         .vault-header {
             text-align: center;
-            padding: 60px 20px;
-            position: relative;
-            z-index: 2;
+            margin-bottom: 60px;
         }
 
         .vault-title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(45deg, #00ffff, #ff0080, #ffff00, #00ffff);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            text-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
-            letter-spacing: 0.1em;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            letter-spacing: 2px;
         }
 
         .vault-subtitle {
-            font-size: clamp(1rem, 3vw, 1.8rem);
-            color: #ffff00;
-            text-shadow: 0 0 30px #ffff00;
-            margin-bottom: 15px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        .vault-tagline {
-            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-            color: #ff0080;
-            font-style: italic;
-            text-shadow: 0 0 20px #ff0080;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 30px;
         }
 
         .vault-container {
             display: flex;
             gap: 60px;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 2;
+            align-items: flex-start;
         }
 
         .media-section {
             flex: 1;
-            position: relative;
-        }
-
-        .media-section::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: linear-gradient(45deg, #00ffff, #ff0080, #ffff00, #00ffff);
-            border-radius: 20px;
-            opacity: 0.3;
-            z-index: -1;
-            animation: borderPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes borderPulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.02); }
-        }
-
-        .media-container {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(42, 42, 42, 0.9));
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(0, 255, 255, 0.5);
-            border-radius: 15px;
-            padding: 30px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-        }
-
-        .media-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.4);
-            border-color: rgba(0, 255, 255, 0.8);
-        }
-
-        .media-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .media-container:hover::after {
-            left: 100%;
-        }
-
-        .tape-container {
-            border-color: rgba(0, 255, 255, 0.5);
-        }
-
-        .tape-container:hover {
-            border-color: rgba(0, 255, 255, 0.8);
-            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.4);
-        }
-
-        .vhs-container {
-            border-color: rgba(255, 255, 0, 0.5);
-        }
-
-        .vhs-container:hover {
-            border-color: rgba(255, 255, 0, 0.8);
-            box-shadow: 0 20px 60px rgba(255, 255, 0, 0.4);
+            background-color: #111;
+            padding: 30px;
+            border-radius: 8px;
         }
 
         .media-image {
             max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .media-image:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1) contrast(1.1);
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
 
         .media-label {
-            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-top: 25px;
+            color: #fff;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: relative;
-            z-index: 1;
-        }
-
-        .tape-label {
-            color: #00ffff;
-            text-shadow: 0 0 20px #00ffff;
-        }
-
-        .vhs-label {
-            color: #ffff00;
-            text-shadow: 0 0 20px #ffff00;
         }
 
         .media-description {
-            font-size: clamp(0.8rem, 2vw, 1rem);
-            margin-top: 15px;
-            opacity: 0.8;
+            font-size: 1rem;
+            color: #ccc;
             line-height: 1.6;
-            position: relative;
-            z-index: 1;
         }
 
-        .stats-bar {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 60px;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(26, 26, 46, 0.7));
-            backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(0, 255, 255, 0.3);
-            position: relative;
-            z-index: 2;
+        .stats-section {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 40px auto 0;
         }
 
         .stat-item {
             text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 128, 0.1));
         }
 
         .stat-number {
-            font-size: clamp(1.5rem, 4vw, 3rem);
-            font-weight: 900;
-            background: linear-gradient(45deg, #00ffff, #ff0080);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 8px;
         }
 
         .stat-label {
-            font-size: clamp(0.7rem, 2vw, 1rem);
+            font-size: 1rem;
             color: #999;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 5px;
         }
 
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #00ffff;
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: float 6s infinite linear;
-        }
-
-        .particle:nth-child(2n) {
-            background: #ff0080;
-            animation-duration: 8s;
-        }
-
-        .particle:nth-child(3n) {
-            background: #ffff00;
-            animation-duration: 10s;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 1000px) {
+        @media (max-width: 800px) {
             .vault-container {
                 flex-direction: column;
                 gap: 40px;
             }
             
-            .stats-bar {
-                flex-wrap: wrap;
-                gap: 20px;
+            .vault-title {
+                font-size: 2rem;
             }
-        }
-
-        .access-portal {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #ff0080, #00ffff);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .access-portal:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 128, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(0, 255, 255, 0.8); }
         }
     </style>
 </head>
 <body>
-    <div class="floating-particles">
-        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
-        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
-        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
-        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
-        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
-        <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
-        <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
-        <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
-    </div>
-
     <div class="vault-header">
         <div class="vault-title">🔐 THE KEITH VAULT</div>
-        <div class="vault-subtitle">ELITE ARCHIVE ACCESS</div>
-        <div class="vault-tagline">Enter the multi-dimensional universe of hip-hop's most legendary innovator.<br>Exclusive unreleased content from 30+ years of personas and pure creativity.</div>
+        <div class="vault-subtitle">Unreleased tracks, rare recordings, and exclusive content for true fans.<br>Access the hidden treasures of hip-hop's most prolific artist.</div>
     </div>
     
     <div class="vault-container">
         <div class="media-section">
-            <div class="media-container tape-container">
-                <img src="vault/tape.png" alt="Keith Vault Cassette" class="media-image">
-                <div class="media-label tape-label">CASSETTE ARCHIVES</div>
-                <div class="media-description">
-                    Rare studio sessions, unreleased demos, and exclusive freestyle collections from the legendary Keith vault. 
-                    Deep cuts spanning Ultramagnetic MCs to Dr. Octagon era rarities.
-                </div>
+            <img src="vault/tape.png" alt="Keith Vault Cassette" class="media-image">
+            <div class="media-label">Cassette Archives</div>
+            <div class="media-description">
+                Unreleased tracks, rare recordings, and exclusive content for true fans. 
+                Deep cuts from the archives - songs that never made it to official releases, 
+                experimental recordings, and tracks deemed "too advanced" for their time.
             </div>
         </div>
 
         <div class="media-section">
-            <div class="media-container vhs-container">
-                <img src="vault/vhs.jpg" alt="Keith Vault VHS" class="media-image">
-                <div class="media-label vhs-label">VHS COLLECTION</div>
-                <div class="media-description">
-                    Behind-the-scenes footage, music video outtakes, and exclusive visual content. 
-                    Witness the creation of personas and the evolution of hip-hop's most innovative artist.
-                </div>
+            <img src="vault/vhs.jpg" alt="Keith Vault VHS" class="media-image">
+            <div class="media-label">VHS Collection</div>
+            <div class="media-description">
+                Behind-the-scenes footage, persona creation stories, and intimate glimpses into 
+                the creative process of hip-hop's most innovative mind. Music videos, live performances, 
+                interviews, and behind-the-scenes content from Keith's extensive multimedia archive.
             </div>
         </div>
     </div>
 
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-number">150+</div>
-            <div class="stat-label">Unreleased Tracks</div>
+    <div class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Unreleased Tracks</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">40+</div>
+                <div class="stat-label">Rare Sessions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Hours of Video</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Innovation</div>
+            </div>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">40+</div>
-            <div class="stat-label">Rare Sessions</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">30+</div>
-            <div class="stat-label">Years Archived</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">∞</div>
-            <div class="stat-label">Innovation</div>
-        </div>
-    </div>
-
-    <div class="access-portal" title="Full Vault Access">
-        🎵
     </div>
 </body>
 </html>
