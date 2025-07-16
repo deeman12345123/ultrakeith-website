@@ -629,8 +629,8 @@
             }
         }
 
-        /* PARTICLE EFFECTS */
-        .mystical-particle, .energy-wave, .screen-flash, .card-burst {
+        /* PARTICLE EFFECTS - REMOVED CARD BURST */
+        .mystical-particle, .energy-wave, .screen-flash {
             position: absolute;
             pointer-events: none;
         }
@@ -665,15 +665,6 @@
                 transparent 100%);
             opacity: 0;
             z-index: 9999;
-        }
-
-        .card-burst {
-            width: 20px; height: 30px;
-            background: linear-gradient(145deg, var(--keith-gold), var(--keith-gold-light));
-            border-radius: 3px;
-            opacity: 0;
-            z-index: 1002;
-            box-shadow: 0 0 8px var(--keith-gold);
         }
 
         /* ANIMATIONS */
