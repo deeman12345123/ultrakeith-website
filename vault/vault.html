@@ -34,20 +34,38 @@
             margin-bottom: 30px;
         }
 
+        .vault-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 30px;
+        }
+
+        .tapes-section {
+            flex: 1;
+        }
+
         .tapes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .vhs-section {
+            width: 300px;
             padding: 20px;
+            border: 2px dashed #666;
+            border-radius: 10px;
+            text-align: center;
+            color: #999;
         }
 
         .tape-case {
             background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
             border: 2px solid #00ffff;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -82,72 +100,50 @@
 
         .tape-image {
             width: 100%;
-            height: 200px;
+            height: 120px;
             background-image: url('tape.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             border: 2px solid #666;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .tape-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 70%, rgba(0, 255, 255, 0.1) 100%);
         }
 
         .tape-title {
-            font-size: 1.3rem;
+            font-size: 0.9rem;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+            line-height: 1.2;
         }
 
         .tape-artist {
-            font-size: 1rem;
+            font-size: 0.8rem;
             color: #ffff00;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .tape-year {
-            font-size: 0.9rem;
+            font-size: 0.7rem;
             color: #ff0080;
-            margin-bottom: 10px;
-        }
-
-        .tape-description {
-            font-size: 0.85rem;
-            color: #ccc;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        .tape-tracks {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         .play-button {
             background: linear-gradient(45deg, #ff0080, #00ffff);
             color: #000;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 5px 10px;
+            border-radius: 15px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
             font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
         }
 
         .play-button:hover {
@@ -157,84 +153,55 @@
 
         .rarity-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 5px;
+            right: 5px;
             background: #ff0080;
             color: #fff;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.6rem;
             font-weight: bold;
         }
 
-        .tape-case:nth-child(2) {
-            border-color: #ffff00;
+        /* Color variations for each tape */
+        .tape-case:nth-child(1) { border-color: #00ffff; }
+        .tape-case:nth-child(2) { border-color: #ffff00; }
+        .tape-case:nth-child(3) { border-color: #ff0080; }
+        .tape-case:nth-child(4) { border-color: #00ff80; }
+        .tape-case:nth-child(5) { border-color: #ff8000; }
+        .tape-case:nth-child(6) { border-color: #8000ff; }
+        .tape-case:nth-child(7) { border-color: #ff4040; }
+        .tape-case:nth-child(8) { border-color: #40ff40; }
+
+        .tape-case:nth-child(2) .tape-image { filter: hue-rotate(60deg); }
+        .tape-case:nth-child(3) .tape-image { filter: hue-rotate(120deg); }
+        .tape-case:nth-child(4) .tape-image { filter: hue-rotate(180deg); }
+        .tape-case:nth-child(5) .tape-image { filter: hue-rotate(240deg); }
+        .tape-case:nth-child(6) .tape-image { filter: hue-rotate(300deg); }
+        .tape-case:nth-child(7) .tape-image { filter: sepia(1) hue-rotate(20deg); }
+        .tape-case:nth-child(8) .tape-image { filter: saturate(1.5) hue-rotate(90deg); }
+
+        @media (max-width: 1200px) {
+            .vault-container {
+                flex-direction: column;
+            }
+            .vhs-section {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
         }
 
-        .tape-case:nth-child(3) {
-            border-color: #ff0080;
+        @media (max-width: 800px) {
+            .tapes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        .tape-case:nth-child(4) {
-            border-color: #00ff80;
-        }
-
-        .tape-case:nth-child(5) {
-            border-color: #ff8000;
-        }
-
-        .tape-case:nth-child(6) {
-            border-color: #8000ff;
-        }
-
-        .tape-case:nth-child(2) .tape-image {
-            filter: hue-rotate(60deg);
-        }
-
-        .tape-case:nth-child(3) .tape-image {
-            filter: hue-rotate(120deg);
-        }
-
-        .tape-case:nth-child(4) .tape-image {
-            filter: hue-rotate(180deg);
-        }
-
-        .tape-case:nth-child(5) .tape-image {
-            filter: hue-rotate(240deg);
-        }
-
-        .tape-case:nth-child(6) .tape-image {
-            filter: hue-rotate(300deg);
-        }
-
-        .vault-footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            border-top: 1px solid #333;
-        }
-
-        .vault-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #999;
+        @media (max-width: 500px) {
+            .tapes-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -244,124 +211,88 @@
         <div class="vault-subtitle">Unreleased Tape Collection • Deep Archive Access</div>
     </div>
 
-    <div class="tapes-grid">
-        <div class="tape-case">
-            <div class="rarity-badge">ULTRA RARE</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Space Traveling (Demo Version)</div>
-            <div class="tape-artist">Dr. Octagon</div>
-            <div class="tape-year">Recorded 1997</div>
-            <div class="tape-description">Original demo with alternate lyrics and experimental production. Features unreleased verses and cosmic instrumentals.</div>
-            <div class="tape-tracks">4 tracks • 18:32 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
+    <div class="vault-container">
+        <div class="tapes-section">
+            <div class="tapes-grid">
+                <div class="tape-case">
+                    <div class="rarity-badge">ULTRA RARE</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">Space Traveling Demo</div>
+                    <div class="tape-artist">Dr. Octagon</div>
+                    <div class="tape-year">1997</div>
+                    <button class="play-button">STREAM</button>
+                </div>
 
-        <div class="tape-case">
-            <div class="rarity-badge">EXCLUSIVE</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Alien Autopsy Flow</div>
-            <div class="tape-artist">Kool Keith x MF DOOM</div>
-            <div class="tape-year">Recorded 2003</div>
-            <div class="tape-description">Lost collaboration session with DOOM. Raw studio recordings with surgical precision flows over underground beats.</div>
-            <div class="tape-tracks">3 tracks • 12:15 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
+                <div class="tape-case">
+                    <div class="rarity-badge">EXCLUSIVE</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">Alien Autopsy Flow</div>
+                    <div class="tape-artist">Keith x DOOM</div>
+                    <div class="tape-year">2003</div>
+                    <button class="play-button">STREAM</button>
+                </div>
 
-        <div class="tape-case">
-            <div class="rarity-badge">LEGENDARY</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Black Elvis Freestyle Sessions</div>
-            <div class="tape-artist">Black Elvis</div>
-            <div class="tape-year">Recorded 1999</div>
-            <div class="tape-description">Unfiltered studio session footage. Multiple takes, alternate versions, and pure creative process captured live.</div>
-            <div class="tape-tracks">7 tracks • 23:45 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
+                <div class="tape-case">
+                    <div class="rarity-badge">LEGENDARY</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">Black Elvis Sessions</div>
+                    <div class="tape-artist">Black Elvis</div>
+                    <div class="tape-year">1999</div>
+                    <button class="play-button">STREAM</button>
+                </div>
 
-        <div class="tape-case">
-            <div class="rarity-badge">ARCHIVE</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">WBLS Freestyle Collection</div>
-            <div class="tape-artist">Ultramagnetic MCs</div>
-            <div class="tape-year">Recorded 1986-1988</div>
-            <div class="tape-description">Early radio appearances and freestyle sessions. Historical gems from the golden era of hip-hop radio.</div>
-            <div class="tape-tracks">12 tracks • 35:20 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
+                <div class="tape-case">
+                    <div class="rarity-badge">ARCHIVE</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">WBLS Freestyles</div>
+                    <div class="tape-artist">Ultramagnetic</div>
+                    <div class="tape-year">1986</div>
+                    <button class="play-button">STREAM</button>
+                </div>
 
-        <div class="tape-case">
-            <div class="rarity-badge">PRODUCER CUT</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Ced Gee Production Demos</div>
-            <div class="tape-artist">Ced Gee x Kool Keith</div>
-            <div class="tape-year">Recorded 1987</div>
-            <div class="tape-description">Pre-Critical Beatdown instrumental sessions. Raw production sketches and early beat experiments.</div>
-            <div class="tape-tracks">6 tracks • 28:10 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
+                <div class="tape-case">
+                    <div class="rarity-badge">PRODUCER</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">Ced Gee Demos</div>
+                    <div class="tape-artist">Ced Gee x Keith</div>
+                    <div class="tape-year">1987</div>
+                    <button class="play-button">STREAM</button>
+                </div>
 
-        <div class="tape-case">
-            <div class="rarity-badge">COLLAB VAULT</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Tim Dog Collaboration Rarities</div>
-            <div class="tape-artist">Kool Keith x Tim Dog</div>
-            <div class="tape-year">Recorded 1996</div>
-            <div class="tape-description">Ultra project outtakes and B-sides. Rare collaborations and experimental tracks from the vault.</div>
-            <div class="tape-tracks">5 tracks • 19:33 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
+                <div class="tape-case">
+                    <div class="rarity-badge">COLLAB</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">Tim Dog Rarities</div>
+                    <div class="tape-artist">Keith x Tim Dog</div>
+                    <div class="tape-year">1996</div>
+                    <button class="play-button">STREAM</button>
+                </div>
 
-        <div class="tape-case">
-            <div class="rarity-badge">MIDNIGHT</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Late Night Studio Sessions</div>
-            <div class="tape-artist">Kool Keith</div>
-            <div class="tape-year">Recorded 2001-2005</div>
-            <div class="tape-description">Experimental tracks recorded between 2-6 AM. Raw creativity captured during late night studio sessions.</div>
-            <div class="tape-tracks">9 tracks • 41:22 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
+                <div class="tape-case">
+                    <div class="rarity-badge">MIDNIGHT</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">Late Night Sessions</div>
+                    <div class="tape-artist">Kool Keith</div>
+                    <div class="tape-year">2001</div>
+                    <button class="play-button">STREAM</button>
+                </div>
 
-        <div class="tape-case">
-            <div class="rarity-badge">PERSONA</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Lost Persona Archives</div>
-            <div class="tape-artist">Various Keith Personas</div>
-            <div class="tape-year">Various Years</div>
-            <div class="tape-description">Rare recordings from forgotten alter-egos and one-off characters. Deep dive into Keith's multiverse.</div>
-            <div class="tape-tracks">15 tracks • 52:18 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
-
-        <div class="tape-case">
-            <div class="rarity-badge">REMIX VAULT</div>
-            <div class="tape-image"></div>
-            <div class="tape-title">Critical Beatdown Remix Vault</div>
-            <div class="tape-artist">Various Artists</div>
-            <div class="tape-year">Compilation</div>
-            <div class="tape-description">Unreleased remixes by underground producers. Classic tracks reimagined by the finest beat makers.</div>
-            <div class="tape-tracks">8 tracks • 31:45 runtime</div>
-            <button class="play-button">STREAM NOW</button>
-        </div>
-    </div>
-
-    <div class="vault-footer">
-        <div class="vault-stats">
-            <div class="stat-item">
-                <div class="stat-number">150+</div>
-                <div class="stat-label">Unreleased Tracks</div>
+                <div class="tape-case">
+                    <div class="rarity-badge">PERSONA</div>
+                    <div class="tape-image"></div>
+                    <div class="tape-title">Lost Personas</div>
+                    <div class="tape-artist">Various Keith</div>
+                    <div class="tape-year">Multi</div>
+                    <button class="play-button">STREAM</button>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">40+</div>
-                <div class="stat-label">Rare Sessions</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">25+</div>
-                <div class="stat-label">Hours of Audio</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Innovation</div>
+        </div>
+
+        <div class="vhs-section">
+            <h3>VHS SECTION</h3>
+            <p>Add your VHS tape here</p>
+            <div style="height: 200px; border: 1px dashed #444; margin: 20px 0; display: flex; align-items: center; justify-content: center;">
+                VHS TAPE PLACEHOLDER
             </div>
         </div>
     </div>
