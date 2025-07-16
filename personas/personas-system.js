@@ -264,7 +264,7 @@ class PersonasSystem {
                     </div>
                     <div class="card-number">#${persona.number}</div>
                     <div class="mc-logo">
-                        <img src="mc.png" alt="MC" class="mc-logo-img" onerror="this.style.display='none';">
+                        <img src="mc.png" alt="MC">
                     </div>
                     <div class="flip-hint">Click to flip</div>
                 </div>
@@ -289,7 +289,7 @@ class PersonasSystem {
                     </div>
                     <div class="card-number">#${persona.number}</div>
                     <div class="mc-logo">
-                        <img src="mc.png" alt="MC" class="mc-logo-img" onerror="this.style.display='none';">
+                        <img src="mc.png" alt="MC">
                     </div>
                 </div>
             </div>
