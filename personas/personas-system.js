@@ -233,7 +233,7 @@ class PersonasSystem {
                 <div class="card-front">
                     <div class="front-container">
                         <div class="card-header">
-                            <div class="persona-title ${persona.name.length > 15 ? 'long-title' : ''}">${persona.name}</div>
+                            <div class="persona-title ${persona.name.length > 10 ? 'long-title' : ''}">${persona.name}</div>
                         </div>
                         <div class="image-container">
                             <img src="${persona.image}" alt="${persona.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='${persona.name}';">
@@ -270,7 +270,7 @@ class PersonasSystem {
                 </div>
                 <div class="card-back">
                     <div class="back-container">
-                        <div class="back-title ${persona.name.length > 15 ? 'long-title' : ''}">${persona.name}</div>
+                        <div class="back-title ${persona.name.length > 10 ? 'long-title' : ''}">${persona.name}</div>
                         <div class="info-section">
                             <div class="section-title">Biography</div>
                             <div class="section-content">${persona.biography}</div>
