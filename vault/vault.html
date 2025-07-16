@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Keith Vault</title>
+    <title>Vault</title>
     <style>
         body {
             background: #000;
@@ -13,127 +13,49 @@
             padding: 40px 20px;
         }
 
-        .vault-title {
+        h1 {
             text-align: center;
             font-size: 3rem;
-            margin-bottom: 50px;
             color: #DAB547;
-            font-weight: bold;
+            margin-bottom: 50px;
         }
 
-        .vault-container {
+        .container {
             display: flex;
-            gap: 100px;
-            max-width: 1200px;
-            margin: 0 auto;
             justify-content: center;
+            gap: 100px;
         }
 
-        .tape-rack {
+        .stack {
             display: flex;
             flex-direction: column;
-            gap: 15px;
         }
 
-        .rack-title {
-            text-align: center;
-            font-size: 1.5rem;
-            color: #DAB547;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .tape-row {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .tape-image {
-            width: 80px;
-            height: auto;
-        }
-
-        .vhs-image {
-            width: 60px;
-            height: auto;
-        }
-
-        @media (max-width: 800px) {
-            .vault-container {
-                flex-direction: column;
-                gap: 50px;
-            }
-            
-            .tape-image, .vhs-image {
-                width: 60px;
-            }
+        .stack img {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <h1 class="vault-title">🔐 THE KEITH VAULT</h1>
+    <h1>Vault</h1>
     
-    <div class="vault-container">
-        <!-- CASSETTE RACK -->
-        <div class="tape-rack">
-            <h2 class="rack-title">CASSETTE RACK</h2>
-            
-            <div class="tape-row">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-            </div>
-            
-            <div class="tape-row">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-            </div>
-            
-            <div class="tape-row">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-                <img src="vault/tape.png" alt="Tape" class="tape-image">
-            </div>
+    <div class="container">
+        <div class="stack">
+            <img src="vault/tape.png" alt="Tape">
+            <img src="vault/tape.png" alt="Tape">
+            <img src="vault/tape.png" alt="Tape">
+            <img src="vault/tape.png" alt="Tape">
+            <img src="vault/tape.png" alt="Tape">
+            <img src="vault/tape.png" alt="Tape">
         </div>
 
-        <!-- VHS RACK -->
-        <div class="tape-rack">
-            <h2 class="rack-title">VHS RACK</h2>
-            
-            <div class="tape-row">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-            </div>
-            
-            <div class="tape-row">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-            </div>
-            
-            <div class="tape-row">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-                <img src="vault/vhs.jpg" alt="VHS" class="vhs-image">
-            </div>
+        <div class="stack">
+            <img src="vault/vhs.jpg" alt="VHS">
+            <img src="vault/vhs.jpg" alt="VHS">
+            <img src="vault/vhs.jpg" alt="VHS">
+            <img src="vault/vhs.jpg" alt="VHS">
+            <img src="vault/vhs.jpg" alt="VHS">
+            <img src="vault/vhs.jpg" alt="VHS">
         </div>
     </div>
 </body>
