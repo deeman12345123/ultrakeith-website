@@ -1,759 +1,343 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kool Keith Personas - Trading Cards</title>
+// PERSONAS SYSTEM - Complete Interactive Trading Card System
+// File: personas-system.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Personas system loading...');
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
+    // Check if personas data is available
+    if (typeof window.personasData === 'undefined') {
+        console.error('Personas data not loaded! Make sure personas-data.js loads first.');
+        return;
+    }
     
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="../shared/styles.css">
+    // GLOBAL VARIABLES
+    let currentPage = 1;
+    let cardsPerPage = 9; // 3x3 grid on desktop, 9 cards on mobile
+    let currentSort = 'oldest'; // 'oldest' or 'newest'
+    let deckOpened = false;
     
-    <!-- Persona Styles -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+    // ELEMENTS
+    const deckContainer = document.getElementById('deckContainer');
+    const deckBox = document.getElementById('deckBox');
+    const cardsContainer = document.getElementById('cardsContainer');
+    const cardsGrid = document.getElementById('cardsGrid');
+    const controlsSection = document.getElementById('controlsSection');
+    const personaCounter = document.getElementById('personaCounter');
+    const paginationContainer = document.getElementById('paginationContainer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageInfo = document.getElementById('pageInfo');
+    const oldestFirstBtn = document.getElementById('oldestFirstBtn');
+    const newestFirstBtn = document.getElementById('newestFirstBtn');
+    
+    // INITIALIZE
+    updatePersonaCounter();
+    setupEventListeners();
+    
+    // EVENT LISTENERS
+    function setupEventListeners() {
+        // Deck click
+        deckBox.addEventListener('click', handleDeckClick);
         
-        :root {
-            --mystical-blue: #00BFFF;
-            --energy-purple: #8A2BE2;
-            --plasma-pink: #FF1493;
-        }
+        // Sort buttons
+        oldestFirstBtn.addEventListener('click', () => setSortOrder('oldest'));
+        newestFirstBtn.addEventListener('click', () => setSortOrder('newest'));
         
-        .personas-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: var(--space-lg) 0;
-        }
+        // Pagination
+        prevBtn.addEventListener('click', () => changePage(-1));
+        nextBtn.addEventListener('click', () => changePage(1));
         
-        .personas-main-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            color: var(--keith-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(218, 181, 71, 0.6);
-        }
-        
-        .personas-subtitle {
-            font-size: 1.2rem;
-            color: var(--keith-white-75);
-            margin-bottom: 20px;
-        }
-
-        /* CONTROLS - HIDDEN INITIALLY */
-        .controls-section {
-            max-width: 1200px;
-            margin: 0 auto 30px auto;
-            padding: 0 20px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .controls-section.show {
-            display: flex;
-        }
-
-        .sort-controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        .sort-btn {
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            padding: 10px 20px;
-            border: 2px solid var(--keith-gold);
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            color: var(--keith-gold);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .sort-btn:hover {
-            background: linear-gradient(145deg, var(--keith-gold) 0%, var(--keith-gold-light) 100%);
-            color: var(--keith-black);
-            transform: translateY(-1px);
-        }
-
-        .sort-btn.active {
-            background: var(--keith-gold);
-            color: var(--keith-black);
-        }
-
-        .persona-counter {
-            font-family: 'Orbitron', monospace;
-            color: var(--keith-white-75);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .controls-section {
-                flex-direction: column;
-                text-align: center;
-            }
+        // Responsive card count
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Set initial cards per page
+    }
+    
+    // RESPONSIVE CARD COUNT
+    function handleResize() {
+        if (window.innerWidth <= 768) {
+            cardsPerPage = 6; // Mobile: 1 column, 6 cards
+        } else if (window.innerWidth <= 1200) {
+            cardsPerPage = 8; // Tablet: 2 columns, 8 cards
+        } else {
+            cardsPerPage = 9; // Desktop: 3 columns, 9 cards
         }
         
-        /* DECK */
-        .deck-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 60vh;
-            margin: 40px 0;
-            position: relative;
+        if (deckOpened) {
+            renderCurrentPage();
         }
+    }
+    
+    // UPDATE PERSONA COUNTER
+    function updatePersonaCounter() {
+        const totalCount = window.personasData.length;
+        personaCounter.textContent = `${totalCount} Personas Available`;
+    }
+    
+    // DECK CLICK HANDLER
+    async function handleDeckClick() {
+        if (deckOpened) return;
         
-        .deck-container.hidden {
-            display: none;
-        }
+        console.log('Deck clicked! Opening...');
+        deckOpened = true;
         
-        .deck-box {
-            width: 350px;
-            height: 550px;
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            border: 1px solid var(--keith-gold);
-            border-radius: var(--radius-xl);
-            cursor: pointer;
-            position: relative;
-            transition: all var(--transition);
-        }
+        // Add mystical hover effect
+        deckBox.classList.add('mystical-hover');
         
-        .deck-box:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(218, 181, 71, 0.5);
-        }
+        // Create mystical particles
+        createMysticalParticles();
         
-        .deck-box.mystical-hover {
-            animation: mystical-pulse 2s ease-in-out infinite;
-        }
+        // Energy building effect
+        setTimeout(() => {
+            deckBox.classList.add('energy-building');
+        }, 500);
         
-        @keyframes mystical-pulse {
-            0%, 100% { 
-                filter: drop-shadow(0 0 15px rgba(0, 191, 255, 0.4));
-                transform: scale(1.05);
-            }
-            50% { 
-                filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.7));
-                transform: scale(1.08);
-            }
-        }
+        // Screen flash
+        setTimeout(() => {
+            createScreenFlash();
+        }, 1500);
         
-        .deck-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: var(--keith-gold);
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .deck-logo {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 30px;
-            background: transparent;
-            border: none;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.5s ease;
-            overflow: hidden;
-        }
-        
-        .deck-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: brightness(0.9);
-        }
-        
-        .deck-box.energy-building .deck-logo {
-            animation: logo-energy 1s ease-in-out infinite alternate;
-        }
-        
-        @keyframes logo-energy {
-            0% { 
-                filter: brightness(1.2) drop-shadow(0 0 15px var(--mystical-blue));
-                transform: scale(1);
-            }
-            100% { 
-                filter: brightness(2) drop-shadow(0 0 25px var(--energy-purple));
-                transform: scale(1.05);
-            }
-        }
-        
-        .click-hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            animation: mystical-pulse-text 2s infinite;
-            text-align: center;
-            white-space: nowrap;
-            color: var(--keith-gold);
-            font-family: 'Orbitron', monospace;
-        }
-        
-        @keyframes mystical-pulse-text {
-            0%, 100% { 
-                opacity: 0.6; 
-                text-shadow: 0 0 8px currentColor;
-                transform: translateX(-50%) scale(1);
-            }
-            50% { 
-                opacity: 1; 
-                text-shadow: 0 0 20px currentColor, 0 0 30px var(--mystical-blue);
-                transform: translateX(-50%) scale(1.02);
-            }
-        }
-        
-        /* CARDS */
-        .cards-container {
-            display: none;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .cards-container.show {
-            display: block;
-        }
-        
-        .cards-grid {
-            display: grid;
-            gap: 30px;
-            justify-content: center;
-            padding: 20px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-                max-width: 370px;
-                margin: 0 auto;
-            }
-        }
-        
-        @media (min-width: 769px) and (max-width: 1200px) {
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (min-width: 1201px) {
-            .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .trading-card {
-            width: 350px;
-            height: 550px;
-            perspective: 1000px;
-            cursor: pointer;
-            justify-self: center;
-            opacity: 0;
-            transform: scale(0.1);
-            transition: all var(--transition);
-        }
-        
-        /* Card animations */
-        @media (max-width: 768px) {
-            .trading-card:not(:first-child).card-flying {
-                animation: card-scale-only 0.8s ease-out both;
-            }
+        // Hide deck and show cards
+        setTimeout(() => {
+            deckContainer.classList.add('hidden');
+            controlsSection.classList.add('show');
+            cardsContainer.classList.add('show');
+            paginationContainer.classList.add('show');
             
-            .trading-card:first-child.card-flying {
-                animation: 
-                    card-scale 1.2s ease-out both,
-                    card-smooth-spin 1.2s linear both;
-                transform-origin: center center;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .trading-card.card-flying {
-                animation: 
-                    card-scale 1.2s ease-out both,
-                    card-smooth-spin 1.2s linear both;
-                transform-origin: center center;
-                will-change: transform;
-            }
-        }
-        
-        @keyframes card-scale-only {
-            0% { opacity: 1; transform: scale(0.1); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes card-scale {
-            0% { opacity: 1; transform: scale(0.1); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes card-smooth-spin {
-            0% { transform: rotateZ(0turn); }
-            100% { transform: rotateZ(1turn); }
-        }
-        
-        .trading-card.card-landed {
-            opacity: 1;
-            transform: scale(1) rotateZ(0deg);
-            animation: none;
-        }
-        
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s ease;
-            transform-style: preserve-3d;
-        }
-        
-        .trading-card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--keith-gold);
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .card-front { transform: rotateY(0deg); }
-        .card-back { transform: rotateY(180deg); }
-        
-        .card-front::before, .card-back::before {
-            content: '';
-            position: absolute;
-            top: 8px; left: 8px; right: 8px; bottom: 8px;
-            border: 1px solid var(--keith-white-75);
-            border-radius: 6px;
-            opacity: 0.8;
-        }
-        
-        .front-container {
-            position: absolute;
-            top: 12px; left: 12px; right: 12px; bottom: 60px;
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-        }
-        
-        .card-header {
-            background: linear-gradient(145deg, #0F0505 0%, #1a1a1a 100%);
-            border: 1px solid var(--keith-gold);
-            border-radius: 6px;
-            padding: 10px 8px;
-            margin-bottom: 12px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .persona-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.95rem;
-            font-weight: 900;
-            color: var(--keith-gold);
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 1.1;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .persona-title.long-title {
-            font-size: 0.7rem;
-            letter-spacing: 0.3px;
-            line-height: 0.9;
-            margin: 0;
-            padding: 0;
-        }
-        
-        /* ABSOLUTE FORCE - ALL IMAGES IDENTICAL SIZE */
-        .trading-card .image-container {
-            width: 160px !important;
-            height: 160px !important;
-            margin: 0 auto 8px auto !important;
-            border: 1px solid var(--keith-white-75) !important;
-            border-radius: 8px !important;
-            background: #0F0505 !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            overflow: hidden !important;
-            box-sizing: border-box !important;
-            flex-shrink: 0 !important;
-        }
-        
-        .trading-card .image-container img {
-            width: 160px !important;
-            height: 160px !important;
-            min-width: 160px !important;
-            max-width: 160px !important;
-            min-height: 160px !important;
-            max-height: 160px !important;
-            object-fit: cover !important;
-            object-position: center !important;
-            border-radius: 6px !important;
-            display: block !important;
-            box-sizing: border-box !important;
-            flex-shrink: 0 !important;
-        }
-        
-        @media (min-width: 769px) {
-            .trading-card .image-container {
-                width: 200px !important;
-                height: 200px !important;
-                min-width: 200px !important;
-                max-width: 200px !important;
-                min-height: 200px !important;
-                max-height: 200px !important;
-                margin: 0 auto 10px auto !important;
-            }
-            
-            .trading-card .image-container img {
-                width: 200px !important;
-                height: 200px !important;
-                min-width: 200px !important;
-                max-width: 200px !important;
-                min-height: 200px !important;
-                max-height: 200px !important;
-            }
-        }
-        
-        .stats-section {
-            flex: 1;
-            margin-bottom: 8px;
-            padding: 0 3px;
-        }
-        
-        .stat-item {
-            display: flex;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-        }
-        
-        .stat-label {
-            font-weight: 700;
-            color: var(--keith-white-75);
-            width: 70px;
-            flex-shrink: 0;
-            font-size: 0.8rem;
-        }
-        
-        .stat-value {
-            color: var(--keith-white);
-            flex: 1;
-            font-size: 0.8rem;
-            line-height: 1.2;
-        }
-        
-        .quote-section {
-            padding: 12px 8px;
-            border-top: 1px solid var(--keith-white-75);
-            font-style: italic;
-            color: var(--keith-white-75);
-            font-size: 0.75rem;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 6px;
-            line-height: 1.3;
-            margin: 0 3px;
-        }
-        
-        .back-container {
-            position: absolute;
-            top: 15px; left: 15px; right: 15px; bottom: 120px;
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-        }
-        
-        .back-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            font-weight: 900;
-            color: var(--keith-gold);
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-        
-        .back-title.long-title {
-            font-size: 0.75rem;
-            letter-spacing: 0.4px;
-            line-height: 1.0;
-        }
-        
-        .info-section {
-            margin-bottom: 12px;
-            padding: 0 3px;
-        }
-        
-        .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--keith-white-75);
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        
-        .section-content {
-            font-size: 0.75rem;
-            line-height: 1.4;
-            color: var(--keith-white-75);
-            padding: 2px 0;
-        }
-        
-        .logo-space {
-            position: absolute;
-            bottom: 50px; left: 15px; right: 15px;
-            height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .back-logo {
-            width: 320px;
-            height: auto;
-            opacity: 0.8;
-            max-height: 180px;
-            object-fit: contain;
-        }
-        
-        /* CLEAN MC LOGO - BOTTOM RIGHT POSITION - NATURAL SIZE */
-        .trading-card .mc-logo-small {
-            position: absolute !important;
-            bottom: 18px !important;
-            right: 18px !important;
-            top: auto !important;
-            left: auto !important;
-            height: 35px !important;
-            width: auto !important;
-            z-index: 999 !important;
-        }
-        
-        .trading-card .mc-logo-small img {
-            height: 35px !important;
-            width: auto !important;
-            display: block !important;
-            object-fit: contain !important;
-        }
-        
-        .card-number {
-            position: absolute;
-            bottom: 15px; left: 15px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--keith-white-75);
-            background: rgba(0, 0, 0, 0.8);
-            padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid var(--keith-white-75);
-        }
-        
-        .flip-hint {
-            position: absolute;
-            bottom: 15px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            color: var(--keith-white-55);
-            font-family: 'Orbitron', monospace;
-        }
-        
-        /* PAGINATION */
-        .pagination-container {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            margin: 40px 0;
-            gap: 20px;
-        }
-        
-        .pagination-container.show {
-            display: flex;
-        }
-        
-        .pagination-btn {
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            padding: 12px 25px;
-            border: 2px solid var(--keith-gold);
-            background: linear-gradient(145deg, #1a1a1a 0%, #000000 100%);
-            color: var(--keith-gold);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        .pagination-btn:hover:not(.disabled) {
-            background: linear-gradient(145deg, var(--keith-gold) 0%, var(--keith-gold-light) 100%);
-            color: var(--keith-black);
-            transform: translateY(-2px);
-        }
-
-        .pagination-btn.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .page-info {
-            font-family: 'Orbitron', monospace;
-            color: var(--keith-white-75);
-            font-size: 1rem;
-            margin: 0 15px;
-        }
-
-        @media (max-width: 768px) {
-            .pagination-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-
-        /* PARTICLE EFFECTS - REMOVED CARD BURST */
-        .mystical-particle, .energy-wave, .screen-flash {
-            position: absolute;
-            pointer-events: none;
-        }
-
-        .mystical-particle {
-            width: 4px; height: 4px;
-            background: var(--mystical-blue);
-            border-radius: 50%;
-            z-index: 1001;
-            opacity: 0;
-            box-shadow: 0 0 6px currentColor;
-        }
-
-        .energy-wave {
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 0; height: 0;
-            border: 3px solid var(--energy-purple);
-            border-radius: 50%;
-            opacity: 0;
-            z-index: 1000;
-        }
-
-        .screen-flash {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(0, 191, 255, 0.6) 30%, 
-                rgba(138, 43, 226, 0.3) 60%, 
-                transparent 100%);
-            opacity: 0;
-            z-index: 9999;
-        }
-
-        /* ANIMATIONS */
-        @keyframes particle-burst {
-            0% { opacity: 1; transform: scale(0) rotate(0deg); }
-            20% { opacity: 1; transform: scale(1.5) rotate(90deg); }
-            80% { opacity: 0.8; transform: scale(1) rotate(270deg); }
-            100% { opacity: 0; transform: scale(0) rotate(360deg); }
-        }
-
-        @keyframes energy-wave-expand {
-            0% { width: 0; height: 0; opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { width: 600px; height: 600px; opacity: 0; }
-        }
-
-        @keyframes screen-flash-effect {
-            0% { opacity: 0; }
-            15% { opacity: 1; }
-            35% { opacity: 0.8; }
-            100% { opacity: 0; }
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
+            // Start card animation
+            renderCurrentPage();
+        }, 2000);
+    }
     
-    <main class="main">
-        <div class="personas-header">
-            <h1 class="personas-main-title">Personas</h1>
-            <p class="personas-subtitle">Official Collection</p>
-        </div>
-
-        <!-- Controls Section - HIDDEN INITIALLY -->
-        <div class="controls-section" id="controlsSection">
-            <div class="sort-controls">
-                <button class="sort-btn active" id="oldestFirstBtn">Oldest First</button>
-                <button class="sort-btn" id="newestFirstBtn">Newest First</button>
-            </div>
-            <div class="persona-counter" id="personaCounter">
-                Loading personas...
-            </div>
-        </div>
+    // MYSTICAL PARTICLES
+    function createMysticalParticles() {
+        const colors = ['#00BFFF', '#8A2BE2', '#FF1493'];
         
-        <div class="deck-container" id="deckContainer">
-            <div class="deck-box" id="deckBox">
-                <div class="deck-content">
-                    <div class="deck-logo">
-                        <img src="logoback.png" alt="Ultra Keith Logo" onerror="this.style.display='none'">
+        for (let i = 0; i < 12; i++) {
+            setTimeout(() => {
+                const particle = document.createElement('div');
+                particle.className = 'mystical-particle';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Position around deck
+                const deckRect = deckBox.getBoundingClientRect();
+                const centerX = deckRect.left + deckRect.width / 2;
+                const centerY = deckRect.top + deckRect.height / 2;
+                
+                const angle = (i / 12) * Math.PI * 2;
+                const startRadius = 180;
+                const startX = centerX + Math.cos(angle) * startRadius;
+                const startY = centerY + Math.sin(angle) * startRadius;
+                
+                particle.style.left = startX + 'px';
+                particle.style.top = startY + 'px';
+                
+                document.body.appendChild(particle);
+                
+                // Animate particle burst
+                particle.style.animation = 'particle-burst 1.5s ease-out forwards';
+                
+                // Random end position
+                const endX = startX + (Math.random() - 0.5) * 300;
+                const endY = startY + (Math.random() - 0.5) * 300;
+                
+                setTimeout(() => {
+                    particle.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(0)`;
+                }, 100);
+                
+                // Remove particle
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 1600);
+            }, i * 100);
+        }
+    }
+    
+    // SCREEN FLASH
+    function createScreenFlash() {
+        const flash = document.createElement('div');
+        flash.className = 'screen-flash';
+        document.body.appendChild(flash);
+        
+        flash.style.animation = 'screen-flash-effect 0.8s ease-out forwards';
+        
+        setTimeout(() => {
+            if (flash.parentNode) {
+                flash.parentNode.removeChild(flash);
+            }
+        }, 800);
+    }
+    
+    // SORT ORDER
+    function setSortOrder(order) {
+        currentSort = order;
+        currentPage = 1;
+        
+        // Update button states
+        oldestFirstBtn.classList.toggle('active', order === 'oldest');
+        newestFirstBtn.classList.toggle('active', order === 'newest');
+        
+        renderCurrentPage();
+    }
+    
+    // GET SORTED PERSONAS
+    function getSortedPersonas() {
+        const sorted = [...window.personasData];
+        
+        if (currentSort === 'newest') {
+            return sorted.reverse();
+        }
+        
+        return sorted; // Default: oldest first
+    }
+    
+    // PAGINATION
+    function changePage(direction) {
+        const totalPages = Math.ceil(window.personasData.length / cardsPerPage);
+        const newPage = currentPage + direction;
+        
+        if (newPage >= 1 && newPage <= totalPages) {
+            currentPage = newPage;
+            renderCurrentPage();
+        }
+    }
+    
+    // RENDER CURRENT PAGE
+    function renderCurrentPage() {
+        const sortedPersonas = getSortedPersonas();
+        const totalPages = Math.ceil(sortedPersonas.length / cardsPerPage);
+        const startIndex = (currentPage - 1) * cardsPerPage;
+        const endIndex = startIndex + cardsPerPage;
+        const pagePersonas = sortedPersonas.slice(startIndex, endIndex);
+        
+        // Clear existing cards
+        cardsGrid.innerHTML = '';
+        
+        // Create cards
+        pagePersonas.forEach((persona, index) => {
+            const card = createTradingCard(persona, startIndex + index + 1);
+            cardsGrid.appendChild(card);
+            
+            // Animate card appearance
+            setTimeout(() => {
+                if (window.innerWidth <= 768 && index > 0) {
+                    // Mobile: only first card spins
+                    card.classList.add('card-flying');
+                } else {
+                    // Desktop: all cards spin
+                    card.classList.add('card-flying');
+                }
+                
+                setTimeout(() => {
+                    card.classList.remove('card-flying');
+                    card.classList.add('card-landed');
+                }, 1200);
+            }, index * 150);
+        });
+        
+        // Update pagination
+        updatePagination(totalPages);
+    }
+    
+    // UPDATE PAGINATION
+    function updatePagination(totalPages) {
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        
+        prevBtn.classList.toggle('disabled', currentPage === 1);
+        nextBtn.classList.toggle('disabled', currentPage === totalPages);
+    }
+    
+    // CREATE TRADING CARD
+    function createTradingCard(persona, cardNumber) {
+        const card = document.createElement('div');
+        card.className = 'trading-card';
+        
+        // Determine if title is long (X-Caliber gets small font too)
+        const isLongTitle = persona.name.length > 12 || persona.name === "X-Caliber";
+        const titleClass = isLongTitle ? 'persona-title long-title' : 'persona-title';
+        const backTitleClass = isLongTitle ? 'back-title long-title' : 'back-title';
+        
+        card.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="front-container">
+                        <div class="card-header">
+                            <h3 class="${titleClass}">${persona.name}</h3>
+                        </div>
+                        
+                        <div class="image-container">
+                            <img src="${persona.image}" alt="${persona.name}" onerror="this.style.display='none'">
+                        </div>
+                        
+                        <div class="stats-section">
+                            <div class="stat-item">
+                                <span class="stat-label">Era:</span>
+                                <span class="stat-value">${persona.era}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Style:</span>
+                                <span class="stat-value">${persona.style}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Origin:</span>
+                                <span class="stat-value">${persona.origin}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Albums:</span>
+                                <span class="stat-value">${persona.albums}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quote-section">
+                            "${persona.quote}"
+                        </div>
                     </div>
+                    
+                    <div class="mc-logo-small">
+                        <img src="mclogosml.png" alt="MC" onerror="this.style.display='none'">
+                    </div>
+                    
+                    <div class="card-number">#${cardNumber.toString().padStart(3, '0')}</div>
+                    <div class="flip-hint">Click to flip</div>
                 </div>
-                <div class="click-hint">Click to Open the Deck</div>
+                
+                <div class="card-back">
+                    <div class="back-container">
+                        <h3 class="${backTitleClass}">${persona.name}</h3>
+                        
+                        <div class="info-section">
+                            <div class="section-title">Biography</div>
+                            <div class="section-content">${persona.biography}</div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <div class="section-title">Notable Tracks</div>
+                            <div class="section-content">${persona.notableTracks}</div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <div class="section-title">Influence</div>
+                            <div class="section-content">${persona.influence}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="logo-space">
+                        <img class="back-logo" src="logoback.png" alt="Ultra Keith" onerror="this.style.display='none'">
+                    </div>
+                    
+                    <div class="card-number">#${cardNumber.toString().padStart(3, '0')}</div>
+                </div>
             </div>
-        </div>
+        `;
         
-        <div class="cards-container" id="cardsContainer">
-            <div class="cards-grid" id="cardsGrid">
-                <!-- Cards inserted here by JavaScript -->
-            </div>
-        </div>
+        // Add flip functionality
+        card.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
         
-        <div class="pagination-container" id="paginationContainer">
-            <button class="pagination-btn" id="prevBtn">← Previous</button>
-            <div class="page-info" id="pageInfo">Page 1 of 1</div>
-            <button class="pagination-btn" id="nextBtn">Next →</button>
-        </div>
-    </main>
-
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Load personas data FIRST - SINGLE FILE -->
-    <script src="personas-data.js"></script>
+        return card;
+    }
     
-    <!-- Shared Navigation System -->
-    <script src="../shared/navigation.js"></script>
-    
-    <!-- Load personas system LAST -->
-    <script src="personas-system.js"></script>
-</body>
-</html>
+    console.log('Personas system loaded successfully!');
+});
