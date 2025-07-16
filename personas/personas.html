@@ -536,20 +536,22 @@
             object-fit: contain;
         }
         
-        /* CLEAN MC LOGO - NO CONFLICTS */
-        .mc-logo-small {
-            position: absolute;
-            bottom: 18px;
-            right: 18px;
-            width: 18px;
-            height: 18px;
-            z-index: 999;
+        /* CLEAN MC LOGO - BOTTOM RIGHT POSITION - FORCE OVERRIDE */
+        .trading-card .mc-logo-small {
+            position: absolute !important;
+            bottom: 18px !important;
+            right: 18px !important;
+            top: auto !important;
+            left: auto !important;
+            width: 18px !important;
+            height: 18px !important;
+            z-index: 999 !important;
         }
         
-        .mc-logo-small img {
-            width: 18px;
-            height: 18px;
-            display: block;
+        .trading-card .mc-logo-small img {
+            width: 18px !important;
+            height: 18px !important;
+            display: block !important;
         }
         
         .card-number {
