@@ -51,7 +51,7 @@
             max-width: 1200px;
             margin: 0 auto 30px auto;
             padding: 0 20px;
-            display: none; /* HIDDEN until deck opens */
+            display: none;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
@@ -536,35 +536,19 @@
             object-fit: contain;
         }
         
-        .mc-logo {
+        /* CLEAN MC LOGO - NO CONFLICTS */
+        .mc-logo-small {
             position: absolute;
-            bottom: 15px; right: 15px;
-            width: 40px; height: 40px;
-            z-index: 20;
-            background: var(--keith-gold);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 0.7rem;
-            color: var(--keith-black);
+            bottom: 18px;
+            right: 18px;
+            width: 18px;
+            height: 18px;
+            z-index: 999;
         }
         
-        .mc-logo-img {
-            width: 100%; height: 100%;
-            object-fit: contain;
-        }
-        
-        /* Fallback text when image fails */
-        .mc-logo::after {
-            content: 'MC';
-            display: none;
-        }
-        
-        .mc-logo img[style*="display: none"] + .mc-logo::after,
-        .mc-logo:not(:has(img))::after {
+        .mc-logo-small img {
+            width: 18px;
+            height: 18px;
             display: block;
         }
         
