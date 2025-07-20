@@ -3,202 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE KEITH VAULT - Tape Collection</title>
+    <title>The Keith Vault</title>
     <style>
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: #00ffff;
-            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             min-height: 100vh;
         }
 
-        .vault-header {
-            text-align: center;
-            margin-bottom: 50px;
-            padding: 20px;
-        }
-
-        .vault-title {
-            font-size: 3rem;
-            font-weight: bold;
-            text-shadow: 0 0 20px #00ffff;
-            margin-bottom: 10px;
-            letter-spacing: 3px;
-        }
-
-        .vault-subtitle {
-            font-size: 1.2rem;
-            color: #ffff00;
-            margin-bottom: 30px;
-        }
-
-        .tapes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .tape-case {
-            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .tape-case:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
-            border-color: #ffff00;
-        }
-
-        .tape-case::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #ff0080, #00ffff, #ffff00);
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .tape-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #333, #555);
-            border: 2px solid #666;
-            border-radius: 8px;
-            margin-bottom: 15px;
+        .container {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: #999;
-            position: relative;
-            overflow: hidden;
+            gap: 100px;
+            align-items: center;
+            min-height: 80vh;
         }
 
-        .tape-image::after {
-            content: '🎵';
-            position: absolute;
-            font-size: 3rem;
-            opacity: 0.3;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .tape-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #00ffff;
-            text-shadow: 0 0 10px #00ffff;
-        }
-
-        .tape-artist {
-            font-size: 1rem;
-            color: #ffff00;
-            margin-bottom: 8px;
-        }
-
-        .tape-year {
-            font-size: 0.9rem;
-            color: #ff0080;
-            margin-bottom: 10px;
-        }
-
-        .tape-description {
-            font-size: 0.85rem;
-            color: #ccc;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-
-        .tape-tracks {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 15px;
-        }
-
-        .play-button {
-            background: linear-gradient(45deg, #ff0080, #00ffff);
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-family: 'Courier New', monospace;
-        }
-
-        .play-button:hover {
-            background: linear-gradient(45deg, #00ffff, #ffff00);
-            transform: scale(1.05);
-        }
-
-        .rarity-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff0080;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-
-        .cassette-holes {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .stack {
             display: flex;
-            gap: 60px;
+            flex-direction: column;
+            gap: 5px;
         }
 
-        .cassette-hole {
-            width: 20px;
-            height: 20px;
-            background: #222;
-            border-radius: 50%;
-            border: 2px solid #444;
+        .stack img {
+            width: 150px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .stack img:hover {
+            transform: translateX(15px);
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+                gap: 50px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="vault-header">
-        <div class="vault-title">🔐 THE KEITH VAULT</div>
-        <div class="vault-subtitle">Unreleased Tape Collection • Deep Archive Access</div>
-    </div>
+    <div class="container">
+        <div class="stack">
+            <img src="tape.png" alt="Tape">
+            <img src="tape.png" alt="Tape">
+            <img src="tape.png" alt="Tape">
+            <img src="tape.png" alt="Tape">
+            <img src="tape.png" alt="Tape">
+            <img src="tape.png" alt="Tape">
+        </div>
 
-    <div class="tapes-grid">
-        <div class="tape-case">
-            <div class="rarity-badge">ULTRA RARE</div>
-            <div class="tape-image">
-                <div class="cassette-holes">
-                    <div class="cassette-hole"></div>
-                    <div class="cassette-hole"></div>
-                </div>
-            </div>
-            <div class="tape-title
+        <div class="stack">
+            <img src="vhs.png" alt="VHS">
+            <img src="vhs.png" alt="VHS">
+            <img src="vhs.png" alt="VHS">
+            <img src="vhs.png" alt="VHS">
+            <img src="vhs.png" alt="VHS">
+            <img src="vhs.png" alt="VHS">
+        </div>
+    </div>
+</body>
+</html>
