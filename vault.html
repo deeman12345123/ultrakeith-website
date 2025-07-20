@@ -4,74 +4,228 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Keith Vault</title>
-    <meta name="description" content="Unreleased tracks, rare recordings, and exclusive content for true fans.">
+    <meta name="description" content="Elite archive of Kool Keith's unreleased tracks and rare recordings.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
     
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="shared/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #2a2a2a 100%);
+            color: #fff;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .vault-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #DAB547;
+            text-shadow: 0 0 30px rgba(218, 181, 71, 0.5);
+            letter-spacing: 3px;
+            padding: 40px 20px;
+            margin-bottom: 20px;
+        }
+
+        .vault-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 40px 20px;
+            gap: 120px;
+            min-height: 60vh;
+        }
+
+        .tape-stack {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .stack-label {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #DAB547;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(218, 181, 71, 0.5);
+        }
+
+        .stack-base {
+            width: 200px;
+            height: 30px;
+            background: linear-gradient(45deg, #333, #555);
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .tape-item {
+            position: absolute;
+            width: 180px;
+            height: 120px;
+            background-image: url('tape.png');
+            background-size: cover;
+            background-position: center;
+            left: 10px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-origin: center bottom;
+            border-radius: 5px;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+        }
+
+        .vhs-item {
+            position: absolute;
+            width: 160px;
+            height: 100px;
+            background-image: url('vhs.png');
+            background-size: cover;
+            background-position: center;
+            left: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-origin: center bottom;
+            border-radius: 3px;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid #333;
+        }
+
+        /* Cassette Stack Positioning */
+        .cassette-stack .tape-item:nth-child(2) { bottom: 30px; z-index: 6; }
+        .cassette-stack .tape-item:nth-child(3) { bottom: 45px; z-index: 5; }
+        .cassette-stack .tape-item:nth-child(4) { bottom: 60px; z-index: 4; }
+        .cassette-stack .tape-item:nth-child(5) { bottom: 75px; z-index: 3; }
+        .cassette-stack .tape-item:nth-child(6) { bottom: 90px; z-index: 2; }
+        .cassette-stack .tape-item:nth-child(7) { bottom: 105px; z-index: 1; }
+
+        /* VHS Stack Positioning */
+        .vhs-stack .vhs-item:nth-child(2) { bottom: 30px; z-index: 6; }
+        .vhs-stack .vhs-item:nth-child(3) { bottom: 45px; z-index: 5; }
+        .vhs-stack .vhs-item:nth-child(4) { bottom: 60px; z-index: 4; }
+        .vhs-stack .vhs-item:nth-child(5) { bottom: 75px; z-index: 3; }
+        .vhs-stack .vhs-item:nth-child(6) { bottom: 90px; z-index: 2; }
+        .vhs-stack .vhs-item:nth-child(7) { bottom: 105px; z-index: 1; }
+
+        /* Hover Effects - Tapes Poke Out */
+        .tape-item:hover {
+            transform: translateX(25px) translateY(-5px) rotateY(5deg);
+            box-shadow: 
+                0 8px 30px rgba(218, 181, 71, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: #DAB547;
+            filter: brightness(1.1);
+        }
+
+        .vhs-item:hover {
+            transform: translateX(25px) translateY(-5px) rotateY(5deg);
+            box-shadow: 
+                0 8px 30px rgba(218, 181, 71, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: #DAB547;
+            filter: brightness(1.1);
+        }
+
+        /* Ambient Lighting */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(218, 181, 71, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(218, 181, 71, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Fallback if images don't load */
+        .tape-item {
+            background-color: #333;
+        }
+
+        .vhs-item {
+            background-color: #222;
+        }
+
+        @media (max-width: 1000px) {
+            .vault-container {
+                flex-direction: column;
+                gap: 80px;
+                align-items: center;
+            }
+            
+            .vault-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .vault-container {
+                gap: 60px;
+            }
+            
+            .tape-item {
+                width: 150px;
+                height: 100px;
+            }
+            
+            .vhs-item {
+                width: 130px;
+                height: 80px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
+    <div class="vault-title">🔐 THE KEITH VAULT</div>
     
-    <main class="main" id="mainContent">
-        <section class="hero">
-            <img src="vaulticon.png" alt="Vault Icon" class="hero-logo" onerror="this.style.display='none'">
-            <h1 class="hero-title" style="margin-bottom: 1rem;">The Keith Vault</h1>
-            <p class="hero-description">Unreleased tracks, rare recordings, and exclusive content for true fans.<br>Access the hidden treasures of hip-hop's most prolific artist.</p>
-        </section>
-        
-        <section class="features">
-            <article class="feature-card" style="min-height: auto;">
-                <div class="feature-icon"><img src="vault/tape.png" alt="Cassette Archives" style="max-width: 100%; height: auto; border-radius: 8px;"></div>
-                <h3 class="feature-title">Cassette Archives</h3>
-                <p class="feature-description">Unreleased tracks, rare recordings, and exclusive content for true fans. Deep cuts from the archives - songs that never made it to official releases, experimental recordings, and tracks deemed "too advanced" for their time.</p>
-                <a href="#" class="btn btn-secondary">Stream Collection</a>
-            </article>
+    <div class="vault-container">
+        <!-- CASSETTE TAPE STACK -->
+        <div class="tape-stack cassette-stack">
+            <div class="stack-label">Cassette Archive</div>
+            <div class="stack-base"></div>
             
-            <article class="feature-card" style="min-height: auto;">
-                <div class="feature-icon"><img src="vault/vhs.jpg" alt="VHS Collection" style="max-width: 100%; height: auto; border-radius: 8px;"></div>
-                <h3 class="feature-title">VHS Collection</h3>
-                <p class="feature-description">Behind-the-scenes footage, persona creation stories, and intimate glimpses into the creative process of hip-hop's most innovative mind. Music videos, live performances, interviews, and behind-the-scenes content from Keith's extensive multimedia archive.</p>
-                <a href="#" class="btn btn-secondary">Watch Collection</a>
-            </article>
-        </section>
-        
-        <section class="vault-stats" style="text-align: center; padding: 4rem 2rem; background: #1a1a1a; margin-top: 3rem;">
-            <h2 style="color: #DAB547; font-size: 2rem; margin-bottom: 2rem;">Vault Statistics</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto;">
-                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">150+</div>
-                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Unreleased Tracks</div>
-                </div>
-                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">40+</div>
-                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Rare Sessions</div>
-                </div>
-                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">25+</div>
-                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Hours of Video</div>
-                </div>
-                <div style="background: #2a2a2a; padding: 2rem; border-radius: 8px; border: 1px solid #333;">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #DAB547; margin-bottom: 0.5rem;">∞</div>
-                    <div style="color: #ccc; text-transform: uppercase; font-size: 0.9rem;">Innovation</div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="vault-access" style="text-align: center; padding: 3rem 2rem;">
-            <h2 style="color: #DAB547; font-size: 1.8rem; margin-bottom: 1rem;">Vault Access Granted</h2>
-            <p style="color: #ccc; max-width: 600px; margin: 0 auto 2rem; line-height: 1.6;">Welcome to the inner sanctum of Kool Keith's creative universe. This exclusive collection represents decades of unreleased material, rare gems, and behind-the-scenes content available nowhere else.</p>
-            <a href="contact.html" class="btn btn-primary">Request Full Access</a>
-        </section>
-    </main>
+            <div class="tape-item"></div>
+            <div class="tape-item"></div>
+            <div class="tape-item"></div>
+            <div class="tape-item"></div>
+            <div class="tape-item"></div>
+            <div class="tape-item"></div>
+        </div>
 
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Shared Navigation System -->
-    <script src="shared/navigation.js"></script>
+        <!-- VHS TAPE STACK -->
+        <div class="tape-stack vhs-stack">
+            <div class="stack-label">VHS Collection</div>
+            <div class="stack-base"></div>
+            
+            <div class="vhs-item"></div>
+            <div class="vhs-item"></div>
+            <div class="vhs-item"></div>
+            <div class="vhs-item"></div>
+            <div class="vhs-item"></div>
+            <div class="vhs-item"></div>
+        </div>
+    </div>
 </body>
 </html>
