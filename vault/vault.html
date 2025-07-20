@@ -6,56 +6,158 @@
     <title>Vault</title>
     <style>
         body {
-            background: #000;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;
             margin: 0;
             padding: 40px 20px;
+            min-height: 100vh;
         }
 
         h1 {
             text-align: center;
-            font-size: 3rem;
+            font-size: 4rem;
             color: #DAB547;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 30px rgba(218, 181, 71, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .vault-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .container {
             display: flex;
             justify-content: center;
-            gap: 100px;
+            gap: 120px;
+            align-items: flex-start;
+        }
+
+        .collection {
+            text-align: center;
+        }
+
+        .collection-title {
+            font-size: 1.5rem;
+            color: #DAB547;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .stack {
             display: flex;
             flex-direction: column;
+            gap: 2px;
+            position: relative;
         }
 
-        .stack img {
-            display: block;
+        .cassette-stack img {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .vhs-stack img {
+            width: 80px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .stack img:hover {
+            transform: translateX(5px);
+            filter: drop-shadow(0 6px 12px rgba(218, 181, 71, 0.4));
+        }
+
+        .collection-info {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .rarity-label {
+            background: rgba(218, 181, 71, 0.2);
+            color: #DAB547;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-top: 15px;
+            border: 1px solid rgba(218, 181, 71, 0.3);
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                flex-direction: column;
+                gap: 50px;
+                align-items: center;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cassette-stack img {
+                width: 100px;
+            }
+            
+            .vhs-stack img {
+                width: 65px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Vault</h1>
+    <h1>THE KEITH VAULT</h1>
+    <div class="vault-subtitle">Underground Archive • Exclusive Collection</div>
     
     <div class="container">
-        <div class="stack">
-            <img src="tape.png" alt="Tape">
-            <img src="tape.png" alt="Tape">
-            <img src="tape.png" alt="Tape">
-            <img src="tape.png" alt="Tape">
-            <img src="tape.png" alt="Tape">
-            <img src="tape.png" alt="Tape">
+        <div class="collection">
+            <h2 class="collection-title">🎵 Cassette Archive</h2>
+            <div class="stack cassette-stack">
+                <img src="tape.png" alt="Keith Rare Demo Tape">
+                <img src="tape.png" alt="Keith Studio Sessions">
+                <img src="tape.png" alt="Keith Freestyle Collection">
+                <img src="tape.png" alt="Keith Unreleased Tracks">
+                <img src="tape.png" alt="Keith Collaboration Tapes">
+                <img src="tape.png" alt="Keith Master Archive">
+            </div>
+            <div class="collection-info">
+                Rare studio recordings spanning<br>
+                40+ years of hip-hop innovation
+            </div>
+            <div class="rarity-label">Ultra Rare Collection</div>
         </div>
 
-        <div class="stack">
-            <img src="vhs.png" alt="VHS">
-            <img src="vhs.png" alt="VHS">
-            <img src="vhs.png" alt="VHS">
-            <img src="vhs.png" alt="VHS">
-            <img src="vhs.png" alt="VHS">
-            <img src="vhs.png" alt="VHS">
+        <div class="collection">
+            <h2 class="collection-title">📼 VHS Archive</h2>
+            <div class="stack vhs-stack">
+                <img src="vhs.png" alt="Keith Behind the Scenes">
+                <img src="vhs.png" alt="Keith Music Videos">
+                <img src="vhs.png" alt="Keith Live Performances">
+                <img src="vhs.png" alt="Keith Studio Footage">
+                <img src="vhs.png" alt="Keith Interviews">
+                <img src="vhs.png" alt="Keith Rare Footage">
+            </div>
+            <div class="collection-info">
+                Exclusive visual content from<br>
+                the Keith multimedia archive
+            </div>
+            <div class="rarity-label">Collector's Edition</div>
         </div>
     </div>
 </body>
