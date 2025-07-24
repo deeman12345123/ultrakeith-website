@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +7,91 @@
     <title>Ultra Keith - Number 1 Producer</title>
     <meta name="description" content="Official website of Kool Keith - Hip-Hop's most prolific innovator.">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
     
-    <!-- Shared CSS - RELATIVE PATH -->
     <link rel="stylesheet" href="shared/styles.css">
+    <style>
+        /* Styles for the Keith Welcome Popup - Moved from inline to here for better organization */
+        #keithWelcome {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+
+        #keithWelcome .popup-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        #keithWelcome .popup-inner {
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #DAB547;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        #keithWelcome .popup-image-container {
+            margin-bottom: 30px;
+        }
+
+        #keithWelcome .popup-image {
+            max-width: 100%;
+            max-height: 60vh;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(218, 181, 71, 0.3);
+        }
+
+        #keithWelcome .popup-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #keithWelcome .popup-button {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important;
+            border: 2px solid #DAB547 !important;
+            border-radius: 15px !important;
+            padding: 20px 30px !important;
+            color: #fff !important;
+            font-family: Arial !important;
+            cursor: pointer !important;
+            transition: all 0.3s !important;
+            min-width: 140px !important;
+        }
+
+        #keithWelcome .popup-button:hover {
+            background: linear-gradient(145deg, #DAB547, #FFD700) !important;
+            color: #000 !important;
+        }
+        
+        #keithWelcome .popup-button-icon {
+            font-size: 2rem;
+            pointer-events: none;
+        }
+
+        #keithWelcome .popup-button-text {
+            font-weight: bold;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
-    
     <main class="main" id="mainContent">
         <section class="hero">
             <img src="koolkeithmainlogo.png" alt="Kool Keith Diamond Logo" class="hero-logo" onerror="this.style.display='none'">
@@ -28,7 +103,6 @@
                 <div class="carousel-container">
                     <div class="carousel">
                     <div class="carousel-track" id="carouselTrack">
-                        <!-- DUPLICATE FOR BACKWARD -->
                         <div class="carousel-slide">
                             <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJBMkEyQSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjREFCNTQ3IiBmb250LXNpemU9IjE0Ij5BcG9uaWE8L3RleHQ+PC9zdmc+'">
                             <div class="album-info">
@@ -61,7 +135,6 @@
                             </div>
                         </div>
                         
-                        <!-- MAIN 5 ALBUMS -->
                         <div class="carousel-slide">
                             <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJBMkEyQSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjREFCNTQ3IiBmb250LXNpemU9IjE0Ij5LYXJwZW50ZXJzPC90ZXh0Pjwvc3ZnPg=='">
                             <div class="album-info">
@@ -111,7 +184,7 @@
                         </div>
                         
                         <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJBMkEyQSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjREFCNTQ3IiBmb250LXNpemU9IjE0Ij5BcG9uaWE8L3RleHQ+PC9zdmc+'">
+                            <img src="https://ultrakeith.com/music/album-covers/aponia.jpg" alt="Aponia album cover" class="album-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJBMkEyQSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjREFCNTQ3IiBmb250LXNpemU9IjE0Ij5BcG9uaWE8L2NvbS90ZXh0Pjwvc3ZnPg=='">
                             <div class="album-info">
                                 <div class="album-header">
                                     <h3 class="album-title">Aponia</h3>
@@ -142,7 +215,6 @@
                             </div>
                         </div>
                         
-                        <!-- DUPLICATE FOR FORWARD -->
                         <div class="carousel-slide">
                             <img src="https://ultrakeith.com/music/album-covers/karpenters.jpg" alt="Karpenters album cover" class="album-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJBMkEyQSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjREFCNTQ3IiBmb250LXNpemU9IjE0Ij5LYXJwZW50ZXJzPC90ZXh0Pjwvc3ZnPg=='">
                             <div class="album-info">
@@ -160,7 +232,7 @@
                         </div>
                         
                         <div class="carousel-slide">
-                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJBMkEyQSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjREFCNTQ3IiBmb250LXNpemU9IjEyIj5FdmVyeWJvZHkgRWF0cyE8L3RleHQ+PC9zdmc+'">
+                            <img src="https://ultrakeith.com/music/album-covers/everybody-eats.jpg" alt="Everybody Eats! album cover" class="album-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJBMkEyQSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjREFCNTQ3IiBmb250LXNpemU9IjEyIj5FdmVyeWJvZHkgRWF0cyE8L3R0Pg=='">
                             <div class="album-info">
                                 <div class="album-header">
                                     <h3 class="album-title">Everybody Eats!</h3>
@@ -177,11 +249,9 @@
                     </div>
                 </div>
                 
-                <!-- NAVIGATION BUTTONS -->
                 <button class="carousel-nav prev" id="prevBtn" aria-label="Previous album"></button>
                 <button class="carousel-nav next" id="nextBtn" aria-label="Next album"></button>
                 
-                <!-- INDICATORS -->
                 <div class="carousel-indicators" id="indicators">
                     <div class="carousel-indicator active" data-slide="0" aria-label="Album 1"></div>
                     <div class="carousel-indicator" data-slide="1" aria-label="Album 2"></div>
@@ -277,35 +347,26 @@
         </section>
     </main>
 
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Shared Navigation System (handles mobile menu, audio, banner) - RELATIVE PATH -->
     <script src="shared/navigation.js"></script>
     
-    <!-- Homepage-specific scripts -->
     <script src="carousel.js"></script>
-    <script src="ui.js"></script> <!-- Now only handles news loading -->
-
-    <!-- KEITH'S WELCOME POPUP -->
-    <div id="keithWelcome" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; backdrop-filter: blur(10px);">
-        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 20px;">
-            <div style="background: linear-gradient(145deg, #1a1a1a, #2a2a2a); border: 2px solid #DAB547; border-radius: 20px; padding: 30px; text-align: center; max-width: 90vw; max-height: 90vh;">
+    <script src="ui.js"></script> <div id="keithWelcome">
+        <div class="popup-content">
+            <div class="popup-inner">
                 
-                <!-- Big Image -->
-                <div style="margin-bottom: 30px;">
-                    <img src="entry.png" alt="Kool Keith" style="max-width: 100%; max-height: 60vh; border-radius: 15px; box-shadow: 0 10px 20px rgba(218, 181, 71, 0.3);">
+                <div class="popup-image-container">
+                    <img src="entry.png" alt="Kool Keith" class="popup-image">
                 </div>
                 
-                <!-- Simple Buttons -->
-                <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
-                    <button id="audioOnBtn" style="background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important; border: 2px solid #DAB547 !important; border-radius: 15px !important; padding: 20px 30px !important; color: #fff !important; font-family: Arial !important; cursor: pointer !important; transition: all 0.3s !important; min-width: 140px !important;" onmouseover="this.style.background='linear-gradient(145deg, #DAB547, #FFD700)'; this.style.color='#000';" onmouseout="this.style.background='linear-gradient(145deg, #2a2a2a, #1a1a1a)'; this.style.color='#fff';">
-                        <div style="font-size: 2rem; pointer-events: none;">🔊</div>
-                        <div style="font-weight: bold; text-transform: uppercase; pointer-events: none;">Audio On</div>
+                <div class="popup-buttons">
+                    <button id="audioOnBtn" class="popup-button">
+                        <div class="popup-button-icon">🔊</div>
+                        <div class="popup-button-text">Audio On</div>
                     </button>
                     
-                    <button id="audioOffBtn" style="background: linear-gradient(145deg, #2a2a2a, #1a1a1a) !important; border: 2px solid #DAB547 !important; border-radius: 15px !important; padding: 20px 30px !important; color: #fff !important; font-family: Arial !important; cursor: pointer !important; transition: all 0.3s !important; min-width: 140px !important;" onmouseover="this.style.background='linear-gradient(145deg, #DAB547, #FFD700)'; this.style.color='#000';" onmouseout="this.style.background='linear-gradient(145deg, #2a2a2a, #1a1a1a)'; this.style.color='#fff';">
-                        <div style="font-size: 2rem; pointer-events: none;">🔇</div>
-                        <div style="font-weight: bold; text-transform: uppercase; pointer-events: none;">Audio Off</div>
+                    <button id="audioOffBtn" class="popup-button">
+                        <div class="popup-button-icon">🔇</div>
+                        <div class="popup-button-text">Audio Off</div>
                     </button>
                 </div>
                 
@@ -327,6 +388,7 @@
             showKeithPopup();
         } else {
             console.log('Returning visitor - no popup');
+            document.getElementById('keithWelcome').style.display = 'none'; // Ensure it's hidden for returning users
         }
     });
     
@@ -337,6 +399,7 @@
         if (popup) {
             // Show popup immediately
             popup.style.display = 'block';
+            popup.style.opacity = '1'; // Ensure it's fully visible
             console.log('Popup should be visible now');
             
             // Set up button clicks
@@ -359,21 +422,29 @@
         console.log('Setting up buttons:', audioOnBtn, audioOffBtn);
         
         if (audioOnBtn) {
-            audioOnBtn.onclick = function() {
+            audioOnBtn.addEventListener('click', function() {
                 console.log('Audio ON clicked');
                 localStorage.setItem('keith_visited', 'true');
                 localStorage.setItem('keith_audio', 'on');
                 hidePopup();
-            };
+                // If you have a global audio player, you might want to call its "enable" function here
+                if (window.ultraAudio && window.ultraAudio.enableAudio) {
+                    window.ultraAudio.enableAudio(); 
+                }
+            });
         }
         
         if (audioOffBtn) {
-            audioOffBtn.onclick = function() {
+            audioOffBtn.addEventListener('click', function() {
                 console.log('Audio OFF clicked');
                 localStorage.setItem('keith_visited', 'true');
                 localStorage.setItem('keith_audio', 'off');
                 hidePopup();
-            };
+                // If you have a global audio player, you might want to call its "disable" function here
+                if (window.ultraAudio && window.ultraAudio.disableAudio) {
+                    window.ultraAudio.disableAudio();
+                }
+            });
         }
     }
     
@@ -392,15 +463,21 @@
     
     function playKeithVoice() {
         try {
-            if (window.ultraAudio && window.ultraAudio.loadTrack) {
-                window.ultraAudio.loadTrack('audio/keith-welcome.mp3', 'welcome')
-                    .then(() => {
-                        window.ultraAudio.playTrack('welcome', {loop: false});
-                        console.log('Keith voice playing');
-                    })
-                    .catch(() => console.log('Keith voice file not found'));
+            // Check if audio is enabled by the user in local storage
+            const audioSetting = localStorage.getItem('keith_audio');
+            if (audioSetting === 'on') {
+                if (window.ultraAudio && window.ultraAudio.loadTrack) {
+                    window.ultraAudio.loadTrack('audio/keith-welcome.mp3', 'welcome')
+                        .then(() => {
+                            window.ultraAudio.playTrack('welcome', {loop: false});
+                            console.log('Keith voice playing');
+                        })
+                        .catch((e) => console.log('Keith voice file not found or playback error:', e));
+                } else {
+                    console.log('ultraAudio not available to play welcome voice.');
+                }
             } else {
-                console.log('ultraAudio not available');
+                console.log('Audio is off, not playing welcome voice.');
             }
         } catch (error) {
             console.log('Error playing voice:', error);
@@ -410,9 +487,11 @@
     // Debug function - run in console to test popup
     window.testPopup = function() {
         localStorage.removeItem('keith_visited');
+        localStorage.removeItem('keith_audio'); // Also remove audio setting for a full reset
         location.reload();
     };
     </script>
 
 </body>
 </html>
+```
