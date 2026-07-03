@@ -202,6 +202,7 @@ function generateFooter() {
     <footer class="footer">
         <nav aria-label="Footer navigation">
             <ul class="footer-links">
+                <li><a href="/home">Home</a></li>
                 <li><a href="/music/music.html">Music</a></li>
                 <li><a href="/bio.html">Biography</a></li>
                 <li><a href="/tour.html">Tour</a></li>
