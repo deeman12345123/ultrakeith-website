@@ -183,7 +183,6 @@ function generateNavigation() {
                     <li><a href="/tour.html">Tour</a></li>
                     <li><a href="https://ultrakeithdotcom.blogspot.com/" target="_blank">News</a></li>
                     <li><a href="/shop.html">Store</a></li>
-                    <li><a href="/players/playersclub.html">Players Club</a></li>
                 </ul>
                 
                 <button class="audio-toggle" id="audioToggle" aria-label="Toggle background audio">
