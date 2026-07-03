@@ -873,10 +873,29 @@
             return sorted.slice(start, start + CONFIG.CARD_LIMITS.CARDS_PER_PAGE);
         }
 
+        // Smart image fallback: tries .jpg, then .png, then shows placeholder
+        function personaImgFallback(img) {
+            var tried = img.getAttribute('data-tried') || '0';
+            if (tried === '0') {
+                img.setAttribute('data-tried', '1');
+                var src = img.getAttribute('src');
+                if (src.indexOf('.jpg') !== -1) {
+                    img.src = src.replace('.jpg', '.png');
+                } else if (src.indexOf('.png') !== -1) {
+                    img.src = src.replace('.png', '.jpg');
+                } else {
+                    img.parentNode.textContent = CONFIG.IMAGES.CARD_PLACEHOLDER;
+                }
+            } else {
+                img.parentNode.textContent = CONFIG.IMAGES.CARD_PLACEHOLDER;
+            }
+        }
+        window.personaImgFallback = personaImgFallback;
+
         // Build card HTML
         function buildCardHTML(persona, isLongTitle) {
             var imageHTML = persona.image
-                ? '<img src="' + persona.image + '" alt="' + persona.name + '" onerror="this.parentNode.textContent=\'' + CONFIG.IMAGES.CARD_PLACEHOLDER + '\'">'
+                ? '<img src="' + persona.image + '" alt="' + persona.name + '" data-tried="0" onerror="personaImgFallback(this)">'
                 : CONFIG.IMAGES.CARD_PLACEHOLDER;
 
             return '<div class="card-inner">' +
