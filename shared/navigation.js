@@ -202,10 +202,11 @@ function generateFooter() {
     <footer class="footer">
         <nav aria-label="Footer navigation">
             <ul class="footer-links">
-                <li><a href="/booking.html">Booking</a></li>
-                <li><a href="/press.html">Press Kit</a></li>
-                <li><a href="/contact.html">Contact</a></li>
-                <li><a href="/privacy.html">Privacy</a></li>
+                <li><a href="/music/music.html">Music</a></li>
+                <li><a href="/bio.html">Biography</a></li>
+                <li><a href="/tour.html">Tour</a></li>
+                <li><a href="https://ultrakeithdotcom.blogspot.com/" target="_blank">News</a></li>
+                <li><a href="/shop.html">Store</a></li>
             </ul>
         </nav>
         
