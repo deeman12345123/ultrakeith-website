@@ -1,6 +1,6 @@
 # coming-soon
 
-The holding page for ultrakeith.com. While the site is hidden, GitHub Pages
+The holding page for koolkeith.net. While the site is hidden, GitHub Pages
 publishes this branch instead of `main`. Every address that isn't the front
 page (like /home.html) shows the same Coming Soon page via 404.html.
 
