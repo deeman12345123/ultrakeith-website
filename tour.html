@@ -7,9 +7,9 @@
     <meta name="description" content="Kool Keith tour dates and live performances. Experience hip-hop's most innovative artist live on stage.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://ultrakeith.com/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://ultrakeith.com/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://ultrakeith.com/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="https://koolkeith.net/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://koolkeith.net/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://koolkeith.net/apple-touch-icon.png">
     
     <!-- Shared CSS -->
     <link rel="stylesheet" href="shared/styles.css">
@@ -309,66 +309,7 @@
     <script>
         // TOUR DATES DATA - Easy to update!
         const tourDates = [
-            {
-                month: "FEB",
-                day: "17",
-                venue: "The Observatory",
-                location: "Santa Ana, CA",
-                doors: "7:00 PM",
-                show: "8:30 PM",
-                ticketUrl: "", // Add URL when available
-                soldOut: false
-            },
-            {
-                month: "FEB", 
-                day: "28",
-                venue: "Rubber Gloves Rehearsal Studios",
-                location: "Denton, TX",
-                doors: "7:30 PM",
-                show: "9:00 PM",
-                ticketUrl: "",
-                soldOut: false
-            },
-            {
-                month: "MAR",
-                day: "15", 
-                venue: "Mobtown Ballroom",
-                location: "Baltimore, MD",
-                doors: "7:00 PM",
-                show: "8:00 PM",
-                ticketUrl: "",
-                soldOut: false
-            },
-            {
-                month: "APR",
-                day: "04",
-                venue: "Will's Pub", 
-                location: "Orlando, FL",
-                doors: "7:30 PM",
-                show: "8:30 PM",
-                ticketUrl: "",
-                soldOut: false
-            },
-            {
-                month: "APR",
-                day: "08",
-                venue: "191 Toole",
-                location: "Tucson, AZ", 
-                doors: "8:00 PM",
-                show: "9:00 PM",
-                ticketUrl: "",
-                soldOut: false
-            },
-            {
-                month: "MAY",
-                day: "12",
-                venue: "Mercury Lounge",
-                location: "New York, NY",
-                doors: "7:00 PM", 
-                show: "8:00 PM",
-                ticketUrl: "",
-                soldOut: false
-            }
+            // Add shows here: { month: "JAN", day: "20", venue: "...", location: "...", doors: "...", show: "..." }
         ];
 
         // Function to generate tour date HTML
@@ -401,7 +342,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const datesGrid = document.getElementById('datesGrid');
             const tourHTML = tourDates.map(generateTourDate).join('');
-            datesGrid.innerHTML = tourHTML;
+            datesGrid.innerHTML = tourHTML || '<p style="grid-column: 1 / -1; text-align: center; font-size: 1.2rem; opacity: 0.85;">No shows announced right now. Check back soon.</p>';
 
             // Add hover effects to date cards
             const dateCards = document.querySelectorAll('.date-card');

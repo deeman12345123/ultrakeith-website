@@ -229,7 +229,7 @@ function generateFooter() {
             </a>
         </div>
         
-        <p class="footer-copyright">© 2025 Kool Keith. All rights reserved.</p>
+        <p class="footer-copyright">© 2026 Kool Keith. All rights reserved.</p>
     </footer>`;
 }
 
