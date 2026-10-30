@@ -91,15 +91,9 @@ function updateIntensityDescription() {
 // API Configuration
 const CONFIG = {
     getApiKey: function() {
-        return [
-            'AIzaSy',
-            'DnMpSo', 
-            'awXZ-_',
-            'LE9ZXA',
-            'sFJ41J',
-            'Xmb',
-            'N0VDW0'
-        ].join('');
+        // The old Google key was public and must be deleted in Google AI Studio.
+        // Never put a key in page code. The chatbot needs a small server piece to hold it.
+        return '';
     },
     retryAttempts: 3,
     retryDelay: 2000,
