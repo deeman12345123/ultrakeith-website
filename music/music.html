@@ -1,96 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music - Ultra Keith Official</title>
-    <meta name="description" content="Complete discography of Kool Keith - 40+ years of groundbreaking hip-hop music spanning 80 albums.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://koolkeith.net/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://koolkeith.net/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://koolkeith.net/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://koolkeith.net/apple-touch-icon.png">
-    <link rel="manifest" href="../site.webmanifest">
-    
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="../shared/styles.css">
-    
-    <!-- Page-specific CSS -->
-    <link rel="stylesheet" href="music.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Music | Kool Keith - Official Site</title>
+<meta name="description" content="Every Kool Keith album, EP, mixtape and group record: 80 releases from Critical Beatdown (1988) to Sonic Psychosis (2026), with links to listen on Bandcamp, Spotify, Apple Music and YouTube.">
+<link rel="canonical" href="https://koolkeith.net/music/music.html">
+<meta property="og:site_name" content="Kool Keith - Official Site">
+<meta property="og:title" content="Music | Kool Keith - Official Site">
+<meta property="og:description" content="Every Kool Keith album, EP, mixtape and group record: 80 releases from Critical Beatdown (1988) to Sonic Psychosis (2026), with links to listen on Bandcamp, Spotify, Apple Music and YouTube.">
+<meta property="og:image" content="https://koolkeith.net/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://koolkeith.net/music/music.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Music | Kool Keith - Official Site">
+<meta name="twitter:description" content="Every Kool Keith album, EP, mixtape and group record: 80 releases from Critical Beatdown (1988) to Sonic Psychosis (2026), with links to listen on Bandcamp, Spotify, Apple Music and YouTube.">
+<meta name="twitter:image" content="https://koolkeith.net/assets/share.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
-    
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Hero Section -->
-        <section class="music-hero">
-            <h1 class="music-title">Complete Discography</h1>
-        
-        </section>
-        
-        <!-- Controls Section -->
-        <section class="controls-section">
-            <div class="controls-container">
-                <div class="filter-section">
-                    <span class="filter-label">Filters</span>
-                    <div class="filter-buttons">
-                        <button class="filter-btn active" data-filter="all" type="button">All</button>
-                        <button class="filter-btn" data-filter="solo" type="button">Solo</button>
-                        <button class="filter-btn" data-filter="collab" type="button">Collaborations</button>
-                    </div>
-                </div>
-                
-                <div class="sort-section">
-                    <span class="sort-label">Sort</span>
-                    <select class="sort-select" id="sortSelect">
-                        <option value="year-desc">Newest First</option>
-                        <option value="year-asc">Oldest First</option>
-                        <option value="title-asc">A-Z</option>
-                        <option value="title-desc">Z-A</option>
-                    </select>
-                </div>
-                
-                <div class="search-section">
-                    <input type="text" class="search-input" placeholder="Search albums..." id="searchInput">
-                </div>
-                
-                <div class="results-count" id="resultsCount">
-                    Showing 12 of 80 albums
-                </div>
-            </div>
-        </section>
-        
-        <!-- Albums Grid -->
-        <section class="albums-section">
-            <div class="albums-grid" id="albumsGrid">
-                <!-- Albums will be populated by JavaScript -->
-            </div>
-            
-            <!-- Pagination -->
-            <div class="pagination-section" id="paginationSection">
-                <button class="pagination-btn" id="prevBtn" type="button">← Previous</button>
-                <div class="page-numbers" id="pageNumbers">
-                    <!-- Page numbers populated by JavaScript -->
-                </div>
-                <button class="pagination-btn" id="nextBtn" type="button">Next →</button>
-            </div>
-            
-            <!-- No Results Message -->
-            <div class="no-results" id="noResults" style="display: none;">
-                <h3>No Albums Found</h3>
-                <p>Try adjusting your search or filter criteria.</p>
-            </div>
-        </section>
-    </main>
+<header id="kk-header" class="kk-header"></header>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+    <h1 class="display">Music</h1>
+    <p class="lede">80 releases, from Ultramagnetic's Critical Beatdown in 1988 to Sonic Psychosis in 2026. Albums, EPs, mixtapes and group records. Singles and guest spots aren't listed.</p>
+  </div>
+</div>
 
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Shared Navigation System -->
-    <script src="../shared/navigation.js"></script>
-    
-    <!-- Page-specific JavaScript -->
-    <script src="music.js"></script>
+<section class="section section--tight" aria-label="All releases">
+  <div class="wrap">
+    <form class="filters" role="search" onsubmit="return false">
+      <div class="chips" role="group" aria-label="Show">
+        <button type="button" class="chip" data-show="all" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-show="solo" aria-pressed="false">Kool Keith albums</button>
+        <button type="button" class="chip" data-show="collab" aria-pressed="false">With others</button>
+        <button type="button" class="chip" data-show="short" aria-pressed="false">EPs, mixtapes, compilations</button>
+        <button type="button" class="chip" data-show="listen" aria-pressed="false">Streaming now</button>
+      </div>
+      <label class="sr-only" for="q">Search releases</label>
+      <input class="field" type="search" id="q" placeholder="Search title, artist or year" autocomplete="off">
+      <label class="sr-only" for="sort">Sort</label>
+      <select class="field" id="sort">
+        <option value="new">Newest first</option>
+        <option value="old">Oldest first</option>
+        <option value="az">A to Z</option>
+      </select>
+    </form>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="albums albums--5" id="albums"></div>
+    <noscript><p>Turn on JavaScript to see the album list.</p></noscript>
+  </div>
+</section>
+</main>
+<footer id="kk-footer" class="kk-footer"></footer>
+<script src="/assets/site.js"></script>
+<script src="/assets/data/albums.js"></script>
+<script src="/assets/data/eras.js"></script>
+<script src="/assets/music.js"></script>
 </body>
 </html>
