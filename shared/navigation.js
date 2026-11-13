@@ -172,7 +172,7 @@ function generateNavigation() {
     return `
     <nav class="nav" role="navigation">
         <div class="nav-container">
-            <a href="/home.html" class="nav-logo">
+            <a href="/" class="nav-logo">
                 <img src="/koolkeithmainlogo.png" alt="Kool Keith Home" onerror="this.style.display='none'">
             </a>
             
@@ -202,7 +202,7 @@ function generateFooter() {
     <footer class="footer">
         <nav aria-label="Footer navigation">
             <ul class="footer-links">
-                <li><a href="/home">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/music/music.html">Music</a></li>
                 <li><a href="/bio.html">Biography</a></li>
                 <li><a href="/tour.html">Tour</a></li>
