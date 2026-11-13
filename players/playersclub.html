@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Players Club - Kool Keith</title>
-    
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="../shared/styles.css">
-    
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Players Club | Kool Keith - Official Site</title>
+<meta name="description" content="The Players Club: a locked door and a keypad. Work out the three-digit code to get in.">
+<link rel="canonical" href="https://koolkeith.net/players/playersclub.html">
+<meta property="og:site_name" content="Kool Keith - Official Site">
+<meta property="og:title" content="The Players Club | Kool Keith - Official Site">
+<meta property="og:description" content="The Players Club: a locked door and a keypad. Work out the three-digit code to get in.">
+<meta property="og:image" content="https://koolkeith.net/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://koolkeith.net/players/playersclub.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Players Club | Kool Keith - Official Site">
+<meta name="twitter:description" content="The Players Club: a locked door and a keypad. Work out the three-digit code to get in.">
+<meta name="twitter:image" content="https://koolkeith.net/assets/share.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* FULLSCREEN BACKGROUND THAT SCROLLS */
-        body {
-            margin: 0;
-            padding: 0;
+        .main {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
             background-image: url('entrtyby.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: scroll;
-            min-height: 100vh;
         }
         
-        /* MAIN CONTAINER */
-        .main {
-            position: relative;
-            min-height: 100vh;
-            width: 100%;
-        }
-        
-        /* ENTRANCE SCENE */
+        /* ENTRANCE SCENE: tall enough that the door never runs into the footer */
         .entrance-scene {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: max(calc(100vh - var(--header-h)), 800px);
             background: transparent;
         }
         
@@ -49,7 +58,10 @@
             text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
             text-transform: lowercase;
             font-style: italic;
-            z-index: 100;
+            white-space: nowrap;
+            margin: 0;
+            line-height: 1.2;
+            z-index: 10;
         }
         
         /* DOOR - MADE MUCH BIGGER WITH VERY DARK BROWN COLOR */
@@ -66,7 +78,7 @@
             border: 1px solid #DAB547; /* Made even thinner */
             border-radius: 20px; /* Slightly larger radius */
             cursor: pointer;
-            z-index: 200;
+            z-index: 20;
             box-shadow: 
                 0 15px 40px rgba(0,0,0,0.95),
                 inset 0 0 30px rgba(0, 0, 0, 0.7); /* Very dark shadow */
@@ -135,7 +147,7 @@
             font-family: 'Orbitron', monospace;
             font-weight: bold;
             cursor: pointer;
-            z-index: 200;
+            z-index: 20;
             box-shadow: 0 10px 25px rgba(0,0,0,0.8); /* Bigger shadow */
         }
         
@@ -236,6 +248,10 @@
 
         /* RESPONSIVE ADJUSTMENTS */
         @media (max-width: 768px) {
+            .entrance-scene {
+                height: max(calc(100vh - var(--header-h)), 540px);
+            }
+
             .door {
                 width: 220px;
                 height: 340px;
@@ -257,6 +273,10 @@
         }
         
         @media (max-width: 480px) {
+            .entrance-scene {
+                height: max(calc(100vh - var(--header-h)), 460px);
+            }
+
             .door {
                 width: 180px;
                 height: 280px;
@@ -283,18 +303,16 @@
     </style>
 </head>
 <body>
-    <!-- Shared Navigation System -->
-    <script src="../shared/navigation.js"></script>
-
-    <main class="main">
+<header id="kk-header" class="kk-header"></header>
+    <main class="main" id="main">
         <div class="scene entrance-scene active" id="entranceScene">
-            <div class="club-title">the players club</div>
+            <h1 class="club-title">the players club</h1>
             
             <div class="door" id="clubDoor">
                 <div class="door-handle"></div>
             </div>
             
-            <div class="pin-box" onclick="showPinPad()">
+            <div class="pin-box" onclick="showPinPad()" role="button" tabindex="0" aria-label="Open the keypad" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showPinPad();}">
                 <div class="pin-icon">🔢</div>
                 <div class="pin-text">PIN</div>
             </div>
@@ -303,7 +321,7 @@
     
     <div class="pin-overlay" id="pinOverlay">
         <div class="pin-pad">
-            <button class="pin-close" onclick="hidePinPad()">×</button>
+            <button class="pin-close" onclick="hidePinPad()" aria-label="Close the keypad">×</button>
             <div class="pin-display" id="pinDisplay">***</div>
             <div class="pin-buttons">
                 <button class="pin-btn" onclick="enterPin('1')">1</button>
@@ -384,9 +402,9 @@
                 } else if (pinAttempts === 2) {
                     message = 'Keith\'s not gonna like this... think harder, kid.';
                 } else if (pinAttempts === 3) {
-                    message = 'Alright, here\'s your hint: Dr. Doom\'s apartment number';
+                    message = 'Alright, here\'s your hint: Dr. Dooom\'s apartment number';
                 } else {
-                    message = 'Too many attempts! The answer is 223 - Dr. Doom\'s apartment!';
+                    message = 'Too many attempts! The answer is 223 - Dr. Dooom\'s apartment!';
                 }
                 alert(message);
             }
@@ -396,5 +414,7 @@
 
         updatePinDisplay();
     </script>
+<footer id="kk-footer" class="kk-footer"></footer>
+<script src="/assets/site.js"></script>
 </body>
 </html>

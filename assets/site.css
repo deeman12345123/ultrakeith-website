@@ -404,7 +404,7 @@ dialog.kk-dialog::backdrop { background: rgba(0,0,0,.8); }
 
 /* ---------- Generic panels ---------- */
 
-.split { display: grid; gap: 32px; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
 @media (min-width: 900px) { .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; } }
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
 @media (min-width: 720px) { .panel { padding: 28px; } }
