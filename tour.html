@@ -1,361 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tour | Kool Keith - Official Site</title>
-    <meta name="description" content="Kool Keith tour dates and live performances. Experience hip-hop's most innovative artist live on stage.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://koolkeith.net/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://koolkeith.net/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://koolkeith.net/apple-touch-icon.png">
-    
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="shared/styles.css">
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
-        
-        /* Tour-specific styles that extend the shared system */
-        .tour-hero {
-            text-align: center;
-            padding: 80px 0 40px;
-        }
-        
-        .tour-hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--keith-gold), var(--keith-gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0;
-            line-height: 1.1;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 0 40px rgba(218, 181, 71, 0.4);
-            filter: drop-shadow(0 0 20px rgba(218, 181, 71, 0.3));
-        }
-        
-        /* Tour Image */
-        .tour-image-section {
-            margin: 40px 0 80px;
-            text-align: center;
-        }
-        
-        .tour-image-container {
-            display: inline-block;
-            border-radius: var(--radius-2xl);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(218, 181, 71, 0.2);
-            max-width: 900px;
-            width: 100%;
-        }
-        
-        .tour-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: contrast(1.15) saturate(1.3);
-            transition: transform var(--transition-slow);
-        }
-        
-        .tour-image-container:hover .tour-image {
-            transform: scale(1.02);
-        }
-        
-        /* Tour Dates */
-        .tour-dates {
-            margin: 80px 0;
-        }
-        
-        .tour-section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            color: var(--keith-gold);
-            text-align: center;
-            margin-bottom: 60px;
-            text-shadow: 0 0 40px rgba(218, 181, 71, 0.6);
-            letter-spacing: 3px;
-            font-weight: 700;
-            position: relative;
-        }
-        
-        .tour-section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--keith-gold), transparent);
-            box-shadow: 0 0 15px rgba(218, 181, 71, 0.8);
-        }
-        
-        .dates-grid {
-            display: grid;
-            gap: 25px;
-            grid-template-columns: 1fr;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        /* Date Cards */
-        .date-card {
-            background: rgba(26, 26, 26, 0.9);
-            border: var(--card-border);
-            border-radius: var(--radius-2xl);
-            padding: 35px;
-            transition: all var(--transition-slow);
-            backdrop-filter: blur(20px);
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 30px;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .date-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-        
-        .date-card:hover::before {
-            left: 100%;
-        }
-        
-        .date-card:hover {
-            transform: translateY(-12px);
-            border-color: var(--card-hover-border);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .ticket-action {
-            text-align: center;
-        }
-        
-        .ticket-btn {
-            background: linear-gradient(45deg, var(--keith-gold), var(--keith-gold-light));
-            color: var(--keith-black);
-            border: none;
-            padding: 12px 20px;
-            border-radius: var(--radius-2xl);
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Orbitron', monospace;
-            min-width: 100px;
-        }
-        
-        .ticket-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(218, 181, 71, 0.4);
-        }
-        
-        .ticket-btn.sold-out {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--keith-white-55);
-            cursor: not-allowed;
-        }
-        
-        .ticket-btn.sold-out:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .ticket-btn.coming-soon {
-            background: rgba(218, 181, 71, 0.2);
-            color: var(--keith-gold);
-            border: 1px solid rgba(218, 181, 71, 0.5);
-            cursor: default;
-        }
-        
-        .ticket-btn.coming-soon:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .date-info {
-            text-align: center;
-            min-width: 80px;
-        }
-        
-        .date-month {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            color: var(--keith-gold);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .date-day {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            color: var(--keith-white);
-            font-weight: 900;
-            line-height: 1;
-        }
-        
-        .venue-info {
-            flex: 1;
-        }
-        
-        .venue-name {
-            font-size: 1.3rem;
-            color: var(--keith-white);
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .venue-location {
-            font-size: 1rem;
-            color: var(--keith-white-75);
-            margin-bottom: 10px;
-        }
-        
-        .venue-details {
-            font-size: 0.9rem;
-            color: var(--keith-white-55);
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .tour-hero-title {
-                font-size: 2.5rem;
-                letter-spacing: 2px;
-            }
-            
-            .date-card {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 15px;
-            }
-            
-            .date-info {
-                order: 1;
-            }
-            
-            .venue-info {
-                order: 2;
-            }
-            
-            .ticket-action {
-                order: 3;
-            }
-        }
-        
-        /* Desktop Responsive */
-        @media (min-width: 769px) {
-            .tour-hero {
-                padding: 100px 0 60px;
-            }
-            
-            .tour-hero-title {
-                font-size: 4.8rem;
-                letter-spacing: 5px;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tour | Kool Keith - Official Site</title>
+<meta name="description" content="Kool Keith tour dates. Shows and ticket links go up here when they are announced.">
+<link rel="canonical" href="https://koolkeith.net/tour.html">
+<meta property="og:site_name" content="Kool Keith - Official Site">
+<meta property="og:title" content="Tour | Kool Keith - Official Site">
+<meta property="og:description" content="Kool Keith tour dates. Shows and ticket links go up here when they are announced.">
+<meta property="og:image" content="https://koolkeith.net/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://koolkeith.net/tour.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tour | Kool Keith - Official Site">
+<meta name="twitter:description" content="Kool Keith tour dates. Shows and ticket links go up here when they are announced.">
+<meta name="twitter:image" content="https://koolkeith.net/assets/share.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
+<header id="kk-header" class="kk-header"></header>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+    <h1 class="display">Tour</h1>
+    <p class="lede">Shows and ticket links go up here when they're announced.</p>
+  </div>
+</div>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Hero Section -->
-        <section class="tour-hero">
-            <h1 class="tour-hero-title">TOUR DATES</h1>
-        </section>
-
-        <!-- Tour Image -->
-        <section class="tour-image-section">
-            <div class="tour-image-container">
-                <img src="tour.jpg" alt="Kool Keith Live Tour" class="tour-image" onerror="this.style.display='none'">
-            </div>
-        </section>
-
-        <!-- Tour Dates -->
-        <section class="tour-dates">
-            <h2 class="tour-section-title">UPCOMING SHOWS</h2>
-            <div class="dates-grid" id="datesGrid">
-                <!-- Tour dates generated by JavaScript -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Shared Navigation System -->
-    <script src="shared/navigation.js"></script>
-    
-    <!-- Page-specific JavaScript -->
-    <script>
-        // TOUR DATES DATA - Easy to update!
-        const tourDates = [
-            // Add shows here: { month: "JAN", day: "20", venue: "...", location: "...", doors: "...", show: "..." }
-        ];
-
-        // Function to generate tour date HTML
-        function generateTourDate(date) {
-            const ticketButton = date.ticketUrl 
-                ? `<a href="${date.ticketUrl}" class="ticket-btn" target="_blank">TICKETS</a>`
-                : date.soldOut 
-                ? `<span class="ticket-btn sold-out">SOLD OUT</span>`
-                : `<span class="ticket-btn coming-soon">INFO SOON</span>`;
-
-            return `
-                <div class="date-card">
-                    <div class="date-info">
-                        <div class="date-month">${date.month}</div>
-                        <div class="date-day">${date.day}</div>
-                    </div>
-                    <div class="venue-info">
-                        <div class="venue-name">${date.venue}</div>
-                        <div class="venue-location">${date.location}</div>
-                        <div class="venue-details">Doors ${date.doors} • Show ${date.show}</div>
-                    </div>
-                    <div class="ticket-action">
-                        ${ticketButton}
-                    </div>
-                </div>
-            `;
-        }
-
-        // Generate tour dates when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            const datesGrid = document.getElementById('datesGrid');
-            const tourHTML = tourDates.map(generateTourDate).join('');
-            datesGrid.innerHTML = tourHTML || '<p style="grid-column: 1 / -1; text-align: center; font-size: 1.2rem; opacity: 0.85;">No shows announced right now. Check back soon.</p>';
-
-            // Add hover effects to date cards
-            const dateCards = document.querySelectorAll('.date-card');
-            dateCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-12px) translateX(8px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(-8px) translateX(5px)';
-                });
-            });
-        });
-    </script>
+<section class="section">
+  <div class="wrap split">
+    <div class="panel">
+      <h2 class="h-md">Upcoming shows</h2>
+      <p>No shows announced right now.</p>
+    </div>
+    <div class="panel">
+      <h2 class="h-md">Last time out</h2>
+      <p>In February and April 2025 Keith played the US on the Punk Rap Tour with MC Homeless.</p>
+      <p><a class="text-link" href="/press.html">Bookings and press</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer id="kk-footer" class="kk-footer"></footer>
+<script src="/assets/site.js"></script>
 </body>
 </html>

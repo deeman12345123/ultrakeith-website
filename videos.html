@@ -1,383 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos | Kool Keith - Official Site</title>
-    <meta name="description" content="Watch Kool Keith's latest music videos, live performances, and exclusive content from hip-hop's most innovative artist.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://koolkeith.net/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://koolkeith.net/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://koolkeith.net/apple-touch-icon.png">
-    
-    <!-- Shared CSS -->
-    <link rel="stylesheet" href="shared/styles.css">
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
-        
-        /* Videos-specific styles that extend the shared system */
-        .videos-hero {
-            text-align: center;
-            padding: 80px 0 0;
-        }
-        
-        .videos-hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--keith-gold), var(--keith-gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            line-height: 1.1;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 0 40px rgba(218, 181, 71, 0.4);
-            filter: drop-shadow(0 0 20px rgba(218, 181, 71, 0.3));
-        }
-        
-        .videos-tagline {
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.4rem;
-            color: var(--keith-gold);
-            font-style: italic;
-            font-weight: 400;
-            letter-spacing: 3px;
-            margin: 0;
-            opacity: 0.9;
-            text-shadow: 0 0 20px rgba(218, 181, 71, 0.5);
-        }
-        
-        /* Featured Video */
-        .featured-video {
-            margin: 60px 0 100px;
-            text-align: center;
-        }
-        
-        .featured-container {
-            background: rgba(26, 26, 26, 0.9);
-            border: var(--card-border);
-            border-radius: var(--radius-2xl);
-            padding: 40px;
-            backdrop-filter: blur(20px);
-            max-width: 900px;
-            margin: 0 auto;
-            transition: all var(--transition-slow);
-        }
-        
-        .featured-container:hover {
-            transform: translateY(-8px);
-            border-color: var(--card-hover-border);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .video-frame {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 25px;
-        }
-        
-        .video-frame iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: var(--radius-lg);
-        }
-        
-        .video-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
-            color: var(--keith-gold);
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-        
-        .video-description {
-            color: var(--keith-white-75);
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        
-        /* Video Grid */
-        .video-section {
-            margin: 80px 0;
-        }
-        
-        .videos-section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.2rem;
-            color: var(--keith-gold);
-            text-align: center;
-            margin-bottom: 60px;
-            text-shadow: 0 0 40px rgba(218, 181, 71, 0.6);
-            letter-spacing: 3px;
-            font-weight: 700;
-            position: relative;
-        }
-        
-        .videos-section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--keith-gold), transparent);
-            box-shadow: 0 0 15px rgba(218, 181, 71, 0.8);
-        }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .video-card {
-            background: rgba(26, 26, 26, 0.9);
-            border: var(--card-border);
-            border-radius: var(--radius-2xl);
-            padding: 25px;
-            transition: all var(--transition-slow);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .video-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(218, 181, 71, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-        
-        .video-card:hover::before {
-            left: 100%;
-        }
-        
-        .video-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--card-hover-border);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .video-card .video-frame {
-            margin-bottom: 20px;
-            padding-bottom: 56.25%;
-        }
-        
-        .video-card .video-title {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-        
-        .video-card .video-description {
-            font-size: 0.9rem;
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .videos-hero-title {
-                font-size: 2.5rem;
-                letter-spacing: 2px;
-            }
-            
-            .videos-tagline {
-                font-size: 1.2rem;
-                letter-spacing: 2px;
-            }
-            
-            .featured-container {
-                padding: 25px;
-            }
-            
-            .video-card {
-                padding: 20px;
-            }
-        }
-        
-        /* Desktop Responsive */
-        @media (min-width: 769px) {
-            .videos-hero {
-                padding: 100px 0 0;
-            }
-            
-            .videos-hero-title {
-                font-size: 4.8rem;
-                letter-spacing: 5px;
-            }
-            
-            .videos-tagline {
-                font-size: 1.6rem;
-                letter-spacing: 4px;
-            }
-            
-            .video-grid {
-                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Videos | Kool Keith - Official Site</title>
+<meta name="description" content="Kool Keith videos, newest first: Sonic Psychosis, Morgan State, Love Infringement, Super Hits and more.">
+<link rel="canonical" href="https://koolkeith.net/videos.html">
+<meta property="og:site_name" content="Kool Keith - Official Site">
+<meta property="og:title" content="Videos | Kool Keith - Official Site">
+<meta property="og:description" content="Kool Keith videos, newest first: Sonic Psychosis, Morgan State, Love Infringement, Super Hits and more.">
+<meta property="og:image" content="https://koolkeith.net/assets/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://koolkeith.net/videos.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Videos | Kool Keith - Official Site">
+<meta name="twitter:description" content="Kool Keith videos, newest first: Sonic Psychosis, Morgan State, Love Infringement, Super Hits and more.">
+<meta name="twitter:image" content="https://koolkeith.net/assets/share.jpg">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-    <!-- Navigation and banner inserted automatically by shared/navigation.js -->
+<header id="kk-header" class="kk-header"></header>
+<main id="main">
+<div class="page-head">
+  <div class="wrap">
+    <h1 class="display">Videos</h1>
+    <p class="lede">Newest first. Press play and the video loads from YouTube.</p>
+  </div>
+</div>
 
-    <!-- Main Content -->
-    <main class="main">
-        <!-- Hero Section -->
-        <section class="videos-hero">
-            <h1 class="videos-hero-title">VIDEOS</h1>
-            <div class="videos-tagline">Latest</div>
-        </section>
+<section class="section">
+  <div class="wrap">
+    <div id="video-lead" style="max-width:960px"></div>
+  </div>
+</section>
 
-        <!-- Featured Video -->
-        <section class="featured-video">
-            <div class="featured-container">
-                <div class="video-frame">
-                    <iframe src="" 
-                            title="Featured Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerpolicy="strict-origin-when-cross-origin" 
-                            allowfullscreen>
-                    </iframe>
-                </div>
-                <h3 class="video-title">LOADING...</h3>
-                <p class="video-description">Loading latest video...</p>
-            </div>
-        </section>
-
-        <!-- Video Grid -->
-        <section class="video-section">
-            <h2 class="videos-section-title">ALL VIDEOS</h2>
-            <div class="video-grid">
-                <!-- Videos automatically generated by JavaScript -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer inserted automatically by shared/navigation.js -->
-
-    <!-- Shared Navigation System -->
-    <script src="shared/navigation.js"></script>
-    
-    <!-- Page-specific JavaScript -->
-    <script>
-        // ===== BULLETPROOF VIDEO SYSTEM =====
-        // TO ADD NEW VIDEO: Just add it at the TOP of this array!
-        // Everything automatically shifts down!
-        
-        const videos = [
-            // === ADD NEW VIDEOS HERE (newest first) ===
-            {
-                id: "roI3eGUmpqY",
-                title: "Kool Keith x Mike Redman - Sonic Psychosis (feat. Chuck D & DJ Lord)",
-                description: "Preview of the album Sonic Psychosis (2026), on Redrum Recordz.",
-                featured: true // This becomes the big video
-            },
-            {
-                id: "47UvTL2f-dg?si=Bjdih4EPyqv0EAgL",
-                title: "Kool Keith - Morgan State (feat. Sol Chyld & Big Noname)",
-                description: "Official music video (2025)."
-            },
-            {
-                id: "FSH6H1-HpTE",
-                title: "Kool Keith X Ced Gee - 125 ST (Official Music Video)",
-                description: "Official music video (2025)."
-            },
-            {
-                id: "uaiIqb4_Hjg",
-                title: "Kool Keith - Super Hits (Official Music Video)",
-                description: "Official music video, released through Fat Beats."
-            },
-            {
-                id: "deV3Cyh9SDc",
-                title: "KOOL KEITH - MC ULTRA OFFICIAL MUSIC VIDEO",
-                description: "Official music video (2024). Produced by Kool Keith."
-            },
-            {
-                id: "jXsHmWiQZxQ?si=Vg9yxcx2epm_IzOE",
-                title: "AWOL One and Kool Keith - Not Afraid of Galactic Bats (Official Video)",
-                description: "From AWOL One and Kool Keith's album Aponia (2024)."
-            },
-            {
-                id: "Il4Z64Y9XT8",
-                title: "Kool Keith - Love Infringement (Black Elvis 2 - Official Video)",
-                description: "Official video, from Black Elvis 2 (2023)."
-            },
-            {
-                id: "mfSAHFtG3FE?si=zz08YwuBTYp_r4V9",
-                title: "DJ Muggs & Kool Keith - Divinity 2 Infinity: The Odyssey (Official Visualizer)",
-                description: "From the Divinity film score by DJ Muggs and Dean Hurley (2023), on Sacred Bones."
-            }
-        ];
-
-        // Auto-update featured video and grid
-        document.addEventListener('DOMContentLoaded', function() {
-            const featuredVideo = videos.find(v => v.featured) || videos[0];
-            const gridVideos = videos.filter(v => !v.featured);
-
-            // Update featured video
-            const featuredFrame = document.querySelector('.featured-video iframe');
-            const featuredTitle = document.querySelector('.featured-video .video-title');
-            const featuredDesc = document.querySelector('.featured-video .video-description');
-            
-            featuredFrame.src = `https://www.youtube.com/embed/${featuredVideo.id}`;
-            featuredTitle.textContent = `${featuredVideo.title.toUpperCase()} - LATEST RELEASE`;
-            featuredDesc.textContent = featuredVideo.description;
-
-            // Update grid
-            const videoGrid = document.querySelector('.video-grid');
-            videoGrid.innerHTML = gridVideos.map(video => `
-                <div class="video-card">
-                    <div class="video-frame">
-                        <iframe src="https://www.youtube.com/embed/${video.id}" 
-                                title="${video.title}" 
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                    <h3 class="video-title">${video.title}</h3>
-                    <p class="video-description">${video.description}</p>
-                </div>
-            `).join('');
-        });
-
-        // ===== INSTRUCTIONS FOR FUTURE UPDATES =====
-        /*
-        TO ADD A NEW LATEST VIDEO:
-        
-        1. Add this at the TOP of the videos array:
-        {
-            id: "NEW_YOUTUBE_ID",
-            title: "New Video Title",
-            description: "Description here.",
-            featured: true
-        },
-        
-        2. Remove "featured: true" from the old video
-        
-        3. Everything else automatically updates:
-        - New video becomes big featured video
-        - All others shift down in grid
-        - Perfect order maintained
-        */
-    </script>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h-lg">More videos</h2>
+    </div>
+    <div class="videos videos--3" id="video-grid"></div>
+    <noscript><p>Turn on JavaScript to see the videos.</p></noscript>
+  </div>
+</section>
+</main>
+<footer id="kk-footer" class="kk-footer"></footer>
+<script src="/assets/site.js"></script>
+<script src="/assets/data/videos.js"></script>
+<script>
+(function () {
+  var v = window.KK_VIDEOS || [];
+  if (!v.length) return;
+  document.getElementById('video-lead').innerHTML = window.KK.videoCard(v[0]);
+  document.getElementById('video-grid').innerHTML = v.slice(1).map(window.KK.videoCard).join('');
+})();
+</script>
 </body>
 </html>
