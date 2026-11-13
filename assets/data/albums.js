@@ -1,18 +1,19 @@
-/* Kool Keith releases: 80 albums, EPs, mixtapes and group records, newest first.
-   Checked against Wikipedia, Discogs, MusicBrainz and Bandcamp (Oct 2026).
+/* Kool Keith releases: 81 albums, EPs, mixtapes and group records, newest first.
+   Checked against Wikipedia, Discogs, MusicBrainz and Bandcamp (Oct 2026); newest ones again 14 Nov 2026.
    Singles and guest spots are left out. Only add a listen link after checking
    it plays this exact release. cover: null shows a plain title card. */
 window.KK_ALBUMS = [
+  {"title": "No Alias", "artist": "Kool Keith & Rad Brown", "year": 2026, "kind": "collab", "type": "EP", "cover": "/music/album-covers/no-alias.jpg", "links": {"bandcamp": "https://radbrown.bandcamp.com/album/no-alias"}},
+  {"title": "Sonic Psychosis", "artist": "Kool Keith & Mike Redman", "year": 2026, "kind": "collab", "cover": "/music/album-covers/sonic-psychosis.jpg", "links": {"bandcamp": "https://redrumrecordz.bandcamp.com/album/sonic-psychosis"}},
   {"title": "Middi Magazine", "artist": "Emperor Middi & Kool Keith", "year": 2026, "kind": "collab", "cover": null},
-  {"title": "Sonic Psychosis", "artist": "Kool Keith & Mike Redman", "year": 2026, "kind": "collab", "cover": null},
   {"title": "Karpenters", "artist": "Kool Keith", "year": 2025, "kind": "solo", "cover": "/music/album-covers/karpenters.jpg"},
-  {"title": "The Yoohoo Bros.", "artist": "Dane Uno & Kool Keith", "year": 2025, "kind": "collab", "cover": "/music/album-covers/the-yoohoo-bros.jpg"},
+  {"title": "The Yoohoo Bros.", "artist": "Dane Uno & Kool Keith", "year": 2025, "kind": "collab", "cover": "/music/album-covers/the-yoohoo-bros.jpg", "links": {"bandcamp": "https://daneone.bandcamp.com/album/the-yoohoo-bros"}},
   {"title": "Aponia", "artist": "Awol One & Kool Keith", "year": 2024, "kind": "collab", "cover": "/music/album-covers/aponia.jpg"},
   {"title": "Bandoleros", "artist": "Lynx 196.9, Arturo Banbini & Kool Keith", "year": 2024, "kind": "collab", "cover": "/music/album-covers/bandoleros.jpg"},
   {"title": "Everybody Eats!", "artist": "Stress Eater (CZARFACE & Kool Keith)", "year": 2024, "kind": "collab", "cover": "/music/album-covers/everybody-eats.jpg"},
-  {"title": "Mushrooms and Acid", "artist": "Kool Keith & MC Homeless", "year": 2024, "kind": "collab", "type": "EP", "cover": null},
+  {"title": "Mushrooms and Acid", "artist": "Kool Keith & MC Homeless", "year": 2024, "kind": "collab", "type": "EP", "cover": "/music/album-covers/mushrooms-and-acid.jpg"},
   {"title": "Black Elvis 2", "artist": "Kool Keith", "year": 2023, "kind": "solo", "cover": "/music/album-covers/blackelvis2.jpg"},
-  {"title": "Monsters", "artist": "MC Homeless, Kool Keith & Rove", "year": 2023, "kind": "collab", "type": "EP", "cover": null},
+  {"title": "Monsters", "artist": "MC Homeless, Kool Keith & Rove", "year": 2023, "kind": "collab", "type": "EP", "cover": "/music/album-covers/monsters.jpg"},
   {"title": "Mr. Controller", "artist": "Kool Keith", "year": 2023, "kind": "solo", "cover": "/music/album-covers/mr-controller.jpg"},
   {"title": "Serpent", "artist": "Kool Keith & Real Bad Man", "year": 2023, "kind": "collab", "cover": "/music/album-covers/serpent.jpg"},
   {"title": "World Area", "artist": "Kool Keith", "year": 2023, "kind": "solo", "cover": "/music/album-covers/world-area.jpg"},
