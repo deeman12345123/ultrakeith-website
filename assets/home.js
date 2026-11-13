@@ -26,7 +26,9 @@
 
   // Newest six releases
   var rail = document.getElementById('latest-rail');
-  if (rail) rail.innerHTML = albums.slice(0, 6).map(function (a) { return KK.albumCard(a); }).join('');
+  // A release marked front: false in albums.js stays on the Music page but never leads here.
+  var upFront = albums.filter(function (a) { return a.front !== false; });
+  if (rail) rail.innerHTML = upFront.slice(0, 6).map(function (a) { return KK.albumCard(a); }).join('');
 
   // Era tiles
   var tiles = document.getElementById('era-tiles');
