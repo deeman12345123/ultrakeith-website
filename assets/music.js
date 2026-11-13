@@ -1,4 +1,4 @@
-/* Music page: filter, search and sort the 81 releases in KK_ALBUMS.
+/* Music page: filter, search and sort the 79 releases in KK_ALBUMS.
    Links like /music/music.html?era=octagon or ?q=octagon open pre-filtered. */
 (function () {
   'use strict';

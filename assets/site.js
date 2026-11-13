@@ -14,11 +14,8 @@
     { href: '/tour.html', label: 'Tour', main: true },
     { href: '/bio.html', label: 'Bio', main: true },
     { href: '/press.html', label: 'Bookings & Press', main: true },
-    { href: '/shop.html', label: 'Where to buy' },
-    { href: '/stats.html', label: 'Stats' },
     { href: '/players/playersclub.html', label: 'Players Club' },
     { href: '/house.html', label: 'Apartment 223' },
-    { href: '/bnb.html', label: 'Rent Apartment 223' },
     { href: 'https://ultrakeithdotcom.blogspot.com/', label: 'News', external: true },
     { href: 'https://koolkeith.proboards.com/', label: 'Forum', external: true }
   ];
@@ -26,6 +23,8 @@
   // Official accounts. Only confirmed ones go here (see RELEASE-PLAN.md).
   var SOCIALS = [
     // SOCIALS_START
+    { name: 'Instagram', url: 'https://www.instagram.com/officialkoolkeith/', icon: 'instagram' },
+    { name: 'X', url: 'https://x.com/UltraMan7000', icon: 'x' },
     // SOCIALS_END
   ];
 
@@ -305,6 +304,7 @@
           (p.quote ? '<blockquote>&ldquo;' + esc(p.quote.replace(/^["“]+|["”]+$/g, '')) + '&rdquo;</blockquote>' : '') +
           '<p>' + esc(p.biography || '') + '</p>' +
           '<dl>' + row('First used', p.debut) + row('From', p.origin) + row('Age', p.age) + row('Likes', p.likes) + row('Dislikes', p.dislikes) + '</dl>' +
+          (p.unsourced ? '<p class="muted small">This name comes from fan lists. We haven\'t found it on a record or in print yet.</p>' : '') +
         '</div>' +
       '</div></div>';
     d.querySelector('[data-close]').addEventListener('click', function () { d.close(); });

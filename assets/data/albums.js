@@ -1,4 +1,4 @@
-/* Kool Keith releases: 81 albums, EPs, mixtapes and group records, newest first.
+/* Kool Keith releases: 79 albums, EPs, mixtapes and group records, newest first.
    Checked against Wikipedia, Discogs, MusicBrainz and Bandcamp (Oct 2026); newest ones again 14 Nov 2026.
    Singles and guest spots are left out. Only add a listen link after checking
    it plays this exact release. cover: null shows a plain title card.
@@ -7,7 +7,7 @@
 window.KK_ALBUMS = [
   {"title": "No Alias", "artist": "Kool Keith & Rad Brown", "year": 2026, "kind": "collab", "type": "EP", "cover": "/music/album-covers/no-alias.jpg", "links": {"bandcamp": "https://radbrown.bandcamp.com/album/no-alias"}},
   {"title": "Sonic Psychosis", "artist": "Kool Keith & Mike Redman", "year": 2026, "kind": "collab", "cover": "/music/album-covers/sonic-psychosis.jpg", "links": {"bandcamp": "https://redrumrecordz.bandcamp.com/album/sonic-psychosis"}},
-  {"title": "Middi Magazine", "artist": "Emperor Middi & Kool Keith", "year": 2026, "kind": "collab", "cover": "/music/album-covers/middi-magazine.jpg", "links": {"bandcamp": "https://totalorgasm.bandcamp.com/album/middi-magazine"}, "front": false},
+  {"title": "Middi Magazine", "artist": "Emperor Middi & Kool Keith", "year": 2026, "kind": "collab", "cover": "/music/album-covers/middi-magazine.jpg", "links": {"bandcamp": "https://totalorgasm.bandcamp.com/album/middi-magazine"}},
   {"title": "Karpenters", "artist": "Kool Keith", "year": 2025, "kind": "solo", "cover": "/music/album-covers/karpenters.jpg"},
   {"title": "The Yoohoo Bros.", "artist": "Dane Uno & Kool Keith", "year": 2025, "kind": "collab", "cover": "/music/album-covers/the-yoohoo-bros.jpg", "links": {"bandcamp": "https://daneone.bandcamp.com/album/the-yoohoo-bros"}},
   {"title": "Aponia", "artist": "Awol One & Kool Keith", "year": 2024, "kind": "collab", "cover": "/music/album-covers/aponia.jpg"},
@@ -51,21 +51,19 @@ window.KK_ALBUMS = [
   {"title": "Lost Masters Collection", "artist": "Kool Keith", "year": 2009, "kind": "solo", "type": "Compilation", "cover": "/music/album-covers/lost-masters-collection.jpg"},
   {"title": "Stoned", "artist": "7th Veil (Kool Keith & H-Bomb)", "year": 2009, "kind": "collab", "cover": "/music/album-covers/stoned.jpg"},
   {"title": "Tashan Dorrsett", "artist": "Kool Keith Presents Tashan Dorrsett", "year": 2009, "kind": "solo", "cover": "/music/album-covers/tashan-dorrsett.jpg", "front": false},
-  {"title": "The Lost Masters, Vol. 3", "artist": "Kool Keith", "year": 2009, "kind": "solo", "type": "Compilation", "cover": null},
   {"title": "Dr. Dooom 2", "artist": "Dr. Dooom", "year": 2008, "kind": "solo", "cover": "/music/album-covers/dr-dooom-2.jpg"},
   {"title": "Sex Style: The Un-Released Archives", "artist": "KutMasta Kurt Presents Kool Keith", "year": 2007, "kind": "solo", "type": "Compilation", "cover": "/music/album-covers/sex-style-the-un-released-archives.jpg"},
   {"title": "The Best Kept Secret", "artist": "Ultramagnetic MCs", "year": 2007, "kind": "collab", "type": "Group", "cover": "/music/album-covers/the-best-kept-secret.jpg"},
+  {"title": "The Commi$$ioner 2", "artist": "Kool Keith", "year": 2007, "kind": "solo", "cover": "/music/album-covers/the-commi-ioner-2.jpg"},
   {"title": "Collabs Tape", "artist": "Kool Keith", "year": 2006, "kind": "solo", "type": "Compilation", "cover": "/music/album-covers/collabs-tape.jpg", "front": false},
-  {"title": "Down On Land", "artist": "Randolf Liftoff featuring Kool Keith", "year": 2006, "kind": "collab", "cover": null},
   {"title": "Nogatco Rd.", "artist": "Mr. Nogatco (Kool Keith)", "year": 2006, "kind": "solo", "cover": "/music/album-covers/nogatco-rd.jpg"},
   {"title": "The Commi$$ioner", "artist": "Kool Keith", "year": 2006, "kind": "solo", "cover": "/music/album-covers/the-commi-ioner.jpg"},
-  {"title": "The Commi$$ioner 2", "artist": "Kool Keith", "year": 2006, "kind": "solo", "cover": "/music/album-covers/the-commi-ioner-2.jpg"},
   {"title": "The Original SoundTrack Album of Project Polaroid", "artist": "Kool Keith & TomC3 (Project Polaroid)", "year": 2006, "kind": "collab", "cover": "/music/album-covers/the-original-soundtrack-album-of-project-polaroid.jpg"},
   {"title": "The Return of Dr. Octagon", "artist": "Dr. Octagon", "year": 2006, "kind": "solo", "cover": "/music/album-covers/the-return-of-dr-octagon.jpg"},
   {"title": "The Lost Masters, Vol. 2", "artist": "Kool Keith", "year": 2005, "kind": "solo", "type": "Compilation", "cover": "/music/album-covers/the-lost-masters-vol-2.jpg"},
   {"title": "Clayborne Family", "artist": "Clayborne Family (Kool Keith, Jacky Jasper & Marc Live)", "year": 2004, "kind": "collab", "type": "Group", "cover": "/music/album-covers/clayborne-family.jpg"},
   {"title": "Diesel Truckers", "artist": "The Diesel Truckers (Kool Keith & KutMasta Kurt)", "year": 2004, "kind": "collab", "cover": "/music/album-covers/diesel-truckers.jpg"},
-  {"title": "Dr. Octagon Part II", "artist": "Dr. Octagon", "year": 2004, "kind": "solo", "cover": "/music/album-covers/dr-octagon-part-ii.jpg"},
+  {"title": "Dr. Octagon Part II", "artist": "Dr. Octagon", "year": 2004, "kind": "solo", "type": "Unofficial", "cover": "/music/album-covers/dr-octagon-part-ii.jpg"},
   {"title": "Kool Keith Official Space Tape", "artist": "Kool Keith", "year": 2004, "kind": "solo", "type": "Compilation", "cover": "/music/album-covers/kool-keith-official-space-tape.jpg", "front": false},
   {"title": "Kool Keith Presents Thee Undatakerz", "artist": "Thee Undatakerz (Kool Keith as Reverend Tom)", "year": 2004, "kind": "collab", "cover": "/music/album-covers/kool-keith-presents-thee-undatakerz.jpg"},
   {"title": "The Personal Album", "artist": "Kool Keith", "year": 2004, "kind": "solo", "cover": "/music/album-covers/the-personal-album.jpg"},
