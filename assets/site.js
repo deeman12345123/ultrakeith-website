@@ -15,7 +15,6 @@
     { href: '/bio.html', label: 'Bio', main: true },
     { href: '/press.html', label: 'Bookings & Press', main: true },
     { href: '/players/playersclub.html', label: 'Players Club' },
-    { href: '/house.html', label: 'Apartment 223' },
     { href: 'https://ultrakeithdotcom.blogspot.com/', label: 'News', external: true },
     { href: 'https://koolkeith.proboards.com/', label: 'Forum', external: true }
   ];
