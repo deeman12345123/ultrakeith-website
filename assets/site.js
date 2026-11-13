@@ -268,7 +268,7 @@
   // Persona trading card. p = one entry from KK_PERSONAS. Opens the detail view when clicked.
   function personaCard(p) {
     var img = p.image
-      ? '<span class="pcard__img"><img src="/personas/' + esc(p.image) + '" alt="" loading="lazy"></span>'
+      ? '<span class="pcard__img' + (p.image.indexOf('orig/') === 0 ? ' pcard__img--small' : '') + '"><img src="/personas/' + esc(p.image) + '" alt="" loading="lazy"></span>'
       : '<span class="pcard__img pcard__img--none"><img src="/personas/logoback.png" alt="" loading="lazy"></span>';
     return '<button type="button" class="pcard" data-persona="' + esc(p.number) + '" aria-label="' + esc(p.name) + ', ' + esc(p.year) + '. Open card">' +
       img + '<span class="pcard__no">#' + esc(p.number) + '</span>' +
@@ -295,7 +295,7 @@
     d.innerHTML = '<div class="kk-dialog__in">' +
       '<button type="button" class="btn btn--ghost kk-dialog__close" data-close>Close</button>' +
       '<div class="pdetail">' +
-        '<div><div class="pcard__img' + (p.image ? '' : ' pcard__img--none') + '" style="margin:0"><img src="' + esc(img) + '" alt=""></div></div>' +
+        '<div><div class="pcard__img' + (p.image ? (p.image.indexOf('orig/') === 0 ? ' pcard__img--small' : '') : ' pcard__img--none') + '" style="margin:0"><img src="' + esc(img) + '" alt=""></div></div>' +
         '<div>' +
           '<p class="muted small" style="margin:0 0 4px">Persona #' + esc(p.number) + ', ' + esc(p.year) + '</p>' +
           '<h2 class="h-lg" id="kk-persona-name" style="color:var(--gold);margin-bottom:6px">' + esc(p.name) + '</h2>' +
